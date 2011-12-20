@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="GBK"?>
+<modules>
+    <module url="" state="1" name="日常管理">
+       
+	   <module name="个人设置" code="240" state="1" url=""  >
+           <affair name="修改密码" code="24005" url="pwd.jsp" state="1" />
+       </module>
+    </module>
+    <module url="" state="1" name="系统管理">
+        <module name="用户权限管理" code="900" flow="" state="1" url=""  >
+            <affair name="组织机构管理" code="90005" url="system/unit_list.jsp" state="1" />
+            <affair name="用户管理" code="90010" url="system/user_list.jsp" state="1"  />
+            <affair name="权限管理" code="90015" url="system/right_list.jsp" state="1"  />
+        </module>
+        <module name="运行维护" code="910" flow="" state="1" url="">
+            <affair name="最新日志" code="91005" url="system/loginfo_list.jsp" state="1" />
+            <affair name="历史日志" code="91010" url="system/loghistory_list.jsp" state="1" />
+            <affair name="控 制 台" code="91015" url="system/console_view.jsp" state="1" />
+            <affair name="在线人数" code="91020" url="system/onlineUser_list.jsp" state="1" />
+            <affair name="访问记录" code="91025" url="system/accessRecord_list.jsp" state="1" />
+            <affair name="数据字典" code="91030" url="system/sysPara_list.jsp" state="1" />
+        </module>
+    </module>
+</modules>
