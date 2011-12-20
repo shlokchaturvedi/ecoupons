@@ -1,0 +1,48 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>eWebEditor</title>
+<script type="text/javascript" src="js/buttons.js"></script>
+<script type="text/javascript" src="js/ewebeditor.js"></script>
+
+<script type="text/javascript">
+LoadScript("style/" + myParam.StyleName + ".js");
+//alert(myParam.StyleName);
+</script>
+
+<script type="text/javascript">
+lang.Init();
+config.ServerExt = "jsp";
+config.AffairId = myParam.StrAffairId+"";
+config.FileType = myParam.StrType+"";
+config.BodyFocus = myParam.StrFocus+"";
+LoadScript("language/" + lang.ActiveLanguage + ".js");
+//alert(lang.ActiveLanguage);
+</script>
+
+<script type="text/javascript">
+myEditor_Init();
+document.write ("<link href='" + myEditor.RootPath + "/language/" + lang.ActiveLanguage + ".css' type='text/css' rel='stylesheet'>");
+document.write ("<link href='" + myEditor.RootPath + "/skin/" + config.Skin + "/editor.css' type='text/css' rel='stylesheet'>");
+//alert(myEditor.RootPath);
+//alert(config.Skin);
+
+</script>
+
+</head>
+<body scrolling=no>
+
+<script type="text/javascript">
+config.InitMode = "EDIT";
+if (myParam.Editable == "false") {
+	config.InitMode = "VIEW";
+}
+
+showEditorBody();
+if(config.BodyFocus!=""){
+	eval("parent.document.all."+config.BodyFocus).focus();
+}
+</script>
+
+</body>
+</html>
