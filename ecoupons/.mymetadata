@@ -2,7 +2,7 @@
 <project-module
   type="WEB"
   name="ecoupons"
-  id="myeclipse.1324386702203"
+  id="myeclipse.1324445807906"
   context-root="/ecoupons"
   j2ee-spec="5.0"
   archive="ecoupons.war">
