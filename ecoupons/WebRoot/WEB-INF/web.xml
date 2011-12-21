@@ -4,7 +4,82 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
 	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-  <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
-  </welcome-file-list>
+	
+	<display-name>/ecoupons</display-name>
+	<servlet>
+		<servlet-name>InitClass</servlet-name>
+		<servlet-class>com.ejoysoft.ecoupons.InitClass</servlet-class>
+		<init-param>
+            <param-name>DB_JNDI_NAME</param-name>
+            <param-value>java:comp/env/jdbc/ecoupons</param-value>
+        </init-param>
+		<init-param>
+			<param-name>SYS_CONFIG_FILE</param-name>
+			<param-value>WEB-INF/sysConfig.properties</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>Auth</servlet-name>
+		<servlet-class>com.ejoysoft.auth.AppClass</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Auth</servlet-name>
+		<url-pattern>/Auth</url-pattern>
+	</servlet-mapping>
+	
+	<filter>      
+		<filter-name>SessionFilter</filter-name>       
+		<filter-class>com.ejoysoft.common.SessionFilter</filter-class> 
+		<init-param>
+			<param-name>logon_page</param-name>
+			<param-value>login.jsp</param-value>
+		</init-param>
+		<init-param>
+			<param-name>nocheck_page</param-name>
+			<param-value>login.jsp</param-value>
+		</init-param>
+		<init-param>
+			<param-name>uncheck</param-name>
+			<param-value>image.jsp</param-value>
+		</init-param>
+	</filter> 
+	<filter-mapping>     
+		<filter-name>SessionFilter</filter-name>  
+		<url-pattern>*.do</url-pattern>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
+	<filter>
+        <filter-name>CharEncoding</filter-name>
+        <filter-class>com.framwork.filter.EncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>CharEncoding</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+	
+	<session-config>
+		<session-timeout>180</session-timeout>
+	</session-config>
+	
+	<welcome-file-list>
+		<welcome-file>login.jsp</welcome-file>
+	</welcome-file-list>
+	
+	<error-page> 
+		<error-code>404</error-code> 
+		<location>/include/error/404error.jsp</location> 
+	</error-page>
+	<error-page>   
+		<error-code>400</error-code>   
+		<location>/include/error/400error.jsp</location>   
+	</error-page> 
+	<error-page>
+		<error-code>500</error-code>
+		<location>/include/error/500error.jsp</location>
+	</error-page>
 </web-app>
