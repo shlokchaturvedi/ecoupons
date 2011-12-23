@@ -43,26 +43,26 @@ public class User {
     String strTableName = "t_sy_user";
     String strTableName2 = "t_sy_unituser";
 
-    //�ж��û���Ϣ�Ƿ���?
+    //判断用户信息是否冲突
     public void bCheckAccount(String tStrAccount) throws UserUnitIdException, SQLException {
         String strSql = "select strUserId  from " + strTableName + "   where strUserId='" + tStrAccount + "'";
         try {
             ResultSet rs = db.executeQuery(strSql);
             if (rs.next()) {
                 globa.closeCon();
-                throw new UserUnitIdException("�Ѿ�����'" + tStrAccount + "' �û�", "�����������û���");
+                throw new UserUnitIdException("已经存在'" + tStrAccount + "' 用户", "请输入其他用户名");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    //����û�?
+    //����û�?
     public boolean add(String strUserId) {
         String strSql = "";
         strId = UID.getID();
         try {
-            //���û���Ϣд����ݿ�?
+            //���û���Ϣд����ݿ�?
             strSql = "INSERT INTO " + strTableName + "  (strId, strUserId, strPWD, strName, intError, intState, dBirthday, strSex, strIntro,intType, strUnitId, strUnitCode," +
                     " strNation, strMobile, strEmail, strMsnQQ,strOPhone, strHPhone, strDuty, strStation, intLoginNum, dLatestLoginTime,fOnlineTime, strCaNO, " +
                     "strDepart, strCssType,  strLinkAdd, strCreator, dCreatDate,intUserType,strBuildId) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -99,22 +99,22 @@ public class User {
             db.setInt(30, intUserType);
             db.setString(31, strBuildId);
             if (db.executeUpdate() > 0) {
-                Globa.logger0("����û����?", globa.loginName, globa.loginIp, strSql, "�û�����", globa.userSession.getStrDepart());
+                Globa.logger0("增加用户信息", globa.loginName, globa.loginIp, strSql, "用户管理", globa.userSession.getStrDepart());
                 return true;
             } else
                 return false;
         } catch (Exception e) {
-            System.out.println("����û���Ϣʱ��??��");
+            System.out.println("增加用户信息时出错！！");
             e.printStackTrace();
             return false;
         }
     }
 
-    //����û�?
+    //����û�?
     public boolean addUnitUser(String strUserId, String[] arryUnitId) {
         String strSql = "";
         try {
-            //����Ϣд����ݿ�?
+            //����Ϣд����ݿ�?
             strSql = "INSERT INTO " + strTableName2 + "  (strUserId, strUnitId, intSort, strCreator, dCreatDate) VALUES (?,?,?,?,?)";
             if (arryUnitId != null && arryUnitId.length > 0)
                 for (int i = 0; i < arryUnitId.length; i++) {
@@ -128,7 +128,7 @@ public class User {
                 }
             return true;
         } catch (Exception e) {
-            System.out.println("��ӵ�λ�û�ӳ��ʱ��??��");
+            System.out.println("增加单位用户映射时出错！！");
             e.printStackTrace();
             return false;
         }
@@ -201,7 +201,7 @@ public class User {
         }
         return result;
     }
-    //�б��¼��?
+    //�б��¼��?
     public String retVal(String strField, String where) {
         String val = "''";
         try {
@@ -217,7 +217,7 @@ public class User {
         return val;
     }
 
-    //���ͬһ��λ�µ��¼���λ���飩��? �����?
+    //���ͬһ��λ�µ��¼���λ���飩��? �����?
     public int creatSort(String tStrUnitId) {
         ResultSet rs = null;
         int tIntSort = 0;
@@ -235,7 +235,7 @@ public class User {
         }
     }
 
-    //���ͬһ��λ�ϱ���λ���û���?
+    //���ͬһ��λ�ϱ���λ���û���?
     public String creatUserId(String tStrUnitId) {
         ResultSet rs = null;
         String tStrUserId = "";
@@ -267,9 +267,9 @@ public class User {
         try {
             String sql = "DELETE FROM " + strTableName + "  ".concat(where);
             db.executeUpdate(sql);
-            //ɾ���û�ӳ����?
+            //ɾ���û�ӳ����?
             delUnitUser(where);
-            Globa.logger0("ɾ���û���Ϣ", globa.loginName, globa.loginIp, sql, "�û�����", globa.unitCode);
+            Globa.logger0("删除用户信息", globa.loginName, globa.loginIp, sql, "用户管理", globa.unitCode);
             return true;
         } catch (Exception ee) {
             ee.printStackTrace();
@@ -310,15 +310,15 @@ public class User {
             db.setString(24, strBuildId);
             db.setString(25, tStrUserId);
             db.executeUpdate();
-            Globa.logger0("�޸��û���Ϣ", globa.loginName, globa.loginIp, strSql, "�û�����", globa.userSession.getStrDepart());
+            Globa.logger0("修改用户信息", globa.loginName, globa.loginIp, strSql, "用户管理", globa.userSession.getStrDepart());
             return true;
         } catch (Exception e) {
-            System.out.println("�޸��û���Ϣʱ��?" + e);
+            System.out.println("修改用户信息时出错：" + e);
             return false;
         }
     }
 
-    //��ϸ��ʾ������?
+    //��ϸ��ʾ������?
     public User show(String where) {
         try {
             String strSql = "select * from  " + strTableName + "  ".concat(where);
@@ -395,7 +395,7 @@ public class User {
         }
     }
 
-    //�б��¼��?
+    //�б��¼��?
     public Vector jionlist(String where, int startRow, int rowCount) {
         Vector beans = new Vector();
         try {
@@ -438,7 +438,7 @@ public class User {
         return theBean;
     }
 
-    //�б��¼��?
+    //�б��¼��?
     public Vector list(String where, int startRow, int rowCount) {
         Vector beans = new Vector();
         try {
@@ -467,7 +467,7 @@ public class User {
         return beans;
     }
 
-    //��������û�������?
+    //��������û�������?
     public HashMap getUnitAllUser(String tWhere) throws SQLException {
         HashMap result = new HashMap();
         //��ѯ
@@ -493,7 +493,7 @@ public class User {
         try {
             String sql = "UPDATE " + strTableName + " SET intState=" + tState + " ,intError=0   ".concat(tWhere);
             db.executeUpdate(sql);
-            Globa.logger0("�趨�û�״̬", globa.loginName, globa.loginIp, sql, "�û�����", globa.unitCode);
+            Globa.logger0("设定用户状态", globa.loginName, globa.loginIp, sql, "用户管理", globa.unitCode);
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -506,7 +506,7 @@ public class User {
         try {
             String sql = "UPDATE " + strTableName + " SET strPWD='" + MD5.getMD5ofString(Constants.resetPass) + "',intState=" + Constants.U_STATE_ON + " ,intError=0   ".concat(tWhere);
             db.executeUpdate(sql);
-            Globa.logger0("�����û�����", globa.loginName, globa.loginIp, sql, "�û�����", globa.unitCode);
+            Globa.logger0("重置用户密码", globa.loginName, globa.loginIp, sql, "用户管理", globa.unitCode);
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -514,7 +514,7 @@ public class User {
         }
     }
 
-    //�û� ��֤
+    //根据用户ID显示用户名֤
     public boolean authUser(String oldPwd) {
         String pwd = (new MD5().getMD5ofStr(oldPwd));
         String strSql = "SELECT  *  FROM  " + strTableName + "  WHERE strUserId='" + globa.loginName + "' and strPWD='" + pwd + "'";
@@ -541,7 +541,7 @@ public class User {
                 return rs.getString("strName");
             rs.close();
         } catch (Exception e) {
-            System.out.println("��ʾ�û������?:" + e);
+            System.out.println("显示用户名错误:" + e);
             return "";
         }
         return "";
@@ -557,7 +557,7 @@ public class User {
             db.setString(3, tStrUserId);
             db.executeUpdate();
             //�޸��û���������
-            Globa.logger0("�޸��û�����", globa.loginName, globa.loginIp, sql, "�û�����", globa.userSession.getStrDepart());
+            Globa.logger0("修改用户密码", globa.loginName, globa.loginIp, sql, "用户管理", globa.userSession.getStrDepart());
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -589,10 +589,10 @@ public class User {
             db.setString(14, strLinkAdd);
             db.setString(15, tStrUserId);
             db.executeUpdate();
-            Globa.logger0("�޸��û�������Ϣ", globa.loginName, globa.loginIp, strSql, "�û�����", globa.userSession.getStrDepart());
+            Globa.logger0("修改用户自身信息", globa.loginName, globa.loginIp, strSql, "用户管理", globa.userSession.getStrDepart());
             return true;
         } catch (Exception e) {
-            System.out.println("�޸��û���Ϣʱ��?" + e);
+            System.out.println("修改用户信息时出错：" + e);
             return false;
         }
     }
@@ -648,13 +648,13 @@ public class User {
             }
             rs.close();
         } catch (Exception e) {
-            System.out.println("��ȡ" + strFieldName + "ֵʱ����" + e);
+            System.out.println("获取" + strFieldName + "值时错误：" + e);
         }
         return strFieldValue;
     }
 
     /**
-     * ����������е��û�?
+     * 获得组内所有的用户
      */
     public User[] getUsers(String twhere) {
         String strSql;
@@ -692,40 +692,41 @@ public class User {
         this.strName = name;
     }
 
-    private String strId;//	id��
-    private String strUserId;//		�û���
-    private String strPWD;//			����
-    private String strName;//		����
-    private int intError;//	0	��½�������?
-    private int intState;//		0	״̬
-    private String dBirthday;//		��������
-    private String strSex;//		�Ա�
-    private String strIntro;//		���˼��?
-    private int intType;//		�û����ͣ���ͨ��Ա-0���쵼-1��
-    private String strUnitId;//		����λid
-    private String strUnitCode;//			����λ����
-    private String strNation;//		����
-    private String strMobile;//			�ֻ�
+    private String strId;//	id号
+    private String strUserId;//		用户名
+    private String strPWD;//			密码
+    private String strName;//		姓名
+    private int intError;//	0	登陆错误次数
+    private int intState;//		0	状态
+    private String dBirthday;//		出生日期
+    private String strSex;//		性别
+    private String strIntro;//		个人简介
+    private int intType;//		用户类型（普通人员-0、领导-1）
+    private String strUnitId;//		所属单位id
+    private String strUnitCode;//			所属单位编码
+    private String strNation;//		民族
+    private String strMobile;//			手机
     private String strEmail;//			E-mail
-    private String strMsnQQ;//		ICQ��MSN
-    private String strOPhone;//		�칫�绰
-    private String strHPhone;//				סլ�绰
-    private String strDuty;//				ְ��
-    private String strStation;//		��λ
-    private int intLoginNum;//		��½����
-    private String dLatestLoginTime;//			���һ�ε�½ʱ��?
-    private float fOnlineTime;//	������ʱ��
-    private String strCaNO;//	�û������mac��ַ
-    private String strDepart;//	usbKey��Կ
-    private String strCssType;//		�û��ĸ��Ի�ҳ������ʽ
-    private int intSort;//		0	�����?
-    private String strLinkAdd;//			jϵ��ַ
-    private String strCreator;//			������
-    private String dCreatDate;//		����ʱ��
-    private String strOldUnitId;//	//�޸�ǰ�ĵ�λID
-    private int intOldSort;//�޸�ǰ�������?
-    private int intUserType;//�û������ͣ�0��������Ĺ������?  1��������ҵ��
-    private String strBuildId;//������ҵ����������Id
+    private String strMsnQQ;//		ICQ或MSN
+    private String strOPhone;//		办公电话
+    private String strHPhone;//				住宅电话
+    private String strDuty;//				职务
+    private String strStation;//		岗位
+    private int intLoginNum;//		登陆次数
+    private String dLatestLoginTime;//			最后一次登陆时间
+    private float fOnlineTime;//	在线总时间
+    private String strCaNO;//	用户机器的mac地址
+    private String strDepart;//	usbKey公钥
+    private String strCssType;//		用户的个性化页面风格样式
+    private int intSort;//		0	排序号
+    private String strLinkAdd;//			联系地址
+    private String strCreator;//			创建人
+    private String dCreatDate;//		创建时间
+    private String strOldUnitId;//	//修改前的单位ID
+    private int intOldSort;//修改前的排序号
+    private int intUserType;//用户基本类型（0，数据中心工作人员  1：建筑物业主）
+    private String strBuildId;//建筑物业主所属建筑物Id
+
 
     public String getStrId() {
         return strId;
