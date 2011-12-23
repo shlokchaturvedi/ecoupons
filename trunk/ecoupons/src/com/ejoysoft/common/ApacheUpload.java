@@ -6,6 +6,7 @@ import org.apache.commons.fileupload.FileUploadException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
@@ -26,8 +27,9 @@ public class ApacheUpload {
      * 构造
      * @param req request对象
      * @throws FileUploadException
+     * @throws UnsupportedEncodingException 
      */
-    public ApacheUpload(HttpServletRequest req) throws FileUploadException {
+    public ApacheUpload(HttpServletRequest req) throws FileUploadException, UnsupportedEncodingException {
         //初始化ApacheUpload对象
         DiskFileUpload fu = new DiskFileUpload();
         fu.setSizeMax(50*1024*1024);
@@ -40,7 +42,7 @@ public class ApacheUpload {
         while (i.hasNext()) {
             FileItem fi = (FileItem)i.next();
             if (fi.isFormField()) {
-                fields.setProperty(fi.getFieldName(), fi.getString());
+                fields.setProperty(fi.getFieldName(), fi.getString("UTF-8"));
             } else {
             	if (fi.getName().indexOf(".") >= 0) {
             		files.add(fi);
@@ -148,7 +150,7 @@ public class ApacheUpload {
      * @return 对象值，如果不存在返回""
      */
     public String getString(String fieldName) {
-        return this.fields.getProperty(fieldName, "");
+   		return this.fields.getProperty(fieldName, "");
     }
 
     /**
