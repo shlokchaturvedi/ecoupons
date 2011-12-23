@@ -57,12 +57,12 @@ public class User {
         }
     }
 
-    //����û�?
+    //增加用户
     public boolean add(String strUserId) {
         String strSql = "";
         strId = UID.getID();
         try {
-            //���û���Ϣд����ݿ�?
+        	//把用户信息写入数据库
             strSql = "INSERT INTO " + strTableName + "  (strId, strUserId, strPWD, strName, intError, intState, dBirthday, strSex, strIntro,intType, strUnitId, strUnitCode," +
                     " strNation, strMobile, strEmail, strMsnQQ,strOPhone, strHPhone, strDuty, strStation, intLoginNum, dLatestLoginTime,fOnlineTime, strCaNO, " +
                     "strDepart, strCssType,  strLinkAdd, strCreator, dCreatDate,intUserType,strBuildId) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -146,7 +146,7 @@ public class User {
         }
     }
 
-    //����ƶ��û�����ĵ�λ
+    //获得制定用户所属的单位
     public String[] arryUnitUser(String tWhere) {
         String[] result = null;
         try {
@@ -170,7 +170,7 @@ public class User {
         return result;
     }
 
-    //����ƶ��û�����ĵ�λ
+  //获得制定用户所属的单位
     public HashMap unitUser(String tField, String tWhere) {
         HashMap result = new HashMap();
         String strSql = "SELECT " + tField + " FROM  " + strTableName2 + " ".concat(tWhere);
@@ -185,7 +185,7 @@ public class User {
         }
         return result;
     }
-    //����ƶ��û�����ĵ�λ
+  //获得制定用户所属的单位
     public HashMap unitUser(String tWhere) {
         HashMap result = new HashMap();
 //        String strSql = "SELECT strUserId,strId FROM  " + strTableName2 + " ".concat(tWhere);
@@ -201,7 +201,7 @@ public class User {
         }
         return result;
     }
-    //�б��¼��?
+  //列表记录集
     public String retVal(String strField, String where) {
         String val = "''";
         try {
@@ -217,7 +217,7 @@ public class User {
         return val;
     }
 
-    //���ͬһ��λ�µ��¼���λ���飩��? �����?
+  //生成同一个单位下的下级单位（组）的 排序号
     public int creatSort(String tStrUnitId) {
         ResultSet rs = null;
         int tIntSort = 0;
@@ -235,7 +235,7 @@ public class User {
         }
     }
 
-    //���ͬһ��λ�ϱ���λ���û���?
+  //生成同一个单位上报单位的用户名
     public String creatUserId(String tStrUnitId) {
         ResultSet rs = null;
         String tStrUserId = "";
@@ -318,7 +318,7 @@ public class User {
         }
     }
 
-    //��ϸ��ʾ������?
+  //详细显示单条记录
     public User show(String where) {
         try {
             String strSql = "select * from  " + strTableName + "  ".concat(where);
@@ -332,7 +332,7 @@ public class User {
         }
     }
 
-    //��¼��ת��Ϊ����
+  //记录集转化为对象
     public User load(ResultSet rs, boolean isView) {
         User theBean = new User();
         try {
@@ -373,7 +373,7 @@ public class User {
         return theBean;
     }
 
-    //��ѯ�������ļ�¼����
+  //查询符合条件的记录总数
     public int getCount(String where) {
         int count = 0;
         try {
@@ -395,7 +395,7 @@ public class User {
         }
     }
 
-    //�б��¼��?
+  //列表记录集
     public Vector jionlist(String where, int startRow, int rowCount) {
         Vector beans = new Vector();
         try {
@@ -423,7 +423,7 @@ public class User {
         return beans;
     }
 
-    //��¼��ת��Ϊ����
+  //记录集转化为对象
     public User load2(ResultSet rs, boolean isView) {
         User theBean = new User();
         try {
@@ -438,7 +438,7 @@ public class User {
         return theBean;
     }
 
-    //�б��¼��?
+  //列表记录集
     public Vector list(String where, int startRow, int rowCount) {
         Vector beans = new Vector();
         try {
@@ -467,7 +467,7 @@ public class User {
         return beans;
     }
 
-    //��������û�������?
+  //获得所有用户并分组
     public HashMap getUnitAllUser(String tWhere) throws SQLException {
         HashMap result = new HashMap();
         //��ѯ
@@ -488,7 +488,7 @@ public class User {
         return result;
     }
 
-    //�趨�û�״̬
+  //设定用户状态
     public boolean doSetState(int tState, String tWhere) {
         try {
             String sql = "UPDATE " + strTableName + " SET intState=" + tState + " ,intError=0   ".concat(tWhere);
@@ -501,7 +501,7 @@ public class User {
         }
     }
 
-    //�����û�����
+    //重置用户密码
     public boolean resetPwd(String tWhere) {
         try {
             String sql = "UPDATE " + strTableName + " SET strPWD='" + MD5.getMD5ofString(Constants.resetPass) + "',intState=" + Constants.U_STATE_ON + " ,intError=0   ".concat(tWhere);
@@ -514,7 +514,7 @@ public class User {
         }
     }
 
-    //根据用户ID显示用户名֤
+  //用户 认证֤
     public boolean authUser(String oldPwd) {
         String pwd = (new MD5().getMD5ofStr(oldPwd));
         String strSql = "SELECT  *  FROM  " + strTableName + "  WHERE strUserId='" + globa.loginName + "' and strPWD='" + pwd + "'";
@@ -530,7 +530,7 @@ public class User {
         }
     }
 
-    //����û�ID��ʾ�û���
+    //根据用户ID显示用户名
     public String ReturnName(String struserid) {
         String sql = "SELECT strName FROM " + strTableName + " WHERE strUserId=?";
         try {
@@ -547,7 +547,7 @@ public class User {
         return "";
     }
 
-    //�޸�����
+  //修改密码
     public boolean doSetPwd(String tStrUserId, ServletContext application, HttpSession session) {
         try {
             String sql = "UPDATE " + strTableName + " SET strPWD=?,intState=? ,intError=0 WHERE  strUserId=? ";
@@ -565,7 +565,7 @@ public class User {
         }
     }
 
-    //�����Լ��޸�
+  //个人自己修改
     public boolean selfUpdate(String tStrUserId) {
         try {
 
@@ -597,7 +597,7 @@ public class User {
         }
     }
 
-    //�޸�CaNO
+  //修改CaNO
     public boolean setCaNO(String tCaNO) {
         try {
             String strSql = "update " + strTableName + "  set strCaNO='" + tCaNO + "' where strUserId='" + globa.loginName + "'";
@@ -609,7 +609,7 @@ public class User {
         }
     }
 
-    //�޸�strCssType
+  //修改strCssType
     public boolean setCss(String tCss) {
         try {
             String strSql = "update " + strTableName + "  set strCssType='" + tCss + "' where strUserId='" + globa.loginName + "'";
@@ -621,7 +621,7 @@ public class User {
         }
     }
 
-    //�޸��쵼�����û�����
+    //修改领导密码用户密码
     public boolean setPassword(String pwd) {
         try {
             String strSql = "update " + strTableName + "  set strDepart='" + Format.enPass(pwd) + "' where strUserId='" + globa.loginName + "'";
@@ -636,7 +636,7 @@ public class User {
         }
     }
 
-    //��ʾ�ƶ��ֶ���
+    //显示制定字段制
     public String retFieldValue(String strFieldName, String twhere) {
         String strFieldValue = "";
         String sql = "select  " + strFieldName + "  from " + strTableName + "  ".concat(twhere);
@@ -684,7 +684,7 @@ public class User {
     }
 
     /**
-     * ����
+     * 构造
      */
     public User(String userId,String mobile, String name) {
         this.strUserId = userId;
