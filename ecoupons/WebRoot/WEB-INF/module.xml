@@ -1,55 +1,55 @@
-<?xml version="1.0" encoding="GBK"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <modules>
-    <module url="" state="1" name="ÈÕ³£¹ÜÀí">
-		<module name="ÉÌ¼Ò¹ÜÀí" code="100" flow="" state="1" url=""  >
-            <affair name="»ù±¾ÐÅÏ¢" code="10005" url="shop/shop_list.jsp" state="1" />
-            <affair name="»ý·Ö¹ºÂò" code="10005" url="shop/pointbuy_list.jsp" state="1" />
-            <affair name="»ý·ÖÓà¶î" code="10005" url="shop/shop_point.jsp" state="1" />
-            <affair name="»ý·Ö×ªÔù" code="10005" url="shop/pointpresent_list.jsp" state="1" />
+    <module url="" state="1" name="æ—¥å¸¸ç®¡ç†">
+		<module name="å•†å®¶ç®¡ç†" code="100" flow="" state="1" url=""  >
+            <affair name="åŸºæœ¬ä¿¡æ¯" code="10005" url="shop/shop_list.jsp" state="1" />
+            <affair name="ç§¯åˆ†è´­ä¹°" code="10005" url="shop/pointbuy_list.jsp" state="1" />
+            <affair name="ç§¯åˆ†ä½™é¢" code="10005" url="shop/shop_point.jsp" state="1" />
+            <affair name="ç§¯åˆ†è½¬èµ " code="10005" url="shop/pointpresent_list.jsp" state="1" />
         </module>
-		<module name="»áÔ±¹ÜÀí" code="110" flow="" state="1" url=""  >
-            <affair name="»ù±¾ÐÅÏ¢" code="11005" url="member/member_list.jsp" state="1" />
-            <affair name="ÊÖ»úµ¼³ö" code="11010" url="member/member_mobile.jsp" state="1" />
-            <affair name="ÀñÆ·ÐÅÏ¢" code="11015" url="member/gift_list.jsp" state="1" />
-            <affair name="ÀñÆ·¶Ò»»" code="11020" url="member/giftexchange_list.jsp" state="1" />
+		<module name="ä¼šå‘˜ç®¡ç†" code="110" flow="" state="1" url=""  >
+            <affair name="åŸºæœ¬ä¿¡æ¯" code="11005" url="member/member_list.jsp" state="1" />
+            <affair name="æ‰‹æœºå¯¼å‡º" code="11010" url="member/member_mobile.jsp" state="1" />
+            <affair name="ç¤¼å“ä¿¡æ¯" code="11015" url="member/gift_list.jsp" state="1" />
+            <affair name="ç¤¼å“å…‘æ¢" code="11020" url="member/giftexchange_list.jsp" state="1" />
         </module>
-		<module name="ÓÅ»ÝÈ¯¹ÜÀí" code="120" flow="" state="1" url=""  >
-            <affair name="»ù±¾ÐÅÏ¢" code="12005" url="coupon/coupon_list.jsp" state="1" />
-            <affair name="ÓÐ¼ÛÈ¯Â¼Èë" code="12010" url="coupon/couponinput_list.jsp" state="1" />
-            <affair name="ÓÐ¼ÛÈ¯Í³¼Æ" code="12015" url="coupon/coupon_stat.jsp" state="1" />
+		<module name="ä¼˜æƒ åˆ¸ç®¡ç†" code="120" flow="" state="1" url=""  >
+            <affair name="åŸºæœ¬ä¿¡æ¯" code="12005" url="coupon/coupon_list.jsp" state="1" />
+            <affair name="æœ‰ä»·åˆ¸å½•å…¥" code="12010" url="coupon/couponinput_list.jsp" state="1" />
+            <affair name="æœ‰ä»·åˆ¸ç»Ÿè®¡" code="12015" url="coupon/coupon_stat.jsp" state="1" />
         </module>
-		<module name="ÖÕ¶Ë¹ÜÀí" code="130" flow="" state="1" url=""  >
-            <affair name="»ù±¾ÐÅÏ¢" code="13005" url="terminal/terminal_list.jsp" state="1" />
-            <affair name="Ä£°åÐÅÏ¢" code="13010" url="terminal/terminal_template.jsp" state="1" />
-            <affair name="¹ã¸æ¹ÜÀí" code="13015" url="terminal/ad_list.jsp" state="1" />
+		<module name="ç»ˆç«¯ç®¡ç†" code="130" flow="" state="1" url=""  >
+            <affair name="åŸºæœ¬ä¿¡æ¯" code="13005" url="terminal/terminal_list.jsp" state="1" />
+            <affair name="æ¨¡æ¿ä¿¡æ¯" code="13010" url="terminal/terminal_template.jsp" state="1" />
+            <affair name="å¹¿å‘Šç®¡ç†" code="13015" url="terminal/ad_list.jsp" state="1" />
         </module>
-		<module name="¾­Óª·ÖÎö" code="140" flow="" state="1" url=""  >
-            <affair name="ÉÌ¼ÒÍ³¼Æ·ÖÎö" code="13005" url="analysis/shop_analyse.jsp" state="1" />
-            <affair name="»áÔ±Í³¼Æ·ÖÎö" code="13010" url="analysis/member_analyse.jsp" state="1" />
-            <affair name="ÖÕ¶ËÍ³¼Æ·ÖÎö" code="13015" url="analysis/terminal_analyse.jsp" state="1" />
-            <affair name="ÓÅ»ÝÈ¯Ïû·ÑÅÅÐÐ°ñ" code="13020" url="analysis/coupon_top.jsp" state="1" />
-            <affair name="ÉÌ¼ÒÏû·ÑÅÅÐÐ°ñ" code="13015" url="analysis/shop_top.jsp" state="1" />
-            <affair name="»áÔ±Ïû·ÑÅÅÐÐ°ñ" code="13015" url="analysis/member_top.jsp" state="1" />
-            <affair name="ÉÌ¼ÒÏû·ÑÍ³¼Æ" code="13015" url="analysis/shop_biz.jsp" state="1" />
-            <affair name="»áÔ±Ïû·ÑÍ³¼Æ" code="13015" url="analysis/member_biz.jsp" state="1" />
+		<module name="ç»è¥åˆ†æž" code="140" flow="" state="1" url=""  >
+            <affair name="å•†å®¶ç»Ÿè®¡åˆ†æž" code="13005" url="analysis/shop_analyse.jsp" state="1" />
+            <affair name="ä¼šå‘˜ç»Ÿè®¡åˆ†æž" code="13010" url="analysis/member_analyse.jsp" state="1" />
+            <affair name="ç»ˆç«¯ç»Ÿè®¡åˆ†æž" code="13015" url="analysis/terminal_analyse.jsp" state="1" />
+            <affair name="ä¼˜æƒ åˆ¸æ¶ˆè´¹æŽ’è¡Œæ¦œ" code="13020" url="analysis/coupon_top.jsp" state="1" />
+            <affair name="å•†å®¶æ¶ˆè´¹æŽ’è¡Œæ¦œ" code="13015" url="analysis/shop_top.jsp" state="1" />
+            <affair name="ä¼šå‘˜æ¶ˆè´¹æŽ’è¡Œæ¦œ" code="13015" url="analysis/member_top.jsp" state="1" />
+            <affair name="å•†å®¶æ¶ˆè´¹ç»Ÿè®¡" code="13015" url="analysis/shop_biz.jsp" state="1" />
+            <affair name="ä¼šå‘˜æ¶ˆè´¹ç»Ÿè®¡" code="13015" url="analysis/member_biz.jsp" state="1" />
         </module>
-	   <module name="¸öÈËÉèÖÃ" code="240" state="1" url=""  >
-           <affair name="ÐÞ¸ÄÃÜÂë" code="24005" url="pwd.jsp" state="1" />
+	   <module name="ä¸ªäººè®¾ç½®" code="240" state="1" url=""  >
+           <affair name="ä¿®æ”¹å¯†ç " code="24005" url="pwd.jsp" state="1" />
        </module>
     </module>
-    <module url="" state="1" name="ÏµÍ³¹ÜÀí">
-        <module name="ÓÃ»§È¨ÏÞ¹ÜÀí" code="900" flow="" state="1" url=""  >
-            <affair name="×éÖ¯»ú¹¹¹ÜÀí" code="90005" url="system/unit_list.jsp" state="1" />
-            <affair name="ÓÃ»§¹ÜÀí" code="90010" url="system/user_list.jsp" state="1"  />
-            <affair name="È¨ÏÞ¹ÜÀí" code="90015" url="system/right_list.jsp" state="1"  />
+    <module url="" state="1" name="ç³»ç»Ÿç®¡ç†">
+        <module name="ç”¨æˆ·æƒé™ç®¡ç†" code="900" flow="" state="1" url=""  >
+            <affair name="ç»„ç»‡æœºæž„ç®¡ç†" code="90005" url="system/unit_list.jsp" state="1" />
+            <affair name="ç”¨æˆ·ç®¡ç†" code="90010" url="system/user_list.jsp" state="1"  />
+            <affair name="æƒé™ç®¡ç†" code="90015" url="system/right_list.jsp" state="1"  />
         </module>
-        <module name="ÔËÐÐÎ¬»¤" code="910" flow="" state="1" url="">
-            <affair name="×îÐÂÈÕÖ¾" code="91005" url="system/loginfo_list.jsp" state="1" />
-            <affair name="ÀúÊ·ÈÕÖ¾" code="91010" url="system/loghistory_list.jsp" state="1" />
-            <affair name="¿Ø ÖÆ Ì¨" code="91015" url="system/console_view.jsp" state="1" />
-            <affair name="ÔÚÏßÈËÊý" code="91020" url="system/onlineUser_list.jsp" state="1" />
-            <affair name="·ÃÎÊ¼ÇÂ¼" code="91025" url="system/accessRecord_list.jsp" state="1" />
-            <affair name="Êý¾Ý×Öµä" code="91030" url="system/sysPara_list.jsp" state="1" />
+        <module name="è¿è¡Œç»´æŠ¤" code="910" flow="" state="1" url="">
+            <affair name="æœ€æ–°æ—¥å¿—" code="91005" url="system/loginfo_list.jsp" state="1" />
+            <affair name="åŽ†å²æ—¥å¿—" code="91010" url="system/loghistory_list.jsp" state="1" />
+            <affair name="æŽ§ åˆ¶ å°" code="91015" url="system/console_view.jsp" state="1" />
+            <affair name="åœ¨çº¿äººæ•°" code="91020" url="system/onlineUser_list.jsp" state="1" />
+            <affair name="è®¿é—®è®°å½•" code="91025" url="system/accessRecord_list.jsp" state="1" />
+            <affair name="æ•°æ®å­—å…¸" code="91030" url="system/sysPara_list.jsp" state="1" />
         </module>
     </module>
 </modules>
