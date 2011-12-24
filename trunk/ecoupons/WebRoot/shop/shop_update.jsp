@@ -1,8 +1,21 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ page import="com.ejoysoft.ecoupons.business.Shop,
 				 java.util.Vector,
-				 com.ejoysoft.common.Constants" %>
+				 com.ejoysoft.common.Constants,
+				  com.ejoysoft.common.exception.IdObjectException" %>
 <%@ include file="../include/jsp/head.jsp"%>
+<%
+	String strId = ParamUtil.getString(request,"strId","");
+	if(strId.equals(""))
+    	throw new IdObjectException("请求处理的信息id为空！或者已经不存在");
+    String where="where strId='"+strId+"'";
+    Shop obj=new Shop(globa,false);
+    Shop obj0=obj.show(where);
+    if(obj0==null){
+        globa.closeCon();
+        throw new IdObjectException("请求处理的信息id='"+strId+"'对象为空！","请检查该信息的相关信息");
+    }
+%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -44,8 +57,9 @@ body,td,tr{font-size:9pt;}
 </head>
 
 <body>
-<form name="frm" method="post" action="shop_act.jsp" enctype="multipart/form-data">
-<input type="hidden" name="<%=Constants.ACTION_TYPE%>" value="<%=Constants.ADD_STR%>">
+<form name="frm" method="post" action="shop_act.jsp?" enctype="multipart/form-data">
+<input type="hidden" name="<%=Constants.ACTION_TYPE%>" value="<%=Constants.UPDATE_STR%>">
+<input type="hidden" name="strId" value="<%=obj0.getStrId()%>">
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td width="17" height="29" valign="top" background="../images/mail_leftbg.gif"><img src="../images/left-top-right.gif" width="17" height="29" /></td>
@@ -53,7 +67,8 @@ body,td,tr{font-size:9pt;}
       <tr>
         <td height="31"><div class="titlebt">新增商家</div></td>
       </tr>
-    </table></td>
+    </table>
+    </td>
     <td width="22" valign="top" background="../images/mail_rightbg.gif"><img src="../images/nav-right-bg.gif" width="16" height="29" /></td>
   </tr>
   <tr>
@@ -65,7 +80,7 @@ body,td,tr{font-size:9pt;}
       <tr>
         <td height="918" valign="top"><table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
           <tr>
-            <td class="left_txt">当前位置：业务管理 / 商家管理 / 新增商家</td>
+            <td class="left_txt">当前位置：业务管理 / 商家管理 / 更新商家</td>
           </tr>
           <tr>
             <td height="20"><table width="100%" height="1" border="0" cellpadding="0" cellspacing="0" bgcolor="#CCCCCC">
@@ -78,7 +93,7 @@ body,td,tr{font-size:9pt;}
             <td><table width="100%" height="55" border="0" cellpadding="0" cellspacing="0">
               <tr>
                 <td width="6%" height="55" valign="middle"><img src="../images/title.gif" width="54" height="55"></td>
-                <td width="94%" valign="top"><span class="left_txt2">在这里，您可以新增商家</span><br>
+                <td width="94%" valign="top"><span class="left_txt2">在这里，您可以更新商家</span><br>
                       <span class="left_txt2">包括商家名，分部名称，所属行业，商家简介等属性</span></td>
               </tr>
             </table></td>
@@ -98,65 +113,97 @@ body,td,tr{font-size:9pt;}
               <tr>
                 <td width="20%" height="30" align="right" class="left_txt2">商  家  名：</td>
                 <td width="3%">&nbsp;</td>
-                <td width="32%" height="30"><input name="strBizName" type="text" class="input_box" size="30" /></td>
+                <td width="32%" height="30"><input name="strBizName" type="text" class="input_box" size="30" value="<%=obj0.getStrBizName()%>" /></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td>
               </tr>
               <tr bgcolor="#f2f2f2">
                  <td width="20%" height="30" align="right" class="left_txt2">分部名称：</td>
                 <td width="3%">&nbsp;</td>
-                <td width="32%" height="30"><input name="strShopName" type="text" class="input_box" size="30" /></td>
+                <td width="32%" height="30"><input name="strShopName" type="text" class="input_box" size="30" value="<%=obj0.getStrShopName()%>" /></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
               <tr bgcolor="#f2f2f2">
                  <td width="20%" height="30" align="right" class="left_txt2">所属行业：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30" >
-                <input type="text" class="input_box" readonly="true" value="行业" size="30" name="strTrade">
+                <input type="text" class="input_box" readonly="true" value="行业" size="30" name="strTrade" value="<%=obj0.getStrTrade()%>" >
                  <input type="button" onclick="" name="button1" value="选  择"/>
                  </td>
                 <td width="45%" height="30" align="left" >
               &nbsp;</td>    
               </tr>
-              <tr >
-                 <td width="20%" height="30" align="right" class="left_txt2">地		址：</td>
+              <tr>
+                <td width="20%" height="30" align="right" class="left_txt2">地		址：</td>
                 <td width="3%">&nbsp;</td>
-                <td width="32%" height="30"><input name="strAddr" type="text" class="input_box" size="30" /></td>
+                <td width="32%" height="30"><input name="strAddr" type="text" class="input_box" size="30" value="<%=obj0.getStrAddr()%>" /></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
               <tr bgcolor="#f2f2f2">
                  <td width="20%" height="30" align="right" class="left_txt2">联系电话：</td>
                 <td width="3%">&nbsp;</td>
-                <td width="32%" height="30"><input name="strPhone" type="text" class="input_box" size="30" /></td>
+                <td width="32%" height="30"><input name="strPhone" type="text" class="input_box" size="30" value="<%=obj0.getStrPhone()%>" /></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
               <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">联  系  人：</td>
                 <td width="3%">&nbsp;</td>
-                <td width="32%" height="30"><input name="strPerson" type="text" class="input_box" size="30" /></td>
+                <td width="32%" height="30"><input name="strPerson" type="text" class="input_box" size="30" value="<%=obj0.getStrPerson()%>"  /></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
           	  <tr bgcolor="#f2f2f2">
                  <td width="20%" height="30" align="right" class="left_txt2">积分余额：</td>
                 <td width="3%">&nbsp; </td>
-                <td width="32%" height="30"><input name="intPoint" type="text" class="input_box" size="30" value="0" readonly="true" /></td>
+                <td width="32%" height="30"><input name="intPoint" type="text" class="input_box" size="30" value="0" value="<%=obj0.getIntPoint()%>" readonly="true" /></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
               <tr>
-                <td height="30" align="right" class="left_txt2">小图片：</td>
-                <td>&nbsp;</td>
-                <td height="30"><input name="strSmallImg" type="file" class="input_box" size="30" /></td>
-                <td height="30" class="left_txt">大小：<%=application.getAttribute("SHOP_SMALL_IMG_WIDTH") %>*<%=application.getAttribute("SHOP_SMALL_IMG_HEIGHT") %>px，用于前台列表显示</td>
+                <td width="20%"  height="30" align="right" class="left_txt2">小图片：</td>
+                <td width="3%">&nbsp; </td>
+                <td width="32%" height="30"><input name="strSmallImg" type="file" class="input_box" size="30" /></td>
+                <td height="30" class="left_txt">
+                <%
+                if (obj0.getStrSmallImg().length() > 0) {
+                %>
+                  <img src="<%="images/" + obj0.getStrSmallImg() %>" width=<%=application.getAttribute("SHOP_SMALL_IMG_WIDTH") %> height=<%=application.getAttribute("SHOP_SMALL_IMG_HEIGHT") %>/><br>
+                <%
+                }
+                %>                       
+                </td>
+               </tr>
+          	  <tr bgcolor="#f2f2f2">
+                 <td width="20%" height="30" align="right" class="left_txt2">&nbsp; </td>
+                 <td height="30" class="left_txt">&nbsp;</td> 
+                 <td height="30" class="left_txt">
+            		     （大小：<%=application.getAttribute("SHOP_SMALL_IMG_WIDTH") %>*<%=application.getAttribute("SHOP_SMALL_IMG_HEIGHT") %>px，用于前台列表显示）
+                 </td>	
+                <td width="20%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
               <tr bgcolor="#f2f2f2">
                 <td height="30" align="right" class="left_txt2">大图片：</td>
-                <td>&nbsp;</td>
-                <td height="30"><input name="strLargeImg" type="file" class="input_box" size="30" /></td>
-                <td height="30" class="left_txt">大小：<%=application.getAttribute("SHOP_LARGE_IMG_WIDTH") %>*<%=application.getAttribute("SHOP_LARGE_IMG_HEIGHT") %>px，用于前台详细显示</td>
+                <td>&nbsp;</td> 
+                <td height="30"><input name="strLargeImg" type="file" class="input_box" size="30"  /></td>
+                <td height="30" class="left_txt">
+                <%
+                if (obj0.getStrLargeImg().length() > 0) {
+                %>
+                  <img src="<%="images/" + obj0.getStrLargeImg() %>" width=<%=application.getAttribute("SHOP_LARGE_IMG_WIDTH") %> height=<%=application.getAttribute("SHOP_LARGE_IMG_HEIGHT") %>/><br>
+                <%
+                }
+                %> 
+                </td>
+              </tr> 
+              <tr bgcolor="#f2f2f2">
+                 <td width="20%" height="30" align="right" class="left_txt2">&nbsp; </td>
+                 <td height="30" class="left_txt">&nbsp;</td> 
+                 <td height="30" class="left_txt">
+            		   （ 大小：<%=application.getAttribute("SHOP_LARGE_IMG_WIDTH") %>*<%=application.getAttribute("SHOP_LARGE_IMG_HEIGHT") %>px，用于前台详细显示）
+                 </td>	
+                <td width="20%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
           	  <tr bgcolor="#f2f2f2">
                  <td width="20%" height="30" align="right" class="left_txt2">商家简介：</td>
                 <td width="3%">&nbsp;</td>
-                <td width="32%" height="30"><textArea name="strIntro" cols="33" rows="5" ></textArea></td>
+                <td width="32%" height="30"><textArea name="strIntro" cols="33" rows="5" ><%=obj0.getStrIntro()%></textArea></td>
                 <td width="45%" height="30" class="left_txt" > &nbsp;</td> 
               </tr>
               
