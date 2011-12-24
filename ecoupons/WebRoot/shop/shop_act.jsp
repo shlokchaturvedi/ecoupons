@@ -6,7 +6,7 @@
 				java.io.File"%>
 <%@ include file="../include/jsp/head.jsp"%>
 <%
-    Shop obj=new Shop(globa,true);	
+    Shop obj=new Shop(globa,false);	
     String strUrl="shop_list.jsp";
 	ApacheUpload au = new ApacheUpload(request);
 	action = au.getString(Constants.ACTION_TYPE);
