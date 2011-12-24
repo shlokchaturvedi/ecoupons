@@ -164,7 +164,7 @@ function del(){
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrPhone()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getIntPoint()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE4">
-                  <a href="company_update.jsp?strId=<%=obj1.getStrId()%>"><img src="../images/edit.gif" width="16" height="16" border="0" />编辑</a> 
+                  <a href="shop_update.jsp?strId=<%=obj1.getStrId()%>"><img src="../images/edit.gif" width="16" height="16" border="0" />编辑</a> 
 			      <a href="#" onclick="if(confirm('确认删除该记录？')){location.href='shop_act.jsp?<%=Constants.ACTION_TYPE%>=<%=Constants.DELETE_STR%>&strId=<%=obj1.getStrId()%>';}"><img src="../images/delete.gif" width="16" height="16" border="0" />删除</a></span> </div>
                 </td>
               </tr>
