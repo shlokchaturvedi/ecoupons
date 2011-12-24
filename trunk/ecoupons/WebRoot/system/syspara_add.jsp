@@ -7,21 +7,26 @@
      
         intMaxSort=new SysPara(globa).netOrder(strType);
      //返回页面的url
-String strUrl="sysParaList.jsp";
+String strUrl="syspara_list.jsp";
 %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
 <title><%=globa.APP_TITLE%></title>
-<link rel="stylesheet" rev="stylesheet" href="../css/style.css" type="text/css" media="all" />
-<link rel="stylesheet" href="../css/css1.css">
 <style type="text/css">
 <!--
-.atten {font-size:12px;font-weight:normal;color:#F00;}
-.style1 {font-size: 12px}
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	background-color: #F8F9FA;
+	font-size:9pt;
+}
+body,td,tr{font-size:9pt;}
 -->
 </style>
-<script src="../include/js/chkFrm.js"></script>
+<link href="../images/skin.css" rel="stylesheet" type="text/css" />
 <script language="javascript">
 <!--
 function chkFrm(){
@@ -39,71 +44,135 @@ function chkFrm(){
          else  frm.submit();
     }
     function chgType(inputVlaue){
-          location.href='sysParaAdd.jsp?strType='+inputVlaue;
+          location.href='syspara_add.jsp?strType='+inputVlaue;
     }
 -->
 </script>
 </head>
 
 <body class="ContentBody">
-<form name="frm" method="post" action="sysParaAct.jsp">
+<form name="frm" method="post" action="syspara_act.jsp">
 <input type="hidden" name=strUrl  value="<%=strUrl%>">
 <input type="hidden" name="<%=Constants.ACTION_TYPE%>" value="<%=Constants.ADD_STR%>">
-<div class="MainDiv">
-<table width="99%" border="0" cellpadding="0" cellspacing="0" class="CContent">
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr>
-      <th class="tablestyle_title" ><div align="center" class="style1">
-        <div align="left">参数管理</div>
-      </div></th>
+    <td width="17" height="29" valign="top" background="../images/mail_leftbg.gif"><img src="../images/left-top-right.gif" width="17" height="29" /></td>
+    <td width="1195" height="29" valign="top" background="../images/content-bg.gif"><table width="100%" height="31" border="0" cellpadding="0" cellspacing="0" class="left_topbg" id="table2">
+      <tr>
+        <td height="31"><div class="titlebt">新增参数</div></td>
+      </tr>
+    </table></td>
+    <td width="22" valign="top" background="../images/mail_rightbg.gif"><img src="../images/nav-right-bg.gif" width="16" height="29" /></td>
   </tr>
   <tr>
-    <td height="0" class="CPanel" valign="top">
-        <table border="0" cellpadding="0" cellspacing="0" style="width:100%">
-        <tr><td height="0" align="left"></td></tr>
-        <TR>
-            <TD width="100%" height="122" valign="top">
-                <fieldset>
-                <legend>增加参数</legend>
-               <table border="0" cellpadding="2" cellspacing="1" style="width:100%">
-                
-              <tr class="td_listbg_1">
-                <td width="10%" align="right" class="time1">参数名称：</td>
-                <td width="90%" class="time1" height="25"> &nbsp;
-                   <input type="text" name="strName" size="30" class="forms_color1">
-                </td>
+    <td height="71" valign="middle" background="../images/mail_leftbg.gif">&nbsp;</td>
+    <td valign="top" bgcolor="#F7F8F9"><table width="100%" height="933" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="13" valign="top">&nbsp;</td>
+      </tr>
+      <tr>
+        <td height="918" valign="top"><table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr>
+            <td class="left_txt">当前位置：系统管理 / 数据字典管理 / 新增参数</td>
+          </tr>
+          <tr>
+            <td height="20"><table width="100%" height="1" border="0" cellpadding="0" cellspacing="0" bgcolor="#CCCCCC">
+              <tr>
+                <td></td>
               </tr>
-              <tr class="td_listbg_2">
-                <td width="10%" align="right" class="time1" height="25">参数值：</td>
-                <td width="90%" class="time1"> &nbsp;
-                  <input type="text" name="strValue" size="30" class="forms_color1">
-                </td>
+            </table></td>
+          </tr>
+          <tr>
+            <td><table width="100%" height="55" border="0" cellpadding="0" cellspacing="0">
+              <tr>
+                <td width="6%" height="55" valign="middle"><img src="../images/title.gif" width="54" height="55"></td>
+                <td width="94%" valign="top"><span class="left_txt2">在这里，您可以新增参数</span><br>
+                      <span class="left_txt2">包括参数名，参数值等属性</span></td>
+              </tr>
+            </table></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td><table width="100%" height="31" border="0" cellpadding="0" cellspacing="0" class="nowtable">
+              <tr>
+                <td class="left_bt2">&nbsp;&nbsp;&nbsp;&nbsp;参数</td>
+              </tr>
+            </table></td>
+          </tr>
+          <tr>
+            <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr >
+                 <td width="20%" height="30" align="right" class="left_txt2">参数类型：</td>
+                <td width="3%">&nbsp;</td>
+                <td width="32%" height="30">
+                 <select name="strType" onChange="chgType(this.value)"  class="input_box">
+               <option value="" <%if(strType.equals("")) out.print("selected");%>>=选择参数类型=</option>
+                    <%
+                  //从全局变量中读取参数类型
+                  String paramType = (String)application.getAttribute("PARAM_TYPE");
+                  String[] paramTypes = paramType.split(",");
+                  for (int i = 0; i < paramTypes.length; i++) {
+              %>
+                <option value="<%=paramTypes[i]%>" <%if(strType.equals(paramTypes[i])) out.print("selected");%>><%=paramTypes[i]%></option>
+              <%
+                  }
+              %>
+                 </select>  </td>
+                  <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
               
-              <tr class="td_listbg_1">
-                <td width="10%" align="right" class="time1" height="25">参数注释：</td>
-                
-                <td width="90%">
-						<textarea name="strState" cols="80" rows="4" id="textarea" class="text_ipt2"></textarea>
-					</td>
+            
+              <tr>
+                <td width="20%" height="30" align="right" class="left_txt2">参数名称：</td>
+                <td width="3%">&nbsp;</td>
+                <td width="32%" height="30"><input name="strName" type="text" class="input_box" size="30" /></td>
+                <td width="45%" height="30" class="left_txt">&nbsp;</td>
               </tr>
-             </table>
-                      <br/>
-              </fieldset>
-            </TD>
-        </TR>
-        </TABLE>
-        </td>
+              <tr bgcolor="#f2f2f2">
+                 <td width="20%" height="30" align="right" class="left_txt2">参数值：</td>
+                <td width="3%">&nbsp;</td>
+                <td width="32%" height="30"><input name="strValue" type="text" class="input_box" size="30" /></td>
+                <td width="45%" height="30" class="left_txt">&nbsp;</td> 
+              </tr>
+           
+            
+              <tr >
+                 <td width="20%" height="30" align="right" class="left_txt2">参数注释：</td>
+                <td width="3%">&nbsp;</td>
+                <td width="32%" height="30"><input name="strState" type="text" class="input_box" size="30" /></td>
+                <td width="45%" height="30" class="left_txt">&nbsp;</td> 
+              </tr>
+              
+            </table></td>
+          </tr>
+        </table>
+          <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="50%" height="56" align="right"><input name="B1" type="button" class="button_box" value="确定" onclick="chkFrm()" /></td>
+              <td width="6%" height="56" align="right">&nbsp;</td>
+              <td width="44%" height="56"><input name="B12" type="reset" class="button_box" value="取消" /></td>
+            </tr>
+            <tr>
+              <td height="30" colspan="3">&nbsp;</td>
+            </tr>
+          </table></td>
+      </tr>
+    </table></td>
+    <td background="../images/mail_rightbg.gif">&nbsp;</td>
   </tr>
-        <TR>
-            <TD colspan="2" align="center" height="28">
-            <input type="button" name="b_submit" value="确 定" class="button" onclick="chkFrm()" style="cursor:hand"/>
-            <input type="button" name="b_reset"  value="重 置" class="button" onclick="frm.reset();" style="cursor:hand"/>
-            <input type="button" name="b_back"   value="返 回" class="button" onClick="location.href='<%=strUrl%>'" style="cursor:hand"/>
-            </TD>　　
-        </TR>
-    </TABLE>
-    
-</div>
+  <tr>
+    <td valign="middle" background="../images/mail_leftbg.gif"><img src="../images/buttom_left2.gif" width="17" height="17" /></td>
+      <td height="17" valign="top" background="../images/buttom_bgs.gif"><img src="../images/buttom_bgs.gif" width="17" height="17" /></td>
+    <td background="../images/mail_rightbg.gif"><img src="../images/buttom_right2.gif" width="16" height="17" /></td>
+  </tr>
+</table>
+
+
+
+
 </form>
 </body>
 </html>

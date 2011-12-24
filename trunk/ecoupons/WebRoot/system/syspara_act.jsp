@@ -4,7 +4,7 @@
 <%@ include file="../include/jsp/head.jsp"%>
 <%
      SysPara   obj=new SysPara(globa,true);
-    String strUrl="sysParaList.jsp";   
+    String strUrl="syspara_list.jsp";   
     
     if(action.equals(Constants.ADD_STR))  {
         globa.dispatch(obj.add(),strUrl);
