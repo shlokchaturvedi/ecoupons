@@ -40,7 +40,10 @@ public class Shop {
     }
 
     String strTableName = "t_bz_shop";
-    String strTableName2 = "t_bn_lineofbn";
+    String strTableName2 = "t_bz_coupon";
+    String strTableName3 = "t_bz_coupon_input";
+    String strTableName4 = "t_bz_point_buy";
+    String strTableName5 = "t_bz_point_present";
 
     //�ж��û���Ϣ�Ƿ���?
     public void bCheckAccount(String tStrAccount) throws UserUnitIdException, SQLException {
@@ -58,14 +61,17 @@ public class Shop {
 
     //添加商家信息
     public boolean add() {
-    	System.out.println("Shop.add()");
         String strSql = "";
         strId = UID.getID();
         try {
+        	System.out.println("insert into " + strTableName + "  (strid, strbizbame, strshopname, strtrade, straddr, strphone, " +
+            		"strperson, strintro, strsmallimg,strlargeimg,intpoint, strcreator, dtcreatetime" +
+                    " values("+strId+","+strBizName+","+strShopName+","+strTrade+","+strAddr+","+strPhone+","+
+                    strPerson+","+strIntro+","+strSmallImg+","+strLargeImg+","+intPoint+","+strCreator+","+ com.ejoysoft.common.Format.getDateTime()+")");
             //添加商家信息
-            strSql = "insert into " + strTableName + "  (strid, strbizbame, strshopname, srtrade, straddr, strphone, " +
-            		"strperson, strintro, strsmallimg,strlargeimg,intpoint, strcreator, strcreatetime" +
-                    " alues(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            strSql = "insert into " + strTableName + "  (strid, strbizname, strshopname, strtrade, straddr, strphone, " +
+            		"strperson, strintro, strsmallimg,strlargeimg,intpoint, strcreator, dtcreatetime" +
+                    ") values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
             db.prepareStatement(strSql);
             db.setString(1, strId);
             db.setString(2, strBizName);
@@ -74,11 +80,12 @@ public class Shop {
             db.setString(5, strAddr);
             db.setString(6, strPhone);
             db.setString(7, strPerson);
-            db.setString(8, strSmallImg);
-            db.setString(9, strLargeImg);
-            db.setInt(10, intPoint);
-            db.setString(11, strCreator);
-            db.setString(12, com.ejoysoft.common.Format.getDateTime());
+            db.setString(8, strIntro);
+            db.setString(9, strSmallImg);
+            db.setString(10, strLargeImg);
+            db.setInt(11, intPoint);
+            db.setString(12, strCreator);
+            db.setString(13, com.ejoysoft.common.Format.getDateTime());
             if (db.executeUpdate() > 0) {
                 Globa.logger0("添加商家信息", globa.loginName, globa.loginIp, strSql, "商家管理", globa.userSession.getStrDepart());
                 return true;
@@ -91,12 +98,23 @@ public class Shop {
         }
     }
 
-    public boolean delete(String where) {
-        try {
-            String sql = "DELETE FROM " + strTableName + "  ".concat(where);
-            db.executeUpdate(sql);
-            //ɾ���û�ӳ����?
-//            delUnitUser(where);
+    public boolean delete(String where,String where2) {
+    	String sql = "delete from " + strTableName + "  ".concat(where);
+    	String sql2 = "delete from " + strTableName2 + "  ".concat(where2);
+    	String sql3 = "delete from " + strTableName3 + "  ".concat(where2);
+    	String sql4 = "delete from " + strTableName4 + "  ".concat(where2);
+    	String sql5 = "delete from " + strTableName5 + "  ".concat(where2);
+       //事务处理
+    	try {
+        	db.getConnection().setAutoCommit(false);//禁止自动提交事务 
+        	
+            db.executeUpdate(sql);//删除商家
+            db.executeUpdate(sql2);//删除商家的优惠券
+            db.executeUpdate(sql3);//删除商家录入有价券记录
+            db.executeUpdate(sql4);//删除商家购买积分记录
+            db.executeUpdate(sql5);//删除商家转赠积分记录
+            
+            db.getConnection().commit(); //统一提交
             Globa.logger0("删除商家信息", globa.loginName, globa.loginIp, sql, "商家管理", globa.unitCode);
             return true;
         } catch (Exception ee) {
@@ -108,15 +126,15 @@ public class Shop {
     //�޸�
     public boolean update(String tStrUserId) {
         try {
-            String strSql = "update  " + strTableName + "  set strbizbame=?, strshopname=?, strtrade=?, straddr=?, strphone=?, " +
+            String strSql = "update " + strTableName + "  set strbizname=?, strshopname=?, strtrade=?, straddr=?, strphone=?, " +
             		"strperson=?, strintro=?, " ;
-            if (this.strSmallImg.length() > 0) {
-            	strSql += "strSmallImg = '" + strSmallImg + "',";
+            if (this.strSmallImg!=null&&this.strSmallImg.length() > 0) {
+            	strSql += "strsmallimg = '" + strSmallImg + "',";
             }
-            if (this.strLargeImg.length() > 0) {
-            	strSql += "strLargeImage = '" + strLargeImg + "',";
+            if (this.strLargeImg!=null&&this.strLargeImg.length() > 0) {
+            	strSql += "strlargeimg = '" + strLargeImg + "',";
             }
-            strSql += ",intpoint=?, strcreator=?, strcreatetime=?  where strid=? ";
+            strSql += " intpoint=?, strcreator=?, dtcreatetime=?  where strid=? ";
             db.prepareStatement(strSql);
             db.setString(1, strBizName);
             db.setString(2, strShopName);
@@ -124,26 +142,24 @@ public class Shop {
             db.setString(4, strAddr);
             db.setString(5, strPhone);
             db.setString(6, strPerson);
-            db.setString(7, strIntro);
-            db.setString(8, strSmallImg);
-            db.setString(9, strLargeImg);       //"strUnitCode
-            db.setInt(10, intPoint);
-            db.setString(11, strCreator);
-            db.setString(12,com.ejoysoft.common.Format.getDateTime());
-            db.setString(13,strId);
+            db.setString(7, strIntro);      //"strUnitCode
+            db.setInt(8, intPoint);
+            db.setString(9, strCreator);
+            db.setString(10,com.ejoysoft.common.Format.getDateTime());
+            db.setString(11,strId);
             db.executeUpdate();
-            Globa.logger0("�޸��û���Ϣ", globa.loginName, globa.loginIp, strSql, "�û�����", globa.userSession.getStrDepart());
+            Globa.logger0("更新商家信息", globa.loginName, globa.loginIp, strSql, "商家管理", globa.userSession.getStrDepart());
             return true;
         } catch (Exception e) {
-            System.out.println("�޸��û���Ϣʱ��?" + e);
+            System.out.println("更行商家信息异常" + e);
             return false;
         }
     }
 
-    //��ϸ��ʾ������?
+    //查询
     public Shop show(String where) {
         try {
-            String strSql = "select * from  " + strTableName2 + "  ".concat(where);
+            String strSql = "select * from  " + strTableName + "  ".concat(where);
             ResultSet rs = db.executeQuery(strSql);
             if (rs != null && rs.next())
                 return load(rs, true);
@@ -154,7 +170,7 @@ public class Shop {
         }
     }
 
-    //��¼��ת��Ϊ����
+    //读取结果集
     public Shop load(ResultSet rs, boolean isView) {
     	Shop theBean = new Shop();
         try {
@@ -177,7 +193,7 @@ public class Shop {
         return theBean;
     }
 
-  
+  //查询全部记录
     public Vector<Shop> jionlist(String where, int startRow, int rowCount) {
         Vector<Shop>  beans = new Vector<Shop>();
         try {
@@ -205,7 +221,7 @@ public class Shop {
         return beans;
     }
 
-    //��¼��ת��Ϊ����
+    //读取结果集2
     public Shop load2(ResultSet rs, boolean isView) {
     	Shop theBean = new Shop();
         try {
@@ -228,7 +244,7 @@ public class Shop {
         return theBean;
     }
 
-    //�б��¼��?
+    //分页整理
     public Vector<Shop> list(String where, int startRow, int rowCount) {
         Vector<Shop> beans = new Vector<Shop>();
         try {
@@ -256,26 +272,9 @@ public class Shop {
         return beans;
     }
 
-  
-    //�û� ��֤
-    public boolean authUser(String oldPwd) {
-        String pwd = (new MD5().getMD5ofStr(oldPwd));
-        String strSql = "SELECT  *  FROM  " + strTableName + "  WHERE strUserId='" + globa.loginName + "' and strPWD='" + pwd + "'";
-        try {
-            ResultSet rs = db.executeQuery(strSql);
-            if (rs != null && rs.next()) {
-                return true;
-            }
-            return false;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
     //����û�ID��ʾ�û���
     public String ReturnName(String struserid) {
-        String sql = "SELECT comName FROM " + strTableName + " WHERE strUserId=?";
+        String sql = "SELECT strbizname FROM " + strTableName + " WHERE strUserId=?";
         try {
             db.prepareStatement(sql);
             db.setString(1, struserid);
@@ -291,22 +290,6 @@ public class Shop {
     }
 
     //�޸�����
- /*   public boolean doSetPwd(String tStrUserId, ServletContext application, HttpSession session) {
-        try {
-            String sql = "UPDATE " + strTableName + " SET strPWD=?,intState=? ,intError=0 WHERE  strUserId=? ";
-            db.prepareStatement(sql);
-            db.setString(1, MD5.getMD5ofString(strPWD));
-            db.setInt(2, Constants.U_STATE_ON);
-            db.setString(3, tStrUserId);
-            db.executeUpdate();
-            //�޸��û���������
-            Globa.logger0("�޸��û�����", globa.loginName, globa.loginIp, sql, "�û�����", globa.userSession.getStrDepart());
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }*/
 
     //�����Լ��޸�
     public boolean selfUpdate(String tStrUserId) {
@@ -336,7 +319,7 @@ public class Shop {
 			}
     }
 
-    //��ѯ�������ļ�¼����
+    //查询影响记录数
     public int getCount(String where) {
         int count = 0;
         try {
