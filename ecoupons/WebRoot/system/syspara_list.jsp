@@ -60,13 +60,13 @@ body,td,th {
 <script src="../include/js/list.js"></script>
 <script language="javascript">
   function chgType(inputVlaue){
-          location.href='sysParaList.jsp?strType='+inputVlaue;
+          location.href='syspara_list.jsp?strType='+inputVlaue;
     }
 </script>
 </head>
 
 <body >
-<form name=frm method=post action="sysParaList.jsp">
+<form name=frm method=post action="syspara_list.jsp">
 <input type="hidden" name="<%=Constants.ACTION_TYPE%>" value="">
 
 
@@ -119,12 +119,23 @@ body,td,th {
 			<td style="font-size:9pt">
 			 <input type="checkbox" name="checkbox62" value="checkbox" onclick="selAll(document.all.strId)"/>
 			 全选
-			 <a href="user_add.jsp"><img src="../images/add.gif" width="16" height="16" border="0" />新增</a>
+			 <a href="syspara_add.jsp"><img src="../images/add.gif" width="16" height="16" border="0" />新增</a>
 			 </td>
 			<td align="right" width="600"><div style="height:26"> 
-			  参数名：<input name="strName" class="editbox4" value="" size="10">
-			  &nbsp;&nbsp;&nbsp;&nbsp;
-              <input type="submit" class="button_box" value="搜索" /> 
+			    <select name="strType" onChange="chgType(this.value)"  class="forms_color1">
+                        <option value="" <%if(strType.equals("")) out.print("selected");%>>=全部参数类型=</option>
+                    <%
+                          //从全局变量中读取参数类型
+                          String paramType = (String)application.getAttribute("PARAM_TYPE");
+                          String[] paramTypes = paramType.split(",");
+                          for (int i = 0; i < paramTypes.length; i++) {
+                      %>
+                        <option value="<%=paramTypes[i]%>" <%if(strType.equals(paramTypes[i])) out.print("selected");%>><%=paramTypes[i]%></option>
+                      <%
+                          }
+                      %>
+                 </select>                        
+			  
 			</div>
 			</td>   
 			</tr>
@@ -133,6 +144,7 @@ body,td,th {
 			<table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="b5d6e6" onmouseover="changeto()"  onmouseout="changeback()">
               <tr>
                 <td width="5%" height="22"  class="left_bt2"><div align="center">&nbsp;</td>
+                <td width="10%" class="left_bt2"><div align="center">参数类型</div></td>
                 <td width="10%" class="left_bt2"><div align="center">参数名称</div></td>
                 <td width="10%" class="left_bt2"><div align="center">参数值</div></td>
                 <td width="25%" class="left_bt2"><div align="center">参数注释</div></td>                
@@ -147,6 +159,8 @@ body,td,th {
                 <td height="20" bgcolor="#FFFFFF"><div align="center">
                     <input type="checkbox" name=strId value="<%=para0.getStrId() %>" />
                 </div></td>
+                <td bgcolor="#FFFFFF"><div align="center" class="STYLE1"><%= para0.getStrType()%></div></td>
+               
                 <td bgcolor="#FFFFFF"><div align="center" class="STYLE1"><%=para0.getStrName()%></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=para0.getStrValue()%></span></div></td>
                 
@@ -154,7 +168,7 @@ body,td,th {
                
                  <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE4">
                   <a href="syspara_update.jsp?strId=<%=para0.getStrId()%>"><img src="../images/edit.gif" width="16" height="16" border="0" />编辑</a> 
-			      <a href="#" onclick="if(confirm('确认删除该记录？')){location.href='user_act.jsp?<%=Constants.ACTION_TYPE%>=<%=Constants.DELETE_STR%>&strId=<%=para0.getStrId()%>';}"><img src="../images/delete.gif" width="16" height="16" border="0" />删除</a></span> </div>
+			      <a href="#" onclick="if(confirm('确认删除该记录？')){location.href='syspara_act.jsp?<%=Constants.ACTION_TYPE%>=<%=Constants.DELETE_STR%>&strId=<%=para0.getStrId()%>';}"><img src="../images/delete.gif" width="16" height="16" border="0" />删除</a></span> </div>
                 </td>
               </tr>
             <%
