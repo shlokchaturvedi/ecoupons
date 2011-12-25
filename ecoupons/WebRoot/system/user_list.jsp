@@ -107,7 +107,7 @@ function del(){
               <tr>
                 <td width="6%" height="55" valign="middle"><img src="../images/title.gif" width="54" height="55"></td>
                 <td width="94%" valign="top"><span class="left_txt3">在这里，您可以对用户进行管理！<br>
-                  包括新增、编辑、删除、查询、权限管理等多种操作。 </span></td>
+                  包括新增、编辑、删除、查询等多种操作。 </span></td>
               </tr>
             </table></td>
           </tr>
@@ -123,7 +123,6 @@ function del(){
 			 <input type="checkbox" name="checkbox62" value="checkbox" onclick="selAll(document.all.strId)"/>
 			 全选
 			 <a href="user_add.jsp"><img src="../images/add.gif" width="16" height="16" border="0" />新增</a>
-			 <a href="#" onclick="del();"><img src="../images/delete.gif" width="16" height="16" border="0" />权限分配</a>
 			</td>
 			<td align="right" width="600"><div style="height:26"> 
 			  用户名：<input name="strName" class="editbox4" value="" size="10">
