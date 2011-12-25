@@ -142,7 +142,7 @@ body,td,tr{font-size:9pt;}
                  <td width="20%" height="30" align="right" class="left_txt2">所属行业：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30" >
-                <input type="text" class="input_box" readonly="true" value="行业" size="30" name="strTrade" value="<%=obj0.getStrTrade()%>" >
+                <input type="text" class="input_box" readonly value="行业" size="30" name="strTrade" value="<%=obj0.getStrTrade()%>" >
                  <input type="button" onclick="" name="button1" value="选  择"/>
                  </td>
                 <td width="45%" height="30" align="left" >
@@ -169,7 +169,7 @@ body,td,tr{font-size:9pt;}
           	  <tr bgcolor="#f2f2f2">
                  <td width="20%" height="30" align="right" class="left_txt2">积分余额：</td>
                 <td width="3%">&nbsp; </td>
-                <td width="32%" height="30"><input name="intPoint" type="text" class="input_box" size="30" value="0" value="<%=obj0.getIntPoint()%>" readonly="true" /></td>
+                <td width="32%" height="30"><input name="intPoint" type="text" class="input_box" size="30" value="0" value="<%=obj0.getIntPoint()%>" readonly /></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
               <tr>
@@ -223,13 +223,13 @@ body,td,tr{font-size:9pt;}
                 <td width="45%" height="30" class="left_txt" > &nbsp;</td> 
               </tr>              
           	  <tr bgcolor="#f2f2f2">
-                 <td width="20%" height="30" align="right" class="left_txt">创  建  人：</td>
+                 <td width="20%" height="30" align="right" class="left_txt2">创  建  人：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30" class="left_txt"><%=obj0.getStrCreator()%></td>
                 <td width="45%" height="30" class="left_txt" > &nbsp;</td> 
               </tr> 
           	  <tr bgcolor="#f2f2f2">
-                 <td width="20%" height="30" align="right" class="left_txt">创建时间：</td>
+                 <td width="20%" height="30" align="right" class="left_txt2">创建时间：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30" class="left_txt"><%=obj0.getDtCreateTime()%></td>
                 <td width="45%" height="30" class="left_txt" > &nbsp;</td> 

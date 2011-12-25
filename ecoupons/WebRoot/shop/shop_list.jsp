@@ -97,7 +97,7 @@ function del(){
       <tr>
         <td height="534" valign="top"><table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
           <tr>
-            <td class="left_txt">当前位置：业务管理 / 商家管理 / 用户列表</td>
+            <td class="left_txt">当前位置：业务管理 / 商家管理 / 商家列表</td>
           </tr>
           <tr>
             <td height="20"><table width="100%" height="1" border="0" cellpadding="0" cellspacing="0" bgcolor="#CCCCCC">
