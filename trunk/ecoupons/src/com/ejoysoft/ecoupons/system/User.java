@@ -65,7 +65,7 @@ public class User {
         	//把用户信息写入数据库
             strSql = "INSERT INTO " + strTableName + "  (strId, strUserId, strPWD, strName, intError, intState, dBirthday, strSex, strIntro,intType, strUnitId, strUnitCode," +
                     " strNation, strMobile, strEmail, strMsnQQ,strOPhone, strHPhone, strDuty, strStation, intLoginNum, dLatestLoginTime,fOnlineTime, strCaNO, " +
-                    "strDepart, strCssType,  strLinkAdd, strCreator, dCreatDate,intUserType,strBuildId) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                    "strDepart, strCssType,  strLinkAdd, strCreator, dCreatDate,intUserType,strBuildId,strCssType) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             db.prepareStatement(strSql);
             db.setString(1, strId);
             db.setString(2, strUserId);
@@ -98,6 +98,7 @@ public class User {
             db.setString(29, com.ejoysoft.common.Format.getDateTime());
             db.setInt(30, intUserType);
             db.setString(31, strBuildId);
+            db.setString(32, strCssType);
             if (db.executeUpdate() > 0) {
                 Globa.logger0("增加用户信息", globa.loginName, globa.loginIp, strSql, "用户管理", globa.userSession.getStrDepart());
                 return true;
@@ -282,7 +283,7 @@ public class User {
         try {
             String strSql = "UPDATE  " + strTableName + "  SET  strName = ?, intError = ?, intState = ?, dBirthday = ?, strSex = ?, strIntro = ?, intType = ?, " +
                     "strUnitId = ?, strUnitCode = ?,strNation = ?, strMobile = ?, strEmail = ?, strMsnQQ = ?, strOPhone = ?, strHPhone = ?, strDuty = ?, strStation = ?, " +
-                    " strCaNO = ?, strDepart = ?,  strLinkAdd = ?, strCreator = ?, dCreatDate = ? ,intUserType=?,strBuildId=?  WHERE strUserId=? ";
+                    " strCaNO = ?, strDepart = ?,  strLinkAdd = ?, strCreator = ?, dCreatDate = ? ,intUserType=?,strBuildId=?,strCssType=?  WHERE strUserId=? ";
             db.prepareStatement(strSql);
             db.setString(1, strName);
             db.setInt(2, 0);
@@ -308,7 +309,8 @@ public class User {
             db.setString(22, com.ejoysoft.common.Format.getDateTime());
             db.setInt(23, intUserType);
             db.setString(24, strBuildId);
-            db.setString(25, tStrUserId);
+            db.setString(25, strCssType);
+            db.setString(26, tStrUserId);
             db.executeUpdate();
             Globa.logger0("修改用户信息", globa.loginName, globa.loginIp, strSql, "用户管理", globa.userSession.getStrDepart());
             return true;
