@@ -152,6 +152,25 @@ body,td,tr{font-size:9pt;}
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
               <tr bgcolor="#f2f2f2">
+                 <td width="20%" height="30" align="right" class="left_txt2">用户类型：</td>
+                <td width="3%">&nbsp;</td>
+                <td width="32%" height="30">
+                 <select name="strCssType" class="input_box">
+                    <%
+                  //从全局变量中读取参数类型
+                  String userType = (String)application.getAttribute("USER_TYPE");
+                  String[] userTypes = userType.split(",");
+                  for (int i = 0; i < userTypes.length; i++) {
+              %>
+                <option value="<%=userTypes[i]%>"><%=userTypes[i]%></option>
+              <%
+                  }
+              %>
+                 </select>                 
+                </td>
+                <td width="45%" height="30" class="left_txt">&nbsp;</td> 
+              </tr>
+              <tr bgcolor="#f2f2f2">
                  <td width="20%" height="30" align="right" class="left_txt2">岗　　位：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30"><input name="strStation" type="text" class="input_box" size="30" /></td>

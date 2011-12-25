@@ -140,7 +140,7 @@ function del(){
                 <td width="10%" class="left_bt2"><div align="center">用户名</div></td>
                 <td width="10%" class="left_bt2"><div align="center">姓名</div></td>
                 <td width="25%" class="left_bt2"><div align="center">所在部门</div></td>                
-                 <td width="10%" class="left_bt2"><div align="center">职务</div></td>
+                 <td width="10%" class="left_bt2"><div align="center">用户类型</div></td>
                 <td width="15%" class="left_bt2"><div align="center">基本操作</div></td>
               </tr>
             <%
@@ -154,7 +154,7 @@ function del(){
                 <td bgcolor="#FFFFFF"><div align="center" class="STYLE1"><a href='user_show.jsp?strId=<%=obj1.getStrId()%>'><%=obj1.getStrUserId() %></a></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrName() %></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=SysUserUnit.getTotalName(obj1.getStrUnitId())%></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrDuty()%></span></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrCssType()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE4">
                   <a href="user_update.jsp?strUserId=<%=obj1.getStrUserId()%>&strId=<%=obj1.getStrId()%>"><img src="../images/edit.gif" width="16" height="16" border="0" />编辑</a> 
 			      <a href="#" onclick="if(confirm('确认删除该记录？')){location.href='user_act.jsp?<%=Constants.ACTION_TYPE%>=<%=Constants.DELETE_STR%>&strId=<%=obj1.getStrId()%>';}"><img src="../images/delete.gif" width="16" height="16" border="0" />删除</a></span> </div>
