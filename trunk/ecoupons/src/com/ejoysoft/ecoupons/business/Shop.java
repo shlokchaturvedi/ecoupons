@@ -1,8 +1,6 @@
 package com.ejoysoft.ecoupons.business;
 
-import com.ejoysoft.auth.MD5;
 import com.ejoysoft.common.*;
-import com.ejoysoft.common.exception.UserUnitIdException;
 
 //import javax.servlet.ServletContext;
 //import javax.servlet.http.HttpSession;
@@ -10,7 +8,6 @@ import java.util.Vector;
 //import java.util.HashMap;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.sql.SQLException;
 
 /**
  * Created by IntelliJ IDEA.
@@ -44,20 +41,6 @@ public class Shop {
     String strTableName3 = "t_bz_coupon_input";
     String strTableName4 = "t_bz_point_buy";
     String strTableName5 = "t_bz_point_present";
-
-    //�ж��û���Ϣ�Ƿ���?
-    public void bCheckAccount(String tStrAccount) throws UserUnitIdException, SQLException {
-        String strSql = "select strUserId  from " + strTableName + "   where strUserId='" + tStrAccount + "'";
-        try {
-            ResultSet rs = db.executeQuery(strSql);
-            if (rs.next()) {
-                globa.closeCon();
-                throw new UserUnitIdException("�Ѿ�����'" + tStrAccount + "' �û�", "�����������û���");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     //添加商家信息
     public boolean add() {
@@ -97,7 +80,7 @@ public class Shop {
             return false;
         }
     }
-
+   //删除商家信息
     public boolean delete(String where,String where2) {
     	String sql = "delete from " + strTableName + "  ".concat(where);
     	String sql2 = "delete from " + strTableName2 + "  ".concat(where2);
@@ -120,10 +103,10 @@ public class Shop {
         } catch (Exception ee) {
             ee.printStackTrace();
             return false;
-        }
+        } 
     }
 
-    //�޸�
+    //商家更新信息
     public boolean update(String tStrUserId) {
         try {
             String strSql = "update " + strTableName + "  set strbizname=?, strshopname=?, strtrade=?, straddr=?, strphone=?, " +
@@ -170,7 +153,7 @@ public class Shop {
         }
     }
 
-    //读取结果集
+    //封装商家信息结果集
     public Shop load(ResultSet rs, boolean isView) {
     	Shop theBean = new Shop();
         try {
@@ -221,7 +204,7 @@ public class Shop {
         return beans;
     }
 
-    //读取结果集2
+    //封装结果集2
     public Shop load2(ResultSet rs, boolean isView) {
     	Shop theBean = new Shop();
         try {
@@ -272,25 +255,7 @@ public class Shop {
         return beans;
     }
 
-    //����û�ID��ʾ�û���
-    public String ReturnName(String struserid) {
-        String sql = "SELECT strbizname FROM " + strTableName + " WHERE strUserId=?";
-        try {
-            db.prepareStatement(sql);
-            db.setString(1, struserid);
-            ResultSet rs = db.executeQuery();
-            if (rs.next())
-                return rs.getString("comName");
-            rs.close();
-        } catch (Exception e) {
-            System.out.println("��ʾ�û������?:" + e);
-            return "";
-        }
-        return "";
-    }
-
-    //�޸�����
-
+   
     //�����Լ��޸�
     public boolean selfUpdate(String tStrUserId) {
         try {
@@ -340,44 +305,6 @@ public class Shop {
             return count;
         }
     }
-    /**
-     * ����������е��û�?
-     */
-    public Shop[] getShops(String twhere) {
-        String strSql;
-        try {
-            strSql = "select strUserId,strMobile,comName from " + strTableName + "  ".concat(twhere);
-            ResultSet rs = db.executeRollQuery(strSql);
-            if (rs.last()) {
-                int total = rs.getRow();
-                rs.beforeFirst();
-                Shop[] users = new Shop[total];
-                int i = 0;
-                while (rs.next()) {
-                    users[i] = new Shop(rs.getString("strUserId"), rs.getString("strMobile"), rs.getString("comName"));
-                    i++;
-                }
-                rs.close();
-                return users;
-            } else {
-                rs.close();
-                return null;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-
-    }
-
-    /**
-     * ����
-     */
-    public Shop(String userId,String mobile, String name) {
-        this.strId = userId;
-        this.strPhone = mobile;
-        this.strBizName = name;
-    }
 
     private String strId;//商家信息Id
     private String strBizName;//商家名称
@@ -392,16 +319,6 @@ public class Shop {
     private int intPoint;//积分余额
     private String strCreator;//创建人
     private String dtCreateTime;//创建时间
-    private int intLoginNum;//
-    private String dLatestLoginTime;//
-    private float fOnlineTime;//
-    private int intSort;//
-    private String strLinkAdd;
-    private String dCreatDate;//
-    private String strOldUnitId;//
-    private int intOldSort;//
-    private int intUserType;//
-    private int intState;
 
 	public Globa getGloba() {
 		return globa;
@@ -523,86 +440,6 @@ public class Shop {
 		this.dtCreateTime = dtCreateTime;
 	}
 
-	public int getIntLoginNum() {
-		return intLoginNum;
-	}
-
-	public void setIntLoginNum(int intLoginNum) {
-		this.intLoginNum = intLoginNum;
-	}
-
-	public String getdLatestLoginTime() {
-		return dLatestLoginTime;
-	}
-
-	public void setdLatestLoginTime(String dLatestLoginTime) {
-		this.dLatestLoginTime = dLatestLoginTime;
-	}
-
-	public float getfOnlineTime() {
-		return fOnlineTime;
-	}
-
-	public void setfOnlineTime(float fOnlineTime) {
-		this.fOnlineTime = fOnlineTime;
-	}
-
-	public int getIntSort() {
-		return intSort;
-	}
-
-	public void setIntSort(int intSort) {
-		this.intSort = intSort;
-	}
-
-	public String getStrLinkAdd() {
-		return strLinkAdd;
-	}
-
-	public void setStrLinkAdd(String strLinkAdd) {
-		this.strLinkAdd = strLinkAdd;
-	}
-
-	public String getdCreatDate() {
-		return dCreatDate;
-	}
-
-	public void setdCreatDate(String dCreatDate) {
-		this.dCreatDate = dCreatDate;
-	}
-
-	public String getStrOldUnitId() {
-		return strOldUnitId;
-	}
-
-	public void setStrOldUnitId(String strOldUnitId) {
-		this.strOldUnitId = strOldUnitId;
-	}
-
-	public int getIntOldSort() {
-		return intOldSort;
-	}
-
-	public void setIntOldSort(int intOldSort) {
-		this.intOldSort = intOldSort;
-	}
-
-	public int getIntUserType() {
-		return intUserType;
-	}
-
-	public void setIntUserType(int intUserType) {
-		this.intUserType = intUserType;
-	}
-
-	public int getIntState() {
-		return intState;
-	}
-
-	public void setIntState(int intState) {
-		this.intState = intState;
-	}
-    
 
     
 }
