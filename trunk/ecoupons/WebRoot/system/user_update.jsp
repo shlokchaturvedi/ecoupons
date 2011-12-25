@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ page import="com.ejoysoft.ecoupons.system.User,com.ejoysoft.common.Constants,com.ejoysoft.common.Format,com.ejoysoft.common.exception.IdObjectException,com.ejoysoft.ecoupons.system.SysUserUnit,java.util.Vector,com.ejoysoft.ecoupons.system.Unit,
-                 java.util.HashMap" %>
+                 com.ejoysoft.ecoupons.business.Shop,java.util.HashMap" %>
 <%@ include file="../include/jsp/head.jsp"%>
 <%
 	String strId = ParamUtil.getString(request,"strId","");
@@ -14,6 +14,7 @@
         globa.closeCon();
         throw new IdObjectException("请求处理的信息id='"+strId+"'对象为空！","请检查该信息的相关信息");
     }
+    String  strShopid=ParamUtil.getString(globa.request,"strShopid",Format.forbidNull(obj0.getStrShopid()));
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -40,17 +41,31 @@ body,td,tr{font-size:9pt;}
             alert("请输入用户名！！！")
             frm.strUserId.focus();
             return false;
-        } else if(trim(frm.strName.value)=="") {
+        }
+        if(trim(frm.strName.value)=="") {
             alert("请输入姓名！！！")
             frm.strName.focus();
             return false;
-        } else if(trim(frm.arryUnitId.value)=="") {
-            alert("请选择所属机构！！！")
+        } 
+        if(trim(frm.arryUnitId.value)=="") {
+            alert("请输选择所属机构！！！")
             frm.arryUnitId.focus();
             return false;
-        } else {
-        	frm.submit();
-        }
+        } 
+        if (trim(frm.strCssType.value)=="商家"){
+            if (trim(frm.strShopid.value)==""){
+            alert("请输选择所属商家！！！")
+            frm.strShopid.focus();
+        	return false;
+        	}
+        }else{
+            if (trim(frm.strShopid.value)!=""){
+             alert("非商家用户不得选择所属商家！！！")
+             frm.strShopid.value="";
+        	 return false;
+        }   
+        }      
+       	frm.submit();
     }
 </script>
 </head>
@@ -190,6 +205,32 @@ body,td,tr{font-size:9pt;}
                 </td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
+              <tr bgcolor="#f2f2f2">
+                 <td width="20%" height="30" align="right" class="left_txt2">所属商家：</td>
+                <td width="3%">&nbsp;</td>
+                <td width="32%" height="30">                
+               <select name="strShopid" class="input_box">
+                   <option value="">请选择</option>
+                  
+                    <%
+                  //从全局变量中读取参数类型
+                   Shop objShop=new Shop(globa);
+                     Shop  para0=null;
+                   Vector vctobj=objShop.allShop("");                  
+                  for (int i = 0; i < vctobj.size(); i++) {
+                      para0=(Shop)vctobj.get(i);                     
+              %>
+               
+                <option value="<%=para0.getStrId()%>" <%if(strShopid.equals(para0.getStrId())) out.print("selected");%>><%=para0.getStrBizName()+para0.getStrShopName()%></option>
+              <%
+                  }
+              %>
+                 </select>  
+                </td>
+                <td width="45%" height="30" class="left_txt">&nbsp;</td> 
+              </tr>
+              
+              
               <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">手　　机：</td>
                 <td width="3%">&nbsp;</td>

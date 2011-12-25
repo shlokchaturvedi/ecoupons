@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
-<%@ page import="java.util.Vector,com.ejoysoft.ecoupons.system.SysUserUnit,com.ejoysoft.ecoupons.system.Unit,com.ejoysoft.common.Constants" %>
+<%@ page import="java.util.Vector,com.ejoysoft.ecoupons.system.SysUserUnit,
+com.ejoysoft.ecoupons.business.Shop,com.ejoysoft.ecoupons.system.Unit,com.ejoysoft.common.Constants" %>
 <%@ include file="../include/jsp/head.jsp"%>
 <%
 //获取单位的strId
@@ -30,17 +31,31 @@ body,td,tr{font-size:9pt;}
             alert("请输入用户名！！！")
             frm.strUserId.focus();
             return false;
-        } else if(trim(frm.strName.value)=="") {
+        }
+        if(trim(frm.strName.value)=="") {
             alert("请输入姓名！！！")
             frm.strName.focus();
             return false;
-        } else if(trim(frm.arryUnitId.value)=="") {
+        } 
+        if(trim(frm.arryUnitId.value)=="") {
             alert("请输选择所属机构！！！")
             frm.arryUnitId.focus();
             return false;
-        } else {
-        	frm.submit();
-        }
+        } 
+        if (trim(frm.strCssType.value)=="商家"){
+            if (trim(frm.strShopid.value)==""){
+            alert("请输选择所属商家！！！")
+            frm.strShopid.focus();
+        	return false;
+        	}
+        }else{
+            if (trim(frm.strShopid.value)!=""){
+             alert("非商家用户不得选择所属商家！！！")
+             frm.strShopid.value="";
+        	 return false;
+        }   
+        }      
+       	frm.submit();
     }
 </script>
 </head>
@@ -168,8 +183,35 @@ body,td,tr{font-size:9pt;}
               %>
                  </select>                 
                 </td>
+                
+                
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
+              <tr bgcolor="#f2f2f2">
+                 <td width="20%" height="30" align="right" class="left_txt2">所属商家：</td>
+                <td width="3%">&nbsp;</td>
+                <td width="32%" height="30">                
+               <select name="strShopid" class="input_box">
+                   <option value="">请选择</option>
+                  
+                    <%
+                  //从全局变量中读取参数类型
+                   Shop obj=new Shop(globa);
+                     Shop  para0=null;
+                   Vector vctobj=obj.allShop("");                  
+                  for (int i = 0; i < vctobj.size(); i++) {
+                      para0=(Shop)vctobj.get(i);                     
+              %>
+               
+                <option value="<%=para0.getStrId()%>"><%=para0.getStrBizName()+para0.getStrShopName()%></option>
+              <%
+                  }
+              %>
+                 </select>  
+                </td>
+                <td width="45%" height="30" class="left_txt">&nbsp;</td> 
+              </tr>
+              
               <tr bgcolor="#f2f2f2">
                  <td width="20%" height="30" align="right" class="left_txt2">岗　　位：</td>
                 <td width="3%">&nbsp;</td>
