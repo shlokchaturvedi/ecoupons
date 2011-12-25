@@ -1,6 +1,7 @@
 package com.ejoysoft.ecoupons.business;
 
 import com.ejoysoft.common.*;
+import com.ejoysoft.ecoupons.system.Unit;
 
 //import javax.servlet.ServletContext;
 //import javax.servlet.http.HttpSession;
@@ -305,7 +306,30 @@ public class Shop {
             return count;
         }
     }
+    //取出所有的shop对象
+    public Vector allShop(String where) {
+    	Vector<Shop>  beans = new Vector<Shop>();
+        try {
+        	
+            String strSql = "select * from  " + strTableName + "  ".concat(where);
+            ResultSet rs = db.executeQuery(strSql);
+            if (rs != null && rs.next()){               
+                do {
+                	Shop theBean = new Shop();
+                    theBean = load(rs, false);
+                    beans.addElement(theBean);
+                } while (rs.next());
+            }
+            rs.close();
+           
+        }  catch (Exception ee) {
+            ee.printStackTrace();
+        }
+        return beans;
+    }
 
+    
+    
     private String strId;//商家信息Id
     private String strBizName;//商家名称
     private String strShopName;//分部名称
