@@ -20,21 +20,21 @@ public class UserSession implements HttpSessionBindingListener {
 	   private ServletContext application;
 	    private ArrayList onlineName = new ArrayList();
 	    /**
-	     * ����������֧�ֶ���¼
+	     * 在线总人数，支持多点登录
 	     */
 	    private HashMap onlineUserInfo = new HashMap();
 	    /**
-	     * �û��Ƿ���֤
+	     * 用户是否认证
 	     */
 	    private boolean isAuth = false;
-	    //��½��ip��ַ
+	    //登陆的ip地址
 	    private String loginIp;
 	    private String dLatestLoginTime;
-	   //Ȩ����Ϣ
+	   //权限信息
 	    private HashMap rights = new HashMap();
-	    //ÿҳ��¼����
+	    //每页记录条数
 	    private int intPageSize;
-	    //�ֱ���
+	    //分辨率
 	    private int exculpate;
 
 
@@ -59,7 +59,7 @@ public class UserSession implements HttpSessionBindingListener {
 	            onlineUserInfo.put(session.getId(), this);
 	            application.setAttribute(Constants.OnlineUserInfo, onlineUserInfo);
 	            //-------------------------------------------------------------------------------------------------------------------
-	            Globa.logger0("�û���¼", "u/"+strUserId+"/"+strName, loginIp, "��¼�ɹ�", "ϵͳ����",strDepart);
+	            Globa.logger0("用户登录", "u/"+strUserId+"/"+strName, loginIp, "登录成功", "系统管理",strDepart);
 	            System.out.println("[" + Format.getDateTime() + "]  user [" + strUserId + "] login from " + loginIp + " !");
 	        }
 	    }
@@ -77,12 +77,12 @@ public class UserSession implements HttpSessionBindingListener {
 	            onlineUserInfo.remove(session.getId());
 	            application.setAttribute(Constants.OnlineUserInfo, onlineUserInfo);
 	//-------------------------------------------------------------------------------------------------------------------
-	            //��¼�˳�ʱ��
+	            //记录退出时间
 	            Globa globa = new Globa();
 	            try {
 	                System.out.println("UPDATE t_sy_user SET fOnlineTime = fOnlineTime + DATEDIFF([minute], dLatestLoginTime, getdate())  where strUserId = '" + strUserId + "'");
 	                globa.db.executeUpdate("UPDATE t_sy_user SET fOnlineTime = fOnlineTime + DATEDIFF([minute], dLatestLoginTime, getdate())  where strUserId = '" + strUserId + "'");
-	                Globa.logger0("�û��˳�",  "u/"+strUserId+"/"+strName, loginIp, "�˳�ϵͳ", "ϵͳ����",strDepart);
+	                Globa.logger0("用户退出",  "u/"+strUserId+"/"+strName, loginIp, "退出系统", "系统管理",strDepart);
 	            } catch (SQLException e) {
 	            } finally {
 	                globa.closeCon();
@@ -140,29 +140,30 @@ public class UserSession implements HttpSessionBindingListener {
 	    public HashMap getOnlineUserInfo() {
 	        return onlineUserInfo;
 	    }
-	    private String     strId ;//�û�id
-	    private String strUserId;//		�û���
-	    private String strPWD;//			����
-	    private String strName;//		����
-	    private int intType;//		�û����ͣ���ͨ��Ա-0���쵼-1��
-	    private String[] strUnitId;//		����λid
-	    private String unitIds;//		������λid���12333,3222
-	    private String strUnitCode;//			����λ����
-	    private String strUnitName;//			����λ���
-	    private String strDepart;//		��֯���
-	    private String strCssType;//		�û��ĸ��Ի�ҳ������ʽ
-	    private String strCaNO;//			mac��ַ
-	    private String strRootId;//			��b��λ��id
-	    private String strInfoName;//			��Ϣ�ϱ���λ��ʾ�����
-	    private String strDirectName;//			�����ϱ���λ��ʾ�����
-	    private String strUpUnitType;//			�û�����
-	    private String strSendCenter;//			���а� ���?������
-	    private String strAllUnits;//			�û�����������ϼ��û��飬��ʽ��1111��2222��333
-	    private String  strMsnQQ;        //Ӱ�����Ȩ��
+	    private String     strId ;//用户id
+	    private String strUserId;//		用户名
+	    private String strPWD;//			密码
+	    private String strName;//		姓名
+	    private int intType;//		用户类型（普通人员-0、领导-1）
+	    private String[] strUnitId;//		所属单位id
+	    private String unitIds;//		所属多个单位id组合12333,3222
+	    private String strUnitCode;//			所属单位编码
+	    private String strUnitName;//			所属单位名称
+	    private String strDepart;//		组织名称
+	    private String strCssType;//		用户的个性化页面风格样式
+	    private String strCaNO;//			mac地址
+	    private String strRootId;//			独立单位的id
+	    private String strInfoName;//			信息上报单位标示的名称
+	    private String strDirectName;//			督查上报单位标示的名称
+	    private String strUpUnitType;//			用户类型
+	    private String strSendCenter;//			报中办 允许，不允许
+	    private String strAllUnits;//			用户所属的所有上级用户组，格式：1111，2222，333
+	    private String  strMsnQQ;        //影视浏览权限
 	    private String strEmail;//			E-mail
-	    private int intUnitType;//int		N		��Ϣ�ϱ���λ����1-��Ϣ����2-�����ң�
-	    private int intUserType;//�û������ͣ�0��ϵͳ����Ա  1��ҵ�����  2�����¼��Ա  3����ͨ����Ա��
-	    private String strBuildId;//������ҵ����������Id
+	    private int intUnitType;//int		N		信息上报单位类型1-信息处，2-督查室，
+	    private int intUserType;//用户基本类型（0：系统管理员  1：业务主管  2：数据录入员  3：普通操作员）
+	    private String strBuildId;//建筑物业主所属建筑物Id
+	    private String strShopid;//商家id
 
 	    public int getIntUnitType() {
 	        return intUnitType;
@@ -371,7 +372,7 @@ public class UserSession implements HttpSessionBindingListener {
 	        }
 	        return false;
 	    }
-	    //�ж��Ƿ����ƶ��û����û�
+	    //判断是否是制定用户组用户
 	    public boolean hasUnitUser(String unitId) {
 	        if(strUnitId==null) return false;
 	        else
@@ -381,9 +382,9 @@ public class UserSession implements HttpSessionBindingListener {
 	        }
 	        return false;
 	    }
-	    //��һ����Ϣ
+	    //上一条信息
 	    private HashMap hmUpInfo = new HashMap();
-	    //��һ����Ϣ
+	    //下一条信息
 	    private HashMap hmDownInfo = new HashMap();
 
 	    public HashMap getHmUpInfo() {
@@ -401,4 +402,19 @@ public class UserSession implements HttpSessionBindingListener {
 	    public void setHmDownInfo(HashMap hmDownInfo) {
 	        this.hmDownInfo = hmDownInfo;
 	    }
+
+		/**
+		 * @return the strShopid
+		 */
+		public String getStrShopid() {
+			return strShopid;
+		}
+
+		/**
+		 * @param strShopid the strShopid to set
+		 */
+		public void setStrShopid(String strShopid) {
+			this.strShopid = strShopid;
+		}
+	    
 }
