@@ -3,9 +3,10 @@
     <module url="" state="1" name="日常管理">
 		<module name="商家管理" code="100" flow="" state="1" url=""  >
             <affair name="基本信息" code="10005" url="shop/shop_list.jsp" state="1" />
-            <affair name="积分购买" code="10005" url="shop/pointbuy_list.jsp" state="1" />
-            <affair name="积分余额" code="10005" url="shop/shop_point.jsp" state="1" />
-            <affair name="积分转赠" code="10005" url="shop/pointpresent_list.jsp" state="1" />
+            <affair name="积分购买" code="10010" url="shop/pointbuy_list.jsp" state="1" />
+            <affair name="积分余额" code="10015" url="shop/shop_point.jsp" state="1" />
+            <affair name="积分转赠" code="10020" url="shop/pointpresent_list.jsp" state="1" />
+            <affair name="纸质积分卡" code="10025" url="shop/pointcard_list.jsp" state="1" />
         </module>
 		<module name="会员管理" code="110" flow="" state="1" url=""  >
             <affair name="基本信息" code="11005" url="member/member_list.jsp" state="1" />
