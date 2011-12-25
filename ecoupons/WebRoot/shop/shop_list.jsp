@@ -153,7 +153,7 @@ function del(){
             	for (int i = 0;i < vctObj.size(); i++) {
                         	Shop obj1 = vctObj.get(i);
             %>
-              <tr  title="<%=obj1.getStrId()%>" >
+              <tr  title="创建时间：<%=obj1.getDtCreateTime()%>" >
                 <td height="20" bgcolor="#FFFFFF"><div align="center">
                     <input type="checkbox" name=strId value="<%=obj1.getStrId() %>" />
                 </div></td>

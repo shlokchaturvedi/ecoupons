@@ -36,7 +36,23 @@ body,td,tr{font-size:9pt;}
             alert("请输选择所属行业！！！")
             frm.strTrade.focus();
             return false;
-        } else {
+        } else if(trim(frm.strPhone.value)!=""){        
+            var telphone = trim(frm.strPhone.value);
+            var tel=new Array();
+            tel = telphone.split("、"); 
+            var TelPhoneParn =/(^[0-9]{3,4}\-[0-9]{3,8}$)|(^[0-9]{3,8}$)|(^\([0-9]{3,4}\)[0-9]{3,8}$)|(^0{0,1}13[0-9]{9}$)/; 
+            var reParn = new RegExp(TelPhoneParn);
+        	for(i=0;i<tel.length;i++)
+        	{
+        	 	if(!reParn.test(tel[i]))
+        		{
+                  alert(tel[i]+"请输入正确的联系电话！！！如0551-2342345或13200000001");
+                  frm.strPhone.focus();         
+        		  return false;
+        		}      		
+        	}
+        	frm.submit();
+         }else {
         	frm.submit();
         }
     }
@@ -127,7 +143,7 @@ body,td,tr{font-size:9pt;}
                  <td width="20%" height="30" align="right" class="left_txt2">联系电话：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30"><input name="strPhone" type="text" class="input_box" size="30" /></td>
-                <td width="45%" height="30" class="left_txt">&nbsp;</td> 
+                <td width="45%" height="30" class="left_txt">（手机号或固定电话，多个联系电话号码用顿号“、”隔开）</td> 
               </tr>
               <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">联  系  人：</td>
@@ -145,13 +161,13 @@ body,td,tr{font-size:9pt;}
                 <td height="30" align="right" class="left_txt2">小图片：</td>
                 <td>&nbsp;</td>
                 <td height="30"><input name="strSmallImg" type="file" class="input_box" size="30" /></td>
-                <td height="30" class="left_txt">大小：<%=application.getAttribute("SHOP_SMALL_IMG_WIDTH") %>*<%=application.getAttribute("SHOP_SMALL_IMG_HEIGHT") %>px，用于前台列表显示</td>
+                <td height="30" class="left_txt">（大小：<%=application.getAttribute("SHOP_SMALL_IMG_WIDTH") %>*<%=application.getAttribute("SHOP_SMALL_IMG_HEIGHT") %>px，用于前台列表显示）</td>
               </tr>
               <tr bgcolor="#f2f2f2">
                 <td height="30" align="right" class="left_txt2">大图片：</td>
                 <td>&nbsp;</td>
                 <td height="30"><input name="strLargeImg" type="file" class="input_box" size="30" /></td>
-                <td height="30" class="left_txt">大小：<%=application.getAttribute("SHOP_LARGE_IMG_WIDTH") %>*<%=application.getAttribute("SHOP_LARGE_IMG_HEIGHT") %>px，用于前台详细显示</td>
+                <td height="30" class="left_txt">（大小：<%=application.getAttribute("SHOP_LARGE_IMG_WIDTH") %>*<%=application.getAttribute("SHOP_LARGE_IMG_HEIGHT") %>px，用于前台详细显示）</td>
               </tr>
           	  <tr bgcolor="#f2f2f2">
                  <td width="20%" height="30" align="right" class="left_txt2">商家简介：</td>
