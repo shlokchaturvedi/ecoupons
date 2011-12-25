@@ -65,7 +65,7 @@ public class User {
         	//把用户信息写入数据库
             strSql = "INSERT INTO " + strTableName + "  (strId, strUserId, strPWD, strName, intError, intState, dBirthday, strSex, strIntro,intType, strUnitId, strUnitCode," +
                     " strNation, strMobile, strEmail, strMsnQQ,strOPhone, strHPhone, strDuty, strStation, intLoginNum, dLatestLoginTime,fOnlineTime, strCaNO, " +
-                    "strDepart, strCssType,  strLinkAdd, strCreator, dCreatDate,intUserType,strBuildId,strCssType) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                    "strDepart, strCssType,  strLinkAdd, strCreator, dCreatDate,intUserType,strBuildId,strShopid) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             db.prepareStatement(strSql);
             db.setString(1, strId);
             db.setString(2, strUserId);
@@ -92,13 +92,13 @@ public class User {
             db.setDouble(23, 0);
             db.setString(24, strCaNO);
             db.setString(25, strDepart);
-            db.setString(26, "1");
+            db.setString(26, strCssType);
             db.setString(27, strLinkAdd);
             db.setString(28, globa.loginName);
             db.setString(29, com.ejoysoft.common.Format.getDateTime());
             db.setInt(30, intUserType);
             db.setString(31, strBuildId);
-            db.setString(32, strCssType);
+            db.setString(32, strShopid);
             if (db.executeUpdate() > 0) {
                 Globa.logger0("增加用户信息", globa.loginName, globa.loginIp, strSql, "用户管理", globa.userSession.getStrDepart());
                 return true;
@@ -283,7 +283,7 @@ public class User {
         try {
             String strSql = "UPDATE  " + strTableName + "  SET  strName = ?, intError = ?, intState = ?, dBirthday = ?, strSex = ?, strIntro = ?, intType = ?, " +
                     "strUnitId = ?, strUnitCode = ?,strNation = ?, strMobile = ?, strEmail = ?, strMsnQQ = ?, strOPhone = ?, strHPhone = ?, strDuty = ?, strStation = ?, " +
-                    " strCaNO = ?, strDepart = ?,  strLinkAdd = ?, strCreator = ?, dCreatDate = ? ,intUserType=?,strBuildId=?,strCssType=?  WHERE strUserId=? ";
+                    " strCaNO = ?, strDepart = ?,  strLinkAdd = ?, strCreator = ?, dCreatDate = ? ,intUserType=?,strBuildId=?,strCssType=?,strShopid=?  WHERE strUserId=? ";
             db.prepareStatement(strSql);
             db.setString(1, strName);
             db.setInt(2, 0);
@@ -310,7 +310,8 @@ public class User {
             db.setInt(23, intUserType);
             db.setString(24, strBuildId);
             db.setString(25, strCssType);
-            db.setString(26, tStrUserId);
+            db.setString(26, strShopid);
+            db.setString(27, tStrUserId);
             db.executeUpdate();
             Globa.logger0("修改用户信息", globa.loginName, globa.loginIp, strSql, "用户管理", globa.userSession.getStrDepart());
             return true;
@@ -369,6 +370,7 @@ public class User {
             theBean.setdCreatDate(rs.getString("dCreatDate"));
             theBean.setIntUserType(rs.getInt("intUserType"));
             theBean.setStrBuildId(rs.getString("strBuildId"));
+            theBean.setStrShopid(rs.getString("strShopid"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -728,6 +730,7 @@ public class User {
     private int intOldSort;//修改前的排序号
     private int intUserType;//用户基本类型（0，数据中心工作人员  1：建筑物业主）
     private String strBuildId;//建筑物业主所属建筑物Id
+    private String strShopid;//商家Id
 
 
     public String getStrId() {
@@ -1001,6 +1004,20 @@ public class User {
 
 	public void setStrBuildId(String strBuildId) {
 		this.strBuildId = strBuildId;
+	}
+
+	/**
+	 * @return the strShopid
+	 */
+	public String getStrShopid() {
+		return strShopid;
+	}
+
+	/**
+	 * @param strShopid the strShopid to set
+	 */
+	public void setStrShopid(String strShopid) {
+		this.strShopid = strShopid;
 	}
     
 }
