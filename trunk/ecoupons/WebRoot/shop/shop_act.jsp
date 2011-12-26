@@ -70,7 +70,6 @@
 		obj.setIntPoint(Integer.parseInt(au.getString("intPoint")));
 		System.out.println(Integer.parseInt(au.getString("intPoint")));
 		obj.setStrCreator(globa.fullRealName);
-	   // String  strUnitId=ParamUtil.getString(request,"strUnitId","");
 	    if(action.equals(Constants.ADD_STR)) {
 		    String strbizname=au.getString("strBizName");
 		    String strshopname=au.getString("strShopName");
