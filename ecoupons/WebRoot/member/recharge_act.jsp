@@ -13,7 +13,7 @@
 		int intMoney=Integer.parseInt(ParamUtil.getString(request, "intMoney", ""));
 		System.out.println(intMoney+"--8978778899999");
 		String strId = ParamUtil.getString(request, "strId", "");
-		if (obj.update(strId,intMoney))
+		if (obj.update(intMoney))
 		{
 			globa.dispatch(true, strUrl);
 		}else{
