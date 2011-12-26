@@ -2,7 +2,7 @@
 <%@ page
 	import="com.ejoysoft.ecoupons.system.User,com.ejoysoft.common.Constants,com.ejoysoft.common.Format,com.ejoysoft.common.exception.IdObjectException,com.ejoysoft.ecoupons.system.SysUserUnit,java.util.Vector,com.ejoysoft.ecoupons.system.Unit,
                  java.util.HashMap"%>
-<%@page import="com.ejoysoft.ecoupons.system.Member"%>
+<%@page import="com.ejoysoft.ecoupons.business.Member"%>
 <%@ include file="../include/jsp/head.jsp"%>
 <%
 	String strId = ParamUtil.getString(request,"strId","");

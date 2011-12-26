@@ -1,19 +1,20 @@
 <%@ page language="java" import="java.util.*,com.ejoysoft.common.exception.*,com.ejoysoft.common.*" pageEncoding="UTF-8"%>
-<%@page import="com.ejoysoft.ecoupons.system.Member"%>
-<%@page import="com.ejoysoft.ecoupons.system.Recharge"%>
+<%@page import="com.ejoysoft.ecoupons.business.Member"%>
+<%@page import="com.ejoysoft.ecoupons.business.Recharge"%>
 <%@ include file="../include/jsp/head.jsp"%>
 <%
-String path = request.getContextPath();
+	String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <%
-if(!globa.userSession.hasRight("110"))
+	if(!globa.userSession.hasRight("110"))
       throw new NoRightException("用户不具备操作该功能模块的权限，请与系统管理员联系！");
 %>
 <%
-    //初始化
+	//初始化
      //获取单位的strId
-    //String  strUnitId=ParamUtil.getString(request,"strUnitId","");
+   // String  log=ParamUtil.getString(request,"strUnitId","");
+
     //初始化
     Recharge  recharge=null;
     Recharge obj=new Recharge(globa);
@@ -24,6 +25,7 @@ if(!globa.userSession.hasRight("110"))
 	if (!strMemberCardNo.equals("")) {
 		tWhere += " and strMemberCardNo LIKE '%" + strMemberCardNo + "%'";
 	}
+	
 	tWhere += " ORDER BY dtCreateTime";
 	//记录总数
 	int intAllCount=obj.getCount(tWhere);
@@ -132,21 +134,20 @@ body,td,th {
                 <td width="10%" class="left_bt2"><div align="center">记录编号</div></td>
                 <td width="10%" class="left_bt2"><div align="center">卡号</div></td>
                 <td width="10%" class="left_bt2"><div align="center">充值金额</div></td>
-                <td width="5%" class="left_bt2"><div align="center">操作人</div></td>                
-                 <td width="15%" class="left_bt2"><div align="center">操作时间</div></td>
+               
                 <td width="15%" class="left_bt2"><div align="center">基本操作</div></td>
               </tr>
             <%
-            for (int i = 0;i < vctObj.size(); i++) {
-            	Recharge obj1 = vctObj.get(i);
+            	for (int i = 0;i < vctObj.size(); i++) {
+                        	Recharge obj1 = vctObj.get(i);
+                        	
             %>
               <tr>
                 
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrId()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrMemberCardNo()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getIntMoney()%></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrCreator()%></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getDtCreateTime()%></span></div></td>
+                
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE4">
                   <a href="recharge_update.jsp?strId=<%=obj1.getStrId()%>"><img src="../images/edit.gif" width="16" height="16" border="0" />修改</a> 
 			      
