@@ -1,7 +1,11 @@
 <%@ page import="com.ejoysoft.ecoupons.system.SysPara,
-                 java.util.Vector,com.ejoysoft.common.Constants"%>
+                 java.util.Vector,com.ejoysoft.common.Constants,com.ejoysoft.common.exception.NoRightException"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ include file="../include/jsp/head.jsp"%>
+<%
+if(!globa.userSession.hasRight("91030"))
+      throw new NoRightException("用户不具备操作该功能模块的权限，请与系统管理员联系！");
+%>
 <%
     //获取单位的strId
     String  strType=ParamUtil.getString(request,"strType","");
