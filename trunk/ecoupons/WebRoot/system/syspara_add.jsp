@@ -43,9 +43,7 @@ function chkFrm(){
         
          else  frm.submit();
     }
-    function chgType(inputVlaue){
-          location.href='syspara_add.jsp?strType='+inputVlaue;
-    }
+   
 -->
 </script>
 </head>
@@ -108,7 +106,7 @@ function chkFrm(){
                  <td width="20%" height="30" align="right" class="left_txt2">参数类型：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30">
-                 <select name="strType" onChange="chgType(this.value)"  class="input_box">
+                 <select name="strType"   class="input_box">
                <option value="" <%if(strType.equals("")) out.print("selected");%>>=选择参数类型=</option>
                     <%
                   //从全局变量中读取参数类型
