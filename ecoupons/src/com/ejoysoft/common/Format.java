@@ -96,6 +96,10 @@ public class Format {
     public static String getStrDate(String s) {
         return s.substring(0, 10);
     }
+    /**获取年月日时分字符串*/
+    public static String getStrDate2(String s) {
+        return s.substring(0, 16);
+    }
 
     /**�Ƚ�i�������ַ� */
     public static boolean compareTo(String s, String s1) {
