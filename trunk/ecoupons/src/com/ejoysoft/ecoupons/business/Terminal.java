@@ -1,11 +1,10 @@
 package com.ejoysoft.ecoupons.business;
 
 import com.ejoysoft.common.*;
-import com.ejoysoft.common.exception.UserUnitIdException;
+import com.ejoysoft.ecoupons.system.SysPara;
 import java.util.Vector;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.sql.SQLException;
 import com.ejoysoft.ecoupons.business.Shop;
 
 /**
@@ -36,10 +35,7 @@ public class Terminal {
     }
 
     String strTableName = "t_bz_terminal";
-    String strTableName2 = "t_bz_coupon";
-    String strTableName3 = "t_bz_coupon_input";
-    String strTableName4 = "t_bz_point_buy";
-    String strTableName5 = "t_bz_point_present";
+    String strTableName2 = "t_bz_advertisement";
 
     //添加券打机信息
     public boolean add() {
@@ -53,8 +49,8 @@ public class Terminal {
                     " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             db.prepareStatement(strSql);
             db.setString(1, strId);
-            db.setString(2, strNo);
-            db.setString(3, com.ejoysoft.common.Format.getStrDate(dtActiveTime));   //strPWD
+            db.setString(2, strNo); 
+            db.setString(3, com.ejoysoft.common.Format.getStrDate2(dtActiveTime));  
             db.setString(4, strLocation);
             db.setString(5, this.getAroundShopIds(strAroundShops));
             db.setString(6, strProducer);
@@ -122,19 +118,7 @@ public class Terminal {
         }
     }
 
-    //查询
-    public Terminal show(String where) {
-        try {
-            String strSql = "select * from  " + strTableName + "  ".concat(where);
-            ResultSet rs = db.executeQuery(strSql);
-            if (rs != null && rs.next())
-                return load(rs, true);
-            else
-                return null;
-        } catch (Exception ee) {
-            return null;
-        }
-    }
+  
     //获取临近商家ids
     public String getAroundShopIds(String strAroundShops)
     {
@@ -145,81 +129,34 @@ public class Terminal {
             String shopnames[]= strAroundShops.split("，");             
             for(int i=0;i<shopnames.length;i++)
             {
-           	 Shop obj = new Shop();
-           	 System.out.println("where strbizname='"+((shopnames[i].split("-"))[0]).trim()+"' and strshopname='"+((shopnames[i].split("-"))[1]).trim()+"'");
-             obj=obj0.show("where strbizname='"+((shopnames[i].split("-"))[0]).trim()+"' and strshopname='"+((shopnames[i].split("-"))[1]).trim()+"'");
-           	 if(obj!=null)
-           	 {
-           		 shopids +=obj.getStrId();
-           		 if(i<shopnames.length-1)
-           			 shopids +=",";
+	           	 Shop obj = new Shop();
+	           	 if(shopnames[i].split("-").length==2)
+	           	 {
+	           		 obj=obj0.show("where strbizname='"+((shopnames[i].split("-"))[0]).trim()+"' and strshopname='"+((shopnames[i].split("-"))[1]).trim()+"'");
+	              	 if(obj!=null)
+	              	 {
+	              		 shopids +=obj.getStrId();
+	              		 if(i<shopnames.length-1)
+	              			 shopids +=",";
+	              	 }
+	             }
+	             else shopids=" ";
            	 }
-            }
+           	 
            
          }
     	return shopids;
     }
-    //封装终端信息结果集
-    public Terminal load(ResultSet rs, boolean isView) {
-    	Terminal theBean = new Terminal();
-        try {
-        	 theBean.setStrId(rs.getString("strid"));
-             theBean.setStrNo(rs.getString("strno"));
-             theBean.setDtActiveTime(rs.getString("dtactivetime"));
-             theBean.setStrLocation(rs.getString("strlocation"));
-             theBean.setStrProducer(rs.getString("strproducer"));
-             theBean.setStrType(rs.getString("strtype"));
-             theBean.setStrResolution(rs.getString("strresolution"));
-             theBean.setStrResolution2(rs.getString("strresolution2"));
-             theBean.setStrResolution3(rs.getString("strresolution3"));
-             theBean.setIntState(rs.getInt("intstate"));
-             if(rs.getInt("intstate")==-1)
-            	 theBean.setStateString("异常");
-             else 
-            	 theBean.setStateString("正常");
-			 theBean.setIntState(rs.getInt("intstate"));
-             theBean.setDtRefreshTime(rs.getString("dtrefreshtime"));
-             theBean.setStrCreator(rs.getString("strcreator"));
-             theBean.setDtCreateTime(rs.getString("dtcreatetime"));
-             //获取临近商家名称
-             String shopids = rs.getString("straroundshopids");
-             theBean.setStrAroundShopIds(shopids);
-             if(shopids!=null&& shopids.trim()!="")
-             {
-            	 Shop obj0 = new Shop(globa);
-                 String shopnames =" ";
-                 String shops[]= shopids.split(",");             
-                 for(int i=0;i<shops.length;i++)
-                 {
-                	 Shop obj = new Shop();
-                	 obj=obj0.show("where strid='"+shops[i]+"'");
-                	 if(obj!=null)
-                	 {
-                		 shopnames +=obj.getStrBizName()+"-"+obj.getStrShopName();
-                		 if(i<shops.length-1)
-                			 shopnames +="，";
-                	 }
-                 }
-                 theBean.setStrAroundShops(shopnames);
-             }
-        	 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return theBean;
-    }
-
-
     //封装结果集2
-    public Terminal load2(ResultSet rs, boolean isView) {
+    public Terminal load2(ResultSet rs, boolean isView) { 
     	Terminal theBean = new Terminal();
         try {
         	 theBean.setStrId(rs.getString("strid"));
              theBean.setStrNo(rs.getString("strno"));
              theBean.setDtActiveTime(rs.getString("dtactivetime"));
              theBean.setStrLocation(rs.getString("strlocation"));
-             theBean.setStrProducer(rs.getString("strproducer"));
-             theBean.setStrType(rs.getString("strtype"));
+             theBean.setStrProducer(SysPara.getNameById(rs.getString("strproducer")));
+             theBean.setStrType(SysPara.getNameById(rs.getString("strtype")));
              theBean.setStrResolution(rs.getString("strresolution"));
              theBean.setStrResolution2(rs.getString("strresolution2"));
              theBean.setStrResolution3(rs.getString("strresolution3"));
@@ -260,7 +197,7 @@ public class Terminal {
         return theBean;
     }
 
-    //查询全部记录
+    //查询记录
       public Vector<Terminal> jionlist(String where, int startRow, int rowCount) {
           Vector<Terminal>  beans = new Vector<Terminal>();
           try {
@@ -287,7 +224,7 @@ public class Terminal {
           }
           return beans;
       }
-    //分页整理
+    //分页整理终端
     public Vector<Terminal> list(String where, int startRow, int rowCount) {
         Vector<Terminal> beans = new Vector<Terminal>();
         try {
@@ -315,8 +252,21 @@ public class Terminal {
         return beans;
     }
 
+    //查询终端
+    public Terminal show(String where) {
+        try {
+            String strSql = "select * from  " + strTableName + "  ".concat(where);
+            ResultSet rs = db.executeQuery(strSql);
+            if (rs != null && rs.next())
+                return load2(rs, true);
+            else
+                return null;
+        } catch (Exception ee) {
+            return null;
+        }
+    }
    
-    //�����Լ��޸�
+    //自我更新
     public boolean selfUpdate(String tStrUserId) {
         try {
 
@@ -337,10 +287,10 @@ public class Terminal {
 	            db.setString(12, com.ejoysoft.common.Format.getDateTime());
 	            db.setString(13, strId);
 	            db.executeUpdate();
-			    Globa.logger0("�޸��û���Ϣ", globa.loginName, globa.loginIp, strSql, "�û�����", globa.userSession.getStrDepart());
+			    Globa.logger0("更新", globa.loginName, globa.loginIp, strSql, "终端管理", globa.userSession.getStrDepart());
 			    return true;
 			} catch (Exception e) {
-			    System.out.println("�޸��û���Ϣʱ��?" + e);
+			    System.out.println("更新失败" + e);
 			    return false;
 			}
     }
@@ -367,6 +317,158 @@ public class Terminal {
         }
     }
 
+    //添加广告记录
+    public boolean addAd() {
+        String strSql = "";
+        strId = UID.getID();
+        try {
+        	
+        	   //添加券打机信息
+            strSql = "insert into " + strTableName2 + "  (strid, strname,inttype, strcontent,strterminalids,dtstarttime,dtendtime, " +
+            		"strcreator, dtcreatetime) values(?,?,?,?,?,?,?,?,?)";
+            db.prepareStatement(strSql);
+            db.setString(1, strId);
+            db.setString(2, strName); 
+            db.setString(3, intType);  
+            db.setString(4, strContent);
+            db.setString(5, strTerminalIds);
+            db.setString(6, dtStartTime);
+            db.setString(7, dtEndTime);
+            db.setString(8, strCreator);
+            db.setString(9, com.ejoysoft.common.Format.getDateTime());
+            if (db.executeUpdate() > 0) {
+                Globa.logger0("添加广告信息", globa.loginName, globa.loginIp, strSql, "终端管理", globa.userSession.getStrDepart());
+                return true;
+            } else
+                return false;
+        }catch (Exception e) {
+            System.out.println("添加广告信息异常");
+            e.printStackTrace();
+            return false;
+        }
+    }
+    //广告更新
+    public boolean updateAd(String strId) {
+        try {
+         	String strSql = "update " + strTableName2 + "  set strname=?,inttype=?, strcontent=?,strterminalids=?," +
+         			"dtstarttime=?,dtendtime=? where strid=? ";
+            db.prepareStatement(strSql);
+            db.setString(1, strName); 
+            db.setString(2, intType);  
+            db.setString(3, strContent);
+            db.setString(4, strTerminalIds);
+            db.setString(5, dtStartTime);
+            db.setString(6, dtEndTime);
+            db.setString(7, strId);
+            db.executeUpdate();
+            Globa.logger0("更新广告信息", globa.loginName, globa.loginIp, strSql, "终端管理", globa.userSession.getStrDepart());
+            return true;
+        } catch (Exception e) {
+            System.out.println("更新广告信息异常" + e);
+            return false;
+        }
+    }
+
+  //封装广告信息结果集
+    public Terminal loadAd(ResultSet rs, boolean isView) {
+    	Terminal theBean = new Terminal();
+        try {
+        	 theBean.setStrId(rs.getString("strid"));
+             theBean.setStrName(rs.getString("strname"));
+             theBean.setIntType(rs.getString("inttype"));
+             theBean.setStrContent(rs.getString("strcontent"));
+             theBean.setStrTerminalIds(rs.getString("strTerminalids"));
+             theBean.setDtStartTime((rs.getString("dtstarttime")).substring(0,5));
+             theBean.setDtEndTime((rs.getString("dtendtime")).substring(0,5));
+             theBean.setStrCreator(rs.getString("strcreator"));
+             theBean.setDtCreateTime(rs.getString("dtcreatetime"));             
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return theBean;
+    }
+
+  //删除广告信息
+    public boolean deleteAd(String where) {
+    	String sql = "delete from " + strTableName2 + "  ".concat(where);
+       //事务处理
+    	try {
+        	db.getConnection().setAutoCommit(false);//禁止自动提交事务 
+        	
+            db.executeUpdate(sql);//删除终端
+            
+            db.getConnection().commit(); //统一提交
+            Globa.logger0("删除广告信息", globa.loginName, globa.loginIp, sql, "终端管理", globa.unitCode);
+            return true;
+        } catch (Exception ee) {
+            ee.printStackTrace();
+            return false;
+        } 
+    }
+    //分页整理广告结果
+    public Vector<Terminal> listAd(String where, int startRow, int rowCount) {
+        Vector<Terminal> beans = new Vector<Terminal>();
+        try {
+            String sql = "SELECT *  FROM  " + strTableName2 + " ";
+            if (where.length() > 0)
+                sql = String.valueOf(sql) + String.valueOf(where);
+            Statement s = db.getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            if (startRow != 0 && rowCount != 0)
+                s.setMaxRows((startRow + rowCount) - 1);
+            ResultSet rs = s.executeQuery(sql);
+            if (rs != null && rs.next()) {
+                if (startRow != 0 && rowCount != 0)
+                    rs.absolute(startRow);
+                do {
+                	Terminal theBean = new Terminal();
+                    theBean = loadAd(rs, false);
+                    beans.addElement(theBean);
+                } while (rs.next());
+            }
+            rs.close();
+            s.close();
+        } catch (Exception ee) {
+            ee.printStackTrace();
+        }
+        return beans;
+    }
+
+    //查询记录数
+    public int getCountAd(String where) {
+        int count = 0;
+        try {
+            String sql = "SELECT count(strId) FROM " + strTableName2 + "  ";
+            if (where.length() > 0) {
+                where = where.toLowerCase();
+                if (where.indexOf("order") > 0)
+                    where = where.substring(0, where.lastIndexOf("order"));
+                sql = String.valueOf(sql) + String.valueOf(where);
+            }
+            ResultSet rs = db.executeQuery(sql);
+            if (rs.next())
+                count = rs.getInt(1);
+            rs.close();
+            return count;
+        } catch (Exception ee) {
+            ee.printStackTrace();
+            return count;
+        }
+    }
+    //查询广告
+    public Terminal showAd(String where) {
+        try {
+            String strSql = "select * from  " + strTableName2 + "  ".concat(where);
+            ResultSet rs = db.executeQuery(strSql);
+            if (rs != null && rs.next())
+                return loadAd(rs, true);
+            else
+                return null;
+        } catch (Exception ee) {
+            return null;
+        }
+    }
+//终端信息
     private String strId;//终端信息Id
     private String strNo;//终端编号
     private String dtActiveTime;//启用时间
@@ -381,13 +483,21 @@ public class Terminal {
     private int intState;//状态
     private String stateString ;//默认状态显示正常
     private String dtRefreshTime;//状态更新时间
+//广告信息
+    private String strName;//广告名称
+    private String intType;//广告类型
+    private String typeName;//类型内容
+    private String strContent;//广告内容
+    private String strTerminalIds;//投放终端
+    private String strTerminals;//投放终端编码
+    private String dtStartTime;//每天开始时间
+    private String dtEndTime;//每天结束时间
+    
     private String strCreator;//创建人
     private String dtCreateTime;//创建时间
-
 	public Globa getGloba() {
 		return globa;
 	}
-
 	public void setGloba(Globa globa) {
 		this.globa = globa;
 	}
@@ -520,6 +630,54 @@ public class Terminal {
 		this.strCreator = strCreator;
 	}
 
+	public String getStrName() {
+		return strName;
+	}
+
+	public void setStrName(String strName) {
+		this.strName = strName;
+	}
+
+	public String getIntType() {
+		return intType;
+	}
+
+	public void setIntType(String intType) {
+		this.intType = intType;
+	}
+
+	public String getStrContent() {
+		return strContent;
+	}
+
+	public void setStrContent(String strContent) {
+		this.strContent = strContent;
+	}
+
+	public String getStrTerminalIds() {
+		return strTerminalIds;
+	}
+
+	public void setStrTerminalIds(String strTerminalIds) {
+		this.strTerminalIds = strTerminalIds;
+	}
+
+	public String getDtStartTime() {
+		return dtStartTime;
+	}
+
+	public void setDtStartTime(String dtStartTime) {
+		this.dtStartTime = dtStartTime;
+	}
+
+	public String getDtEndTime() {
+		return dtEndTime;
+	}
+
+	public void setDtEndTime(String dtEndTime) {
+		this.dtEndTime = dtEndTime;
+	}
+
 	public String getDtCreateTime() {
 		return dtCreateTime;
 	}
@@ -527,4 +685,21 @@ public class Terminal {
 	public void setDtCreateTime(String dtCreateTime) {
 		this.dtCreateTime = dtCreateTime;
 	}
+
+	public String getStrTerminals() {
+		return strTerminals;
+	}
+
+	public void setStrTerminals(String strTerminals) {
+		this.strTerminals = strTerminals;
+	}
+
+	public String getTypeName() {
+		return typeName;
+	}
+
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
+	}
+
 }
