@@ -1,5 +1,7 @@
 package com.ejoysoft.ecoupons.system;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -16,6 +18,7 @@ public class Member
 	private Globa globa;
 	private DbConnect db;
 	String strTableName = "t_bz_member";
+	String strRechargeTableName = "t_bz_member_recharge";
 
 	/*
 	 * 修改会员信息
@@ -25,7 +28,8 @@ public class Member
 		System.out.println(strCardNo + strName);
 		try
 		{
-			String strSql = "UPDATE  " + strTableName + "  SET strCardNo = ?, strSalesman = ?, strName = ?, intType = ?,  " + "dtExpireTime = ?, strSalesman = ?  WHERE strId=? ";
+			String strSql = "UPDATE  " + strTableName + "  SET strCardNo = ?, strSalesman = ?, strName = ?, intType = ?,  "
+					+ "dtExpireTime = ?, strSalesman = ?  WHERE strId=? ";
 			db.prepareStatement(strSql);
 			db.setString(1, strCardNo);
 			db.setString(2, strSalesman);
@@ -56,17 +60,52 @@ public class Member
 	 */
 	public boolean delete(String where)
 	{
+		PreparedStatement pStatement = null;
+		PreparedStatement preparedStatement = null;
+		Connection connection = null;
 		try
 		{
 			String sql = "DELETE FROM " + strTableName + "  ".concat(where);
-			db.executeUpdate(sql);
-			Globa.logger0("删除会员信息", globa.loginName, globa.loginIp, sql, "会员管理", globa.unitCode);
-			return true;
+			String sql2 = "DELETE FROM " + strRechargeTableName + " where strMemberCardNo=" + show(where).getStrCardNo();
+			System.out.println(sql2);
+			connection = db.getConnection();
+			connection.setAutoCommit(false);
+			connection.setSavepoint();
+			pStatement = connection.prepareStatement(sql);
+			preparedStatement = connection.prepareStatement(sql2);
+			if (pStatement.executeUpdate() > 0 && preparedStatement.executeUpdate() > 0)
+			{
+				connection.commit();
+				connection.setAutoCommit(true);
+				Globa.logger0("删除会员信息", globa.loginName, globa.loginIp, sql, "会员管理", globa.unitCode);
+				return true;
+			}
 		} catch (Exception ee)
 		{
 			ee.printStackTrace();
+			try
+			{
+				connection.rollback();
+			} catch (SQLException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return false;
+		} finally
+		{
+			try
+			{
+				pStatement.close();
+				preparedStatement.close();
+				connection.close();
+			} catch (SQLException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+		return false;
 	}
 
 	/*
@@ -121,7 +160,7 @@ public class Member
 	 */
 	public String returnDate(String str)
 	{
-		if (str!=null)
+		if (str != null)
 		{
 
 			return str.substring(0, 10);
@@ -138,7 +177,8 @@ public class Member
 	{
 		String strUserName = globa.userSession.getStrName();
 		String strId = UID.getID();
-		String sql = "insert into " + strTableName + " (strId,strCardNo,strMobileNo,strName,intType" + ",strSalesman,strCreator,dtCreateTime) " + "values (?,?,?,?,?,?,?,?) ";
+		String sql = "insert into " + strTableName + " (strId,strCardNo,strMobileNo,strName,intType" + ",strSalesman,strCreator,dtCreateTime) "
+				+ "values (?,?,?,?,?,?,?,?) ";
 		try
 		{
 			db.prepareStatement(sql);
@@ -201,7 +241,7 @@ public class Member
 	}
 
 	/*
-	 * 根据卡号余额
+	 * 根据卡号返回余额
 	 */
 	public float getFlaBalance(String strMemberCardNo)
 	{
@@ -211,10 +251,10 @@ public class Member
 		System.out.println("56565656565656565656");
 		try
 		{
-			if (rs != null && rs.next())
+			while (rs.next())
+			{
 				a = rs.getFloat("flabalance");
-			else
-				return 0f;
+			}
 		} catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
