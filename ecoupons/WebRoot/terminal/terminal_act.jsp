@@ -34,12 +34,12 @@
 	         obj.setStrResolution2(strResolution2);
 	         obj.setStrResolution3(strResolution3);
 	         obj.setIntState(0);
-	         obj.setStrCreator(globa.fullRealName);
+	         obj.setStrCreator(globa.loginName);
 		
 	    if(action.equals(Constants.ADD_STR)) {
              if(obj.getCount(" where strNo='" + strNo + "'")>0){
                 globa.closeCon();
-                out.print("<script>alert('已经存在"+strNo+"编号的终端机, 请添加其他编号终端机');</script>");
+                out.print("<script>alert('已经存在"+strNo+"编号的终端机, 请添加其他编号终端机');window.location.href='javascript:history.go(-1)'</script>");
              }else{
                globa.dispatch(obj.add(),strUrl);
              }	    

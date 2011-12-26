@@ -2,6 +2,8 @@
 <%@ page import="com.ejoysoft.ecoupons.business.Terminal,
         		 java.util.Vector,
 				 com.ejoysoft.common.Constants,
+				 com.ejoysoft.ecoupons.system.SysPara,
+				 java.util.ArrayList,
 				 com.ejoysoft.common.exception.IdObjectException" %>
 <%@ include file="../include/jsp/head.jsp"%>
 <%
@@ -132,13 +134,52 @@ body,td,tr{font-size:9pt;}
               <tr bgcolor="#f2f2f2">
                 <td width="20%" height="30" align="right" class="left_txt2">生产厂家：</td>
                 <td width="3%" height="30">&nbsp;</td>
-                <td width="32%" height="30"><input name="strProducer" value="<%=obj0.getStrProducer()%>" type="text" class="input_box" size="30" /><input value="..." type="button" onclick="" /></td>
+                <td width="32%" height="30">
+				 <select name="strProducer" class="forms_color1" style= "width:213px">
+                    <option value="">所有</option>
+				  <%
+                        //初始化
+    					//SysPara  para=null;
+   						SysPara para=new SysPara(globa);
+                        ArrayList para1 = para.list("券打机生产厂家");
+                        for (int i = 0; i < para1.size(); i++) {
+                            SysPara d = (SysPara)para1.get(i);
+                              out.print("<option value=" + d.getStrId() + ">");
+                           
+                            out.println("" + d.getStrName() + "</option>");
+                       
+                	%>
+				 
+                 <%
+                 }
+                 
+                  %>
+                   </select>
+				</td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
               <tr bgcolor="#f2f2f2">
                 <td width="20%" height="30" align="right" class="left_txt2">规格型号：</td>
                 <td width="3%" height="30">&nbsp;</td>
-                <td width="32%" height="30"><input name="strType" value="<%=obj0.getStrType()%>" type="text"  class="input_box" size="30" /><input value="..." type="button"  onclick=""/></td>
+                <td width="32%" height="30"><select name="strType" class="forms_color1" style= "width:213px">
+                    <option value="">所有</option>
+				  <%
+                        //初始化
+    					//SysPara  para=null;
+                        ArrayList para3 = para.list("券打机规格型号");
+                        for (int i = 0; i < para3.size(); i++) {
+                            SysPara d = (SysPara)para3.get(i);
+                              out.print("<option value=" + d.getStrId() + ">");
+                           
+                            out.println("" + d.getStrName() + "</option>");
+                       
+                	%>
+				 
+                 <%
+                 }
+                 
+                  %>
+                   </select></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
               <tr bgcolor="#f2f2f2">
@@ -182,13 +223,7 @@ body,td,tr{font-size:9pt;}
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30" class="left_txt"><%=obj0.getDtRefreshTime()%></td>
                 <td width="45%" height="30" class="left_txt" > &nbsp;</td> 
-              </tr> 
-          	  <tr bgcolor="#f2f2f2">
-                 <td width="20%" height="30" align="right" class="left_txt2">创建时间：</td>
-                <td width="3%">&nbsp;</td>
-                <td width="32%" height="30" class="left_txt"><%=obj0.getDtCreateTime()%></td>
-                <td width="45%" height="30" class="left_txt" > &nbsp;</td> 
-              </tr>           
+              </tr>         
           	  <tr bgcolor="#f2f2f2">
                  <td width="20%" height="30" align="right" class="left_txt2">创  建  人：</td>
                 <td width="3%">&nbsp;</td>
