@@ -11,10 +11,13 @@
 
 	if (action.equals(Constants.DELETE_STR))
 	{
+		
 		String[] aryStrId = ParamUtil.getStrArray(request, "strId");
+		
 		for (int i = 0; i < aryStrId.length; i++)
 		{
 			obj.delete("where strId ='" + aryStrId[i] + "'");
+			
 		}
 		globa.dispatch(true, strUrl);
 	} else if (action.equals(Constants.UPDATE_STR))
