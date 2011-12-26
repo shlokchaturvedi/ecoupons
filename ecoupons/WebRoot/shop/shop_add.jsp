@@ -1,6 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ page import="com.ejoysoft.ecoupons.business.Shop,
 				 java.util.Vector,
+				 com.ejoysoft.ecoupons.system.SysPara,
+				 java.util.ArrayList,
 				 com.ejoysoft.common.Constants" %>
 <%@ include file="../include/jsp/head.jsp"%>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -126,9 +128,26 @@ body,td,tr{font-size:9pt;}
               <tr bgcolor="#f2f2f2">
                  <td width="20%" height="30" align="right" class="left_txt2">所属行业：</td>
                 <td width="3%">&nbsp;</td>
-                <td width="32%" height="30" >
-                <input type="text" class="input_box" readonly="true" value="行业" size="30" name="strTrade">
-                 <input type="button" onclick="" name="button1" value="选  择"/>
+                <td width="32%" height="30" >  <select name="strTrade" class="forms_color1" style= "width:213px">
+                    <option value="">所有</option>
+				  <%
+                        //初始化
+    					//SysPara  para=null;
+   						SysPara para=new SysPara(globa);
+                        ArrayList para1 = para.list("商家行业");
+                        for (int i = 0; i < para1.size(); i++) {
+                            SysPara d = (SysPara)para1.get(i);
+                              out.print("<option value=" + d.getStrId() + ">");
+                           
+                            out.println("" + d.getStrName() + "</option>");
+                       
+                	%>
+				 
+                 <%
+                 }
+                 
+                  %>
+                   </select>
                  </td>
                 <td width="45%" height="30" align="left" >
               &nbsp;</td>    
