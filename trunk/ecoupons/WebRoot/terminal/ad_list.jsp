@@ -17,14 +17,14 @@ if(!globa.userSession.hasRight("130"))
     Terminal  terminal0=null;
     Terminal obj=new Terminal(globa);
     //查询条件
-    String  strNo=ParamUtil.getString(request,"strNo","");
+    String  strName=ParamUtil.getString(request,"strName","");
 	String tWhere=" where 1=1";
-	if (!strNo.equals("")) {
-		tWhere += " and strno like '%" + strNo + "%'";
+	if (!strName.equals("")) {
+		tWhere += " and strname like '%" + strName + "%'";
 	}
 	tWhere += " order by strid";
 	//记录总数
-	int intAllCount=obj.getCount(tWhere);
+	int intAllCount=obj.getCountAd(tWhere);
 	//当前页
 	int intCurPage=globa.getIntCurPage();
 	//每页记录数
@@ -36,7 +36,7 @@ if(!globa.userSession.hasRight("130"))
 	//结束序号
 	int intEndNum=intCurPage*intPageSize;   
 	//获取到当前页面的记录集
-	Vector<Terminal> vctObj=obj.list(tWhere,intStartNum,intPageSize);
+	Vector<Terminal> vctObj=obj.listAd(tWhere,intStartNum,intPageSize);
 	//获取当前页的记录条数
 	int intVct=(vctObj!=null&&vctObj.size()>0?vctObj.size():0);
 %>
@@ -70,13 +70,13 @@ function del(){
 	}
     if(!confirm('您是否确认要删除所选中的所有记录？'))
         return;
-     frm.action="terminal_act.jsp?<%=Constants.ACTION_TYPE%>=<%=Constants.DELETE_STR%>";
+     frm.action="ad_act.jsp?<%=Constants.ACTION_TYPE%>=<%=Constants.DELETE_STR%>";
      frm.submit();
 }
 </script>
 </head>
 <body>
-<form name=frm method=post action="terminal_list.jsp">
+<form name=frm method=post action="ad_list.jsp">
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td width="17" height="29" valign="top" background="../images/mail_leftbg.gif"><img src="../images/left-top-right.gif" width="17" height="29" /></td>
@@ -96,7 +96,7 @@ function del(){
       <tr>
         <td height="534" valign="top"><table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
           <tr>
-            <td class="left_txt">当前位置：业务管理 / 终端管理 / 终端列表</td>
+            <td class="left_txt">当前位置：业务管理 / 终端管理 / 广告列表</td>
           </tr>
           <tr>
             <td height="20"><table width="100%" height="1" border="0" cellpadding="0" cellspacing="0" bgcolor="#CCCCCC">
@@ -109,7 +109,7 @@ function del(){
             <td><table width="100%" height="55" border="0" cellpadding="0" cellspacing="0">
               <tr>
                 <td width="6%" height="55" valign="middle"><img src="../images/title.gif" width="54" height="55"></td>
-                <td width="94%" valign="top"><span class="left_txt3">在这里，您可以对终端进行管理！<br>
+                <td width="94%" valign="top"><span class="left_txt3">在这里，您可以对广告进行管理！<br>
                   包括新增、编辑、删除、查询等操作。 </span></td>
               </tr>
             </table></td>
@@ -124,12 +124,12 @@ function del(){
 			<td style="font-size:9pt">
 			 <input type="checkbox" name="checkbox62" value="checkbox" onclick="selAll(document.all.strId)"/>
 			 全选
-			 <a href="terminal_add.jsp"><img src="../images/add.gif" width="16" height="16" border="0" />新增</a>		
+			 <a href="ad_add.jsp"><img src="../images/add.gif" width="16" height="16" border="0" />新增</a>		
 			 <a href="#" onclick="del();"><img src="../images/delete.gif" width="16" height="16" border="0" />批量删除</a>
 	
 			 </td>
 			<td align="right" width="600"><div style="height:26"> 
-			  终端编号：<input name="strNo" class="editbox4" value="" size="10">
+			广告名称：<input name="strName" class="editbox4" value="" size="10">
 			  &nbsp;&nbsp;&nbsp;&nbsp;
               <input type="submit" class="button_box" value="搜索" /> 
 			</div>
@@ -140,12 +140,11 @@ function del(){
 			<table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="b5d6e6" onmouseover="changeto()"  onmouseout="changeback()">
               <tr>
                 <td  width="3%" height="22"  class="left_bt2"><div align="center">&nbsp;</div></td>
-                <td width="10%" class="left_bt2"><div align="center">终端编号</div></td>
-                <td width="10%" class="left_bt2"><div align="center">启用时间</div></td>
-                <td width="17%" class="left_bt2"><div align="center">临近商家</div></td>      
-                <td width="10%" class="left_bt2"><div align="center">生产厂家</div></td>          
-                <td width="10%" class="left_bt2"><div align="center">规格型号</div></td>
-                <td width="10%" class="left_bt2"><div align="center">主屏分辨率</div></td>
+                <td width="10%" class="left_bt2"><div align="center">广告名称</div></td>
+                <td width="10%" class="left_bt2"><div align="center">广告类型</div></td>
+                <td width="17%" class="left_bt2"><div align="center">投放终端</div></td>      
+                <td width="15%" class="left_bt2"><div align="center">播放时间(时：分)</div></td>        
+                <td width="20%" class="left_bt2"><div align="center">广告内容</div></td>
                 <td width="10%" class="left_bt2"><div align="center">操作</div></td>
               </tr>
             <%
@@ -156,22 +155,14 @@ function del(){
                 <td height="20" bgcolor="#FFFFFF"><div align="center">
                     <input type="checkbox" name=strId value="<%=obj1.getStrId() %>" />
                 </div></td>
-                <%
-                   String bgcolor = "#FFFFFF";
-                   if(obj1.getIntState()== -1)
-                   {
-                   		  bgcolor = "#FABCB1";
-                   }
-                %>
-                <td bgcolor="<%=bgcolor %>"> <div align="center"><span class="STYLE1"><%=obj1.getStrNo()%></span></div></td>
-                <td bgcolor="<%=bgcolor %>"><div align="center"><span class="STYLE1"><%=(obj1.getDtActiveTime()).substring(0,16)%></span></div></td>
-                <td bgcolor="<%=bgcolor %>"><div align="center"><span class="STYLE1"><%=obj1.getStrAroundShops()%></span></div></td>
-                <td bgcolor="<%=bgcolor %>"><div align="center"><span class="STYLE1"><%=obj1.getStrProducer()%></span></div></td>
-                <td bgcolor="<%=bgcolor %>"><div align="center"><span class="STYLE1"><%=obj1.getStrType() %></span></div></td>
-                <td bgcolor="<%=bgcolor %>"><div align="center"><span class="STYLE1"><%=obj1.getStrResolution() %></span></div></td>
+                <td bgcolor="#FFFFFF"> <div align="center"><span class="STYLE1"><%=obj1.getStrName()%></span></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getIntType()%></span></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrTerminals()%></span></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getDtStartTime()%>—<%=obj1.getDtEndTime()%></span></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrContent()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE4">
-                  <a href="terminal_update.jsp?strId=<%=obj1.getStrId()%>"><img src="../images/edit.gif" width="16" height="16" border="0" />编辑</a> 
-			      <a href="#" onclick="if(confirm('确认删除该记录？')){location.href='terminal_act.jsp?<%=Constants.ACTION_TYPE%>=<%=Constants.DELETE_STR%>&strId=<%=obj1.getStrId()%>';}"><img src="../images/delete.gif" width="16" height="16" border="0" />删除</a></span> </div>
+                  <a href="ad_update.jsp?strId=<%=obj1.getStrId()%>"><img src="../images/edit.gif" width="16" height="16" border="0" />编辑</a> 
+			      <a href="#" onclick="if(confirm('确认删除该记录？')){location.href='ad_act.jsp?<%=Constants.ACTION_TYPE%>=<%=Constants.DELETE_STR%>&strId=<%=obj1.getStrId()%>';}"><img src="../images/delete.gif" width="16" height="16" border="0" />删除</a></span> </div>
                 </td>
               </tr>
             <%

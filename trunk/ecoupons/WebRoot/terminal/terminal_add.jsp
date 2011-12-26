@@ -1,11 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ page import="com.ejoysoft.ecoupons.business.Shop,
 				 java.util.Vector,
+				 com.ejoysoft.ecoupons.system.SysPara,
+				 java.util.ArrayList,
 				 com.ejoysoft.common.Constants" %>
 <%@ include file="../include/jsp/head.jsp"%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script language="javascript" src="../js/allshopnames.js"></script>
 <title><%=application.getAttribute("APP_TITLE")%></title>
 <style type="text/css">
 <!--
@@ -118,13 +121,54 @@ body,td,tr{font-size:9pt;}
               <tr bgcolor="#f2f2f2">
                 <td width="20%" height="30" align="right" class="left_txt2">生产厂家：</td>
                 <td width="3%" height="30">&nbsp;</td>
-                <td width="32%" height="30"><input name="strProducer" type="text" class="input_box" size="30" /><input value="..." type="button" onclick="" /></td>
+                <td width="32%" height="30">
+				<select name="strProducer" class="forms_color1" style= "width:213px">
+                    <option value="">所有</option>
+				  <%
+                        //初始化
+    					//SysPara  para=null;
+   						SysPara para=new SysPara(globa);
+                        ArrayList para1= para.list("券打机生产厂家");
+                        for (int i = 0; i < para1.size(); i++) {
+                            SysPara d = (SysPara)para1.get(i);
+                              out.print("<option value=" + d.getStrId() + ">");
+                           
+                            out.println("" + d.getStrName() + "</option>");
+                       
+                	%>
+				 
+                 <%
+                 }
+                 
+                  %>
+                   </select>
+				</td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
               <tr bgcolor="#f2f2f2">
                 <td width="20%" height="30" align="right" class="left_txt2">规格型号：</td>
                 <td width="3%" height="30">&nbsp;</td>
-                <td width="32%" height="30"><input name="strType" type="text"  class="input_box" size="30" /><input value="..." type="button"  onclick=""/></td>
+                <td width="32%" height="30">
+					<select name="strType" class="forms_color1" style= "width:213px">
+                    <option value="">所有</option>
+				  <%
+                        //初始化
+    					//SysPara  para=null;
+                        ArrayList para3 = para.list("券打机规格型号");
+                        for (int i = 0; i < para3.size(); i++) {
+                            SysPara d = (SysPara)para3.get(i);
+                              out.print("<option value=" + d.getStrId() + ">");
+                           
+                            out.println("" + d.getStrName() + "</option>");
+                       
+                	%>
+				 
+                 <%
+                 }
+                 
+                  %>
+                   </select>
+				</td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
               <tr bgcolor="#f2f2f2">
@@ -136,7 +180,7 @@ body,td,tr{font-size:9pt;}
               <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">临近商家：</td>
                 <td width="3%">&nbsp;</td>
-                <td width="32%" height="30"><input name="strAroundShops" type="text" class="input_box" size="30"/><input value="..." type="button" onclick="" /></td>
+                <td width="32%" height="30"><input name="strAroundShops" type="text" class="input_box" size="30"/><input value="..." type="button" onclick="getShops()" /></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
               <tr >
