@@ -2,8 +2,8 @@
 <%@ page
 	import="com.ejoysoft.ecoupons.system.User,com.ejoysoft.common.Constants,com.ejoysoft.common.Format,com.ejoysoft.common.exception.IdObjectException,com.ejoysoft.ecoupons.system.SysUserUnit,java.util.Vector,com.ejoysoft.ecoupons.system.Unit,
                  java.util.HashMap"%>
-<%@page import="com.ejoysoft.ecoupons.system.Member"%>
-<%@page import="com.ejoysoft.ecoupons.system.Recharge"%>
+<%@page import="com.ejoysoft.ecoupons.business.Member"%>
+<%@page import="com.ejoysoft.ecoupons.business.Recharge"%>
 <%@ include file="../include/jsp/head.jsp"%>
 <%
 	String strId = ParamUtil.getString(request,"strId","");
@@ -192,40 +192,8 @@ body,td,tr {
 															&nbsp;
 														</td>
 													</tr>
-													<tr bgcolor="#f2f2f2">
-														<td width="20%" height="30" align="right"
-															class="left_txt2">
-															操作人：
-														</td>
-														<td width="3%">
-															&nbsp;
-														</td>
-														<td width="32%" height="30">
-															<input name="strCreator" readonly="readonly" type="text"
-																class="input_box" size="30"
-																value="<%=Format.forbidNull(obj0.getStrCreator())%>" />
-														</td>
-														<td width="45%" height="30" class="left_txt">
-															&nbsp;
-														</td>
-													</tr>
-													<tr bgcolor="#f2f2f2">
-														<td width="20%" height="30" align="right"
-															class="left_txt2">
-															操作时间：
-														</td>
-														<td width="3%">
-															&nbsp;
-														</td>
-														<td width="32%" height="30">
-															<input name="dtCreateTime" readonly="readonly"
-																type="text" class="input_box" size="30"
-																value="<%=Format.forbidNull(obj0.getDtCreateTime())%>" />
-														</td>
-														<td width="45%" height="30" class="left_txt">
-															&nbsp;
-														</td>
-													</tr>
+													
+													
 												</table>
 											</td>
 										</tr>
