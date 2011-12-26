@@ -80,7 +80,6 @@ public class Recharge
 		{
 			theBean.setStrId(rs.getString("strId"));
 			theBean.setIntMoney(rs.getInt("intMoney"));
-			System.out.println("intmoney----"+intMoney+"------");
 			theBean.setStrMemberCardNo(rs.getString("strMemberCardNo"));
 			theBean.setStrCreator(rs.getString("strCreator"));
 			theBean.setDtCreateTime(rs.getString("dtCreateTime"));
@@ -127,32 +126,88 @@ public class Recharge
 		Recharge rechargeReturn = show("where strid=" + strId + " ");
 		return rechargeReturn.getIntMoney();
 	}
+	
+public boolean delete(String str)
+{
+	try
+	{
+		String sql = "DELETE FROM " + strTableName + "  where strMemberCardNo="+str+" ";
+		db.executeUpdate(sql);
+		Globa.logger0("删除会员卡充值记录", globa.loginName, globa.loginIp, sql, "会员管理", globa.unitCode);
+		return true;
+	} catch (Exception ee)
+	{
+		ee.printStackTrace();
+		return false;
+	}
+}	
 
 	/*
 	 * 修改会员的缴费记录
 	 */
-	public boolean update(String strMemberCardNo, int intMoney)
+	public boolean update( int intMoney2)
 	{
 		Member member = new Member(globa, false);
-		System.out.println(member.getFlaBalance(strMemberCardNo)+((float)intMoney-(float)returnIntMoney(strId)) +"-验证数据-------");
-		if (member.getFlaBalance(strMemberCardNo)+((float)intMoney-(float)returnIntMoney(strId)) >= 0)
+		Connection connection = db.getConnection();
+		float realBalance = member.getFlaBalance(strMemberCardNo)-(float) returnIntMoney(strId) + (float) intMoney2;
+		System.out.println("实际余额+"+realBalance+"--"+member.getFlaBalance(strMemberCardNo)+"--"+(float) returnIntMoney(strId)+"--"+intMoney2+"---"+intMoney+"---");
+		System.out.println(strMemberCardNo);
+		System.out.println(strId);
+		PreparedStatement pStatement=null;
+		PreparedStatement pStatement2=null;
+		if (realBalance >= 0)
 		{
 			String strUserName = globa.userSession.getStrName();
 			try
 			{
+				connection.setAutoCommit(false);
+				connection.setSavepoint();
 				String strSql = "UPDATE  " + strTableName + "  SET  intMoney= ? ,strCreator=? ,dtCreateTime=? WHERE strId=? ";
-				db.prepareStatement(strSql);
-				db.setInt(1, intMoney);
-				db.setString(2, strUserName);
-				db.setString(3, com.ejoysoft.common.Format.getDate());
-				db.setString(4, strId);
-				db.executeUpdate();
-				Globa.logger0("修改会员缴费记录", globa.loginName, globa.loginIp, strSql, "会员管理", globa.userSession.getStrDepart());
-				return true;
+				String sql2 = "UPDATE t_bz_member SET flaBalance = ? WHERE strCardNo=? ";
+				pStatement = connection.prepareStatement(strSql);
+			    pStatement2 = connection.prepareStatement(sql2);
+				pStatement.setInt(1, intMoney2);
+				pStatement.setString(2, strUserName);
+				pStatement.setString(3, com.ejoysoft.common.Format.getDate());
+				pStatement.setString(4, strId);
+				pStatement2.setFloat(1, realBalance);
+				pStatement2.setString(2, strMemberCardNo);
+				connection.commit();
+				if (pStatement.executeUpdate() > 0 && pStatement2.executeUpdate() > 0)
+				{
+					System.out.println("chongzhi3345688888888888888888");
+					connection.setAutoCommit(true);
+					Globa.logger0("修改会员缴费记录", globa.loginName, globa.loginIp, strSql + sql2, "会员管理", globa.unitCode);
+					
+					return true;
+				} else
+				{
+					return false;
+				}
+
 			} catch (Exception e)
 			{
+				try
+				{
+					connection.rollback();
+				} catch (SQLException e1)
+				{
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				System.out.println("修改会员记录时出错：" + e);
 				return false;
+			}finally{
+				try
+				{
+					pStatement.close();
+					pStatement2.close();
+					connection.close();
+				} catch (SQLException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		} else
 		{
@@ -209,7 +264,7 @@ public class Recharge
 			pStatement.setString(2, strMemberCardNo);
 			pStatement.setInt(3, intMoney);
 			pStatement.setString(4, strUserName);
-			pStatement.setString(5, com.ejoysoft.common.Format.getDate());
+			pStatement.setString(5, com.ejoysoft.common.Format.getDateTime());
 			PreparedStatement pStatement2 = connection.prepareStatement(sql2);
 			pStatement2.setFloat(1, a);
 			pStatement2.setString(2, strMemberCardNo);
