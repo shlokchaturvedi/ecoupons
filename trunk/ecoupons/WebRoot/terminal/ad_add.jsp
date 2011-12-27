@@ -83,6 +83,12 @@ body,td,tr{font-size:9pt;}
          	frm.submit();
         }
     }
+function addTerminals()
+{
+    var terminals = window.showModalDialog("terminals_select.jsp", "选择投放终端", "width=370,height=250,top=200,left=200,scrollbars=yes,status=yes"); //写成一行 
+	document.getElementById("strTerminals").value=terminals.substring(0,terminals.length-1);
+		  
+}
 </script>
 </head>
 
@@ -157,8 +163,11 @@ body,td,tr{font-size:9pt;}
               <tr bgcolor="#f2f2f2">
                  <td width="20%" height="30" align="right" class="left_txt2">投放终端：</td>
                 <td width="3%" height="30">&nbsp;</td>
-                <td width="32%" height="30"><input name="strTerminals" value=" "  type="text" readonly class="input_box" size="30" onClick="setDayHM(this);" /></td>
-                <td width="45%" height="30" class="left_txt">&nbsp;</td> 
+                <td width="32%" height="30">
+	                <input type="text" readonly name="strTerminals" size="30">
+					<input type="button" name="Submit" value="..." onclick="addTerminals()">
+				</td>
+                <td width="45%" height="30" class="left_txt"></td> 
               </tr>
               <tr bgcolor="#f2f2f2">
                  <td width="20%" height="30" align="right" class="left_txt2">开始播放时间：</td>

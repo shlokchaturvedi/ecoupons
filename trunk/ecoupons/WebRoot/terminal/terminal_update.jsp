@@ -7,6 +7,8 @@
 				 com.ejoysoft.common.exception.IdObjectException" %>
 <%@ include file="../include/jsp/head.jsp"%>
 <%
+
+   	SysPara para=new SysPara(globa);
 	String strId = ParamUtil.getString(request,"strId","");
 	if(strId.equals(""))
     	throw new IdObjectException("请求处理的信息id为空！或者已经不存在");
@@ -48,6 +50,10 @@ body,td,tr{font-size:9pt;}
             alert("请选择规格型号！！！")
             frm.strType.focus();
             return false;
+        } else if(trim(frm.strProducer.value)=="") {
+            alert("请选择生产厂家！！！")
+            frm.strProducer.focus();
+            return false;
         } else if(trim(frm.strResolution.value)!=""){        
             var strResolution = trim(frm.strResolution.value);
             var resParn =/(^[0-9]{1,9}\*[0-9]{1,9}$)/; 
@@ -63,6 +69,10 @@ body,td,tr{font-size:9pt;}
         	frm.submit();
         }
     }
+   function openwin() {  
+			 var shops=window.showModalDialog("shops_select.jsp", "选择临近商家", "width=370,height=250,top=200,left=200,scrollbars=yes,status=yes"); //写成一行 
+		  	document.getElementById("strAroundShops").value=shops.substring(0,shops.length-1);
+		  	}
 </script>
 </head>
 
@@ -128,7 +138,7 @@ body,td,tr{font-size:9pt;}
               <tr bgcolor="#f2f2f2">
                  <td width="20%" height="30" align="right" class="left_txt2">启用时间：</td>
                 <td width="3%" height="30">&nbsp;</td>
-                <td width="32%" height="30"><input name="dtActiveTime" value="<%=obj0.getDtActiveTime()%>"  type="text" readonly class="input_box" size="30" onClick="setDayHM(this);" /></td>
+                <td width="32%" height="30"><input name="dtActiveTime" value="<%=(obj0.getDtActiveTime()).substring(0,16)%>"  type="text" readonly class="input_box" size="30" onClick="setDayHM(this);" /></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
               <tr bgcolor="#f2f2f2">
@@ -136,11 +146,10 @@ body,td,tr{font-size:9pt;}
                 <td width="3%" height="30">&nbsp;</td>
                 <td width="32%" height="30">
 				 <select name="strProducer" class="forms_color1" style= "width:213px">
-                    <option value="">所有</option>
+                    <option selected="selected" value="<%=obj0.getStrProducer()%>"><%=obj0.getStrProducerName()%></option>
 				  <%
                         //初始化
     					//SysPara  para=null;
-   						SysPara para=new SysPara(globa);
                         ArrayList para1 = para.list("券打机生产厂家");
                         for (int i = 0; i < para1.size(); i++) {
                             SysPara d = (SysPara)para1.get(i);
@@ -161,8 +170,9 @@ body,td,tr{font-size:9pt;}
               <tr bgcolor="#f2f2f2">
                 <td width="20%" height="30" align="right" class="left_txt2">规格型号：</td>
                 <td width="3%" height="30">&nbsp;</td>
-                <td width="32%" height="30"><select name="strType" class="forms_color1" style= "width:213px">
-                    <option value="">所有</option>
+                <td width="32%" height="30">
+                <select name="strType" class="forms_color1" style= "width:213px">
+                    <option selected="selected" value="<%=obj0.getStrType()%>"><%=obj0.getStrTypeName()%></option>
 				  <%
                         //初始化
     					//SysPara  para=null;
@@ -176,9 +186,8 @@ body,td,tr{font-size:9pt;}
                 	%>
 				 
                  <%
-                 }
-                 
-                  %>
+                 }                 
+                 %>
                    </select></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
@@ -191,7 +200,7 @@ body,td,tr{font-size:9pt;}
               <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">临近商家：</td>
                 <td width="3%">&nbsp;</td>
-                <td width="32%" height="30"><input name="strAroundShops" value="<%=obj0.getStrAroundShops()%>" type="text" class="input_box" size="30"/><input value="..." type="button" onclick="" /></td>
+                <td width="32%" height="30"><input name="strAroundShops" value="<%=obj0.getStrAroundShops()%>" type="text" onclick="openwin()" readonly class="input_box" size="30"/><input type="button" value="..." onclick="openwin()" /></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
               <tr >
