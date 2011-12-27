@@ -1,13 +1,13 @@
 package com.ejoysoft.ecoupons.business;
 
 import com.ejoysoft.common.*;
+import com.ejoysoft.ecoupons.system.SysPara;
 import com.ejoysoft.ecoupons.system.Unit;
 
 //import javax.servlet.ServletContext;
-//import javax.servlet.http.HttpSession;
 import java.util.Vector;
-//import java.util.HashMap;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
@@ -82,30 +82,32 @@ public class Shop {
         }
     }
    //删除商家信息
-    public boolean delete(String where,String where2) {
-    	String sql = "delete from " + strTableName + "  ".concat(where);
+    public boolean delete(String where,String where2,String strid) {
+    	String sql1 = "delete from " + strTableName + "  ".concat(where);
     	String sql2 = "delete from " + strTableName2 + "  ".concat(where2);
     	String sql3 = "delete from " + strTableName3 + "  ".concat(where2);
     	String sql4 = "delete from " + strTableName4 + "  ".concat(where2);
     	String sql5 = "delete from " + strTableName5 + "  ".concat(where2);
+    	Terminal obj = new Terminal(globa);
        //事务处理
     	try {
         	db.getConnection().setAutoCommit(false);//禁止自动提交事务 
         	
-            db.executeUpdate(sql);//删除商家
+            db.executeUpdate(sql1);//删除商家
             db.executeUpdate(sql2);//删除商家的优惠券
             db.executeUpdate(sql3);//删除商家录入有价券记录
             db.executeUpdate(sql4);//删除商家购买积分记录
             db.executeUpdate(sql5);//删除商家转赠积分记录
-            
+            obj.deleteShopIdFromIds(strid);//删除终端表中对应商家id
             db.getConnection().commit(); //统一提交
-            Globa.logger0("删除商家信息", globa.loginName, globa.loginIp, sql, "商家管理", globa.unitCode);
+            Globa.logger0("删除商家信息", globa.loginName, globa.loginIp, sql1, "商家管理", globa.unitCode);
             return true;
         } catch (Exception ee) {
             ee.printStackTrace();
             return false;
         } 
     }
+    
 
     //商家更新信息
     public boolean update(String tStrUserId) {
@@ -118,7 +120,7 @@ public class Shop {
             if (this.strLargeImg!=null&&this.strLargeImg.length() > 0) {
             	strSql += "strlargeimg = '" + strLargeImg + "',";
             }
-            strSql += " intpoint=?, strcreator=?, dtcreatetime=?  where strid=? ";
+            strSql += " intpoint=? where strid=? ";
             db.prepareStatement(strSql);
             db.setString(1, strBizName);
             db.setString(2, strShopName);
@@ -128,9 +130,7 @@ public class Shop {
             db.setString(6, strPerson);
             db.setString(7, strIntro);      //"strUnitCode
             db.setInt(8, intPoint);
-            db.setString(9, strCreator);
-            db.setString(10,com.ejoysoft.common.Format.getDateTime());
-            db.setString(11,strId);
+            db.setString(9,strId);
             db.executeUpdate();
             Globa.logger0("更新商家信息", globa.loginName, globa.loginIp, strSql, "商家管理", globa.userSession.getStrDepart());
             return true;
@@ -152,9 +152,39 @@ public class Shop {
         } catch (Exception ee) {
             return null;
         }
+    } //查询
+    
+    //获取所有商家名称和分部名称
+    public Vector<Shop> getShopNames(String where) {
+    	Vector<Shop> vector = new Vector<Shop>();
+        try {
+            String strSql = "select * from  " + strTableName ;
+            ResultSet rs = db.executeQuery(strSql);
+            if (rs != null && rs.next())
+            {
+            	Shop theBean = new Shop();
+                theBean = load3(rs, false);
+                vector.addElement(theBean);
+                return vector;
+            }
+            else
+                return null;
+        } catch (Exception ee) {
+            return null;
+        }
+    }//封装商家信息结果集
+    public Shop load3(ResultSet rs, boolean isView) {
+    	Shop theBean = new Shop();
+        try {
+            theBean.setStrBizName(rs.getString(2));
+            theBean.setStrShopName(rs.getString(3));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return theBean;
     }
 
-    //封装商家信息结果集
+  //封装商家信息结果集
     public Shop load(ResultSet rs, boolean isView) {
     	Shop theBean = new Shop();
         try {
@@ -162,6 +192,7 @@ public class Shop {
             theBean.setStrBizName(rs.getString(2));
             theBean.setStrShopName(rs.getString(3));
             theBean.setStrTrade(rs.getString(4));
+            theBean.setStrTradeName(SysPara.getNameById(rs.getString(4)));
             theBean.setStrAddr(rs.getString(5));
             theBean.setStrPhone(rs.getString(6));
             theBean.setStrPerson(rs.getString(7));
@@ -213,6 +244,7 @@ public class Shop {
             theBean.setStrBizName(rs.getString("strbizname"));
             theBean.setStrShopName(rs.getString("strshopname"));
             theBean.setStrTrade(rs.getString("strtrade"));
+            theBean.setStrTradeName(SysPara.getNameById(rs.getString("strtrade")));
             theBean.setStrAddr(rs.getString("strAddr"));
             theBean.setStrPhone(rs.getString("strphone"));
             theBean.setStrPerson(rs.getString("strperson"));
@@ -327,13 +359,70 @@ public class Shop {
         }
         return beans;
     }
+//获取所有商家名称和分部名称
+    public String[] getAllShopNames()
+    { 
+    	
+        Shop obj = new Shop(globa);
+    	int i=0;
+    	String shopnames[]=new String[obj.getCount("")];
+        try {
+        	
+            String strSql = "select * from  " + strTableName+" order by strbizname" ;
+            ResultSet rs = db.executeQuery(strSql);
+            if (rs != null && rs.next()){               
+                do {
+                	shopnames[i]=rs.getString("strbizname")+"-"+rs.getString("strshopname")+" ";
+                	i++;
+                } while (rs.next());
+            }
+            rs.close();
+           
+        }  catch (Exception ee) {
+            ee.printStackTrace();
+        }
+        return shopnames;
+    }
+    //获取商家名（无重复）
+    public String[] getStrBizNames()
+	{
+    	int k=0;
+    	String strSql = "select distinct strbizname from "+ strTableName+" order by strbizname" ;
+    	ResultSet rs = db.executeQuery(strSql);
+    	try {    	
+    		
+    		if (rs != null && rs.next()){               
+            do {	k++;
+			} while (rs.next());
+		}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
-    
+    	String allbizname[] = new String[k];
+		try { 
+		String strSql1 = "select distinct strbizname from "+ strTableName+" order by strbizname" ;
+    	ResultSet re = db.executeQuery(strSql1);
+    	int num =0;
+    	if (re != null && re.next()){               
+            do {
+					allbizname[num] = re.getString("strbizname");
+					num++;
+				} while (re.next());
+			} 
+	    }catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return allbizname;
+    }
     
     private String strId;//商家信息Id
     private String strBizName;//商家名称
     private String strShopName;//分部名称
     private String strTrade;//所属行业
+    private String strTradeName;//所属行业
     private String strAddr;//地址
     private String strPhone;//联系电话
     private String strPerson;//联系人
@@ -390,6 +479,14 @@ public class Shop {
 
 	public void setStrTrade(String strTrade) {
 		this.strTrade = strTrade;
+	}
+
+	public String getStrTradeName() {
+		return strTradeName;
+	}
+
+	public void setStrTradeName(String strTradeName) {
+		this.strTradeName = strTradeName;
 	}
 
 	public String getStrAddr() {
@@ -463,7 +560,4 @@ public class Shop {
 	public void setDtCreateTime(String dtCreateTime) {
 		this.dtCreateTime = dtCreateTime;
 	}
-
-
-    
 }

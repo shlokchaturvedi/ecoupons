@@ -4,6 +4,7 @@ import com.ejoysoft.common.*;
 import com.ejoysoft.ecoupons.system.SysPara;
 import java.util.Vector;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import com.ejoysoft.ecoupons.business.Shop;
 
@@ -100,7 +101,7 @@ public class Terminal {
             		"strresolution=?, strresolution2=?, strresolution3=? where strid=? ";
             db.prepareStatement(strSql);
             db.setString(1, strNo);
-            db.setString(2, com.ejoysoft.common.Format.getStrDate(dtActiveTime));   
+            db.setString(2, com.ejoysoft.common.Format.getStrDate2(dtActiveTime));   
             db.setString(3, strLocation);
             db.setString(4, this.getAroundShopIds(strAroundShops));
             db.setString(5, strProducer);
@@ -155,8 +156,10 @@ public class Terminal {
              theBean.setStrNo(rs.getString("strno"));
              theBean.setDtActiveTime(rs.getString("dtactivetime"));
              theBean.setStrLocation(rs.getString("strlocation"));
-             theBean.setStrProducer(SysPara.getNameById(rs.getString("strproducer")));
-             theBean.setStrType(SysPara.getNameById(rs.getString("strtype")));
+             theBean.setStrProducer(rs.getString("strproducer"));
+             theBean.setStrProducerName(SysPara.getNameById(rs.getString("strproducer")));
+             theBean.setStrType(rs.getString("strtype"));
+             theBean.setStrTypeName(SysPara.getNameById(rs.getString("strtype")));
              theBean.setStrResolution(rs.getString("strresolution"));
              theBean.setStrResolution2(rs.getString("strresolution2"));
              theBean.setStrResolution3(rs.getString("strresolution3"));
@@ -265,6 +268,28 @@ public class Terminal {
             return null;
         }
     }
+    //获取所有终端编号
+    public String[] getAllTerminalNos()
+    {
+    	Terminal obj = new Terminal(globa);
+    	String allnos[] = new String[obj.getCount(" ")];
+    	int num=0;
+    	String sql = "select * from " + strTableName;
+    	ResultSet re = db.executeQuery(sql);
+    	try {
+			if(re!=null&& re.next())
+			{
+				do{
+					allnos[num] = re.getString("strId")+"-"+re.getString("strno")+"-"+re.getString("strlocation");
+					num++;
+				}while(re.next());
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return allnos;
+    }
    
     //自我更新
     public boolean selfUpdate(String tStrUserId) {
@@ -276,7 +301,7 @@ public class Terminal {
 			    db.setString(1, strNo);
 	            db.setString(2, dtActiveTime);   //strPWD
 	            db.setString(3, strLocation);
-	            db.setString(4, strAroundShopIds);
+	            db.setString(4, getTerminalIdsByNames(strTerminals));
 	            db.setString(5, strType);
 	            db.setString(6, strResolution);
 	            db.setString(7, strResolution2);
@@ -293,6 +318,46 @@ public class Terminal {
 			    System.out.println("更新失败" + e);
 			    return false;
 			}
+    }
+    //从终端的临近商家id中删除指定商家id
+    public void deleteShopIdFromIds(String shopid)
+    {
+        Terminal obj = new Terminal();
+    	String sql ="select * from "+strTableName+" where straroundshopids like '%"+shopid+"%'";
+        int num= obj.getCount(" where straroundshopids like '%"+shopid+"%'");
+        ResultSet re = db.executeQuery(sql);
+        String dealre[][] = new String[num][2];
+        int i=0;
+    	try {
+			if(re!=null && re.next())
+			{
+				do {
+					dealre[i][0] = re.getString(1);
+					dealre[i][1] = re.getString("strid");
+					i++;
+				} while (re.next());
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		for(int j=0;j<dealre.length;j++)
+		{
+			int index = dealre[i][1].indexOf(shopid);
+			if(index==0)
+				dealre[i][1] = dealre[i][1].substring(shopid.length(),dealre[i][1].length()-1);
+			else if(index == dealre[i][1].length()-shopid.length())
+				dealre[i][1] = dealre[i][1].substring(0,dealre[i][1].length()-shopid.length()-2);
+			else dealre[i][1] = dealre[i][1].substring(0,index-1) + dealre[i][1].substring(index+2,dealre[i][1].length()-1);
+			
+			String sql2 = "update "+strTableName+" set straroundshopids='"+dealre[i][1]+"' where strid='"+dealre[i][0]+"'";
+			try {
+				db.executeUpdate(sql2);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
     }
 
     //查询记录数
@@ -331,7 +396,7 @@ public class Terminal {
             db.setString(2, strName); 
             db.setString(3, intType);  
             db.setString(4, strContent);
-            db.setString(5, strTerminalIds);
+            db.setString(5, getTerminalIdsByNames(strTerminals));
             db.setString(6, dtStartTime);
             db.setString(7, dtEndTime);
             db.setString(8, strCreator);
@@ -356,7 +421,7 @@ public class Terminal {
             db.setString(1, strName); 
             db.setString(2, intType);  
             db.setString(3, strContent);
-            db.setString(4, strTerminalIds);
+            db.setString(4, getTerminalIdsByNames(strTerminals));
             db.setString(5, dtStartTime);
             db.setString(6, dtEndTime);
             db.setString(7, strId);
@@ -378,6 +443,7 @@ public class Terminal {
              theBean.setIntType(rs.getString("inttype"));
              theBean.setStrContent(rs.getString("strcontent"));
              theBean.setStrTerminalIds(rs.getString("strTerminalids"));
+             theBean.setStrTerminals(getTerminalNamesByIds(rs.getString("strTerminalids")));
              theBean.setDtStartTime((rs.getString("dtstarttime")).substring(0,5));
              theBean.setDtEndTime((rs.getString("dtendtime")).substring(0,5));
              theBean.setStrCreator(rs.getString("strcreator"));
@@ -455,6 +521,52 @@ public class Terminal {
             return count;
         }
     }
+
+    //获取投放终端IDs
+    public String getTerminalIdsByNames(String terminals)
+    {
+        String terminalids ="";
+    	if(terminals!=null&& terminals.trim()!="")
+        {
+       	    Terminal obj0 = new Terminal(globa,false);
+            String terminalnames[]= terminals.split("，");             
+            for(int i=0;i<terminalnames.length;i++)
+            {
+	           	 Terminal  obj = new Terminal();
+	           	obj=obj0.show("where strno='"+terminalnames[i].trim()+"'");
+              	 if(obj!=null)
+              	 {
+              		terminalids +=obj.getStrId();
+              		 if(i<terminalnames.length-1)
+              			terminalids +=",";
+              	 }
+            }       
+         }
+    	return terminalids;
+    }
+
+    //获取投放终端编号s
+    public String getTerminalNamesByIds(String terminalids)
+    {
+        String terminalnos =" ";
+    	if(terminalids!=null&& terminalids.trim()!="")
+        {
+       	    Terminal obj0 = new Terminal(globa,false);
+          	Terminal  obj = new Terminal();
+            String terminals[]= terminalids.split(",");             
+            for(int i=0;i<terminals.length;i++)
+            {
+	           	obj=obj0.show("where strid='"+terminals[i].trim()+"'");
+              	 if(obj!=null)
+              	 {
+              		terminalnos +=obj.getStrId();
+              		 if(i<terminals.length-1)
+              			terminalnos +="，";
+              	 }
+            }       
+         }
+    	return terminalnos;
+    }
     //查询广告
     public Terminal showAd(String where) {
         try {
@@ -476,7 +588,9 @@ public class Terminal {
     private String strAroundShopIds;//临近终端
     private String strAroundShops;//临近终端
     private String strProducer;//生产厂家
+    private String strProducerName;//生产厂家
     private String strType;//规格型号
+    private String strTypeName;//规格型号
     private String strResolution;//主屏分辨率
     private String strResolution2;//主屏分辨率2
     private String strResolution3;//主屏分辨率3
@@ -504,6 +618,22 @@ public class Terminal {
 
 	public DbConnect getDb() {
 		return db;
+	}
+
+	public String getStrProducerName() {
+		return strProducerName;
+	}
+
+	public void setStrProducerName(String strProducerName) {
+		this.strProducerName = strProducerName;
+	}
+
+	public String getStrTypeName() {
+		return strTypeName;
+	}
+
+	public void setStrTypeName(String strTypeName) {
+		this.strTypeName = strTypeName;
 	}
 
 	public void setDb(DbConnect db) {
