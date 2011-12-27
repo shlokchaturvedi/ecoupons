@@ -155,11 +155,11 @@ function del(){
             %>
               <tr  title="创建时间：<%=obj1.getDtCreateTime()%>" >
                 <td height="20" bgcolor="#FFFFFF"><div align="center">
-                    <input type="checkbox" name=strId value="<%=obj1.getStrId() %>" />
+                    <input type="checkbox" name=strId value="<%=obj1.getStrId()%>" />
                 </div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrBizName()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrShopName()%></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrTrade()%></span></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrTradeName()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrPerson()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrPhone()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getIntPoint()%></span></div></td>
