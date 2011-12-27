@@ -8,9 +8,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<script language="javascript" src="../js/allshopnames.js"></script>
 <title><%=application.getAttribute("APP_TITLE")%></title>
 <style type="text/css">
+<%
+	Shop obj = new Shop(globa);
+
+%>
 <!--
 body {
 	margin-left: 0px;
@@ -50,15 +53,19 @@ body,td,tr{font-size:9pt;}
          }else {
         	frm.submit();
         }
-    }
+    } 
+    function openwin() {  
+			 var shops=window.showModalDialog("shops_select.jsp", "选择临近商家", "width=370,height=250,top=200,left=200,scrollbars=yes,status=yes"); //写成一行 
+		  	document.getElementById("strAroundShops").value=shops.substring(0,shops.length-1);
+		  	}
+			
 </script>
 </head>
 
 <body>
 <form name="frm" method="post" action="terminal_act.jsp" >
-<input type="hidden" name="<%=Constants.ACTION_TYPE%>" value="<%=Constants.ADD_STR%>">
-<table width="100%" border="0" cellpadding="0" cellspacing="0">
-  <tr>
+<input type="hidden" name="<%=Constants.ACTION_TYPE%>" value="<%=Constants.ADD_STR%>" />
+<table width="100%" border="0" cellpadding="0" cellspacing="0">  <tr>
     <td width="17" height="29" valign="top" background="../images/mail_leftbg.gif"><img src="../images/left-top-right.gif" width="17" height="29" /></td>
     <td width="1195" height="29" valign="top" background="../images/content-bg.gif"><table width="100%" height="31" border="0" cellpadding="0" cellspacing="0" class="left_topbg" id="table2">
       <tr>
@@ -180,7 +187,7 @@ body,td,tr{font-size:9pt;}
               <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">临近商家：</td>
                 <td width="3%">&nbsp;</td>
-                <td width="32%" height="30"><input name="strAroundShops" type="text" class="input_box" size="30"/><input value="..." type="button" onclick="getShops()" /></td>
+                <td width="32%" height="30"><input name="strAroundShops" type="text" class="input_box" readonly onclick="openwin()" size="30"/><input type="button" value="..." onclick="openwin()" /></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
               <tr >

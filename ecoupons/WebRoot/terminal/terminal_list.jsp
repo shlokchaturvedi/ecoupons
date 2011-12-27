@@ -166,8 +166,8 @@ function del(){
                 <td bgcolor="<%=bgcolor %>"> <div align="center"><span class="STYLE1"><%=obj1.getStrNo()%></span></div></td>
                 <td bgcolor="<%=bgcolor %>"><div align="center"><span class="STYLE1"><%=(obj1.getDtActiveTime()).substring(0,16)%></span></div></td>
                 <td bgcolor="<%=bgcolor %>"><div align="center"><span class="STYLE1"><%=obj1.getStrAroundShops()%></span></div></td>
-                <td bgcolor="<%=bgcolor %>"><div align="center"><span class="STYLE1"><%=obj1.getStrProducer()%></span></div></td>
-                <td bgcolor="<%=bgcolor %>"><div align="center"><span class="STYLE1"><%=obj1.getStrType() %></span></div></td>
+                <td bgcolor="<%=bgcolor %>"><div align="center"><span class="STYLE1"><%=obj1.getStrProducerName()%></span></div></td>
+                <td bgcolor="<%=bgcolor %>"><div align="center"><span class="STYLE1"><%=obj1.getStrTypeName() %></span></div></td>
                 <td bgcolor="<%=bgcolor %>"><div align="center"><span class="STYLE1"><%=obj1.getStrResolution() %></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE4">
                   <a href="terminal_update.jsp?strId=<%=obj1.getStrId()%>"><img src="../images/edit.gif" width="16" height="16" border="0" />编辑</a> 
