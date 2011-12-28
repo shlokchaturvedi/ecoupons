@@ -88,17 +88,16 @@ public class Shop {
     	String sql3 = "delete from " + strTableName3 + "  ".concat(where2);
     	String sql4 = "delete from " + strTableName4 + "  ".concat(where2);
     	String sql5 = "delete from " + strTableName5 + "  ".concat(where2);
-    	Terminal obj = new Terminal(globa);
-       //事务处理
+    	//事务处理
     	try {
-        	db.getConnection().setAutoCommit(false);//禁止自动提交事务 
-        	
+        	db.getConnection().setAutoCommit(false);//禁止自动提交事务        
+        	db.getConnection().setSavepoint();
             db.executeUpdate(sql1);//删除商家
             db.executeUpdate(sql2);//删除商家的优惠券
             db.executeUpdate(sql3);//删除商家录入有价券记录
             db.executeUpdate(sql4);//删除商家购买积分记录
             db.executeUpdate(sql5);//删除商家转赠积分记录
-            obj.deleteShopIdFromIds(strid);//删除终端表中对应商家id
+            deleteShopIdFromIds(strid);//删除终端表中对应商家id
             db.getConnection().commit(); //统一提交
             Globa.logger0("删除商家信息", globa.loginName, globa.loginIp, sql1, "商家管理", globa.unitCode);
             return true;
@@ -107,7 +106,42 @@ public class Shop {
             return false;
         } 
     }
-    
+
+    //从终端的临近商家id中删除指定商家id
+    public void deleteShopIdFromIds(String shopid)
+    {
+        Terminal obj = new Terminal(globa);
+    	String sql ="select * from t_bz_terminal where straroundshopids like '%"+shopid+"%'";
+        ResultSet rs = db.executeQuery(sql);
+    	try {
+			if(rs!=null && rs.next())
+			{
+				do {
+					String dealre1 = rs.getString("strid");
+					String dealre2 = rs.getString("straroundshopids");
+					String array[]=dealre2.split(",");
+					String shopids=" ";
+				    if(array!=null && !shopid.equals(dealre2))
+					{
+						for(int i=0;i<array.length;i++)
+						{
+							if(!array[i].trim().equals(shopid))
+							{
+								shopids += array[i].trim()+",";
+							}
+						}
+						shopids = shopids.trim().substring(0,shopids.length()-2);	
+					}	
+					String sql2 = "update "+obj.strTableName+" set straroundshopids='"+shopids+"' where strid='"+dealre1+"'";
+					db.executeUpdate(sql2);
+				} while (rs.next());
+				System.out.println("Shop.deleteShopIdFromIds()");
+		}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+    }
 
     //商家更新信息
     public boolean update(String tStrUserId) {
@@ -172,7 +206,9 @@ public class Shop {
         } catch (Exception ee) {
             return null;
         }
-    }//封装商家信息结果集
+    }
+    
+    //封装商家信息结果集
     public Shop load3(ResultSet rs, boolean isView) {
     	Shop theBean = new Shop();
         try {
