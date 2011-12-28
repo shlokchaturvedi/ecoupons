@@ -75,14 +75,14 @@ public class Terminal {
         }
     }
    //删除终端信息
-    public boolean delete(String where) {
+    public boolean delete(String where,String terminalid) {
     	String sql = "delete from " + strTableName + "  ".concat(where);
        //事务处理
     	try {
         	db.getConnection().setAutoCommit(false);//禁止自动提交事务 
-        	
+        	db.getConnection().setSavepoint();
             db.executeUpdate(sql);//删除终端
-            
+        	deleteTerminalIdsFromIds(terminalid);
             db.getConnection().commit(); //统一提交
             Globa.logger0("删除终端信息", globa.loginName, globa.loginIp, sql, "终端管理", globa.unitCode);
             return true;
@@ -319,46 +319,6 @@ public class Terminal {
 			    return false;
 			}
     }
-    //从终端的临近商家id中删除指定商家id
-    public void deleteShopIdFromIds(String shopid)
-    {
-        Terminal obj = new Terminal();
-    	String sql ="select * from "+strTableName+" where straroundshopids like '%"+shopid+"%'";
-        int num= obj.getCount(" where straroundshopids like '%"+shopid+"%'");
-        ResultSet re = db.executeQuery(sql);
-        String dealre[][] = new String[num][2];
-        int i=0;
-    	try {
-			if(re!=null && re.next())
-			{
-				do {
-					dealre[i][0] = re.getString(1);
-					dealre[i][1] = re.getString("strid");
-					i++;
-				} while (re.next());
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		for(int j=0;j<dealre.length;j++)
-		{
-			int index = dealre[i][1].indexOf(shopid);
-			if(index==0)
-				dealre[i][1] = dealre[i][1].substring(shopid.length(),dealre[i][1].length()-1);
-			else if(index == dealre[i][1].length()-shopid.length())
-				dealre[i][1] = dealre[i][1].substring(0,dealre[i][1].length()-shopid.length()-2);
-			else dealre[i][1] = dealre[i][1].substring(0,index-1) + dealre[i][1].substring(index+2,dealre[i][1].length()-1);
-			
-			String sql2 = "update "+strTableName+" set straroundshopids='"+dealre[i][1]+"' where strid='"+dealre[i][0]+"'";
-			try {
-				db.executeUpdate(sql2);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-    }
 
     //查询记录数
     public int getCount(String where) {
@@ -385,7 +345,6 @@ public class Terminal {
     //添加广告记录
     public boolean addAd() {
         String strSql = "";
-        strId = UID.getID();
         try {
         	
         	   //添加券打机信息
@@ -447,7 +406,7 @@ public class Terminal {
              theBean.setDtStartTime((rs.getString("dtstarttime")).substring(0,5));
              theBean.setDtEndTime((rs.getString("dtendtime")).substring(0,5));
              theBean.setStrCreator(rs.getString("strcreator"));
-             theBean.setDtCreateTime(rs.getString("dtcreatetime"));             
+             theBean.setDtCreateTime(rs.getString("dtcreatetime"));          
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -461,9 +420,8 @@ public class Terminal {
        //事务处理
     	try {
         	db.getConnection().setAutoCommit(false);//禁止自动提交事务 
-        	
-            db.executeUpdate(sql);//删除终端
-            
+        	db.getConnection().setSavepoint();
+        	db.executeUpdate(sql);//删除终端
             db.getConnection().commit(); //统一提交
             Globa.logger0("删除广告信息", globa.loginName, globa.loginIp, sql, "终端管理", globa.unitCode);
             return true;
@@ -472,6 +430,42 @@ public class Terminal {
             return false;
         } 
     }
+
+    //从广告的投放终端id中删除指定终端id
+      public void deleteTerminalIdsFromIds(String terminalid)
+      {
+      	String sql ="select * from "+strTableName2+" where strterminalids like '%"+terminalid+"%'";
+      	System.out.println("Terminal.deleteTerminalsFromIds()"+sql);
+          ResultSet rs = db.executeQuery(sql);
+      	try {
+  			if(rs!=null && rs.next())
+  			{
+  				do {
+  					String dealre1 = rs.getString("strid");
+  					String dealre2 = rs.getString("strterminalids");
+  					System.out.println("Shop.deleteShopIdFromIds()"+terminalid+rs.getString("strterminalids"));
+  					String array[]=dealre2.split(",");
+  					String terminalids=" ";
+  				    if(array!=null && !terminalid.equals(dealre2))
+  					{
+  						for(int i=0;i<array.length;i++)
+  						{
+  							if(!array[i].trim().equals(terminalid))
+  							{
+  								terminalids += array[i].trim()+",";
+  							}
+  						}
+  						terminalids = terminalids.trim().substring(0,terminalids.length()-2);	
+  					}	
+  					String sql2 = "update "+strTableName2+" set strterminalids='"+terminalids+"' where strid='"+dealre1+"'";
+  					db.executeUpdate(sql2);
+  				} while (rs.next());
+  		}
+  		} catch (SQLException e) {
+  			// TODO Auto-generated catch block
+  			e.printStackTrace();
+  		}	
+      }
     //分页整理广告结果
     public Vector<Terminal> listAd(String where, int startRow, int rowCount) {
         Vector<Terminal> beans = new Vector<Terminal>();
@@ -553,13 +547,13 @@ public class Terminal {
         {
        	    Terminal obj0 = new Terminal(globa,false);
           	Terminal  obj = new Terminal();
-            String terminals[]= terminalids.split(",");             
+            String terminals[]= terminalids.trim().split(",");             
             for(int i=0;i<terminals.length;i++)
             {
 	           	obj=obj0.show("where strid='"+terminals[i].trim()+"'");
               	 if(obj!=null)
               	 {
-              		terminalnos +=obj.getStrId();
+              		terminalnos +=obj.getStrNo();
               		 if(i<terminals.length-1)
               			terminalnos +="，";
               	 }
@@ -580,6 +574,7 @@ public class Terminal {
             return null;
         }
     }
+
 //终端信息
     private String strId;//终端信息Id
     private String strNo;//终端编号
