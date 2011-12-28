@@ -124,6 +124,21 @@ public class ApacheUpload {
         fi.write(new File(path + fileName));
         return fileName;
     }
+    
+    //保存文件 并指定文件名
+    public String saveFile2(String path, int fileIndex, String name) throws Exception {
+        if (this.files == null || fileIndex >= this.files.size()) {
+            return "";
+        }
+        FileItem fi = (FileItem)this.files.get(fileIndex);
+        //create file name
+        String fileName = fi.getName();
+        fileName = fileName.substring(fileName.lastIndexOf("."));
+        fileName = name + fileName;
+        //save and return
+        fi.write(new File(path + fileName));
+        return fileName;
+    }
 
     /**
      * 保存文件
