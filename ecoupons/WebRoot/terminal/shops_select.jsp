@@ -6,7 +6,12 @@
 
 <html>
 <head>
+<meta http-equiv="Vache-Control" content="no-cache" />
+<!--
+<meta http-equiv="pragram" content="no-cache; charset=gb2312" />
+<meta http-equiv="expires" content="0; charset=gb2312" />
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+-->
 <title><%=Globa.APP_TITLE%></title>
 <style type="text/css">
 <!--
@@ -43,7 +48,7 @@ function ReturnShops(){
 }
 </script>
 </head>
-<body >
+<body onkeydown="if(event.KeyCode==116){reload.click()}" >
 <form name="frm" method="post" action="">
 <input type="hidden" name="<%=Constants.ACTION_TYPE%>" value="<%=Constants.ADD_STR%>">
 <div class="MainDiv">
@@ -56,7 +61,7 @@ function ReturnShops(){
   <tr>
     <td height="0" >
         <table border="0" cellpadding="0" cellspacing="0" style="width:100%">
-        <tr><td height="0" align="left"></td></tr>
+        <tr><td height="5" align="left"></td></tr>
         <TR>
             <TD width="100%" height="222">
                 <fieldset>

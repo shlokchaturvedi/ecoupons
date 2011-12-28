@@ -70,7 +70,7 @@ body,td,tr{font-size:9pt;}
         }
     }
    function openwin() {  
-			 var shops=window.showModalDialog("shops_select.jsp", "选择临近商家", "width=370,height=250,top=200,left=200,scrollbars=yes,status=yes"); //写成一行 
+			 var shops=window.showModalDialog("shops_select.jsp?random="+ Math.random(), "选择临近商家", "width=370,height=250,top=200,left=200,scrollbars=yes,status=yes"); //写成一行 
 		  	document.getElementById("strAroundShops").value=shops.substring(0,shops.length-1);
 		  	}
 </script>

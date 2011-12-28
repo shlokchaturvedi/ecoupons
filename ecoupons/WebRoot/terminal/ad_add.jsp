@@ -15,7 +15,7 @@ body {
 	margin-left: 0px;
 	margin-top: 0px;
 	margin-right: 0px;
-	margin-bottom: 0px;
+	margin-bottom: 0px; 
 	background-color: #F8F9FA;
 	font-size:9pt;
 }
@@ -25,7 +25,7 @@ body,td,tr{font-size:9pt;}
 <link href="../images/skin.css" rel="stylesheet" type="text/css" />
 <script src="../include/js/chkFrm.js"></script>
 <script src="../js/datetime.js"></script>
-<script language="javascript">
+<script language="javascript"><!--
     function chkFrm() {
        if(trim(frm.strName.value)=="") {
             alert("请输入广告名称！！！")
@@ -85,15 +85,35 @@ body,td,tr{font-size:9pt;}
     }
 function addTerminals()
 {
-    var terminals = window.showModalDialog("terminals_select.jsp", "选择投放终端", "width=370,height=250,top=200,left=200,scrollbars=yes,status=yes"); //写成一行 
+    var terminals = window.showModalDialog("terminals_select.jsp?random="+ Math.random(), "选择投放终端", "width=370,height=250,top=200,left=200,scrollbars=yes,status=yes"); //写成一行 
 	document.getElementById("strTerminals").value=terminals.substring(0,terminals.length-1);
 		  
+}  
+function showTextContent(){
+    var array = document.frm.getElementsByTagName("input");
+    for(i=0;i<array.length;i++)
+	 {
+	 	if(array[i].type=="radio" && array[i].id=="type3" )
+	 	{	 		
+            document.getElementById("strContent").innerHTML="<input type='text' name='strContent' id='strContent'  class='input_box' size='30'>(输入走马灯内容)";	      
+	 	} 
+	 }
+}
+function showFileContent(){
+    var array = document.frm.getElementsByTagName("input");
+    for(i=0;i<array.length;i++)
+	 {
+	 	if(array[i].type=="radio" && (array[i].id=="type1"||array[i].id=="type2") )
+	 	{	 		
+            document.getElementById("strContent").innerHTML="<input type='file' name='strContent' id='strContent'  class='input_box' size='30'>";	      
+	 	} 
+	 }
 }
 </script>
 </head>
 
 <body>
-<form name="frm" method="post" action="ad_act.jsp" >
+<form name="frm" method="post" action="ad_act.jsp" enctype="multipart/form-data">
 <input type="hidden" name="<%=Constants.ACTION_TYPE%>" value="<%=Constants.ADD_STR%>">
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr>
@@ -143,7 +163,7 @@ function addTerminals()
             </table></td>
           </tr>
           <tr>
-            <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <td><table id="doTable" width="100%" border="0" cellspacing="0" cellpadding="0">
               <tr>
                 <td width="20%" height="30" align="right" class="left_txt2">广告名称：</td>
                 <td width="3%" height="30">&nbsp;</td>
@@ -154,17 +174,23 @@ function addTerminals()
                  <td width="20%" height="30" align="right" class="left_txt2">广告类型：</td>
                 <td width="3%" height="30">&nbsp;</td>
                 <td width="32%" height="30">
-					 <input type="radio" name="intType" value="1" checked class="input_box">视频
-					 <input type="radio" name="intType" value="2" class="input_box">图片
-					 <input type="radio" name="intType" value="3" class="input_box">走马灯
-				 </td>
-                <td width="45%" height="30" class="left_txt">&nbsp;</td> 
-              </tr>  
+					 <input type="radio" name="intType" id="type1" value="1" checked onclick="showFileContent()" class="input_box" />视频
+					 <input type="radio" name="intType" id="type2" value="2" onclick="showFileContent()" class="input_box">图片
+                     <input type="radio" name="intType" id="type3" value="3" onclick="showTextContent()" class="input_box">走马灯
+				</td>
+              <tr bgcolor="#f2f2f2">
+                 <td width="20%" height="30" align="right" class="left_txt2">广告内容：</td>
+                <td width="3%" height="30">&nbsp;</td>
+                <td width="32%" height="30">
+	              <span id="strContent"><input type="file" name="strContent" id="strContent"  class="input_box" size="30"></span>
+				</td>
+                <td width="45%" height="30" class="left_txt"></td> 
+              </tr>
               <tr bgcolor="#f2f2f2">
                  <td width="20%" height="30" align="right" class="left_txt2">投放终端：</td>
                 <td width="3%" height="30">&nbsp;</td>
                 <td width="32%" height="30">
-	                <input type="text" readonly name="strTerminals" size="30">
+	                <input type="text" readonly name="strTerminals" class="input_box" size="30">
 					<input type="button" name="Submit" value="..." onclick="addTerminals()">
 				</td>
                 <td width="45%" height="30" class="left_txt"></td> 

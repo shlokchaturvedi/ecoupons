@@ -94,15 +94,35 @@ body,td,tr{font-size:9pt;}
     }
 function addTerminals()
 {
-    var terminals = window.showModalDialog("terminals_select.jsp", "选择投放终端", "width=370,height=250,top=200,left=200,scrollbars=yes,status=yes"); //写成一行 
+    var terminals = window.showModalDialog("terminals_select.jsp?random="+ Math.random(), "选择投放终端", "width=370,height=250,top=200,left=200,scrollbars=yes,status=yes"); //写成一行 
 	document.getElementById("strTerminals").value=terminals.substring(0,terminals.length-1);
 		  
+}  
+function showTextContent(){
+    var array = document.frm.getElementsByTagName("input");
+    for(i=0;i<array.length;i++)
+	 {
+	 	if(array[i].type=="radio" && array[i].id=="type3" )
+	 	{	 		
+            document.getElementById("strContent").innerHTML="<input type='text'  name='strContent' id='strContent'  class='input_box' size='30'>(输入走马灯内容)";	      
+	 	} 
+	 }
+}
+function showFileContent(){
+    var array = document.frm.getElementsByTagName("input");
+    for(i=0;i<array.length;i++)
+	 {
+	 	if(array[i].type=="radio" && (array[i].id=="type1"||array[i].id=="type2") )
+	 	{	 		
+            document.getElementById("strContent").innerHTML="<input type='file'  name='strContent' id='strContent'  class='input_box' size='30'>";	      
+	 	} 
+	 }
 }
 </script>
 </head>
 
 <body>
-<form name="frm" method="post" action="ad_act.jsp" >
+<form name="frm" method="post" action="ad_act.jsp" enctype="multipart/form-data">
 <input type="hidden" name="<%=Constants.ACTION_TYPE%>" value="<%=Constants.UPDATE_STR%>">
 <input type="hidden" name="strId" value="<%=obj0.getStrId()%>">
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
@@ -153,45 +173,48 @@ function addTerminals()
             </table></td>
           </tr>
           <tr>
-            <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <td><table id="doTable" width="100%" border="0" cellspacing="0" cellpadding="0">
               <tr>
                 <td width="20%" height="30" align="right" class="left_txt2">广告名称：</td>
                 <td width="3%" height="30">&nbsp;</td>
                 <td width="32%" height="30"><input name="strName" value="<%=obj0.getStrName()%>" type="text" class="input_box" size="30" /></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td>
               </tr>
+               <% 
+                	String type = "";
+                	if(obj0.getIntType().equals("1")) type = "视频";
+                	else if(obj0.getIntType().equals("2")) type = "图片";
+                	else type = "走马灯";
+                %>
               <tr bgcolor="#f2f2f2">
-                 <td width="20%" height="30" align="right" class="left_txt2">广告类型：</td>
+                 <td width="20%" height="30" align="right" class="left_txt2">内容介绍：</td>
+                <td width="3%" height="30">&nbsp;</td>
+                <td width="32%" height="30"><%=obj0.getStrContent()%>&nbsp;&nbsp;(<%=type %>)</td>
+                <td width="45%" height="30" class="left_txt"></td> 
+              </tr>
+              <tr bgcolor="#f2f2f2">
+                 <td width="20%" height="30" align="right" class="left_txt2">广告更改：</td>
                 <td width="3%" height="30">&nbsp;</td>                
                 <td width="32%" height="30">
-                <% 
-                	String checked1 = "";
-                	String checked2 = "";
-                	String checked3 = "";
-                	if(obj0.getIntType().equals("1")) checked1 = "checked";
-                	else if(obj0.getIntType().equals("2")) checked2 = "checked";
-                	else checked3 = "checked";
-                %>
-					 <input type="radio" name="intType" value="1" <%=checked1%> class="input_box">视频
-					 <input type="radio" name="intType" value="2" <%=checked2%> class="input_box">图片
-					 <input type="radio" name="intType" value="3" <%=checked3%> class="input_box">走马灯
+                	 <input type="radio" name="intType" id="type1" value="1" checked onclick="showFileContent()" class="input_box" />视频
+					 <input type="radio" name="intType" id="type2" value="2" onclick="showFileContent()" class="input_box">图片
+                     <input type="radio" name="intType" id="type3" value="3" onclick="showTextContent()" class="input_box">走马灯 
 					 </td>
 				  <td width="45%" height="30" class="left_txt">&nbsp;</td> 
-              </tr>
-              
+              </tr>              
               <tr bgcolor="#f2f2f2">
-                 <td width="20%" height="30" align="right" class="left_txt2">广告内容：</td>
-                 <td width="3%" height="30">&nbsp;</td>
-                 <td width="32%" height="30">	 
-                	<input name="strContent" value="<%=obj0.getStrContent()%>" type="text" class="input_box" size="30" />
-			     </td>
-                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
+                 <td width="20%" height="30" align="right" class="left_txt2"></td>
+                <td width="3%" height="30">&nbsp;</td>
+                <td width="32%" height="30">
+	              <span id="strContent"><input type="file"  value="" name="strContent" id="strContent"  class="input_box" size="30"></span>
+				</td>
+                <td width="45%" height="30" class="left_txt"></td> 
               </tr>
               <tr bgcolor="#f2f2f2">
                  <td width="20%" height="30" align="right" class="left_txt2">投放终端：</td>
                 <td width="3%" height="30">&nbsp;</td>
                 <td width="32%" height="30">
-                    <input type="text" value="<%=obj0.getStrTerminals()%>"  readonly name="strTerminals" size="30">
+                    <input type="text" value="<%=obj0.getStrTerminals()%>"  readonly id="strTerminals" name="strTerminals" class="input_box" size="30">
 					<input type="button" name="Submit" value="..." onclick="addTerminals()">
 				</td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
