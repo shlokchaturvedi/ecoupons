@@ -11,13 +11,13 @@
     if(action.equals(Constants.DELETE_STR)){
     	String[] aryStrId = ParamUtil.getStrArray(request, "strId");
     	for (int i = 0; i < aryStrId.length; i++) {
-	    	obj.delete("where strId ='"+aryStrId[i]+"'");
+	    	obj.delete("where strId ='"+aryStrId[i]+"'",aryStrId[i]);
     	}
     	globa.dispatch(true, strUrl);
 	} else {
 	         String strNo=ParamUtil.getString(request,"strNo"," ");
 	         String dtActiveTime=ParamUtil.getString(request,"dtActiveTime"," ");
-	         String strLocation=ParamUtil.getString(request,"strLocation"," ");
+	         String strLocation=ParamUtil.getString(request,"strLocation","暂无 ");
 	         String strAroundShops=ParamUtil.getString(request,"strAroundShops"," ");
 	         String strProducer=ParamUtil.getString(request,"strProducer"," ");
 	         String strType=ParamUtil.getString(request,"strType"," ");

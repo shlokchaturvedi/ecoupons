@@ -142,21 +142,25 @@ function del(){
                 <td  width="3%" height="22"  class="left_bt2"><div align="center">&nbsp;</div></td>
                 <td width="10%" class="left_bt2"><div align="center">广告名称</div></td>
                 <td width="10%" class="left_bt2"><div align="center">广告类型</div></td>
-                <td width="17%" class="left_bt2"><div align="center">投放终端</div></td>      
+                <td width="17%" class="left_bt2"><div align="center">投放终端(编号)</div></td>      
                 <td width="15%" class="left_bt2"><div align="center">播放时间(时：分)</div></td>        
                 <td width="20%" class="left_bt2"><div align="center">广告内容</div></td>
                 <td width="10%" class="left_bt2"><div align="center">操作</div></td>
               </tr>
             <%
             	for (int i = 0;i < vctObj.size(); i++) {
-                        	Terminal obj1 = vctObj.get(i);
-            %>
+                        	Terminal obj1 = vctObj.get(i);                        	
+		                	String type = "";
+		                	if(obj1.getIntType().equals("1")) type = "视频";
+		                	else if(obj1.getIntType().equals("2")) type = "图片";
+		                	else type = "走马灯";
+                %>
               <tr  title="创建时间：<%=obj1.getDtCreateTime()%>" >
                 <td height="20" bgcolor="#FFFFFF"><div align="center">
                     <input type="checkbox" name=strId value="<%=obj1.getStrId() %>" />
                 </div></td>
                 <td bgcolor="#FFFFFF"> <div align="center"><span class="STYLE1"><%=obj1.getStrName()%></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getIntType()%></span></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=type%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrTerminals()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getDtStartTime()%>—<%=obj1.getDtEndTime()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrContent()%></span></div></td>

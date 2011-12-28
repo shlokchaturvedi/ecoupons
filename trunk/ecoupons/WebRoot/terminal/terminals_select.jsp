@@ -55,26 +55,17 @@ function ReturnTerminals(){
   <tr>
     <td height="0" >
         <table border="0" cellpadding="0" cellspacing="0" style="width:100%">
-        <tr><td height="0" align="left"></td></tr>
+        <tr><td height="10" align="left"></td></tr>
         <TR>
             <TD width="100%" height="222">
                 <fieldset>
-                <legend>终端列表</legend>
+                <legend>终端（编号-地点）</legend>
                <table border="0" cellpadding="2" cellspacing="1" style="width:100%">
 			  <tr>
-                 <td>  
+                 <td width="50%">  
                         &nbsp;		
                 </td>
-                 <td width="20%">  
-                        &nbsp;		
-                </td>
-                 <td width="20%">  
-                        &nbsp;		
-                </td>
-                 <td width="20%">  
-                        &nbsp;		
-                </td>
-                 <td>  
+                 <td width="50%">  
                         &nbsp;		
                 </td>
                </tr>
@@ -91,7 +82,7 @@ function ReturnTerminals(){
                %>
                <tr>
                  <td>  
-                       &nbsp;<input name="terminalname" type="checkbox" value="<%=strno%>" /><%=strno%>—<%=strlocation%>			
+                       &nbsp;<input name="terminalname" type="checkbox" value="<%=strno%>" /><%=strno%>-<%=strlocation%>			
 		              	
                 </td>
                </tr>               
