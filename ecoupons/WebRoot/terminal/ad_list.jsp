@@ -154,7 +154,7 @@ function del(){
 		                	if(obj1.getIntType().equals("1")) type = "视频";
 		                	else if(obj1.getIntType().equals("2")) type = "图片";
 		                	else type = "走马灯";
-                %>
+                %> 
               <tr  title="创建时间：<%=obj1.getDtCreateTime()%>" >
                 <td height="20" bgcolor="#FFFFFF"><div align="center">
                     <input type="checkbox" name=strId value="<%=obj1.getStrId() %>" />
