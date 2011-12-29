@@ -5,10 +5,12 @@
 <%@page import="com.ejoysoft.ecoupons.business.Recharge"%>
 <%@page import="java.util.Vector"%>
 <%@page import="com.ejoysoft.ecoupons.business.Point"%>
+<%@page import="com.ejoysoft.ecoupons.business.PointPresent"%>
 <%@ include file="../include/jsp/head.jsp"%>
 <%
 	Point obj = new Point(globa, true);
 	String strUrl = "pointbuy_list.jsp";
+	String strPresentUrl = "pointpresent_list.jsp";
 
 	if (action.equals(Constants.DELETE_STR))
 	{
@@ -46,6 +48,13 @@
 		String strEndId = ParamUtil.getString(request, "strEndId", "");
 
 	}
+	 else if (action.equals(Constants.PRESENT_STR))
+		{
+		 PointPresent pointPresent = new PointPresent(globa, true);
+		 String strId = ParamUtil.getString(request, "strId", "");
+		 globa.dispatch(pointPresent.add(),strPresentUrl );
+
+		}
 	//关闭数据库连接对象
 	globa.closeCon();
 %>

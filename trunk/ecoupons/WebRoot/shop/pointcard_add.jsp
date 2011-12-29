@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ page
 	import="java.util.Vector,com.ejoysoft.ecoupons.system.SysUserUnit,com.ejoysoft.ecoupons.system.Unit,com.ejoysoft.common.Constants,java.util.*"%>
-<%@page import="com.ejoysoft.ecoupons.business.Shop"%>
 <%@ include file="../include/jsp/head.jsp"%>
 <%
 String strId=ParamUtil.getString(request,"strId",""); 
@@ -32,32 +31,36 @@ body,td,tr {
 		<script language="JavaScript"
 			src="../include/DatePicker/WdatePicker.js"></script>
 		<script language="javascript">
+		
 		function chkFrm() {
-			if(trim(frm.strShopId.value)=="") {
-		        alert("请选择商家！！")
-		        frm.strShopId.focus();
+			if(trim(frm.strPointCardNo.value)=="") {
+		        alert("请输入卡号！！")
+		        frm.strPointCardNo.focus();
 		        return false;
 		    }else
-		    if(trim(frm.intPoint.value)=="") {
-		        alert("请输入积分数额！！！")
+		    if(trim(frm.strPointCardPwd.value)=="") {
+		        alert("请输入密码！！")
+		        frm.strPointCardPwd.focus();
+		        return false;
+		    }else  if(trim(frm.intPoint.value)=="") {
+		        alert("请输入积分！！")
 		        frm.intPoint.focus();
 		        return false;
 		    }
 		    else {
-		        if(confirm("确定购买!"))
+		        if(confirm("确定录入!"))
 			        {
 		    	frm.submit();
 		    	    }
 		          }
 		}
-		
 </script>
 	</head>
 	<body>
-		<form name="frm" method="post" action="point_act.jsp">
+		<form name="frm" method="post" action="pointcard_act.jsp">
 			<input type="hidden" name="<%=Constants.ACTION_TYPE%>"
 				value="<%=Constants.ADD_STR%>">
-			<input type="hidden" name=strMemberCardNo value="<%=strId%>">
+			
 			<table width="100%" border="0" cellpadding="0" cellspacing="0">
 				<tr>
 					<td width="17" height="29" valign="top"
@@ -71,7 +74,7 @@ body,td,tr {
 							<tr>
 								<td height="31">
 									<div class="titlebt">
-										购买管理
+										积分卡录入
 									</div>
 								</td>
 							</tr>
@@ -100,7 +103,7 @@ body,td,tr {
 										cellspacing="0">
 										<tr>
 											<td class="left_txt">
-												当前位置：日常管理 / 商家管理 / 购买积分
+												当前位置：日常管理 / 商家管理 / 积分卡录入
 											</td>
 										</tr>
 										<tr>
@@ -122,7 +125,7 @@ body,td,tr {
 															<img src="../images/title.gif" width="54" height="55">
 														</td>
 														<td width="94%" valign="top">
-															<span class="left_txt2">在这里，您可以用现金购买积分！</span>
+															<span class="left_txt2">在这里，您可以录入纸质积分卡！</span>
 															<br>
 
 														</td>
@@ -141,7 +144,7 @@ body,td,tr {
 													cellspacing="0" class="nowtable">
 													<tr>
 														<td class="left_bt2">
-															&nbsp;&nbsp;&nbsp;&nbsp;积分购买
+															&nbsp;&nbsp;&nbsp;&nbsp;积分录入
 														</td>
 													</tr>
 												</table>
@@ -151,70 +154,36 @@ body,td,tr {
 											<td>
 												<table width="100%" border="0" cellspacing="0"
 													cellpadding="0">
+													
+
 													<tr>
 														<td width="20%" height="30" align="right"
 															class="left_txt2">
-															商家名称：
+															卡号：
 														</td>
 														<td width="3%">
 															&nbsp;
 														</td>
 														<td width="32%" height="30">
-															<select name="strShopId" class="forms_color1"
-																style="width: 213px">
-																<option value="">
-																	请选择商家名称
-																</option>
-																<%
-                                                                  //初始化
-    				                                            	//SysPara  para=null;
-   						                                            Shop para=new Shop(globa,true);
-   						                                             Vector<Shop> vctShop=para.returnShopFullName();
-                                                                     for (int i = 0; i < vctShop.size(); i++) {
-                                                                     out.print("<option value=" + vctShop.get(i).getStrId()+ ">");
-                                                                     out.println("" +vctShop.get(i).getStrBizName()+vctShop.get(i).getStrShopName() + "</option>");
-                	                                          %>
-																<%
-                                                                 }
-                                                               %>
-															</select>
+															<input name="strPointCardNo" type="text" class="input_box"
+																size="30" />
 														</td>
 														<td width="45%" height="30" class="left_txt">
 
 														</td>
 													</tr>
 
+													
 													<tr>
 														<td width="20%" height="30" align="right"
 															class="left_txt2">
-															积分类型：
+															密码：
 														</td>
 														<td width="3%">
 															&nbsp;
 														</td>
 														<td width="32%" height="30">
-															<input type="radio" name="intType" value="1" checked
-																class="input_box">
-															电子积分
-															<input type="radio" name="intType" value="2"
-																class="input_box">
-															纸质积分
-														</td>
-														<td width="45%" height="30" class="left_txt">
-
-														</td>
-													</tr>
-
-													<tr>
-														<td width="20%" height="30" align="right"
-															class="left_txt2">
-															购买金额：
-														</td>
-														<td width="3%">
-															&nbsp;
-														</td>
-														<td width="32%" height="30">
-															<input name="intMoney" type="text"  class="input_box"
+															<input name="strPointCardPwd" type="password" class="input_box"
 																size="30" />
 														</td>
 														<td width="45%" height="30" class="left_txt">
@@ -224,7 +193,7 @@ body,td,tr {
 													<tr>
 														<td width="20%" height="30" align="right"
 															class="left_txt2">
-															购买积分：
+															积分：
 														</td>
 														<td width="3%">
 															&nbsp;
@@ -237,11 +206,6 @@ body,td,tr {
 
 														</td>
 													</tr>
-
-
-
-
-
 												</table>
 											</td>
 										</tr>
