@@ -453,6 +453,51 @@ public class Shop {
 		}
     	return allbizname;
     }
+    /**
+	 * 根据查询条件返回strbizname+strshopname
+	 */
+	public String returnBizShopName(String where)
+	{
+		try
+		{
+			String strSql = "select * from  " + strTableName + "  ".concat(where);
+			ResultSet rs = db.executeQuery(strSql);
+			if (rs != null && rs.next())
+			{
+				Shop shopBean = new Shop();
+				shopBean=load(rs, true);
+				return shopBean.getStrBizName()+shopBean.getStrShopName();
+			} else
+				return null;
+		} catch (Exception ee)
+		{
+			return null;
+		}
+	}
+	/**
+	 * 根据条件，返回商家名称集合
+	 */
+	public Vector<Shop> returnShopFullName()
+	{
+		Vector<Shop> beans = new Vector<Shop>();
+		try
+		{
+			String sql = "select * FROM  " + strTableName + " ";
+			ResultSet rs = db.executeQuery(sql);
+			if (rs != null && rs.next())
+			{
+				Shop theBean = new Shop();
+				theBean = load(rs, false);
+				beans.addElement(theBean);
+				return beans;
+			} else
+				return null;
+		} catch (Exception ee)
+		{
+			return null;
+		}
+	}
+
     
     private String strId;//商家信息Id
     private String strBizName;//商家名称
