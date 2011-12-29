@@ -484,18 +484,17 @@ public class Shop {
 		{
 			String sql = "select * FROM  " + strTableName + " ";
 			ResultSet rs = db.executeQuery(sql);
-			if (rs != null && rs.next())
+			while ( rs.next())
 			{
 				Shop theBean = new Shop();
 				theBean = load(rs, false);
 				beans.addElement(theBean);
-				return beans;
-			} else
-				return null;
+			} 
 		} catch (Exception ee)
 		{
 			return null;
 		}
+		return beans;
 	}
 
     
