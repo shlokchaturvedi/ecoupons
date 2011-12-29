@@ -97,6 +97,27 @@ function addTerminals()
     var terminals = window.showModalDialog("terminals_select.jsp?random="+ Math.random(), "选择投放终端", "width=370,height=250,top=200,left=200,scrollbars=yes,status=yes"); //写成一行 
 	document.getElementById("strTerminals").value=terminals.substring(0,terminals.length-1);
 		  
+} function addPicRow(){ 	 
+	//var f = document.forms["frm"];
+	var input = document.createElement("input");
+	input.setAttribute("type","file");
+	input.setAttribute("style","width:213");
+	input.setAttribute("class","input_box");
+	input.setAttribute("size","30");
+	input.setAttribute("name","test");
+	//f.appendChild(input);
+	var br = document.createElement('br');
+	//f.appendChild(br);	
+	document.getElementById("strContent").parentNode.appendChild(br);	
+	document.getElementById("strContent").parentNode.appendChild(input);
+   }
+	 
+<!-- 显示终端列表-->
+function addTerminals()
+{
+    var terminals = window.showModalDialog("terminals_select.jsp?random="+ Math.random(), "选择投放终端", "width=370,height=250,top=200,left=200,scrollbars=yes,status=yes"); //写成一行 
+	document.getElementById("strTerminals").value=terminals.substring(0,terminals.length-1);
+		  
 }  
 function showTextContent(){
     var array = document.frm.getElementsByTagName("input");
@@ -104,7 +125,7 @@ function showTextContent(){
 	 {
 	 	if(array[i].type=="radio" && array[i].id=="type3" )
 	 	{	 		
-            document.getElementById("strContent").innerHTML="<input type='text'  name='strContent' id='strContent'  class='input_box' size='30'>(输入走马灯内容)";	      
+            document.getElementById("strContentid").innerHTML="<input type='text' name='strContent' id='strContent'  class='input_box' size='30'>(走马灯内容)";	      
 	 	} 
 	 }
 }
@@ -112,9 +133,20 @@ function showFileContent(){
     var array = document.frm.getElementsByTagName("input");
     for(i=0;i<array.length;i++)
 	 {
-	 	if(array[i].type=="radio" && (array[i].id=="type1"||array[i].id=="type2") )
+	 	if(array[i].type=="radio" && array[i].id=="type1")
 	 	{	 		
-            document.getElementById("strContent").innerHTML="<input type='file'  name='strContent' id='strContent'  class='input_box' size='30'>";	      
+            document.getElementById("strContentid").innerHTML="<input type='file' style='width:213' name='strContent' id='strContent'  class='input_box' size='30'>(视频文件)";	      
+	 	} 
+	 }
+    }
+function showPicContent(){
+    var array = document.frm.getElementsByTagName("input");
+    for(i=0;i<array.length;i++)
+	 {
+	 	if(array[i].type=="radio" && array[i].id=="type2" )
+	 	{	 		
+            document.getElementById("strContentid").innerHTML="<input type='file' style='width:213' name='strContent' id='strContent'  class='input_box' size='30'>"+
+           													"<input type='button' value='+'  onclick='addPicRow();'/>(图片文件)";	      
 	 	} 
 	 }
 }
@@ -194,19 +226,18 @@ function showFileContent(){
               </tr>
               <tr bgcolor="#f2f2f2">
                  <td width="20%" height="30" align="right" class="left_txt2">广告更改：</td>
-                <td width="3%" height="30">&nbsp;</td>                
+                <td width="3%" height="30">&nbsp;</td>
                 <td width="32%" height="30">
-                	 <input type="radio" name="intType" id="type1" value="1" checked onclick="showFileContent()" class="input_box" />视频
-					 <input type="radio" name="intType" id="type2" value="2" onclick="showFileContent()" class="input_box">图片
-                     <input type="radio" name="intType" id="type3" value="3" onclick="showTextContent()" class="input_box">走马灯 
-					 </td>
-				  <td width="45%" height="30" class="left_txt">&nbsp;</td> 
-              </tr>              
+					 <input type="radio" name="intType" id="type1" value="1" checked onclick="showFileContent()" class="input_box" />视频
+					 <input type="radio" name="intType" id="type2" value="2" onclick="showPicContent()" class="input_box">图片
+                     <input type="radio" name="intType" id="type3" value="3" onclick="showTextContent()" class="input_box">走马灯
+				</td>
+				</tr>
               <tr bgcolor="#f2f2f2">
                  <td width="20%" height="30" align="right" class="left_txt2"></td>
                 <td width="3%" height="30">&nbsp;</td>
                 <td width="32%" height="30">
-	              <span id="strContent"><input type="file"  value="" name="strContent" id="strContent"  class="input_box" size="30"></span>
+	              <span id="strContentid"><input type='file' style='width=213' name='strContent' id='strContent'  class='input_box' size='30'>(视频文件)</span>
 				</td>
                 <td width="45%" height="30" class="left_txt"></td> 
               </tr>
