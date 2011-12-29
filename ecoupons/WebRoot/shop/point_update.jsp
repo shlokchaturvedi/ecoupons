@@ -248,7 +248,7 @@ body,td,tr {
 														</td>
 														<td width="45%" height="30" class="left_txt">
 															&nbsp;
-														</td>
+														</td></tr>
 												</table>
 											</td>
 										</tr>

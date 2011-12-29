@@ -32,14 +32,19 @@ body,td,tr {
 		<script language="JavaScript"
 			src="../include/DatePicker/WdatePicker.js"></script>
 		<script language="javascript">
+		
 		function chkFrm() {
 			if(trim(frm.strShopId.value)=="") {
 		        alert("请选择商家！！")
 		        frm.strShopId.focus();
 		        return false;
 		    }else
-		    if(trim(frm.intPoint.value)=="") {
-		        alert("请输入积分数额！！！")
+		    if(trim(frm.strMemberCardNo.value)=="") {
+		        alert("请输入会员！！")
+		        frm.strMemberCardNo.focus();
+		        return false;
+		    }else  if(trim(frm.intPoint.value)=="") {
+		        alert("请输入积分！！")
 		        frm.intPoint.focus();
 		        return false;
 		    }
@@ -50,14 +55,13 @@ body,td,tr {
 		    	    }
 		          }
 		}
-		
 </script>
 	</head>
 	<body>
 		<form name="frm" method="post" action="point_act.jsp">
 			<input type="hidden" name="<%=Constants.ACTION_TYPE%>"
-				value="<%=Constants.ADD_STR%>">
-			<input type="hidden" name=strMemberCardNo value="<%=strId%>">
+				value="<%=Constants.PRESENT_STR%>">
+			
 			<table width="100%" border="0" cellpadding="0" cellspacing="0">
 				<tr>
 					<td width="17" height="29" valign="top"
@@ -71,7 +75,7 @@ body,td,tr {
 							<tr>
 								<td height="31">
 									<div class="titlebt">
-										购买管理
+										转赠管理
 									</div>
 								</td>
 							</tr>
@@ -100,7 +104,7 @@ body,td,tr {
 										cellspacing="0">
 										<tr>
 											<td class="left_txt">
-												当前位置：日常管理 / 商家管理 / 购买积分
+												当前位置：日常管理 / 商家管理 / 转赠积分
 											</td>
 										</tr>
 										<tr>
@@ -122,7 +126,7 @@ body,td,tr {
 															<img src="../images/title.gif" width="54" height="55">
 														</td>
 														<td width="94%" valign="top">
-															<span class="left_txt2">在这里，您可以用现金购买积分！</span>
+															<span class="left_txt2">在这里，您可以用向会员转赠积分！</span>
 															<br>
 
 														</td>
@@ -141,7 +145,7 @@ body,td,tr {
 													cellspacing="0" class="nowtable">
 													<tr>
 														<td class="left_bt2">
-															&nbsp;&nbsp;&nbsp;&nbsp;积分购买
+															&nbsp;&nbsp;&nbsp;&nbsp;积分转赠
 														</td>
 													</tr>
 												</table>
@@ -187,44 +191,25 @@ body,td,tr {
 													<tr>
 														<td width="20%" height="30" align="right"
 															class="left_txt2">
-															积分类型：
+															会员卡号：
 														</td>
 														<td width="3%">
 															&nbsp;
 														</td>
 														<td width="32%" height="30">
-															<input type="radio" name="intType" value="1" checked
-																class="input_box">
-															电子积分
-															<input type="radio" name="intType" value="2"
-																class="input_box">
-															纸质积分
-														</td>
-														<td width="45%" height="30" class="left_txt">
-
-														</td>
-													</tr>
-
-													<tr>
-														<td width="20%" height="30" align="right"
-															class="left_txt2">
-															购买金额：
-														</td>
-														<td width="3%">
-															&nbsp;
-														</td>
-														<td width="32%" height="30">
-															<input name="intMoney" type="text"  class="input_box"
+															<input name="strMemberCardNo" type="text" class="input_box"
 																size="30" />
 														</td>
 														<td width="45%" height="30" class="left_txt">
 
 														</td>
 													</tr>
+
+													
 													<tr>
 														<td width="20%" height="30" align="right"
 															class="left_txt2">
-															购买积分：
+															转赠积分：
 														</td>
 														<td width="3%">
 															&nbsp;
@@ -237,11 +222,6 @@ body,td,tr {
 
 														</td>
 													</tr>
-
-
-
-
-
 												</table>
 											</td>
 										</tr>
