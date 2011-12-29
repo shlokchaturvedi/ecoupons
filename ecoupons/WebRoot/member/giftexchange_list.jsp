@@ -5,7 +5,7 @@
 <%@page import="com.ejoysoft.ecoupons.business.GiftExchange"%>
 <%@ include file="../include/jsp/head.jsp"%>
 <%
-if(!globa.userSession.hasRight("11015"))
+if(!globa.userSession.hasRight("11020"))
       throw new NoRightException("用户不具备操作该功能模块的权限，请与系统管理员联系！");
 %>
 
