@@ -51,45 +51,20 @@
 	   if(action.equals(Constants.UPDATE_STR)){
 			obj.setStrId(au.getString("strId"));
 	    	obj0 = obj.showAd(" where strId='" + obj.getStrId() + "'");
-	    }
-	  
-	   if(intType.trim().equals("1"))
+	    }	  
+	   if(intType.trim().equals("1")||intType.trim().equals("2"))
 	   {
-	    	if (action.equals(Constants.UPDATE_STR) && obj0.getStrContent()!=null&&obj0.getStrContent().length() > 0) 
-	    	{
-	    		String pic[] = obj0.getStrContent().trim().split(",");
-	        	if(pic!=null)
-	        	{
-        			for(int j=0; j< pic.length;j++)
-        			{
-        			    System.out.println(pic[j]);
-	        			File f = new File(strFilePath + pic[j]);
-	    			    if(f!=null) 
-	        			  f.delete();
-        			}
-        			
-        		}
-        		filename = strId;
-	    	}
-	    	else if(action.equals(Constants.ADD_STR) )
-	    	{
-	    		obj.setStrId(filename);
-	    	}
-	   		strcontent = au.saveFile2(strFilePath, 0, filename+"_"+intType);
-	   }
-	    else if(intType.trim().equals("2"))
-	   {
-	   	  for(int i=0;i<10;i++)
+	     for(int i=0;i<au.getFileCount();i++)
 	   	  {
 	   	  	if (action.equals(Constants.UPDATE_STR) && obj0.getStrContent()!=null&&obj0.getStrContent().length() > 0) 
 	    	{
-	    		String pic[] = obj0.getStrContent().trim().split(",");
-	        	if(pic!=null)
+	    		String files[] = obj0.getStrContent().trim().split(",");
+	        	if(files!=null)
 	        	{
-        			for(int j=0; j< pic.length;j++)
+        			for(int j=0; j< files.length;j++)
         			{
-        			    System.out.println(pic[j]);
-	        			File f = new File(strFilePath + pic[j]);
+        			    System.out.println(files[j]);
+	        			File f = new File(strFilePath + files[j]);
 	    			    if(f!=null) 
 	        			  f.delete();
         			}
@@ -101,13 +76,13 @@
 	    	{
 	    		obj.setStrId(filename);
 	    	}
-	    	String name = au.saveFile2(strFilePath, i, filename+"_"+intType+(i+1));
-	    	if(name!=null&& !(name.trim().equals("")))
+	    	
+	    	String name = au.saveFile(strFilePath, filename+"_"+(i+1),i);
+	    	if(i!=au.getFileCount())
 	   			strcontent += name+",";
 	   	  }
-	   	  if(strcontent.length()>1)
-	   	    strcontent = strcontent.substring(1,strcontent.length()-1);
-	   }
+	   	  strcontent =strcontent.trim().substring(0,strcontent.length()-2);
+	   	}
 	   else
 	   {
 	      obj.setStrId(filename);
