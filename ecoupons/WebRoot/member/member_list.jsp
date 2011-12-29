@@ -6,7 +6,7 @@
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <%
-	if(!globa.userSession.hasRight("110"))
+	if(!globa.userSession.hasRight("11005"))
       throw new NoRightException("用户不具备操作该功能模块的权限，请与系统管理员联系！");
 %>
 <%
@@ -141,7 +141,7 @@ function del(){
 			
 			<table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="b5d6e6" onmouseover="changeto()"  onmouseout="changeback()">
               <tr>
-                <td width="5%" height="22"  class="left_bt2"><div align="center">&nbsp;</td>
+                <td width="5%" height="22"  class="left_bt2"><div align="center">&nbsp;</div></td>
                 <td width="10%" class="left_bt2"><div align="center">卡号</div></td>
                 <td width="10%" class="left_bt2"><div align="center">姓名</div></td>
                 <td width="10%" class="left_bt2"><div align="center">会员类型</div></td>                
