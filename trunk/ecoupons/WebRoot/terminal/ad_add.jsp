@@ -25,7 +25,7 @@ body,td,tr{font-size:9pt;}
 <link href="../images/skin.css" rel="stylesheet" type="text/css" />
 <script src="../include/js/chkFrm.js"></script>
 <script src="../js/datetime.js"></script>
-<script language="javascript"><!--
+<script language="javascript">
     function chkFrm() {
        if(trim(frm.strName.value)=="") {
             alert("请输入广告名称！！！")
@@ -83,6 +83,23 @@ body,td,tr{font-size:9pt;}
          	frm.submit();
         }
     }
+    
+function addPicRow(){ 	 
+	//var f = document.forms["frm"];
+	var input = document.createElement("input");
+	input.setAttribute("type","file");
+	input.setAttribute("style","width:213");
+	input.setAttribute("class","input_box");
+	input.setAttribute("size","30");
+	input.setAttribute("name","test");
+	//f.appendChild(input);
+	var br = document.createElement('br');
+	//f.appendChild(br);		
+	document.getElementById("strContent").parentNode.appendChild(br);
+	document.getElementById("strContent").parentNode.appendChild(input);
+   }
+	 
+<!-- 显示终端列表-->
 function addTerminals()
 {
     var terminals = window.showModalDialog("terminals_select.jsp?random="+ Math.random(), "选择投放终端", "width=370,height=250,top=200,left=200,scrollbars=yes,status=yes"); //写成一行 
@@ -95,7 +112,7 @@ function showTextContent(){
 	 {
 	 	if(array[i].type=="radio" && array[i].id=="type3" )
 	 	{	 		
-            document.getElementById("strContent").innerHTML="<input type='text' name='strContent' id='strContent'  class='input_box' size='30'>(输入走马灯内容)";	      
+            document.getElementById("strContentid").innerHTML="<input type='text' name='strContent' id='strContent'  class='input_box' size='30'>(走马灯内容)";	      
 	 	} 
 	 }
 }
@@ -103,9 +120,20 @@ function showFileContent(){
     var array = document.frm.getElementsByTagName("input");
     for(i=0;i<array.length;i++)
 	 {
-	 	if(array[i].type=="radio" && (array[i].id=="type1"||array[i].id=="type2") )
+	 	if(array[i].type=="radio" && array[i].id=="type1")
 	 	{	 		
-            document.getElementById("strContent").innerHTML="<input type='file' name='strContent' id='strContent'  class='input_box' size='30'>";	      
+            document.getElementById("strContentid").innerHTML="<input type='file' style='width:213' name='strContent' id='strContent'  class='input_box' size='30'>(视频文件)";	      
+	 	} 
+	 }
+    }
+function showPicContent(){
+    var array = document.frm.getElementsByTagName("input");
+    for(i=0;i<array.length;i++)
+	 {
+	 	if(array[i].type=="radio" && array[i].id=="type2" )
+	 	{	 		
+            document.getElementById("strContentid").innerHTML="<input type='file' style='width:213' name='strContent' id='strContent'  class='input_box' size='30'>"+
+           													"<input type='button' value='+'  onclick='addPicRow();'/>(图片文件)";	      
 	 	} 
 	 }
 }
@@ -115,24 +143,28 @@ function showFileContent(){
 <body>
 <form name="frm" method="post" action="ad_act.jsp" enctype="multipart/form-data">
 <input type="hidden" name="<%=Constants.ACTION_TYPE%>" value="<%=Constants.ADD_STR%>">
+<input type="button" value="wewe" onclick="addPicRow()"/>
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td width="17" height="29" valign="top" background="../images/mail_leftbg.gif"><img src="../images/left-top-right.gif" width="17" height="29" /></td>
-    <td width="1195" height="29" valign="top" background="../images/content-bg.gif"><table width="100%" height="31" border="0" cellpadding="0" cellspacing="0" class="left_topbg" id="table2">
+    <td width="1195" height="29" valign="top" background="../images/content-bg.gif">
+    <table width="100%" height="31" border="0" cellpadding="0" cellspacing="0" class="left_topbg" id="table2">
       <tr>
         <td height="31"><div class="titlebt">新增广告</div></td>
       </tr>
     </table></td>
     <td width="22" valign="top" background="../images/mail_rightbg.gif"><img src="../images/nav-right-bg.gif" width="16" height="29" /></td>
   </tr>
-  <tr>
+ <tr>
     <td height="71" valign="middle" background="../images/mail_leftbg.gif">&nbsp;</td>
-    <td valign="top" bgcolor="#F7F8F9"><table width="100%" height="933" border="0" cellpadding="0" cellspacing="0">
+    <td valign="top" bgcolor="#F7F8F9">
+    <table width="100%" height="933" border="0" cellpadding="0" cellspacing="0">
       <tr>
         <td height="13" valign="top">&nbsp;</td>
       </tr>
       <tr>
-        <td height="918" valign="top"><table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <td height="918" valign="top">
+       <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
           <tr>
             <td class="left_txt">当前位置：业务管理 / 终端管理 / 新增广告</td>
           </tr>
@@ -158,12 +190,14 @@ function showFileContent(){
           <tr>
             <td><table width="100%" height="31" border="0" cellpadding="0" cellspacing="0" class="nowtable">
               <tr>
-                <td class="left_bt2">&nbsp;&nbsp;&nbsp;&nbsp;广告</td>
+                <td class="left_bt2">&nbsp;&nbsp;&nbsp;&nbsp;广告
+                </td>
               </tr>
-            </table></td>
+            </table>
+            </td>
           </tr>
           <tr>
-            <td><table id="doTable" width="100%" border="0" cellspacing="0" cellpadding="0">
+            <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tr>
                 <td width="20%" height="30" align="right" class="left_txt2">广告名称：</td>
                 <td width="3%" height="30">&nbsp;</td>
@@ -175,17 +209,19 @@ function showFileContent(){
                 <td width="3%" height="30">&nbsp;</td>
                 <td width="32%" height="30">
 					 <input type="radio" name="intType" id="type1" value="1" checked onclick="showFileContent()" class="input_box" />视频
-					 <input type="radio" name="intType" id="type2" value="2" onclick="showFileContent()" class="input_box">图片
+					 <input type="radio" name="intType" id="type2" value="2" onclick="showPicContent()" class="input_box">图片
                      <input type="radio" name="intType" id="type3" value="3" onclick="showTextContent()" class="input_box">走马灯
 				</td>
+				</tr>
               <tr bgcolor="#f2f2f2">
                  <td width="20%" height="30" align="right" class="left_txt2">广告内容：</td>
                 <td width="3%" height="30">&nbsp;</td>
                 <td width="32%" height="30">
-	              <span id="strContent"><input type="file" name="strContent" id="strContent"  class="input_box" size="30"></span>
+	              <span id="strContentid"><input type='file' style='width=213' name='strContent' id='strContent'  class='input_box' size='30'>(视频文件)</span>
 				</td>
                 <td width="45%" height="30" class="left_txt"></td> 
               </tr>
+              
               <tr bgcolor="#f2f2f2">
                  <td width="20%" height="30" align="right" class="left_txt2">投放终端：</td>
                 <td width="3%" height="30">&nbsp;</td>
@@ -193,7 +229,7 @@ function showFileContent(){
 	                <input type="text" readonly name="strTerminals" class="input_box" size="30">
 					<input type="button" name="Submit" value="..." onclick="addTerminals()">
 				</td>
-                <td width="45%" height="30" class="left_txt"></td> 
+                <td width="45%" height="30" class="left_txt"><br></td> 
               </tr>
               <tr bgcolor="#f2f2f2">
                  <td width="20%" height="30" align="right" class="left_txt2">开始播放时间：</td>
@@ -209,13 +245,13 @@ function showFileContent(){
               </tr>
             </table></td>
           </tr>
-        </table>
+         </table>
          <table width="100%" border="0" cellspacing="0" cellpadding="0">
             <tr>  
                <td width="6%" height="26" align="right">&nbsp;</td>
             </tr>
           </table>
-        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+       <table width="100%" border="0" cellspacing="0" cellpadding="0">
             <tr>  
               <td width="30%" height="56" align="right"><input name="B1" type="button" class="button_box" value="确定" onclick="chkFrm()" /></td>
               <td width="6%" height="56" align="right">&nbsp;</td>
