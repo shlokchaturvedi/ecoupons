@@ -20,6 +20,7 @@ public final class LogonForm {
     private Globa globa;
     private String error;
     UserSession userSession;
+    MemberSession memberSession;//会员登录信息
     private String strAllUnits;//			用户所属的所有上级用户组，格式：1111，2222，333
      String[] strArryUnitId=null;
 
@@ -137,6 +138,46 @@ public final class LogonForm {
                 loadRight();
                 userSession.setStrAllUnits(strAllUnits);
                 userSession.setIntUserType(rs.getInt("intUserType"));
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return value;
+    }
+  //会员认证
+    public int memberPwdAuth(String strCardNo) {
+        int value = 0;
+        int intErrorLockNum = getErrorLockNum();
+        try {
+            java.sql.ResultSet rs = null;
+            String strSql = "SELECT * " +
+            		"FROM t_bz_member WHERE strCardNo='" + strCardNo + "' ";
+            rs = globa.db.executeQuery(strSql);
+            if (!rs.next()) {
+                error = new String("会员不存在，或者你输入的会员卡号有误！");
+                value = -1;
+            } else {
+                //用户相关信息
+            	memberSession.setStrId(rs.getString("strId"));
+            	memberSession.setStrCardNo(rs.getString("strCardNo"));
+                String pwd = rs.getString("strPWD");
+                if (pwd == null || !pwd.equals(this.getPassword())) {
+           			error = new String("你输入的密码有误！");
+           			return -1;   			
+          		}
+                memberSession.setStrPWD(this.getPassword1());
+                memberSession.setStrName(rs.getString("strName"));
+                int intError = rs.getInt("intError");
+                int intState = rs.getInt("intState");
+                value = rs.getInt("intType");
+                memberSession.setIntType(value);
+                //memberSession.setIntType(rs.getInt("intType"));
+                memberSession.setStrMobileNo(rs.getString("strMobileNo"));
+                memberSession.setFlaBalance(rs.getFloat("flaBalance"));
+                memberSession.setIntPoint(rs.getInt("intPoint"));
+                //memberSession.sets(rs.getString("strCssType"));
+               
+               
             }
         } catch (Exception ex) {
             ex.printStackTrace();
