@@ -23,10 +23,16 @@ body,td,tr{font-size:9pt;}
 <script src="../include/js/chkFrm.js"></script>
 <script language="JavaScript" src="../include/DatePicker/WdatePicker.js"></script>
 <script language="javascript">
+
 function chkFrm() {
     if(trim(frm.strCardNo.value)=="") {
         alert("请输入卡号！！！")
         frm.strCardNo.focus();
+        return false;
+    }
+    if(trim(frm.strSalesman.value)=="") {
+        alert("请输入销售员！！！")
+        frm.strSalesman.focus();
         return false;
     }
     else {
@@ -105,9 +111,9 @@ function chkFrm() {
                  <td width="20%" height="30" align="right" class="left_txt2">会员类型：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30">
-                  <input type="radio" name="intType" value="1"  class="input_box">
+                  <input type="radio" name="intType"  value="1"  class="input_box">
                   VIP会员
-                  <input type="radio" name="intType" value="0"  class="input_box">
+                  <input type="radio" name="intType" checked="checked" value="0"  class="input_box">
                   普通会员
                 </td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
