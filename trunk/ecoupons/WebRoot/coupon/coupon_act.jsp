@@ -19,7 +19,7 @@
     			File f = new File(strFilePath + obj0.getStrSmallImg());
         		f.delete();
     		}
-    		if (obj0.getStrSmallImg()!=null&&obj0.getStrSmallImg().length() > 0) {
+    		if (obj0.getStrLargeImg()!=null&&obj0.getStrLargeImg().length() > 0) {
         		File f = new File(strFilePath + obj0.getStrLargeImg());
         		f.delete();
         	}
