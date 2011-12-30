@@ -10,9 +10,9 @@
 		sb.append("</tr>");
 	}
 	sb.append("</table>");
-	String strFileName = "1.xls";
+	String strFileName = "2011年商家统计表.xls";
     response.setContentType("APPLICATION/*");
-    response.setHeader( "Content-Disposition", "attachment;filename="  + strFileName);
+    response.setHeader( "Content-Disposition", "attachment;filename="  + new String( strFileName.getBytes("gbk"), "ISO8859-1" ));
     ServletOutputStream output = response.getOutputStream();
     output.write(sb.toString().getBytes());
 %>
