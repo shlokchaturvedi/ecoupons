@@ -39,7 +39,7 @@ body,td,tr{font-size:9pt;}
 </style>
 <link href="../images/skin.css" rel="stylesheet" type="text/css" />
 <script src="../include/js/chkFrm.js"></script>
-<script src="../js/datetime.js"></script>
+<script src="../include/DatePicker/WdatePicker.js"></script>
 <script language="javascript">
     function chkFrm() {
         if(trim(frm.strNo.value)=="") {
@@ -138,7 +138,7 @@ body,td,tr{font-size:9pt;}
               <tr bgcolor="#f2f2f2">
                  <td width="20%" height="30" align="right" class="left_txt2">启用时间：</td>
                 <td width="3%" height="30">&nbsp;</td>
-                <td width="32%" height="30"><input name="dtActiveTime" value="<%=(obj0.getDtActiveTime()).substring(0,16)%>"  type="text" readonly class="input_box" size="30" onClick="setDayHM(this);" /></td>
+                <td width="32%" height="30"><input name="dtActiveTime" value="<%=(obj0.getDtActiveTime()).substring(0,16)%>"  type="text" readonly class="input_box" size="30" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'});" /></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
               <tr bgcolor="#f2f2f2">

@@ -139,12 +139,12 @@ function del(){
 			
 			<table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="b5d6e6" onmouseover="changeto()"  onmouseout="changeback()">
               <tr>
-                <td  width="3%" height="22"  class="left_bt2"><div align="center">&nbsp;</div></td>
+                <td  width=5%" height="22"  class="left_bt2"><div align="center">&nbsp;</div></td>
                 <td width="10%" class="left_bt2"><div align="center">广告名称</div></td>
                 <td width="10%" class="left_bt2"><div align="center">广告类型</div></td>
-                <td width="17%" class="left_bt2"><div align="center">投放终端(编号)</div></td>      
-                <td width="15%" class="left_bt2"><div align="center">播放时间(时：分)</div></td>        
-                <td width="20%" class="left_bt2"><div align="center">广告内容</div></td>
+                <td width="10%" class="left_bt2"><div align="center">投放终端(编号)</div></td>      
+                <td width="10%" class="left_bt2"><div align="center">播放时间(时：分)</div></td>        
+                <td width="10%" class="left_bt2"><div align="center">广告内容</div></td>
                 <td width="10%" class="left_bt2"><div align="center">操作</div></td>
               </tr>
             <%

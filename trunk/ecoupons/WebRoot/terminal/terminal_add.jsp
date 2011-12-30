@@ -28,7 +28,7 @@ body,td,tr{font-size:9pt;}
 </style>
 <link href="../images/skin.css" rel="stylesheet" type="text/css" />
 <script src="../include/js/chkFrm.js"></script>
-<script src="../js/datetime.js"></script>
+<script src="../include/DatePicker/WdatePicker.js"></script>
 <script language="javascript">
     function chkFrm() {
         if(trim(frm.strNo.value)=="") {
@@ -54,7 +54,7 @@ body,td,tr{font-size:9pt;}
         	frm.submit();
         }
     } 
-    function openwin() {  
+function openwin() {  
 			 var shops=window.showModalDialog("shops_select.jsp?random="+ Math.random(), "选择临近商家", "width=370,height=250,top=200,left=200,scrollbars=yes,status=yes"); //写成一行 
 		  	document.getElementById("strAroundShops").value=shops.substring(0,shops.length-1);
 		  	}
@@ -122,7 +122,7 @@ body,td,tr{font-size:9pt;}
               <tr bgcolor="#f2f2f2">
                  <td width="20%" height="30" align="right" class="left_txt2">启用时间：</td>
                 <td width="3%" height="30">&nbsp;</td>
-                <td width="32%" height="30"><input name="dtActiveTime" type="text" readonly class="input_box" size="30" onClick="setDayHM(this);" /></td>
+                <td width="32%" height="30"><input name="dtActiveTime" type="text" readonly class="input_box" size="30" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'});" /></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
               <tr bgcolor="#f2f2f2">
