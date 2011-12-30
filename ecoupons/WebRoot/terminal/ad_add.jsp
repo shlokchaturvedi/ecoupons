@@ -24,12 +24,16 @@ body,td,tr{font-size:9pt;}
 </style>
 <link href="../images/skin.css" rel="stylesheet" type="text/css" />
 <script src="../include/js/chkFrm.js"></script>
-<script src="../js/datetime.js"></script>
+<script src="../include/DatePicker/WdatePicker.js"></script>
 <script language="javascript">
     function chkFrm() {
        if(trim(frm.strName.value)=="") {
             alert("请输入广告名称！！！")
             frm.strName.focus();
+            return false;
+        }else if(trim(frm.strContent.value)=="") {
+            alert("请选择广告文件或填写内容！！！")
+            frm.strContent.focus();
             return false;
         }else if(trim(frm.strTerminals.value)=="") {
             alert("请选择投放终端！！！")
@@ -89,9 +93,8 @@ function addPicRow(){
 	var input = document.createElement("input");
 	input.setAttribute("type","file");
 	input.setAttribute("style","width:213");
-	input.setAttribute("class","input_box");
 	input.setAttribute("size","30");
-	input.setAttribute("name","test");
+	input.setAttribute("name","strContent");
 	//f.appendChild(input);
 	var br = document.createElement('br');
 	//f.appendChild(br);		
@@ -122,7 +125,7 @@ function showFileContent(){
 	 {
 	 	if(array[i].type=="radio" && array[i].id=="type1")
 	 	{	 		
-            document.getElementById("strContentid").innerHTML="<input type='file' style='width:213' name='strContent' id='strContent'  class='input_box' size='30'>(视频文件)";	      
+            document.getElementById("strContentid").innerHTML="<input type='file' style='width:213' name='strContent' id='strContent' size='30'>(视频文件)";	      
 	 	} 
 	 }
     }
@@ -132,7 +135,7 @@ function showPicContent(){
 	 {
 	 	if(array[i].type=="radio" && array[i].id=="type2" )
 	 	{	 		
-            document.getElementById("strContentid").innerHTML="<input type='file' style='width:213' name='strContent' id='strContent'  class='input_box' size='30'>"+
+            document.getElementById("strContentid").innerHTML="<input type='file' style='width:213' name='strContent' id='strContent' size='30'>"+
            													"<input type='button' value='+'  onclick='addPicRow();'/>(图片文件)";	      
 	 	} 
 	 }
@@ -143,7 +146,6 @@ function showPicContent(){
 <body>
 <form name="frm" method="post" action="ad_act.jsp" enctype="multipart/form-data">
 <input type="hidden" name="<%=Constants.ACTION_TYPE%>" value="<%=Constants.ADD_STR%>">
-<input type="button" value="wewe" onclick="addPicRow()"/>
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td width="17" height="29" valign="top" background="../images/mail_leftbg.gif"><img src="../images/left-top-right.gif" width="17" height="29" /></td>
@@ -217,7 +219,7 @@ function showPicContent(){
                  <td width="20%" height="30" align="right" class="left_txt2">广告内容：</td>
                 <td width="3%" height="30">&nbsp;</td>
                 <td width="32%" height="30">
-	              <span id="strContentid"><input type='file' style='width=213' name='strContent' id='strContent'  class='input_box' size='30'>(视频文件)</span>
+	              <span id="strContentid"><input type='file' style='width=213' name='strContent' id='strContent' >(视频文件)</span>
 				</td>
                 <td width="45%" height="30" class="left_txt"></td> 
               </tr>
@@ -227,20 +229,20 @@ function showPicContent(){
                 <td width="3%" height="30">&nbsp;</td>
                 <td width="32%" height="30">
 	                <input type="text" readonly name="strTerminals" class="input_box" size="30">
-					<input type="button" name="Submit" value="..." onclick="addTerminals()">
+					<input type="button" name="Submit" class=" " value="..." onclick="addTerminals()">
 				</td>
                 <td width="45%" height="30" class="left_txt"><br></td> 
               </tr>
               <tr bgcolor="#f2f2f2">
                  <td width="20%" height="30" align="right" class="left_txt2">开始播放时间：</td>
                 <td width="3%">&nbsp;</td>
-                <td width="32%" height="30" ><input  name="dtStartTime" type="text" class="input_box" value="" size="30" /></td>
+                <td width="32%" height="30" ><input readonly name="dtStartTime" type="text" class="input_box" onclick="WdatePicker({dateFmt:'HH:mm'});" value="" size="30" /></td>
                 <td width="45%" height="30" align="left" >&nbsp;</td>    
               </tr>
               <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">结束播放时间：</td>
                 <td width="3%">&nbsp;</td>
-                <td width="32%" height="30"><input name="dtEndTime" type="text" class="input_box" size="30"/></td>
+                <td width="32%" height="30"><input name="dtEndTime" type="text" readonly onclick="WdatePicker({dateFmt:'HH:mm'});" class="input_box" size="30"/></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
             </table></td>

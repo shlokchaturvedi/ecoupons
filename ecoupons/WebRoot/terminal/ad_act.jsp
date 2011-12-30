@@ -54,32 +54,35 @@
 	    }	  
 	   if(intType.trim().equals("1")||intType.trim().equals("2"))
 	   {
-	     for(int i=0;i<au.getFileCount();i++)
-	   	  {
-	   	  	if (action.equals(Constants.UPDATE_STR) && obj0.getStrContent()!=null&&obj0.getStrContent().length() > 0) 
+	   		if (action.equals(Constants.UPDATE_STR) && obj0.getStrContent()!=null&&obj0.getStrContent().length() > 0) 
 	    	{
 	    		String files[] = obj0.getStrContent().trim().split(",");
 	        	if(files!=null)
 	        	{
-        			for(int j=0; j< files.length;j++)
-        			{
-        			    System.out.println(files[j]);
+	       			for(int j=0; j< files.length;j++)
+	       			{
 	        			File f = new File(strFilePath + files[j]);
 	    			    if(f!=null) 
 	        			  f.delete();
-        			}
-        			
-        		}
-        		filename = strId;
+	       			}
+	       			
+	       		}
+	       		filename = strId;
 	    	}
 	    	else if(action.equals(Constants.ADD_STR) )
 	    	{
 	    		obj.setStrId(filename);
 	    	}
-	    	
-	    	String name = au.saveFile(strFilePath, filename+"_"+(i+1),i);
-	    	if(i!=au.getFileCount())
-	   			strcontent += name+",";
+	      for(int i=0;i<au.getFileCount();i++)
+	   	  {
+	    	if(au.getFileSize(i)!=0)
+	    	{
+	    	    String name = au.saveFile(strFilePath, filename+"_"+(i+1),i);
+	    	    if(i!=au.getFileCount())
+	   			    strcontent += name+",";
+	   	    }
+	   	    
+        			   
 	   	  }
 	   	  strcontent =strcontent.trim().substring(0,strcontent.length()-2);
 	   	}
