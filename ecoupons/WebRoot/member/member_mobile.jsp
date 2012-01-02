@@ -1,30 +1,31 @@
 <%@ page language="java" import="java.util.*,com.ejoysoft.common.exception.*,com.ejoysoft.common.*" pageEncoding="UTF-8"%>
 <%@page import="com.ejoysoft.ecoupons.business.Member"%>
-<%@page import="com.ejoysoft.ecoupons.business.CouponPrint"%>
-<%@page import="com.ejoysoft.ecoupons.business.Coupon"%>
 <%@ include file="../include/jsp/head.jsp"%>
 <%
 	String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <%
-	if(!globa.userSession.hasRight("11005"))
+	if(!globa.userSession.hasRight("11010"))
       throw new NoRightException("用户不具备操作该功能模块的权限，请与系统管理员联系！");
 %>
 <%
-
+	//初始化
+     //获取单位的strId
+    //String  strUnitId=ParamUtil.getString(request,"strUnitId","");
     //初始化
-    CouponPrint  recharge=null;
-    CouponPrint obj=new CouponPrint(globa);
-    
+    Member  member=null;
+    Member obj=new Member(globa);
+    boolean flag=false;
     //查询条件
-    String  strMemberCardNo=ParamUtil.getString(request,"strMemberCardNo","");
+    String  strStartId=ParamUtil.getString(request,"strStartId","");
+    String  strEndId=ParamUtil.getString(request,"strEndId","");
 	String tWhere=" WHERE 1=1";
-	if (!strMemberCardNo.equals("")) {
-		tWhere += " and strMemberCardNo = '" + strMemberCardNo + "'";
+	if (!strStartId.equals("")&&!strEndId.equals("")) {
+		tWhere += " and strCardNo >= '" + strStartId + "' and strCardNo<= '"+ strEndId +"' ";
+		flag=true;
 	}
-	
-	tWhere += " ORDER BY dtCreateTime";
+	tWhere += " ORDER BY strCardNo";
 	//记录总数
 	int intAllCount=obj.getCount(tWhere);
 	//当前页
@@ -38,9 +39,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	//结束序号
 	int intEndNum=intCurPage*intPageSize;   
 	//获取到当前页面的记录集
-	Vector<CouponPrint> vctObj=obj.list(tWhere,intStartNum,intPageSize);
+	System.out.println(strEndId);
+	Vector<Member> vctObj=obj.list(tWhere,intStartNum,intPageSize);
 	//获取当前页的记录条数
 	int intVct=(vctObj!=null&&vctObj.size()>0?vctObj.size():0);
+	if(flag){
+		StringBuffer sb = new StringBuffer();
+		sb.append("<table border=1>");
+		sb.append("<tr><td>手机</td><td>姓名</td><td>卡号</td></tr>");
+		if (vctObj.size() != 0)
+		{
+			for (int i = 0; i < vctObj.size(); i++)
+			{
+				sb.append("<tr><td>" + vctObj.get(i).getStrMobileNo() + "</td><td>" + vctObj.get(i).getStrName() + "</td><td>"
+						+ vctObj.get(i).getStrCardNo() + "</td>");
+			}
+		}
+		
+		sb.append("</table>");
+		String strFileName = strStartId+"_"+strEndId+".xls";
+	    response.setContentType("APPLICATION/*");
+	    response.setHeader( "Content-Disposition", "attachment;filename="  + new String( strFileName.getBytes("gbk"), "ISO8859-1" ));
+	    ServletOutputStream output = response.getOutputStream();
+	    output.write(sb.toString().getBytes());
+	}
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -63,16 +85,28 @@ body,td,th {
 </style>
 <link href="../images/skin.css" rel="stylesheet" type="text/css" />
 <script src="../include/js/list.js"></script>
-
+<script type="text/javascript">
+//批量删除信息
+function del(){
+	if (iCheckedNumber(document.all.strId) == 0) {
+		alert("请先选择要导出的记录！");
+		return;
+	}
+    if(!confirm('您是否确认要导出所选中的所有记录？'))
+        return;
+     frm.action="member_act.jsp?<%=Constants.ACTION_TYPE%>=<%=Constants.EXPORT_STR%>";
+     frm.submit();
+}
+</script>
 </head>
 <body>
-<form name=frm method=post action="member_list.jsp">
+<form name=frm method=post action="member_mobile.jsp">
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td width="17" height="29" valign="top" background="../images/mail_leftbg.gif"><img src="../images/left-top-right.gif" width="17" height="29" /></td>
     <td width="1195" height="29" valign="top" background="../images/content-bg.gif"><table width="100%" height="31" border="0" cellpadding="0" cellspacing="0" class="left_topbg" id="table2">
       <tr>
-        <td height="31"><div class="titlebt">消费记录</div></td>
+        <td height="31"><div class="titlebt">手机导出</div></td>
       </tr>
     </table></td>
     <td width="22" valign="top" background="../images/mail_rightbg.gif"><img src="../images/nav-right-bg.gif" width="16" height="29" /></td>
@@ -86,7 +120,7 @@ body,td,th {
       <tr>
         <td height="534" valign="top"><table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
           <tr>
-            <td class="left_txt">当前位置：日常管理 / 会员管理 / 会员消费记录列表</td>
+            <td class="left_txt">当前位置：日常管理 / 会员管理 / 手机导出列表</td>
           </tr>
           <tr>
             <td height="20"><table width="100%" height="1" border="0" cellpadding="0" cellspacing="0" bgcolor="#CCCCCC">
@@ -99,8 +133,8 @@ body,td,th {
             <td><table width="100%" height="55" border="0" cellpadding="0" cellspacing="0">
               <tr>
                 <td width="6%" height="55" valign="middle"><img src="../images/title.gif" width="54" height="55"></td>
-                <td width="94%" valign="top"><span class="left_txt3">在这里，您可以对会员消费记录进行查看！<br>
-                 </span></td>
+                <td width="94%" valign="top"><span class="left_txt3">在这里，您可以根据卡号批量导出会员手机号码！<br>
+                  </span></td>
               </tr>
             </table></td>
           </tr>
@@ -114,14 +148,13 @@ body,td,th {
 			<tr>
 			<td style="font-size:9pt">
 			 
-			 
-			 
+			 &nbsp;&nbsp;&nbsp;&nbsp;
+			
 			</td>
-			
 			<td align="right" width="600"><div style="height:26"> 
-			
+			  请输入：&nbsp;起始卡号:<input name="strStartId" class="editbox4" onclick="" value="" size="10">结束卡号：<input class="editbox4" value="" name="strEndId" size="10" />
 			  &nbsp;&nbsp;&nbsp;&nbsp;
-             
+              <input type="submit" class="button_box" value="导出" /> 
 			</div>
 			</td>   
 			</tr>
@@ -129,30 +162,22 @@ body,td,th {
 			
 			<table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="b5d6e6" onmouseover="changeto()"  onmouseout="changeback()">
               <tr>
-                <td width="10%" class="left_bt2"><div align="center">会员卡号</div></td>
-                <td width="10%" class="left_bt2"><div align="center">优惠券</div></td>
-                <td width="10%" class="left_bt2"><div align="center">券面代码</div></td>
-               
-                <td width="15%" class="left_bt2"><div align="center">打印时间</div></td>
+                <td width="10%" class="left_bt2"><div align="center">卡号</div></td>
+                <td width="10%" class="left_bt2"><div align="center">姓名</div></td>
+                <td width="10%" class="left_bt2"><div align="center">手机号</div></td>                
               </tr>
             <%
-            Coupon coupon=new Coupon();
             	for (int i = 0;i < vctObj.size(); i++) {
-            		CouponPrint obj1 = vctObj.get(i);
-                        	
+                        	Member obj1 = vctObj.get(i);
             %>
               <tr>
-                
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrMemberCardNo()%></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrCouponId()%></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=coupon.show("where strId="+obj1.getStrCouponId()).getStrName()%></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getDtPrintTime()%></span></div></td>
-                
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE4">
-			      
-			      </span> </div>
-                </td>
+                <td bgcolor="#FFFFFF"><div align="center" class="STYLE1"><%=Format.forbidNull(obj1.getStrCardNo()) %></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=Format.forbidNull(obj1.getStrName())%></span></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=Format.forbidNull(obj1.getStrMobileNo())%></span></div></td>
+               
               </tr>
+         
+              
             <%
             }
             %>  
