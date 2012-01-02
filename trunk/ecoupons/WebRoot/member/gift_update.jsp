@@ -33,6 +33,7 @@ body,td,tr{font-size:9pt;}
 -->
 </style>
 <link href="../images/skin.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript" src="../include/DatePicker/WdatePicker.js"></script>
 <script src="../include/js/chkFrm.js"></script>
 <script language="javascript">
     function chkFrm() {

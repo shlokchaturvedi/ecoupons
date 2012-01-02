@@ -7,7 +7,7 @@
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <%
-	if(!globa.userSession.hasRight("110"))
+	if(!globa.userSession.hasRight("11005"))
       throw new NoRightException("用户不具备操作该功能模块的权限，请与系统管理员联系！");
 %>
 <%

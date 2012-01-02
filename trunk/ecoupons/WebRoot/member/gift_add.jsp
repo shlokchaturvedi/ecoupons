@@ -76,7 +76,7 @@ body,td,tr{font-size:9pt;}
           <tr>
             <td><table width="100%" height="31" border="0" cellpadding="0" cellspacing="0" class="nowtable">
               <tr>
-                <td class="left_bt2">&nbsp;&nbsp;&nbsp;&nbsp;礼品</td>
+                <td class="left_bt2">&nbsp;&nbsp;&nbsp;&nbsp;礼品增加</td>
               </tr>
             </table></td>
           </tr>
