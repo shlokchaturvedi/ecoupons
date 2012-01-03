@@ -206,10 +206,10 @@ body,td,tr{font-size:9pt;}
                <tr bgcolor="#f2f2f2">
                  <td width="20%" height="30" align="right" class="left_txt2">&nbsp; </td>
                  <td height="30" class="left_txt">&nbsp;</td> 
+                <td width="20%" height="30" class="left_txt">&nbsp;</td> 
                  <td height="30" class="left_txt">
             		     （大小：<%=application.getAttribute("COUPON_SMALL_IMG_WIDTH") %>*<%=application.getAttribute("COUPON_SMALL_IMG_HEIGHT") %>px，用于前台列表显示）
                  </td>	
-                <td width="20%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
               <tr bgcolor="#f2f2f2">
                 <td height="30" align="right" class="left_txt2">大图片：</td>
@@ -228,10 +228,10 @@ body,td,tr{font-size:9pt;}
               <tr bgcolor="#f2f2f2">
                  <td width="20%" height="30" align="right" class="left_txt2">&nbsp; </td>
                  <td height="30" class="left_txt">&nbsp;</td> 
+                <td width="20%" height="30" class="left_txt">&nbsp;</td> 
                  <td height="30" class="left_txt">
             		   （ 大小：<%=application.getAttribute("COUPON_LARGE_IMG_WIDTH") %>*<%=application.getAttribute("COUPON_LARGE_IMG_HEIGHT") %>px，用于前台详细显示）
                  </td>	
-                <td width="20%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
               <tr bgcolor="#f2f2f2">
                 <td height="30" align="right" class="left_txt2">打印图：</td>
@@ -250,10 +250,10 @@ body,td,tr{font-size:9pt;}
               <tr bgcolor="#f2f2f2">
                  <td width="20%" height="30" align="right" class="left_txt2">&nbsp; </td>
                  <td height="30" class="left_txt">&nbsp;</td> 
+                <td width="20%" height="30" class="left_txt">&nbsp;</td> 
                  <td height="30" class="left_txt">
             		   （ 大小：<%=application.getAttribute("COUPON_PRINT_IMG_WIDTH") %>*<%=application.getAttribute("COUPON_PRINT_IMG_HEIGHT") %>px，用于用户下载打印）
                  </td>	
-                <td width="20%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
           	  
             </table></td>
