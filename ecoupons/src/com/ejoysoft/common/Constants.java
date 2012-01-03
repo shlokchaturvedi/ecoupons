@@ -41,12 +41,16 @@ public final class Constants {
     public final static String SEND_STR = "send";
     //����ɾ��
     public final static String DELETE_STR = "delete";
+    //导出
+    public final static String EXPORT_STR = "export";
   //审核
     public final static String AUDIT_STR = "audit";
     //充值
     public final static String RECHARGE_STR = "recharge";
     //消费
     public final static String CHARGE_STR = "charge";
+    //转赠
+    public final static String PRESENT_STR = "charge";
     //���ɾ��
     public final static String REMOVE_STR = "remove";
     //�鿴
@@ -81,6 +85,7 @@ public final class Constants {
     public final static String MODPASS = "modpass";
     //mac��ַ
     public final static String MACADD = "macadd";
+    public final static String EXCHANGERATE = "10";
 
 
     //������ת��Ϊ�ַ�
