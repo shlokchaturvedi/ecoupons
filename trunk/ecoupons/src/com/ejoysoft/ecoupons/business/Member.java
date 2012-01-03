@@ -1,5 +1,9 @@
 package com.ejoysoft.ecoupons.business;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,6 +18,7 @@ import com.ejoysoft.common.Constants;
 import com.ejoysoft.common.DbConnect;
 import com.ejoysoft.common.Globa;
 import com.ejoysoft.common.UID;
+import com.ejoysoft.util.ParamUtil;
 
 public class Member
 {
@@ -21,6 +26,43 @@ public class Member
 	private DbConnect db;
 	String strTableName = "t_bz_member";
 	String strRechargeTableName = "t_bz_member_recharge";
+	private String strStartId;
+	private String strEndId;
+
+	/*
+	 * 导出手机列表
+	 */
+	public boolean returnMobilNos(Vector<Member> vecMembers)
+	{
+		strStartId=ParamUtil.getString(globa.request,"strStartId","");
+	    strEndId=ParamUtil.getString(globa.request,"strEndId","");
+		String strFilePath = globa.application.getRealPath("") + "/member/expertTel/" + strStartId + "_" + strEndId+"_"+com.ejoysoft.common.Format.getDateTime().replace(" ", "").replace("-", "").replace(":", "")+".xls";
+		File file = new File(strFilePath);
+		PrintStream printStream = null;
+		try
+		{
+			printStream = new PrintStream(new FileOutputStream(file));
+			printStream.print("<table><tr><td>手机</td><td>姓名</td><td>卡号</td></tr>");
+			if (vecMembers.size() != 0)
+			{
+				for (int i = 0; i < vecMembers.size(); i++)
+				{
+					printStream.print("<tr><td>" + vecMembers.get(i).getStrMobileNo() + "</td><td>" + vecMembers.get(i).getStrName() + "</td><td>"
+							+ vecMembers.get(i).getStrCardNo() + "</td>");
+
+				}
+			}
+			printStream.println("</table>");
+			printStream.flush();
+			printStream.close();
+		} catch (FileNotFoundException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(strFilePath);
+		return true;
+	}
 
 	/*
 	 * 修改会员信息
@@ -75,7 +117,15 @@ public class Member
 			connection.setSavepoint();
 			pStatement = connection.prepareStatement(sql);
 			preparedStatement = connection.prepareStatement(sql2);
-			if (pStatement.executeUpdate() > 0 && preparedStatement.executeUpdate() > 0)
+			if (show(where).getStrCardNo() == null)
+			{
+				if (pStatement.executeUpdate() > 0)
+				{
+					connection.commit();
+					connection.setAutoCommit(true);
+					Globa.logger0("删除会员信息", globa.loginName, globa.loginIp, sql, "会员管理", globa.unitCode);
+				}
+			} else if (pStatement.executeUpdate() > 0 && preparedStatement.executeUpdate() > 0)
 			{
 				connection.commit();
 				connection.setAutoCommit(true);
@@ -209,15 +259,16 @@ public class Member
 		}
 
 	}
-	
-	
-	
 
-	public List<Member> returnNewMembers( String startId, String endId)
+	/*
+	 * 根据卡号起始点导出会员手机号码
+	 */
+
+	public List<Member> returnNewMembers(String startId, String endId)
 	{
-		Vector<Member> members=new Vector<Member>();
-		
-		members=list("ORDER BY strCardNo", 0, 0);
+		Vector<Member> members = new Vector<Member>();
+
+		members = list("ORDER BY strCardNo", 0, 0);
 		List<Member> newMembers = new ArrayList<Member>();
 		int firstIndex = 0;
 		int lastIndex = 0;
@@ -238,7 +289,9 @@ public class Member
 		}
 		return newMembers;
 	}
-	
+	/*
+	 * 根据条件返回会员的集合
+	 */
 
 	public Vector<Member> list(String where, int startRow, int rowCount)
 	{
@@ -544,6 +597,26 @@ public class Member
 	public void setDtCreateTime(String dtCreateTime)
 	{
 		this.dtCreateTime = dtCreateTime;
+	}
+
+	public String getStrStartId()
+	{
+		return strStartId;
+	}
+
+	public void setStrStartId(String strStartId)
+	{
+		this.strStartId = strStartId;
+	}
+
+	public String getStrEndId()
+	{
+		return strEndId;
+	}
+
+	public void setStrEndId(String strEndId)
+	{
+		this.strEndId = strEndId;
 	}
 
 }
