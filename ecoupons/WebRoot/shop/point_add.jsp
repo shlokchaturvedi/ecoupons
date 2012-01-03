@@ -32,17 +32,31 @@ body,td,tr {
 		<script language="JavaScript"
 			src="../include/DatePicker/WdatePicker.js"></script>
 		<script language="javascript">
+		function chkPoit() {
+			if(trim(frm.intMoney.value)!="") {
+				frm.intPoint.focus();
+				frm.intPoint.value=frm.intMoney.value*10;
+			}}
+		
 		function chkFrm() {
 			if(trim(frm.strShopId.value)=="") {
 		        alert("请选择商家！！")
 		        frm.strShopId.focus();
 		        return false;
 		    }else
-		    if(trim(frm.intPoint.value)=="") {
-		        alert("请输入积分数额！！！")
-		        frm.intPoint.focus();
+		    if(trim(frm.intMoney.value)=="") {
+		        alert("请输入金额！！！")
+		        frm.intMoney.focus();
 		        return false;
 		    }
+		    
+		    else
+			    if(frm.intPoint.value==""){
+			    	 alert("请输入积分数额！！！")
+				        frm.intPoint.focus();
+				        return false;
+				    }
+			    
 		    else {
 		        if(confirm("确定购买!"))
 			        {
@@ -214,8 +228,8 @@ body,td,tr {
 															&nbsp;
 														</td>
 														<td width="32%" height="30">
-															<input name="intMoney" type="text"  class="input_box"
-																size="30" />
+															<input name="intMoney" type="text" class="input_box"
+																size="30" onchange="chkPoit()"/>
 														</td>
 														<td width="45%" height="30" class="left_txt">
 
