@@ -22,6 +22,28 @@ public class CouponInput
 	private String strCreateTime;
 
 	/**
+	 * 统计
+	 */
+	public boolean State(String id)
+	{
+		String strSql = "update t_bz_coupon_input set intState=1 where strCouponCode=" + id;
+		try
+		{
+			db.prepareStatement(strSql);
+			if (db.executeUpdate() > 0)
+			{
+				return true;
+			}
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+
+	}
+
+	/**
 	 * 增加有价券信息
 	 */
 	public boolean add()
@@ -105,7 +127,8 @@ public class CouponInput
 			if (!couponPrint.isEffective(dtPrintTime, strCouponCode))
 			{
 				return false;
-			}else {
+			} else
+			{
 				strSql2 = "update t_bz_coupon_print set intState=1 where strCouponCode=" + strCouponCode;
 				strSql3 = "update t_bz_coupon_print set intState=1 where strCouponCode=" + couponInput.getStrCouponCode();
 			}
@@ -123,19 +146,19 @@ public class CouponInput
 			db.setString(5, strShopId);
 			db.setString(6, tStrId);
 			db.executeUpdate();
-			if (strSql2!=null)
+			if (strSql2 != null)
 			{
 				db.executeUpdate(strSql2);
 			}
-			if (strSql3!=null)
+			if (strSql3 != null)
 			{
 				db.executeUpdate(strSql3);
 			}
-				db.commit();
-				db.setAutoCommit(true);
-				Globa.logger0("修改有价券录入信息", globa.loginName, globa.loginIp, strSql, "优惠券管理", globa.userSession.getStrDepart());
-				return true;
-			
+			db.commit();
+			db.setAutoCommit(true);
+			Globa.logger0("修改有价券录入信息", globa.loginName, globa.loginIp, strSql, "优惠券管理", globa.userSession.getStrDepart());
+			return true;
+
 		} catch (Exception e)
 		{
 			db.rollback();
