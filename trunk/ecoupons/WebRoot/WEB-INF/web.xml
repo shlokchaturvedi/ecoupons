@@ -27,7 +27,14 @@
 		<servlet-name>Auth</servlet-name>
 		<url-pattern>/Auth</url-pattern>
 	</servlet-mapping>
-	
+	<servlet>
+          <servlet-name>DisplayChart</servlet-name>
+          <servlet-class>org.jfree.chart.servlet.DisplayChart</servlet-class>
+</servlet>
+<servlet-mapping>
+          <servlet-name>DisplayChart</servlet-name>
+          <url-pattern>/DisplayChart</url-pattern>
+</servlet-mapping>
 	<filter>      
 		<filter-name>SessionFilter</filter-name>       
 		<filter-class>com.ejoysoft.common.SessionFilter</filter-class> 
