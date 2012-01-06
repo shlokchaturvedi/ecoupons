@@ -21,7 +21,6 @@ public class Shop {
     private Globa globa;
     private DbConnect db;
 
-    //���췽��
     public Shop() {
     }
 
@@ -30,7 +29,6 @@ public class Shop {
         db = globa.db;
     }
 
-    //���췽��
     public Shop(Globa globa, boolean b) {
         this.globa = globa;
         db = globa.db;
@@ -42,6 +40,7 @@ public class Shop {
     String strTableName3 = "t_bz_coupon_input";
     String strTableName4 = "t_bz_point_buy";
     String strTableName5 = "t_bz_point_present";
+    String strTableName6 = "t_sy_user";
 
     //添加商家信息
     public boolean add() {
@@ -88,6 +87,7 @@ public class Shop {
     	String sql3 = "delete from " + strTableName3 + "  ".concat(where2);
     	String sql4 = "delete from " + strTableName4 + "  ".concat(where2);
     	String sql5 = "delete from " + strTableName5 + "  ".concat(where2);
+    	String sql6 = "delete from " + strTableName6 + "  ".concat(where2);
     	//事务处理
     	try {
         	db.getConnection().setAutoCommit(false);//禁止自动提交事务        
@@ -97,6 +97,7 @@ public class Shop {
             db.executeUpdate(sql3);//删除商家录入有价券记录
             db.executeUpdate(sql4);//删除商家购买积分记录
             db.executeUpdate(sql5);//删除商家转赠积分记录
+            db.executeUpdate(sql6);//删除用户表中商家信息
             deleteShopIdFromIds(strid);//删除终端表中对应商家id
             db.getConnection().commit(); //统一提交
             Globa.logger0("删除商家信息", globa.loginName, globa.loginIp, sql1, "商家管理", globa.unitCode);
@@ -395,7 +396,7 @@ public class Shop {
         }
         return beans;
     }
-//获取所有商家名称和分部名称
+  //获取所有商家名称和分部名称
     public String[] getAllShopNames()
     { 
     	
@@ -419,6 +420,7 @@ public class Shop {
         }
         return shopnames;
     }
+  
     //获取商家名（无重复）
     public String[] getStrBizNames()
 	{
@@ -454,7 +456,7 @@ public class Shop {
     	return allbizname;
     }
     /**
-	 * 根据查询条件返回strbizname+strshopname
+	 * 根据查询条件返回strbizname-strshopname
 	 */
 	public String returnBizShopName(String where)
 	{
@@ -466,7 +468,7 @@ public class Shop {
 			{
 				Shop shopBean = new Shop();
 				shopBean=load(rs, true);
-				return shopBean.getStrBizName()+shopBean.getStrShopName();
+				return shopBean.getStrBizName()+"-"+shopBean.getStrShopName();
 			} else
 				return null;
 		} catch (Exception ee)
@@ -484,19 +486,54 @@ public class Shop {
 		{
 			String sql = "select * FROM  " + strTableName + " ";
 			ResultSet rs = db.executeQuery(sql);
-			while ( rs.next())
+			if (rs != null && rs.next())
 			{
 				Shop theBean = new Shop();
 				theBean = load(rs, false);
 				beans.addElement(theBean);
-			} 
+			} else
+				return null;
 		} catch (Exception ee)
 		{
 			return null;
 		}
 		return beans;
 	}
-
+	/**
+	 * 根据商家名 返回商家id
+	 */
+	public String getShopIdByName(String strName)
+	{
+		try
+		{
+			String sql = "select * FROM  " + strTableName + " ";
+			if (!strName.equals("")) {
+				
+				String strbizname="",strshopname="",where="";
+					String name[]= strName.trim().split("-");
+			    	if(name.length==1)
+			    	{
+			    		strbizname = name[0]; 
+			    		where = " where strbizname='" + strbizname + "'";						
+			    	}
+			    	else{
+			    		strbizname = name[0];
+			    		strshopname = name[1];
+			    		where = " where strbizname='" + strbizname + "' and strshopname='" + strshopname + "'";
+					}
+					 sql += where;
+			}			
+			ResultSet rs = db.executeQuery(sql);
+			if (rs != null && rs.next())
+			{
+				return rs.getString("strid");
+			} else
+				return null;
+		} catch (Exception ee)
+		{
+			return null;
+		}
+	}
     
     private String strId;//商家信息Id
     private String strBizName;//商家名称

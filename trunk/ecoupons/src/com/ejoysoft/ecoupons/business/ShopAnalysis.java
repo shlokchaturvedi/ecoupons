@@ -66,7 +66,8 @@ public class ShopAnalysis {
     
     public Vector<ShopAnalysis> getCouponIdsByShop(String shopid,String stime,String etime)
     {
-    	ShopAnalysis obj = new ShopAnalysis(globa);
+    	@SuppressWarnings("unused")
+		ShopAnalysis obj = new ShopAnalysis(globa);
     	Vector<ShopAnalysis> vector = new Vector<ShopAnalysis>();
 		String sql = "select * from "+strTableName2;
 		if(stime.equals("")||stime.equals(null))
@@ -176,11 +177,11 @@ public class ShopAnalysis {
     	ShopAnalysis obj = new ShopAnalysis(globa);
     	Shop shop = new Shop(globa);
     	String sql = "select * from "+strTableName1;
-    	ResultSet re = db.executeQuery(sql);
-    	try {
+     	try {
     		if (where.length() > 0)
-                sql = String.valueOf(sql) + String.valueOf(where);         
-			if(re!=null)
+                sql = String.valueOf(sql) + String.valueOf(where);
+    		ResultSet re = db.executeQuery(sql);
+    		   if(re!=null)
 			{
 				while (re.next()) {
 					String shopid = re.getString("strid");
@@ -197,7 +198,7 @@ public class ShopAnalysis {
     	return vector;
     }
 //获取一个商家统计分析的报表信息
-    public Vector<ShopAnalysis> getShopAnalysisList(String where, int startRow, int rowCount)
+    public Vector<ShopAnalysis> getShopAnalysisList(String where)
     {
     	Vector<ShopAnalysis> vector = new Vector<ShopAnalysis>();
     	ShopAnalysis obj = new ShopAnalysis(globa); 
@@ -206,13 +207,9 @@ public class ShopAnalysis {
     		if (where.length() > 0)
                  sql = String.valueOf(sql) + String.valueOf(where);
             Statement s = db.getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            if (startRow != 0 && rowCount != 0)
-                 s.setMaxRows((startRow + rowCount) - 1);
-            ResultSet re = s.executeQuery(sql);
+               ResultSet re = s.executeQuery(sql);
 		 	if(re!=null&&re.next())
-			{
-		 		if (startRow != 0 && rowCount != 0)
-                    re.absolute(startRow);             
+		 	{
 		 		do{
 					String shopid = re.getString("strid");
 					String shopname = re.getString("strbizname")+"-"+re.getString("strshopname");

@@ -142,9 +142,7 @@ public class Terminal {
 	              	 }
 	             }
 	             else shopids=" ";
-           	 }
-           	 
-           
+           	 } 
          }
     	return shopids;
     }
