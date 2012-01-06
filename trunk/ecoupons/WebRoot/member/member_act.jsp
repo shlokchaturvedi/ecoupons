@@ -6,19 +6,19 @@
 <%@page import="java.util.Vector"%>
 <%@ include file="../include/jsp/head.jsp"%>
 <%
-	Recharge recharge=new Recharge();
+	Recharge recharge = new Recharge();
 	Member obj = new Member(globa, true);
 	String strUrl = "member_list.jsp";
 
 	if (action.equals(Constants.DELETE_STR))
 	{
-		
+
 		String[] aryStrId = ParamUtil.getStrArray(request, "strId");
-		
+
 		for (int i = 0; i < aryStrId.length; i++)
 		{
-	obj.delete("where strId ='" + aryStrId[i] + "'");
-	
+			obj.delete("where strId ='" + aryStrId[i] + "'");
+
 		}
 		globa.dispatch(true, strUrl);
 	} else if (action.equals(Constants.UPDATE_STR))
@@ -29,27 +29,25 @@
 
 	} else if (action.equals(Constants.AUDIT_STR))
 	{
-		String strId=ParamUtil.getString(request, "strId", "");
+		String strId = ParamUtil.getString(request, "strId", "");
 		globa.dispatch(obj.setAudit(strId), strUrl);
 
 	} else if (action.equals(Constants.ADD_STR))
 	{
-		String strId = ParamUtil.getString(request, "strId", "");
+		String strCardNo = ParamUtil.getString(request, "strCardNo", "");
 
-		if (obj.getCount(" where strId='" + strId + "'") > 0)
+		if (obj.getCount(" where strCardNo='" + strCardNo + "'") > 0)
 		{
-	globa.closeCon();
-	out.print("<script>alert('已经存在" + strId + "用户, 请输入其他用户名');</script>");
+			globa.dispatch(false, strUrl,"已经存在会员卡号：" + strCardNo + ", 请输入其他会员卡号，增加");
 		} else
 		{
 
-	globa.dispatch(obj.add(), strUrl);
+			globa.dispatch(obj.add(), strUrl);
 		}
-	}else if (action.equals(Constants.EXPORT_STR))
+	} else if (action.equals(Constants.EXPORT_STR))
 	{
-		String strStartId=ParamUtil.getString(request, "strStartId", "");
-		String strEndId=ParamUtil.getString(request, "strEndId", "");
-		
+		String strStartId = ParamUtil.getString(request, "strStartId", "");
+		String strEndId = ParamUtil.getString(request, "strEndId", "");
 
 	}
 	//关闭数据库连接对象

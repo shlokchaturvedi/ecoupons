@@ -23,6 +23,26 @@ public class GiftExchange
 	private String strCreator;//
 	private String dtCreateTime;//
 
+	/**
+	 * 处理礼品信息
+	 */
+	public boolean audit(String strId)
+	{
+		String strSql = "UPDATE  " + strTableName + "  SET intState = 1 where strId=" + strId;
+		try
+		{
+			if (db.executeUpdate(strSql) > 0)
+			{
+				return true;
+			}
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 	/*
 	 * 返回礼品记录处理的状态
 	 */

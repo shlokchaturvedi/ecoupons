@@ -49,7 +49,7 @@ body,td,tr {
 		        return false;
 		    }
 		    else {
-		        if(confirm("确定购买!"))
+		        if(confirm("确定转赠!"))
 			        {
 		    	frm.submit();
 		    	    }

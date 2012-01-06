@@ -17,6 +17,7 @@ if(!globa.userSession.hasRight("10020"))
     //初始化
     PointPresent  user0=null;
     PointPresent obj=new PointPresent(globa);
+    
     //查询条件
     String  strName=ParamUtil.getString(request,"strName","");
 	String tWhere=" WHERE 1=1";

@@ -9,6 +9,7 @@
 <%@ include file="../include/jsp/head.jsp"%>
 <%
 	Point obj = new Point(globa, true);
+	Member member = new Member(globa, true);
 	String strUrl = "pointbuy_list.jsp";
 	String strPresentUrl = "pointpresent_list.jsp";
 
@@ -17,7 +18,7 @@
 
 		String strId = ParamUtil.getString(request, "strId", "");
 		String intPoint = ParamUtil.getString(request, "intPoint", "");
-		globa.dispatch(obj.delete(strId,intPoint), strUrl);
+		globa.dispatch(obj.delete(strId, intPoint), strUrl);
 	} else if (action.equals(Constants.UPDATE_STR))
 	{
 		String strId = ParamUtil.getString(request, "strId", "");
@@ -27,6 +28,7 @@
 	} else if (action.equals(Constants.AUDIT_STR))
 	{
 		String strId = ParamUtil.getString(request, "strId", "");
+
 		globa.dispatch(obj.setAudit(), strUrl);
 
 	} else if (action.equals(Constants.ADD_STR))
@@ -47,14 +49,22 @@
 		String strStartId = ParamUtil.getString(request, "strStartId", "");
 		String strEndId = ParamUtil.getString(request, "strEndId", "");
 
-	}
-	 else if (action.equals(Constants.PRESENT_STR))
+	} else if (action.equals(Constants.PRESENT_STR))
+	{
+		PointPresent pointPresent = new PointPresent(globa, true);
+		String strId = ParamUtil.getString(request, "strId", "");
+		String strCardNo = ParamUtil.getString(request, "strMemberCardNo", "");
+		if (member.getCount(" where strCardNo='" + strCardNo + "'") == 0)
 		{
-		 PointPresent pointPresent = new PointPresent(globa, true);
-		 String strId = ParamUtil.getString(request, "strId", "");
-		 globa.dispatch(pointPresent.add(),strPresentUrl );
-
+			
+			out.print("<script>alert('不存在会员卡号：" + strCardNo + ", 请输入其他会员卡号');</script>");
+			globa.dispatch(false, strPresentUrl,"不存在会员卡号："+ strCardNo + ", 请输入其他会员卡号,转赠");
+		} else
+		{
+			globa.dispatch(pointPresent.add(), strPresentUrl);
 		}
+
+	}
 	//关闭数据库连接对象
 	globa.closeCon();
 %>

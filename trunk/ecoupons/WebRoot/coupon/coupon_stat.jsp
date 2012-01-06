@@ -64,7 +64,7 @@
 		}
 
 		sb.append("</table>");
-		String strFileName = "_" + dtCreateTime + ".xls";
+		String strFileName = "有价券统计表_" + dtCreateTime + ".xls";
 		response.setContentType("APPLICATION/*");
 		response.setHeader("Content-Disposition", "attachment;filename=" + new String(strFileName.getBytes("gbk"), "ISO8859-1"));
 		ServletOutputStream output = response.getOutputStream();
@@ -97,21 +97,7 @@ body,td,th {
 		<script language="JavaScript"
 			src="../include/DatePicker/WdatePicker.js"></script>
 		<script type="text/javascript">
-//批量删除信息
-function refresh()
-{
-       window.location.reload();
-}
-function del(){
-	if (iCheckedNumber(document.all.strId) == 0) {
-		alert("请先选择要删除的记录！");
-		return;
-	}
-    if(!confirm('您是否确认要删除所选中的所有记录？'))
-        return;
-     frm.action="couponinput_act.jsp?<%=Constants.ACTION_TYPE%>=<%=Constants.DELETE_STR%>";
-     frm.submit();
-}
+
 </script>
 	</head>
 	<body>
@@ -272,8 +258,7 @@ function del(){
 													<tr>
 														<td height="20" bgcolor="#FFFFFF">
 															<div align="center">
-																<input type="checkbox" name=strId
-																	value="<%=obj1.getStrId()%>" />
+																
 															</div>
 														</td>
 														<td bgcolor="#FFFFFF">

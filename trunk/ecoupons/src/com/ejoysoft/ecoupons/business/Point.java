@@ -30,6 +30,7 @@ public class Point
 	private String strAuditor;// 审核人
 	private String dtAuditTime;// 审核时间
 	private String exchangeRate;
+	
 
 	/*
 	 * 修改积分购买信息
@@ -106,7 +107,10 @@ public class Point
 	 */
 	public boolean setAudit()
 	{
-		String strSql = "update " + strTableName + " set intState='1' where strId='" + strId + "' ";
+		
+		String strUserName = globa.userSession.getStrId();
+		String strSql = "update " + strTableName + " set intState='1',  strAuditor='"+strUserName+"' , dtAuditTime='"+
+		com.ejoysoft.common.Format.getDateTime()+"' where strId='" + strId + "' ";
 		try
 		{
 
