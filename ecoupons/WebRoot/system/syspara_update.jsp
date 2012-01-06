@@ -148,14 +148,32 @@ function chkFrm(){
                 <td width="32%" height="30"><input name="strValue" type="text" class="input_box" size="30" value="<%=para0.getStrValue()%>" /></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
-           
-            
-              <tr >
-                 <td width="20%" height="30" align="right" class="left_txt2">参数注释：</td>
+            <tr>
+                <td width="20%" height="30" align="right" class="left_txt2">序　　号：</td>
                 <td width="3%">&nbsp;</td>
-                <td width="32%" height="30"><input name="strState" type="text" class="input_box" size="30"  value="<%=para0.getStrState()%>"/></td>
+                <td width="32%" height="30">
+                 <select name="intSort"  class="forms_color1">
+                 <%
+                       for (int i=intMaxSort;i>=1;i--){
+                   %>
+                    <option value="<%=i%>" <%if(i==para0.getIntSort()) out.print("selected");%>><%=i%></option>
+                    <%}%>
+                      </select>
+                </td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
+            
+              <tr bgcolor="#f2f2f2">
+                 <td width="20%" height="30" align="right" class="left_txt2">状　　态：</td>
+                <td width="3%">&nbsp;</td>
+                <td width="32%" height="30">
+                <input type="radio" name="strState" value="正常" <%=(para0.getStrState().equals("正常")?"checked":"")%> class="input_box">
+                  正常
+                  <input type="radio" name="strState" value="禁用"  <%=(para0.getStrState().equals("禁用")?"checked":"")%> class="input_box">
+                  禁用
+                </td>
+                <td width="45%" height="30" class="left_txt">&nbsp;</td> 
+              </tr>  
               
             </table></td>
           </tr>

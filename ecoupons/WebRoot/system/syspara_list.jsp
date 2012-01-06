@@ -123,7 +123,7 @@ body,td,th {
 			<td style="font-size:9pt">
 			 <input type="checkbox" name="checkbox62" value="checkbox" onclick="selAll(document.all.strId)"/>
 			 全选
-			 <a href="syspara_add.jsp"><img src="../images/add.gif" width="16" height="16" border="0" />新增</a>
+			 <a href="syspara_add.jsp?strType=<%=strType%>"><img src="../images/add.gif" width="16" height="16" border="0" />新增</a>
 			 </td>
 			<td align="right" width="600"><div style="height:26"> 
 			    <select name="strType" onChange="chgType(this.value)"  class="forms_color1">
@@ -151,8 +151,8 @@ body,td,th {
                 <td width="10%" class="left_bt2"><div align="center">参数类型</div></td>
                 <td width="10%" class="left_bt2"><div align="center">参数名称</div></td>
                 <td width="10%" class="left_bt2"><div align="center">参数值</div></td>
-                <td width="25%" class="left_bt2"><div align="center">参数注释</div></td>                
-                 
+                <td width="10%" class="left_bt2"><div align="center">序号</div></td>
+		        <td width="10%" class="left_bt2"><div align="center">状态</div></td>  
                 <td width="15%" class="left_bt2"><div align="center">基本操作</div></td>
               </tr>
             <%
@@ -167,9 +167,10 @@ body,td,th {
                
                 <td bgcolor="#FFFFFF"><div align="center" class="STYLE1"><%=para0.getStrName()%></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=para0.getStrValue()%></span></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=para0.getIntSort()%></span></div></td>
                 
                  <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=para0.getStrState()%></span></div></td>
-               
+              
                  <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE4">
                   <a href="syspara_update.jsp?strId=<%=para0.getStrId()%>"><img src="../images/edit.gif" width="16" height="16" border="0" />编辑</a> 
 			      <a href="#" onclick="if(confirm('确认删除该记录？')){location.href='syspara_act.jsp?<%=Constants.ACTION_TYPE%>=<%=Constants.DELETE_STR%>&strId=<%=para0.getStrId()%>';}"><img src="../images/delete.gif" width="16" height="16" border="0" />删除</a></span> </div>
