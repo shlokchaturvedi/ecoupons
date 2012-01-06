@@ -130,12 +130,11 @@ function openwin() {
                 <td width="3%" height="30">&nbsp;</td>
                 <td width="32%" height="30">
 				<select name="strProducer" class="forms_color1" style= "width:213px">
-                    <option value="">所有</option>
 				  <%
                         //初始化
     					//SysPara  para=null;
    						SysPara para=new SysPara(globa);
-                        ArrayList para1= para.list("券打机生产厂家");
+                        ArrayList para1= para.list("券打机厂家");
                         for (int i = 0; i < para1.size(); i++) {
                             SysPara d = (SysPara)para1.get(i);
                               out.print("<option value=" + d.getStrId() + ">");
