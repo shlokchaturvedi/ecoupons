@@ -152,7 +152,7 @@ function del(){
                 <td height="20" bgcolor="#FFFFFF"><div align="center">
                     <input type="checkbox" name=strId value="<%=obj1.getStrId() %>" />
                 </div></td>
-                <td bgcolor="#FFFFFF"><div align="center" class="STYLE1"><%=obj1.getStrName() %></div></td>
+                <td bgcolor="#FFFFFF"><div align="center" class="STYLE1"><a href="giftexchange_list.jsp?strId=<%=obj1.getStrId() %>"><%=obj1.getStrName() %></a></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getIntPoint() %></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getDtActiveTime()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getDtExpireTime()%></span></div></td>

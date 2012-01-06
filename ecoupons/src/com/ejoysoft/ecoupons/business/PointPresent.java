@@ -23,7 +23,7 @@ public class PointPresent
 	
 
 	
-	/*
+	/**
 	 * 增加积分转赠记录
 	 */
 	public boolean add()
@@ -72,7 +72,7 @@ public class PointPresent
 		}
 
 	}
-	/*
+	/**
 	 * 查询符合条件的记录总数
 	 */
 	public int getCount(String where)
@@ -100,7 +100,7 @@ public class PointPresent
 		}
 	}
 
-	/*
+	/**
 	 * 根据条件返回积分的集合
 	 */
 

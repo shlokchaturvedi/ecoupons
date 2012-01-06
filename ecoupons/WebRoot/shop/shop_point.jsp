@@ -23,6 +23,9 @@ if(!globa.userSession.hasRight("10015"))
 	if (!strName.equals("")) {
 		tWhere += " and strbizname like '%" + strName + "%'";
 	}
+	if("商家".equals(globa.userSession.getStrCssType())){
+		tWhere +=" where strCreator='"+globa.userSession.getStrCssType()+"' ";
+	}
 	tWhere += " order by strid";
 	//记录总数
 	int intAllCount=obj.getCount(tWhere);

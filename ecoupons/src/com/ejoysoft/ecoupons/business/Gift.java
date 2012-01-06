@@ -36,7 +36,7 @@ public class Gift
 	
 	
 	
-	/*
+	/**
 	 * 增加礼品信息 
 	 */
 	public boolean add()
@@ -78,7 +78,7 @@ public class Gift
 
 	}
 
-	/*
+	/**
 	 * 修改礼品信息
 	 *  
            
@@ -112,7 +112,7 @@ public class Gift
 		}
 	}
 
-	/*
+	/**
 	 * 删除礼品信息
 	 */
 	 public boolean delete(String where) {
@@ -127,8 +127,9 @@ public class Gift
 	        }
 	    }
 
+	 
 
-	/*
+	/**
 	 * 详细显示单条记录
 	 */
 	public Gift show(String where)
@@ -147,7 +148,7 @@ public class Gift
 		}
 	}
 
-	/*
+	/**
 	 * 查询符合条件的记录总数
 	 */
 	public int getCount(String where)
@@ -175,7 +176,7 @@ public class Gift
 		}
 	}
 
-/*
+/**
  * 根据条件，返回礼品信息的集合
  */
 	public Vector<Gift> list(String where, int startRow, int rowCount)
@@ -210,7 +211,7 @@ public class Gift
 		return beans;
 	}
 
-	/*
+	/**
 	 * 根据卡号返回余额
 	 */
 	public float getFlaBalance(String strMemberCardNo)

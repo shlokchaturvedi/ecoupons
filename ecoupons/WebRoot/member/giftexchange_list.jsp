@@ -17,10 +17,11 @@ if(!globa.userSession.hasRight("11020"))
     GiftExchange  user0=null;
     GiftExchange obj=new GiftExchange(globa);
     //查询条件
-    String  strName=ParamUtil.getString(request,"strName","");
+    String  strId=ParamUtil.getString(request,"strId","");
 	String tWhere=" WHERE 1=1";
-	if (!strName.equals("")) {
-		tWhere += " and strName LIKE '%" + strName + "%' ";
+	
+	if(!strId.equals("")){
+		tWhere += " and strGiftId =" + strId + " ";
 	}
 	tWhere += " ORDER BY dtCreateTime";
 	//记录总数
@@ -141,13 +142,13 @@ function del(){
                 <td width="5%" height="22"  class="left_bt2"><div align="center">&nbsp;</div></td>
                 <td width="10%" class="left_bt2"><div align="center">名称</div></td>
                 <td width="10%" class="left_bt2"><div align="center">会员卡号</div></td>
-                <td width="25%" class="left_bt2"><div align="center">兑换时间</div></td>                
-                 <td width="10%" class="left_bt2"><div align="center">寄送地址</div></td>
+                <td width="10%" class="left_bt2"><div align="center">兑换时间</div></td>                
+                 <td width="25%" class="left_bt2"><div align="center">寄送地址</div></td>
                  <td width="10%" class="left_bt2"><div align="center">状态</div></td>
                 <td width="15%" class="left_bt2"><div align="center">基本操作</div></td>
               </tr>
             <%
-            Gift gift=new Gift();
+            Gift gift=new Gift(globa);
             
             for (int i = 0;i < vctObj.size(); i++) {
             	GiftExchange obj1 = vctObj.get(i);
@@ -157,12 +158,14 @@ function del(){
                     <input type="checkbox" name=strId value="<%=obj1.getStrId() %>" />
                 </div></td>
                 <td bgcolor="#FFFFFF"><div align="center" class="STYLE1"><%=gift.show("where strId='"+obj1.getStrGiftId()+"' ").getStrName()%></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrMemberCardNo() %></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getDtExchangeTime() %></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=Format.forbidNull(obj1.getStrAddr())%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj.returnState(obj1.getIntState())%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE4">
                   <a href="gift_update.jsp?strId=<%=obj1.getStrId()%>"><img src="../images/edit.gif" width="16" height="16" border="0" />编辑</a> 
-			      <a href="#" onclick="if(confirm('确认删除该记录？')){location.href='gift_act.jsp?<%=Constants.ACTION_TYPE%>=<%=Constants.DELETE_STR%>&strId=<%=obj1.getStrId()%>';}"><img src="../images/delete.gif" width="16" height="16" border="0" />删除</a></span> </div>
+			      <a href="#" onclick="if(confirm('确认删除该记录？')){location.href='gift_act.jsp?<%=Constants.ACTION_TYPE%>=<%=Constants.DELETE_STR%>&strId=<%=obj1.getStrId()%>';}"><img src="../images/delete.gif" width="16" height="16" border="0" />删除</a>
+			      <a href="#" onclick="if(confirm('确认已处理该条记录？')){location.href='gift_act.jsp?<%=Constants.ACTION_TYPE%>=<%=Constants.AUDIT_STR%>&strId=<%=obj1.getStrId()%>';}"><%if(obj1.getIntState()==0){out.print("<img src='../images/edit.gif' width='16'  height='16' border='0' />处理");} %></a></span> </div>
                 </td>
               </tr>
             <%

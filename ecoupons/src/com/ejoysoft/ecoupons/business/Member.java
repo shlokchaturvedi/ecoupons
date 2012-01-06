@@ -224,13 +224,14 @@ public class Member
 
 	/*
 	 * 增加会员信息
+	 * 
 	 */
 	public boolean add()
 	{
 		String strUserName = globa.userSession.getStrId();
 		String strId = UID.getID();
-		String sql = "insert into " + strTableName + " (strId,strCardNo,strMobileNo,strName,intType" + ",strSalesman,strCreator,dtCreateTime) "
-				+ "values (?,?,?,?,?,?,?,?) ";
+		String sql = "insert into " + strTableName + " (strId,strCardNo,strMobileNo,strName,intType" + ",strSalesman,strCreator,dtCreateTime,flaBalance,intPoint) "
+				+ "values (?,?,?,?,?,?,?,?,?,?) ";
 		try
 		{
 			db.prepareStatement(sql);
@@ -243,6 +244,8 @@ public class Member
 			db.setString(6, strSalesman);
 			db.setString(7, strUserName);
 			db.setString(8, com.ejoysoft.common.Format.getDate());
+			db.setInt(9, 0);
+			db.setInt(10, 0);
 			if (db.executeUpdate() > 0)
 			{
 				Globa.logger0("增加会员信息", globa.loginName, globa.loginIp, sql, "会员管理", globa.unitCode);

@@ -10,15 +10,14 @@
 
 	if (action.equals(Constants.UPDATE_STR))
 	{
-		int intMoney=Integer.parseInt(ParamUtil.getString(request, "intMoney", ""));
-		System.out.println(intMoney+"--8978778899999");
+		int intMoney = Integer.parseInt(ParamUtil.getString(request, "intMoney", ""));
 		String strId = ParamUtil.getString(request, "strId", "");
 		if (obj.update(intMoney))
 		{
-	globa.dispatch(true, strUrl);
-		}else{
-	out.print("<script>alert('修改出现错误：请检查减少金额是否大于该卡余额！！');</script>");
-	globa.dispatch(true, strUrl);
+			globa.dispatch(true, strUrl);
+		} else
+		{
+			globa.dispatch(false, strUrl,"修改出现错误：请检查减少金额是否大于该卡余额,修改");
 		}
 
 	} else if (action.equals(Constants.ADD_STR))

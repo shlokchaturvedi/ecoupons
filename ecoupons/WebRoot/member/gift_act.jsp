@@ -1,7 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
-<%@ page import="com.ejoysoft.ecoupons.system.User,com.ejoysoft.common.ApacheUpload,java.io.File,com.ejoysoft.common.Constants
-,com.ejoysoft.util.ParamUtil,com.ejoysoft.ecoupons.system.SysUserUnit"%>
+<%@ page
+	import="com.ejoysoft.ecoupons.system.User,com.ejoysoft.common.ApacheUpload,java.io.File,com.ejoysoft.common.Constants,com.ejoysoft.util.ParamUtil,com.ejoysoft.ecoupons.system.SysUserUnit"%>
 <%@page import="com.ejoysoft.ecoupons.business.Gift"%>
+<%@page import="com.ejoysoft.ecoupons.business.GiftExchange"%>
 <%@ include file="../include/jsp/head.jsp"%>
 <%
 	Gift obj = new Gift(globa, false);
@@ -13,23 +14,32 @@
 		for (int i = 0; i < aryStrId.length; i++)
 		{
 			Gift obj0 = obj.show(" where strId='" + aryStrId[i] + "'");
-    		if (obj0.getStrSmallImg()!=null&&obj0.getStrSmallImg().length() > 0) {
-    			File f = new File(strFilePath + obj0.getStrSmallImg());
-        		f.delete();
-    		}
-    		if (obj0.getStrSmallImg()!=null&&obj0.getStrLargeImg().length() > 0) {
-        		File f = new File(strFilePath + obj0.getStrLargeImg());
-        		f.delete();
-        	}
+			if (obj0.getStrSmallImg() != null && obj0.getStrSmallImg().length() > 0)
+			{
+				File f = new File(strFilePath + obj0.getStrSmallImg());
+				f.delete();
+			}
+			if (obj0.getStrSmallImg() != null && obj0.getStrLargeImg().length() > 0)
+			{
+				File f = new File(strFilePath + obj0.getStrLargeImg());
+				f.delete();
+			}
 			obj.delete("where strId ='" + aryStrId[i] + "'");
 		}
 		globa.dispatch(true, strUrl);
-	} else
+	} else if (action.equals(Constants.AUDIT_STR))
+	{
+		GiftExchange giftExchange=new GiftExchange(globa);
+		String strId = ParamUtil.getString(request, "strId", "");
+		globa.dispatch(giftExchange.audit(strId), "giftexchange_list.jsp");  
+	}
+
+	else
 	{
 		ApacheUpload au = new ApacheUpload(request);
 		action = au.getString(Constants.ACTION_TYPE);
 		//上传文件
-		
+
 		File path = new File(strFilePath);
 		if (!path.exists())
 		{
@@ -65,9 +75,9 @@
 		obj.setDtExpireTime(au.getString("dtExpireTime"));
 		obj.setIntPoint(Integer.parseInt(au.getString("intPoint")));
 		obj.setStrIntro(au.getString("strIntro"));
-	    obj.setStrLargeImg(strLargeImg);
-	    obj.setStrSmallImg(strSmallImg);
-	    obj.setStrName(au.getString("strName"));
+		obj.setStrLargeImg(strLargeImg);
+		obj.setStrSmallImg(strSmallImg);
+		obj.setStrName(au.getString("strName"));
 		if (action.equals(Constants.ADD_STR))
 		{
 
