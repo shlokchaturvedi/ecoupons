@@ -21,7 +21,7 @@ public class Gift
 	private Globa globa;
 	private DbConnect db;
 	String strTableName = "t_bz_gift";
-//	String strRechargeTableName = "t_bz_member_recharge";
+	// String strRechargeTableName = "t_bz_member_recharge";
 	private String strId;// 自动生成
 	private String strIntro;// 礼品说明
 	private String strSmallImg;// 小图地址
@@ -32,18 +32,16 @@ public class Gift
 	private String strLargeImg;// 大图
 	private String strCreator;// insert操作的用户名
 	private String dtCreateTime;// insert操作的系统时间
+	private String strGiftExchangeTable = "t_bz_gift_exchange";
 
-	
-	
-	
 	/**
-	 * 增加礼品信息 
+	 * 增加礼品信息
 	 */
 	public boolean add()
 	{
 		String strUserName = globa.userSession.getStrId();
 		String strId = UID.getID();
-		
+
 		String sql = "insert into " + strTableName + " (strId,strIntro,strSmallImg,strName,dtActiveTime,dtExpireTime,intPoint"
 				+ ",strLargeImg,strCreator,dtCreateTime) " + "values (?,?,?,?,?,?,?,?,?,?) ";
 		System.out.println(sql);
@@ -80,22 +78,22 @@ public class Gift
 
 	/**
 	 * 修改礼品信息
-	 *  
-           
+	 * 
 	 */
 	public boolean update(String tStrId)
 	{
 		try
 		{
 			String strSql = "UPDATE  " + strTableName + "  SET strIntro = ?, ";
-			if (this.strSmallImg!=null&&this.strSmallImg.length() > 0) {
-            	strSql += "strsmallimg = '" + strSmallImg + "',";
-            }
-			 if (this.strLargeImg!=null&&this.strLargeImg.length() > 0) {
-	            	strSql += "strlargeimg = '" + strLargeImg + "',";
-	            }
-			strSql+=" strName = ?, intPoint = ?,  "
-					+ "dtExpireTime = ?  WHERE strId=? ";
+			if (this.strSmallImg != null && this.strSmallImg.length() > 0)
+			{
+				strSql += "strsmallimg = '" + strSmallImg + "',";
+			}
+			if (this.strLargeImg != null && this.strLargeImg.length() > 0)
+			{
+				strSql += "strlargeimg = '" + strLargeImg + "',";
+			}
+			strSql += " strName = ?, intPoint = ?,  " + "dtExpireTime = ?  WHERE strId=? ";
 			db.prepareStatement(strSql);
 			db.setString(1, strIntro);
 			db.setString(2, strName);
@@ -115,19 +113,27 @@ public class Gift
 	/**
 	 * 删除礼品信息
 	 */
-	 public boolean delete(String where) {
-	        try {
-	            String sql = "DELETE FROM " + strTableName + "  ".concat(where);
-	            db.executeUpdate(sql);
-	            Globa.logger0("删除礼物信息", globa.loginName, globa.loginIp, sql, "会员管理", globa.unitCode);
-	            return true;
-	        } catch (Exception ee) {
-	            ee.printStackTrace();
-	            return false;
-	        }
-	    }
+	public boolean delete(String where)
+	{
+		try
+		{
+			String sql = "DELETE FROM " + strTableName + " where strId=" + where;
+			String strSql = "delete from " + strGiftExchangeTable + " where strGiftId=" + where;
+			db.setAutoCommit(false);
+			db.executeUpdate(sql);
+			db.executeUpdate(strSql);
+			db.commit();
+			db.setAutoCommit(true);
+			Globa.logger0("删除礼物信息", globa.loginName, globa.loginIp, sql, "会员管理", globa.unitCode);
+			return true;
+		} catch (Exception ee)
+		{
+			db.rollback();
+			ee.printStackTrace();
+			return false;
+		}
 
-	 
+	}
 
 	/**
 	 * 详细显示单条记录
@@ -139,7 +145,7 @@ public class Gift
 			String strSql = "select * from  " + strTableName + "  ".concat(where);
 			ResultSet rs = db.executeQuery(strSql);
 			if (rs != null && rs.next())
-				return load(rs,true);
+				return load(rs, true);
 			else
 				return null;
 		} catch (Exception ee)
@@ -176,9 +182,9 @@ public class Gift
 		}
 	}
 
-/**
- * 根据条件，返回礼品信息的集合
- */
+	/**
+	 * 根据条件，返回礼品信息的集合
+	 */
 	public Vector<Gift> list(String where, int startRow, int rowCount)
 	{
 		Vector<Gift> beans = new Vector<Gift>();
@@ -234,7 +240,7 @@ public class Gift
 		}
 		return a;
 	}
-	
+
 	public Gift load(ResultSet rs, boolean isView)
 	{
 		Gift theBean = new Gift();

@@ -26,17 +26,21 @@ public class Member
 	private DbConnect db;
 	String strTableName = "t_bz_member";
 	String strRechargeTableName = "t_bz_member_recharge";
+	String strCouponPrintTableName = "t_bz_coupon_Print";
+	String strCouponInputTableName = "t_bz_coupon_input";
+	String strGiftExchangeTableName = "t_bz_gift_exchange";
 	private String strStartId;
 	private String strEndId;
 
-	/*
+	/**
 	 * 导出手机列表
 	 */
 	public boolean returnMobilNos(Vector<Member> vecMembers)
 	{
-		strStartId=ParamUtil.getString(globa.request,"strStartId","");
-	    strEndId=ParamUtil.getString(globa.request,"strEndId","");
-		String strFilePath = globa.application.getRealPath("") + "/member/expertTel/" + strStartId + "_" + strEndId+"_"+com.ejoysoft.common.Format.getDateTime().replace(" ", "").replace("-", "").replace(":", "")+".xls";
+		strStartId = ParamUtil.getString(globa.request, "strStartId", "");
+		strEndId = ParamUtil.getString(globa.request, "strEndId", "");
+		String strFilePath = globa.application.getRealPath("") + "/member/expertTel/" + strStartId + "_" + strEndId + "_"
+				+ com.ejoysoft.common.Format.getDateTime().replace(" ", "").replace("-", "").replace(":", "") + ".xls";
 		File file = new File(strFilePath);
 		PrintStream printStream = null;
 		try
@@ -64,7 +68,7 @@ public class Member
 		return true;
 	}
 
-	/*
+	/**
 	 * 修改会员信息
 	 */
 	public boolean update(String tStrId)
@@ -99,68 +103,53 @@ public class Member
 		}
 	}
 
-	/*
+	/**
 	 * 删除会员信息
 	 */
 	public boolean delete(String where)
 	{
-		PreparedStatement pStatement = null;
-		PreparedStatement preparedStatement = null;
-		Connection connection = null;
 		try
 		{
-			String sql = "DELETE FROM " + strTableName + "  ".concat(where);
-			String sql2 = "DELETE FROM " + strRechargeTableName + " where strMemberCardNo=" + show(where).getStrCardNo();
-			System.out.println(sql2);
-			connection = db.getConnection();
-			connection.setAutoCommit(false);
-			connection.setSavepoint();
-			pStatement = connection.prepareStatement(sql);
-			preparedStatement = connection.prepareStatement(sql2);
+			String strSql = "DELETE FROM " + strTableName + "  ".concat(where);
+			String strSql2 = "DELETE FROM " + strRechargeTableName + " where strMemberCardNo=" + show(where).getStrCardNo();
+			String strSql3 = "DELETE FROM " + strCouponPrintTableName + " where strMemberCardNo=" + show(where).getStrCardNo();
+			String strSql4 = "DELETE FROM " + strCouponInputTableName + " where strMemberCardNo=" + show(where).getStrCardNo();
+			String strSql5 = "DELETE FROM " + strGiftExchangeTableName + " where strMemberCardNo=" + show(where).getStrCardNo();
+			db.setAutoCommit(false);
 			if (show(where).getStrCardNo() == null)
 			{
-				if (pStatement.executeUpdate() > 0)
-				{
-					connection.commit();
-					connection.setAutoCommit(true);
-					Globa.logger0("删除会员信息", globa.loginName, globa.loginIp, sql, "会员管理", globa.unitCode);
-				}
-			} else if (pStatement.executeUpdate() > 0 && preparedStatement.executeUpdate() > 0)
+				db.executeUpdate(strSql);
+				db.commit();
+				db.setAutoCommit(true);
+				Globa.logger0("删除会员信息", globa.loginName, globa.loginIp, strSql, "会员管理", globa.unitCode);
+				return true;
+
+			} else
 			{
-				connection.commit();
-				connection.setAutoCommit(true);
-				Globa.logger0("删除会员信息", globa.loginName, globa.loginIp, sql, "会员管理", globa.unitCode);
+				db.executeUpdate(strSql);
+				db.executeUpdate(strSql2);
+				db.executeUpdate(strSql3);
+				db.executeUpdate(strSql4);
+				db.executeUpdate(strSql5);
+				db.commit();
+				db.setAutoCommit(true);
+				Globa.logger0("删除会员信息", globa.loginName, globa.loginIp, strSql, "会员管理", globa.unitCode);
+				Globa.logger0("删除会员消费记录，在删除会员时候。", globa.loginName, globa.loginIp, strSql2, "会员管理", globa.unitCode);
+				Globa.logger0("删除优惠券打印记录，在删除会员时候。", globa.loginName, globa.loginIp, strSql3, "会员管理", globa.unitCode);
+				Globa.logger0("删除优惠券录入记录，在删除会员的时候", globa.loginName, globa.loginIp, strSql4, "会员管理", globa.unitCode);
+				Globa.logger0("删除礼品兑换记录，在删除会员的时候", globa.loginName, globa.loginIp, strSql5, "会员管理", globa.unitCode);
 				return true;
 			}
 		} catch (Exception ee)
 		{
 			ee.printStackTrace();
-			try
-			{
-				connection.rollback();
-			} catch (SQLException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			db.rollback();
 			return false;
-		} finally
-		{
-			try
-			{
-				pStatement.close();
-				preparedStatement.close();
-				connection.close();
-			} catch (SQLException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
-		return false;
+
 	}
 
-	/*
+	/**
 	 * 详细显示单条记录
 	 */
 	public Member show(String where)
@@ -179,7 +168,7 @@ public class Member
 		}
 	}
 
-	/*
+	/**
 	 * 查询符合条件的记录总数
 	 */
 	public int getCount(String where)
@@ -207,7 +196,7 @@ public class Member
 		}
 	}
 
-	/*
+	/**
 	 * 返回yyyy-mm-dd日期
 	 */
 	public String returnDate(String str)
@@ -222,7 +211,7 @@ public class Member
 		}
 	}
 
-	/*
+	/**
 	 * 增加会员信息
 	 * 
 	 */
@@ -230,8 +219,8 @@ public class Member
 	{
 		String strUserName = globa.userSession.getStrId();
 		String strId = UID.getID();
-		String sql = "insert into " + strTableName + " (strId,strCardNo,strMobileNo,strName,intType" + ",strSalesman,strCreator,dtCreateTime,flaBalance,intPoint) "
-				+ "values (?,?,?,?,?,?,?,?,?,?) ";
+		String sql = "insert into " + strTableName + " (strId,strCardNo,strMobileNo,strName,intType"
+				+ ",strSalesman,strCreator,dtCreateTime,flaBalance,intPoint) " + "values (?,?,?,?,?,?,?,?,?,?) ";
 		try
 		{
 			db.prepareStatement(sql);
@@ -263,7 +252,7 @@ public class Member
 
 	}
 
-	/*
+	/**
 	 * 根据卡号起始点导出会员手机号码
 	 */
 
@@ -292,7 +281,8 @@ public class Member
 		}
 		return newMembers;
 	}
-	/*
+
+	/**
 	 * 根据条件返回会员的集合
 	 */
 
@@ -328,7 +318,7 @@ public class Member
 		return beans;
 	}
 
-	/*
+	/**
 	 * 根据卡号返回余额
 	 */
 	public float getFlaBalance(String strMemberCardNo)
@@ -352,7 +342,7 @@ public class Member
 		return a;
 	}
 
-	/*
+	/**
 	 * 激活会员
 	 */
 	public boolean setAudit(String strId)
@@ -397,7 +387,7 @@ public class Member
 		return audit;
 	}
 
-	/*
+	/**
 	 * 返回会员类型
 	 */
 	public String getType(int num)
