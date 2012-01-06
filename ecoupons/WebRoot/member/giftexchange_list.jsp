@@ -122,19 +122,7 @@ function del(){
           <tr>
             <td >
 			<table border="0" cellpadding="0" cellspacing="0" width="100%">
-			<tr>
-			<td style="font-size:9pt">
-			 <input type="checkbox" name="checkbox62" value="checkbox" onclick="selAll(document.all.strId)"/>
-			 全选
-			 
-			</td>
-			<td align="right" width="600"><div style="height:26"> 
-			  名称：<input name="strName" class="editbox4" value="" size="10">
-			  &nbsp;&nbsp;&nbsp;&nbsp;
-              <input type="submit" class="button_box" value="搜索" /> 
-			</div>
-			</td>   
-			</tr>
+			
 			</table>
 			
 			<table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="b5d6e6" onmouseover="changeto()"  onmouseout="changeback()">
@@ -145,7 +133,7 @@ function del(){
                 <td width="10%" class="left_bt2"><div align="center">兑换时间</div></td>                
                  <td width="25%" class="left_bt2"><div align="center">寄送地址</div></td>
                  <td width="10%" class="left_bt2"><div align="center">状态</div></td>
-                <td width="15%" class="left_bt2"><div align="center">基本操作</div></td>
+                <td width="10%" class="left_bt2"><div align="center">基本操作</div></td>
               </tr>
             <%
             Gift gift=new Gift(globa);
@@ -155,7 +143,7 @@ function del(){
             %>
               <tr>
                 <td height="20" bgcolor="#FFFFFF"><div align="center">
-                    <input type="checkbox" name=strId value="<%=obj1.getStrId() %>" />
+                    
                 </div></td>
                 <td bgcolor="#FFFFFF"><div align="center" class="STYLE1"><%=gift.show("where strId='"+obj1.getStrGiftId()+"' ").getStrName()%></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrMemberCardNo() %></span></div></td>
@@ -163,8 +151,6 @@ function del(){
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=Format.forbidNull(obj1.getStrAddr())%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj.returnState(obj1.getIntState())%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE4">
-                  <a href="gift_update.jsp?strId=<%=obj1.getStrId()%>"><img src="../images/edit.gif" width="16" height="16" border="0" />编辑</a> 
-			      <a href="#" onclick="if(confirm('确认删除该记录？')){location.href='gift_act.jsp?<%=Constants.ACTION_TYPE%>=<%=Constants.DELETE_STR%>&strId=<%=obj1.getStrId()%>';}"><img src="../images/delete.gif" width="16" height="16" border="0" />删除</a>
 			      <a href="#" onclick="if(confirm('确认已处理该条记录？')){location.href='gift_act.jsp?<%=Constants.ACTION_TYPE%>=<%=Constants.AUDIT_STR%>&strId=<%=obj1.getStrId()%>';}"><%if(obj1.getIntState()==0){out.print("<img src='../images/edit.gif' width='16'  height='16' border='0' />处理");} %></a></span> </div>
                 </td>
               </tr>

@@ -124,7 +124,9 @@ function del(){
 			<td style="font-size:9pt">
 			 <input type="checkbox" name="checkbox62" value="checkbox" onclick="selAll(document.all.strId)"/>
 			 全选
+			 <a href="#" onclick="del();"><img src="../images/delete.gif" width="16" height="16" border="0" />批量删除</a>
 			 <a href="gift_add.jsp"><img src="../images/add.gif" width="16" height="16" border="0" />新增</a>
+			 
 			</td>
 			<td align="right" width="600"><div style="height:26"> 
 			  名称：<input name="strName" class="editbox4" value="" size="10">
