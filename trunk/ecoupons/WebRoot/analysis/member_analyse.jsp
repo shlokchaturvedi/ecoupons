@@ -207,7 +207,7 @@ function showTime(str){
     <td width="17" height="29" valign="top" background="../images/mail_leftbg.gif"><img src="../images/left-top-right.gif" width="17" height="29" /></td>
     <td width="1195" height="29" valign="top" background="../images/content-bg.gif"><table width="100%" height="31" border="0" cellpadding="0" cellspacing="0" class="left_topbg" id="table2">
       <tr>
-        <td height="31"><div class="titlebt">经营分析</div></td>
+        <td height="31"><div class="titlebt">会员统计</div></td>
       </tr>
     </table></td>
     <td width="22" valign="top" background="../images/mail_rightbg.gif"><img src="../images/nav-right-bg.gif" width="16" height="29" /></td>
@@ -240,120 +240,103 @@ function showTime(str){
             </table></td>
           </tr>
           <tr>
-            <td><table border="0" cellpadding="0" cellspacing="0"
-													width="100%">
-													<tr>
-														<td>
-															<div style="height: 26">
-																时间：
-																<select id="timeid" name="byTime"
-																	onchange="showTime(this.value)" class="sec2">
-																	<option value="month">
-																		月份
-																	</option>
-																	<option value="season">
-																		季度
-																	</option>
-																	<option value="halfyear">
-																		半年
-																	</option>
-																	<option value="year">
-																		年份
-																	</option>
-																	<option value="period">
-																		时间段
-																	</option>
-																</select>
-																&nbsp;
-																<span id="showtime"><input name="month"
-																		onclick="WdatePicker({dateFmt:'yyyy-MM'});"
-																		class="input_box" style="width: 100" />(年-月)</span>
-															</div>
-														</td>
-														<td align="left" width="400">
-															<div style="height: 26">
-																
-															</div>
-														</td>
-														<td colspan="2" align="right" height="28">
-															<div style="height: 26">
-																 <input type="submit" class="button_box" value="统计" />
-															</div>
-														</td>
-													</tr>
-													<tr>
-														<td bgcolor="#b5d6e6" width="10%" colspan="4" height="23">
-															<div align="center"><%=setime%></div>
-														</td>
-													</tr>
+            <td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+				<tr>
+					<td>
+						<div style="height: 26">
+							时间：
+							<select id="timeid" name="byTime"
+								onchange="showTime(this.value)" class="sec2">
+								<option value="month">月份</option>
+								<option value="season">季度</option>
+								<option value="halfyear">半年</option>
+								<option value="year">年份</option>
+								<option value="period">时间段</option>
+							</select>
+							&nbsp;
+							<span id="showtime"><input name="month"
+									onclick="WdatePicker({dateFmt:'yyyy-MM'});"
+									class="input_box" style="width: 100" />(年-月)</span>
+						</div>
+					</td>
+					<td align="left" width="400">
+						<div style="height: 26">
+							
+						</div>
+					</td>
+					<td colspan="2" align="right" height="28">
+						<div style="height: 26">
+							 <input type="submit" class="button_box" value="统计" />
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td bgcolor="#b5d6e6" width="10%" colspan="4" height="23">
+						<div align="center"><%=setime%></div>
+					</td>
+				</tr>
 
-												</table></td>
+			</table></td>
           </tr>
           <tr>
-            <td><table width="100%" height="31" border="0" cellpadding="0" cellspacing="0" class="nowtable">
+            <td><table width="100%" height="25" border="0" cellpadding="0" cellspacing="0" class="nowtable">
               <tr>
-                <td class="left_bt2">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
               </tr>
-            </table></td>
-          </tr>
+            </table>
+            </td>
+            </tr>
           <tr>
-            <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <td><table align="center" width="100%" border="0" cellspacing="0" cellpadding="0">
               
              <tr>
-                <td width="20%" height="30" align="right" class="left_txt2">新增数量：</td>
-                <td width="3%">&nbsp;</td>
-                <td width="32%" height="30">
+                <td width="40%" height="30" align="right" class="left_txt2">新增数量：</td>
+                <td height="3">&nbsp;</td> 
+                 <td width="20%" height="30">
                 <label><%=obj.returnAddNum() %></label>
                 </td>
-                <td width="45%" height="30" class="left_txt" >&nbsp;</td>
+                <td height="30" width="30%" class="left_txt2" >&nbsp;</td>
               </tr>
               <tr bgcolor="#f2f2f2">
-                 <td width="20%" height="30" align="right" class="left_txt2">活动数量：</td>
-                <td width="3%">&nbsp;</td>
-                <td width="32%" height="30">
+                 <td width="40%" height="30" align="right" class="left_txt2">活动数量：</td>
+                <td height="3">&nbsp;</td> 
+                <td width="20%" height="30">
                 <label><%=obj.returnLiveNum() %></label>
                 </td>
-                <td width="45%" height="30" class="left_txt">&nbsp;</td> 
+                <td height="30" width="30%" class="left_txt">&nbsp;</td> 
               </tr>
-             <tr >
-                 <td width="20%" height="30" align="right" class="left_txt2">总数量：</td>
-                <td width="3%">&nbsp;</td>
-                <td width="32%" height="30">
+             <tr>
+                 <td width="40%" height="30" align="right" class="left_txt2">总数量：</td>
+                 <td height="3">&nbsp;</td> 
+                 <td width="20%" height="30">
                  <label><%=obj.returnTotalNum() %></label>
                 </td>
-                <td width="45%" height="30" class="left_txt">&nbsp;</td> 
-              
-                
+                <td height="30" width="30%" class="left_txt2" class="left_txt2">&nbsp;</td>
               </tr>
                <tr bgcolor="#f2f2f2">
-                 <td width="20%" height="30" align="right" class="left_txt2">活跃会员数量：</td>
-                <td width="3%">&nbsp;</td>
-                <td width="32%" height="30">
+                <td width="40%" height="30" align="right" class="left_txt2">活跃会员数量：</td>
+                <td height="3">&nbsp;</td> 
+                <td width="20%" height="30">
                  <label><%=obj.returnActiveNum() %></label>
                 </td>
-                <td width="45%" height="30" class="left_txt">&nbsp;</td> 
-              </tr>
-             
-               
-              <tr bgcolor="#f2f2f2">
-                 <td width="20%" height="30" align="right" class="left_txt2">沉淀会员数量：</td>
-                <td width="3%">&nbsp;</td>
-                <td width="32%" height="30">
+                <td height="30" width="30%" class="left_txt2">&nbsp;</td> 
+              </tr> 
+              <tr>
+                 <td width="40%" height="30" align="right" class="left_txt2">沉淀会员数量：</td>
+                <td height="3">&nbsp;</td> 
+                <td width="20%" height="30">
                <label><%=obj.returnUnActiveNum() %></label>
                 </td>
-                <td width="45%" height="30" class="left_txt">&nbsp;</td> 
+                <td width="30%" height="30" class="left_txt2">&nbsp;</td> 
               </tr>
-             
-              
-              
             </table></td>
           </tr>
         </table>
           <table width="100%" border="0" cellspacing="0" cellpadding="0">
             <tr>
-              <td width="50%" height="56" align="right"><input name="B1" type="button" class="button_box" value="确定" onclick="chkFrm()" /></td>
+              <td width="50%" height="56" align="right"></td>
               <td width="6%" height="56" align="right">&nbsp;</td>
-              <td width="44%" height="56"><input name="B12" type="reset" class="button_box" value="取消" /></td>
+              <td width="44%" height="56"></td>
             </tr>
             <tr>
               <td height="30" colspan="3">&nbsp;</td>

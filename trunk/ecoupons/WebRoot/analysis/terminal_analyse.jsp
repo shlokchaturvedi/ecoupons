@@ -2,17 +2,17 @@
 <%@ page import="java.util.Vector,
 				com.ejoysoft.common.Constants,
 				com.ejoysoft.common.exception.NoRightException,
-				com.ejoysoft.ecoupons.business.ShopAnalysis" %>
+				com.ejoysoft.ecoupons.business.TerminalAnalysis" %>
 <%@ include file="../include/jsp/head.jsp"%>
 <%
-if(!globa.userSession.hasRight("13005"))
+if(!globa.userSession.hasRight("13015"))
       throw new NoRightException("用户不具备操作该功能模块的权限，请与系统管理员联系！");
 %>
 
 <%
     //初始化
-    ShopAnalysis  obj0=null;
-    ShopAnalysis obj=new ShopAnalysis(globa);
+    TerminalAnalysis  obj0=null;
+    TerminalAnalysis obj=new TerminalAnalysis(globa);
    	String  bytime=ParamUtil.getString(request,"byTime");
    	String stime="1000-01-01";
    	String etime="9999-12-30";
@@ -139,23 +139,10 @@ if(!globa.userSession.hasRight("13005"))
     obj.setEtime(etime);
     //查询条件
    
-	String  strName=ParamUtil.getString(request,"strName","");
+	String  strNo=ParamUtil.getString(request,"strNo","");
 	String tWhere=" where 1=1";
-	if (!strName.equals("")) {
-	
-	    String strbizname="",strshopname="";
-		String name[]= strName.trim().split("-");
-    	if(name.length==1)
-    	{
-    		strbizname = name[0];
-    		tWhere += " and strbizname like '%" + strbizname + "%'";
-    	}
-    	else if(name.length==2){
-    		strbizname = name[0];
-    		strshopname = name[1];
-		    tWhere += " and strbizname like '%" + strbizname + "%' and strshopname like '%" + strshopname + "%'";
-    	}
-    	  
+	if (!strNo.equals("")) {
+    		tWhere += " and strno like '%" + strNo + "%'";    	
 	}
 	tWhere += " order by strid";
 	//记录总数
@@ -169,9 +156,9 @@ if(!globa.userSession.hasRight("13005"))
 	// 循环显示一页内的记录 开始序号
 	int intStartNum=(intCurPage-1)*intPageSize+1;
 	//结束序号
-	int intEndNum=intCurPage*intPageSize;   
+	int intEndNum=intCurPage*intPageSize;    
 	//获取到当前页面的记录集
-	Vector<ShopAnalysis> vctObj=obj.getShopAnalysisList(tWhere);
+	Vector<TerminalAnalysis> vctObj=obj.getTerminalAnalysisList(tWhere);
 	//获取当前页的记录条数
 	int intVct=(vctObj!=null&&vctObj.size()>0?vctObj.size():0);
 	String setime="";
@@ -240,13 +227,13 @@ function showTime(str){
 </script>
 </head>
 <body>
-<form name=frm method=post action="shop_analyse.jsp">
+<form name=frm method=post action="terminal_analyse.jsp">
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td width="17" height="29" valign="top" background="../images/mail_leftbg.gif"><img src="../images/left-top-right.gif" width="17" height="29" /></td>
     <td width="1195" height="29" valign="top" background="../images/content-bg.gif"><table width="100%" height="31" border="0" cellpadding="0" cellspacing="0" class="left_topbg" id="table2">
       <tr>
-        <td height="31"><div class="titlebt">商家统计</div></td>
+        <td height="31"><div class="titlebt">终端统计</div></td>
       </tr>
     </table></td>
     <td width="22" valign="top" background="../images/mail_rightbg.gif"><img src="../images/nav-right-bg.gif" width="16" height="29" /></td>
@@ -260,7 +247,7 @@ function showTime(str){
       <tr>
         <td height="534" valign="top"><table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
           <tr>
-            <td class="left_txt">当前位置：业务管理 / 经营分析 / 商家统计分析</td>
+            <td class="left_txt">当前位置：业务管理 / 经营分析 / 终端统计分析</td>
           </tr>
           <tr>
             <td height="20"><table width="100%" height="1" border="0" cellpadding="0" cellspacing="0" bgcolor="#CCCCCC">
@@ -273,8 +260,8 @@ function showTime(str){
             <td><table width="100%" height="55" border="0" cellpadding="0" cellspacing="0">
               <tr>
                 <td width="6%" height="55" valign="middle"><img src="../images/title.gif" width="54" height="55"></td>
-                <td width="94%" valign="top"><span class="left_txt3">在这里，您可以查看商家统计分析的结果！<br>
-                  包括商家发布的优惠券及其被打印次数的统计结果。 </span></td>
+                <td width="94%" valign="top"><span class="left_txt3">在这里，您可以查看终端统计分析的结果！<br>
+                  包括终端发布的优惠券及其被打印次数的统计结果。 </span></td>
               </tr>
             </table></td>
           </tr>
@@ -297,12 +284,12 @@ function showTime(str){
 			</div>
 			</td>
 			<td align="left" width="400"><div style="height:26"> 
-			商家名称：<input name="strName" class="input_box" value="" size="10">
+			终端编号：<input name="strNo" class="input_box" value="" size="10">
 			         <input type="submit" class="button_box" value="统计" /> 
 			</div>
 			</td>  
-			<td colspan="2" align="right" height="28"><div style="height:26">(统计后查看图形)
-					<input type="button" name="b_submit" value="柱形图显示" class="button" style="width:150"	onclick="window.open('writeToImage.jsp?tag=shopanalyse&stime=<%=obj.getStime()%>&etime=<%=obj.getEtime()%>','','width=1000,height=600,top=50,left=100');"
+			<td align="right" height="28"><div style="height:26">(统计后查看)
+					<input type="button" name="b_submit" value="图形显示" class="button" style="width:100"	onclick="window.open('writeToImage.jsp?tag=terminalanalyse&stime=<%=obj.getStime()%>&etime=<%=obj.getEtime()%>','','width=1000,height=600,top=50,left=100');"
 						style="cursor: hand" />	
 			</div>			
 			</td>		 
@@ -315,20 +302,20 @@ function showTime(str){
 					<table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="b5d6e6" onmouseover="changeto()"  onmouseout="changeback()">
                <tr>
                 <td width="10%" class="left_bt2"><div align="center">序号</div></td>
-                <td width="30%" class="left_bt2"><div align="center">商家名称（名称-分部）</div></td>
+                <td width="30%" class="left_bt2"><div align="center">终端编号</div></td>
                 <td width="30%" class="left_bt2"><div align="center">发布优惠券名称</div></td>
                 <td width="30%" class="left_bt2"><div align="center">优惠券打印数量</div></td>      
               </tr>
             <%
-                if(vctObj.size()<intEndNum)
-                	intEndNum = vctObj.size();
-            	for (int i = intStartNum;i < intEndNum; i++) {
-                        	ShopAnalysis obj1 = vctObj.get(i);         
+           		if(vctObj.size() < intEndNum)
+          		  intEndNum = vctObj.size();
+            	for (int i = intStartNum-1;i < intEndNum; i++) {
+                        	TerminalAnalysis obj1 = vctObj.get(i);         
 		                	
                 %> 
-              <tr  title="商家：<%=obj1.getShopName()%>" >
+              <tr  title="终端：<%=obj1.getTerminalNo()%>" >
                 <td bgcolor="#FFFFFF"><div align="center">&nbsp;<%=i+1 %></div></td>
-                <td bgcolor="#FFFFFF"> <div align="center"><span class="STYLE1"><%=obj1.getShopName()%></span></div></td>
+                <td bgcolor="#FFFFFF"> <div align="center"><span class="STYLE1"><%=obj1.getTerminalNo()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getCouponName() %></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getPerCouponPrintNum()%></span></div></td>
                 </tr>
