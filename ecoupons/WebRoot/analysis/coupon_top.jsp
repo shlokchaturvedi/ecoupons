@@ -2,18 +2,19 @@
 <%@ page import="java.util.Vector,
 				com.ejoysoft.common.Constants,
 				com.ejoysoft.common.exception.NoRightException,
-				com.ejoysoft.ecoupons.business.ShopAnalysis" %>
+				com.ejoysoft.ecoupons.business.CouponTop" %>
 <%@ include file="../include/jsp/head.jsp"%>
 <%
-if(!globa.userSession.hasRight("13005"))
+if(!globa.userSession.hasRight("13020"))
       throw new NoRightException("用户不具备操作该功能模块的权限，请与系统管理员联系！");
 %>
 
 <%
     //初始化
-    ShopAnalysis  obj0=null;
-    ShopAnalysis obj=new ShopAnalysis(globa);
+    CouponTop obj=new CouponTop(globa);
    	String  bytime=ParamUtil.getString(request,"byTime");
+   	String  topnumString=ParamUtil.getString(request,"strTopnum","0");
+    int topnum = Integer.parseInt(topnumString);  
    	String stime="1000-01-01";
    	String etime="9999-12-30";
     if(bytime!=null&&!(bytime.trim().equals(""))&& bytime.equals("month"))
@@ -135,31 +136,24 @@ if(!globa.userSession.hasRight("13005"))
     	}  	
     	
     }
+    
     obj.setStime(stime);
     obj.setEtime(etime);
     //查询条件
-   
 	String  strName=ParamUtil.getString(request,"strName","");
 	String tWhere=" where 1=1";
-	if (!strName.equals("")) {
-	
-	    String strbizname="",strshopname="";
-		String name[]= strName.trim().split("-");
-    	if(name.length==1)
-    	{
-    		strbizname = name[0];
-    		tWhere += " and strbizname like '%" + strbizname + "%'";
-    	}
-    	else if(name.length==2){
-    		strbizname = name[0];
-    		strshopname = name[1];
-		    tWhere += " and strbizname like '%" + strbizname + "%' and strshopname like '%" + strshopname + "%'";
-    	}
-    	  
+	if (!strName.equals("")) {	
+	      tWhere += " and  strName like '%" + strName + "%'";   	  	
 	}
 	tWhere += " order by strid";
+	//获取到所有记录集
+	Vector<CouponTop> vctObj=obj.getCouponTopResultList(tWhere);	
+   	if(topnum == 0 || topnum>=vctObj.size())
+   	{
+   		topnum = vctObj.size();
+   	}
 	//记录总数
-	int intAllCount=obj.getCountSA(tWhere);
+	int intAllCount = topnum;
 	//当前页
 	int intCurPage=globa.getIntCurPage();
 	//每页记录数
@@ -170,8 +164,6 @@ if(!globa.userSession.hasRight("13005"))
 	int intStartNum=(intCurPage-1)*intPageSize+1;
 	//结束序号
 	int intEndNum=intCurPage*intPageSize;   
-	//获取到当前页面的记录集
-	Vector<ShopAnalysis> vctObj=obj.getShopAnalysisList(tWhere);
 	//获取当前页的记录条数
 	int intVct=(vctObj!=null&&vctObj.size()>0?vctObj.size():0);
 	String setime="";
@@ -188,7 +180,6 @@ if(!globa.userSession.hasRight("13005"))
 		setime =stime+ "之   后   统   计   记   录";
 	}
 	else setime = stime+"  至  "+etime+"   统   计   记   录";
-	session.setAttribute("twhere",tWhere);
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -235,18 +226,38 @@ function showTime(str){
       								      
 	 	} 
 	 }
-}
+ }
+ function chkFrm()
+ {
+    var topnum =document.getElementById("strTopnum").value;    
+ 	if(topnum!="")
+ 	{
+ 	   var topnumParn =/^[0-9]*[1-9][0-9]*$/; 
+       var reParn = new RegExp(topnumParn);
+       if(!reParn.test(topnum))
+       {
+          alert(topnum+"请输入正确的排行要求数目！！！如20");
+          frm.strTopnum.focus();         
+		  return false;
+       } 
+ 	   frm.submit();
+ 	} 
+ 	else
+ 	{ 		
+ 	   frm.submit();
+ 	}
+ }
 
 </script>
 </head>
 <body>
-<form name=frm method=post action="shop_analyse.jsp">
+<form name=frm method=post action="coupon_top.jsp">
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td width="17" height="29" valign="top" background="../images/mail_leftbg.gif"><img src="../images/left-top-right.gif" width="17" height="29" /></td>
     <td width="1195" height="29" valign="top" background="../images/content-bg.gif"><table width="100%" height="31" border="0" cellpadding="0" cellspacing="0" class="left_topbg" id="table2">
       <tr>
-        <td height="31"><div class="titlebt">商家统计</div></td>
+        <td height="31"><div class="titlebt">优惠券消费排</div></td>
       </tr>
     </table></td>
     <td width="22" valign="top" background="../images/mail_rightbg.gif"><img src="../images/nav-right-bg.gif" width="16" height="29" /></td>
@@ -260,7 +271,7 @@ function showTime(str){
       <tr>
         <td height="534" valign="top"><table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
           <tr>
-            <td class="left_txt">当前位置：业务管理 / 经营分析 / 商家统计分析</td>
+            <td class="left_txt">当前位置：业务管理 / 经营分析 / 优惠券消费排行榜</td>
           </tr>
           <tr>
             <td height="20"><table width="100%" height="1" border="0" cellpadding="0" cellspacing="0" bgcolor="#CCCCCC">
@@ -273,8 +284,8 @@ function showTime(str){
             <td><table width="100%" height="55" border="0" cellpadding="0" cellspacing="0">
               <tr>
                 <td width="6%" height="55" valign="middle"><img src="../images/title.gif" width="54" height="55"></td>
-                <td width="94%" valign="top"><span class="left_txt3">在这里，您可以查看商家统计分析的结果！<br>
-                  包括商家发布的优惠券及其被打印次数的统计结果。 </span></td>
+                <td width="94%" valign="top"><span class="left_txt3">在这里，您可以查看优惠券消费排行榜！<br>
+                  包括优惠券消费排名、优惠券基本信息等统计情况。 </span></td>
               </tr>
             </table></td>
           </tr>
@@ -285,52 +296,55 @@ function showTime(str){
             <td >
 			<table border="0" cellpadding="0" cellspacing="0" width="100%">
 			<tr>
-			<td><div style="height:26"> 时间：
+			<td align="left" width="400"><div style="height:26"> 时间：
 			<select id="timeid" name="byTime" onchange="showTime(this.value)" class="sec2" >
-			<option value="month">   月份</option>
-			<option value="season">  季度</option>
-			<option value="halfyear">半年</option>
-			<option value="year">    年份</option>
+			<option value="month">   月     份</option>
+			<option value="season">  季     度</option>
+			<option value="halfyear">半     年</option>
+			<option value="year">    年     份</option>
 			<option value="period">  时间段</option>
 			</select>&nbsp;
 				<span id="showtime"><input name="month" onclick="WdatePicker({dateFmt:'yyyy-MM'});" class="input_box" style="width:100"/>(年-月)</span>
 			</div>
 			</td>
-			<td align="left" width="400"><div style="height:26"> 
-			商家名称：<input name="strName" class="input_box" value="" size="10">
-			         <input type="submit" class="button_box" value="统计" /> 
+			<td align="right"><div style="height:26"> 统计前 <input name="strTopnum" type="text"  class="input_box" maxlength="9" value="" size="6"/>名
+		    </div>
+			</td>
+			
+			<td align="right" width="400"><div style="height:26"> 
+			优惠券名称：<input name="strName" type="text" class="input_box" value="" size=" ">
+			         <input type="button" class="button_box" onclick="chkFrm()" value="统计" /> 
 			</div>
-			</td>  
-			<td colspan="2" align="right" height="28"><div style="height:26">(统计后查看图形)
-					<input type="button" name="b_submit" value="柱形图显示" class="button" style="width:150"	onclick="window.open('writeToImage.jsp?tag=shopanalyse&stime=<%=obj.getStime()%>&etime=<%=obj.getEtime()%>','','width=1000,height=600,top=50,left=100');"
-						style="cursor: hand" />	
-			</div>			
-			</td>		 
-			</tr>
-			 <tr>
-                <td bgcolor="#b5d6e6" width="10%" colspan="4"  height="23"><div align="center"><%=setime%></div></td>
+			</td>			
+			</tr> 
+			<tr>
+                <td bgcolor="#b5d6e6" colspan="30"  height="23"><div align="center"><%=setime%></div></td>
               </tr>
             
-	          </table>
-					<table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="b5d6e6" onmouseover="changeto()"  onmouseout="changeback()">
+			</table>
+			<table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="b5d6e6" onmouseover="changeto()"  onmouseout="changeback()">
                <tr>
-                <td width="10%" class="left_bt2"><div align="center">序号</div></td>
-                <td width="30%" class="left_bt2"><div align="center">商家名称（名称-分部）</div></td>
-                <td width="30%" class="left_bt2"><div align="center">发布优惠券名称</div></td>
-                <td width="30%" class="left_bt2"><div align="center">优惠券打印数量</div></td>      
+                <td width="10%" class="left_bt2"><div align="center">排行榜</div></td>
+                <td width="15%" class="left_bt2"><div align="center">名          称</div></td>
+                <td width="10%" class="left_bt2"><div align="center">消费统计（次）</div></td>
+                <td width="20%" class="left_bt2"><div align="center">所属商家(名称-分部)</div></td> 
+                <td width="15%" class="left_bt2"><div align="center">价          格</div></td>   
+                <td width="30%" class="left_bt2"><div align="center">活动时间</div></td>       
               </tr>
             <%
-                if(vctObj.size()<intEndNum)
-                	intEndNum = vctObj.size();
-            	for (int i = intStartNum;i < intEndNum; i++) {
-                        	ShopAnalysis obj1 = vctObj.get(i);         
+            	if(intEndNum > topnum)
+            		intEndNum =  topnum;
+            	for (int i = intStartNum-1 ;i < intEndNum; i++) {
+                        	CouponTop obj1 = vctObj.get(i);         
 		                	
                 %> 
-              <tr  title="商家：<%=obj1.getShopName()%>" >
-                <td bgcolor="#FFFFFF"><div align="center">&nbsp;<%=i+1 %></div></td>
-                <td bgcolor="#FFFFFF"> <div align="center"><span class="STYLE1"><%=obj1.getShopName()%></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getCouponName() %></span></div></td>
+              <tr  title="优惠券：<%=obj1.getCouponName()%>" >
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">第&nbsp;&nbsp;<%=i+1 %>&nbsp;&nbsp;名</span></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getCouponName()%> </span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getPerCouponPrintNum()%></span></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getShopname()%></span></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getCouponPrice()%></span></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getCouponTime()%></span></div></td>
                 </tr>
             <%
             }
