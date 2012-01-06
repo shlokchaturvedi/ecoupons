@@ -24,7 +24,7 @@
 				File f = new File(strFilePath + obj0.getStrLargeImg());
 				f.delete();
 			}
-			obj.delete("where strId ='" + aryStrId[i] + "'");
+			obj.delete(aryStrId[i]);
 		}
 		globa.dispatch(true, strUrl);
 	} else if (action.equals(Constants.AUDIT_STR))
