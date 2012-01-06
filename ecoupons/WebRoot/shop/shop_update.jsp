@@ -202,18 +202,12 @@ body,td,tr{font-size:9pt;}
                   <img src="<%="images/" + obj0.getStrSmallImg() %>" width=<%=application.getAttribute("SHOP_SMALL_IMG_WIDTH") %> height=<%=application.getAttribute("SHOP_SMALL_IMG_HEIGHT") %>/><br>
                 <%
                 }
-                %>                       
+                %>  
+                   	（大小：<%=application.getAttribute("SHOP_SMALL_IMG_WIDTH") %>*<%=application.getAttribute("SHOP_SMALL_IMG_HEIGHT") %>px，用于前台列表显示）
+                                 
                 </td>
                </tr>
-          	  <tr bgcolor="#f2f2f2">
-                 <td width="20%" height="30" align="right" class="left_txt2">&nbsp; </td>
-                 <td height="30" class="left_txt">&nbsp;</td> 
-                 <td height="30" class="left_txt">
-            		     （大小：<%=application.getAttribute("SHOP_SMALL_IMG_WIDTH") %>*<%=application.getAttribute("SHOP_SMALL_IMG_HEIGHT") %>px，用于前台列表显示）
-                 </td>	
-                <td width="20%" height="30" class="left_txt">&nbsp;</td> 
-              </tr>
-              <tr bgcolor="#f2f2f2">
+          	    <tr bgcolor="#f2f2f2">
                 <td height="30" align="right" class="left_txt2">大图片：</td>
                 <td>&nbsp;</td> 
                 <td height="30"><input name="strLargeImg" type="file" class="input_box" size="30"  /></td>
@@ -224,18 +218,11 @@ body,td,tr{font-size:9pt;}
                   <img src="<%="images/" + obj0.getStrLargeImg() %>" width=<%=application.getAttribute("SHOP_LARGE_IMG_WIDTH") %> height=<%=application.getAttribute("SHOP_LARGE_IMG_HEIGHT") %>/><br>
                 <%
                 }
-                %> 
-                </td>
+                %> 	   
+                	（ 大小：<%=application.getAttribute("SHOP_LARGE_IMG_WIDTH") %>*<%=application.getAttribute("SHOP_LARGE_IMG_HEIGHT") %>px，用于前台详细显示）
+              </td>
               </tr> 
               <tr bgcolor="#f2f2f2">
-                 <td width="20%" height="30" align="right" class="left_txt2">&nbsp; </td>
-                 <td height="30" class="left_txt">&nbsp;</td> 
-                 <td height="30" class="left_txt">
-            		   （ 大小：<%=application.getAttribute("SHOP_LARGE_IMG_WIDTH") %>*<%=application.getAttribute("SHOP_LARGE_IMG_HEIGHT") %>px，用于前台详细显示）
-                 </td>	
-                <td width="20%" height="30" class="left_txt">&nbsp;</td> 
-              </tr>
-          	  <tr bgcolor="#f2f2f2">
                  <td width="20%" height="30" align="right" class="left_txt2">商家简介：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30"><textArea name="strIntro" cols="33" rows="5" ><%=obj0.getStrIntro()%></textArea></td>
