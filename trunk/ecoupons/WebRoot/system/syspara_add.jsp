@@ -115,6 +115,8 @@ function chkFrm(){
                   String paramType = (String)application.getAttribute("PARAM_TYPE");
                   String[] paramTypes = paramType.split(",");
                   for (int i = 0; i < paramTypes.length; i++) {
+                 // String stp= new String(paramTypes[i].getBytes("UTF-8"),"GBK");   
+                  
               %>
                 <option value="<%=paramTypes[i]%>" <%if(strType.equals(paramTypes[i])) out.print("selected");%>><%=paramTypes[i]%></option>
               <%
