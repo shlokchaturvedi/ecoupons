@@ -52,7 +52,7 @@
 	    }
 	    if (au.getFileName(1).length() > 0) {
 	    	strLargeImg = au.saveFile(strFilePath, 1);
-	    	if (action.equals(Constants.UPDATE_STR) && obj0.getStrSmallImg()!=null&&obj0.getStrLargeImg().length() > 0) {
+	    	if (action.equals(Constants.UPDATE_STR) && obj0.getStrLargeImg()!=null&&obj0.getStrLargeImg().length() > 0) {
 	    		File f = new File(strFilePath + obj0.getStrLargeImg());
 	    		f.delete();
 	    	}
