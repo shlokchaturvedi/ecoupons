@@ -75,12 +75,12 @@ public class BarChart extends javax.servlet.http.HttpServlet {
 		//将默认放在左边的“左边”放到右方
 		plot.setRangeAxisLocation(AxisLocation.BOTTOM_OR_RIGHT);
 
-		int width=900;		
-		if(shops.length*150>=900)
+		int width=850;		
+		if(shops.length*150>=850)
 			width = shops.length*150;
 		String filename ="";
 		try {
-			filename = ServletUtilities.saveChartAsPNG(chart, width, 400, null, request.getSession());
+			filename = ServletUtilities.saveChartAsPNG(chart, width, 500, null, request.getSession());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -175,11 +175,11 @@ public class TerminalAnalysis {
     	Vector<TerminalAnalysis> vector = new Vector<TerminalAnalysis>();
     	TerminalAnalysis obj = new TerminalAnalysis(globa);
     	String sql = "select * from "+strTableName1;
-    	ResultSet re = db.executeQuery(sql);
     	try {
     		if (where.length() > 0)
                 sql = String.valueOf(sql) + String.valueOf(where);         
-			if(re!=null)
+    		ResultSet re = db.executeQuery(sql);
+    	    if(re!=null)
 			{
 				while (re.next()) {
 					String terminalid = re.getString("strid");
@@ -196,7 +196,7 @@ public class TerminalAnalysis {
     	return vector;
     }
 //获取一个商家统计分析的报表信息
-    public Vector<TerminalAnalysis> getTerminalAnalysisList(String where, int startRow, int rowCount)
+    public Vector<TerminalAnalysis> getTerminalAnalysisList(String where)
     {
     	Vector<TerminalAnalysis> vector = new Vector<TerminalAnalysis>();
     	TerminalAnalysis obj = new TerminalAnalysis(globa); 
@@ -205,14 +205,10 @@ public class TerminalAnalysis {
     		if (where.length() > 0)
                  sql = String.valueOf(sql) + String.valueOf(where);
             Statement s = db.getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            if (startRow != 0 && rowCount != 0)
-                 s.setMaxRows((startRow + rowCount) - 1);
-            ResultSet re = s.executeQuery(sql);
+              ResultSet re = s.executeQuery(sql);
 		 	if(re!=null&&re.next())
 			{
-		 		if (startRow != 0 && rowCount != 0)
-                    re.absolute(startRow);             
-		 		do{
+		 			do{
 					String terminalid = re.getString("strid");
 					String terminalno = re.getString("strno");
 					Vector<TerminalAnalysis> vector2 = obj.getCouponIdsByTerminal(terminalid,this.stime,this.etime);
