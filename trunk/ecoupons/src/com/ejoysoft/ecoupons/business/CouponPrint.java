@@ -290,6 +290,9 @@ public class CouponPrint
 
 	public String getDtPrintTime()
 	{
+		if(dtPrintTime!=null&&dtPrintTime!=""){
+			return dtPrintTime.substring(0, dtPrintTime.length()-2);
+		}
 		return dtPrintTime;
 	}
 

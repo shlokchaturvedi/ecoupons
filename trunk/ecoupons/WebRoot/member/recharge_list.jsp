@@ -13,19 +13,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <%
 	//初始化
      //获取单位的strId
-   // String  log=ParamUtil.getString(request,"strUnitId","");
-
+   
     //初始化
     Recharge  recharge=null;
     Recharge obj=new Recharge(globa);
-    
+    String strId=ParamUtil.getString(request,"strId",""); 
     //查询条件
     String  strMemberCardNo=ParamUtil.getString(request,"strMemberCardNo","");
 	String tWhere=" WHERE 1=1";
 	if (!strMemberCardNo.equals("")) {
-		tWhere += " and strMemberCardNo LIKE '%" + strMemberCardNo + "%'";
+		tWhere += " and strMemberCardNo =" + strMemberCardNo + " ";
 	}
 	
+	if("代理员".equals(globa.userSession.getStrCssType())){
+		tWhere +=" and  strCreator='"+globa.userSession.getStrId()+"' ";
+	}
 	tWhere += " ORDER BY dtCreateTime";
 	//记录总数
 	int intAllCount=obj.getCount(tWhere);

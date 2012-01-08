@@ -144,7 +144,10 @@ if(trim(frm.strMobileNo.value)!=""){
               <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">销售员：</td>
                 <td width="3%">&nbsp;</td>
-                <td width="32%" height="30"><input name="strSalesman"  type="text" class="input_box" size="30" /></td>
+                <td width="32%" height="30"> <%if("代理员".equals(globa.userSession.getStrCssType())){
+            		out.print("<input name='strSalesman' type='hidden' value='"+globa.userSession.getStrId()+"' readonly class='input_box' size='30' /><input name='strSale' type='text' value='"+globa.userSession.getStrName()+"' readonly class='input_box' size='30' />"); 
+            	} else{out.print("<input name='strSalesman' type='hidden' class='input_box' size='30' />");}%> </td>
+            	
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
              

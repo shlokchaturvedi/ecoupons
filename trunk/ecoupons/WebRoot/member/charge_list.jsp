@@ -136,7 +136,7 @@ body,td,th {
                 <td width="15%" class="left_bt2"><div align="center">打印时间</div></td>
               </tr>
             <%
-            Coupon coupon=new Coupon();
+            Coupon coupon=new Coupon(globa);
             	for (int i = 0;i < vctObj.size(); i++) {
             		CouponPrint obj1 = vctObj.get(i);
                         	
