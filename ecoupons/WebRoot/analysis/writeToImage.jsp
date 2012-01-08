@@ -44,16 +44,37 @@ if(!globa.userSession.hasRight("130"))
 		double resultdata[][] = new double[2][vector.size()];
 		String[] couponnum = new String[]{"优惠券数量总计", "优惠券打印次数总计"};
 		String[] shops = new String[vector.size()];
+		double maxnum = 0;
+		double maxnum1 = 0;
+		double maxnum2 = 0;
 		for(int i=0;i<vector.size();i++)
 		{
 			ShopAnalysis obj0 = new ShopAnalysis();
 			obj0 = vector.get(i);
 			resultdata[0][i] = obj0.getShopCouponNum()*1.0;
-			resultdata[1][i]= obj0.getShopPrintNum()*1.0;
+			if(maxnum<resultdata[0][i])
+			 	maxnum = (resultdata[0][i]+0);
+		    resultdata[1][i]= obj0.getShopPrintNum()*10.0;
+			if(maxnum1 < resultdata[1][i])
+			 	maxnum1 = resultdata[1][i];
 			shops[i] = obj0.getShopName();
 		}
-	 BarChart objBarChart = new BarChart();
-     graphURL =objBarChart.returnBarResult(request,"商家统计分析结果",shops, couponnum,resultdata,setime,"商家（名称-分部）");
+		double k=1;
+		for(int j=0;j<10;j++)
+		{
+			if(maxnum1 < k)
+				break;
+			k*=10;
+		}
+		for(int i=0;i<vector.size();i++)
+		{
+			resultdata[0][i] *= k/10;
+		}
+		if(maxnum1!=0)
+		   maxnum2 = (9.0*maxnum1)/(8.5*k/10);
+		else maxnum2 = maxnum*9/(8.5*k/10);
+	    BarChart objBarChart = new BarChart();
+        graphURL =objBarChart.returnBarResult(request,"商家统计分析结果",shops, couponnum,resultdata,setime,"商家（名称-分部）",maxnum2);
 		
     }
     else if(tag.trim().equals("terminalanalyse"))
@@ -64,17 +85,38 @@ if(!globa.userSession.hasRight("130"))
 		Vector<TerminalAnalysis> vector = obj.getTermianlAnalysisResult(twhere);
 		double resultdata[][] = new double[2][vector.size()];
 		String[] couponnum = new String[]{"优惠券数量总计", "优惠券打印次数总计"};
-		String[] shops = new String[vector.size()];
+		String[] terminals = new String[vector.size()];
+		double maxnum = 0;
+		double maxnum1 = 0;
+		double maxnum2 = 0;
 		for(int i=0;i<vector.size();i++)
 		{
 			TerminalAnalysis obj0 = new TerminalAnalysis();
 			obj0 = vector.get(i);
 			resultdata[0][i] = obj0.getTerminalCouponNum()*1.0;
-			resultdata[1][i]= obj0.getTerminalPrintNum()*1.0;
-			shops[i] = obj0.getTerminalNo();
+			if(maxnum < resultdata[0][i])
+			 	maxnum = resultdata[0][i];
+			resultdata[1][i]= obj0.getTerminalPrintNum()*100.0;
+			if(maxnum1 <resultdata[1][i])
+			 	maxnum1 = resultdata[1][i];		
+			terminals[i] = obj0.getTerminalNo();
 		}
-	   BarChart objBarChart = new BarChart();
-       graphURL =objBarChart.returnBarResult(request,"终端统计分析结果",shops, couponnum,resultdata,setime,"终端（编号）");
+		double k=1;
+		for(int j=0;j<10;j++)
+		{
+			if(maxnum1 < k)
+				break;
+			k*=10;
+		}
+		for(int i=0;i<vector.size();i++)
+		{
+			resultdata[0][i] *= k/10;
+		}
+		if(maxnum1!=0)
+		   maxnum2 = (9.0*maxnum1)/(8.5*k/10);
+		else maxnum2 = maxnum*9/(8.5*k/10);
+	    BarChart objBarChart = new BarChart();
+        graphURL =objBarChart.returnBarResult(request,"终端统计分析结果",terminals, couponnum,resultdata,setime,"终端（编号）",maxnum2);
 		
     }
     else if(tag.trim().equals("shopbiz"))
