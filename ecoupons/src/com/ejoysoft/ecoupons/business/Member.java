@@ -197,21 +197,6 @@ public class Member
 	}
 
 	/**
-	 * 返回yyyy-mm-dd日期
-	 */
-	public String returnDate(String str)
-	{
-		if (str != null)
-		{
-
-			return str.substring(0, 10);
-		} else
-		{
-			return str;
-		}
-	}
-
-	/**
 	 * 增加会员信息
 	 * 
 	 */
@@ -232,7 +217,7 @@ public class Member
 			// db.setString(6, dtExpireTime);
 			db.setString(6, strSalesman);
 			db.setString(7, strUserName);
-			db.setString(8, com.ejoysoft.common.Format.getDate());
+			db.setString(8, com.ejoysoft.common.Format.getDateTime());
 			db.setInt(9, 0);
 			db.setInt(10, 0);
 			if (db.executeUpdate() > 0)
@@ -514,7 +499,14 @@ public class Member
 
 	public String getDtActiveTime()
 	{
-		return dtActiveTime;
+		if (dtActiveTime != null && dtActiveTime != "")
+		{
+
+			return dtActiveTime.substring(0, dtActiveTime.length() - 2);
+		} else
+		{
+			return dtActiveTime;
+		}
 	}
 
 	public void setDtActiveTime(String dtActiveTime)
@@ -544,7 +536,15 @@ public class Member
 
 	public String getDtExpireTime()
 	{
-		return dtExpireTime;
+		if (dtExpireTime != null && dtExpireTime != "")
+		{
+
+			return dtExpireTime.substring(0, dtExpireTime.length() - 2);
+		} else
+		{
+			return dtExpireTime;
+		}
+		
 	}
 
 	public void setDtExpireTime(String dtExpireTime)
