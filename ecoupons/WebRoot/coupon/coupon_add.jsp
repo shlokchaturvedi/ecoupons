@@ -43,15 +43,32 @@ function chkFrm() {
         alert("请输入价格！！！")
         frm.flaPrice.focus();
         return false;
+    }else if(!isMoney(frm.flaPrice.value)) {
+        alert("请输入正确的价格格式！！！")
+        frm.flaPrice.focus();
+        return false;
     }
     else if(trim(frm.intPrintLimit.value)=="") {
         alert("请输入打印限制！！！")
         frm.intPrintLimit.focus();
         return false;
-    }
-    else {
-    	frm.submit();
-    }
+    } else
+    if(!isNumber(frm.intPrintLimit.value)){
+		alert("请输入数字，打印次数为不大于9的整数!")
+        frm.intPrintLimit.focus();
+        return false;
+    	}else
+    if(frm.intPrintLimit.value.length>9){
+	    alert("打印次数为不大于9的整数!")
+		frm.intPrintLimit.focus();
+		return false;
+		}
+	else {
+    	if(confirm("确定录入!"))
+        {
+	      frm.submit();
+	    }
+        }
 }
 
 <!-- 显示终端列表-->
@@ -114,7 +131,7 @@ function addTerminals()
               </tr>
             </table></td>
           </tr>
-          <tr>
+          <tr  >
             <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
                <tr>
                 <td width="20%" height="30" align="right" class="left_txt2">名称：</td>
@@ -131,7 +148,7 @@ function addTerminals()
               
                 
               </tr>
-               <tr bgcolor="#f2f2f2">
+               <tr  >
                  <td width="20%" height="30" align="right" class="left_txt2">截止时间：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30"><input name="dtExpireTime" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" value="<%=Format.getDateTime()%>" readonly="readonly" type="text" class="input_box" size="30" /></td>
@@ -139,7 +156,7 @@ function addTerminals()
               </tr>
              
                
-              <tr bgcolor="#f2f2f2">
+              <tr  >
                  <td width="20%" height="30" align="right" class="left_txt2">商家：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30"><select name="strShopId" class="forms_color1"
@@ -162,7 +179,7 @@ function addTerminals()
 															</select></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
-              <tr bgcolor="#f2f2f2">
+              <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">投放终端：</td>
                 <td width="3%" height="30">&nbsp;</td>
                 <td width="32%" height="30">
@@ -171,7 +188,7 @@ function addTerminals()
 				</td>
                 <td width="45%" height="30" class="left_txt"><br></td> 
               </tr>
-              <tr bgcolor="#f2f2f2">
+              <tr  >
                  <td width="20%" height="30" align="right" class="left_txt2">是否VIP：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30">
@@ -182,7 +199,7 @@ function addTerminals()
                                  </td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
-              <tr bgcolor="#f2f2f2">
+              <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">是否推荐：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30">
@@ -193,32 +210,32 @@ function addTerminals()
                 </td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
-              <tr bgcolor="#f2f2f2">
+              <tr  >
                  <td width="20%" height="30" align="right" class="left_txt2">价格：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30"><input name="flaPrice"  type="text" value="0" class="input_box"  size="30" /></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
-              <tr bgcolor="#f2f2f2">
+              <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">打印次数：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30"><input name="intPrintLimit"  type="text" class="input_box" value="0" size="30" /></td>
                 <td width="45%" height="30" class="left_txt">提示：0为不受限制。</td> 
               </tr>
              
-             <tr>
+             <tr  >
                 <td height="30" align="right" class="left_txt2">小图片：</td>
                 <td>&nbsp;</td>
                 <td height="30"><input name="strSmallImg" type="file" class="input_box" size="30" /></td>
                 <td height="30" class="left_txt">（大小：<%=application.getAttribute("GIFT_SMALL_IMG_WIDTH") %>*<%=application.getAttribute("GIFT_SMALL_IMG_HEIGHT") %>px，用于前台列表显示）</td>
               </tr>
-              <tr bgcolor="#f2f2f2">
+              <tr >
                 <td height="30" align="right" class="left_txt2">大图片：</td>
                 <td>&nbsp;</td>
                 <td height="30"><input name="strLargeImg" type="file" class="input_box" size="30" /></td>
                 <td height="30" class="left_txt">（大小：<%=application.getAttribute("GIFT_LARGE_IMG_WIDTH") %>*<%=application.getAttribute("GIFT_LARGE_IMG_HEIGHT") %>px，用于前台详细显示）</td>
               </tr>
-              <tr bgcolor="#f2f2f2">
+              <tr  >
                 <td height="30" align="right" class="left_txt2">打印图：</td>
                 <td>&nbsp;</td>
                 <td height="30"><input name="strPrintImg" type="file" class="input_box" size="30" /></td>
