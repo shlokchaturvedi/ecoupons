@@ -322,7 +322,7 @@ function showTime(str){
             <%
                 if(vctObj.size()<intEndNum)
                 	intEndNum = vctObj.size();
-            	for (int i = intStartNum;i < intEndNum; i++) {
+            	for (int i = intStartNum-1;i < intEndNum; i++) {
                         	ShopAnalysis obj1 = vctObj.get(i);         
 		                	
                 %> 
