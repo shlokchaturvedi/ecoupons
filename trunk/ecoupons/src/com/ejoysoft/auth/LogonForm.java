@@ -90,7 +90,7 @@ public final class LogonForm {
         int intErrorLockNum = getErrorLockNum();
         try {
             java.sql.ResultSet rs = null;
-            String strSql = "SELECT strId,strUserId,strPWD,strName,intError,intState,intType,strEmail,strMsnQQ,strCssType,intUserType " +
+            String strSql = "SELECT strId,strUserId,strPWD,strName,intError,intState,intType,strEmail,strMsnQQ,strCssType,intUserType,strShopid " +
             		"FROM t_sy_user WHERE strUserId='" + tUserId + "' ";
             rs = globa.db.executeQuery(strSql);
             if (!rs.next()) {
@@ -114,6 +114,7 @@ public final class LogonForm {
                 userSession.setStrEmail(rs.getString("strEmail"));
                 userSession.setStrMsnQQ(rs.getString("strMsnQQ"));
                 userSession.setStrCssType(rs.getString("strCssType"));
+                userSession.setStrShopid(rs.getString("strShopid"));
                 if (intState > Constants.U_STATE_ON) {
                     error = new String("该用户已经锁定或是禁用，请与管理员联系!");
 //                    value = -1;
