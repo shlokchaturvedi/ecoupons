@@ -32,6 +32,7 @@ body,td,tr {
 		<script language="JavaScript"
 			src="../include/DatePicker/WdatePicker.js"></script>
 		<script language="javascript">
+		
 		function chkPoit() {
 			if(trim(frm.intMoney.value)!="") {
 				frm.intPoint.focus();
@@ -49,7 +50,6 @@ body,td,tr {
 		        frm.intMoney.focus();
 		        return false;
 		    }
-		    
 		    else
 			    if(frm.intPoint.value==""){
 			    	 alert("请输入积分数额！！！")
@@ -58,6 +58,27 @@ body,td,tr {
 				    }
 			    
 		    else {
+		    	if(!isNumber(frm.intMoney.value)){
+		    		alert("请输入数字，"+frm.intMoney.id+"为不大于9的整数!")
+			        frm.intMoney.focus();
+			        return false;
+			    	}else
+			    		if(frm.intMoney.value.length>8){
+				    		alert("金额为不大于9的整数!")
+					        frm.intMoney.focus();
+					        return false;
+					    	}else
+		    	if(!isNumber(frm.intPoint.value)){
+		    		alert("请输入数字，积分为不大于9的整数!")
+			        frm.intPoint.focus();
+			        return false;
+			    	}else
+			    		if(frm.intPoint.value.length>9){
+				    		alert("积分为不大于9的整数!")
+					        frm.intPoint.focus();
+					        return false;
+					    	}else
+					    		
 		        if(confirm("确定购买!"))
 			        {
 		    	frm.submit();
@@ -183,6 +204,7 @@ body,td,tr {
                                                                   //初始化
     				                                            	//SysPara  para=null;
    						                                            Shop para=new Shop(globa,true);
+   						                                            
    						                                             Vector<Shop> vctShop=para.returnShopFullName();
                                                                      for (int i = 0; i < vctShop.size(); i++) {
                                                                      out.print("<option value=" + vctShop.get(i).getStrId()+ ">");
@@ -228,7 +250,7 @@ body,td,tr {
 															&nbsp;
 														</td>
 														<td width="32%" height="30">
-															<input name="intMoney" type="text" class="input_box"
+															<input id="金额" name="intMoney" type="text" class="input_box"
 																size="30" onchange="chkPoit()"/>
 														</td>
 														<td width="45%" height="30" class="left_txt">
@@ -244,7 +266,7 @@ body,td,tr {
 															&nbsp;
 														</td>
 														<td width="32%" height="30">
-															<input name="intPoint" type="text" class="input_box"
+															<input id="积分" name="intPoint" type="text" class="input_box"
 																size="30" />
 														</td>
 														<td width="45%" height="30" class="left_txt">

@@ -123,18 +123,7 @@ function del(){
           </tr>          
           <tr>
             <td >
-			<table border="0" cellpadding="0" cellspacing="0" width="100%">
-			<tr>
-			<td style="font-size:9pt">
 			
-	
-			 </td>
-			<td align="right" width="600"><div style="height:26"> 
-			
-			</div>
-			</td>   
-			</tr>
-			</table>
 			
 			<table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="b5d6e6" onmouseover="changeto()"  onmouseout="changeback()">
               <tr>

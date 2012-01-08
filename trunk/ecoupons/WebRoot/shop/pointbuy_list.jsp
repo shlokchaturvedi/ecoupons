@@ -158,7 +158,7 @@ function del(){
                 </td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getIntMoney() %></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getIntPoint()%></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getDtBuyTime()%></span></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getDtBuyTime().substring(0,obj1.getDtBuyTime().length()-2)%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.returnType(obj1.getIntType())%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.returnState(obj1.getIntState())%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE4">
