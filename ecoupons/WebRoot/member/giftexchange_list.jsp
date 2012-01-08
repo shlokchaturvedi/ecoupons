@@ -151,7 +151,7 @@ function del(){
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=Format.forbidNull(obj1.getStrAddr())%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj.returnState(obj1.getIntState())%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE4">
-			      <a href="#" onclick="if(confirm('确认已处理该条记录？')){location.href='gift_act.jsp?<%=Constants.ACTION_TYPE%>=<%=Constants.AUDIT_STR%>&strId=<%=obj1.getStrId()%>';}"><%if(obj1.getIntState()==0){out.print("<img src='../images/edit.gif' width='16'  height='16' border='0' />处理");} %></a></span> </div>
+			      <a href="#" onclick="if(confirm('确认处理该条记录？')){location.href='gift_act.jsp?<%=Constants.ACTION_TYPE%>=<%=Constants.AUDIT_STR%>&strId=<%=obj1.getStrId()%>';}"><%if(obj1.getIntState()==0){out.print("<img src='../images/edit.gif' width='16'  height='16' border='0' />处理");} %></a></span> </div>
                 </td>
               </tr>
             <%

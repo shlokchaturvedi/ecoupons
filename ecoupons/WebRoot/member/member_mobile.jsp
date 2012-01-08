@@ -57,7 +57,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		
 		sb.append("</table>");
-		String strFileName = strStartId+"_"+strEndId+".xls";
+		String strFileName = "手机号码批量导出表_"+strStartId+"_"+strEndId+".xls";
 	    response.setContentType("APPLICATION/*");
 	    response.setHeader( "Content-Disposition", "attachment;filename="  + new String( strFileName.getBytes("gbk"), "ISO8859-1" ));
 	    ServletOutputStream output = response.getOutputStream();

@@ -52,8 +52,11 @@ body,td,tr {
 		        return false;
 		        } 
 		    else {
-		    	frm.submit();
-		    }
+		    	if(confirm("确定激活!"))
+		        {
+			      frm.submit();
+			    }
+		        }
 		   
 		}
 </script>
@@ -158,7 +161,7 @@ body,td,tr {
 												<table width="100%" border="0" cellspacing="0"
 													cellpadding="0">
 
-													<tr>
+													<tr  bgcolor="#f2f2f2">
 														<td width="20%" height="30" align="right"
 															class="left_txt2">
 															姓 名：
@@ -175,7 +178,7 @@ body,td,tr {
 															&nbsp;
 														</td>
 													</tr>
-													<tr bgcolor="#f2f2f2">
+													<tr  bgcolor="#f2f2f2">
 														<td width="20%" height="30" align="right"
 															class="left_txt2">
 															卡号：
@@ -192,7 +195,7 @@ body,td,tr {
 															&nbsp;
 														</td>
 													</tr>
-													<tr>
+													<tr  bgcolor="#f2f2f2">
 														<td width="20%" height="30" align="right"
 															class="left_txt2">
 															会员类型：
@@ -213,7 +216,7 @@ body,td,tr {
 
 
 													</tr>
-													<tr bgcolor="#f2f2f2">
+													<tr  bgcolor="#f2f2f2">
 														<td width="20%" height="30" align="right"
 															class="left_txt2">
 															手机：
@@ -230,7 +233,7 @@ body,td,tr {
 															&nbsp;
 														</td>
 													</tr>
-													<tr>
+													<tr  >
 														<td width="20%" height="30" align="right"
 															class="left_txt2">
 															启用时间：
@@ -240,14 +243,14 @@ body,td,tr {
 														</td>
 														<td width="32%" height="30">
 															<input name="dtActiveTime" readonly="readonly"
-																type="text" class="input_box" size="30" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})"
-																value="<%=com.ejoysoft.common.Format.getDate()%>" />
+																type="text" class="input_box" size="30"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"
+																value="<%=com.ejoysoft.common.Format.getDateTime()%>" />
 														</td>
 														<td width="45%" height="30" class="left_txt">
 															&nbsp;
 														</td>
 													</tr>
-													<tr bgcolor="#f2f2f2">
+													<tr  bgcolor="#f2f2f2">
 														<td width="20%" height="30" align="right"
 															class="left_txt2">
 															余额：
@@ -264,7 +267,7 @@ body,td,tr {
 															&nbsp;
 														</td>
 													</tr>
-													<tr>
+													<tr  bgcolor="#f2f2f2">
 														<td width="20%" height="30" align="right"
 															class="left_txt2">
 															积分：
@@ -281,7 +284,7 @@ body,td,tr {
 															&nbsp;
 														</td>
 													</tr>
-													<tr bgcolor="#f2f2f2">
+													<tr  >
 														<td width="20%" height="30" align="right"
 															class="left_txt2">
 															有效期：
@@ -290,7 +293,7 @@ body,td,tr {
 															&nbsp;
 														</td>
 														<td width="32%" height="30">
-															<input name="dtExpireTime" type="text" value="2099-12-31" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="input_box"
+															<input name="dtExpireTime" type="text" readonly="readonly" value="2099-12-31 00:00:00" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="input_box"
 																size="30"
 																 />
 														</td>
@@ -298,7 +301,7 @@ body,td,tr {
 															&nbsp;
 														</td>
 													</tr>
-													<tr bgcolor="#f2f2f2">
+													<tr  bgcolor="#f2f2f2">
 														<td width="20%" height="30" align="right"
 															class="left_txt2">
 															销售员：
