@@ -47,7 +47,18 @@ body,td,tr{font-size:9pt;}
             frm.strName.focus();
             return false;
         } 
-        else {
+        else 
+        	if(!isNumber(frm.intPoint.value)){
+	    		alert("请输入数字，积分为不大于9的整数!")
+		        frm.intPoint.focus();
+		        return false;
+		    	}else
+		    		if(frm.intPoint.value.length>9){
+			    		alert("积分为不大于9的整数!")
+				        frm.intPoint.focus();
+				        return false;
+				    	}else
+             {
 	        if(confirm("确定修改!"))
 		        {
 	    	frm.submit();
@@ -117,7 +128,7 @@ body,td,tr{font-size:9pt;}
                 <td width="32%" height="30"><input name="strName" type="text" class="input_box" size="30" value="<%=obj0.getStrName()%>"/></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td>
               </tr>
-              <tr bgcolor="#f2f2f2">
+              <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">兑换积分：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30"><input name="intPoint" type="text" class="input_box" size="30"  value="<%=obj0.getIntPoint()%>"/></td>
@@ -133,7 +144,7 @@ body,td,tr{font-size:9pt;}
               
                 
               </tr>
-              <tr bgcolor="#f2f2f2">
+              <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">截止时间：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30">
@@ -155,7 +166,7 @@ body,td,tr{font-size:9pt;}
                 %>  </td>  
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
-               <tr bgcolor="#f2f2f2">
+               <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">&nbsp; </td>
                  <td height="30" class="left_txt">&nbsp;</td> 
                 <td width="20%" height="30" class="left_txt">&nbsp;</td> 
@@ -163,7 +174,7 @@ body,td,tr{font-size:9pt;}
             		     （大小：<%=application.getAttribute("GIFT_SMALL_IMG_WIDTH") %>*<%=application.getAttribute("GIFT_SMALL_IMG_HEIGHT") %>px，用于前台列表显示）
                  </td>	
               </tr>
-              <tr bgcolor="#f2f2f2">
+              <tr >
                 <td height="30" align="right" class="left_txt2">大图片：</td>
                 <td>&nbsp;</td> 
                 <td height="30"><input name="strLargeImg" type="file" class="input_box" size="30"  /></td>
@@ -177,7 +188,7 @@ body,td,tr{font-size:9pt;}
                 %> 
                 </td>
               </tr> 
-              <tr bgcolor="#f2f2f2">
+              <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">&nbsp; </td>
                  <td height="30" class="left_txt">&nbsp;</td> 
                 <td width="20%" height="30" class="left_txt">&nbsp;</td> 
@@ -185,7 +196,7 @@ body,td,tr{font-size:9pt;}
             		   （ 大小：<%=application.getAttribute("GIFT_LARGE_IMG_WIDTH") %>*<%=application.getAttribute("GIFT_LARGE_IMG_HEIGHT") %>px，用于前台详细显示）
                  </td>	
               </tr>
-          	  <tr bgcolor="#f2f2f2">
+          	  <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">礼品简介：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30"><textArea name="strIntro" cols="33" rows="5" ><%=Format.forbidNull(obj0.getStrIntro())%></textArea></td>

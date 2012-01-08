@@ -35,8 +35,21 @@ function chkFrm() {
         frm.strSalesman.focus();
         return false;
     }
+if(trim(frm.strMobileNo.value)!=""){
+	if(!isMobilePhone(frm.strMobileNo.value)){  
+  	  alert("非法的手机号码") 
+  	  frm.strMobileNo.focus();   
+  	  return false; 
+  	  }
+}
+    
     else {
-    	frm.submit();
+    	
+    	
+    	if(confirm("确定添加!"))
+        {
+	frm.submit();
+	    }
     }
 }
 </script>
@@ -95,13 +108,13 @@ function chkFrm() {
           <tr>
             <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
               
-             <tr>
+             <tr >
                 <td width="20%" height="30" align="right" class="left_txt2">姓       名：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30"><input name="strName" type="text" class="input_box" size="30" /></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td>
               </tr>
-              <tr bgcolor="#f2f2f2">
+              <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">卡号：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30"><input name="strCardNo" type="text" class="input_box" size="30" /></td>
@@ -120,7 +133,7 @@ function chkFrm() {
               
                 
               </tr>
-               <tr bgcolor="#f2f2f2">
+               <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">手机：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30"><input name="strMobileNo" type="text" class="input_box" size="30" /></td>
@@ -128,7 +141,7 @@ function chkFrm() {
               </tr>
              
                
-              <tr bgcolor="#f2f2f2">
+              <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">销售员：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30"><input name="strSalesman"  type="text" class="input_box" size="30" /></td>

@@ -162,7 +162,7 @@ function del(){
                 <td bgcolor="#FFFFFF"><div align="center" class="STYLE1"><%=Format.forbidNull(obj1.getStrCardNo()) %></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=Format.forbidNull(obj1.getStrName())%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj.getType(obj1.getIntType())%></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=Format.forbidNull(obj.returnDate(obj1.getDtActiveTime()))%></span></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=Format.forbidNull(obj1.getDtActiveTime())%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getFlaBalance()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getIntPoint()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><a href="recharge_list.jsp?strMemberCardNo=<%=obj1.getStrCardNo() %>"><%if(obj1.getDtActiveTime()!=null) out.print("充值记录");%></a>/<a href="charge_list.jsp?strMemberCardNo=<%=obj1.getStrCardNo() %>"><%if(obj1.getDtActiveTime()!=null) out.print("消费记录");%></a></span></div></td>

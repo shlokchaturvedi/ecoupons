@@ -49,12 +49,22 @@ body,td,tr {
 		        frm.strCardNo.focus();
 		        return false;
 		    }
+		    if(!isNumber(frm.intMoney.value)){
+	    		alert("请输入数字，"+frm.intMoney.id+"为不大于9的整数!")
+		        frm.intMoney.focus();
+		        return false;
+		    	}else
+		    		if(frm.intMoney.value.length>8){
+			    		alert("金额为不大于9的整数!")
+				        frm.intMoney.focus();
+				        return false;
+				    	}
 		    else {
-			    if(isNumber(frm.intMoney.value)){
-		    	frm.submit();}else{
-		    		alert("请输入数字！！！")
-			    	}
-		    }
+		    	if(confirm("确定录入!"))
+		        {
+			      frm.submit();
+			    }
+		        }
 		   
 		}
 </script>
@@ -176,7 +186,7 @@ body,td,tr {
 															&nbsp;
 														</td>
 													</tr>
-													<tr bgcolor="#f2f2f2">
+													<tr  >
 														<td width="20%" height="30" align="right"
 															class="left_txt2">
 															充值金额：

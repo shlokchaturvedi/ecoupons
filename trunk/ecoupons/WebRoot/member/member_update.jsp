@@ -46,14 +46,13 @@ body,td,tr {
 		        alert("请输入卡号！！！")
 		        frm.strCardNo.focus();
 		        return false;
-		    }else if(trim(frm.dtExpireTime.value)==""){
-		    	alert("请输入有效期！！！")
-		        frm.dtExpireTime.focus();
-		        return false;
-		        } 
-		    else {
-		    	frm.submit();
 		    }
+		    else {
+		    	if(confirm("确定提交!"))
+		        {
+			      frm.submit();
+			    }
+		        }
 		   
 		}
 </script>
@@ -216,7 +215,7 @@ body,td,tr {
 
 
 													</tr>
-													<tr bgcolor="#f2f2f2">
+													<tr  >
 														<td width="20%" height="30" align="right"
 															class="left_txt2">
 															手机：
@@ -233,7 +232,7 @@ body,td,tr {
 															&nbsp;
 														</td>
 													</tr>
-													<tr>
+													<tr bgcolor="#f2f2f2">
 														<td width="20%" height="30" align="right"
 															class="left_txt2">
 															启用时间：
@@ -242,15 +241,15 @@ body,td,tr {
 															&nbsp;
 														</td>
 														<td width="32%" height="30">
-															<input name="dtActiveTime" readonly="readonly"
+															<input name="dtActiveTime"  <%if(obj0.getDtActiveTime()==null){out.print(" disabled ");} %> onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" readonly="readonly"
 																type="text" class="input_box" size="30"
-																value="<%=Format.forbidNull(obj0.returnDate(obj0.getDtActiveTime()))%>" />
+																value="<%=Format.forbidNull(obj0.getDtActiveTime())%>" />
 														</td>
 														<td width="45%" height="30" class="left_txt">
 															&nbsp;
 														</td>
 													</tr>
-													<tr bgcolor="#f2f2f2">
+													<tr  >
 														<td width="20%" height="30" align="right"
 															class="left_txt2">
 															余额：
@@ -284,7 +283,7 @@ body,td,tr {
 															&nbsp;
 														</td>
 													</tr>
-													<tr bgcolor="#f2f2f2">
+													<tr  bgcolor="#f2f2f2">
 														<td width="20%" height="30" align="right"
 															class="left_txt2">
 															有效期：
@@ -293,15 +292,15 @@ body,td,tr {
 															&nbsp;
 														</td>
 														<td width="32%" height="30">
-															<input name="dtExpireTime" type="text" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="input_box"
+															<input name="dtExpireTime" type="text"  <%if(obj0.getDtExpireTime()==null){out.print(" disabled ");} %> onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" readonly="readonly" class="input_box"
 																size="30"
-																value="<%=Format.forbidNull(obj0.returnDate(obj0.getDtExpireTime()))%>" />
+																value="<%=Format.forbidNull(obj0.getDtExpireTime())%>" />
 														</td>
 														<td width="45%" height="30" class="left_txt">
 															&nbsp;
 														</td>
 													</tr>
-													<tr bgcolor="#f2f2f2">
+													<tr  >
 														<td width="20%" height="30" align="right"
 															class="left_txt2">
 															销售员：
@@ -318,7 +317,7 @@ body,td,tr {
 															&nbsp;
 														</td>
 													</tr>
-													<tr bgcolor="#f2f2f2">
+													<tr  >
 														<td width="20%" height="30" align="right"
 															class="left_txt2">
 															密码：

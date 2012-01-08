@@ -25,8 +25,33 @@ body,td,tr{font-size:9pt;}
 <script src="../include/js/chkFrm.js"></script>
 <script language="javascript">
     function chkFrm() {
-        	frm.submit();
+    	if(trim(frm.strName.value)=="") {
+	        alert("请输入礼品名称！！")
+	        frm.strName.focus();
+	        return false;
+	    }else
+	    	if(frm.strName.value.length>100) {
+		        alert("礼品名称过长！！")
+		        frm.strName.focus();
+		        return false;
+		    }else    
+    	if(!isNumber(frm.intPoint.value)){
+    		alert("请输入数字，积分为不大于9的整数!")
+	        frm.intPoint.focus();
+	        return false;
+	    	}else
+    	if(frm.intPoint.value.length>9){
+    		alert("积分为不大于9的整数!")
+	        frm.intPoint.focus();
+	        return false;
+	    	}else
+if(confirm("确定添加!"))
+    {
+frm.submit();
     }
+    }
+
+    
 </script>
 </head>
 
@@ -92,23 +117,23 @@ body,td,tr{font-size:9pt;}
                  <td width="20%" height="30" align="right" class="left_txt2">兑换积分：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30">
-                <input name="intPoint" type="text" class="input_box" size="30" value="0"/></td>
+                <input name="intPoint" type="text"  size="30" value="0"/></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               
                 
               </tr>
-               <tr bgcolor="#f2f2f2">
+               <tr  >
                  <td width="20%" height="30" align="right" class="left_txt2">生效时间：</td>
                 <td width="3%">&nbsp;</td>
-                <td width="32%" height="30"><input name="dtActiveTime" readonly="readonly" value="<%=Format.getDateTime() %>" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" type="text" class="input_box" size="30" /></td>
+                <td width="32%" height="30"><input name="dtActiveTime" class="input_box" readonly="readonly" value="<%=Format.getDateTime() %>" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" type="text" class="input_box" size="30" /></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
              
                
-              <tr bgcolor="#f2f2f2">
+              <tr  >
                  <td width="20%" height="30" align="right" class="left_txt2">截止时间：</td>
                 <td width="3%">&nbsp;</td>
-                <td width="32%" height="30"><input name="dtExpireTime" readonly="readonly" value="<%=Format.getDateTime() %>" type="text" class="input_box" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" size="30" /></td>
+                <td width="32%" height="30"><input name="dtExpireTime" readonly="readonly" value="<%=Format.getDateTime() %>" type="text"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" size="30" /></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
              <tr>
@@ -117,17 +142,17 @@ body,td,tr{font-size:9pt;}
                 <td height="30"><input name="strSmallImg" type="file" class="input_box" size="30" /></td>
                 <td height="30" class="left_txt">（大小：<%=application.getAttribute("GIFT_SMALL_IMG_WIDTH") %>*<%=application.getAttribute("GIFT_SMALL_IMG_HEIGHT") %>px，用于前台列表显示）</td>
               </tr>
-              <tr bgcolor="#f2f2f2">
+              <tr  >
                 <td height="30" align="right" class="left_txt2">大图片：</td>
                 <td>&nbsp;</td>
-                <td height="30"><input name="strLargeImg" type="file" class="input_box" size="30" /></td>
+                <td height="30"><input name="strLargeImg" type="file"  size="30" /></td>
                 <td height="30" class="left_txt">（大小：<%=application.getAttribute("GIFT_LARGE_IMG_WIDTH") %>*<%=application.getAttribute("GIFT_LARGE_IMG_HEIGHT") %>px，用于前台详细显示）</td>
               </tr>
              
-               <tr bgcolor="#f2f2f2">
+               <tr  >
                  <td width="20%" height="30" align="right" class="left_txt2">礼品简介：</td>
                 <td width="3%">&nbsp;</td>
-                <td width="32%" height="30"><textArea name="strIntro" cols="33" rows="5" ></textArea></td>
+                <td width="32%" height="30"><textArea class="input_box" name="strIntro" cols="33" rows="5" ></textArea></td>
                 <td width="45%" height="30" class="left_txt" > &nbsp;</td> 
               </tr>
               
