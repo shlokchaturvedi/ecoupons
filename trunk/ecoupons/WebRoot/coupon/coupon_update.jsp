@@ -86,7 +86,7 @@ body,td,tr{font-size:9pt;}
       <tr>
         <td height="918" valign="top"><table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
           <tr>
-            <td class="left_txt">当前位置：日常管理 / 用户管理 / 编辑纸质优惠券</td>
+            <td class="left_txt">当前位置：日常管理 / 用户管理 / 编辑优惠券</td>
           </tr>
           <tr>
             <td height="20"><table width="100%" height="1" border="0" cellpadding="0" cellspacing="0" bgcolor="#CCCCCC">
@@ -99,7 +99,7 @@ body,td,tr{font-size:9pt;}
             <td><table width="100%" height="55" border="0" cellpadding="0" cellspacing="0">
               <tr>
                 <td width="6%" height="55" valign="middle"><img src="../images/title.gif" width="54" height="55"></td>
-                <td width="94%" valign="top"><span class="left_txt2">在这里，您可以编辑纸质优惠券信息</span><br>
+                <td width="94%" valign="top"><span class="left_txt2">在这里，您可以编辑优惠券信息</span><br>
                       <span class="left_txt2">包括名称，启用时间，截至时间，商家，投放终端，价格，是否vip，是否推荐等属性。</span></td>
               </tr>
             </table></td>
@@ -110,7 +110,7 @@ body,td,tr{font-size:9pt;}
           <tr>
             <td><table width="100%" height="31" border="0" cellpadding="0" cellspacing="0" class="nowtable">
               <tr>
-                <td class="left_bt2">&nbsp;&nbsp;&nbsp;&nbsp;纸质优惠券</td>
+                <td class="left_bt2">&nbsp;&nbsp;&nbsp;&nbsp;优惠券编辑</td>
               </tr>
             </table></td>
           </tr>
@@ -126,7 +126,29 @@ body,td,tr{font-size:9pt;}
               <tr bgcolor="#f2f2f2">
                  <td width="20%" height="30" align="right" class="left_txt2">商家：</td>
                 <td width="3%">&nbsp;</td>
-                <td width="32%" height="30"><input name="strShopId" type="text" class="input_box" size="30"  value="<%=obj0.getStrShopId()%>"/></td>
+                <td width="32%" height="30">
+                 <select name="strShopId" class="forms_color1" style="width: 213px">
+																<%  Shop para=new Shop(globa,true);
+																String Where ="";
+  						                                         if("商家".equals(globa.userSession.getStrCssType())){
+  						                                  		Where =" where strid='"+globa.userSession.getStrShopid()+"' ";
+  						                                  	}
+																%>
+																<option value="<%=obj0.getStrShopId()%>">
+																	<%=para.returnBizShopName("where strId="+obj0.getStrShopId())%>
+																</option>
+																<%
+                                                                  //初始化
+   						                                             Vector<Shop> vctShop=para.list(Where,0,0);
+                                                                     for (int i = 0; i < vctShop.size(); i++) {
+                                                                     out.print("<option value=" + vctShop.get(i).getStrId()+ ">");
+                                                                     out.println("" +vctShop.get(i).getStrBizName()+vctShop.get(i).getStrShopName() + "</option>");
+                	                                          %>
+																<%
+                                                                 }
+                                                               %>
+															</select>
+                </td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
              <tr >
@@ -139,7 +161,7 @@ body,td,tr{font-size:9pt;}
               
                 
               </tr>
-              <tr bgcolor="#f2f2f2">
+              <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">截止时间：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30">
@@ -147,7 +169,7 @@ body,td,tr{font-size:9pt;}
                 </td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
-               <tr bgcolor="#f2f2f2">
+               <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">投放终端：</td>
                 <td width="3%" height="30">&nbsp;</td>
                 <td width="32%" height="30">
@@ -156,7 +178,7 @@ body,td,tr{font-size:9pt;}
 				</td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
-              <tr bgcolor="#f2f2f2">
+              <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">是否VIP：</td>
                 <td width="3%" height="30">&nbsp;</td>
                 <td width="32%" height="30">
@@ -165,7 +187,7 @@ body,td,tr{font-size:9pt;}
 					 <input type="radio" name="intVip"  value="1" <%if(obj0.getIntVip()==1) out.print("checked");%> class="input_box"/>不是
 				</td>
 				</tr>
-              <tr bgcolor="#f2f2f2">
+              <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">是否推荐：</td>
                 <td width="3%" height="30">&nbsp;</td>
                 <td width="32%" height="30">
@@ -173,7 +195,7 @@ body,td,tr{font-size:9pt;}
 					 <input type="radio" name="intRecommend"  value="1" <%if(obj0.getIntRecommend()==1) out.print("checked");%> class="input_box"/>不是
 				</td>
 				</tr>
-              <tr bgcolor="#f2f2f2">
+              <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">价格：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30">
@@ -181,7 +203,7 @@ body,td,tr{font-size:9pt;}
                 </td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
-              <tr bgcolor="#f2f2f2">
+              <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">打印次数：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30">
@@ -203,7 +225,7 @@ body,td,tr{font-size:9pt;}
                 %>  </td>  
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
-               <tr bgcolor="#f2f2f2">
+               <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">&nbsp; </td>
                  <td height="30" class="left_txt">&nbsp;</td> 
                 <td width="20%" height="30" class="left_txt">&nbsp;</td> 
@@ -211,7 +233,7 @@ body,td,tr{font-size:9pt;}
             		     （大小：<%=application.getAttribute("COUPON_SMALL_IMG_WIDTH") %>*<%=application.getAttribute("COUPON_SMALL_IMG_HEIGHT") %>px，用于前台列表显示）
                  </td>	
               </tr>
-              <tr bgcolor="#f2f2f2">
+              <tr >
                 <td height="30" align="right" class="left_txt2">大图片：</td>
                 <td>&nbsp;</td> 
                 <td height="30"><input name="strLargeImg" type="file" class="input_box" size="30"  /></td>
@@ -225,7 +247,7 @@ body,td,tr{font-size:9pt;}
                 %> 
                 </td>
               </tr> 
-              <tr bgcolor="#f2f2f2">
+              <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">&nbsp; </td>
                  <td height="30" class="left_txt">&nbsp;</td> 
                 <td width="20%" height="30" class="left_txt">&nbsp;</td> 
@@ -233,7 +255,7 @@ body,td,tr{font-size:9pt;}
             		   （ 大小：<%=application.getAttribute("COUPON_LARGE_IMG_WIDTH") %>*<%=application.getAttribute("COUPON_LARGE_IMG_HEIGHT") %>px，用于前台详细显示）
                  </td>	
               </tr>
-              <tr bgcolor="#f2f2f2">
+              <tr >
                 <td height="30" align="right" class="left_txt2">打印图：</td>
                 <td>&nbsp;</td> 
                 <td height="30"><input name="strPrintImg" type="file" class="input_box" size="30"  /></td>
@@ -247,7 +269,7 @@ body,td,tr{font-size:9pt;}
                 %> 
                 </td>
               </tr> 
-              <tr bgcolor="#f2f2f2">
+              <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">&nbsp; </td>
                  <td height="30" class="left_txt">&nbsp;</td> 
                 <td width="20%" height="30" class="left_txt">&nbsp;</td> 

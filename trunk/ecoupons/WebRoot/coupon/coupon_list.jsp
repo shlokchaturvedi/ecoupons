@@ -23,6 +23,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	if (!strName.equals("")) {
 		tWhere += " and strName LIKE '%" + strName + "%'";
 	}
+	if("商家".equals(globa.userSession.getStrCssType())){
+		tWhere +=" and strshopid='"+globa.userSession.getStrShopid()+"' ";
+	}
 	tWhere += " ORDER BY dtCreateTime";
 	//记录总数
 	int intAllCount=obj.getCount(tWhere);

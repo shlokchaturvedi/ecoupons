@@ -26,7 +26,7 @@ public class Coupon
 	private String strPrintImg;
 	private String strCreator;
 	private String dtCreateTime;
-	private String strTerminals;//投放终端编码
+	private String strTerminals;// 投放终端编码
 
 	/*
 	 * 修改优惠券信息
@@ -49,8 +49,8 @@ public class Coupon
 			{
 				strSql += "strPrintImg = '" + strPrintImg + "',";
 			}
-			strSql += " strName = ?, strShopId = ?,strTerminalIds=?,  " + "dtExpireTime = ?,intVip=?,intRecommend=?,flaPrice=?,intPrintLimit=?,"+
-			"  WHERE strId=? ";
+			strSql += " strName = ?, strShopId = ?,strTerminalIds=?,  " + "dtExpireTime = ?,intVip=?,intRecommend=?,flaPrice=?,intPrintLimit=?,"
+					+ "  WHERE strId=? ";
 			db.prepareStatement(strSql);
 			db.setString(1, dtActiveTime);
 			db.setString(2, strName);
@@ -220,52 +220,52 @@ public class Coupon
 		}
 		return beans;
 	}
-	
-	//获取投放终端IDs
-    public String getTerminalIdsByNames(String terminals)
-    {
-        String terminalids ="";
-    	if(terminals!=null&& terminals.trim()!="")
-        {
-       	    Terminal obj0 = new Terminal(globa,false);
-            String terminalnames[]= terminals.split("，");             
-            for(int i=0;i<terminalnames.length;i++)
-            {
-	           	 Terminal  obj = new Terminal();
-	           	obj=obj0.show("where strno='"+terminalnames[i].trim()+"'");
-              	 if(obj!=null)
-              	 {
-              		terminalids +=obj.getStrId();
-              		 if(i<terminalnames.length-1)
-              			terminalids +=",";
-              	 }
-            }       
-         }
-    	return terminalids;
-    }
 
-    //获取投放终端编号s
-    public String getTerminalNamesByIds(String terminalids)
-    {
-        String terminalnos =" ";
-    	if(terminalids!=null&& terminalids.trim()!="")
-        {
-       	    Terminal obj0 = new Terminal(globa,false);
-          	Terminal  obj = new Terminal();
-            String terminals[]= terminalids.trim().split(",");             
-            for(int i=0;i<terminals.length;i++)
-            {
-	           	obj=obj0.show("where strid='"+terminals[i].trim()+"'");
-              	 if(obj!=null)
-              	 {
-              		terminalnos +=obj.getStrNo();
-              		 if(i<terminals.length-1)
-              			terminalnos +="，";
-              	 }
-            }       
-         }
-    	return terminalnos;
-    }
+	// 获取投放终端IDs
+	public String getTerminalIdsByNames(String terminals)
+	{
+		String terminalids = "";
+		if (terminals != null && terminals.trim() != "")
+		{
+			Terminal obj0 = new Terminal(globa, false);
+			String terminalnames[] = terminals.split("，");
+			for (int i = 0; i < terminalnames.length; i++)
+			{
+				Terminal obj = new Terminal();
+				obj = obj0.show("where strno='" + terminalnames[i].trim() + "'");
+				if (obj != null)
+				{
+					terminalids += obj.getStrId();
+					if (i < terminalnames.length - 1)
+						terminalids += ",";
+				}
+			}
+		}
+		return terminalids;
+	}
+
+	// 获取投放终端编号s
+	public String getTerminalNamesByIds(String terminalids)
+	{
+		String terminalnos = " ";
+		if (terminalids != null && terminalids.trim() != "")
+		{
+			Terminal obj0 = new Terminal(globa, false);
+			Terminal obj = new Terminal();
+			String terminals[] = terminalids.trim().split(",");
+			for (int i = 0; i < terminals.length; i++)
+			{
+				obj = obj0.show("where strid='" + terminals[i].trim() + "'");
+				if (obj != null)
+				{
+					terminalnos += obj.getStrNo();
+					if (i < terminals.length - 1)
+						terminalnos += "，";
+				}
+			}
+		}
+		return terminalnos;
+	}
 
 	public Coupon load(ResultSet rs, boolean isView)
 	{
@@ -357,6 +357,10 @@ public class Coupon
 
 	public String getDtActiveTime()
 	{
+		if (!dtActiveTime.equals(null) && !dtActiveTime.equals(""))
+		{
+			return dtActiveTime.substring(0, dtActiveTime.length() - 2);
+		}
 		return dtActiveTime;
 	}
 
@@ -367,6 +371,10 @@ public class Coupon
 
 	public String getDtExpireTime()
 	{
+		if (!dtExpireTime.equals(null) && !dtExpireTime.equals(""))
+		{
+			return dtExpireTime.substring(0, dtExpireTime.length() - 2);
+		}
 		return dtExpireTime;
 	}
 
