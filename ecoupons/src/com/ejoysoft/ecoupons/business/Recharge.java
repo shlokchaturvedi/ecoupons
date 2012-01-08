@@ -150,9 +150,9 @@ public boolean delete(String str)
 		Member member = new Member(globa, false);
 		Connection connection = db.getConnection();
 		float realBalance = member.getFlaBalance(strMemberCardNo)-(float) returnIntMoney(strId) + (float) intMoney2;
-		System.out.println("实际余额+"+realBalance+"--"+member.getFlaBalance(strMemberCardNo)+"--"+(float) returnIntMoney(strId)+"--"+intMoney2+"---"+intMoney+"---");
-		System.out.println(strMemberCardNo);
-		System.out.println(strId);
+//		System.out.println("实际余额+"+realBalance+"--"+member.getFlaBalance(strMemberCardNo)+"--"+(float) returnIntMoney(strId)+"--"+intMoney2+"---"+intMoney+"---");
+//		System.out.println(strMemberCardNo);
+//		System.out.println(strId);
 		PreparedStatement pStatement=null;
 		PreparedStatement pStatement2=null;
 		if (realBalance >= 0)
@@ -175,7 +175,7 @@ public boolean delete(String str)
 				connection.commit();
 				if (pStatement.executeUpdate() > 0 && pStatement2.executeUpdate() > 0)
 				{
-					System.out.println("chongzhi3345688888888888888888");
+//					System.out.println("chongzhi3345688888888888888888");
 					connection.setAutoCommit(true);
 					Globa.logger0("修改会员缴费记录", globa.loginName, globa.loginIp, strSql + sql2, "会员管理", globa.unitCode);
 					
@@ -195,7 +195,7 @@ public boolean delete(String str)
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				System.out.println("修改会员记录时出错：" + e);
+//				System.out.println("修改会员记录时出错：" + e);
 				return false;
 			}finally{
 				try
@@ -252,48 +252,36 @@ public boolean delete(String str)
 
 		}
 		String strId = UID.getID();
-		String strUserName = globa.userSession.getStrName();
+		String strUserName = globa.userSession.getStrId();
 		String sql = "insert into " + strTableName + " (strId,strMemberCardNo,intMoney,strCreator,dtCreateTime) " + "values (?,?,?,?,?) ";
-		String sql2 = "UPDATE t_bz_member SET flaBalance = ? WHERE strCardNo=? ";
-		Connection connection = db.getConnection();
+		String sql2 = "UPDATE t_bz_member SET flaBalance ="+a+" WHERE strCardNo="+strMemberCardNo+" ";
+		
 		try
 		{
-			connection.setAutoCommit(false);
-			PreparedStatement pStatement = connection.prepareStatement(sql);
-			pStatement.setString(1, strId);
-			pStatement.setString(2, strMemberCardNo);
-			pStatement.setInt(3, intMoney);
-			pStatement.setString(4, strUserName);
-			pStatement.setString(5, com.ejoysoft.common.Format.getDateTime());
-			PreparedStatement pStatement2 = connection.prepareStatement(sql2);
-			pStatement2.setFloat(1, a);
-			pStatement2.setString(2, strMemberCardNo);
-			System.out.println("6666666666666666666666666");
-			connection.setSavepoint();
-			if (pStatement.executeUpdate() > 0 && pStatement2.executeUpdate() > 0)
+			db.setAutoCommit(false);
+			db.prepareStatement(sql);
+			db.setString(1, strId);
+			db.setString(2, strMemberCardNo);
+			db.setInt(3, intMoney);
+			db.setString(4, strUserName);
+			db.setString(5, com.ejoysoft.common.Format.getDateTime());
+			
+			if (db.executeUpdate() > 0 && db.executeUpdate(sql2) > 0)
 			{
-				connection.commit();
-				System.out.println("chongzhi3345688888888888888888");
+				db.commit();
+				db.setAutoCommit(true);
 				Globa.logger0("会员缴费成功", globa.loginName, globa.loginIp, sql, "会员管理", globa.unitCode);
-				connection.setAutoCommit(true);
 				return true;
 			} else
 			{
-				connection.rollback();
+				db.rollback();
 				return false;
 			}
 		} catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			try
-			{
-				connection.rollback();
-			} catch (SQLException e1)
-			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			db.rollback();
 			return false;
 		}
 

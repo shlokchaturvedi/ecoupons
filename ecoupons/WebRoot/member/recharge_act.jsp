@@ -7,7 +7,7 @@
 <%
 	Recharge obj = new Recharge(globa, true);
 	String strUrl = "recharge_list.jsp";
-
+	String  strMemberCardNo=ParamUtil.getString(request,"strMemberCardNo","");
 	if (action.equals(Constants.UPDATE_STR))
 	{
 		int intMoney = Integer.parseInt(ParamUtil.getString(request, "intMoney", ""));

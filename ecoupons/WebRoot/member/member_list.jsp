@@ -22,7 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	if (!strName.equals("")) {
 		tWhere += " and strName LIKE '%" + strName + "%'";
 	}else if("代理员".equals(globa.userSession.getStrCssType())){
-		tWhere +=" where strCreator='"+globa.userSession.getStrCssType()+"' ";
+		tWhere +=" and  strSalesman='"+globa.userSession.getStrId()+"' ";
 	}
 	tWhere += " ORDER BY dtCreateTime";
 	//记录总数
@@ -128,7 +128,8 @@ function del(){
 			 <input type="checkbox" name="checkbox62" value="checkbox" onclick="selAll(document.all.strId)"/>
 			 全选
 			 <a href="member_add.jsp"><img src="../images/add.gif" width="16" height="16" border="0" />新增</a>
-			 <a href="#" onclick="del();"><img src="../images/delete.gif" width="16" height="16" border="0" />批量删除</a>
+			 <a href="#" onclick="del();"><%if(!"代理员".equals(globa.userSession.getStrCssType())){
+            		out.print("<img src='../images/delete.gif' width='16' height='16' border='0' />批量删除");}%></a>
 			</td>
 			<td align="right" width="600"><div style="height:26"> 
 			  用户名：<input name="strName" class="editbox4" value="" size="10">
@@ -167,9 +168,11 @@ function del(){
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getIntPoint()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><a href="recharge_list.jsp?strMemberCardNo=<%=obj1.getStrCardNo() %>"><%if(obj1.getDtActiveTime()!=null) out.print("充值记录");%></a>/<a href="charge_list.jsp?strMemberCardNo=<%=obj1.getStrCardNo() %>"><%if(obj1.getDtActiveTime()!=null) out.print("消费记录");%></a></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE4">
-                  <a href="member_update.jsp?strId=<%=obj1.getStrId()%>"><img src="../images/edit.gif" width="16" height="16" border="0" />编辑</a> 
-			      <a href="#" onclick="if(confirm('确认删除该记录？')){location.href='member_act.jsp?<%=Constants.ACTION_TYPE%>=<%=Constants.DELETE_STR%>&strId=<%=obj1.getStrId()%>';}"><img src="../images/delete.gif" width="16" height="16" border="0" />删除</a>
-			     <a href="member_audit.jsp?strId=<%=obj1.getStrId()%>"> <%if(obj1.getDtActiveTime()==null){out.print("<img src='../images/edit.gif' width='16'  height='16' border='0' />激活");} %></a>
+                  <a href="member_update.jsp?strId=<%=obj1.getStrId()%>"><%if(!"代理员".equals(globa.userSession.getStrCssType())){
+            		out.print("<img src='../images/edit.gif' width='16' height='16' border='0' />编辑");}%></a> 
+			      <a href="#" onclick="if(confirm('确认删除该记录？')){location.href='member_act.jsp?<%=Constants.ACTION_TYPE%>=<%=Constants.DELETE_STR%>&strId=<%=obj1.getStrId()%>';}"><%if(!"代理员".equals(globa.userSession.getStrCssType())){
+            		out.print("<img src='../images/delete.gif' width='16' height='16' border='0' />删除");}%></a>
+			     <a href="member_audit.jsp?strId=<%=obj1.getStrId()%>"> <%if(obj1.getDtActiveTime()==null&&!"代理员".equals(globa.userSession.getStrCssType())){out.print("<img src='../images/edit.gif' width='16'  height='16' border='0' />激活");} %></a>
 			      
 			      </span> </div>
                 </td>
