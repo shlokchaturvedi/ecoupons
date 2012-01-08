@@ -32,14 +32,34 @@ public class MemberAnalysis
 			globa.setDynamicProperty(this);
 	}
 
-	/**
-	 * 根据起止时间返回会员活动数量
-	 */
-	public int returnLiveNum()
-	{
-		return returnNum("");
-	}
+	
 
+	public String returnStrWhere(int flag)
+	{
+		if (flag==1)//如果是统计总数量的话，开始时间始终要设置为1000-01-01
+		{
+			stime="";
+		}
+		String where = "";
+		if (stime.equals("") || stime.equals(null))
+		{
+			where = " where  dtcreatetime between '1000-01-01' and '" + etime + "' ";
+		}
+		if (etime.equals("") || etime.equals(null))
+		{
+			where = " where  dtcreatetime between  '" + stime + "' and '9999-12-30' ";
+		}
+		if (!(stime.equals("") || stime.equals(null)) && !(etime.equals("") || etime.equals(null)))
+		{
+			where = " where  dtcreatetime between '" + stime + "' and '" + etime + "' ";
+		}
+		return where;
+	}
+/**
+ * 根据条件在print表中查找符合记录的总数
+ * @param where2
+ * @return
+ */
 	public int returnNum(String where2)
 	{
 		String where = "";
@@ -57,7 +77,24 @@ public class MemberAnalysis
 		}
 		return getCount(where, strPrintTable);
 	}
-	
+	/**
+	 * 根据起止时间返回会员活动数量
+	 */
+	public int returnLiveNum()
+	{
+		int num = 0;
+		Member member = new Member(globa);
+		Vector<Member> vctMembers = new Vector<Member>();
+		vctMembers = member.list("", 0, 0);
+		for (int i = 0; i < vctMembers.size(); i++)
+		{
+			if (returnNum("and strMemberCardNo='" + vctMembers.get(i).getStrCardNo() + "'") >0)
+			{
+				num += 1;
+			}
+		}
+		return num;
+	}
 
 	/**
 	 * 根据起止时间返回沉淀会员数量
@@ -67,13 +104,14 @@ public class MemberAnalysis
 		int num = 0;
 		Member member = new Member(globa);
 		Vector<Member> vctMembers = new Vector<Member>();
-		String active_member = (String) globa.application.getAttribute("UNACTIVE_MEMBER");
+		String unactive_member = (String) globa.application.getAttribute("UNACTIVE_MEMBER");
 		vctMembers = member.list("", 0, 0);
-		int j=0;
+		int j = 0;
 		for (int i = 0; i < vctMembers.size(); i++)
 		{
-			j=returnNum("and strId='" + vctMembers.get(i).getStrId() + "'") ;
-			if (j<= Integer.parseInt(active_member)&&j>0)
+			j = returnNum("and strMemberCardNo='" + vctMembers.get(i).getStrCardNo() + "'");
+			System.out.println(j);
+			if (j <= Integer.parseInt(unactive_member) && j > 0)
 			{
 				num += 1;
 			}
@@ -81,6 +119,7 @@ public class MemberAnalysis
 
 		return num;
 	}
+
 	/**
 	 * 根据起止时间返回活跃会员数量
 	 */
@@ -93,7 +132,7 @@ public class MemberAnalysis
 		vctMembers = member.list("", 0, 0);
 		for (int i = 0; i < vctMembers.size(); i++)
 		{
-			if (returnNum("and strId='" + vctMembers.get(i).getStrId() + "'") > Integer.parseInt(active_member))
+			if (returnNum("and strMemberCardNo='" + vctMembers.get(i).getStrCardNo() + "'") > Integer.parseInt(active_member))
 			{
 				num += 1;
 			}
@@ -108,21 +147,8 @@ public class MemberAnalysis
 	 */
 	public int returnTotalNum()
 	{
-		String where = "";
-		if (stime.equals("") || stime.equals(null))
-		{
-			where = " where  dtcreatetime between '1000-01-01' and '" + etime + "'";
-		}
-		if (etime.equals("") || etime.equals(null))
-		{
-			where = " where  dtcreatetime between  '" + stime + "' and '9999-12-30'";
-		}
-		if (!(stime.equals("") || stime.equals(null)) && !(etime.equals("") || etime.equals(null)))
-		{
-			where = " where  dtcreatetime between '1000-01-01' and '" + etime + "'";
-		}
-		
-		return getCount(where, strMemberTable);
+  
+		return getCount(returnStrWhere(1), strMemberTable);
 
 	}
 
@@ -134,24 +160,12 @@ public class MemberAnalysis
 	 */
 	public int returnAddNum()
 	{
-		String where = "";
-		if (stime.equals("") || stime.equals(null))
-		{
-			where = " where  dtcreatetime between '1000-01-01' and '" + etime + "'";
-		}
-		if (etime.equals("") || etime.equals(null))
-		{
-			where = " where  dtcreatetime between  '" + stime + "' and '9999-12-30'";
-		}
-		if (!(stime.equals("") || stime.equals(null)) && !(etime.equals("") || etime.equals(null)))
-		{
-			where = " where  dtcreatetime between '" + stime + "' and '" + etime + "'";
-		}
-		return getCount(where, strMemberTable);
+		
+		return getCount(returnStrWhere(0), strMemberTable);
 
 	}
 
-	/*
+	/**
 	 * 查询符合条件的记录总数
 	 */
 	public int getCount(String where, String strTableName)
@@ -168,7 +182,7 @@ public class MemberAnalysis
 				sql = String.valueOf(sql) + String.valueOf(where);
 			}
 			ResultSet rs = db.executeQuery(sql);
-			if (rs.next())
+			if (rs != null && rs.next())
 				count = rs.getInt(1);
 			rs.close();
 			return count;
