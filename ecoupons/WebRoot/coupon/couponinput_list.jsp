@@ -19,12 +19,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     CouponInput  member=null;
     CouponInput obj=new CouponInput(globa);
     //查询条件
-    String  strName=ParamUtil.getString(request,"strName","");
+    String  strCouponCode=ParamUtil.getString(request,"strCouponCode","");
 	String tWhere=" WHERE 1=1";
-	if (!strName.equals("")) {
-		tWhere += " and strName LIKE '%" + strName + "%'";
+	if (!strCouponCode.equals("")) {
+		tWhere += " and strCouponCode =" + strCouponCode + " ";
 	}else if("商家".equals(globa.userSession.getStrCssType())){
-		tWhere +=" where strShopId='"+globa.userSession.getStrShopid()+"' ";
+		tWhere +=" and strShopId='"+globa.userSession.getStrShopid()+"' ";
 	}
 	tWhere += " ORDER BY dtCreateTime";
 	//记录总数
@@ -133,7 +133,7 @@ function del(){
 			 <a href="#" onclick="del();"><img src="../images/delete.gif" width="16" height="16" border="0" />批量删除</a>
 			</td>
 			<td align="right" width="600"><div style="height:26"> 
-			  有价券代码：<input name="strName" class="editbox4" value="" size="10">
+			  有价券代码：<input name="strCouponCode" class="editbox4" value="" size="10">
 			  &nbsp;&nbsp;&nbsp;&nbsp;
               <input type="submit" class="button_box" value="搜索" /> 
 			</div>
@@ -155,6 +155,7 @@ function del(){
             <%
             Coupon coupon=new Coupon(globa);
             Shop shop=new Shop(globa);
+            
             	for (int i = 0;i < vctObj.size(); i++) {
                         	CouponInput obj1 = vctObj.get(i);
                         	

@@ -34,11 +34,7 @@ body,td,tr {
 		<script language="javascript">
 		
 		function chkFrm() {
-			if(trim(frm.strShopId.value)=="") {
-		        alert("请选择商家！！")
-		        frm.strShopId.focus();
-		        return false;
-		    }else
+			
 		    if(trim(frm.strMemberCardNo.value)=="") {
 		        alert("请输入会员！！")
 		        frm.strMemberCardNo.focus();
@@ -166,7 +162,7 @@ body,td,tr {
 											<td>
 												<table width="100%" border="0" cellspacing="0"
 													cellpadding="0">
-													<tr >
+													<tr bgcolor="#f2f2f2">
 														<td width="20%" height="30" align="right"
 															class="left_txt2">
 															商家名称：
@@ -175,24 +171,20 @@ body,td,tr {
 															&nbsp;
 														</td>
 														<td width="32%" height="30">
-															<select name="strShopId" class="forms_color1"
-																style="width: 213px">
-																<option value="">
-																	请选择商家名称
-																</option>
-																<%
+														<%
                                                                   //初始化
     				                                            	//SysPara  para=null;
-   						                                            Shop para=new Shop(globa,true);
-   						                                             Vector<Shop> vctShop=para.returnShopFullName();
-                                                                     for (int i = 0; i < vctShop.size(); i++) {
-                                                                     out.print("<option value=" + vctShop.get(i).getStrId()+ ">");
-                                                                     out.println("" +vctShop.get(i).getStrBizName()+vctShop.get(i).getStrShopName() + "</option>");
-                	                                          %>
-																<%
-                                                                 }
+   						                                            Shop shop=new Shop(globa);
+                	                                         
                                                                %>
-															</select>
+														
+														<input name="strShopName" value="<%=shop.returnBizShopName("where strid="+globa.userSession.getStrShopid()+" " ) %>" readonly="readonly" type="text" class="input_box"
+																size="30" />
+														<input name="strShopId" value="<%=globa.userSession.getStrShopid()%>" readonly="readonly" type="hidden" class="input_box"
+																size="30" />
+															
+																
+															
 														</td>
 														<td width="45%" height="30" class="left_txt">
 

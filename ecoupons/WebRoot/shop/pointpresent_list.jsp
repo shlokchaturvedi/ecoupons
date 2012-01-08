@@ -25,7 +25,7 @@ if(!globa.userSession.hasRight("10020"))
 		tWhere += " and strName LIKE '%" + strName + "%' ";
 	}
 	if("商家".equals(globa.userSession.getStrCssType())){
-		tWhere +=" where strCreator='"+globa.userSession.getStrCssType()+"' ";
+		tWhere +=" and strshopid='"+globa.userSession.getStrShopid()+"' ";
 	}
 	tWhere += " ORDER BY dtCreateTime";
 	//记录总数
@@ -129,7 +129,7 @@ function del(){
 			<tr>
 			<td style="font-size:9pt">
 			 
-			 <a href="pointpresent_add.jsp"><img src="../images/add.gif" width="16" height="16" border="0" />转赠</a>
+			 <a href="pointpresent_add.jsp"><%if("商家".equals(globa.userSession.getStrCssType())){out.print("<img src='../images/edit.gif' width='16' height='16' border='0' />转赠");}%></a>
 			</td>
 			<td align="right" width="600"><div style="height:26"> </div>
 			 

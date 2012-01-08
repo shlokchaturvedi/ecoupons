@@ -168,7 +168,11 @@ function addTerminals()
                                                                   //初始化
     				                                            	//SysPara  para=null;
    						                                            Shop para=new Shop(globa,true);
-   						                                             Vector<Shop> vctShop=para.returnShopFullName();
+   						                                         String Where ="";
+   						                                         if("商家".equals(globa.userSession.getStrCssType())){
+   						                                  		Where =" where strid='"+globa.userSession.getStrShopid()+"' ";
+   						                                  	}
+   						                                             Vector<Shop> vctShop=para.list(Where,0,0);
                                                                      for (int i = 0; i < vctShop.size(); i++) {
                                                                      out.print("<option value=" + vctShop.get(i).getStrId()+ ">");
                                                                      out.println("" +vctShop.get(i).getStrBizName()+vctShop.get(i).getStrShopName() + "</option>");
