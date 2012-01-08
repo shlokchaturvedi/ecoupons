@@ -49,6 +49,17 @@ body,td,tr {
 		        return false;
 		    }
 		    else {
+			    
+		    	if(!isNumber(frm.intPoint.value)){
+		    		alert("请输入数字，积分为不大于9的整数!")
+			        frm.intPoint.focus();
+			        return false;
+			    	}else
+			    		if(frm.intPoint.value.length>9){
+				    		alert("积分为不大于9的整数!")
+					        frm.intPoint.focus();
+					        return false;
+					    	}else
 		        if(confirm("确定转赠!"))
 			        {
 		    	frm.submit();
@@ -151,11 +162,11 @@ body,td,tr {
 												</table>
 											</td>
 										</tr>
-										<tr>
+										<tr >
 											<td>
 												<table width="100%" border="0" cellspacing="0"
 													cellpadding="0">
-													<tr>
+													<tr >
 														<td width="20%" height="30" align="right"
 															class="left_txt2">
 															商家名称：
@@ -188,7 +199,7 @@ body,td,tr {
 														</td>
 													</tr>
 
-													<tr>
+													<tr >
 														<td width="20%" height="30" align="right"
 															class="left_txt2">
 															会员卡号：
@@ -206,7 +217,7 @@ body,td,tr {
 													</tr>
 
 													
-													<tr>
+													<tr >
 														<td width="20%" height="30" align="right"
 															class="left_txt2">
 															转赠积分：

@@ -48,6 +48,16 @@ body,td,tr {
 		        return false;
 		    }
 		    else {
+		    	if(!isNumber(frm.intPoint.value)){
+		    		alert("请输入数字，积分为不大于9的整数!")
+			        frm.intPoint.focus();
+			        return false;
+			    	}else
+			    		if(frm.intPoint.value.length>9){
+				    		alert("积分为不大于9的整数!")
+					        frm.intPoint.focus();
+					        return false;
+					    	}else
 		        if(confirm("确定录入!"))
 			        {
 		    	frm.submit();
