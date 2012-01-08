@@ -67,6 +67,17 @@ function isInt(str) {
     }
     return true;
 }
+/**
+ * 判断正确的手机号码格式
+ * @param input
+ * @return
+ */
+function isMobilePhone(input)
+{
+        var pattern= /^1[3,4,5,8]\d{9}$/;  
+        return pattern.test(input);
+}
+
 //ÊÇ·ñÊÇÊý×Ö
 function isMoney(input)
 {
