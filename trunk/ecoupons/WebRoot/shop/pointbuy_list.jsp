@@ -23,7 +23,7 @@ if(!globa.userSession.hasRight("10010"))
 		tWhere += " and strName LIKE '%" + strName + "%' ";
 	}
 	if("商家".equals(globa.userSession.getStrCssType())){
-		tWhere +=" where strCreator='"+globa.userSession.getStrCssType()+"' ";
+		tWhere +=" where strshopid='"+globa.userSession.getStrShopid()+"' ";
 	}
 	tWhere += " ORDER BY dtCreateTime";
 	//记录总数
