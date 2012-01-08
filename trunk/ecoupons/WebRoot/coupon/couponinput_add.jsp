@@ -104,7 +104,7 @@ function chkFrm() {
           </tr>
           <tr>
             <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
-               <tr>
+               <tr  >
                 <td width="20%" height="30" align="right" class="left_txt2">优惠券：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30">
@@ -129,14 +129,14 @@ function chkFrm() {
                 </td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td>
               </tr>
-             <tr>
+             <tr  >
                  <td width="20%" height="30" align="right" class="left_txt2">券面代码：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30">
                 <input name="strCouponCode" type="text" class="input_box" size="30" /></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
-               <tr bgcolor="#f2f2f2">
+               <tr  >
                  <td width="20%" height="30" align="right" class="left_txt2">会员卡号：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30"><input name="strMemberCardNo"   type="text" class="input_box" size="30" /></td>
@@ -144,7 +144,7 @@ function chkFrm() {
               </tr>
              
                
-              <tr bgcolor="#f2f2f2">
+              <tr  >
                  <td width="20%" height="30" align="right" class="left_txt2">商家：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30"><select name="strShopId" class="forms_color1"
@@ -167,7 +167,7 @@ function chkFrm() {
 															</select></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
-               <tr bgcolor="#f2f2f2">
+               <tr  >
                  <td width="20%" height="30" align="right" class="left_txt2">打印时间：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30"><input name="dtPrintTime" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" value="<%=Format.getDateTime()%>" readonly="readonly" type="text" class="input_box" size="30" /></td>
