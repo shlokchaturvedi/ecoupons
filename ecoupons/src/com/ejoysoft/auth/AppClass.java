@@ -60,7 +60,7 @@ public class AppClass extends javax.servlet.http.HttpServlet {
 	        pw.println(" }");
 	        pw.println(" //-->");
 	        pw.println(" </script>");
-	        pw.println("<script>alert('" + strError + "');location.href='" + logonUrl + "';</script>");
+	        pw.println("<script>alert('" + strError + "');location.href='/ecoupons" + logonUrl + "';</script>");
 	        return pw;
 	    }
 
