@@ -49,7 +49,7 @@ public class Coupon
 			{
 				strSql += "strPrintImg = '" + strPrintImg + "',";
 			}
-			strSql += " strName = ?, strShopId = ?,strTerminalIds=?,  " + "dtExpireTime = ?,intVip=?,intRecommend=?,flaPrice=?,intPrintLimit=?,"
+			strSql += " strName = ?, strShopId = ?,strTerminalIds=?,  " + "dtExpireTime = ?,intVip=?,intRecommend=?,flaPrice=?,intPrintLimit=?"
 					+ "  WHERE strId=? ";
 			db.prepareStatement(strSql);
 			db.setString(1, dtActiveTime);

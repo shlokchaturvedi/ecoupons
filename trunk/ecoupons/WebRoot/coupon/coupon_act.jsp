@@ -32,7 +32,7 @@
 		globa.dispatch(true, strUrl);
 	} else
 	{
-		String filename = UID.getID();
+		//String filename = UID.getID();
 		ApacheUpload au = new ApacheUpload(request);
 		action = au.getString(Constants.ACTION_TYPE);
 		 String  strId=au.getString("strId"); 
@@ -47,12 +47,17 @@
 		Coupon obj0 = null;
 		if (action.equals(Constants.UPDATE_STR))
 		{
+			
 			obj.setStrId(au.getString("strId"));
 			obj0 = obj.show(" where strId='" + obj.getStrId() + "'");
+		}else if(action.equals(Constants.ADD_STR)){
+			strId=UID.getID();
+			
 		}
+		
 		if (au.getFileName(0).length() > 0)
 		{
-			strSmallImg =au.saveFile(strFilePath,filename+"_"+"2", 0);
+			strSmallImg =au.saveFile(strFilePath,strId+"_"+"2", 0);
 			if (action.equals(Constants.UPDATE_STR) && obj0.getStrSmallImg() != null && obj0.getStrSmallImg().length() > 0)
 			{
 				File f = new File(strFilePath + obj0.getStrSmallImg());
@@ -61,7 +66,7 @@
 		}
 		if (au.getFileName(1).length() > 0)
 		{
-			strLargeImg =au.saveFile(strFilePath,filename+"_"+"1", 1);
+			strLargeImg =au.saveFile(strFilePath,strId+"_"+"1", 1);
 			if (action.equals(Constants.UPDATE_STR) && obj0.getStrLargeImg()!= null && obj0.getStrLargeImg().length() > 0)
 			{
 				File f = new File(strFilePath + obj0.getStrLargeImg());
@@ -70,18 +75,18 @@
 		}
 		if (au.getFileName(2).length() > 0)
 		{
-			strPrintImg =au.saveFile(strFilePath,filename+"_"+"3", 2);
+			strPrintImg =au.saveFile(strFilePath,strId+"_"+"3", 2);
 			if (action.equals(Constants.UPDATE_STR) && obj0.getStrPrintImg().length() > 0  && obj0.getStrPrintImg()!= null )
 			{
-				File f = new File(strFilePath + obj0.getStrLargeImg());
+				File f = new File(strFilePath + obj0.getStrPrintImg());
 				f.delete();
 			}
 		}
 		//赋值
-		obj.setStrId(filename);
+		obj.setStrId(strId);
 		obj.setDtActiveTime(au.getString("dtActiveTime"));
 		obj.setDtExpireTime(au.getString("dtExpireTime"));
-		obj.setFlaPrice(au.getFloat("flaPrice"));
+		obj.setFlaPrice(Float.parseFloat(au.getString("flaPrice")));
 		obj.setIntPrintLimit(au.getInt("intPrintLimit"));
 	    obj.setStrLargeImg(strLargeImg);
 	    obj.setStrSmallImg(strSmallImg);
@@ -93,7 +98,7 @@
 	    obj.setStrName(au.getString("strName"));
 		if (action.equals(Constants.ADD_STR))
 		{
-
+			
 			globa.dispatch(obj.add(), strUrl);
 
 		} else if (action.equals(Constants.UPDATE_STR))
