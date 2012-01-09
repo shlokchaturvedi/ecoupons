@@ -55,7 +55,7 @@ public class Coupon
 			db.setString(1, dtActiveTime);
 			db.setString(2, strName);
 			db.setString(3, strShopId);
-			db.setString(4, strTerminalIds);
+			db.setString(4, getTerminalIdsByNames(strTerminals));
 			db.setString(5, dtExpireTime);
 			db.setInt(6, intVip);
 			db.setInt(7, intRecommend);
