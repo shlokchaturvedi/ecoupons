@@ -47,7 +47,8 @@ body,td,tr{font-size:9pt;}
             alert("请输入广告结束时间！！！")
             frm.dtEndTime.focus();
             return false;
-        }else {
+        }
+        else {
 	         if(trim(frm.dtStartTime.value)!=""){        
 	            var dtStartTime = trim(frm.dtStartTime.value);
 	            var resParn =/(^[0-1]{1}[0-9]{1}\:[0-5]{1}[0-9]{1}$)|(^2[0-3]{1}\:[0-5]{1}[0-9]{1}$)/;
