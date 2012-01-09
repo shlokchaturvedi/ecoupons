@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.labels.StandardPieToolTipGenerator;
 import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.plot.PiePlot3D;
 import org.jfree.chart.servlet.ServletUtilities;
@@ -46,7 +47,10 @@ public class PieChart extends javax.servlet.http.HttpServlet {
 		//设置透明度，0.5F为半透明，1为不透明，0为全透明
 		pieplot3d.setForegroundAlpha(0.7F);
 
-
+		pieplot3d.setIgnoreNullValues(false);
+		pieplot3d.setIgnoreZeroValues(false);
+		pieplot3d.setToolTipGenerator(new StandardPieToolTipGenerator());
+		pieplot3d.setLabelGenerator(new org.jfree.chart.labels.StandardPieSectionLabelGenerator("{0}--{2}"));
 		String filename="";
 		try {
 			filename = ServletUtilities.saveChartAsPNG(chart, 870, 540, null, request.getSession());

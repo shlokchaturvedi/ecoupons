@@ -95,8 +95,7 @@ public class Terminal {
     //终端更新信息
     public boolean update(String strId) {
         try {
-       	 System.out.println("where strbizname='"+strAroundShops+"' and strshopname='"+getAroundShopIds(strAroundShops)+"'");
-         
+//       	 System.out.println("where strbizname='"+strAroundShops+"' and strshopname='"+getAroundShopIds(strAroundShops)+"'");       
         	String strSql = "update " + strTableName + "  set strno=?, dtactivetime=?, strlocation=?,strAroundShopIds=?, strproducer=?, strtype=?, " +
             		"strresolution=?, strresolution2=?, strresolution3=? where strid=? ";
             db.prepareStatement(strSql);
@@ -372,16 +371,18 @@ public class Terminal {
     //广告更新
     public boolean updateAd(String strId) {
         try {
-         	String strSql = "update " + strTableName2 + "  set strname=?,inttype=?, strcontent=?,strterminalids=?," +
-         			"dtstarttime=?,dtendtime=? where strid=? ";
+         	String strSql = "update " + strTableName2 + "  set strname=?,inttype=?,";
+         	if(this.strContent!=null&&this.strContent.trim().length()>0)
+         		strSql += " strcontent='"+this.strContent+"', ";
+         	strSql += "strterminalids=?,dtstarttime=?,dtendtime=? where strid=? ";
+         	System.err.println(strSql+":dddddddddddddddddddddd");
             db.prepareStatement(strSql);
             db.setString(1, strName); 
             db.setString(2, intType);  
-            db.setString(3, strContent);
-            db.setString(4, getTerminalIdsByNames(strTerminals));
-            db.setString(5, dtStartTime);
-            db.setString(6, dtEndTime);
-            db.setString(7, strId);
+            db.setString(3, getTerminalIdsByNames(strTerminals));
+            db.setString(4, dtStartTime);
+            db.setString(5, dtEndTime);
+            db.setString(6, strId);
             db.executeUpdate();
             Globa.logger0("更新广告信息", globa.loginName, globa.loginIp, strSql, "终端管理", globa.userSession.getStrDepart());
             return true;
@@ -433,7 +434,7 @@ public class Terminal {
       public void deleteTerminalIdsFromIds(String terminalid)
       {
       	String sql ="select * from "+strTableName2+" where strterminalids like '%"+terminalid+"%'";
-      	System.out.println("Terminal.deleteTerminalsFromIds()"+sql);
+   //   	System.out.println("Terminal.deleteTerminalsFromIds()"+sql);
           ResultSet rs = db.executeQuery(sql);
       	try {
   			if(rs!=null && rs.next())
@@ -441,7 +442,7 @@ public class Terminal {
   				do {
   					String dealre1 = rs.getString("strid");
   					String dealre2 = rs.getString("strterminalids");
-  					System.out.println("Shop.deleteShopIdFromIds()"+terminalid+rs.getString("strterminalids"));
+  			//		System.out.println("Shop.deleteShopIdFromIds()"+terminalid+rs.getString("strterminalids"));
   					String array[]=dealre2.split(",");
   					String terminalids=" ";
   				    if(array!=null && !terminalid.equals(dealre2))

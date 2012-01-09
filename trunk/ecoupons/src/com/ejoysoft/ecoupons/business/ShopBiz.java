@@ -58,7 +58,7 @@ public class ShopBiz {
 			{
 				sql ="select distinct(a.strmembercardno) from "+strTableName2+" a left join "+strTableName3+" b on a.strcouponid=b.strid where b.strshopid='"+shopid+"' and  a.dtcreatetime between '"+stime+"' and '"+etime+"'";
 			}
-			System.err.println(sql);
+			//System.err.println(sql);
 	    	ResultSet re = db.executeQuery(sql);
 	    	try {
 				if(re!=null)
@@ -137,7 +137,7 @@ public class ShopBiz {
     {
     	int perprintnum = 0;
     	String sql = "select count(b.strid) from "+strTableName2+" a left join "+strTableName3+" b on b.strid=a.strcouponid where a.strmembercardno='"+membercardno+"' and b.strshopid='"+strshopid+"'";
-    	System.err.println(sql);
+    	//System.err.println(sql);
     	ResultSet re = db.executeQuery(sql);
     	try {
 			if(re!=null&&re.next())
