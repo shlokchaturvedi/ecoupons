@@ -24,9 +24,11 @@ public class CouponInput
 	/**
 	 * 统计
 	 */
-	public boolean State(String id)
+	public boolean State(String id,String where)
 	{
-		String strSql = "update t_bz_coupon_input set intState=1 where strCouponCode=" + id;
+		
+		String strSql = "update t_bz_coupon_input set intState=1 where strCouponCode=" + id +where;
+		System.out.println(strSql);
 		try
 		{
 			db.prepareStatement(strSql);
@@ -213,6 +215,29 @@ public class CouponInput
 			ee.printStackTrace();
 			return count;
 		}
+	}
+	/**
+	 * 根据条件返回不重复的strshopid
+	 */
+	public Vector<CouponInput> returnDistinctStrShopId() 
+	{
+		Vector<CouponInput> beans = new Vector<CouponInput>();
+		String strSql="SELECT DISTINCT(strshopid) from  "+strTableName+" ";
+		ResultSet rSet=null;
+		rSet=db.executeQuery(strSql);
+		try
+		{
+			while(rSet.next()){
+				CouponInput theBean = new CouponInput();
+				theBean.setStrShopId(rSet.getString("strshopid"));
+				beans.addElement(theBean);
+			}
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return beans;
 	}
 
 	/**
