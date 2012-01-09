@@ -7,10 +7,10 @@
 				java.io.File"%>
 <%@ include file="../include/jsp/head.jsp"%>
 <%
-    Terminal obj=new Terminal(globa,false);
-    String strUrl="ad_list.jsp";
     if(action.equals(Constants.DELETE_STR)){
-	    String strFilePath = application.getRealPath("") + "/terminal/advertisement/";
+	    Terminal obj=new Terminal(globa,false);
+	    String strUrl="ad_list.jsp";
+		String strFilePath = application.getRealPath("") + "/terminal/advertisement/";
     	String[] aryStrId = ParamUtil.getStrArray(request, "strId");    	
     	for (int i = 0; i < aryStrId.length; i++) {
     		Terminal obj0 = obj.showAd(" where strId='" + aryStrId[i] + "'");
@@ -35,6 +35,8 @@
     	globa.dispatch(true, strUrl);
 	} 
 	else{
+		Terminal obj=new Terminal(globa,false);
+	    String strUrl="ad_list.jsp";		
 		ApacheUpload au = new ApacheUpload(request);
         String  strId=au.getString("strId"); 
 	    String intType=au.getString("intType");
@@ -54,7 +56,46 @@
 	    }	  
 	   if(intType.trim().equals("1")||intType.trim().equals("2"))
 	   {
-	   		if (action.equals(Constants.UPDATE_STR) && obj0.getStrContent()!=null&&obj0.getStrContent().length() > 0) 
+	      for(int i=0;i<au.getFileCount();i++)
+	   	  {
+		   	  if(au.getFileName(i).length()>0)
+		   	  {
+			   		if (action.equals(Constants.UPDATE_STR) && obj0.getStrContent()!=null&&obj0.getStrContent().length() > 0) 
+			    	{
+			    		String files[] = obj0.getStrContent().trim().split(",");
+			        	if(files!=null)
+			        	{
+			       			for(int j=0; j< files.length;j++)
+			       			{
+			        			File f = new File(strFilePath + files[j]);
+			    			    if(f!=null) 
+			        			  f.delete();
+			        	    }	       			
+			       		}
+			       		filename = strId;
+			    	}
+			    	else if(action.equals(Constants.ADD_STR) )
+			    	{
+			    		obj.setStrId(filename);
+			    	}
+			    	break;
+			    }
+	      }
+	      for(int i=0;i<au.getFileCount();i++)
+	   	  {
+		   	  if(au.getFileName(i).length() > 0)
+		   	  {
+		    	String name = au.saveFile(strFilePath, filename+"_"+(i+1),i);
+		    	if(i!=au.getFileCount())
+		   			strcontent += name+",";       			   
+		
+		   	  }
+	      }
+	      if(strcontent.length()>=2)
+	  	 	  strcontent =strcontent.trim().substring(0,strcontent.length()-2);
+	   	}else
+		{
+			if (action.equals(Constants.UPDATE_STR) && obj0.getStrContent()!=null&&obj0.getStrContent().length() > 0) 
 	    	{
 	    		String files[] = obj0.getStrContent().trim().split(",");
 	        	if(files!=null)
@@ -64,8 +105,7 @@
 	        			File f = new File(strFilePath + files[j]);
 	    			    if(f!=null) 
 	        			  f.delete();
-	       			}
-	       			
+	        	    }	       			
 	       		}
 	       		filename = strId;
 	    	}
@@ -73,26 +113,10 @@
 	    	{
 	    		obj.setStrId(filename);
 	    	}
-	      for(int i=0;i<au.getFileCount();i++)
-	   	  {
-	    	if(au.getFileSize(i)!=0)
-	    	{
-	    	    String name = au.saveFile(strFilePath, filename+"_"+(i+1),i);
-	    	    if(i!=au.getFileCount())
-	   			    strcontent += name+",";
-	   	    }
-	   	    
-        			   
-	   	  }
-	   	  strcontent =strcontent.trim().substring(0,strcontent.length()-2);
-	   	}
-	   else
-	   {
-	      obj.setStrId(filename);
-	      strcontent=au.getString("strContent");	   
-	   }
+		    strcontent=au.getString("strContent");	   
+		}
 	    
-	    //赋值	    
+	    //赋值		       
          obj.setStrName(au.getString("strName"));
          obj.setIntType(au.getString("intType"));
          obj.setStrContent(strcontent);
