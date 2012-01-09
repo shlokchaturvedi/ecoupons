@@ -75,6 +75,7 @@ public class BarChart extends javax.servlet.http.HttpServlet {
 		BarRenderer renderer = new BarRenderer();
 		renderer.setBaseItemLabelGenerator(new StandardCategoryItemLabelGenerator());
 		renderer.setBaseItemLabelsVisible(false);
+		renderer.setMinimumBarLength(1.0);
 		//默认的数字显示在柱子中，通过如下两句可调整数字的显示
 		//注意：此句很关键，若无此句，那数字的显示会被覆盖，给人数字没有显示出来的问题
 		//renderer.setBasePositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.BASELINE_LEFT));

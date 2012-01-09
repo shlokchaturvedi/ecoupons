@@ -110,8 +110,7 @@ public class MemberAnalysis
 		for (int i = 0; i < vctMembers.size(); i++)
 		{
 			j = returnNum("and strMemberCardNo='" + vctMembers.get(i).getStrCardNo() + "'");
-			System.out.println(j);
-			if (j <= Integer.parseInt(unactive_member) && j > 0)
+				if (j <= Integer.parseInt(unactive_member) && j > 0)
 			{
 				num += 1;
 			}

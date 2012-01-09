@@ -5,7 +5,6 @@ import com.ejoysoft.common.*;
 import java.util.Vector;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  * Created by IntelliJ IDEA.
@@ -76,7 +75,9 @@ public class CouponTop {
 			thebean.setCouponName(re.getString("strname"));
 			thebean.setShopname(obj.returnBizShopName(" where strid='"+re.getString("strshopid")+"'"));
 			thebean.setPerCouponPrintNum(this.getPerNumofPrintByCoupon(re.getString("strid")));
-			thebean.setCouponTime(re.getString("dtactivetime")+"至"+re.getString("dtexpiretime"));
+			thebean.setAvtiveTime(re.getString("dtactivetime"));
+			thebean.setExpireTime(re.getString("dtexpiretime"));
+			thebean.setCouponTime(re.getString("dtactivetime")+"—"+re.getString("dtexpiretime"));
 			thebean.setCouponPrice(re.getFloat("flaprice"));
     	} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -127,6 +128,8 @@ public class CouponTop {
     }
     private String couponId;//优惠券id；
     private String couponName;//优惠券名称
+    private String avtiveTime;//优惠券启动时间
+    private String expireTime;//优惠券结束时间
     private String couponTime;//优惠券开始结束时间
     private float couponPrice;//优惠券价格
     private int perCouponPrintNum ;//商家每种优惠券打印总量
@@ -212,5 +215,20 @@ public class CouponTop {
 	public void setCouponTime(String couponTime) {
 		this.couponTime = couponTime;
 	}
-	
+
+	public String getAvtiveTime() {
+		return avtiveTime;
+	}
+
+	public void setAvtiveTime(String avtiveTime) {
+		this.avtiveTime = avtiveTime;
+	}
+
+	public String getExpireTime() {
+		return expireTime;
+	}
+
+	public void setExpireTime(String expireTime) {
+		this.expireTime = expireTime;
+	}
 }
