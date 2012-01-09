@@ -54,7 +54,7 @@ if(!globa.userSession.hasRight("130"))
 			resultdata[0][i] = obj0.getShopCouponNum()*1.0;
 			if(maxnum<resultdata[0][i])
 			 	maxnum = (resultdata[0][i]+0);
-		    resultdata[1][i]= obj0.getShopPrintNum()*10.0;
+		    resultdata[1][i]= obj0.getShopPrintNum()*1.0;
 			if(maxnum1 < resultdata[1][i])
 			 	maxnum1 = resultdata[1][i];
 			shops[i] = obj0.getShopName();
@@ -71,8 +71,8 @@ if(!globa.userSession.hasRight("130"))
 			resultdata[0][i] *= k/10;
 		}
 		if(maxnum1!=0)
-		   maxnum2 = (9.0*maxnum1)/(8.5*k/10);
-		else maxnum2 = maxnum*9/(8.5*k/10);
+		   maxnum2 = (8.95*maxnum1)/(8.5*k/10);
+		else maxnum2 = maxnum*8.95/(8.5*k/10);
 	    BarChart objBarChart = new BarChart();
         graphURL =objBarChart.returnBarResult(request,"商家统计分析结果",shops, couponnum,resultdata,setime,"商家（名称-分部）",maxnum2);
 		
@@ -96,7 +96,7 @@ if(!globa.userSession.hasRight("130"))
 			resultdata[0][i] = obj0.getTerminalCouponNum()*1.0;
 			if(maxnum < resultdata[0][i])
 			 	maxnum = resultdata[0][i];
-			resultdata[1][i]= obj0.getTerminalPrintNum()*100.0;
+			resultdata[1][i]= obj0.getTerminalPrintNum()*1.0;
 			if(maxnum1 <resultdata[1][i])
 			 	maxnum1 = resultdata[1][i];		
 			terminals[i] = obj0.getTerminalNo();
@@ -113,8 +113,8 @@ if(!globa.userSession.hasRight("130"))
 			resultdata[0][i] *= k/10;
 		}
 		if(maxnum1!=0)
-		   maxnum2 = (9.0*maxnum1)/(8.5*k/10);
-		else maxnum2 = maxnum*9/(8.5*k/10);
+		   maxnum2 = (8.95*maxnum1)/(8.5*k/10);
+		else maxnum2 = maxnum*8.95/(8.5*k/10);
 	    BarChart objBarChart = new BarChart();
         graphURL =objBarChart.returnBarResult(request,"终端统计分析结果",terminals, couponnum,resultdata,setime,"终端（编号）",maxnum2);
 		
