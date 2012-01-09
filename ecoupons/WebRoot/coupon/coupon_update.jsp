@@ -42,12 +42,27 @@ body,td,tr{font-size:9pt;}
             frm.strName.focus();
             return false;
         }
-        if(trim(frm.intPoint.value)=="") {
-            alert("请输入兑换积分！！！")
-            frm.strName.focus();
+        else if(trim(frm.strTerminals.value)=="") {
+            alert("请选择终端！！！")
+            frm.strTerminalIds.focus();
+            return false;
+        }
+        else
+        if(trim(frm.flaPrice.value)=="") {
+            alert("请输入价格！！！")
+            frm.flaPrice.focus();
             return false;
         } 
-        else {
+        else {if(!isMoney(frm.flaPrice.value)){
+    		alert("请输入正确的价格格式!")
+	        frm.flaPrice.focus();
+	        return false;
+	    	}else
+	    		if(frm.flaPrice.value.length>9){
+		    		alert("有效数字不能大于9!")
+			        frm.flaPrice.focus();
+			        return false;
+			    	}else
 	        if(confirm("确定修改!"))
 		        {
 	    	frm.submit();
@@ -64,7 +79,7 @@ body,td,tr{font-size:9pt;}
 </head>
 
 <body>
-<form name="frm" method="post" action="gift_act.jsp" enctype="multipart/form-data" >
+<form name="frm" method="post" action="coupon_act.jsp" enctype="multipart/form-data" >
 <input type="hidden" name="<%=Constants.ACTION_TYPE%>" value="<%=Constants.UPDATE_STR%>">
 <input type="hidden" name=strId value="<%=obj0.getStrId()%>">
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
