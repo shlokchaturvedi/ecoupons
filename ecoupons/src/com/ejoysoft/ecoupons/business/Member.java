@@ -29,6 +29,8 @@ public class Member
 	String strCouponPrintTableName = "t_bz_coupon_Print";
 	String strCouponInputTableName = "t_bz_coupon_input";
 	String strGiftExchangeTableName = "t_bz_gift_exchange";
+	String strCouponCommentTableName = "t_bz_coupon_comment";
+	String strCouponFavouriteTableName = "t_bz_coupon_favourite";
 	private String strStartId;
 	private String strEndId;
 
@@ -76,23 +78,16 @@ public class Member
 		System.out.println(strCardNo + strName);
 		try
 		{
-			String strSql = "UPDATE  " + strTableName + "  SET strCardNo = ?, strSalesman = ?, strName = ?, intType = ?,  "
+			String strSql = "UPDATE  " + strTableName + "  SET strCardNo = ?, strName = ?, intType = ?,  "
 					+ "dtExpireTime = ?, strSalesman = ?  WHERE strId=? ";
 			db.prepareStatement(strSql);
 			db.setString(1, strCardNo);
-			db.setString(2, strSalesman);
-			db.setString(3, strName);
-			db.setInt(4, intType);
-			// db.setString(6, dtActiveTime);
-			// db.setFloat(7, flaBalance);
-			// db.setInt(8, intPoint);
-			db.setString(5, dtExpireTime);
-			db.setString(6, strSalesman);
-			// db.setString(11, strPwd);
-			// db.setInt(12, intAudit);
-			// db.setString(13,strCreator);
-			// db.setString(14, dtCreateTime);
-			db.setString(7, tStrId);
+//			db.setString(2, strSalesman);
+			db.setString(2, strName);
+			db.setInt(3, intType);
+			db.setString(4, dtExpireTime);
+			db.setString(5, strSalesman);
+			db.setString(6, tStrId);
 			db.executeUpdate();
 			Globa.logger0("修改会员信息", globa.loginName, globa.loginIp, strSql, "会员管理", globa.userSession.getStrDepart());
 			return true;
@@ -111,10 +106,13 @@ public class Member
 		try
 		{
 			String strSql = "DELETE FROM " + strTableName + "  ".concat(where);
-			String strSql2 = "DELETE FROM " + strRechargeTableName + " where strMemberCardNo=" + show(where).getStrCardNo();
-			String strSql3 = "DELETE FROM " + strCouponPrintTableName + " where strMemberCardNo=" + show(where).getStrCardNo();
-			String strSql4 = "DELETE FROM " + strCouponInputTableName + " where strMemberCardNo=" + show(where).getStrCardNo();
-			String strSql5 = "DELETE FROM " + strGiftExchangeTableName + " where strMemberCardNo=" + show(where).getStrCardNo();
+			String strCard=show(where).getStrCardNo();
+			String strSql2 = "DELETE FROM " + strRechargeTableName + " where strMemberCardNo=" + strCard;
+			String strSql3 = "DELETE FROM " + strCouponPrintTableName + " where strMemberCardNo=" + strCard;
+			String strSql4 = "DELETE FROM " + strCouponInputTableName + " where strMemberCardNo=" + strCard;
+			String strSql5 = "DELETE FROM " + strGiftExchangeTableName + " where strMemberCardNo=" + strCard;
+			String strSql6 = "DELETE FROM " + strCouponCommentTableName + " where strMemberCardNo=" + strCard;
+			String strSql7 = "DELETE FROM " + strCouponFavouriteTableName + " where strMemberCardNo=" + strCard;
 			db.setAutoCommit(false);
 			if (show(where).getStrCardNo() == null)
 			{
@@ -131,6 +129,8 @@ public class Member
 				db.executeUpdate(strSql3);
 				db.executeUpdate(strSql4);
 				db.executeUpdate(strSql5);
+				db.executeUpdate(strSql6);
+				db.executeUpdate(strSql7);
 				db.commit();
 				db.setAutoCommit(true);
 				Globa.logger0("删除会员信息", globa.loginName, globa.loginIp, strSql, "会员管理", globa.unitCode);
@@ -138,6 +138,8 @@ public class Member
 				Globa.logger0("删除优惠券打印记录，在删除会员时候。", globa.loginName, globa.loginIp, strSql3, "会员管理", globa.unitCode);
 				Globa.logger0("删除优惠券录入记录，在删除会员的时候", globa.loginName, globa.loginIp, strSql4, "会员管理", globa.unitCode);
 				Globa.logger0("删除礼品兑换记录，在删除会员的时候", globa.loginName, globa.loginIp, strSql5, "会员管理", globa.unitCode);
+				Globa.logger0("删除和会员卡号相关的优惠券评价记录", globa.loginName, globa.loginIp, strSql6, "会员管理", globa.unitCode);
+				Globa.logger0("删除和会员卡号相关的优惠券收藏记录", globa.loginName, globa.loginIp, strSql7, "会员管理", globa.unitCode);
 				return true;
 			}
 		} catch (Exception ee)
