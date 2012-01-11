@@ -23,6 +23,7 @@
             <affair name="基本信息" code="13005" url="terminal/terminal_list.jsp" state="1" />
             <affair name="模板信息" code="13010" url="terminal/terminal_template.jsp" state="1" />
             <affair name="广告管理" code="13015" url="terminal/ad_list.jsp" state="1" />
+            <affair name="参数维护" code="13015" url="terminal/para_list.jsp" state="1" />
         </module>
 		<module name="经营分析" code="140" flow="" state="1" url=""  >
             <affair name="商家统计分析" code="13005" url="analysis/shop_analyse.jsp" state="1" />
@@ -33,6 +34,8 @@
             <affair name="会员消费排行榜" code="13015" url="analysis/member_top.jsp" state="1" />
             <affair name="商家消费统计" code="13015" url="analysis/shop_biz.jsp" state="1" />
             <affair name="会员消费统计" code="13015" url="analysis/member_biz.jsp" state="1" />
+           <affair name="代理员业绩统计" code="13015" url="analysis/salesman_analyse.jsp" state="1" />
+       
         </module>
 	   <module name="个人设置" code="240" state="1" url=""  >
            <affair name="修改密码" code="24005" url="pwd.jsp" state="1" />
