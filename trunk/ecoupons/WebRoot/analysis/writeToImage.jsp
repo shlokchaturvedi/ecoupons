@@ -73,6 +73,8 @@ if(!globa.userSession.hasRight("130"))
 		if(maxnum1!=0)
 		   maxnum2 = (8.95*maxnum1)/(8.5*k/10);
 		else maxnum2 = maxnum*8.95/(8.5*k/10);
+		if(maxnum2 == 0)
+			maxnum2=1;
 	    BarChart objBarChart = new BarChart();
         graphURL =objBarChart.returnBarResult(request,"商家统计分析结果",shops, couponnum,resultdata,setime,"商家（名称-分部）",maxnum2);
 		
@@ -115,6 +117,8 @@ if(!globa.userSession.hasRight("130"))
 		if(maxnum1!=0)
 		   maxnum2 = (8.95*maxnum1)/(8.5*k/10);
 		else maxnum2 = maxnum*8.95/(8.5*k/10);
+		if(maxnum2 == 0)
+			maxnum2=1;
 	    BarChart objBarChart = new BarChart();
         graphURL =objBarChart.returnBarResult(request,"终端统计分析结果",terminals, couponnum,resultdata,setime,"终端（编号）",maxnum2);
 		
