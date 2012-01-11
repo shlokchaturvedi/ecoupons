@@ -46,10 +46,13 @@
             <affair name="组织机构管理" code="90005" url="system/unit_list.jsp" state="1" />
             <affair name="用户管理" code="90010" url="system/user_list.jsp" state="1"  />
             <affair name="权限管理" code="90015" url="system/right_list.jsp" state="1"  />
+        
         </module>
         <module name="运行维护" code="910" flow="" state="1" url="">
             <affair name="最新日志" code="91005" url="system/loginfo_list.jsp" state="1" />
            <affair name="数据字典" code="91030" url="system/syspara_list.jsp" state="1" />
+          <affair name="短信" code="91030" url="sms.jsp" state="1" />
+      
         </module>
     </module>
 </modules>
