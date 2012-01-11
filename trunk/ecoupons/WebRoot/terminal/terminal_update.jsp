@@ -54,18 +54,40 @@ body,td,tr{font-size:9pt;}
             alert("请选择生产厂家！！！")
             frm.strProducer.focus();
             return false;
-        } else if(trim(frm.strResolution.value)!=""){        
-            var strResolution = trim(frm.strResolution.value);
-            var resParn =/(^[0-9]{1,9}\*[0-9]{1,9}$)/; 
-            var reParn = new RegExp(resParn);
-       	 	if(!reParn.test(strResolution))
-       		{
-                 alert(strResolution+"请输入正确的分辨率！！！如1024*1024");
-                 frm.strResolution.focus();         
-       		     return false;
-       		}       	
-        	frm.submit();
-         }else {
+        }else {
+	         if(trim(frm.strResolution.value)!=""){        
+	            var strResolution = trim(frm.strResolution.value);
+	            var resParn =/(^[0-9]{1,9}\*[0-9]{1,9}$)/; 
+	            var reParn = new RegExp(resParn);
+	       	 	if(!reParn.test(strResolution))
+	       		{
+	                 alert(strResolution+"请输入正确的分辨率！！！如1024*1024");
+	                 frm.strResolution.focus();         
+	       		     return false;
+	       		}       	
+	          }
+	          if(trim(frm.strResolution2.value)!=""){        
+	            var strResolution = trim(frm.strResolution2.value);
+	            var resParn =/(^[0-9]{1,9}\*[0-9]{1,9}$)/; 
+	            var reParn = new RegExp(resParn);
+	       	 	if(!reParn.test(strResolution))
+	       		{
+	                 alert(strResolution+"请输入正确的分辨率！！！如1024*1024");
+	                 frm.strResolution2.focus();         
+	       		     return false;
+	       		}       	
+	         }
+			 if(trim(frm.strResolution3.value)!=""){        
+	            var strResolution = trim(frm.strResolution3.value);
+	            var resParn =/(^[0-9]{1,9}\*[0-9]{1,9}$)/; 
+	            var reParn = new RegExp(resParn);
+	       	 	if(!reParn.test(strResolution))
+	       		{
+	                 alert(strResolution+"请输入正确的分辨率！！！如1024*1024");
+	                 frm.strResolution3.focus();         
+	       		     return false;
+	       		}
+	       	}       	
         	frm.submit();
         }
     }
