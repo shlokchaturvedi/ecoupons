@@ -165,7 +165,7 @@ public class Shop {
             db.setString(6, strPerson);
             db.setString(7, strIntro);      //"strUnitCode
             db.setInt(8, intPoint);
-            db.setString(9,strId);
+            db.setString(9,tStrUserId);
             db.executeUpdate();
             Globa.logger0("更新商家信息", globa.loginName, globa.loginIp, strSql, "商家管理", globa.userSession.getStrDepart());
             return true;
