@@ -355,7 +355,7 @@ function chkFrm()
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getShopfullname()%> </span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getTotalprintnum()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getShoptrade()%></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getShopaddr()%></span></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getShopphone()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getIntpoint()%></span></div></td>
                 </tr>
             <%

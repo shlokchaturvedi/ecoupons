@@ -272,7 +272,7 @@ function showTime(str){
             <td >
 			<table border="0" cellpadding="0" cellspacing="0" width="100%">
 			<tr>
-			<td><div style="height:26"> 时间：
+			<td width="40%"><div style="height:26"> 时间：
 			<select id="timeid" name="byTime" onchange="showTime(this.value)" class="sec2" >
 			<option value="month">   月份</option>
 			<option value="season">  季度</option>
@@ -283,12 +283,12 @@ function showTime(str){
 				<span id="showtime"><input name="month" onclick="WdatePicker({dateFmt:'yyyy-MM'});" class="input_box" style="width:100"/>(年-月)</span>
 			</div>
 			</td>
-			<td align="left" width="400"><div style="height:26"> 
+			<td align="left" width="35%"><div style="height:26"> 
 			终端编号：<input name="strNo" class="input_box" value="" size="10">
 			         <input type="submit" class="button_box" value="统计" /> 
 			</div>
 			</td>  
-			<td align="right" height="28"><div style="height:26">(统计后查看)
+			<td width="25%" align="right" height="28"><div style="height:26">(统计后查看)
 					<input type="button" name="b_submit" value="图形显示" class="button" style="width:100"	onclick="window.open('writeToImage.jsp?tag=terminalanalyse&stime=<%=obj.getStime()%>&etime=<%=obj.getEtime()%>','','width=1000,height=600,top=50,left=100');"
 						style="cursor: hand" />	
 			</div>			
