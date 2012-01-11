@@ -168,7 +168,7 @@ function del(){
                 </div></td>
                 <td bgcolor="#FFFFFF"><div align="center" class="STYLE1"><%=log0.getStrOperator()%></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=log0.getStrOther()%></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><a href='sysLogShow.jsp?strId=<%=log0.getStrId()%>'><%=log0.getStrCode()%></span></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><a href='loginfo_show.jsp?strId=<%=log0.getStrId()%>'><%=log0.getStrCode()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=Format.getFormatDate(log0.getdOccurDate(),"yyyy-mm-dd hh:mm:ss")%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE4"><%=log0.getStrOperatorIp()%></span> </div>
                 </td>

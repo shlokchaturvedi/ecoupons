@@ -1,5 +1,5 @@
-<%@ page import="com.odbpc.exception.IdObjectException,
-                 com.odbpc.system.SysLog"%>
+<%@ page import="com.ejoysoft.common.exception.IdObjectException,
+                 com.ejoysoft.ecoupons.system.SysLog,com.ejoysoft.common.Format"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ include file="../include/jsp/head.jsp"%>
 <%
@@ -21,14 +21,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
 <title><%=globa.APP_TITLE%></title>
-<link rel="stylesheet" rev="stylesheet" href="../css/style.css" type="text/css" media="all" />
-<link rel="stylesheet" href="../css/css1.css">
 <style type="text/css">
 <!--
-.atten {font-size:12px;font-weight:normal;color:#F00;}
-.style1 {font-size: 12px}
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	background-color: #F8F9FA;
+}
+body,td,th {
+	font-size: 9pt;
+	color: #111111;
+}
 -->
 </style>
+<link href="../images/skin.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body class="ContentBody">
