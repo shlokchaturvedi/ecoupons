@@ -68,7 +68,6 @@
 	    obj.setStrSmallImg(strSmallImg);
 	    obj.setStrLargeImg(strLargeImg);
 		obj.setIntPoint(Integer.parseInt(au.getString("intPoint")));
-		System.out.println(Integer.parseInt(au.getString("intPoint")));
 		obj.setStrCreator(globa.fullRealName);
 	    if(action.equals(Constants.ADD_STR)) {
 		    String strbizname=au.getString("strBizName");
@@ -81,7 +80,7 @@
 	        }	   
 		}
 		else if(action.equals(Constants.UPDATE_STR)) {
-		    String strId=au.getString("strId");            
+		        String strId=au.getString("strId");            
 	        	globa.dispatch(obj.update(strId),strUrl);
 	        }	
    }   
