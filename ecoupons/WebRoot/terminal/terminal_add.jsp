@@ -156,7 +156,6 @@ function openwin() {
                 <td width="3%" height="30">&nbsp;</td>
                 <td width="32%" height="30">
 					<select name="strType" class="forms_color1" style= "width:213px">
-                    <option value="">所有</option>
 				  <%
                         //初始化
     					//SysPara  para=null;
