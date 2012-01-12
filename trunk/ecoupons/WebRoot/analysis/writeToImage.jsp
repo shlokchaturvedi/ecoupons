@@ -53,13 +53,13 @@ if(!globa.userSession.hasRight("130"))
 			obj0 = vector.get(i);
 			resultdata[0][i] = obj0.getShopCouponNum()*1.0;
 			if(maxnum<resultdata[0][i])
-			 	maxnum = (resultdata[0][i]+0);
+			 	maxnum = (resultdata[0][i]);
 		    resultdata[1][i]= obj0.getShopPrintNum()*1.0;
 			if(maxnum1 < resultdata[1][i])
 			 	maxnum1 = resultdata[1][i];
 			shops[i] = obj0.getShopName();
 		}
-		double k=1;
+		double k=10;
 		for(int j=0;j<10;j++)
 		{
 			if(maxnum1 < k)
@@ -69,10 +69,13 @@ if(!globa.userSession.hasRight("130"))
 		for(int i=0;i<vector.size();i++)
 		{
 			resultdata[0][i] *= k/10;
+			if(resultdata[0][i]/2 > maxnum1)
+			{				
+			   resultdata[0][i] /= 10;
+			   k /=10;
+			}
 		}
-		if(maxnum1!=0)
-		   maxnum2 = (8.95*maxnum1)/(8.5*k/10);
-		else maxnum2 = maxnum*8.95/(8.5*k/10);
+		maxnum2 = maxnum1*8.95/(8.5*k/10);
 		if(maxnum2 == 0)
 			maxnum2=1;
 	    BarChart objBarChart = new BarChart();
@@ -103,7 +106,7 @@ if(!globa.userSession.hasRight("130"))
 			 	maxnum1 = resultdata[1][i];		
 			terminals[i] = obj0.getTerminalNo();
 		}
-		double k=1;
+		double k=10;
 		for(int j=0;j<10;j++)
 		{
 			if(maxnum1 < k)
@@ -113,10 +116,13 @@ if(!globa.userSession.hasRight("130"))
 		for(int i=0;i<vector.size();i++)
 		{
 			resultdata[0][i] *= k/10;
+			if(resultdata[0][i] > maxnum1)
+			{				
+			   resultdata[0][i] /= 10;
+			   k /=10;
+			}
 		}
-		if(maxnum1!=0)
-		   maxnum2 = (8.95*maxnum1)/(8.5*k/10);
-		else maxnum2 = maxnum*8.95/(8.5*k/10);
+		maxnum2 = maxnum1*8.95/(8.5*k/10);
 		if(maxnum2 == 0)
 			maxnum2=1;
 	    BarChart objBarChart = new BarChart();
