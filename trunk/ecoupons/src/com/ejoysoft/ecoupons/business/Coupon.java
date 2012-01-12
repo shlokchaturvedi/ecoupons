@@ -27,6 +27,7 @@ public class Coupon
 	private String strCreator;
 	private String dtCreateTime;
 	private String strTerminals;// 投放终端编码
+	private String strDownLoadAlertTable="t_bz_download_alert";
 
 	/*
 	 * 修改优惠券信息
@@ -37,6 +38,8 @@ public class Coupon
 		try
 		{
 			String strSql = "UPDATE  " + strTableName + "  SET dtActiveTime = ?, ";
+			String strSql2 = "UPDATE  " + strDownLoadAlertTable + "  SET strdataopetype='update',intstate=0 where strdataid=" + tStrId;
+			db.setAutoCommit(false);
 			if (this.strSmallImg != null && this.strSmallImg.length() > 0)
 			{
 				strSql += "strsmallimg = '" + strSmallImg + "',";
@@ -51,6 +54,7 @@ public class Coupon
 			}
 			strSql += " strName = ?, strShopId = ?,strTerminalIds=?,  " + "dtExpireTime = ?,intVip=?,intRecommend=?,flaPrice=?,intPrintLimit=?"
 					+ "  WHERE strId=? ";
+
 			db.prepareStatement(strSql);
 			db.setString(1, dtActiveTime);
 			db.setString(2, strName);
@@ -62,12 +66,22 @@ public class Coupon
 			db.setFloat(8, flaPrice);
 			db.setInt(9, intPrintLimit);
 			db.setString(10, strId);
-			db.executeUpdate();
-			Globa.logger0("修改优惠券信息", globa.loginName, globa.loginIp, strSql, "优惠券管理", globa.userSession.getStrDepart());
-			return true;
+			if (db.executeUpdate() > 0 && db.executeUpdate(strSql2) > 0)
+			{
+				db.commit();
+				db.setAutoCommit(true);
+				Globa.logger0("修改优惠券信息", globa.loginName, globa.loginIp, strSql, "优惠券管理", globa.userSession.getStrDepart());
+				return true;
+			} else
+			{
+				db.rollback();
+				return false;
+
+			}
 		} catch (Exception e)
 		{
 			System.out.println("修改优惠券信息：" + e);
+			db.rollback();
 			return false;
 		}
 	}
@@ -79,14 +93,25 @@ public class Coupon
 	{
 		String strUserName = globa.userSession.getStrId();
 		String strId = UID.getID();
-
+		String[] strDownSql = null;
 		String sql = "insert into " + strTableName + " (strId,strName,strSmallImg,dtActiveTime,dtExpireTime,strShopId,strTerminalIds"
 				+ ",intVip,intRecommend,flaPrice,intPrintLimit,strPrintImg,strLargeImg,strCreator,dtCreateTime) "
 				+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
-		System.out.println(sql);
-		System.out.println(com.ejoysoft.common.Format.getDate());
+		if (strTerminals != null && strTerminals != "")
+		{
+			String[] strTerminalId = getTerminalIdsByNames(strTerminals).split(",");
+			strDownSql = new String[strTerminalId.length];
+			for (int i = 0; i < strTerminalId.length; i++)
+			{
+				strDownSql[i] = "insert into " + strDownLoadAlertTable + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) "
+						+ "values (" + UID.getID() + ",'" + strTerminalId[i] + "','" + strTableName + "','" + strId + "','add',0);";
+
+			}
+		}
+
 		try
 		{
+			db.setAutoCommit(false);
 			db.prepareStatement(sql);
 			db.setString(1, strId);
 			db.setString(2, strName);
@@ -96,6 +121,7 @@ public class Coupon
 			db.setString(6, strShopId);
 			System.out.println(strTerminals);
 			db.setString(7, getTerminalIdsByNames(strTerminals));
+			System.out.println(getTerminalIdsByNames(strTerminals));
 			db.setInt(8, intVip);
 			db.setInt(9, intRecommend);
 			db.setFloat(10, flaPrice);
@@ -106,16 +132,29 @@ public class Coupon
 			db.setString(15, com.ejoysoft.common.Format.getDateTime());
 			if (db.executeUpdate() > 0)
 			{
+				for (int i = 0; i < strDownSql.length; i++)
+				{
+					if (db.executeUpdate(strDownSql[i]) <= 0)
+					{
+						return false;
+					}
+					Globa.logger0("增加优惠券信息时，增加下载提醒表中信息", globa.loginName, globa.loginIp, strDownSql[i], "优惠券管理", globa.unitCode);
+				}
+				db.commit();
+				db.setAutoCommit(false);
 				Globa.logger0("增加优惠券信息", globa.loginName, globa.loginIp, sql, "优惠券管理", globa.unitCode);
 				return true;
 			} else
 			{
+				db.rollback();
 				return false;
+
 			}
 		} catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			db.rollback();
 			return false;
 		}
 
@@ -128,13 +167,21 @@ public class Coupon
 	{
 		try
 		{
-			String sql = "DELETE FROM " + strTableName + "  ".concat(where);
+			db.setAutoCommit(false);
+			String sql = "DELETE FROM " + strTableName + "  where strId =" + where;
+			String strSql = "UPDATE  " + strDownLoadAlertTable + "  SET strdataopetype='delete',intstate=0 where strdataid=" + where;
+
 			db.executeUpdate(sql);
+			db.executeUpdate(strSql);
+			db.commit();
+			db.setAutoCommit(true);
 			Globa.logger0("删除优惠券信息", globa.loginName, globa.loginIp, sql, "优惠券管理", globa.unitCode);
+			Globa.logger0("删除优惠券信息时，删除下载提醒表中的优惠券信息", globa.loginName, globa.loginIp, strSql, "优惠券管理", globa.unitCode);
 			return true;
 		} catch (Exception ee)
 		{
 			ee.printStackTrace();
+			db.rollback();
 			return false;
 		}
 	}
