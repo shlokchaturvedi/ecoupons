@@ -30,7 +30,7 @@
         		}
     		}
     		
-	    	obj.deleteAd(" where strId ='"+aryStrId[i]+"'");
+	    	obj.deleteAd(" where strId ='"+aryStrId[i]+"'",aryStrId[i]);
     	}
     	globa.dispatch(true, strUrl);
 	} 
