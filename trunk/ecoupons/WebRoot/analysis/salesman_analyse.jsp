@@ -142,19 +142,7 @@ if(!globa.userSession.hasRight("13015"))
 	String  strName=ParamUtil.getString(request,"strName","");
 	String tWhere=" where 1=1";
 	if (!strName.equals("")) {	
-	    String strbizname="",strshopname="";
-		String name[]= strName.trim().split("-");
-    	if(name.length==1)
-    	{
-    		strbizname = name[0];
-    		tWhere += " and strbizname like '%" + strbizname + "%'";
-    	}
-    	else if(name.length==2){
-    		strbizname = name[0];
-    		strshopname = name[1];
-		    tWhere += " and strbizname like '%" + strbizname + "%' and strshopname like '%" + strshopname + "%'";
-    	}
-    	  	
+    		tWhere += " and strsalesman like '%" + strName + "%'";
 	}
 	tWhere += " order by strid";
 	//获取到所有记录集
