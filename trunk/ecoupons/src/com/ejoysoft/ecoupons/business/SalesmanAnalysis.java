@@ -148,11 +148,7 @@ public class SalesmanAnalysis
 			if(re!=null)
 			{
 				while(re.next()){
-//					String salesman = re.getString("strsalesman");
-//					int membernum = this.getMemberNumBySalesman(salesman, this.stime, this.etime);
-//					int account = this.getTotalAccountBySalesman(salesman,this.stime,this.etime);
-//					int printnum = this.getPrintNumBySalesman(salesman,this.stime,this.etime);
-					vector.addElement(this.loadSalesman(re, true));
+				vector.addElement(this.loadSalesman(re, true));
 				}
 			}
 		} catch (SQLException e) {

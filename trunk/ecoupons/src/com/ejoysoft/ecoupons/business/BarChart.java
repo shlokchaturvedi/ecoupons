@@ -58,7 +58,7 @@ public class BarChart extends javax.servlet.http.HttpServlet {
 		plot.setRangeGridlinePaint(Color.gray);
 		plot.setRangeGridlineStroke(new BasicStroke(1.0F));
 		plot.setForegroundAlpha(1.0f);
-		chart.getLegend().setItemFont(new Font("宋体", Font.CENTER_BASELINE, 10));
+		chart.getLegend().setItemFont(new Font("宋体", Font.CENTER_BASELINE, 12));
 		CategoryAxis domainAxis = plot.getDomainAxis();
 		NumberAxis numberAxis = (NumberAxis)plot.getRangeAxis();
 		domainAxis.setTickLabelFont(new Font("楷体", Font.CENTER_BASELINE, 11));

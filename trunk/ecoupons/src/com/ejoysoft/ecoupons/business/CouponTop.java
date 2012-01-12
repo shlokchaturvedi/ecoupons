@@ -75,9 +75,11 @@ public class CouponTop {
 			thebean.setCouponName(re.getString("strname"));
 			thebean.setShopname(obj.returnBizShopName(" where strid='"+re.getString("strshopid")+"'"));
 			thebean.setPerCouponPrintNum(this.getPerNumofPrintByCoupon(re.getString("strid")));
-			thebean.setAvtiveTime(re.getString("dtactivetime"));
-			thebean.setExpireTime(re.getString("dtexpiretime"));
-			thebean.setCouponTime(re.getString("dtactivetime")+"—"+re.getString("dtexpiretime"));
+			if(re.getString("dtactivetime").length()>4)
+				thebean.setAvtiveTime(re.getString("dtactivetime").substring(0,re.getString("dtactivetime").length()-2));
+			if(re.getString("dtexpiretime").length()>4)
+			    thebean.setExpireTime(re.getString("dtexpiretime").substring(0,re.getString("dtexpiretime").length()-2));
+			thebean.setCouponTime(thebean.getAvtiveTime()+"—"+thebean.getExpireTime());
 			thebean.setCouponPrice(re.getFloat("flaprice"));
     	} catch (SQLException e) {
 			// TODO Auto-generated catch block
