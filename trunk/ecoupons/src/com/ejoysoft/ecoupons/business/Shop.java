@@ -2,9 +2,6 @@ package com.ejoysoft.ecoupons.business;
 
 import com.ejoysoft.common.*;
 import com.ejoysoft.ecoupons.system.SysPara;
-import com.ejoysoft.ecoupons.system.Unit;
-
-//import javax.servlet.ServletContext;
 import java.util.Vector;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -41,20 +38,30 @@ public class Shop {
     String strTableName4 = "t_bz_point_buy";
     String strTableName5 = "t_bz_point_present";
     String strTableName6 = "t_sy_user";
+    String strTableName7 = "t_bz_download_alert";
 
     //添加商家信息
     public boolean add() {
         String strSql = "";
-        strId = UID.getID();
+        strId = UID.getID();  //添加商家信息
+        strSql = "insert into " + strTableName + "  (strid, strbizname, strshopname, strtrade, straddr, strphone, " +
+		"strperson, strintro, strsmallimg,strlargeimg,intpoint, strcreator, dtcreatetime" +
+        ") values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
-        	System.out.println("insert into " + strTableName + "  (strid, strbizbame, strshopname, strtrade, straddr, strphone, " +
-            		"strperson, strintro, strsmallimg,strlargeimg,intpoint, strcreator, dtcreatetime" +
-                    " values("+strId+","+strBizName+","+strShopName+","+strTrade+","+strAddr+","+strPhone+","+
-                    strPerson+","+strIntro+","+strSmallImg+","+strLargeImg+","+intPoint+","+strCreator+","+ com.ejoysoft.common.Format.getDateTime()+")");
-            //添加商家信息
-            strSql = "insert into " + strTableName + "  (strid, strbizname, strshopname, strtrade, straddr, strphone, " +
-            		"strperson, strintro, strsmallimg,strlargeimg,intpoint, strcreator, dtcreatetime" +
-                    ") values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+        	db.getConnection().setAutoCommit(false);//禁止自动提交事务        
+            Terminal obj = new Terminal(globa);
+            String[] strTerminalId = obj.getAllTerminalNos();
+            if(strTerminalId!=null)
+            {
+            	  for(int i=0;i<strTerminalId.length;i++)
+            	  {
+            		  String[] strid = strTerminalId[i].split("-");
+            		  String strsql2 ="insert into " + strTableName7 + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) "
+            		  + "values (" + UID.getID() + ",'" + strid[0]+ "','" + strTableName + "','" + strId + "','add',0)";
+            		  db.executeUpdate(strsql2);
+            	  }                
+            }
             db.prepareStatement(strSql);
             db.setString(1, strId);
             db.setString(2, strBizName);
@@ -69,7 +76,9 @@ public class Shop {
             db.setInt(11, intPoint);
             db.setString(12, strCreator);
             db.setString(13, com.ejoysoft.common.Format.getDateTime());
-            if (db.executeUpdate() > 0) {
+            if (db.executeUpdate() > 0) {                
+            	db.getConnection().commit(); //统一提交
+			    db.setAutoCommit(true);
                 Globa.logger0("添加商家信息", globa.loginName, globa.loginIp, strSql, "商家管理", globa.userSession.getStrDepart());
                 return true;
             } else
@@ -88,18 +97,22 @@ public class Shop {
     	String sql4 = "delete from " + strTableName4 + "  ".concat(where2);
     	String sql5 = "delete from " + strTableName5 + "  ".concat(where2);
     	String sql6 = "delete from " + strTableName6 + "  ".concat(where2);
+    	String sql7 = "update  " + strTableName7 + "  set strdataopetype='delete',intstate=0 where strdataid=" + strid;
+
     	//事务处理
     	try {
-        	db.getConnection().setAutoCommit(false);//禁止自动提交事务        
-        	db.getConnection().setSavepoint();
+        	db.getConnection().setAutoCommit(false);//禁止自动提交事务
+        	
             db.executeUpdate(sql1);//删除商家
             db.executeUpdate(sql2);//删除商家的优惠券
             db.executeUpdate(sql3);//删除商家录入有价券记录
             db.executeUpdate(sql4);//删除商家购买积分记录
             db.executeUpdate(sql5);//删除商家转赠积分记录
             db.executeUpdate(sql6);//删除用户表中商家信息
+            db.executeUpdate(sql7);//删除用户表时更新下载提醒表
             deleteShopIdFromIds(strid);//删除终端表中对应商家id
             db.getConnection().commit(); //统一提交
+			db.setAutoCommit(true);
             Globa.logger0("删除商家信息", globa.loginName, globa.loginIp, sql1, "商家管理", globa.unitCode);
             return true;
         } catch (Exception ee) {
@@ -145,9 +158,10 @@ public class Shop {
     }
 
     //商家更新信息
-    public boolean update(String tStrUserId) {
+    public boolean update(String strId2) {
         try {
-            String strSql = "update " + strTableName + "  set strbizname=?, strshopname=?, strtrade=?, straddr=?, strphone=?, " +
+        	String strSql2 = "update  " + strTableName7 + " set strdataopetype='update',intstate=0 where strdataid=" + strId2;
+		    String strSql = "update " + strTableName + "  set strbizname=?, strshopname=?, strtrade=?, straddr=?, strphone=?, " +
             		"strperson=?, strintro=?, " ;
             if (this.strSmallImg!=null&&this.strSmallImg.length() > 0) {
             	strSql += "strsmallimg = '" + strSmallImg + "',";
@@ -156,6 +170,8 @@ public class Shop {
             	strSql += "strlargeimg = '" + strLargeImg + "',";
             }
             strSql += " intpoint=? where strid=? ";
+            db.setAutoCommit(false);
+    		db.executeUpdate(strSql2);
             db.prepareStatement(strSql);
             db.setString(1, strBizName);
             db.setString(2, strShopName);
@@ -165,8 +181,10 @@ public class Shop {
             db.setString(6, strPerson);
             db.setString(7, strIntro);      //"strUnitCode
             db.setInt(8, intPoint);
-            db.setString(9,tStrUserId);
+            db.setString(9,strId2);
             db.executeUpdate();
+			db.commit();
+			db.setAutoCommit(true);
             Globa.logger0("更新商家信息", globa.loginName, globa.loginIp, strSql, "商家管理", globa.userSession.getStrDepart());
             return true;
         } catch (Exception e) {
@@ -376,7 +394,8 @@ public class Shop {
         }
     }
     //取出所有的shop对象
-    public Vector allShop(String where) {
+    @SuppressWarnings("unchecked")
+	public Vector allShop(String where) {
     	Vector<Shop>  beans = new Vector<Shop>();
         try {
         	
