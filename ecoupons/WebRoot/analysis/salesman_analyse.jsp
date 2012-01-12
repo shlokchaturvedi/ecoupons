@@ -286,7 +286,7 @@ function showTime(str){
             <td >
 			<table border="0" cellpadding="0" cellspacing="0" width="100%">
 			<tr>
-			<td align="left" width="400"><div style="height:26"> 时间：
+			<td align="left"s><div style="height:26"> 时间：
 			<select id="timeid" name="byTime" onchange="showTime(this.value)" class="sec2" >
 			<option value="month">   月     份</option>
 			<option value="season">  季     度</option>
@@ -324,7 +324,7 @@ function showTime(str){
 		                	
                 %> 
               <tr  title="代理员：<%=obj1.getStrSalesman()%>" >
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">第&nbsp;&nbsp;<%=i+1 %>&nbsp;&nbsp;名</span></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">&nbsp;&nbsp;<%=i+1 %>&nbsp;&nbsp;</span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrSalesman()%> </span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getMembernum()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getAccount()%></span></div></td>

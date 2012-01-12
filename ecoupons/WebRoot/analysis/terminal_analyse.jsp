@@ -289,7 +289,7 @@ function showTime(str){
 			</div>
 			</td>  
 			<td width="25%" align="right" height="28"><div style="height:26">(统计后查看)
-					<input type="button" name="b_submit" value="图形显示" class="button" style="width:100"	onclick="window.open('writeToImage.jsp?tag=terminalanalyse&stime=<%=obj.getStime()%>&etime=<%=obj.getEtime()%>','','width=1000,height=600,top=50,left=100');"
+					<input type="button" name="b_submit" value="图形显示" class="button" style="width:100"	onclick="window.open('writeToImage.jsp?tag=terminalanalyse&stime=<%=obj.getStime()%>&etime=<%=obj.getEtime()%>','','width=1000,height=650,top=50,left=100');"
 						style="cursor: hand" />	
 			</div>			
 			</td>		 
