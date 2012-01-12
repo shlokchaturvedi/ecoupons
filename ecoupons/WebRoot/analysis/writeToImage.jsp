@@ -8,6 +8,7 @@
 				 com.ejoysoft.ecoupons.business.TerminalAnalysis,
 				 com.ejoysoft.ecoupons.business.BarChart ,
 				 com.ejoysoft.ecoupons.business.PieChart "%>
+<%@page import="java.math.BigDecimal"%>
 <%@ include file="../include/jsp/head.jsp"%>
 <%
 
@@ -53,31 +54,53 @@ if(!globa.userSession.hasRight("130"))
 			obj0 = vector.get(i);
 			resultdata[0][i] = obj0.getShopCouponNum()*1.0;
 			if(maxnum<resultdata[0][i])
-			 	maxnum = (resultdata[0][i]);
+			 	maxnum = resultdata[0][i];
 		    resultdata[1][i]= obj0.getShopPrintNum()*1.0;
 			if(maxnum1 < resultdata[1][i])
 			 	maxnum1 = resultdata[1][i];
 			shops[i] = obj0.getShopName();
 		}
-		double k=10;
-		for(int j=0;j<10;j++)
-		{
-			if(maxnum1 < k)
-				break;
-			k*=10;
-		}
-		for(int i=0;i<vector.size();i++)
-		{
-			resultdata[0][i] *= k/10;
-			if(resultdata[0][i]/2 > maxnum1)
-			{				
-			   resultdata[0][i] /= 10;
-			   k /=10;
+		if(maxnum > maxnum1)
+			maxnum2 = maxnum*8.95/8.5;
+		else{
+			double k=1,k1=1;
+			for(int j=0;j<10;j++)
+			{
+				if(maxnum < k)
+					break;
+				k*=10;
 			}
-		}
-		maxnum2 = maxnum1*8.95/(8.5*k/10);
-		if(maxnum2 == 0)
-			maxnum2=1;
+			for(int j=0;j<10;j++)
+			{
+				if(maxnum1 < k1)
+					break;
+				k1*=10;
+			}
+			double max = maxnum/k;
+			double max1 = maxnum1/k1;
+			if(k == k1)
+				maxnum2 = maxnum1*8.95/8.5;
+			else{
+				double k2 = k1/k;
+				if(max < max1)
+				{
+					maxnum2 = maxnum1*8.95/8.5/k2;
+					for(int i=0;i<vector.size();i++)
+					{			
+					   resultdata[0][i] *= k2;
+					}
+				}
+				else{
+				    double maxx = max/max1;
+				    maxx = Math.floor(maxx)+1;
+				  	maxnum2 = maxnum1*8.95/8.5/k2*maxx;
+					for(int i=0;i<vector.size();i++)
+					{			
+					   resultdata[0][i] *= k2/maxx;
+					}
+				}
+			}
+		}		
 	    BarChart objBarChart = new BarChart();
         graphURL =objBarChart.returnBarResult(request,"商家统计分析结果",shops, couponnum,resultdata,setime,"商家（名称-分部）",maxnum2);
 		
@@ -106,25 +129,47 @@ if(!globa.userSession.hasRight("130"))
 			 	maxnum1 = resultdata[1][i];		
 			terminals[i] = obj0.getTerminalNo();
 		}
-		double k=10;
-		for(int j=0;j<10;j++)
-		{
-			if(maxnum1 < k)
-				break;
-			k*=10;
-		}
-		for(int i=0;i<vector.size();i++)
-		{
-			resultdata[0][i] *= k/10;
-			if(resultdata[0][i] > maxnum1)
-			{				
-			   resultdata[0][i] /= 10;
-			   k /=10;
+		if(maxnum > maxnum1)
+			maxnum2 = maxnum*8.95/8.5;
+		else{
+			double k=1,k1=1;
+			for(int j=0;j<10;j++)
+			{
+				if(maxnum < k)
+					break;
+				k*=10;
 			}
-		}
-		maxnum2 = maxnum1*8.95/(8.5*k/10);
-		if(maxnum2 == 0)
-			maxnum2=1;
+			for(int j=0;j<10;j++)
+			{
+				if(maxnum1 < k1) 
+					break;
+				k1*=10;
+			}
+			double max = maxnum/k;
+			double max1 = maxnum1/k1;
+			if(k == k1)
+				maxnum2 = maxnum1*8.95/8.5;
+			else{
+				double k2 = k1/k;
+				if(max < max1)
+				{
+					maxnum2 = maxnum1*8.95/8.5/k2;
+					for(int i=0;i<vector.size();i++)
+					{			
+					   resultdata[0][i] *= k2;
+					}
+				}
+				else{
+				    double maxx = max/max1;
+				    maxx = Math.floor(maxx)+1;
+				  	maxnum2 = maxnum1*8.95/8.5/k2*maxx;
+					for(int i=0;i<vector.size();i++)
+					{			
+					   resultdata[0][i] *= k2/maxx;
+					}
+				}
+			}
+		}		
 	    BarChart objBarChart = new BarChart();
         graphURL =objBarChart.returnBarResult(request,"终端统计分析结果",terminals, couponnum,resultdata,setime,"终端（编号）",maxnum2);
 		
