@@ -37,6 +37,7 @@ public class Terminal {
 
     String strTableName = "t_bz_terminal";
     String strTableName2 = "t_bz_advertisement";
+    String strTableName3 = "t_bz_download_alert";
 
     //添加券打机信息
     public boolean add() {
@@ -286,9 +287,8 @@ public class Terminal {
 			e.printStackTrace();
 		}
     	return allnos;
-    }
-   
-    //自我更新
+    } 
+       //自我更新
     public boolean selfUpdate(String tStrUserId) {
         try {
 
@@ -344,9 +344,20 @@ public class Terminal {
         String strSql = "";
         try {
         	
-        	   //添加券打机信息
-            strSql = "insert into " + strTableName2 + "  (strid, strname,inttype, strcontent,strterminalids,dtstarttime,dtendtime, " +
-            		"strcreator, dtcreatetime) values(?,?,?,?,?,?,?,?,?)";
+        	strSql = "insert into " + strTableName2 + "  (strid, strname,inttype, strcontent,strterminalids,dtstarttime,dtendtime, " +
+            		"strcreator, dtcreatetime) values(?,?,?,?,?,?,?,?,?)";            
+            db.getConnection().setAutoCommit(false);//禁止自动提交事务        
+            String strTerminalId = this.getTerminalIdsByNames(strTerminals);
+            if(strTerminalId!=null)
+            {
+      		     String[] strid = strTerminalId.split(",");
+                 for(int i=0;i<strid.length;i++)
+            	  {
+            		 String strsql2="insert into " + strTableName3 + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) "
+            		  + "values (" + UID.getID() + ",'" + strid[i]+ "','" + strTableName2 + "','" + strId + "','add',0)";
+            		  db.executeUpdate(strsql2);
+            	  }                
+            }
             db.prepareStatement(strSql);
             db.setString(1, strId);
             db.setString(2, strName); 
@@ -358,6 +369,8 @@ public class Terminal {
             db.setString(8, strCreator);
             db.setString(9, com.ejoysoft.common.Format.getDateTime());
             if (db.executeUpdate() > 0) {
+            	db.getConnection().commit(); //统一提交
+			    db.setAutoCommit(true);
                 Globa.logger0("添加广告信息", globa.loginName, globa.loginIp, strSql, "终端管理", globa.userSession.getStrDepart());
                 return true;
             } else
@@ -375,7 +388,10 @@ public class Terminal {
          	if(this.strContent!=null&&this.strContent.trim().length()>0)
          		strSql += " strcontent='"+this.strContent+"', ";
          	strSql += "strterminalids=?,dtstarttime=?,dtendtime=? where strid=? ";
-         	System.err.println(strSql+":dddddddddddddddddddddd");
+        	String sql3 = "update  " + strTableName3 + "  set strdataopetype='update',intstate=0 where strdataid=" + strId;
+        	System.err.println(sql3);
+        	db.setAutoCommit(false);
+		    db.executeUpdate(sql3);
             db.prepareStatement(strSql);
             db.setString(1, strName); 
             db.setString(2, intType);  
@@ -384,6 +400,8 @@ public class Terminal {
             db.setString(5, dtEndTime);
             db.setString(6, strId);
             db.executeUpdate();
+        	db.getConnection().commit(); //统一提交
+		    db.setAutoCommit(true);
             Globa.logger0("更新广告信息", globa.loginName, globa.loginIp, strSql, "终端管理", globa.userSession.getStrDepart());
             return true;
         } catch (Exception e) {
@@ -414,12 +432,14 @@ public class Terminal {
     }
 
   //删除广告信息
-    public boolean deleteAd(String where) {
-    	String sql = "delete from " + strTableName2 + "  ".concat(where);
+    public boolean deleteAd(String where,String strId) {
+    	String sql = "delete from " + strTableName2 + "  ".concat(where);	
+    	String sql3 = "update  " + strTableName3+ "  set strdataopetype='delete',intstate=0 where strdataid=" + strId;
+
        //事务处理
-    	try {
+    	try {    	
         	db.getConnection().setAutoCommit(false);//禁止自动提交事务 
-        	db.getConnection().setSavepoint();
+        	db.executeUpdate(sql3);
         	db.executeUpdate(sql);//删除终端
             db.getConnection().commit(); //统一提交
             Globa.logger0("删除广告信息", globa.loginName, globa.loginIp, sql, "终端管理", globa.unitCode);
