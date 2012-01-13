@@ -68,7 +68,7 @@
 	    obj.setStrSmallImg(strSmallImg);
 	    obj.setStrLargeImg(strLargeImg);
 		obj.setIntPoint(Integer.parseInt(au.getString("intPoint")));
-		obj.setStrCreator(globa.fullRealName);
+		obj.setStrCreator(globa.loginName);
 	    if(action.equals(Constants.ADD_STR)) {
 		    String strbizname=au.getString("strBizName");
 		    String strshopname=au.getString("strShopName");
