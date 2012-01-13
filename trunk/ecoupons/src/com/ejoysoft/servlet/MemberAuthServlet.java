@@ -28,8 +28,6 @@ public class MemberAuthServlet extends HttpServlet implements Servlet
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
 	{
 		// TODO Auto-generated method stub
-		super.doGet(req, resp);
-		this.log("执行memberauthservlet...");
 		this.execute(req, resp);
 	}
 
@@ -37,8 +35,6 @@ public class MemberAuthServlet extends HttpServlet implements Servlet
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
 	{
 		// TODO Auto-generated method stub
-		super.doPost(req, resp);
-		this.log("执行memberauthservlet...");
 		this.execute(req, resp);
 	}
 
@@ -94,7 +90,7 @@ public class MemberAuthServlet extends HttpServlet implements Servlet
 		try
 		{
 			resp.getWriter().print(sbReturn.toString());
-//			System.out.println(sbReturn.toString());
+			System.out.println(sbReturn.toString());
 		} catch (IOException e)
 		{
 			// TODO Auto-generated catch block
