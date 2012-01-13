@@ -28,6 +28,14 @@
 		<url-pattern>/Auth</url-pattern>
 	</servlet-mapping>
 	<servlet>
+		<servlet-name>MemberAuth</servlet-name>
+		<servlet-class>com.ejoysoft.servlet.MemberAuthServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MemberAuth</servlet-name>
+		<url-pattern>/servlet/MemberAuth</url-pattern>
+	</servlet-mapping>
+	<servlet>
           <servlet-name>DisplayChart</servlet-name>
           <servlet-class>org.jfree.chart.servlet.DisplayChart</servlet-class>
 </servlet>
