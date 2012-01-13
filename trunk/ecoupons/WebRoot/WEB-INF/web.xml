@@ -52,7 +52,7 @@
 		</init-param>
 		<init-param>
 			<param-name>nocheck_page</param-name>
-			<param-value>login.jsp</param-value>
+			<param-value>/servlet/</param-value>
 		</init-param>
 		<init-param>
 			<param-name>uncheck</param-name>
