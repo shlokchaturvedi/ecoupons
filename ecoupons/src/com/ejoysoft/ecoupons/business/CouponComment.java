@@ -7,23 +7,23 @@ import java.util.Vector;
 import com.ejoysoft.common.DbConnect;
 import com.ejoysoft.common.Globa;
 
-public class CouponFavourite
+public class CouponComment
 {
 	private Globa globa;
 	private DbConnect db;
-	String strTableName = "t_bz_coupon_favourite";
-	public CouponFavourite()
+	String strTableName = "t_bz_coupon_comment";
+	public CouponComment()
 	{
 		// TODO Auto-generated constructor stub
 	}
 
-	public CouponFavourite(Globa globa)
+	public CouponComment(Globa globa)
 	{
 		this.globa = globa;
 		db = globa.db;
 	}
 
-	public CouponFavourite(Globa globa, boolean b)
+	public CouponComment(Globa globa, boolean b)
 	{
 		this.globa = globa;
 		db = globa.db;
@@ -32,20 +32,15 @@ public class CouponFavourite
 	}
 	private String strId;
 	private String strMemberCardNo;
-	private String strCouponId;
-	private String dtFavouriteTime;
+	private String StrCouponId;
+	private String StrComment;
 	private String strCreator;
 	private String dtCreateTime;
 	
-	
-	
-	
-	
-
 	/**
 	 * 详细显示单条记录
 	 */
-	public CouponFavourite show(String where)
+	public CouponComment show(String where)
 	{
 		try
 		{
@@ -93,9 +88,9 @@ public class CouponFavourite
 	 * 根据条件返回会员的集合
 	 */
 
-	public Vector<CouponFavourite> list(String where, int startRow, int rowCount)
+	public Vector<CouponComment> list(String where, int startRow, int rowCount)
 	{
-		Vector<CouponFavourite> beans = new Vector<CouponFavourite>();
+		Vector<CouponComment> beans = new Vector<CouponComment>();
 		try
 		{
 			String sql = "SELECT *  FROM  " + strTableName + " ";
@@ -111,7 +106,7 @@ public class CouponFavourite
 					rs.absolute(startRow);
 				do
 				{
-					CouponFavourite theBean = new CouponFavourite();
+					CouponComment theBean = new CouponComment();
 					theBean = load(rs, false);
 					beans.addElement(theBean);
 				} while (rs.next());
@@ -125,14 +120,14 @@ public class CouponFavourite
 		return beans;
 	}
 	
-	public CouponFavourite load(ResultSet rs, boolean isView)
+	public CouponComment load(ResultSet rs, boolean isView)
 	{
-		CouponFavourite theBean = new CouponFavourite();
+		CouponComment theBean = new CouponComment();
 		try
 		{
 			theBean.setStrId(rs.getString("strId"));
 			theBean.setDtCreateTime(rs.getString("dtCreateTime"));
-			theBean.setDtFavouriteTime(rs.getString("dtFavouriteTime"));
+			theBean.setStrComment(rs.getString("strComment"));
 			theBean.setStrCouponId(rs.getString("strCouponId"));
 			theBean.setStrCreator(rs.getString("strCreator"));
 			theBean.setStrMemberCardNo(rs.getString("strMemberCardNo"));
@@ -142,6 +137,8 @@ public class CouponFavourite
 		}
 		return theBean;
 	}
+	
+	
 	
 	
 	
@@ -169,22 +166,22 @@ public class CouponFavourite
 
 	public String getStrCouponId()
 	{
-		return strCouponId;
+		return StrCouponId;
 	}
 
 	public void setStrCouponId(String strCouponId)
 	{
-		this.strCouponId = strCouponId;
+		StrCouponId = strCouponId;
 	}
 
-	public String getDtFavouriteTime()
+	public String getStrComment()
 	{
-		return dtFavouriteTime;
+		return StrComment;
 	}
 
-	public void setDtFavouriteTime(String dtFavouriteTime)
+	public void setStrComment(String strComment)
 	{
-		this.dtFavouriteTime = dtFavouriteTime;
+		StrComment = strComment;
 	}
 
 	public String getStrCreator()
@@ -206,4 +203,6 @@ public class CouponFavourite
 	{
 		this.dtCreateTime = dtCreateTime;
 	}
+	
+	
 }
