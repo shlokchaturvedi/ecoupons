@@ -45,7 +45,7 @@ public class MemberAuthServlet extends HttpServlet implements Servlet
 	private void execute(HttpServletRequest req, HttpServletResponse resp)
 	{
 		Globa globa = new Globa();
-		globa.initialize(getServletContext(),req,resp); 
+//		globa.initialize(getServletContext(),req,resp); 
 		try
 		{
 			req.setCharacterEncoding("utf-8");
@@ -57,8 +57,8 @@ public class MemberAuthServlet extends HttpServlet implements Servlet
 		CouponFavourite couponFavourite = new CouponFavourite(globa);
 		CouponComment couponComment = new CouponComment(globa);
 		resp.setCharacterEncoding("utf-8");
-//		String strCardNo = req.getParameter("strCardNo");
-		String strCardNo = "3897";
+		String strCardNo = req.getParameter("strCardNo");
+//		String strCardNo = "3897";
 		
 		StringBuffer sbReturn = new StringBuffer("<?xml version='1.0' encoding='utf-8'?> ");
 		Member member = new Member(globa);
@@ -89,7 +89,14 @@ public class MemberAuthServlet extends HttpServlet implements Servlet
 		{
 			sbReturn.append("<auth>no</auth>");
 		}
-		System.out.println(sbReturn.toString());
-
+		try
+		{
+			resp.getWriter().write(sbReturn.toString());
+			System.out.println(sbReturn.toString());
+		} catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
