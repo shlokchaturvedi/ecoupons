@@ -66,6 +66,8 @@ public class MemberAuthServlet extends HttpServlet implements Servlet
 		Vector<CouponComment> vctCouponComments = new Vector<CouponComment>();
 		if (member.getCount("where strcardno=" + strCardNo) > 0)
 		{
+			
+			
 			sbReturn.append("<auth>yes</auth>");
 			vctCouponFavourites = couponFavourite.list("where strmembercardno=" + strCardNo, 0, 0);
 			sbReturn.append("<favourite>");
@@ -91,8 +93,8 @@ public class MemberAuthServlet extends HttpServlet implements Servlet
 		}
 		try
 		{
-			resp.getWriter().write(sbReturn.toString());
-			System.out.println(sbReturn.toString());
+			resp.getWriter().print(sbReturn.toString());
+//			System.out.println(sbReturn.toString());
 		} catch (IOException e)
 		{
 			// TODO Auto-generated catch block
