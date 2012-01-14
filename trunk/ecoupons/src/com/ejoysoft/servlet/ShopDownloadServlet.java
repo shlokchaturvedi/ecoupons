@@ -65,7 +65,7 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 		Terminal terminal = hmTerminal.get(strTerminalNo);
 		Terminal terminal2 = new Terminal(globa);//用于刷新终端状态
 		String strId = terminal.getStrId();
-		System.out.println(strId);
+//		System.out.println(strId);
 		DownLoadAlert downLoadAlert = new DownLoadAlert(globa);
 		Vector<DownLoadAlert> vctAlerts = new Vector<DownLoadAlert>();
         String strImagAddr=req.getSession().getServletContext().getRealPath(req.getRequestURI());
@@ -97,11 +97,11 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 					}
 					if (tempShop.getStrSmallImg()!=null&&tempShop.getStrSmallImg()!="")
 					{
-						smallMageContent=getPicBASE64(strImagAddr+tempShop.getStrSmallImg());
+						smallMageContent=Base64.getPicBASE64(strImagAddr+tempShop.getStrSmallImg());
 					}
 					if (tempShop.getStrLargeImg()!=null&&tempShop.getStrLargeImg()!="")
 					{
-						LargeMageContent=getPicBASE64(strImagAddr+tempShop.getStrLargeImg());
+						LargeMageContent=Base64.getPicBASE64(strImagAddr+tempShop.getStrLargeImg());
 					}
 					sbReturn.append("<coupon>");
 					sbReturn.append("<strId>" + vctAlerts.get(i).getStrDataId() + "</strId>");
@@ -137,11 +137,11 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 					}
 					if (tempShop.getStrSmallImg()!=null&&tempShop.getStrSmallImg()!="")
 					{
-						smallMageContent=getPicBASE64(strImagAddr+tempShop.getStrSmallImg());
+						smallMageContent=Base64.getPicBASE64(strImagAddr+tempShop.getStrSmallImg());
 					}
 					if (tempShop.getStrLargeImg()!=null&&tempShop.getStrLargeImg()!="")
 					{
-						LargeMageContent=getPicBASE64(strImagAddr+tempShop.getStrLargeImg());
+						LargeMageContent=Base64.getPicBASE64(strImagAddr+tempShop.getStrLargeImg());
 					}
 					sbReturn.append("<coupon>");
 					sbReturn.append("<strId>" + vctAlerts.get(i).getStrDataId() + "</strId>");
@@ -198,23 +198,5 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 		//关闭数据库连接对象
 	    globa.closeCon();
 	}
-	/**
-	 * 返回图片内容的base64编码
-	 * @param picPath
-	 * @return
-	 */
-	public  String getPicBASE64(String picPath) {
-		String content = "";
-		try {
-		FileInputStream fileForInput = new FileInputStream(picPath);
-		byte[] bytes = new byte[fileForInput.available()];
-		fileForInput.read(bytes);
-		content = String.valueOf(Base64.encode(bytes)); // 具体的编码方法
-		fileForInput.close();
-		//System.out.println(content.length());
-		} catch (Exception e) {
-		e.printStackTrace();
-		}
-		return content;
-		}
+	
 }
