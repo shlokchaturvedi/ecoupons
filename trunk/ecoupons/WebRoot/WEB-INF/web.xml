@@ -54,6 +54,15 @@
 		<url-pattern>/servlet/ShopDownload</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>AdDownload</servlet-name>
+		<servlet-class>com.ejoysoft.servlet.AdDownloadServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdDownload</servlet-name>
+		<url-pattern>/servlet/AdDownload</url-pattern>
+	</servlet-mapping>
+	
 	
 	<servlet>
           <servlet-name>DisplayChart</servlet-name>
