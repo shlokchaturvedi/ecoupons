@@ -46,6 +46,26 @@ public class Terminal
 	public static HashMap<String, Terminal> hmTerminal;
 
 	/**
+	 * 状态更新修改
+	 * 
+	 * @param strId
+	 * @return
+	 */
+	public boolean updateState(String strId)
+	{
+		String strSql = "update " + strTableName + "  set intstate=0, dtRefreshTime='" + com.ejoysoft.common.Format.getDateTime()
+				+ "' where strid='"+strId+"'";
+		try {
+			db.executeUpdate(strSql);
+		    return true;
+		} catch (Exception e) {
+		    System.out.println("更新状态失败" + e);
+		    return false;
+		}
+	}
+
+	
+	/**
 	 * 初始化
 	 */
 	public static void init()
