@@ -1,6 +1,5 @@
 package com.ejoysoft.servlet;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -14,29 +13,31 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ejoysoft.auth.Base64;
 import com.ejoysoft.common.Globa;
-import com.ejoysoft.ecoupons.business.Coupon;
 import com.ejoysoft.ecoupons.business.DownLoadAlert;
 import com.ejoysoft.ecoupons.business.Shop;
 import com.ejoysoft.ecoupons.business.Terminal;
 
-public class ShopDownloadServlet extends HttpServlet implements Servlet
+public class AdDownloadServlet extends HttpServlet implements Servlet
 {
-	public ShopDownloadServlet()
+	public AdDownloadServlet()
 	{
 		// TODO Auto-generated constructor stub
 	}
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
 	{
 		// TODO Auto-generated method stub
 		this.execute(req, resp);
 	}
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
 	{
 		// TODO Auto-generated method stub
 		this.execute(req, resp);
 	}
+
 	private void execute(HttpServletRequest req, HttpServletResponse resp)
 	{
 		// TODO Auto-generated method stub
@@ -60,20 +61,19 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 		Globa globa = new Globa();
 		resp.setCharacterEncoding("utf-8");
 		String strTerminalNo = req.getParameter("strTerminalNo");
-//		String strTerminalNo = "23";
+//		 String strTerminalNo = "23";
 		HashMap<String, Terminal> hmTerminal = Terminal.hmTerminal;
 		Terminal terminal = hmTerminal.get(strTerminalNo);
-		Terminal terminal2 = new Terminal(globa);//用于刷新终端状态
+		Terminal terminal2 = new Terminal(globa);// 用于刷新终端状态
 		String strId = terminal.getStrId();
-//		System.out.println(strId);
+		// System.out.println(strId);
 		DownLoadAlert downLoadAlert = new DownLoadAlert(globa);
 		Vector<DownLoadAlert> vctAlerts = new Vector<DownLoadAlert>();
-        String strImagAddr=req.getSession().getServletContext().getRealPath(req.getRequestURI());
-        strImagAddr=strImagAddr.replace("\\ecoupons\\servlet\\ShopDownload", "\\shop\\images\\");
-//        System.out.println(strImagAddr);
-        Shop shop = new Shop(globa);
-		String strWhere = "where strDataType='t_bz_shop' and intState=0 and strTerminalId='" + strId + "'";
-		Shop tempShop = new Shop();
+		String strFileAddr = req.getSession().getServletContext().getRealPath(req.getRequestURI());
+		strFileAddr = strFileAddr.replace("\\ecoupons\\servlet\\AdDownload", "\\terminal\\advertisement\\");
+
+		String strWhere = "where strDataType='t_bz_advertisement' and intState=0 and strTerminalId='" + strId + "'";
+		Terminal tempTerminal = new Terminal();
 		vctAlerts = downLoadAlert.list(strWhere, 0, 0);
 		boolean flagAdd = true;
 		boolean flagUpdate = true;
@@ -83,30 +83,27 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 
 			for (int i = 0; i < vctAlerts.size(); i++)
 			{
-				tempShop = shop.show("where strid='" + vctAlerts.get(i).getStrDataId() + "'");
+				tempTerminal = terminal2.showAd("where strid='" + vctAlerts.get(i).getStrDataId() + "'");
 				if ("add".equals(vctAlerts.get(i).getStrDataOpeType()))
 				{
-					
-					
+
 					if (flagAdd)
 					{
 						sbReturn.append("<coupons>");
 						sbReturn.append("<operate>add</operate>");
 						flagAdd = false;
 					}
-					
-					sbReturn.append(returnSbContent(tempShop, strImagAddr));
-					
+					sbReturn.append(returnSbContent(tempTerminal, strFileAddr));
+
 				}
 			}
 			if (!flagAdd)
 			{
 				sbReturn.append("</coupons>");
 			}
-
 			for (int i = 0; i < vctAlerts.size(); i++)
 			{
-				tempShop = shop.show("where strid='" + vctAlerts.get(i).getStrDataId() + "'");
+				tempTerminal = terminal2.showAd("where strid='" + vctAlerts.get(i).getStrDataId() + "'");
 				if ("update".equals(vctAlerts.get(i).getStrDataOpeType()))
 				{
 					if (flagUpdate)
@@ -115,7 +112,7 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 						sbReturn.append("<operate>update</operate>");
 						flagUpdate = false;
 					}
-					sbReturn.append(returnSbContent(tempShop, strImagAddr));
+					sbReturn.append(returnSbContent(tempTerminal, strFileAddr));
 				}
 			}
 			if (!flagUpdate)
@@ -124,7 +121,7 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 			}
 			for (int i = 0; i < vctAlerts.size(); i++)
 			{
-				tempShop = shop.show("where strid='" + vctAlerts.get(i).getStrDataId() + "'");
+				tempTerminal = terminal2.showAd("where strid='" + vctAlerts.get(i).getStrDataId() + "'");
 				if ("delete".equals(vctAlerts.get(i).getStrDataOpeType()))
 				{
 					if (flagDelete)
@@ -143,9 +140,9 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 				sbReturn.append("</coupons>");
 			}
 		}
-		if (terminal2.updateState(strId,"t_bz_shop"))
+		if (terminal2.updateState(strId, "t_bz_advertisement"))
 		{
-			System.out.println(sbReturn.toString());
+			 
 			try
 			{
 				resp.getWriter().print(sbReturn.toString());
@@ -156,41 +153,46 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 
 			}
 		}
-		//关闭数据库连接对象
-	    globa.closeCon();
+		// 关闭数据库连接对象
+		globa.closeCon();
 	}
+
 	/**
 	 * 根据条件返回具体内容
 	 * 
 	 * @param tempTerminal
 	 * @return
 	 */
-	private StringBuffer returnSbContent(Shop tempShop, String strImagAddr)
+	private StringBuffer returnSbContent(Terminal tempTerminal, String strFileAddr)
 	{
-		String smallMageContent="";
-		String LargeMageContent="";
-		if (tempShop.getStrSmallImg()!=null&&tempShop.getStrSmallImg()!="")
+
+//		String strContent = "";
+		StringBuffer sbContent=new StringBuffer();
+		StringBuffer sbReturnContent = new StringBuffer();
+
+		if ("1".equals(tempTerminal.getIntType()) && tempTerminal.getStrContent() != null && tempTerminal.getStrContent() != "")//视频文件
 		{
-			smallMageContent=Base64.getPicBASE64(strImagAddr+tempShop.getStrSmallImg());
-		}
-		if (tempShop.getStrLargeImg()!=null&&tempShop.getStrLargeImg()!="")
+			sbContent.append(Base64.getPicBASE64(strFileAddr + tempTerminal.getStrContent()));
+		} else
+		if ("2".equals(tempTerminal.getIntType()) && tempTerminal.getStrContent() != null && tempTerminal.getStrContent() != "")//图片文件,可能有多个
 		{
-			LargeMageContent=Base64.getPicBASE64(strImagAddr+tempShop.getStrLargeImg());
+			String[]strContentNames=tempTerminal.getStrContent().split(",");
+			for (int i = 0; i < strContentNames.length; i++)
+			{
+				sbContent.append(Base64.getPicBASE64(strFileAddr + strContentNames[i]));
+			}
 		}
-		StringBuffer sbReturn=new StringBuffer();
-		sbReturn.append("<coupon>");
-		sbReturn.append("<strId>" + tempShop.getStrId() + "</strId>");
-		sbReturn.append("<strBizName>" + tempShop.getStrBizName() + "</strBizName>");
-		sbReturn.append("<strShopName>" + tempShop.getStrShopName() + "</strShopName>");
-		sbReturn.append("<strTrade>" + tempShop.getStrTrade() + "</strTrade>");
-		sbReturn.append("<strAddr>" + tempShop.getStrAddr() + "</strAddr>");
-		sbReturn.append("<strIntro>" + tempShop.getStrIntro() + "</strIntro>");
-		sbReturn.append("<strSmallImg>" + tempShop.getStrSmallImg() + "</strSmallImg>");
-		sbReturn.append("<strSmallImgContent>" + smallMageContent + "</strSmallImgContent>");
-		sbReturn.append("<strLargeImg>" + tempShop.getStrLargeImg() + "</strLargeImg>");
-		sbReturn.append("<strLargeImgContent>" + LargeMageContent + "</strLargeImgContent>");
-		sbReturn.append("</coupon>");
-		return sbReturn;
+		sbReturnContent.append("<coupon>");
+		sbReturnContent.append("<strId>" + tempTerminal.getStrId() + "</strId>");
+		sbReturnContent.append("<strName>" + tempTerminal.getStrName() + "</strName>");
+		sbReturnContent.append("<intType>" + tempTerminal.getIntType() + "</intType>");
+		sbReturnContent.append("<strContent>" + tempTerminal.getStrContent() + "</strContent>");
+		sbReturnContent.append("<strFileContent>" + sbContent.toString() + "</strFileContent>");
+		sbReturnContent.append("<dtStartTime>" + tempTerminal.getDtStartTime() + "</dtStartTime>");
+		sbReturnContent.append("<strEndTime>" + tempTerminal.getDtEndTime() + "</strEndTime>");
+		sbReturnContent.append("</coupon>");
+
+		return sbReturnContent;
 	}
-	
+
 }
