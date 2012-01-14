@@ -44,12 +44,12 @@ public class CouponPrintServlet extends HttpServlet implements Servlet
 		String strId = UID.getID();
 		db = new DbConnect();
 		db = globa.db;
-//		String strTerminalNo = req.getParameter("strTerminalNo");
-		String strTerminalNo ="2222";
+		String strTerminalNo = req.getParameter("strTerminalNo");
+//		String strTerminalNo ="2222";
 		Terminal obj = new Terminal(globa);
 		String strTerminalId = obj.getTerminalIdsByNames(strTerminalNo);
-//		String strPrintContent = req.getParameter("strPrintContent");
-		String strPrintContent="333$111$2011-12-30 15:44:14$2343";
+		String strPrintContent = req.getParameter("strPrintContent");
+//		String strPrintContent="333$111$2011-12-30 15:44:14$2343";
 	    String strTableName ="t_bz_coupon_print";
 		if(strPrintContent!=null)
 		{
@@ -78,7 +78,7 @@ public class CouponPrintServlet extends HttpServlet implements Servlet
 			            db.setString(8, "system");
 			            db.setString(9, com.ejoysoft.common.Format.getDateTime());
 			            if (db.executeUpdate() > 0) { 	    
-			                Globa.logger0("添加优惠券打印记录信息", globa.loginName, globa.loginIp, strSql, "优惠券打印", globa.userSession.getStrDepart());
+			                Globa.logger0("添加优惠券打印记录信息", globa.loginName, globa.loginIp, strSql, "优惠券打印", "system");
 			            } 			               
 					}catch (Exception e) {
 			            System.out.println("添加优惠券打印记录异常");
