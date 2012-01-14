@@ -85,7 +85,7 @@ public class CouponComment
 	}
 	
 	/**
-	 * 根据条件返回会员的集合
+	 * 根据条件返回会员评论的集合
 	 */
 
 	public Vector<CouponComment> list(String where, int startRow, int rowCount)

@@ -5,13 +5,11 @@ import java.io.UnsupportedEncodingException;
 import java.util.Vector;
 
 import javax.servlet.Servlet;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ejoysoft.common.DbConnect;
 import com.ejoysoft.common.Globa;
 import com.ejoysoft.ecoupons.business.CouponComment;
 import com.ejoysoft.ecoupons.business.CouponFavourite;
@@ -40,8 +38,8 @@ public class MemberAuthServlet extends HttpServlet implements Servlet
 
 	private void execute(HttpServletRequest req, HttpServletResponse resp)
 	{
-		Globa globa = new Globa();
 //		globa.initialize(getServletContext(),req,resp); 
+		Globa globa = new Globa();
 		try
 		{
 			req.setCharacterEncoding("utf-8");
@@ -90,11 +88,13 @@ public class MemberAuthServlet extends HttpServlet implements Servlet
 		try
 		{
 			resp.getWriter().print(sbReturn.toString());
-			System.out.println(sbReturn.toString());
 		} catch (IOException e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		//关闭数据库连接对象
+	    globa.closeCon();
 	}
 }
