@@ -27,6 +27,25 @@
 		<servlet-name>Auth</servlet-name>
 		<url-pattern>/Auth</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>CouponAuth</servlet-name>
+		<servlet-class>com.ejoysoft.servlet.CouponAuthServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CouponAuth</servlet-name>
+		<url-pattern>/servlet/CouponAuth</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>CouponPrint</servlet-name>
+		<servlet-class>com.ejoysoft.servlet.CouponPrintServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CouponPrint</servlet-name>
+		<url-pattern>/servlet/CouponPrint</url-pattern>
+	</servlet-mapping>
+	
 	<servlet>
 		<servlet-name>MemberAuth</servlet-name>
 		<servlet-class>com.ejoysoft.servlet.MemberAuthServlet</servlet-class>
