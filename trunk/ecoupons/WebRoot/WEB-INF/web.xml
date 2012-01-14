@@ -35,6 +35,26 @@
 		<servlet-name>MemberAuth</servlet-name>
 		<url-pattern>/servlet/MemberAuth</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>CouponDownload</servlet-name>
+		<servlet-class>com.ejoysoft.servlet.CouponDownloadServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CouponDownload</servlet-name>
+		<url-pattern>/servlet/CouponDownload</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ShopDownload</servlet-name>
+		<servlet-class>com.ejoysoft.servlet.ShopDownloadServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ShopDownload</servlet-name>
+		<url-pattern>/servlet/ShopDownload</url-pattern>
+	</servlet-mapping>
+	
+	
 	<servlet>
           <servlet-name>DisplayChart</servlet-name>
           <servlet-class>org.jfree.chart.servlet.DisplayChart</servlet-class>
