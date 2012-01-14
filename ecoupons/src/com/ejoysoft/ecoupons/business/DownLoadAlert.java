@@ -7,23 +7,23 @@ import java.util.Vector;
 import com.ejoysoft.common.DbConnect;
 import com.ejoysoft.common.Globa;
 
-public class CouponFavourite
+public class DownLoadAlert
 {
 	private Globa globa;
 	private DbConnect db;
-	String strTableName = "t_bz_coupon_favourite";
-	public CouponFavourite()
+	String strTableName = "t_bz_download_alert";
+	public DownLoadAlert()
 	{
 		// TODO Auto-generated constructor stub
 	}
 
-	public CouponFavourite(Globa globa)
+	public DownLoadAlert(Globa globa)
 	{
 		this.globa = globa;
 		db = globa.db;
 	}
 
-	public CouponFavourite(Globa globa, boolean b)
+	public DownLoadAlert(Globa globa, boolean b)
 	{
 		this.globa = globa;
 		db = globa.db;
@@ -31,21 +31,16 @@ public class CouponFavourite
 			globa.setDynamicProperty(this);
 	}
 	private String strId;
-	private String strMemberCardNo;
-	private String strCouponId;
-	private String dtFavouriteTime;
-	private String strCreator;
-	private String dtCreateTime;
+	private String strTerminalId;
+	private String strDataType;
+	private String strDataId;
+	private String strDataOpeType;
+	private String intState;
 	
-	
-	
-	
-	
-
 	/**
 	 * 详细显示单条记录
 	 */
-	public CouponFavourite show(String where)
+	public DownLoadAlert show(String where)
 	{
 		try
 		{
@@ -90,12 +85,12 @@ public class CouponFavourite
 	}
 	
 	/**
-	 * 根据条件返回会员收藏的集合
+	 * 根据条件返回下载提醒表的集合
 	 */
 
-	public Vector<CouponFavourite> list(String where, int startRow, int rowCount)
+	public Vector<DownLoadAlert> list(String where, int startRow, int rowCount)
 	{
-		Vector<CouponFavourite> beans = new Vector<CouponFavourite>();
+		Vector<DownLoadAlert> beans = new Vector<DownLoadAlert>();
 		try
 		{
 			String sql = "SELECT *  FROM  " + strTableName + " ";
@@ -111,7 +106,7 @@ public class CouponFavourite
 					rs.absolute(startRow);
 				do
 				{
-					CouponFavourite theBean = new CouponFavourite();
+					DownLoadAlert theBean = new DownLoadAlert();
 					theBean = load(rs, false);
 					beans.addElement(theBean);
 				} while (rs.next());
@@ -125,28 +120,24 @@ public class CouponFavourite
 		return beans;
 	}
 	
-	public CouponFavourite load(ResultSet rs, boolean isView)
+	public DownLoadAlert load(ResultSet rs, boolean isView)
 	{
-		CouponFavourite theBean = new CouponFavourite();
+		DownLoadAlert theBean = new DownLoadAlert();
 		try
 		{
 			theBean.setStrId(rs.getString("strId"));
-			theBean.setDtCreateTime(rs.getString("dtCreateTime"));
-			theBean.setDtFavouriteTime(rs.getString("dtFavouriteTime"));
-			theBean.setStrCouponId(rs.getString("strCouponId"));
-			theBean.setStrCreator(rs.getString("strCreator"));
-			theBean.setStrMemberCardNo(rs.getString("strMemberCardNo"));
+			theBean.setIntState(rs.getString("intState"));
+			theBean.setStrDataId(rs.getString("strDataId"));
+			theBean.setStrDataOpeType(rs.getString("strDataOpeType"));
+			theBean.setStrDataType(rs.getString("strDataType"));
+			theBean.setStrTerminalId(rs.getString("strTerminalId"));
 		} catch (Exception e)
 		{
 			e.printStackTrace();
 		}
 		return theBean;
 	}
-	
-	
-	
-	
-	
+
 	public String getStrId()
 	{
 		return strId;
@@ -157,53 +148,53 @@ public class CouponFavourite
 		this.strId = strId;
 	}
 
-	public String getStrMemberCardNo()
+	public String getStrTerminalId()
 	{
-		return strMemberCardNo;
+		return strTerminalId;
 	}
 
-	public void setStrMemberCardNo(String strMemberCardNo)
+	public void setStrTerminalId(String strTerminalId)
 	{
-		this.strMemberCardNo = strMemberCardNo;
+		this.strTerminalId = strTerminalId;
 	}
 
-	public String getStrCouponId()
+	public String getStrDataType()
 	{
-		return strCouponId;
+		return strDataType;
 	}
 
-	public void setStrCouponId(String strCouponId)
+	public void setStrDataType(String strDataType)
 	{
-		this.strCouponId = strCouponId;
+		this.strDataType = strDataType;
 	}
 
-	public String getDtFavouriteTime()
+	public String getStrDataId()
 	{
-		return dtFavouriteTime;
+		return strDataId;
 	}
 
-	public void setDtFavouriteTime(String dtFavouriteTime)
+	public void setStrDataId(String strDataId)
 	{
-		this.dtFavouriteTime = dtFavouriteTime;
+		this.strDataId = strDataId;
 	}
 
-	public String getStrCreator()
+	public String getStrDataOpeType()
 	{
-		return strCreator;
+		return strDataOpeType;
 	}
 
-	public void setStrCreator(String strCreator)
+	public void setStrDataOpeType(String strDataOpeType)
 	{
-		this.strCreator = strCreator;
+		this.strDataOpeType = strDataOpeType;
 	}
 
-	public String getDtCreateTime()
+	public String getIntState()
 	{
-		return dtCreateTime;
+		return intState;
 	}
 
-	public void setDtCreateTime(String dtCreateTime)
+	public void setIntState(String intState)
 	{
-		this.dtCreateTime = dtCreateTime;
+		this.intState = intState;
 	}
 }
