@@ -8,13 +8,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import com.ejoysoft.common.Constants;
 import com.ejoysoft.common.Globa;
 import com.ejoysoft.common.SendSms;
-import com.ejoysoft.common.UserSession;
 import com.ejoysoft.ecoupons.business.Member;
+import com.ejoysoft.ecoupons.business.Terminal;
 
 @SuppressWarnings("serial")
 public class CouponAuthServlet extends HttpServlet
@@ -45,17 +42,21 @@ public class CouponAuthServlet extends HttpServlet
 		ServletContext application = getServletContext();
 		globa.initialize(application, req, resp);
 		String strTerminalNo = req.getParameter("strTerminalNo");
+		Terminal obj0 = new Terminal(globa);
+		String strTerminalId = obj0.getTerminalIdsByNames(strTerminalNo);
+		obj0.updateState(strTerminalId);//更新终端状态
 		String strCode = req.getParameter("strCode");
 		String strCardNo = req.getParameter("strCardNo");
-		String strPhone="";
+		String strPhone="",strName="";
 		if(strCardNo!=null && !strCardNo.trim().equals(""))
 		{
 			Member obj = new Member(globa);
 			Member obj1 = obj.show(" where strcardno='"+strCardNo+"'");
 			strPhone = obj1.getStrMobileNo();
+			strName = obj1.getStrName();
 		}		
-		String messege = strCode;
-		if(strPhone!=null && !strPhone.trim().equals("") && messege!=null && !messege.trim().equals(""))
+		String messege = "亲爱的"+strName+"会员您好！您此次于"+strTerminalNo+"终端上打印优惠券的验证码为：   "+strCode+"  ，请及时使用，祝您购物愉快！";
+		if(strPhone!=null && !strPhone.trim().equals("") && strCode!=null && !strCode.trim().equals(""))
 		{
 			String PostData;
 			try {
@@ -86,6 +87,6 @@ public class CouponAuthServlet extends HttpServlet
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    }
+    }	
 }
 
