@@ -97,11 +97,11 @@ public class CouponPrint
 	 */
 	public boolean isEffective(String dtPrintTime, String strCouponCode)
 	{
-		if (getCount(" where strcouponcode="+strCouponCode)==0)
+		if (getCount(" where strcouponcode='"+strCouponCode+"'")==0)
 		{
 			return false;
 		}
-		String strSql="select intState,dtPrintTime from "+strTableName +" where strcouponcode="+strCouponCode;
+		String strSql="select intState,dtPrintTime from "+strTableName +" where strcouponcode='"+strCouponCode+"'";
 		ResultSet resultSet=db.executeQuery(strSql);
 		try
 		{

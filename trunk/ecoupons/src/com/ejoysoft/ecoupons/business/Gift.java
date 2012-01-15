@@ -117,8 +117,8 @@ public class Gift
 	{
 		try
 		{
-			String sql = "DELETE FROM " + strTableName + " where strId=" + where;
-			String strSql = "delete from " + strGiftExchangeTable + " where strGiftId=" + where;
+			String sql = "DELETE FROM " + strTableName + " where strId='" + where+"'";
+			String strSql = "delete from " + strGiftExchangeTable + " where strGiftId='" + where+"'";
 			db.setAutoCommit(false);
 			db.executeUpdate(sql);
 			db.executeUpdate(strSql);
@@ -225,7 +225,6 @@ public class Gift
 		float a = 0f;
 		String sql = "select flabalance from " + strTableName + " where strCardNo='" + strMemberCardNo + "' ";
 		ResultSet rs = db.executeQuery(sql);
-		System.out.println("56565656565656565656");
 		try
 		{
 			while (rs.next())

@@ -29,7 +29,7 @@ public class PointPresent
 	public boolean add()
 	{
 		Shop shop=new Shop(globa);
-		int intShopPoint=shop.show("where strId="+strShopId).getIntPoint();
+		int intShopPoint=shop.show("where strId='"+strShopId+"'").getIntPoint();
 		if(intShopPoint<intPoint){
 			return false;
 		}
@@ -38,8 +38,8 @@ public class PointPresent
 		String strId = UID.getID();
 		String sql = "insert into " + strTableName + " (strId,strShopId,strMemberCardNo,intPoint" + ",strCreator,dtCreateTime) "
 				+ "values (?,?,?,?,?,?) ";
-		String strSql = "update t_bz_shop set intpoint=intPoint-" + intPoint + " where strid=" + strShopId;
-		String strSql2="update t_bz_member set intpoint=intPoint+" + intPoint + " where strCardNo=" + strMemberCardNo;
+		String strSql = "update t_bz_shop set intpoint=intPoint-" + intPoint + " where strid='" + strShopId+"'";
+		String strSql2="update t_bz_member set intpoint=intPoint+" + intPoint + " where strCardNo='" + strMemberCardNo+"'";
 //		String strSqlInsertRecharge="";
 		try
 		{

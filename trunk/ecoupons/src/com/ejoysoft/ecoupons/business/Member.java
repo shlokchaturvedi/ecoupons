@@ -107,12 +107,12 @@ public class Member
 		{
 			String strSql = "DELETE FROM " + strTableName + "  ".concat(where);
 			String strCard=show(where).getStrCardNo();
-			String strSql2 = "DELETE FROM " + strRechargeTableName + " where strMemberCardNo=" + strCard;
-			String strSql3 = "DELETE FROM " + strCouponPrintTableName + " where strMemberCardNo=" + strCard;
-			String strSql4 = "DELETE FROM " + strCouponInputTableName + " where strMemberCardNo=" + strCard;
-			String strSql5 = "DELETE FROM " + strGiftExchangeTableName + " where strMemberCardNo=" + strCard;
-			String strSql6 = "DELETE FROM " + strCouponCommentTableName + " where strMemberCardNo=" + strCard;
-			String strSql7 = "DELETE FROM " + strCouponFavouriteTableName + " where strMemberCardNo=" + strCard;
+			String strSql2 = "DELETE FROM " + strRechargeTableName + " where strMemberCardNo='" + strCard+"'";
+			String strSql3 = "DELETE FROM " + strCouponPrintTableName + " where strMemberCardNo='" + strCard+"'";
+			String strSql4 = "DELETE FROM " + strCouponInputTableName + " where strMemberCardNo='" + strCard+"'";
+			String strSql5 = "DELETE FROM " + strGiftExchangeTableName + " where strMemberCardNo='" + strCard+"'";
+			String strSql6 = "DELETE FROM " + strCouponCommentTableName + " where strMemberCardNo='" + strCard+"'";
+			String strSql7 = "DELETE FROM " + strCouponFavouriteTableName + " where strMemberCardNo='" + strCard+"'";
 			db.setAutoCommit(false);
 			if (show(where).getStrCardNo() == null)
 			{

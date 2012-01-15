@@ -52,7 +52,7 @@ public class CouponInput
 	{
 		String strUserName = globa.userSession.getStrId();
 		String strId = UID.getID();
-		String strSql = "update t_bz_coupon_print set intState=1 where strCouponCode=" + strCouponCode;
+		String strSql = "update t_bz_coupon_print set intState=1 where strCouponCode='" + strCouponCode+"'";
 		String sql = "insert into " + strTableName + " (strId,strCouponId,strCouponCode,strMemberCardNo,dtPrintTime,strShopId"
 				+ ",strCreator,dtCreateTime,intState) " + "values (?,?,?,?,?,?,?,?,?) ";
 		System.out.println(sql);
@@ -131,8 +131,8 @@ public class CouponInput
 				return false;
 			} else
 			{
-				strSql2 = "update t_bz_coupon_print set intState=1 where strCouponCode=" + strCouponCode;
-				strSql3 = "update t_bz_coupon_print set intState=1 where strCouponCode=" + couponInput.getStrCouponCode();
+				strSql2 = "update t_bz_coupon_print set intState=1 where strCouponCode='" + strCouponCode+"'";
+				strSql3 = "update t_bz_coupon_print set intState=1 where strCouponCode='" + couponInput.getStrCouponCode()+"'";
 			}
 		}
 		try

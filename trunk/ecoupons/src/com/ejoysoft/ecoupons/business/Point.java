@@ -39,10 +39,10 @@ public class Point
 	{
 		Shop shop = new Shop(globa);
 		
-		int intDbPoint=show("where strId=" + tStrId).getIntPoint();
+		int intDbPoint=show("where strId='" + tStrId+"'").getIntPoint();
 		if (intMoney < intDbPoint)
 		{
-			if (intDbPoint-intMoney>shop.show("where strId=" + show("where strId=" + tStrId).getStrShopId()).getIntPoint())
+			if (intDbPoint-intMoney>shop.show("where strId='" + show("where strId=" + tStrId+"'").getStrShopId()).getIntPoint())
 			{
 				return false;
 			}
@@ -173,7 +173,7 @@ public class Point
 		String strId = UID.getID();
 		String sql = "insert into " + strTableName + " (strId,strShopId,intMoney,dtBuyTime,intPoint,intType" + ",strCreator,dtCreateTime) "
 				+ "values (?,?,?,?,?,?,?,?) ";
-		String strSql = "update t_bz_shop set intpoint=intPoint+" + intPoint + " where strid=" + strShopId;
+		String strSql = "update t_bz_shop set intpoint=intPoint+" + intPoint + " where strid='" + strShopId+"'";
 		try
 		{
 			db.getConnection().setAutoCommit(false);
@@ -213,20 +213,17 @@ public class Point
 	public boolean delete(String where, String intPoint)
 	{
 		Shop shop = new Shop(globa);
-		strShopId = show("where strId=" + where).getStrShopId();
-		System.out.println(show("where strId=" + where).getIntPoint());
-		System.out.println(shop.show("where strId=" + show("where strId=" + where).getStrShopId()).getIntPoint());
-		if (show("where strId=" + where).getIntPoint() > shop.show("where strId=" + strShopId).getIntPoint())
+		strShopId = show("where strId='" + where+"'").getStrShopId();
+		if (show("where strId='" + where+"'").getIntPoint() > shop.show("where strId='" + strShopId+"'").getIntPoint())
 		{
 			return false;
 		}
-
 		try
 		{
 			db.getConnection().setAutoCommit(false);
 			db.getConnection().setSavepoint();
 			String strSql = "update t_bz_shop set intpoint=intPoint-" + intPoint + " where strid=" + strShopId;
-			String sql = "DELETE FROM " + strTableName + " where strId=" + where;
+			String sql = "DELETE FROM " + strTableName + " where strId='" + where+"'";
 			if (db.executeUpdate(sql) > 0 && db.executeUpdate(strSql) > 0)
 			{
 

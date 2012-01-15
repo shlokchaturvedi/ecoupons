@@ -28,7 +28,7 @@ public class GiftExchange
 	 */
 	public boolean audit(String strId)
 	{
-		String strSql = "UPDATE  " + strTableName + "  SET intState = 1 where strId=" + strId;
+		String strSql = "UPDATE  " + strTableName + "  SET intState = 1 where strId='" + strId+"'";
 		try
 		{
 			if (db.executeUpdate(strSql) > 0)

@@ -98,7 +98,7 @@ public class Recharge
 		int count = 0;
 		try
 		{
-			String sql = "SELECT count(strId) FROM " + strTableName + "  ";
+			String sql = "select count(strid) from " + strTableName + "  ";
 			if (where.length() > 0)
 			{
 				where = where.toLowerCase();
@@ -131,7 +131,7 @@ public boolean delete(String str)
 {
 	try
 	{
-		String sql = "DELETE FROM " + strTableName + "  where strMemberCardNo="+str+" ";
+		String sql = "delete from " + strTableName + "  where strmembercardno='"+str+"' ";
 		db.executeUpdate(sql);
 		Globa.logger0("删除会员卡充值记录", globa.loginName, globa.loginIp, sql, "会员管理", globa.unitCode);
 		return true;
@@ -254,7 +254,7 @@ public boolean delete(String str)
 		String strId = UID.getID();
 		String strUserName = globa.userSession.getStrId();
 		String sql = "insert into " + strTableName + " (strId,strMemberCardNo,intMoney,strCreator,dtCreateTime) " + "values (?,?,?,?,?) ";
-		String sql2 = "UPDATE t_bz_member SET flaBalance ="+a+" WHERE strCardNo="+strMemberCardNo+" ";
+		String sql2 = "UPDATE t_bz_member SET flaBalance ="+a+" WHERE strCardNo='"+strMemberCardNo+"' ";
 		
 		try
 		{
