@@ -121,7 +121,7 @@ body,td,tr{font-size:9pt;}
 																style="width: 213px">
 																<%  Coupon coupon=new Coupon(globa,true); %>
 																<option value="<%=obj0.getStrCouponId() %>">
-																	<%=coupon.show("where strId="+obj0.getStrCouponId()).getStrName()%>
+																	<%=coupon.show("where strId='"+obj0.getStrCouponId()+"'").getStrName()%>
 																</option>
 																<%
                                                                   //初始化

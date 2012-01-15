@@ -57,9 +57,9 @@
 		{
 			for (int i = 0; i < vctCouponInputs.size(); i++)
 			{
-				obj.State(obj.show(" where strshopid= "+vctCouponInputs.get(i).getStrShopId()).getStrMemberCardNo()," and dtCreateTime LIKE '" + dtCreateTime + "%'");
-				sb.append("<tr><td>" + vctCouponInputs.get(i).getStrShopId() +shop.returnBizShopName("where strid="+vctCouponInputs.get(i).getStrShopId())+ "</td>"+"<td>"
-						+ obj.getCount("where strShopid=" + vctCouponInputs.get(i).getStrShopId() + " and dtCreateTime LIKE '" + dtCreateTime + "%'")
+				obj.State(obj.show(" where strshopid= '"+vctCouponInputs.get(i).getStrShopId()).getStrMemberCardNo()+"'"," and dtCreateTime LIKE '" + dtCreateTime + "%'");
+				sb.append("<tr><td>" + vctCouponInputs.get(i).getStrShopId() +shop.returnBizShopName("where strid='"+vctCouponInputs.get(i).getStrShopId())+"'"+ "</td>"+"<td>"
+						+ obj.getCount("where strShopid='" + vctCouponInputs.get(i).getStrShopId() + "' and dtCreateTime LIKE '" + dtCreateTime + "%'")
 						+ "</td><td>"+dtCreateTime.replace("-","年")+"月"+"</td>");
 			}
 		}

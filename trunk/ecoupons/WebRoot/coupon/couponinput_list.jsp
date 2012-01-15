@@ -22,7 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     String  strCouponCode=ParamUtil.getString(request,"strCouponCode","");
 	String tWhere=" WHERE 1=1";
 	if (!strCouponCode.equals("")) {
-		tWhere += " and strCouponCode =" + strCouponCode + " ";
+		tWhere += " and strCouponCode ='" + strCouponCode + "' ";
 	}else if("商家".equals(globa.userSession.getStrCssType())){
 		tWhere +=" and strShopId='"+globa.userSession.getStrShopid()+"' ";
 	}
@@ -165,11 +165,11 @@ function del(){
                 <td height="20" bgcolor="#FFFFFF"><div align="center">
                     <input type="checkbox" name=strId value="<%=obj1.getStrId() %>" />
                 </div></td>
-                <td bgcolor="#FFFFFF"><div align="center" class="STYLE1"><%= coupon.show("where strId="+obj1.getStrCouponId()).getStrName() %></div></td>
+                <td bgcolor="#FFFFFF"><div align="center" class="STYLE1"><%= coupon.show("where strId='"+obj1.getStrCouponId()).getStrName()+"'" %></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrCouponCode()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrMemberCardNo()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getDtPrintTime().substring(0,obj1.getDtPrintTime().length()-2)%></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=shop.returnBizShopName("where strId="+obj1.getStrShopId())%></span></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=shop.returnBizShopName("where strId='"+obj1.getStrShopId()+"'")%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.returnStrState(obj1.getIntState())%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE4">
                   <a href="couponinput_update.jsp?strId=<%=obj1.getStrId()%>"><%if(obj1.getIntState()==0){out.print("<img src='../images/edit.gif' width='16'  height='16' border='0' />编辑");} %></a> 
