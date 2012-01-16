@@ -59,9 +59,8 @@ public class TerminalAnalysis {
     	return num;        
     } 
     /**
-     * 获得终端发布优惠券id
-     */
-    
+     * 获得终端发布优惠券id(指定时间内)
+     */    
     public Vector<TerminalAnalysis> getCouponIdsByTerminal(String terminalid,String stime,String etime)
     {
     	TerminalAnalysis obj = new TerminalAnalysis(globa);
@@ -97,15 +96,64 @@ public class TerminalAnalysis {
 			e.printStackTrace();
 		}
     	return vector;        
+    } /**
+     * 获得终端发布优惠券id(指定时间以外)
+     */    
+    public Vector<TerminalAnalysis> getCouponIdsByTerminal2(String terminalid,String stime,String etime)
+    {
+    	TerminalAnalysis obj = new TerminalAnalysis(globa);
+    	Vector<TerminalAnalysis> vector = new Vector<TerminalAnalysis>();
+		String sql = "select * from "+strTableName2+" where strterminalids like'%"+terminalid+"%'";
+		if(stime.equals("")||stime.equals(null))
+		{
+			sql += " and dtcreatetime between '"+etime+"' and '9999-12-30' ";
+    	}
+		if(etime.equals("")||etime.equals(null))
+		{
+			sql +=" and dtcreatetime between '1000-01-01' and '"+stime+"'";
+    	}
+		if(!(stime.equals("")||stime.equals(null))&&!(etime.equals("")||etime.equals(null)))
+		{
+			sql +=" and  (dtcreatetime between '"+etime+"' and '9999-12-30' or dtcreatetime between '1000-01-01' and '"+stime+"')";
+		}
+		ResultSet re = db.executeQuery(sql);
+    	try {
+			if(re!=null)
+			{			    
+				while(re.next())
+				{	
+					String id = re.getString("strid");
+					String name = re.getString("strname");	
+					vector.addElement(loadCoupon(id, name));
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return vector;        
     }
     /**
      * 获得一种优惠券的打印次数
      */
-    public int getPerNumofPrintByCoupon(String couponId)
+    public int getPerNumofPrintByCoupon(String couponId,String terminalId,String stime,String etime)
     {
     	int perprintnum = 0;
-    	String sql = "select count(strid)  from "+ strTableName3+" where strcouponid="+couponId;
-    	ResultSet re = db.executeQuery(sql);
+    	String sql = "select count(strid)  from "+ strTableName3+" where strterminalid='"+terminalId+"' and strcouponid='"+couponId+"'";
+    	if(stime.equals("")||stime.equals(null))
+		{
+			sql +=" and dtcreatetime between '1000-01-01' and '"+etime+"'";
+    	}
+		if(etime.equals("")||etime.equals(null))
+		{
+			sql +=" and dtcreatetime between  '"+stime+"' and '9999-12-30'";
+    	}
+		if(!(stime.equals("")||stime.equals(null))&&!(etime.equals("")||etime.equals(null)))
+		{
+			sql +=" and dtcreatetime between '"+stime+"' and '"+etime+"'";
+		} 
+//		System.err.println(sql+"4444444444444444444422");
+		ResultSet re = db.executeQuery(sql);
     	try {
 			if(re!=null&&re.next())
 			  perprintnum = Integer.parseInt(re.getString(1));
@@ -116,7 +164,7 @@ public class TerminalAnalysis {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}    	
-    	return perprintnum;
+		return perprintnum;
     }
     //获取终端优惠券总打印次数
     public int getTotalPrintNum(String terminalid,String stime,String etime)
@@ -128,7 +176,14 @@ public class TerminalAnalysis {
     	{
     		TerminalAnalysis coupon = vector.get(i);
     		String couponid = coupon.getCouponId();
-    		totalnum += obj.getPerNumofPrintByCoupon(couponid);
+    		totalnum += obj.getPerNumofPrintByCoupon(couponid,terminalid,stime,etime);
+    	}
+    	Vector<TerminalAnalysis> vector2 = obj.getCouponIdsByTerminal2(terminalid,stime,etime);
+    	for(int i=0;i<vector2.size();i++)
+    	{
+    		TerminalAnalysis coupon = vector2.get(i);
+    		String couponid = coupon.getCouponId();
+    		totalnum += obj.getPerNumofPrintByCoupon(couponid,terminalid,stime,etime);
     	}
     	return totalnum;
     	
@@ -212,16 +267,40 @@ public class TerminalAnalysis {
 					String terminalid = re.getString("strid");
 					String terminalno = re.getString("strno");
 					Vector<TerminalAnalysis> vector2 = obj.getCouponIdsByTerminal(terminalid,this.stime,this.etime);
-					if(vector2!=null&&vector2.size()!=0)
+					Vector<TerminalAnalysis> vector3 = obj.getCouponIdsByTerminal2(terminalid,this.stime,this.etime);
+					if((vector2!=null&&vector2.size()!=0) ||(vector3!=null&&vector3.size()!=0))
 					{
-						for(int i=0;i<vector2.size();i++)
+						if(vector2!=null&&vector2.size()!=0)
 						{
-							TerminalAnalysis coupon  = vector2.get(i);
-							String couponname = coupon.getCouponName();
-							String couponid = coupon.getCouponId();
-							int num = obj.getPerNumofPrintByCoupon(couponid);
-							TerminalAnalysis obj0 = loadChart(terminalno, couponname, num);
-							vector.addElement(obj0);
+							for(int i=0;i<vector2.size();i++)
+							{
+								TerminalAnalysis coupon  = vector2.get(i);
+								String couponname = coupon.getCouponName();
+								String couponid = coupon.getCouponId();
+								int num = obj.getPerNumofPrintByCoupon(couponid,terminalid,this.stime,this.etime);
+								TerminalAnalysis obj0 = loadChart(terminalno, couponname, num);
+								vector.addElement(obj0);
+							}
+						}
+						if(vector3!=null&&vector3.size()!=0)
+						{
+							int  totalnum =0;
+							for(int i=0;i<vector3.size();i++)
+							{
+								TerminalAnalysis coupon  = vector3.get(i);
+								String couponname = coupon.getCouponName();
+								String couponid = coupon.getCouponId();
+								int num = obj.getPerNumofPrintByCoupon(couponid,terminalid,this.stime,this.etime);
+								totalnum += num;
+								if(num!=0)
+								{
+									TerminalAnalysis obj0 = loadChart(terminalno, "*（"+couponname+"）", num);
+									vector.addElement(obj0);							
+								}
+							}
+							if(totalnum ==0){
+								vector.addElement(loadChart(terminalno, "无优惠券发布记录" , 0));							 		
+							}
 						}
 					}
 					else
