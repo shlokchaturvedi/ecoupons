@@ -54,14 +54,15 @@ public class CouponAuthServlet extends HttpServlet
 			Member obj1 = obj.show(" where strcardno='"+strCardNo+"'");
 			strPhone = obj1.getStrMobileNo();
 			strName = obj1.getStrName();
-		}		
+		}	
+		
 		String messege = "亲爱的"+strName+"会员您好！您此次于"+strTerminalNo+"终端上打印优惠券的验证码为：   "+strCode+"  ，请及时使用，祝您购物愉快！";
 		if(strPhone!=null && !strPhone.trim().equals("") && strCode!=null && !strCode.trim().equals(""))
 		{
 			String PostData;
 			try {
-				PostData = "sname=dlqdcs02&spwd=SjkQ35RS&scorpid=&sprdid=1012818&sdst="+strPhone+"&smsg="+java.net.URLEncoder.encode(messege,"utf-8");
-			    String ret = SendSms.SMS(PostData, "http://chufa.lmobile.cn/submitdata/service.asmx/g_Submit");
+				PostData = "sname="+application.getAttribute("SNAME")+"&spwd="+application.getAttribute("SPWD")+"&scorpid="+application.getAttribute("SCORPID")+"&sprdid="+application.getAttribute("SPRDID")+"&sdst="+strPhone+"&smsg="+java.net.URLEncoder.encode(messege,"utf-8");
+			    String ret = SendSms.SMS(PostData, String.valueOf(application.getAttribute("SMS_WEBSERVICE_ADDR")));
 			    if(!ret.equals(""))
 		    	{
 		    		int beginIdx = ret.indexOf("<MsgState>") + "<MsgState>".length();

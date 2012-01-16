@@ -37,8 +37,8 @@ public class Coupon
 	{
 		try
 		{
-			String strSql = "UPDATE  " + strTableName + "  SET dtActiveTime = ?, ";
 			String strSql2 = "UPDATE  " + strDownLoadAlertTable + "  SET strdataopetype='update',intstate=0 where strdataid='" + tStrId + "'";
+			String strSql = "UPDATE  " + strTableName + "  SET dtActiveTime = ?, ";
 			db.setAutoCommit(false);
 			if (this.strSmallImg != null && this.strSmallImg.length() > 0)
 			{
