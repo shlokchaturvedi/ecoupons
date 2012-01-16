@@ -165,7 +165,7 @@ function del(){
                 <td height="20" bgcolor="#FFFFFF"><div align="center">
                     <input type="checkbox" name=strId value="<%=obj1.getStrId() %>" />
                 </div></td>
-                <td bgcolor="#FFFFFF"><div align="center" class="STYLE1"><%= coupon.show("where strId='"+obj1.getStrCouponId()).getStrName()+"'" %></div></td>
+                <td bgcolor="#FFFFFF"><div align="center" class="STYLE1"><%= coupon.show("where strId='"+obj1.getStrCouponId()+"'").getStrName() %></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrCouponCode()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrMemberCardNo()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getDtPrintTime().substring(0,obj1.getDtPrintTime().length()-2)%></span></div></td>
