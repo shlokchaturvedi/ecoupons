@@ -61,7 +61,7 @@ public class ShopAnalysis {
     	return num;        
     } 
     /**
-     * 获得商家发布优惠券id
+     * 获得商家发布优惠券id(指定时间内)
      */
     
     public Vector<ShopAnalysis> getCouponIdsByShop(String shopid,String stime,String etime)
@@ -69,18 +69,56 @@ public class ShopAnalysis {
     	@SuppressWarnings("unused")
 		ShopAnalysis obj = new ShopAnalysis(globa);
     	Vector<ShopAnalysis> vector = new Vector<ShopAnalysis>();
-		String sql = "select * from "+strTableName2;
+		String sql = "select * from "+strTableName2+" where strshopid='"+shopid+"' ";
 		if(stime.equals("")||stime.equals(null))
 		{
-			sql ="select * from "+strTableName2+" where strshopid='"+shopid+"' and dtcreatetime between '1000-01-01' and '"+etime+"'";
+			sql +=" and dtcreatetime between '1000-01-01' and '"+etime+"'";
     	}
 		if(etime.equals("")||etime.equals(null))
 		{
-			sql ="select * from "+strTableName2+" where strshopid='"+shopid+"' and dtcreatetime between  '"+stime+"' and '9999-12-30'";
+			sql +=" and dtcreatetime between  '"+stime+"' and '9999-12-30'";
     	}
 		if(!(stime.equals("")||stime.equals(null))&&!(etime.equals("")||etime.equals(null)))
 		{
-			sql ="select * from "+strTableName2+" where strshopid='"+shopid+"' and  dtcreatetime between '"+stime+"' and '"+etime+"'";
+			sql +=" and  dtcreatetime between '"+stime+"' and '"+etime+"'";
+		}
+    	ResultSet re = db.executeQuery(sql);
+    	try {
+			if(re!=null)
+			{			    
+				while(re.next())
+				{	
+					String id = re.getString("strid");
+					String name = re.getString("strname");	
+					vector.addElement(loadCoupon(id, name));
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return vector;        
+    } 
+    /**
+     * 获得商家发布优惠券id(指定时间以外)
+     */    
+    public Vector<ShopAnalysis> getCouponIdsByShop2(String shopid,String stime,String etime)
+    {
+    	@SuppressWarnings("unused")
+		ShopAnalysis obj = new ShopAnalysis(globa);
+    	Vector<ShopAnalysis> vector = new Vector<ShopAnalysis>();
+		String sql = "select * from "+strTableName2+" where strshopid='"+shopid+"'";
+		if(stime.equals("")||stime.equals(null))
+		{
+			sql += " and dtcreatetime between '"+etime+"' and '9999-12-30' ";
+    	}
+		if(etime.equals("")||etime.equals(null))
+		{
+			sql +=" and dtcreatetime between '1000-01-01' and '"+stime+"'";
+    	}
+		if(!(stime.equals("")||stime.equals(null))&&!(etime.equals("")||etime.equals(null)))
+		{
+			sql +=" and  (dtcreatetime between '"+etime+"' and '9999-12-30' or dtcreatetime between '1000-01-01' and '"+stime+"')";
 		}
     	ResultSet re = db.executeQuery(sql);
     	try {
@@ -102,10 +140,22 @@ public class ShopAnalysis {
     /**
      * 获得一种优惠券的打印次数
      */
-    public int getPerNumofPrintByCoupon(String couponId)
+    public int getPerNumofPrintByCoupon(String couponId,String stime,String etime)
     {
     	int perprintnum = 0;
-    	String sql = "select count(strid)  from "+ strTableName3+" where strcouponid="+couponId;
+    	String sql = "select count(strid)  from "+ strTableName3+" where strcouponid='"+couponId+"'";
+    	if(stime.equals("")||stime.equals(null))
+		{
+			sql +=" and dtcreatetime between '1000-01-01' and '"+etime+"'";
+    	}
+		if(etime.equals("")||etime.equals(null))
+		{
+			sql +=" and dtcreatetime between  '"+stime+"' and '9999-12-30'";
+    	}
+		if(!(stime.equals("")||stime.equals(null))&&!(etime.equals("")||etime.equals(null)))
+		{
+			sql +=" and  dtcreatetime between '"+stime+"' and '"+etime+"'";
+		}
     	ResultSet re = db.executeQuery(sql);
     	try {
 			if(re!=null&&re.next())
@@ -129,7 +179,14 @@ public class ShopAnalysis {
     	{
     		ShopAnalysis coupon = vector.get(i);
     		String couponid = coupon.getCouponId();
-    		totalnum += obj.getPerNumofPrintByCoupon(couponid);
+    		totalnum += obj.getPerNumofPrintByCoupon(couponid,stime,etime);
+    	}
+    	Vector<ShopAnalysis> vector2 = obj.getCouponIdsByShop2(shopid,stime,etime);
+    	for(int i=0;i<vector2.size();i++)
+    	{
+    		ShopAnalysis coupon = vector2.get(i);
+    		String couponid = coupon.getCouponId();
+    		totalnum += obj.getPerNumofPrintByCoupon(couponid,stime,etime);
     	}
     	return totalnum;
     	
@@ -214,23 +271,46 @@ public class ShopAnalysis {
 					String shopid = re.getString("strid");
 					String shopname = re.getString("strbizname")+"-"+re.getString("strshopname");
 					Vector<ShopAnalysis> vector2 = obj.getCouponIdsByShop(shopid,this.stime,this.etime);
-					if(vector2!=null&&vector2.size()!=0)
-					{
-						for(int i=0;i<vector2.size();i++)
-						{
-							ShopAnalysis coupon  = vector2.get(i);
-							String couponname = coupon.getCouponName();
-							String couponid = coupon.getCouponId();
-							int num = obj.getPerNumofPrintByCoupon(couponid);
-							ShopAnalysis obj0 = loadChart(shopname, couponname, num);
-							vector.addElement(obj0);
-						}
-					}
-					else
+					Vector<ShopAnalysis> vector3 = obj.getCouponIdsByShop2(shopid,this.stime,this.etime);
+				    if((vector2==null||vector2.size()==0) && (vector3==null||vector3.size()==0))
 					{
 						vector.addElement(loadChart(shopname, "无优惠券发布记录" , 0));
-					}
-									
+					}	
+				    else
+					{
+						if(vector2!=null)
+						{
+							for(int i=0;i<vector2.size();i++)
+							{
+								ShopAnalysis coupon  = vector2.get(i);
+								String couponname = coupon.getCouponName();
+								String couponid = coupon.getCouponId();
+								int num = obj.getPerNumofPrintByCoupon(couponid,this.stime,this.etime);
+								ShopAnalysis obj0 = loadChart(shopname, couponname, num);
+								vector.addElement(obj0);
+							}
+						}
+						if(vector3!=null)
+						{
+							int totalnum=0;
+							for(int i=0;i<vector3.size();i++)
+							{
+								ShopAnalysis coupon  = vector3.get(i);
+								String couponname = coupon.getCouponName();
+								String couponid = coupon.getCouponId();
+								int num = obj.getPerNumofPrintByCoupon(couponid,this.stime,this.etime);
+								totalnum+=num;
+								if(num!=0)
+								{
+									ShopAnalysis obj0 = loadChart(shopname, "*（"+couponname+"）", num);
+									vector.addElement(obj0);						
+								}								
+							}
+							if(totalnum ==0){
+								vector.addElement(loadChart(shopname, "无优惠券发布记录" , 0));							 		
+							}
+						}
+				 	}													
 				}while (re.next()) ;
 			}
 		} catch (SQLException e) {
@@ -242,7 +322,7 @@ public class ShopAnalysis {
     //查询记录数
     public int getCountSA(String where) {
     	ShopAnalysis obj= new ShopAnalysis(globa);
-        int count = 0;
+        int count = 0,count2=0;
         String sql ="select * from "+strTableName1;
         try {
     		if (where.length() > 0)
@@ -254,8 +334,18 @@ public class ShopAnalysis {
 					String shopid = re.getString("strid");
 					Vector<ShopAnalysis> vector2 = obj.getCouponIdsByShop(shopid,this.stime,this.etime);
 					count += vector2.size();
-					if(vector2.size()==0)
+					Vector<ShopAnalysis> vector3 = obj.getCouponIdsByShop2(shopid,this.stime,this.etime);
+					for(int i=0;i<vector3.size();i++)
+					{
+						ShopAnalysis coupon  = vector3.get(i);
+						String couponid = coupon.getCouponId();
+						int num = obj.getPerNumofPrintByCoupon(couponid,this.stime,this.etime);
+						if(num!=0)
+							count +=1;
+					}										
+					if(count == count2)
 						count+=1;
+					count2=count;
 				}
 			}
 		} catch (SQLException e) {
