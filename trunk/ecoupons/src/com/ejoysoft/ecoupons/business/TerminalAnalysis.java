@@ -152,7 +152,6 @@ public class TerminalAnalysis {
 		{
 			sql +=" and dtcreatetime between '"+stime+"' and '"+etime+"'";
 		} 
-//		System.err.println(sql+"4444444444444444444422");
 		ResultSet re = db.executeQuery(sql);
     	try {
 			if(re!=null&&re.next())
