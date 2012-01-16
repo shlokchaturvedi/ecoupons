@@ -57,8 +57,8 @@
 		{
 			for (int i = 0; i < vctCouponInputs.size(); i++)
 			{
-				obj.State(obj.show(" where strshopid= '"+vctCouponInputs.get(i).getStrShopId()).getStrMemberCardNo()+"'"," and dtCreateTime LIKE '" + dtCreateTime + "%'");
-				sb.append("<tr><td>" + vctCouponInputs.get(i).getStrShopId() +shop.returnBizShopName("where strid='"+vctCouponInputs.get(i).getStrShopId())+"'"+ "</td>"+"<td>"
+				obj.State(obj.show(" where strshopid= '"+vctCouponInputs.get(i).getStrShopId()+"'").getStrMemberCardNo()," and dtCreateTime LIKE '" + dtCreateTime + "%'");
+				sb.append("<tr><td>" + vctCouponInputs.get(i).getStrShopId() +shop.returnBizShopName("where strid='"+vctCouponInputs.get(i).getStrShopId()+"'")+ "</td>"+"<td>"
 						+ obj.getCount("where strShopid='" + vctCouponInputs.get(i).getStrShopId() + "' and dtCreateTime LIKE '" + dtCreateTime + "%'")
 						+ "</td><td>"+dtCreateTime.replace("-","年")+"月"+"</td>");
 			}
@@ -95,9 +95,8 @@ body,td,th {
 		<script src="../include/js/list.js"></script>
 		<script language="JavaScript"
 			src="../include/DatePicker/WdatePicker.js"></script>
-		<script type="text/javascript">
+		
 
-</script>
 	</head>
 	<body>
 		<form name=frm method=post action="coupon_stat.jsp">
@@ -189,11 +188,11 @@ body,td,th {
 														<td align="right" width="600">
 															<div style="height: 26">
 																统计年月：
-																<input name="dtCreateTime" class="editbox4"
+																<input  name="dtCreateTime" class="editbox4" value="<%=Format.getDate().substring(0,7) %>"
 																	onClick="WdatePicker({dateFmt:'yyyy-MM'})"
 																	readonly="readonly" size="10">
 																&nbsp;&nbsp;&nbsp;&nbsp;
-																<input type="submit"  class="button_box" value="统计" />
+																<input  type="submit"  class="button_box" value="统计" />
 															</div>
 														</td>
 													</tr>
@@ -261,7 +260,7 @@ body,td,th {
 															</div>
 														</td>
 														<td bgcolor="#FFFFFF">
-															<div align="center" class="STYLE1"><%=coupon.show("where strId=" + obj1.getStrCouponId()).getStrName()%></div>
+															<div align="center" class="STYLE1"><%=coupon.show("where strId='" + obj1.getStrCouponId()+"'").getStrName()%></div>
 														</td>
 														<td bgcolor="#FFFFFF">
 															<div align="center">
