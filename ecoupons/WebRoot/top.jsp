@@ -1,8 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ page import="com.ejoysoft.common.Constants" %>
+<%@page import="com.ejoysoft.ecoupons.business.Terminal,java.util.*"%>
+<%@include file="include/jsp/head.jsp"%>
+
 <html>
 <head>
 <title><%=application.getAttribute("APP_TITLE")%></title>
+   
 <script language=JavaScript>
 function logout(){
 	if (confirm("您确定要退出吗？"))
@@ -12,7 +16,7 @@ function logout(){
 </script>
 <style>
 a:link,a:hover,a:active,a:visited{
-	color: #ffffff;
+	color: #F8F9FAs;
 	text-decoration: none;
 }
 .admin_txt {
@@ -37,6 +41,8 @@ a:link,a:hover,a:active,a:visited{
 	bottom: 0px;
 }
 </style>
+
+<meta http-equiv="Refresh" content="600">
 <meta http-equiv=Content-Type content=text/html;charset=gb2312>
 <script language=JavaScript1.2>
 function showsubmenu(sid) {
@@ -48,9 +54,18 @@ function showsubmenu(sid) {
 		eval("submenu" + sid + ".style.display=\"none\";");
 	}
 }
+function openwin(strId,strNum) {  
+	if(confirm("确定终端"+strNum+"已添加打印纸!"))
+    {
+		window.location.href="printpaper_act.jsp?strId="+strId;
+	      
+    }
+ 	
+ 	}
 </script>
 </head>
 <body leftmargin="0" topmargin="0">
+<form action="">
 <table width="100%" height="64" border="0" cellpadding="0" cellspacing="0" bgcolor="#EEF2FB" class="admin_topbg">
   <tr>
     <td width="61%" height="64" background="images/top-right.gif" bgcolor="#EEF2FB"><img src="images/logo.gif" width="262" height="64"></td>
@@ -64,10 +79,44 @@ function showsubmenu(sid) {
         <td width="4%">&nbsp;</td>
       </tr>
       <tr>
-        <td height="19" colspan="3">&nbsp;</td>
+     
+      
+        <td height="19" colspan="3">
+
+ <marquee  behavior="scroll" scrollamount="2" onmouseover="this.stop();" onmouseout="this.start();" ><b><font color="#FF0000">
+<%
+Vector<Terminal> vctTerminals=new Vector<Terminal>();
+StringBuffer sbTip=new StringBuffer("提醒:");
+	if("管理员".equals(globa.userSession.getStrCssType()))
+	{
+		Terminal terminal=new Terminal(globa);
+		vctTerminals=terminal.list("where intpaperstate=1 ",0,0);
+		if(vctTerminals.size()>0)
+		{
+			for(int i=0;i<vctTerminals.size();i++)
+			{
+			  if(i!=vctTerminals.size()-1)
+			  {
+				  
+		      sbTip.append("<a href='#' onclick='openwin("+vctTerminals.get(i).getStrId()+","+vctTerminals.get(i).getStrNo()+")' >"+vctTerminals.get(i).getStrNo()+"</a>,");	
+			  }	else{ sbTip.append("<a href='#' onclick='openwin("+vctTerminals.get(i).getStrId()+","+vctTerminals.get(i).getStrNo()+")' >"+vctTerminals.get(i).getStrNo()+"</a> ");}
+			}
+		sbTip.append("终端机，打印纸已经打印完，请重新添加！！");
+		out.print(sbTip);
+		//关闭数据库连接对象
+		globa.closeCon();	
+		}
+	}	
+%>
+</font>
+    </b>  
+      </marquee>
+
+</td>
         </tr>
     </table></td>
   </tr>
 </table>
+</form>
 </body>
 </html>
