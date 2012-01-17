@@ -207,7 +207,7 @@ public class ShopBiz {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	        	
+
     	return vector;
     }
     //查询记录数
