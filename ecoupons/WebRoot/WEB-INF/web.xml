@@ -56,6 +56,15 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>PrintAlert</servlet-name>
+		<servlet-class>com.ejoysoft.servlet.PrintAlertServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PrintAlert</servlet-name>
+		<url-pattern>/servlet/PrintAlert</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>CouponDownload</servlet-name>
 		<servlet-class>com.ejoysoft.servlet.CouponDownloadServlet</servlet-class>
 	</servlet>
