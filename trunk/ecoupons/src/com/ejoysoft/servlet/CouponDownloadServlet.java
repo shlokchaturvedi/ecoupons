@@ -149,10 +149,21 @@ public class CouponDownloadServlet extends HttpServlet implements Servlet
 		}
 		if (terminal2.updateState(strId, "t_bz_coupon"))
 		{
-			 System.out.println(sbReturn.toString());
+//			 System.out.println(sbReturn.toString());
 			try
 			{
 				resp.getWriter().print(sbReturn.toString());
+			} catch (IOException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+
+			}
+		}else{
+			try
+			{
+//				System.out.println("<?xml version='1.0' encoding='utf-8'?> ");
+				resp.getWriter().print("<?xml version='1.0' encoding='utf-8'?> ");
 			} catch (IOException e)
 			{
 				// TODO Auto-generated catch block
