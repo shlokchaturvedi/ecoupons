@@ -124,9 +124,7 @@
 			int em = Integer.parseInt(emonth2[1]);
 			if ((sy == ey && sm >= em) || (sy > ey))
 				out.print("<script type='text/javascript'>alert('输入时间先后有误，请重新输入');history.go(-1);</script>");
-
 		}
-
 	}
 	obj.setStime(stime);
 	obj.setEtime(etime);
@@ -353,6 +351,10 @@ function showTime(str){
   </tr>
 </table>
 </form>
+<%
+	    //关闭数据库连接对象
+	    globa.closeCon();
+ %>
 </body>
 </html>
 <%@ include file="../include/jsp/footer.jsp"%>
