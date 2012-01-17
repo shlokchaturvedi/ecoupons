@@ -19,6 +19,7 @@ public class Terminal
 {
 	private Globa globa;
 	private DbConnect db;
+	private int intPaperState;// 终端纸状态
 
 	// ���췽��
 	public Terminal()
@@ -46,6 +47,26 @@ public class Terminal
 	public static HashMap<String, Terminal> hmTerminal;
 
 	/**
+	 * 将打印纸大刀阀值修改打印纸的状态
+	 * 
+	 */
+	public boolean updatePrintPaperState(String strId)
+	{
+
+		String strSql = "update " + strTableName + "  set intpaperstate=1 where strid='" + strId + "'";
+
+		try
+		{
+			db.executeUpdate(strSql);
+			return true;
+		} catch (Exception e)
+		{
+			System.out.println("更新状态失败" + e);
+			return false;
+		}
+	}
+
+	/**
 	 * 状态更新修改
 	 * 
 	 * @param strId
@@ -53,18 +74,19 @@ public class Terminal
 	 */
 	public boolean updateState(String strId)
 	{
-		String strSql = "update " + strTableName + "  set intstate=0, dtRefreshTime='" + com.ejoysoft.common.Format.getDateTime()
-				+ "' where strid='"+strId+"'";
-		try {
+		String strSql = "update " + strTableName + "  set intstate=0, dtRefreshTime='" + com.ejoysoft.common.Format.getDateTime() + "' where strid='"
+				+ strId + "'";
+		try
+		{
 			db.executeUpdate(strSql);
-		    return true;
-		} catch (Exception e) {
-		    System.out.println("更新状态失败" + e);
-		    return false;
+			return true;
+		} catch (Exception e)
+		{
+			System.out.println("更新状态失败" + e);
+			return false;
 		}
 	}
 
-	
 	/**
 	 * 初始化
 	 */
@@ -107,8 +129,8 @@ public class Terminal
 
 			// 添加券打机信息
 			strSql = "insert into " + strTableName + "  (strid, strno, dtactivetime, strlocation,straroundshopids,strproducer, strtype, "
-					+ "strresolution, strresolution2, strresolution3,intstate,dtrefreshtime, strcreator, dtcreatetime)"
-					+ " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+					+ "strresolution, strresolution2, strresolution3,intstate,dtrefreshtime, strcreator, dtcreatetime,intpaperstate)"
+					+ " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			db.prepareStatement(strSql);
 			db.setString(1, strId);
 			db.setString(2, strNo);
@@ -124,6 +146,7 @@ public class Terminal
 			db.setString(12, com.ejoysoft.common.Format.getDateTime());
 			db.setString(13, strCreator);
 			db.setString(14, com.ejoysoft.common.Format.getDateTime());
+			db.setInt(15, 0);
 			if (db.executeUpdate() > 0)
 			{
 				Globa.logger0("添加终端信息", globa.loginName, globa.loginIp, strSql, "终端管理", globa.userSession.getStrDepart());
@@ -165,20 +188,21 @@ public class Terminal
 	 * @param strId
 	 * @return
 	 */
-	public boolean updateState(String strId,String strDateType)
+	public boolean updateState(String strId, String strDateType)
 	{
-		String strSql = "update " + strTableName + "  set intstate=0, dtRefreshTime='" + com.ejoysoft.common.Format.getDateTime()
-				+ "' where strid='"+strId+"'";
-		String strSql2 = "update t_bz_download_alert set intstate=1 where strDataType='"+strDateType+"' and"+" strTerminalId='"+strId+"'";
+		String strSql = "update " + strTableName + "  set intstate=0, dtRefreshTime='" + com.ejoysoft.common.Format.getDateTime() + "' where strid='"
+				+ strId + "'";
+		String strSql2 = "update t_bz_download_alert set intstate=1 where strDataType='" + strDateType + "' and" + " strTerminalId='" + strId + "'";
 		db.setAutoCommit(false);
 		try
 		{
-			if (db.executeUpdate(strSql) > 0 && db.executeUpdate(strSql2) > 0)
+			if (db.executeUpdate(strSql) > 0)
 			{
+				db.executeUpdate(strSql2);
 				db.commit();
-                return true;
-			}
-			else {
+				return true;
+			} else
+			{
 				db.rollback();
 				return false;
 			}
@@ -188,8 +212,8 @@ public class Terminal
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			db.rollback();
+			return false;
 		}
-		return false;
 
 	}
 
@@ -268,6 +292,7 @@ public class Terminal
 			theBean.setStrResolution2(rs.getString("strresolution2"));
 			theBean.setStrResolution3(rs.getString("strresolution3"));
 			theBean.setIntState(rs.getInt("intstate"));
+			theBean.setIntPaperState(rs.getInt("intPaperState"));
 			if (rs.getInt("intstate") == -1)
 				theBean.setStateString("异常");
 			else
@@ -1066,6 +1091,16 @@ public class Terminal
 	public void setTypeName(String typeName)
 	{
 		this.typeName = typeName;
+	}
+
+	public int getIntPaperState()
+	{
+		return intPaperState;
+	}
+
+	public void setIntPaperState(int intPaperState)
+	{
+		this.intPaperState = intPaperState;
 	}
 
 }

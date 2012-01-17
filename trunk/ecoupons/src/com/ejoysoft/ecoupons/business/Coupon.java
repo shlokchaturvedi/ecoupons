@@ -130,6 +130,7 @@ public class Coupon
 						strDownSql[i] = "insert into " + strDownLoadAlertTable
 								+ " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) " + "values (" + UID.getID() + ",'"
 								+ strTerminalId[i] + "','" + strTableName + "','" + strId + "','add',0);";
+						System.out.println(strDownSql[i]);
 						db.executeUpdate(strDownSql[i]);
 						Globa.logger0("增加优惠券信息时，增加下载提醒表中信息", globa.loginName, globa.loginIp, strDownSql[i], "优惠券管理", globa.unitCode);
 					}
