@@ -1,10 +1,9 @@
 package com.ejoysoft.servlet;
 
-import java.io.FileInputStream;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Vector;
 
 import javax.servlet.Servlet;
@@ -18,7 +17,6 @@ import com.ejoysoft.common.Globa;
 import com.ejoysoft.ecoupons.business.Coupon;
 import com.ejoysoft.ecoupons.business.DownLoadAlert;
 import com.ejoysoft.ecoupons.business.Terminal;
-import com.ejoysoft.ecoupons.system.SysPara;
 
 public class CouponDownloadServlet extends HttpServlet implements Servlet
 {
@@ -73,8 +71,8 @@ public class CouponDownloadServlet extends HttpServlet implements Servlet
 		// System.out.println(strId);
 		DownLoadAlert downLoadAlert = new DownLoadAlert(globa);
 		Vector<DownLoadAlert> vctAlerts = new Vector<DownLoadAlert>();
-		String strImagAddr = req.getSession().getServletContext().getRealPath(req.getRequestURI());
-		strImagAddr = strImagAddr.replace("\\ecoupons\\servlet\\CouponDownload", "\\coupon\\images\\");
+//		String strImagAddr = req.getSession().getServletContext().getRealPath(req.getRequestURI());
+//		strImagAddr = strImagAddr.replace("\\ecoupons\\servlet\\CouponDownload", "\\coupon\\images\\");
 		// System.out.println(strImagAddr);
 		Coupon coupon = new Coupon(globa);
 		String strWhere = "where strDataType='t_bz_coupon' and intState=0 and strTerminalId='" + strId + "'";
@@ -98,7 +96,8 @@ public class CouponDownloadServlet extends HttpServlet implements Servlet
 						sbReturn.append("<operate>add</operate>");
 						flagAdd = false;
 					}
-					sbReturn.append(returnSbContent(tempCoupon, strImagAddr));
+					sbReturn.append(returnSbContent(tempCoupon));
+//					sbReturn.append(returnSbContent(tempCoupon, strImagAddr));
 				}
 			}
 			if (!flagAdd)
@@ -118,7 +117,8 @@ public class CouponDownloadServlet extends HttpServlet implements Servlet
 						sbReturn.append("<operate>update</operate>");
 						flagUpdate = false;
 					}
-					sbReturn.append(returnSbContent(tempCoupon, strImagAddr));
+					sbReturn.append(returnSbContent(tempCoupon));
+//					sbReturn.append(returnSbContent(tempCoupon, strImagAddr));
 
 				}
 			}
@@ -181,18 +181,19 @@ public class CouponDownloadServlet extends HttpServlet implements Servlet
 	 * @param tempTerminal
 	 * @return
 	 */
-	private StringBuffer returnSbContent(Coupon tempCoupon, String strImagAddr)
+//	private StringBuffer returnSbContent(Coupon tempCoupon, String strImagAddr)
+	private StringBuffer returnSbContent(Coupon tempCoupon)
 	{
-		String smallMageContent = "";
-		String LargeMageContent = "";
-		if (tempCoupon.getStrSmallImg() != null && tempCoupon.getStrSmallImg() != "")
-		{
-			smallMageContent = Base64.getPicBASE64(strImagAddr + tempCoupon.getStrSmallImg());
-		}
-		if (tempCoupon.getStrLargeImg() != null && tempCoupon.getStrLargeImg() != "")
-		{
-			LargeMageContent = Base64.getPicBASE64(strImagAddr + tempCoupon.getStrLargeImg());
-		}
+//		String smallMageContent = "";
+//		String LargeMageContent = "";
+//		if (tempCoupon.getStrSmallImg() != null && tempCoupon.getStrSmallImg() != "")
+//		{
+//			smallMageContent = Base64.getPicBASE64(strImagAddr + tempCoupon.getStrSmallImg());
+//		}
+//		if (tempCoupon.getStrLargeImg() != null && tempCoupon.getStrLargeImg() != "")
+//		{
+//			LargeMageContent = Base64.getPicBASE64(strImagAddr + tempCoupon.getStrLargeImg());
+//		}
 		StringBuffer sbReturn = new StringBuffer();
 		sbReturn.append("<coupon>");
 		sbReturn.append("<strId>" + tempCoupon.getStrId() + "</strId>");
@@ -204,9 +205,9 @@ public class CouponDownloadServlet extends HttpServlet implements Servlet
 		sbReturn.append("<flaPrice>" + tempCoupon.getFlaPrice() + "</flaPrice>");
 		sbReturn.append("<intPrintLimit>" + tempCoupon.getIntPrintLimit() + "</intPrintLimit>");
 		sbReturn.append("<strSmallImg>" + tempCoupon.getStrSmallImg() + "</strSmallImg>");
-		sbReturn.append("<strSmallImgContent>" + smallMageContent + "</strSmallImgContent>");
+		//sbReturn.append("<strSmallImgContent>" + smallMageContent + "</strSmallImgContent>");
 		sbReturn.append("<strLargeImg>" + tempCoupon.getStrLargeImg() + "</strLargeImg>");
-		sbReturn.append("<strLargeImgContent>" + LargeMageContent + "</strLargeImgContent>");
+//		sbReturn.append("<strLargeImgContent>" + LargeMageContent + "</strLargeImgContent>");
 		sbReturn.append("</coupon>");
 		return sbReturn;
 	}

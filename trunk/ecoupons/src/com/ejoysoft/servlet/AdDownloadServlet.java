@@ -69,9 +69,8 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 		// System.out.println(strId);
 		DownLoadAlert downLoadAlert = new DownLoadAlert(globa);
 		Vector<DownLoadAlert> vctAlerts = new Vector<DownLoadAlert>();
-		String strFileAddr = req.getSession().getServletContext().getRealPath(req.getRequestURI());
-		strFileAddr = strFileAddr.replace("\\ecoupons\\servlet\\AdDownload", "\\terminal\\advertisement\\");
-
+//		String strFileAddr = req.getSession().getServletContext().getRealPath(req.getRequestURI());
+//		strFileAddr = strFileAddr.replace("\\ecoupons\\servlet\\AdDownload", "\\terminal\\advertisement\\");
 		String strWhere = "where strDataType='t_bz_advertisement' and intState=0 and strTerminalId='" + strId + "'";
 		Terminal tempTerminal = new Terminal();
 		vctAlerts = downLoadAlert.list(strWhere, 0, 0);
@@ -93,7 +92,8 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 						sbReturn.append("<operate>add</operate>");
 						flagAdd = false;
 					}
-					sbReturn.append(returnSbContent(tempTerminal, strFileAddr));
+					sbReturn.append(returnSbContent(tempTerminal));
+//					sbReturn.append(returnSbContent(tempTerminal, strFileAddr));
 
 				}
 			}
@@ -112,7 +112,8 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 						sbReturn.append("<operate>update</operate>");
 						flagUpdate = false;
 					}
-					sbReturn.append(returnSbContent(tempTerminal, strFileAddr));
+					sbReturn.append(returnSbContent(tempTerminal));
+//					sbReturn.append(returnSbContent(tempTerminal, strFileAddr));
 				}
 			}
 			if (!flagUpdate)
@@ -142,7 +143,7 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 		}
 		if (terminal2.updateState(strId, "t_bz_advertisement"))
 		{
-			 
+			 System.out.println(sbReturn.toString());
 			try
 			{
 				resp.getWriter().print(sbReturn.toString());
@@ -159,35 +160,36 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 
 	/**
 	 * 根据条件返回具体内容
-	 * 
+	 * 20120117删除文件内容，返回空
 	 * @param tempTerminal
 	 * @return
 	 */
-	private StringBuffer returnSbContent(Terminal tempTerminal, String strFileAddr)
+//	private StringBuffer returnSbContent(Terminal tempTerminal, String strFileAddr)
+	private StringBuffer returnSbContent(Terminal tempTerminal)
 	{
 
 //		String strContent = "";
-		StringBuffer sbContent=new StringBuffer();
+//		StringBuffer sbContent=new StringBuffer("");
 		StringBuffer sbReturnContent = new StringBuffer();
-
-		if ("1".equals(tempTerminal.getIntType()) && tempTerminal.getStrContent() != null && tempTerminal.getStrContent() != "")//视频文件
-		{
-			sbContent.append(Base64.getPicBASE64(strFileAddr + tempTerminal.getStrContent()));
-		} else
-		if ("2".equals(tempTerminal.getIntType()) && tempTerminal.getStrContent() != null && tempTerminal.getStrContent() != "")//图片文件,可能有多个
-		{
-			String[]strContentNames=tempTerminal.getStrContent().split(",");
-			for (int i = 0; i < strContentNames.length; i++)
-			{
-				sbContent.append(Base64.getPicBASE64(strFileAddr + strContentNames[i]));
-			}
-		}
+//
+//		if ("1".equals(tempTerminal.getIntType()) && tempTerminal.getStrContent() != null && tempTerminal.getStrContent() != "")//视频文件
+//		{
+//			sbContent.append(Base64.getPicBASE64(strFileAddr + tempTerminal.getStrContent()));
+//		} else
+//		if ("2".equals(tempTerminal.getIntType()) && tempTerminal.getStrContent() != null && tempTerminal.getStrContent() != "")//图片文件,可能有多个
+//		{
+//			String[]strContentNames=tempTerminal.getStrContent().split(",");
+//			for (int i = 0; i < strContentNames.length; i++)
+//			{
+//				sbContent.append(Base64.getPicBASE64(strFileAddr + strContentNames[i]));
+//			}
+//		}
 		sbReturnContent.append("<ad>");
 		sbReturnContent.append("<strId>" + tempTerminal.getStrId() + "</strId>");
 		sbReturnContent.append("<strName>" + tempTerminal.getStrName() + "</strName>");
 		sbReturnContent.append("<intType>" + tempTerminal.getIntType() + "</intType>");
 		sbReturnContent.append("<strContent>" + tempTerminal.getStrContent() + "</strContent>");
-		sbReturnContent.append("<strFileContent>" + sbContent.toString() + "</strFileContent>");
+//		sbReturnContent.append("<strFileContent>" + sbContent.toString() + "</strFileContent>");
 		sbReturnContent.append("<dtStartTime>" + tempTerminal.getDtStartTime() + "</dtStartTime>");
 		sbReturnContent.append("<strEndTime>" + tempTerminal.getDtEndTime() + "</strEndTime>");
 		sbReturnContent.append("</ad>");

@@ -68,8 +68,8 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 //		System.out.println(strId);
 		DownLoadAlert downLoadAlert = new DownLoadAlert(globa);
 		Vector<DownLoadAlert> vctAlerts = new Vector<DownLoadAlert>();
-        String strImagAddr=req.getSession().getServletContext().getRealPath(req.getRequestURI());
-        strImagAddr=strImagAddr.replace("\\ecoupons\\servlet\\ShopDownload", "\\shop\\images\\");
+//        String strImagAddr=req.getSession().getServletContext().getRealPath(req.getRequestURI());
+//        strImagAddr=strImagAddr.replace("\\ecoupons\\servlet\\ShopDownload", "\\shop\\images\\");
 //        System.out.println(strImagAddr);
         Shop shop = new Shop(globa);
 		String strWhere = "where strDataType='t_bz_shop' and intState=0 and strTerminalId='" + strId + "'";
@@ -95,7 +95,8 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 						flagAdd = false;
 					}
 					
-					sbReturn.append(returnSbContent(tempShop, strImagAddr));
+					sbReturn.append(returnSbContent(tempShop));
+//					sbReturn.append(returnSbContent(tempShop, strImagAddr));
 					
 				}
 			}
@@ -115,7 +116,8 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 						sbReturn.append("<operate>update</operate>");
 						flagUpdate = false;
 					}
-					sbReturn.append(returnSbContent(tempShop, strImagAddr));
+					sbReturn.append(returnSbContent(tempShop));
+//					sbReturn.append(returnSbContent(tempShop, strImagAddr));
 				}
 			}
 			if (!flagUpdate)
@@ -175,18 +177,19 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 	 * @param tempTerminal
 	 * @return
 	 */
-	private StringBuffer returnSbContent(Shop tempShop, String strImagAddr)
+//	private StringBuffer returnSbContent(Shop tempShop, String strImagAddr)
+	private StringBuffer returnSbContent(Shop tempShop)
 	{
-		String smallMageContent="";
-		String LargeMageContent="";
-		if (tempShop.getStrSmallImg()!=null&&tempShop.getStrSmallImg()!="")
-		{
-			smallMageContent=Base64.getPicBASE64(strImagAddr+tempShop.getStrSmallImg());
-		}
-		if (tempShop.getStrLargeImg()!=null&&tempShop.getStrLargeImg()!="")
-		{
-			LargeMageContent=Base64.getPicBASE64(strImagAddr+tempShop.getStrLargeImg());
-		}
+//		String smallMageContent="";
+//		String LargeMageContent="";
+//		if (tempShop.getStrSmallImg()!=null&&tempShop.getStrSmallImg()!="")
+//		{
+//			smallMageContent=Base64.getPicBASE64(strImagAddr+tempShop.getStrSmallImg());
+//		}
+//		if (tempShop.getStrLargeImg()!=null&&tempShop.getStrLargeImg()!="")
+//		{
+//			LargeMageContent=Base64.getPicBASE64(strImagAddr+tempShop.getStrLargeImg());
+//		}
 		StringBuffer sbReturn=new StringBuffer();
 		sbReturn.append("<shop>");
 		sbReturn.append("<strId>" + tempShop.getStrId() + "</strId>");
