@@ -50,10 +50,10 @@ public class Terminal
 	 * 将打印纸大刀阀值修改打印纸的状态
 	 * 
 	 */
-	public boolean updatePrintPaperState(String strId)
+	public boolean updatePrintPaperState(String strId,int num)
 	{
 
-		String strSql = "update " + strTableName + "  set intpaperstate=1 where strid='" + strId + "'";
+		String strSql = "update " + strTableName + "  set intpaperstate="+num+" where strid='" + strId + "'";
 
 		try
 		{
@@ -799,6 +799,8 @@ public class Terminal
 	private String strResolution3;// 主屏分辨率3
 	private int intState;// 状态
 	private String stateString;// 默认状态显示正常
+	private String printpaperStateString;// 默认状态显示正常
+	
 	private String dtRefreshTime;// 状态更新时间
 	// 广告信息
 	private String strName;// 广告名称
@@ -1101,6 +1103,16 @@ public class Terminal
 	public void setIntPaperState(int intPaperState)
 	{
 		this.intPaperState = intPaperState;
+	}
+
+	public String getPrintpaperStateString()
+	{
+		return printpaperStateString;
+	}
+
+	public void setPrintpaperStateString(String printpaperStateString)
+	{
+		this.printpaperStateString = printpaperStateString;
 	}
 
 }
