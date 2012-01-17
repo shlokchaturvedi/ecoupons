@@ -1,6 +1,5 @@
 package com.ejoysoft.servlet;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ejoysoft.auth.Base64;
 import com.ejoysoft.common.Globa;
-import com.ejoysoft.ecoupons.business.Coupon;
 import com.ejoysoft.ecoupons.business.DownLoadAlert;
 import com.ejoysoft.ecoupons.business.Shop;
 import com.ejoysoft.ecoupons.business.Terminal;
@@ -90,7 +88,7 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 					
 					if (flagAdd)
 					{
-						sbReturn.append("<coupons>");
+						sbReturn.append("<shops>");
 						sbReturn.append("<operate>add</operate>");
 						flagAdd = false;
 					}
@@ -101,7 +99,7 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 			}
 			if (!flagAdd)
 			{
-				sbReturn.append("</coupons>");
+				sbReturn.append("</shops>");
 			}
 
 			for (int i = 0; i < vctAlerts.size(); i++)
@@ -111,7 +109,7 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 				{
 					if (flagUpdate)
 					{
-						sbReturn.append("<coupons>");
+						sbReturn.append("<shops>");
 						sbReturn.append("<operate>update</operate>");
 						flagUpdate = false;
 					}
@@ -120,7 +118,7 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 			}
 			if (!flagUpdate)
 			{
-				sbReturn.append("</coupons>");
+				sbReturn.append("</shops>");
 			}
 			for (int i = 0; i < vctAlerts.size(); i++)
 			{
@@ -129,18 +127,18 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 				{
 					if (flagDelete)
 					{
-						sbReturn.append("<coupons>");
+						sbReturn.append("<shops>");
 						sbReturn.append("<operate>delete</operate>");
 						flagDelete = false;
 					}
-					sbReturn.append("<coupon>");
+					sbReturn.append("<shop>");
 					sbReturn.append("<strId>" + vctAlerts.get(i).getStrDataId() + "</strId>");
-					sbReturn.append("</coupon>");
+					sbReturn.append("</shop>");
 				}
 			}
 			if (!flagDelete)
 			{
-				sbReturn.append("</coupons>");
+				sbReturn.append("</shops>");
 			}
 		}
 		if (terminal2.updateState(strId,"t_bz_shop"))
@@ -188,7 +186,7 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 			LargeMageContent=Base64.getPicBASE64(strImagAddr+tempShop.getStrLargeImg());
 		}
 		StringBuffer sbReturn=new StringBuffer();
-		sbReturn.append("<coupon>");
+		sbReturn.append("<shop>");
 		sbReturn.append("<strId>" + tempShop.getStrId() + "</strId>");
 		sbReturn.append("<strBizName>" + tempShop.getStrBizName() + "</strBizName>");
 		sbReturn.append("<strShopName>" + tempShop.getStrShopName() + "</strShopName>");
@@ -199,7 +197,7 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 		sbReturn.append("<strSmallImgContent>" + smallMageContent + "</strSmallImgContent>");
 		sbReturn.append("<strLargeImg>" + tempShop.getStrLargeImg() + "</strLargeImg>");
 		sbReturn.append("<strLargeImgContent>" + LargeMageContent + "</strLargeImgContent>");
-		sbReturn.append("</coupon>");
+		sbReturn.append("</shop>");
 		return sbReturn;
 	}
 	
