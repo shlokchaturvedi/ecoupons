@@ -151,7 +151,6 @@ if(!globa.userSession.hasRight("13015"))
 	//记录总数
 	int intAllCount=obj.getCountSA(tWhere);
 	//当前页
-    System.out.println(flag+2);
 	int intCurPage=globa.getIntCurPage();
 	//每页记录数
 	int intPageSize=globa.getIntPageSize();
@@ -162,7 +161,6 @@ if(!globa.userSession.hasRight("13015"))
 	//结束序号
 	int intEndNum=intCurPage*intPageSize;   
 	//获取到当前页面的记录集
-    System.out.println(flag+3);
 	Vector<MemberBiz> vctObj=obj.getMemberBizList(tWhere);
 	//获取当前页的记录条数
 	int intVct=(vctObj!=null&&vctObj.size()>0?vctObj.size():0);
@@ -335,6 +333,8 @@ function showTime(str){
                 </tr>
             <%
             }
+	      //关闭数据库连接对象
+	       globa.closeCon();
             %>  
             </table></td>
           </tr>
