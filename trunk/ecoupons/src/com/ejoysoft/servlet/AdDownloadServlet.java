@@ -89,7 +89,7 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 
 					if (flagAdd)
 					{
-						sbReturn.append("<coupons>");
+						sbReturn.append("<ads>");
 						sbReturn.append("<operate>add</operate>");
 						flagAdd = false;
 					}
@@ -99,7 +99,7 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 			}
 			if (!flagAdd)
 			{
-				sbReturn.append("</coupons>");
+				sbReturn.append("</ads>");
 			}
 			for (int i = 0; i < vctAlerts.size(); i++)
 			{
@@ -108,7 +108,7 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 				{
 					if (flagUpdate)
 					{
-						sbReturn.append("<coupons>");
+						sbReturn.append("<ads>");
 						sbReturn.append("<operate>update</operate>");
 						flagUpdate = false;
 					}
@@ -117,7 +117,7 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 			}
 			if (!flagUpdate)
 			{
-				sbReturn.append("</coupons>");
+				sbReturn.append("</ads>");
 			}
 			for (int i = 0; i < vctAlerts.size(); i++)
 			{
@@ -126,18 +126,18 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 				{
 					if (flagDelete)
 					{
-						sbReturn.append("<coupons>");
+						sbReturn.append("<ads>");
 						sbReturn.append("<operate>delete</operate>");
 						flagDelete = false;
 					}
-					sbReturn.append("<coupon>");
+					sbReturn.append("<ad>");
 					sbReturn.append("<strId>" + vctAlerts.get(i).getStrDataId() + "</strId>");
-					sbReturn.append("</coupon>");
+					sbReturn.append("</ad>");
 				}
 			}
 			if (!flagDelete)
 			{
-				sbReturn.append("</coupons>");
+				sbReturn.append("</ads>");
 			}
 		}
 		if (terminal2.updateState(strId, "t_bz_advertisement"))
@@ -182,7 +182,7 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 				sbContent.append(Base64.getPicBASE64(strFileAddr + strContentNames[i]));
 			}
 		}
-		sbReturnContent.append("<coupon>");
+		sbReturnContent.append("<ad>");
 		sbReturnContent.append("<strId>" + tempTerminal.getStrId() + "</strId>");
 		sbReturnContent.append("<strName>" + tempTerminal.getStrName() + "</strName>");
 		sbReturnContent.append("<intType>" + tempTerminal.getIntType() + "</intType>");
@@ -190,7 +190,7 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 		sbReturnContent.append("<strFileContent>" + sbContent.toString() + "</strFileContent>");
 		sbReturnContent.append("<dtStartTime>" + tempTerminal.getDtStartTime() + "</dtStartTime>");
 		sbReturnContent.append("<strEndTime>" + tempTerminal.getDtEndTime() + "</strEndTime>");
-		sbReturnContent.append("</coupon>");
+		sbReturnContent.append("</ad>");
 
 		return sbReturnContent;
 	}
