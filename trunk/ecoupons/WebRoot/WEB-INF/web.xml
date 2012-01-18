@@ -91,6 +91,15 @@
 		<url-pattern>/servlet/AdDownload</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>FileDownload</servlet-name>
+		<servlet-class>com.ejoysoft.servlet.FileDownloadServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FileDownload</servlet-name>
+		<url-pattern>/servlet/FileDownload</url-pattern>
+	</servlet-mapping>
+	
 	
 	<servlet>
           <servlet-name>DisplayChart</servlet-name>
