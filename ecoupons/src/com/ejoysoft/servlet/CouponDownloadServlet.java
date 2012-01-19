@@ -202,12 +202,13 @@ public class CouponDownloadServlet extends HttpServlet implements Servlet
 		sbReturn.append("<dtExpireTime>" + tempCoupon.getDtExpireTime() + "</dtExpireTime>");
 		sbReturn.append("<strShopId>" + tempCoupon.getStrShopId() + "</strShopId>");
 		sbReturn.append("<intVip>" + tempCoupon.getIntVip() + "</intVip>");
+		sbReturn.append("<intRecommend>" + tempCoupon.getIntRecommend() + "</intRecommend>");
 		sbReturn.append("<flaPrice>" + tempCoupon.getFlaPrice() + "</flaPrice>");
-		sbReturn.append("<intPrintLimit>" + tempCoupon.getIntPrintLimit() + "</intPrintLimit>");
 		sbReturn.append("<strSmallImg>" + tempCoupon.getStrSmallImg() + "</strSmallImg>");
 		//sbReturn.append("<strSmallImgContent>" + smallMageContent + "</strSmallImgContent>");
 		sbReturn.append("<strLargeImg>" + tempCoupon.getStrLargeImg() + "</strLargeImg>");
 //		sbReturn.append("<strLargeImgContent>" + LargeMageContent + "</strLargeImgContent>");
+		sbReturn.append("<strPrintImg>" + tempCoupon.getStrPrintImg() + "</strPrintImg>");
 		sbReturn.append("</coupon>");
 		return sbReturn;
 	}
