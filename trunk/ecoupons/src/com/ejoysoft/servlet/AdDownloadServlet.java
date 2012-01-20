@@ -191,7 +191,7 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 		sbReturnContent.append("<strContent>" + tempTerminal.getStrContent() + "</strContent>");
 //		sbReturnContent.append("<strFileContent>" + sbContent.toString() + "</strFileContent>");
 		sbReturnContent.append("<dtStartTime>" + tempTerminal.getDtStartTime() + "</dtStartTime>");
-		sbReturnContent.append("<strEndTime>" + tempTerminal.getDtEndTime() + "</strEndTime>");
+		sbReturnContent.append("<dtEndTime>" + tempTerminal.getDtEndTime() + "</dtEndTime>");
 		sbReturnContent.append("</ad>");
 
 		return sbReturnContent;
