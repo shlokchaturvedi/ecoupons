@@ -56,7 +56,7 @@ public class CouponAuthServlet extends HttpServlet
 			strName = obj1.getStrName();
 		}	
 		
-		String messege = "亲爱的"+strName+"会员您好！您此次于"+strTerminalNo+"终端上打印优惠券的验证码为：   "+strCode+"  ，请及时使用，祝您购物愉快！";
+		String messege = "亲爱的"+strName+"会员您好！您此次于"+strTerminalNo+"终端上打印优惠券的验证码为："+strCode+"，请及时使用，祝您购物愉快！";
 		if(strPhone!=null && !strPhone.trim().equals("") && strCode!=null && !strCode.trim().equals(""))
 		{
 			String PostData;
