@@ -35,22 +35,18 @@ function chkFrm() {
         frm.strSalesman.focus();
         return false;
     }
-if(trim(frm.strMobileNo.value)!=""){
-	if(!isMobilePhone(frm.strMobileNo.value)){  
-  	  alert("非法的手机号码") 
-  	  frm.strMobileNo.focus();   
-  	  return false; 
-  	  }
-}
-    
-    else {
-    	
-    	
-    	if(confirm("确定添加!"))
-        {
-	frm.submit();
+	if(trim(frm.strMobileNo.value)!=""){
+		if(!isMobilePhone(frm.strMobileNo.value)){  
+		    alert("非法的手机号码") 
+		    frm.strMobileNo.focus();   
+		    return false; 
+	  	}else {
+	    	if(confirm("确定添加!"))
+	        {
+				frm.submit();
+		    }
 	    }
-    }
+	} 
 }
 </script>
 </head>
