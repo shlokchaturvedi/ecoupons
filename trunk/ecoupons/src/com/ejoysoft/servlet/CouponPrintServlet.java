@@ -41,7 +41,6 @@ public class CouponPrintServlet extends HttpServlet implements Servlet
 	{
 		StringBuffer sbReturn = new StringBuffer("<?xml version='1.0' encoding='utf-8'?> ");
 		globa = new Globa();
-		String strId = UID.getID();
 		db = new DbConnect();
 		db = globa.db;
 		String strTerminalNo = req.getParameter("strTerminalNo");
@@ -69,7 +68,7 @@ public class CouponPrintServlet extends HttpServlet implements Servlet
 							"dtprinttime,strcouponcode,intstate,strcreator,dtcreatetime) values(?,?,?,?,?,?,?,?,?)";
 					try {
 			            db.prepareStatement(strSql);
-			            db.setString(1, strId);
+			            db.setString(1, UID.getID());
 			            db.setString(2, strMemberCardNo);
 			            db.setString(3, strCouponId); 
 			            db.setString(4, strTerminalId);  //strPWD
