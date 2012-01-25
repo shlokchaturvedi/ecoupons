@@ -44,6 +44,7 @@ public class CouponDownloadServlet extends HttpServlet implements Servlet
 		// TODO Auto-generated method stub
 		// String strTerminalNo = req.getParameter("strCardNo");
 		StringBuffer sbReturn = new StringBuffer("<?xml version='1.0' encoding='utf-8'?> ");
+		sbReturn.append("<info>");
 		try
 		{
 			req.setCharacterEncoding("utf-8");
@@ -152,6 +153,7 @@ public class CouponDownloadServlet extends HttpServlet implements Servlet
 //			 System.out.println(sbReturn.toString());
 			try
 			{
+				sbReturn.append("</info>");
 				resp.getWriter().print(sbReturn.toString());
 			} catch (IOException e)
 			{
