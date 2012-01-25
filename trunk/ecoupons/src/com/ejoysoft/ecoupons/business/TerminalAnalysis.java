@@ -205,7 +205,7 @@ public class TerminalAnalysis {
     	thebean.setCouponName(couponname);
     	return thebean;
     }
-    //封装商家统计分析报表结果
+    //封装终端统计分析报表结果
     public TerminalAnalysis loadChart(String terminalno, String couponname,int num)
     {
     	TerminalAnalysis thebean = new TerminalAnalysis();
@@ -214,7 +214,7 @@ public class TerminalAnalysis {
     	thebean.setPerCouponPrintNum(num);
     	return thebean;
     }    
-    //封装商家统计分析柱形图结果
+    //封装终端统计分析柱形图结果
     public TerminalAnalysis loadBar(String terminalno, int couponnum,int printnum)
     {
     	TerminalAnalysis thebean = new TerminalAnalysis();
@@ -223,7 +223,7 @@ public class TerminalAnalysis {
     	thebean.setTerminalPrintNum(printnum);
     	return thebean;
     }
-    //获取一个商家统计分析的柱形图信息
+    //获取一个终端统计分析的柱形图信息
     public Vector<TerminalAnalysis> getTermianlAnalysisResult(String where)
     {
     	Vector<TerminalAnalysis> vector = new Vector<TerminalAnalysis>();
@@ -249,7 +249,7 @@ public class TerminalAnalysis {
 		}    	
     	return vector;
     }
-//获取一个商家统计分析的报表信息
+//获取一个终端统计分析的报表信息
     public Vector<TerminalAnalysis> getTerminalAnalysisList(String where)
     {
     	Vector<TerminalAnalysis> vector = new Vector<TerminalAnalysis>();
@@ -291,14 +291,15 @@ public class TerminalAnalysis {
 								String couponid = coupon.getCouponId();
 								int num = obj.getPerNumofPrintByCoupon(couponid,terminalid,this.stime,this.etime);
 								totalnum += num;
-								if(num!=0)
+								/*if(num!=0)
 								{
 									TerminalAnalysis obj0 = loadChart(terminalno, "*（"+couponname+"）", num);
 									vector.addElement(obj0);							
-								}
+								}*/
 							}
-							if(totalnum ==0){
-								vector.addElement(loadChart(terminalno, "无优惠券发布记录" , 0));							 		
+							if(totalnum !=0){
+								TerminalAnalysis obj0 = loadChart(terminalno, "无", totalnum);
+								vector.addElement(obj0);							 		
 							}
 						}
 					}

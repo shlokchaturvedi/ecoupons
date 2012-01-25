@@ -300,14 +300,15 @@ public class ShopAnalysis {
 								String couponid = coupon.getCouponId();
 								int num = obj.getPerNumofPrintByCoupon(couponid,this.stime,this.etime);
 								totalnum+=num;
-								if(num!=0)
+								/*if(num!=0)
 								{
 									ShopAnalysis obj0 = loadChart(shopname, "*（"+couponname+"）", num);
 									vector.addElement(obj0);						
-								}								
+								}	*/							
 							}
-							if(totalnum ==0){
-								vector.addElement(loadChart(shopname, "无优惠券发布记录" , 0));							 		
+							if(totalnum !=0){
+								ShopAnalysis obj0 = loadChart(shopname, "无", totalnum);
+								vector.addElement(obj0);								 		
 							}
 						}
 				 	}													
