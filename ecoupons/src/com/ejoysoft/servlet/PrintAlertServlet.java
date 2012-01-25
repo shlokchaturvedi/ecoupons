@@ -54,10 +54,9 @@ private void execute(HttpServletRequest req, HttpServletResponse resp)
 	}
 	Globa globa = new Globa();
 	resp.setCharacterEncoding("utf-8");
-//	String strTerminalNo = req.getParameter("strTerminalNo");
+	String strTerminalNo = req.getParameter("strTerminalNo");
 //	int intCouponPrint = Integer.parseInt(req.getParameter("intCouponPrint"));
 //	int intCouponPrint = 20;
-	 String strTerminalNo = "23";
 	HashMap<String, Terminal> hmTerminal = Terminal.hmTerminal;
 	Terminal terminal = hmTerminal.get(strTerminalNo);
 	Terminal terminal2 = new Terminal(globa);
