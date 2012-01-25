@@ -42,6 +42,7 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 	{
 		// TODO Auto-generated method stub
 		StringBuffer sbReturn = new StringBuffer("<?xml version='1.0' encoding='utf-8'?> ");
+		sbReturn.append("<info>");
 		try
 		{
 			req.setCharacterEncoding("utf-8");
@@ -143,9 +144,9 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 		}
 		if (terminal2.updateState(strId, "t_bz_advertisement"))
 		{
-			 System.out.println(sbReturn.toString());
 			try
 			{
+				sbReturn.append("</info>");
 				resp.getWriter().print(sbReturn.toString());
 			} catch (IOException e)
 			{

@@ -55,6 +55,7 @@ public class MemberAuthServlet extends HttpServlet implements Servlet
 //		String strCardNo = "3897";
 		
 		StringBuffer sbReturn = new StringBuffer("<?xml version='1.0' encoding='utf-8'?> ");
+		sbReturn.append("<info>");
 		Member member = new Member(globa);
 		Vector<CouponFavourite> vctCouponFavourites = new Vector<CouponFavourite>();
 		Vector<CouponComment> vctCouponComments = new Vector<CouponComment>();
@@ -87,6 +88,7 @@ public class MemberAuthServlet extends HttpServlet implements Servlet
 		}
 		try
 		{
+			sbReturn.append("</info>");
 			resp.getWriter().print(sbReturn.toString());
 		} catch (IOException e)
 		{
