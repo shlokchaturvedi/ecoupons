@@ -59,11 +59,13 @@ public class MemberAuthServlet extends HttpServlet implements Servlet
 		Member member = new Member(globa);
 		Vector<CouponFavourite> vctCouponFavourites = new Vector<CouponFavourite>();
 		Vector<CouponComment> vctCouponComments = new Vector<CouponComment>();
-		if (member.getCount("where strcardno=" + strCardNo) > 0)
+		if (member.getCount(" where strcardno='" + strCardNo+"'") > 0)
 		{
 			
 			
 			sbReturn.append("<auth>yes</auth>");
+			sbReturn.append("<strMobileNo>"+member.show(" where strcardno='" + strCardNo+"'").getStrMobileNo()+"</strMobileNo>");
+			//2012131增加手机号码字段
 			vctCouponFavourites = couponFavourite.list("where strmembercardno=" + strCardNo, 0, 0);
 			sbReturn.append("<favourite>");
 			for (int i = 0; i < vctCouponFavourites.size(); i++)
@@ -89,6 +91,8 @@ public class MemberAuthServlet extends HttpServlet implements Servlet
 		try
 		{
 			sbReturn.append("</info>");
+			System.out.println(sbReturn.toString());
+			
 			resp.getWriter().print(sbReturn.toString());
 		} catch (IOException e)
 		{
