@@ -8,6 +8,7 @@ import java.util.Vector;
 import com.ejoysoft.common.DbConnect;
 import com.ejoysoft.common.Globa;
 import com.ejoysoft.common.UID;
+import com.sun.org.apache.bcel.internal.generic.Select;
 
 public class Coupon
 {
@@ -28,16 +29,52 @@ public class Coupon
 	private String dtCreateTime;
 	private String strTerminals;// 投放终端编码
 	private String strDownLoadAlertTable = "t_bz_download_alert";
+	DownLoadAlert downLoadAlert;
 
-	/*
+	/**
+	 * 根据id找到数据库中终端的id集 增加优惠券是选择1234但是修改时变为23那么此方法返回14
+	 * 
+	 * @param where
+	 * @return
+	 */
+	public String[] retDbTerminalsId(String where, String strTerminals)
+	{
+		downLoadAlert = new DownLoadAlert(globa);
+		String strDbTerminalIds = show("where strid='" + where + "'").getStrTerminalIds();
+		String[] TerminalIds = getTerminalIdsByNames(strTerminals).split(",");
+
+		for (int i = 0; i < TerminalIds.length; i++)
+		{
+			strDbTerminalIds = strDbTerminalIds.replace(TerminalIds[i], "");
+		}
+		strDbTerminalIds = strDbTerminalIds.replace(",,", ",");
+		System.out.println(strDbTerminalIds);
+		if (strDbTerminalIds.length() > 0)
+		{
+			return strDbTerminalIds.split(",");
+		}
+		return null;
+	}
+
+	/**
 	 * 修改优惠券信息
 	 */
 
-	public boolean update(String tStrId)
+	public boolean update(String where)
 	{
+		downLoadAlert = new DownLoadAlert(globa);
+		String strSql2;
 		try
 		{
-			String strSql2 = "UPDATE  " + strDownLoadAlertTable + "  SET strdataopetype='update',intstate=0 where strdataid='" + tStrId + "'";
+			String[] TerminalIds = getTerminalIdsByNames(strTerminals).split(",");
+			String strDbTerminalId = show("where strid='" + where + "'").getStrTerminalIds();
+			for (int i = 0; i < TerminalIds.length; i++)
+			{
+				strDbTerminalId = strDbTerminalId.replace(TerminalIds[i], "");
+			}
+			String[] strDbTerminalIds = strDbTerminalId.split(",");// 得到在修改时丢弃的终端id，增加时选中1、2、3、4但是修改时选中3、4，此时我们将得到1、2
+
+			System.out.println(strDbTerminalId + "位被选中");
 			String strSql = "UPDATE  " + strTableName + "  SET dtActiveTime = ?, ";
 			db.setAutoCommit(false);
 			if (this.strSmallImg != null && this.strSmallImg.length() > 0)
@@ -66,17 +103,49 @@ public class Coupon
 			db.setFloat(8, flaPrice);
 			db.setInt(9, intPrintLimit);
 			db.setString(10, strId);
-			if (db.executeUpdate()> 0)
+			if (db.executeUpdate() > 0)
 			{
-				db.executeUpdate(strSql2);
+				// 如果丢弃的终端已处理就增加delete语句，如果没有处理，直接删除
+				for (int i = 0; i < strDbTerminalIds.length; i++)
+				{
+
+					strSql2 = "delete from " + strDownLoadAlertTable + " where intstate=0 and strterminalid='" + strDbTerminalIds[i]
+							+ "' and strdataid='" + where + "'";
+					db.executeUpdate(strSql2);
+					if (downLoadAlert.getCount("where intstate=1 and strterminalid='" + strDbTerminalIds[i] + "' and strdataid='" + where
+							+ "' and strdataopetype='add' ") > 0)
+					{
+						strSql2 = "insert into " + strDownLoadAlertTable + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) "
+								+ "values (" + UID.getID() + ",'" + strDbTerminalIds[i] + "','" + strTableName + "','" + where + "','delete',0) ";
+						db.executeUpdate(strSql2);
+					}
+				}
+				// 对没有丢弃即选中的终端如果状态为1的话就增加update语句，如果没有的就不操作
+				for (int i = 0; i < TerminalIds.length; i++)
+				{
+					if (downLoadAlert.getCount("where intstate=1 and strterminalid='" + TerminalIds[i] + "' and strdataid='" + where
+							+ "' and strdataopetype='add' ") > 0)
+					{
+						strSql2 = "insert into " + strDownLoadAlertTable + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) "
+								+ "values (" + UID.getID() + ",'" + TerminalIds[i] + "','" + strTableName + "','" + where + "','update',0) ";
+						db.executeUpdate(strSql2);
+					} else if (downLoadAlert.getCount("where intstate=0 and strterminalid='" + TerminalIds[i] + "' and strdataid='" + where
+							+ "' and strdataopetype='add' ") <= 0)
+					{
+						strSql2 = "insert into " + strDownLoadAlertTable + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) "
+								+ "values (" + UID.getID() + ",'" + TerminalIds[i] + "','" + strTableName + "','" + where + "','add',0) ";
+						db.executeUpdate(strSql2);
+					}
+				}
 				db.commit();
 				db.setAutoCommit(true);
 				Globa.logger0("修改优惠券信息", globa.loginName, globa.loginIp, strSql, "优惠券管理", globa.userSession.getStrDepart());
 				return true;
-			}else {
+			} else
+			{
 				db.rollback();
 				return false;
-				
+
 			}
 		} catch (Exception e)
 		{
@@ -86,7 +155,7 @@ public class Coupon
 		}
 	}
 
-	/*
+	/**
 	 * 增加优惠券信息
 	 */
 	public boolean add()
@@ -155,23 +224,37 @@ public class Coupon
 
 	}
 
-	/*
+	/**
 	 * 删除优惠券信息
 	 */
 	public boolean delete(String where)
 	{
+		downLoadAlert = new DownLoadAlert(globa);
+		String strSql2 = "";
+		strTerminals = this.show("where strid='" + where + "'").getStrTerminals();
 		try
 		{
 			db.setAutoCommit(false);
 			String sql = "DELETE FROM " + strTableName + "  where strId =" + where;
-			String strSql = "UPDATE  " + strDownLoadAlertTable + "  SET strdataopetype='delete',intstate=0 where strdataid=" + where;
-
 			db.executeUpdate(sql);
-			db.executeUpdate(strSql);
+			if (strTerminals != null && strTerminals != "")
+			{
+				String[] TerminalIds = getTerminalIdsByNames(strTerminals).split(",");
+				for (int i = 0; i < TerminalIds.length; i++)
+				{
+					// 处理在终端刷新期间既出现增加又出现修改的情况
+					strSql2 = downLoadAlert.retStrSql(TerminalIds[i], where, strTableName);
+					if (!strSql2.equals(""))
+					{
+						System.out.println(strSql2);
+						db.executeUpdate(strSql2);
+					}
+				}
+			}
 			db.commit();
 			db.setAutoCommit(true);
 			Globa.logger0("删除优惠券信息", globa.loginName, globa.loginIp, sql, "优惠券管理", globa.unitCode);
-			Globa.logger0("删除优惠券信息时，删除下载提醒表中的优惠券信息", globa.loginName, globa.loginIp, strSql, "优惠券管理", globa.unitCode);
+			Globa.logger0("删除优惠券信息时，删除下载提醒表中的优惠券信息", globa.loginName, globa.loginIp, strSql2, "优惠券管理", globa.unitCode);
 			return true;
 		} catch (Exception ee)
 		{
@@ -181,7 +264,7 @@ public class Coupon
 		}
 	}
 
-	/*
+	/**
 	 * 详细显示单条记录
 	 */
 	public Coupon show(String where)
@@ -200,7 +283,7 @@ public class Coupon
 		}
 	}
 
-	/*
+	/**
 	 * 查询符合条件的记录总数
 	 */
 	public int getCount(String where)
@@ -327,6 +410,8 @@ public class Coupon
 			theBean.setStrLargeImg(rs.getString("strLargeImg"));
 			theBean.setStrShopId(rs.getString("strShopId"));
 			theBean.setStrTerminals(getTerminalNamesByIds(rs.getString("strTerminalIds")));
+			theBean.setStrTerminalIds(rs.getString("strTerminalIds"));
+
 			theBean.setStrName(rs.getString("strName"));
 			theBean.setStrSmallImg(rs.getString("strSmallImg"));
 		} catch (Exception e)
@@ -336,7 +421,7 @@ public class Coupon
 		return theBean;
 	}
 
-	/*
+	/**
 	 * 返回是否推荐和vip
 	 */
 	public String returnStrRecommendOrVip(int num)
