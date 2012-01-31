@@ -59,8 +59,8 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 		}
 		Globa globa = new Globa();
 		resp.setCharacterEncoding("utf-8");
-//		String strTerminalNo = req.getParameter("strTerminalNo");
-		String strTerminalNo = "23";
+		String strTerminalNo = req.getParameter("strTerminalNo");
+//		String strTerminalNo = "23";
 		HashMap<String, Terminal> hmTerminal = Terminal.hmTerminal;
 		Terminal terminal = hmTerminal.get(strTerminalNo);
 		Terminal terminal2 = new Terminal(globa);//用于刷新终端状态
