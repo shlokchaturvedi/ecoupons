@@ -6,12 +6,14 @@ import java.util.Vector;
 
 import com.ejoysoft.common.DbConnect;
 import com.ejoysoft.common.Globa;
+import com.ejoysoft.common.UID;
 
 public class DownLoadAlert
 {
 	private Globa globa;
 	private DbConnect db;
 	String strTableName = "t_bz_download_alert";
+
 	public DownLoadAlert()
 	{
 		// TODO Auto-generated constructor stub
@@ -30,13 +32,29 @@ public class DownLoadAlert
 		if (b)
 			globa.setDynamicProperty(this);
 	}
+
 	private String strId;
 	private String strTerminalId;
 	private String strDataType;
 	private String strDataId;
 	private String strDataOpeType;
 	private String intState;
-	
+
+	/**
+	 * 判断在终端刷新之前同时出现增加、修改、删除的情况的时候，该选择哪个sql语句
+	 */
+	public String retStrSql(String strTerminalIds, String where, String strDataType)
+	{
+		if (getCount("where intstate=0 and strdataid='" + where + "' and strterminalid=" + strTerminalIds + " and strdataopetype='update'") > 0)
+		{
+			return "update  " + strTableName + "  SET strdataopetype='delete',intstate=0 where intstate=0 and strdataid=" + where;
+		} else if (getCount("where intstate=0 and strdataid='" + where + "' and strterminalid=" + strTerminalIds + " and strdataopetype='add'") > 0)
+		{
+			return "delete from " + strTableName + " where intstate=0 and strdataid='" + where + "' and strterminalid='" + strTerminalIds + "'";
+		}
+		return "";
+	}
+
 	/**
 	 * 详细显示单条记录
 	 */
@@ -65,6 +83,7 @@ public class DownLoadAlert
 		try
 		{
 			String sql = "SELECT count(strId) FROM " + strTableName + "  ";
+
 			if (where.length() > 0)
 			{
 				where = where.toLowerCase();
@@ -83,7 +102,7 @@ public class DownLoadAlert
 			return count;
 		}
 	}
-	
+
 	/**
 	 * 根据条件返回下载提醒表的集合
 	 */
@@ -119,7 +138,25 @@ public class DownLoadAlert
 		}
 		return beans;
 	}
-	
+
+	/**
+	 * 删除下载提醒表记录
+	 */
+	public boolean delete(String where)
+	{
+		try
+		{
+			String sql = "delete from " + strTableName + "  ".concat(where);
+			db.executeUpdate(sql);
+			Globa.logger0("删除下载提醒表记录", globa.loginName, globa.loginIp, sql, "接口管理", globa.unitCode);
+			return true;
+		} catch (Exception ee)
+		{
+			ee.printStackTrace();
+			return false;
+		}
+	}
+
 	public DownLoadAlert load(ResultSet rs, boolean isView)
 	{
 		DownLoadAlert theBean = new DownLoadAlert();
