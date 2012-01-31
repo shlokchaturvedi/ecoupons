@@ -54,8 +54,8 @@ function showsubmenu(sid) {
 		eval("submenu" + sid + ".style.display=\"none\";");
 	}
 }
-function openwin(strId,strNum) {  
-	if(confirm("确定终端"+strNum+"已添加打印纸!"))
+function openwin(strId,strNum,intPaper) {  
+	if(confirm("终端"+strNum+"已打印"+intPaper+"张优惠券\n确定终端"+strNum+"已添加打印纸!"))
     {
 		window.location.href="printpaper_act.jsp?strId="+strId;
 	      
@@ -90,7 +90,7 @@ StringBuffer sbTip=new StringBuffer("提醒:");
 	if("管理员".equals(globa.userSession.getStrCssType()))
 	{
 		Terminal terminal=new Terminal(globa);
-		vctTerminals=terminal.list("where intpaperstate=1 ",0,0);
+		vctTerminals=terminal.list("where intpaperstate>0 ",0,0);
 		if(vctTerminals.size()>0)
 		{
 			for(int i=0;i<vctTerminals.size();i++)
@@ -98,8 +98,8 @@ StringBuffer sbTip=new StringBuffer("提醒:");
 			  if(i!=vctTerminals.size()-1)
 			  {
 				  
-		      sbTip.append("<a href='#' onclick='openwin("+vctTerminals.get(i).getStrId()+","+vctTerminals.get(i).getStrNo()+")' >"+vctTerminals.get(i).getStrNo()+"</a>,");	
-			  }	else{ sbTip.append("<a href='#' onclick='openwin("+vctTerminals.get(i).getStrId()+","+vctTerminals.get(i).getStrNo()+")' >"+vctTerminals.get(i).getStrNo()+"</a> ");}
+		      sbTip.append("<a href='#' onclick='openwin("+vctTerminals.get(i).getStrId()+","+vctTerminals.get(i).getStrNo()+","+vctTerminals.get(i).getIntPaperState()+")' >"+vctTerminals.get(i).getStrNo()+"</a>,");	
+			  }	else{ sbTip.append("<a href='#' onclick='openwin("+vctTerminals.get(i).getStrId()+","+vctTerminals.get(i).getStrNo()+","+vctTerminals.get(i).getIntPaperState()+")' >"+vctTerminals.get(i).getStrNo()+"</a>");}
 			}
 		sbTip.append("终端机，打印纸已经打印完，请重新添加！！");
 		out.print(sbTip);
