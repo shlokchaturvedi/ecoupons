@@ -1,8 +1,8 @@
 package com.ejoysoft.servlet;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Vector;
 
@@ -12,12 +12,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ejoysoft.auth.Base64;
 import com.ejoysoft.common.Globa;
-import com.ejoysoft.ecoupons.business.Coupon;
 import com.ejoysoft.ecoupons.business.DownLoadAlert;
 import com.ejoysoft.ecoupons.business.Shop;
 import com.ejoysoft.ecoupons.business.Terminal;
+import com.ejoysoft.ecoupons.system.SysPara;
 
 public class ShopDownloadServlet extends HttpServlet implements Servlet
 {
@@ -60,8 +59,8 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 		}
 		Globa globa = new Globa();
 		resp.setCharacterEncoding("utf-8");
-		String strTerminalNo = req.getParameter("strTerminalNo");
-//		String strTerminalNo = "2365656";
+//		String strTerminalNo = req.getParameter("strTerminalNo");
+		String strTerminalNo = "23";
 		HashMap<String, Terminal> hmTerminal = Terminal.hmTerminal;
 		Terminal terminal = hmTerminal.get(strTerminalNo);
 		Terminal terminal2 = new Terminal(globa);//用于刷新终端状态
@@ -96,7 +95,22 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 						flagAdd = false;
 					}
 					
-					sbReturn.append(returnSbContent(tempShop));
+					try
+					{
+						sbReturn.append(returnSbContent(globa,tempShop));
+					} catch (SQLException e)
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						try
+						{
+							resp.getWriter().print("<?xml version='1.0' encoding='utf-8'?> ");
+						} catch (IOException e1)
+						{
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
 //					sbReturn.append(returnSbContent(tempShop, strImagAddr));
 					
 				}
@@ -117,7 +131,23 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 						sbReturn.append("<operate>update</operate>");
 						flagUpdate = false;
 					}
-					sbReturn.append(returnSbContent(tempShop));
+					try
+					{
+						sbReturn.append(returnSbContent(globa,tempShop));
+					} catch (SQLException e)
+					{
+						try
+						{
+							resp.getWriter().print("<?xml version='1.0' encoding='utf-8'?> ");
+						} catch (IOException e1)
+						{
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						
+					}
 //					sbReturn.append(returnSbContent(tempShop, strImagAddr));
 				}
 			}
@@ -178,9 +208,10 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 	 * 
 	 * @param tempTerminal
 	 * @return
+	 * @throws SQLException 
 	 */
 //	private StringBuffer returnSbContent(Shop tempShop, String strImagAddr)
-	private StringBuffer returnSbContent(Shop tempShop)
+	private StringBuffer returnSbContent(Globa globa,Shop tempShop) throws SQLException
 	{
 //		String smallMageContent="";
 //		String LargeMageContent="";
@@ -192,12 +223,14 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 //		{
 //			LargeMageContent=Base64.getPicBASE64(strImagAddr+tempShop.getStrLargeImg());
 //		}
+		SysPara sysPara=new SysPara(globa);
+		
 		StringBuffer sbReturn=new StringBuffer();
 		sbReturn.append("<shop>");
 		sbReturn.append("<strId>" + tempShop.getStrId() + "</strId>");
 		sbReturn.append("<strBizName>" + tempShop.getStrBizName() + "</strBizName>");
 		sbReturn.append("<strShopName>" + tempShop.getStrShopName() + "</strShopName>");
-		sbReturn.append("<strTrade>" + tempShop.getStrTrade() + "</strTrade>");
+		sbReturn.append("<strTrade>" + sysPara.show("where strid='"+tempShop.getStrTrade()+"'").getStrName() + "</strTrade>");
 		sbReturn.append("<strAddr>" + tempShop.getStrAddr() + "</strAddr>");
 		sbReturn.append("<strIntro>" + tempShop.getStrIntro() + "</strIntro>");
 		sbReturn.append("<strSmallImg>" + tempShop.getStrSmallImg() + "</strSmallImg>");
