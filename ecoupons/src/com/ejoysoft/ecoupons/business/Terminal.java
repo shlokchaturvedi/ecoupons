@@ -50,10 +50,10 @@ public class Terminal
 	 * 将打印纸大刀阀值修改打印纸的状态
 	 * 
 	 */
-	public boolean updatePrintPaperState(String strId,int num)
+	public boolean updatePrintPaperState(String strId, int num)
 	{
 
-		String strSql = "update " + strTableName + "  set intpaperstate="+num+" where strid='" + strId + "'";
+		String strSql = "update " + strTableName + "  set intpaperstate=" + num + " where strid='" + strId + "'";
 
 		try
 		{
@@ -547,16 +547,27 @@ public class Terminal
 	// 广告更新
 	public boolean updateAd(String strId)
 	{
+		// -------------------------------------------------------------------------------------------------------------
+		DownLoadAlert downLoadAlert = new DownLoadAlert(globa);
+		String strSql2;
+		String[] TerminalIds = getTerminalIdsByNames(strTerminals).split(",");
+		String strDbTerminalId = showAd("where strid='" + strId + "'").getStrTerminalIds();
+		for (int i = 0; i < TerminalIds.length; i++)
+		{
+			strDbTerminalId = strDbTerminalId.replace(TerminalIds[i], "");
+		}
+		String[] strDbTerminalIds = strDbTerminalId.split(",");// 得到在修改时丢弃的终端id，增加时选中1、2、3、4但是修改时选中3、4，此时我们将得到1、2
+//-------------------------------------------------------------------------------------------------------
 		try
 		{
 			String strSql = "update " + strTableName2 + "  set strname=?,inttype=?,";
 			if (this.strContent != null && this.strContent.trim().length() > 0)
 				strSql += " strcontent='" + this.strContent + "', ";
 			strSql += "strterminalids=?,dtstarttime=?,dtendtime=? where strid=? ";
-			String sql3 = "update  " + strTableName3 + "  set strdataopetype='update',intstate=0 where strdataid=" + strId;
-			System.err.println(sql3);
+//			String sql3 = "update  " + strTableName3 + "  set strdataopetype='update',intstate=0 where strdataid=" + strId;
+//			System.err.println(sql3);
 			db.setAutoCommit(false);
-			db.executeUpdate(sql3);
+//			db.executeUpdate(sql3);
 			db.prepareStatement(strSql);
 			db.setString(1, strName);
 			db.setString(2, intType);
@@ -565,6 +576,41 @@ public class Terminal
 			db.setString(5, dtEndTime);
 			db.setString(6, strId);
 			db.executeUpdate();
+			// -------------------------------------------------------------------------------------------------------------
+
+			// 如果丢弃的终端已处理就增加delete语句，如果没有处理，直接删除
+			for (int i = 0; i < strDbTerminalIds.length; i++)
+			{
+
+				strSql2 = "delete from " + strTableName3 + " where intstate=0 and strterminalid='" + strDbTerminalIds[i] + "' and strdataid='"
+						+ strId + "'";
+				db.executeUpdate(strSql2);
+				if (downLoadAlert.getCount("where intstate=1 and strterminalid='" + strDbTerminalIds[i] + "' and strdataid='" + strId
+						+ "' and strdataopetype='add' ") > 0)
+				{
+					strSql2 = "insert into " + strTableName3 + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) " + "values ("
+							+ UID.getID() + ",'" + strDbTerminalIds[i] + "','" + strTableName2 + "','" + strId + "','delete',0) ";
+					db.executeUpdate(strSql2);
+				}
+			}
+			// 对没有丢弃即选中的终端如果状态为1的话就增加update语句，如果没有的就不操作
+			for (int i = 0; i < TerminalIds.length; i++)
+			{
+				if (downLoadAlert.getCount("where intstate=1 and strterminalid='" + TerminalIds[i] + "' and strdataid='" + strId
+						+ "' and strdataopetype='add' ") > 0)
+				{
+					strSql2 = "insert into " + strTableName3 + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) " + "values ("
+							+ UID.getID() + ",'" + TerminalIds[i] + "','" + strTableName2 + "','" + strId + "','update',0) ";
+					db.executeUpdate(strSql2);
+				} else if (downLoadAlert.getCount("where intstate=0 and strterminalid='" + TerminalIds[i] + "' and strdataid='" + strId
+						+ "' and strdataopetype='add' ") <= 0)
+				{
+					strSql2 = "insert into " + strTableName3 + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) " + "values ("
+							+ UID.getID() + ",'" + TerminalIds[i] + "','" + strTableName2 + "','" + strId + "','add',0) ";
+					db.executeUpdate(strSql2);
+				}
+			}
+			// -------------------------------------------------------------------------------------------------------------
 			db.getConnection().commit(); // 统一提交
 			db.setAutoCommit(true);
 			Globa.logger0("更新广告信息", globa.loginName, globa.loginIp, strSql, "终端管理", globa.userSession.getStrDepart());
@@ -603,15 +649,27 @@ public class Terminal
 	// 删除广告信息
 	public boolean deleteAd(String where, String strId)
 	{
+		DownLoadAlert downLoadAlert = new DownLoadAlert(globa);
 		String sql = "delete from " + strTableName2 + "  ".concat(where);
-		String sql3 = "update  " + strTableName3 + "  set strdataopetype='delete',intstate=0 where strdataid=" + strId;
-
+		String sql3 ;
+		strTerminals = this.showAd("where strid='" + strId + "'").getStrTerminals();
 		// 事务处理
 		try
 		{
 			db.getConnection().setAutoCommit(false);// 禁止自动提交事务
-			db.executeUpdate(sql3);
+//			db.executeUpdate(sql3);
 			db.executeUpdate(sql);// 删除终端
+			String[] TerminalIds = getTerminalIdsByNames(strTerminals).split(",");
+			for (int i = 0; i < TerminalIds.length; i++)
+			{
+				// 处理在终端刷新期间既出现增加又出现修改的情况
+				sql3 = downLoadAlert.retStrSql(TerminalIds[i], strId, strTableName2);
+				if (!sql3.equals(""))
+				{
+					System.out.println(sql3);
+					db.executeUpdate(sql3);
+				}
+			}
 			db.getConnection().commit(); // 统一提交
 			Globa.logger0("删除广告信息", globa.loginName, globa.loginIp, sql, "终端管理", globa.unitCode);
 			return true;
@@ -800,7 +858,7 @@ public class Terminal
 	private int intState;// 状态
 	private String stateString;// 默认状态显示正常
 	private String printpaperStateString;// 默认状态显示正常
-	
+
 	private String dtRefreshTime;// 状态更新时间
 	// 广告信息
 	private String strName;// 广告名称
