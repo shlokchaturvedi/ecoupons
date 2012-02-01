@@ -14,11 +14,11 @@ history.back();
 <%
 		return;
 	}
-	globa.db.executeUpdate("UPDATE t_sy_user SET strPWD='" + MD5.getMD5ofString(strPwd) + "'");
+	globa.db.executeUpdate("UPDATE t_sy_user SET strPWD='" + MD5.getMD5ofString(strPwd) + "' where struserid='"+globa.userSession.getStrUserId()+"'");
     //关闭数据库连接对象
     globa.closeCon();
 %>
-<<script type="text/javascript">
+<script type="text/javascript">
 alert("密码修改成功，请重新登录！");
-top.location.href="/etable";
+top.location.href="/ecoupons";
 </script>
