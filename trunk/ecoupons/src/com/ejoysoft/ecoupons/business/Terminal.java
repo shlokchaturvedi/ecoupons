@@ -54,10 +54,15 @@ public class Terminal
 	{
 
 		String strSql = "update " + strTableName + "  set intpaperstate=" + num + " where strid='" + strId + "'";
-
+		String strSql1 = "update " + strTableName + "  set intstate=0, dtRefreshTime='" + com.ejoysoft.common.Format.getDateTime() + "' where strid='"
+		+ strId + "'";
 		try
 		{
+			db.setAutoCommit(false);
+			db.executeUpdate(strSql1);
 			db.executeUpdate(strSql);
+			db.commit();
+			db.setAutoCommit(true);
 			return true;
 		} catch (Exception e)
 		{
