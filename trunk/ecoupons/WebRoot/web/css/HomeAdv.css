@@ -1,0 +1,36 @@
+#imgTitle {
+	POSITION: relative; TEXT-ALIGN: left; FILTER: ALPHA(opacity=70); OVERFLOW: hidden; LEFT: 0px
+}
+#imgTitle_up {
+	TEXT-ALIGN: left; HEIGHT: 1px; LEFT: 0px
+}
+#imgTitle_down {
+	TEXT-ALIGN: right; LEFT: 0px
+}
+.imgClass {
+	BORDER-BOTTOM: #000 0px solid; BORDER-LEFT: #000 0px solid; BORDER-TOP: #000 0px solid; BORDER-RIGHT: #000 0px solid
+}
+#txtFrom {
+	TEXT-ALIGN: center; VERTICAL-ALIGN: middle
+}
+.button {
+	BORDER-LEFT: #fff 1px solid; PADDING-BOTTOM: 2px; MARGIN: 0px; PADDING-LEFT: 7px; PADDING-RIGHT: 7px; FONT: bold 14px sans-serif; BACKGROUND: #7b7b63; TEXT-DECORATION: none; PADDING-TOP: 2px
+}
+A.button {
+	BACKGROUND-COLOR: #000000; FONT-FAMILY: sans-serif; COLOR: #ffffff; TEXT-DECORATION: none
+}
+A.button:link {
+	BACKGROUND-COLOR: #000000; FONT-FAMILY: sans-serif; COLOR: #ffffff; TEXT-DECORATION: none
+}
+A.button:visited {
+	BACKGROUND-COLOR: #000000; FONT-FAMILY: sans-serif; COLOR: #ffffff; TEXT-DECORATION: none
+}
+A.button:hover {
+	FONT-FAMILY: sans-serif; BACKGROUND: #fff; COLOR: #fff; TEXT-DECORATION: none
+}
+.buttonDiv {
+	TEXT-ALIGN: center; WIDTH: 21px; BACKGROUND: #000000; FLOAT: left; HEIGHT: 1px; VERTICAL-ALIGN: middle
+}
+.trans {
+	FILTER: progid:DXImageTransform.Microsoft.Alpha(startX=0, startY=0, finishX=100, finishY=100,style=1,opacity=0,finishOpacity=40); BACKGROUND-COLOR: #000; WIDTH: 90px
+}

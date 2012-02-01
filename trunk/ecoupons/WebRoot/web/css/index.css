@@ -1,0 +1,205 @@
+/* CSS Document */
+body{ margin:0; padding:0; font-size:12px; LINE-HEIGHT: 1.5; FONT-FAMILY: Verdana}
+P {
+	PADDING: 0px; MARGIN: 0px;}
+UL { MARGIN: 0px; PADDING: 0px}
+H1 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+
+H2 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+A {
+	COLOR: #444; TEXT-DECORATION: none
+}
+A:hover {
+	COLOR: #f00
+}
+.content{ width:985px; margin:0 auto; margin-top:6px;}
+.left{width:215px; float:left}
+.mid{width:540px; float:left; margin-left:5px; margin-right:5px;}
+.right{width:220px; float:right}
+
+.sort {
+	MARGIN-top: 10px; padding:0px; WIDTH: 215px; display:inline;}
+
+.sort_top {
+	BACKGROUND: url(../images/left_top_bg.gif) no-repeat; WIDTH: 215px; HEIGHT: 40px
+}
+
+.sortlogin {
+	MARGIN-top: 10px;padding:0px; WIDTH: 215px; display:inline;}
+
+.sortlogin H1 {
+	PADDING-LEFT: 35px; FONT-SIZE: 14px; BACKGROUND: url(../images/bg_iconLogin.gif) no-repeat; FLOAT: left; MARGIN: 8px 0px 0px 8px; HEIGHT: 22px
+}
+.sortlogin H1 STRONG {
+	FONT-WEIGHT: bold; FONT-FAMILY: "黑体"
+}
+.sort H1 {
+	PADDING-LEFT: 35px; FONT-SIZE: 14px; BACKGROUND: url(../images/left_icon6.gif) no-repeat; FLOAT: left; MARGIN: 8px 0px 0px 8px; HEIGHT: 22px
+}
+.sort H1 STRONG {
+	FONT-WEIGHT: bold; FONT-FAMILY: "黑体"
+}
+
+.sort H2 {
+	PADDING-LEFT: 35px; FONT-SIZE: 14px; BACKGROUND: url(../images/left_icon1.gif) no-repeat; FLOAT: left; MARGIN: 8px 0px 0px 8px; HEIGHT: 22px
+}
+
+.sort H2 STRONG {
+	FONT-WEIGHT: bold; FONT-FAMILY: "黑体"
+}
+
+.sort H3 {
+	PADDING-LEFT: 25px; FONT-SIZE: 14px; BACKGROUND: url(../images/hotfav.png) no-repeat; FLOAT: left; MARGIN: 8px 0px 0px 18px; HEIGHT: 22px; display:inline
+}
+.sort H3 STRONG {
+	FONT-WEIGHT: bold; FONT-FAMILY: "黑体"
+}
+.sj_name {
+	PADDING-LEFT: 25px; FONT-SIZE: 14px; BACKGROUND: url(../images/hotfav.png) no-repeat; width:300px;FLOAT: left; MARGIN: 8px 0px 0px 18px; HEIGHT: 22px; display:inline;FONT-WEIGHT: bold; FONT-FAMILY: "黑体"
+}
+
+
+.sj_sel{ float:right; width:120px; padding-top:10px;}
+
+.sj_line{ margin:2px 2px 15px 8px;}
+
+.sort_top span{  padding-top:8px; text-align:right; padding-right:6px; height:14px; display:block;}
+
+.sort_bottom {
+	BACKGROUND: url(../images/left_bottom_bg.gif) no-repeat; WIDTH: 215px; HEIGHT: 20px; margin-bottom:10px; padding:
+}
+
+.sortlogin_top {
+	BACKGROUND: url(../images/left_top_bg.gif) no-repeat; WIDTH: 210px; HEIGHT: 40px; padding-left:5px;
+}
+.sortlogin_top P {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 15px; PADDING-BOTTOM: 0px; FONT: bold 14px/1 microsoft yahei; COLOR: #666; PADDING-TOP: 8px
+}
+.sortlogin_top IMG {
+	PADDING-LEFT: 5px
+}
+.sortlogin_bottom {
+	BACKGROUND: url(../images/left_bottom_bg.gif) no-repeat; WIDTH: 215px; HEIGHT: 20px;margin-bottom:10px;  padding:
+}
+.sortlogin_con {
+	BACKGROUND: url(../images/left_middle_bg.gif) repeat-y; margin:0px; padding:0px;
+}
+.sortlogin_con UL {
+	WIDTH: 215px; margin:0px; padding:0px;
+}
+.sortlogin_con UL LI {
+	PADDING-LEFT: 25px; LINE-HEIGHT: 24px; TEXT-ALIGN: left; margin:0px; list-style:none;
+}
+
+.sort_con {
+	BACKGROUND: url(../images/left_middle_bg.gif) repeat-y; margin:0px; padding:0px;
+}
+.sort_con UL {
+	WIDTH: 215px; margin:0px; padding:0px;
+}
+.sort_con UL LI {
+	PADDING-LEFT: 25px; LINE-HEIGHT: 24px; TEXT-ALIGN: left; margin:0px; list-style:none;
+}
+#sort_con_1{
+	BACKGROUND: url(../images/left_middle_bg.gif) repeat-y; margin:0px; padding:0px; height:200px;
+}
+#sort_con_1 UL {
+	WIDTH: 215px; margin:0px; padding:0px;
+}
+#sort_con_1 UL LI {
+	PADDING-LEFT: 25px; LINE-HEIGHT: 24px; TEXT-ALIGN: left; margin:0px; list-style:none;
+}
+#sort_con_2{
+	BACKGROUND: url(../images/left_middle_bg.gif) repeat-y; margin:0px; padding:0px; height:200px;
+}
+#sort_con_2 UL {
+	WIDTH: 215px; margin:0px; padding:0px;
+}
+#sort_con_2 UL LI {
+	PADDING-LEFT: 25px; LINE-HEIGHT: 24px; TEXT-ALIGN: left; margin:0px; list-style:none;
+}
+#sort_con_3{
+	BACKGROUND: url(../images/left_middle_bg.gif) repeat-y; margin:0px; padding:0px; height:200px;
+}
+#sort_con_3 UL {
+	WIDTH: 215px; margin:0px; padding:0px;
+}
+#sort_con_3 UL LI {
+	PADDING-LEFT: 25px; LINE-HEIGHT: 24px; TEXT-ALIGN: left; margin:0px; list-style:none;
+}
+
+
+
+.sort_con1 {
+	BACKGROUND: url(../images/left_text_bg.gif) repeat-y;
+}
+.sort_con1 UL {
+	WIDTH: 215px; margin:0px; padding:0px;
+}
+.sort_con1 UL LI {
+	PADDING-LEFT: 40px; LINE-HEIGHT: 24px; TEXT-ALIGN: left; list-style:none; margin:0px;
+}
+
+
+ .left-bar-mid {
+	PADDING-BOTTOM:0px; PADDING-LEFT: 30px; WIDTH:185px; PADDING-RIGHT: 0px; BACKGROUND: url(../images/left_middle_bg.gif) repeat-y; HEIGHT: auto; PADDING-TOP: 4px
+}
+
+.left-bar-mid INPUT.user {
+	BORDER-BOTTOM: medium none; BORDER-LEFT: medium none; WIDTH: 75px; BACKGROUND: none transparent scroll repeat 0% 0%; BORDER-TOP: medium none; BORDER-RIGHT: medium none
+}
+.left-bar-mid INPUT.password {
+	BORDER-BOTTOM: medium none; BORDER-LEFT: medium none; WIDTH: 120px; BACKGROUND: none transparent scroll repeat 0% 0%; BORDER-TOP: medium none; BORDER-RIGHT: medium none
+}
+ .left-bar-mid INPUT.number {
+	BORDER-BOTTOM: medium none; BORDER-LEFT: medium none; WIDTH: 40px; BACKGROUND: none transparent scroll repeat 0% 0%; BORDER-TOP: medium none; BORDER-RIGHT: medium none
+}
+.userbg {
+	BORDER-BOTTOM: #ccc 1px solid; BORDER-LEFT: #ccc 1px solid; PADDING-BOTTOM: 0px; LINE-HEIGHT: 20px; PADDING-LEFT: 20px; PADDING-RIGHT: 0px; MARGIN-BOTTOM: 10px; HEIGHT: 20px; BORDER-TOP: #ccc 1px solid; BORDER-RIGHT: #ccc 1px solid; PADDING-TOP: 4px;	WIDTH: 130px; BACKGROUND: url(../images/bg_user.gif) no-repeat
+}
+.passwordbg {
+	BORDER-BOTTOM: #ccc 1px solid; BORDER-LEFT: #ccc 1px solid; PADDING-BOTTOM: 0px; LINE-HEIGHT: 20px; PADDING-LEFT: 20px; PADDING-RIGHT: 0px; MARGIN-BOTTOM: 10px; HEIGHT: 20px; BORDER-TOP: #ccc 1px solid; BORDER-RIGHT: #ccc 1px solid; PADDING-TOP: 4px;	WIDTH: 130px; BACKGROUND: url(../images/bg_password.gif) no-repeat
+}
+
+.numberbg {
+	BORDER-BOTTOM: #ccc 1px solid; BORDER-LEFT: #ccc 1px solid; PADDING-BOTTOM: 0px; LINE-HEIGHT: 20px; PADDING-LEFT: 20px; PADDING-RIGHT: 0px; MARGIN-BOTTOM: 10px; HEIGHT: 20px; BORDER-TOP: #ccc 1px solid; BORDER-RIGHT: #ccc 1px solid; PADDING-TOP: 4px;	WIDTH: 50px; BACKGROUND: url(../images/bg_number.gif) no-repeat
+}
+
+ .left-bar-mid .floatR {
+	DISPLAY: inline; MARGIN-RIGHT: 35px; float:right;
+}
+ .left-bar-mid .floatR IMG {
+	WIDTH: 70px; DISPLAY: inline; HEIGHT: 24px
+}
+
+ .left-bar-mid A.forget {
+	TEXT-ALIGN: right; COLOR: #06c; FONT-SIZE: 12px
+}
+ .left-bar-mid .forget:hover {
+	COLOR: #06c; TEXT-DECORATION: underline
+}
+
+ .left-bar-mid A.change {
+	TEXT-ALIGN: right; COLOR: #c00; FONT-SIZE: 12px
+}
+ .left-bar-mid .change:hover {
+	COLOR: #c00; TEXT-DECORATION: underline
+}
+
+.left-bar-mid INPUT.loginBtn {
+	BORDER-BOTTOM: #09f 1px solid; BORDER-LEFT: #09f 1px solid; PADDING-BOTTOM: 0px; MARGIN: 10px 0px 0px; PADDING-LEFT: 0px; WIDTH: 70px; PADDING-RIGHT: 0px; BACKGROUND: url(../images/bg_loginBtn.gif) no-repeat; HEIGHT: 24px; COLOR: #fff; BORDER-TOP: #09f 1px solid; CURSOR: pointer; BORDER-RIGHT: #09f 1px solid; PADDING-TOP: 0px
+}
+
+ .left-bar-mid INPUT.regBtn {
+	BORDER-BOTTOM: #09f 1px solid; BORDER-LEFT: #09f 1px solid; PADDING-BOTTOM: 0px; MARGIN: 10px 10px 0px 6px; PADDING-LEFT: 0px; WIDTH: 70px; PADDING-RIGHT: 0px; BACKGROUND: url(../images/bg_regBtn.gif) no-repeat; HEIGHT: 24px; COLOR: #fff; BORDER-TOP: #09f 1px solid; CURSOR: pointer; BORDER-RIGHT: #09f 1px solid; PADDING-TOP: 0px
+}
+
+.mid_xt{ height:56px;}
+.mid_xt img{ margin:5px 15px 5px 15px;}
+.sj_tit{ margin-top:10px; width:535px; height:35px;} 
+
+.sjfl{ border:1px solid #999999; width:120px; height:22px;}

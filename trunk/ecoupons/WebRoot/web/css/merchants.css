@@ -1,0 +1,222 @@
+/* CSS Document */
+body{ margin:0; padding:0; font-size:12px; LINE-HEIGHT: 1.5; FONT-FAMILY: Verdana}
+P {
+	PADDING: 0px; MARGIN: 0px;}
+UL { MARGIN: 0px; PADDING: 0px}
+H1 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+
+H2 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+A {
+	COLOR: #444; TEXT-DECORATION: none
+}
+A:hover {
+	COLOR: #f00
+}
+/* top */
+.top{ width:985px; margin:0 auto; margin-top:6px; }
+.logo{ margin-bottom:10px; height:78px;}
+.logo_img{ width:441px; float:left; margin:0px 6px; display: inline}
+.tab{ float:left; width:532px;  position: relative; margin:0px; padding:0px;}
+
+.tab_txt{ text-align:right; padding:0px; margin:0px; padding-bottom:24px;color:#686868; }
+.tab_txt a{ text-decoration:none;color:#686868;}
+.tab_txt a:hover{ text-decoration:underline}
+.logo_tab{text-align:right; }
+
+.searchtab{
+	height:23px;
+	margin:0px;
+	padding:0px;
+	position:absolute;
+	top:16px;
+	left: 21px;
+}
+.searchtab ul{ margin:0px; padding:0px; }
+.searchtab li{ list-style:none;width:86px; color:#666666;font-size:14px; line-height:23px; height:23px; margin:0px;padding:0px; float:left; display:block;text-align:center; }
+
+.searchtab li.searchtabz{font-size:14px;  line-height:23px;height:23px;}
+.searchtab li.searchtabxz{background:url(../images/tab_bj.jpg) no-repeat; font-size:14px; font-weight:bolder; color:#BB620E;line-height:23px;height:23px;}
+
+#clay0_1{ background:url(../images/iput_bg.jpg) no-repeat; width:523px; height:39px; margin-left:5px;}
+#clay0_2{ background:url(../images/iput_bg.jpg) no-repeat; width:523px; height:39px; margin-left:5px;}
+
+.newsearch-txt{ height:20px; line-height:20px; margin-top:10px;margin-left:10px; border:0px; width:400px; float:left; }
+
+.newsearch-btn{background: url(../images/newsearch-btn.jpg) no-repeat; width:96px; height:29px; border:0px; float:right; padding:0px;margin-right:5px; margin-top:5px;}/*隐藏font-size:100em; overflow:hidden   input 内文字*/
+
+.nav{ width:985px; height:35px; background:url(../images/nav_bg.jpg);}
+.nav ul{ margin:0px; padding:0px;}
+.nav li{ list-style:none; float:left; margin:0px 7px; padding:0px;}
+.nav li img{margin:0px; padding:0px;}
+
+.nav li.nav_le{ text-align:left; margin:0px; padding:0px;}
+
+.nav li.nav_ri{ float:right; margin:0px; padding:0px;}
+/* top结束 */
+
+/* coupons-content部分优惠券 */
+.coupons-content{ width:985px; margin:0 auto; margin-top:6px;}
+
+/* coupons-left部分优惠券 */
+
+.coupons-left{ width:762px;float:left;}
+.hotList {
+	PADDING-BOTTOM: 10px; }
+.hotList_top {
+	BACKGROUND: url(../images/list_top_bg.gif) no-repeat; WIDTH: 760px; HEIGHT: 46px
+}
+.hotList_top P {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 20px; FONT-WEIGHT: bold; FONT-SIZE: 14px; PADDING-BOTTOM: 0px; COLOR: #666; LINE-HEIGHT: 25px; PADDING-TOP: 5px; TEXT-ALIGN: left; margin:0px; float: left;}
+.hotList_tit{	BACKGROUND: url(../images/list_mid_bg.gif) repeat-y; WIDTH: 750px; HEIGHT:25px; padding-left:10px;padding-top:10px;}
+.hotList_sf{
+	PADDING-RIGHT: 0px; PADDING-LEFT: 20px; PADDING-top: 5px; FONT-WEIGHT: bold; FONT-SIZE: 14px;FLOAT: left; width:420px; PADDING-BOTTOM: 0px; COLOR: #666; LINE-HEIGHT: 25px;  TEXT-ALIGN: left; margin:0px;}
+	
+.hotList_tit1{	BACKGROUND: url(../images/list_mid_bg.gif) repeat-y; WIDTH: 750px; HEIGHT:25px; padding-left:10px;}
+.hotList_tit1  P{
+	PADDING-RIGHT: 0px; PADDING-LEFT: 20px; FONT-WEIGHT: bold; FONT-SIZE: 14px;FLOAT: left;  PADDING-BOTTOM: 0px; COLOR: #666; LINE-HEIGHT: 25px;  TEXT-ALIGN: left; margin:0px;}
+
+.hotList_more {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 0px; FLOAT: right; PADDING-BOTTOM: 0px; PADDING-TOP: 5px
+}
+.hotList_mid {
+	BACKGROUND: url(../images/list_mid_bg.gif) repeat-y; WIDTH: 760px; margin:0px; padding:0px;
+}
+.hotList_mid UL {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 13px; PADDING-BOTTOM: 0px; WIDTH: 740px; PADDING-TOP: 0px; margin:0px;
+}
+.hotList_mid UL LI {
+	FLOAT: left; PADDING-TOP: 2px;margin:0px; list-style:none;
+}
+.list {
+	FLOAT: left; WIDTH: 242px; background-color:#EEEEEE;margin-right:4px; display:inline;}/**/
+
+.hotList_top .more {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 0px; width:250px; PADDING-BOTTOM: 0px; float:right; PADDING-TOP: 5px; TEXT-ALIGN: right;
+}
+.list_mid {
+	BACKGROUND: url(../images/mid_bg.gif) repeat-y; FLOAT: left; WIDTH: 242px; HEIGHT: 245px; margin-top:10px; padding:0px;}
+.list_mid P {
+	MARGIN: 10px 5px 5px 20px
+}
+.list_img {
+	BACKGROUND: url(../images/kuang.gif) no-repeat; FLOAT: left; MARGIN: 0px 2px 5px 5px; WIDTH: 150px; HEIGHT: 100px;display:inline;}
+.list_img IMG {	MARGIN: 5px}
+.list_hot {
+	FLOAT: left;display:inline; MARGIN: 10px 2px 5px 0px; BACKGROUND-IMAGE: url(../images/zhe.png); WIDTH: 75px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 75px; TEXT-ALIGN: center; padding:0px;}
+	
+.line { MARGIN: 15px 5px 5px 10px; WIDTH: 220px}
+
+.list_bar {	MARGIN: 4px auto; WIDTH: 220px; padding:0px; text-align:center; height:30px;}
+.list_bar UL {WIDTH: 220px; padding:0px; margin:0px;}
+.list_bar UL LI {FLOAT: left; WIDTH: 60px; HEIGHT: 26px; TEXT-ALIGN: center; display:block;}
+
+.money{
+MARGIN-TOP: 25px; FONT-WEIGHT: bold; FONT-SIZE: 18px; WIDTH: 75px; COLOR: #ffffff; FONT-FAMILY: Arial, Helvetica, sans-serif;  HEIGHT: 75px; TEXT-ALIGN: center;}
+.clearfloat {
+	CLEAR: both; FONT-SIZE: 1px; LINE-HEIGHT: 0px; HEIGHT: 0px
+}
+.hotList_bottom {
+	BACKGROUND: url(../images/list_bottom_bg.gif) no-repeat; WIDTH: 760px; HEIGHT: 12px
+}
+
+/* coupons-left结束 */
+
+
+
+.coupons-right{ width:218px; float: right; }
+
+.sort {
+	MARGIN-top: 10px; padding:0px; WIDTH: 215px; display:inline;}
+
+.sort H1 {
+	PADDING-LEFT: 35px; FONT-SIZE: 14px; BACKGROUND: url(../images/left_icon6.gif) no-repeat; FLOAT: left; MARGIN: 8px 0px 0px 8px; HEIGHT: 22px
+}
+.sort H1 STRONG {
+	FONT-WEIGHT: bold; FONT-FAMILY: "黑体"
+}
+.sort H2 {
+	PADDING-LEFT: 35px; FONT-SIZE: 14px; BACKGROUND: url(../images/left_icon1.gif) no-repeat; FLOAT: left; MARGIN: 8px 0px 0px 8px; HEIGHT: 22px
+}
+
+.sort H2 STRONG {
+	FONT-WEIGHT: bold; FONT-FAMILY: "黑体"
+}
+
+
+.sort_top {
+	BACKGROUND: url(../images/left_top_bg.gif) no-repeat; WIDTH: 215px; HEIGHT: 40px
+}
+.sort_top P {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 15px; PADDING-BOTTOM: 0px; FONT: bold 14px/1 microsoft yahei; COLOR: #666; PADDING-TOP: 8px
+}
+.sort_top IMG {
+	PADDING-LEFT: 5px
+}
+.sort_bottom {
+	BACKGROUND: url(../images/left_bottom_bg.gif) no-repeat; WIDTH: 215px; HEIGHT: 20px; padding:
+}
+.sort_con {
+	BACKGROUND: url(../images/left_middle_bg.gif) repeat-y; margin:0px; padding:0px;
+}
+.sort_con UL {
+	WIDTH: 215px; margin:0px; padding:0px;
+}
+.sort_con UL LI {
+	PADDING-LEFT: 25px; LINE-HEIGHT: 24px; TEXT-ALIGN: left; margin:0px; list-style:none;
+}
+
+.sort_con2 {
+	BACKGROUND: url(../images/left_middle_bg.gif) repeat-y; margin:0px; padding:0px;
+}
+.sort_con2 UL {
+	WIDTH: 215px; margin:0px; padding:0px;
+}
+.sort_con2 UL LI {
+	PADDING-LEFT: 20px; LINE-HEIGHT: 24px; padding-bottom:5px; TEXT-ALIGN: left; margin:0px; list-style:none;
+}
+
+.sort_con1 {
+	BACKGROUND: url(../images/left_text_bg.gif) repeat-y;
+}
+.sort_con1 UL {
+	WIDTH: 215px; margin:0px; padding:0px;
+}
+.sort_con1 UL LI {
+	PADDING-LEFT: 40px; LINE-HEIGHT: 24px; TEXT-ALIGN: left; list-style:none; margin:0px;
+}
+
+
+
+
+
+
+.merchants_list{background-color:#EEEEEE;margin-right:4px; WIDTH: 730px; height:80px;}/**/
+
+.pro {
+	PADDING-BOTTOM: 5px; PADDING-LEFT: 20px; WIDTH: 700px; PADDING-RIGHT: 0px; PADDING-TOP: 5px
+}
+.pro_mid {
+	WIDTH: 720px;
+	background-color:#EEEEEE; padding-top:10px;
+}
+ .pro_mid .pro_img {
+	BORDER-BOTTOM: #ccc 1px solid; BORDER-LEFT: #ccc 1px solid; PADDING-BOTTOM: 2px; MARGIN:10px 10px 5px 20px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; FLOAT: left; BORDER-TOP: #ccc 1px solid; BORDER-RIGHT: #ccc 1px solid; PADDING-TOP: 2px
+}
+ .pro_mid .pro_info {
+	WIDTH: 550px; FLOAT: left; MARGIN-RIGHT: 15px;
+}
+ .pro_mid .pro_info .headtitle {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 10px; PADDING-RIGHT: 0px; COLOR: #f00; FONT-SIZE: 14px; FONT-WEIGHT: bold; PADDING-TOP: 5px
+}
+.pro_mid .pro_info .line {
+	PADDING-BOTTOM: 5px; PADDING-LEFT: 3px; WIDTH: 525px; PADDING-RIGHT: 0px; HEIGHT: 4px; margin:0px; padding-top:5px;}
+.pro_mid .pro_info .text_left {
+}
+.pageSide {
+	MARGIN: 10px 0px; WIDTH: 740px; HEIGHT: 42px; text-align: right;
+}
+.pageipt{ background-color:#FFFFFF; border:1px solid #999999;}
