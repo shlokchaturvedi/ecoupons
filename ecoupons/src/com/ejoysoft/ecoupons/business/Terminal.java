@@ -54,8 +54,8 @@ public class Terminal
 	{
 
 		String strSql = "update " + strTableName + "  set intpaperstate=" + num + " where strid='" + strId + "'";
-		String strSql1 = "update " + strTableName + "  set intstate=0, dtRefreshTime='" + com.ejoysoft.common.Format.getDateTime() + "' where strid='"
-		+ strId + "'";
+		String strSql1 = "update " + strTableName + "  set intstate=0, dtRefreshTime='" + com.ejoysoft.common.Format.getDateTime()
+				+ "' where strid='" + strId + "'";
 		try
 		{
 			db.setAutoCommit(false);
@@ -129,9 +129,11 @@ public class Terminal
 	{
 		String strSql = "";
 		strId = UID.getID();
+		Shop shop = new Shop(globa);
+		Vector<Shop> vctShops = shop.list("", 0, 0);
 		try
 		{
-
+			db.setAutoCommit(false);
 			// 添加券打机信息
 			strSql = "insert into " + strTableName + "  (strid, strno, dtactivetime, strlocation,straroundshopids,strproducer, strtype, "
 					+ "strresolution, strresolution2, strresolution3,intstate,dtrefreshtime, strcreator, dtcreatetime,intpaperstate)"
@@ -154,14 +156,24 @@ public class Terminal
 			db.setInt(15, 0);
 			if (db.executeUpdate() > 0)
 			{
+				for (int i = 0; i < vctShops.size(); i++)
+				{
+					strSql = "insert into " + strTableName3 + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) " + "values ("
+							+ UID.getID() + ",'" + strId + "','t_bz_shop','" + vctShops.get(i).getStrId() + "','add',0)";
+					db.executeUpdate(strSql);
+				}
+				db.commit();
+				db.setAutoCommit(true);
 				Globa.logger0("添加终端信息", globa.loginName, globa.loginIp, strSql, "终端管理", globa.userSession.getStrDepart());
 				return true;
 			} else
+				db.rollback();
 				return false;
 		} catch (Exception e)
 		{
 			System.out.println("添加终端信息异常");
 			e.printStackTrace();
+			db.rollback();
 			return false;
 		}
 	}
@@ -562,17 +574,19 @@ public class Terminal
 			strDbTerminalId = strDbTerminalId.replace(TerminalIds[i], "");
 		}
 		String[] strDbTerminalIds = strDbTerminalId.split(",");// 得到在修改时丢弃的终端id，增加时选中1、2、3、4但是修改时选中3、4，此时我们将得到1、2
-//-------------------------------------------------------------------------------------------------------
+		// -------------------------------------------------------------------------------------------------------
 		try
 		{
 			String strSql = "update " + strTableName2 + "  set strname=?,inttype=?,";
 			if (this.strContent != null && this.strContent.trim().length() > 0)
 				strSql += " strcontent='" + this.strContent + "', ";
 			strSql += "strterminalids=?,dtstarttime=?,dtendtime=? where strid=? ";
-//			String sql3 = "update  " + strTableName3 + "  set strdataopetype='update',intstate=0 where strdataid=" + strId;
-//			System.err.println(sql3);
+			// String sql3 = "update  " + strTableName3 +
+			// "  set strdataopetype='update',intstate=0 where strdataid=" +
+			// strId;
+			// System.err.println(sql3);
 			db.setAutoCommit(false);
-//			db.executeUpdate(sql3);
+			// db.executeUpdate(sql3);
 			db.prepareStatement(strSql);
 			db.setString(1, strName);
 			db.setString(2, intType);
@@ -656,13 +670,13 @@ public class Terminal
 	{
 		DownLoadAlert downLoadAlert = new DownLoadAlert(globa);
 		String sql = "delete from " + strTableName2 + "  ".concat(where);
-		String sql3 ;
+		String sql3;
 		strTerminals = this.showAd("where strid='" + strId + "'").getStrTerminals();
 		// 事务处理
 		try
 		{
 			db.getConnection().setAutoCommit(false);// 禁止自动提交事务
-//			db.executeUpdate(sql3);
+			// db.executeUpdate(sql3);
 			db.executeUpdate(sql);// 删除终端
 			String[] TerminalIds = getTerminalIdsByNames(strTerminals).split(",");
 			for (int i = 0; i < TerminalIds.length; i++)
