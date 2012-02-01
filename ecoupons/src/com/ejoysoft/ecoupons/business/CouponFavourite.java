@@ -6,6 +6,7 @@ import java.util.Vector;
 
 import com.ejoysoft.common.DbConnect;
 import com.ejoysoft.common.Globa;
+import com.ejoysoft.common.UID;
 
 public class CouponFavourite
 {
@@ -142,11 +143,36 @@ public class CouponFavourite
 		}
 		return theBean;
 	}
-	
-	
-	
-	
-	
+	// 添加优惠券收藏记录
+	public boolean add()
+	{
+		String strSql = "";
+		strId = UID.getID();
+		try
+		{
+			// 添加券打机信息
+			strSql = "insert into " + strTableName + "  (strid, strmembercardno, strcouponid, dtfavouritetime , strcreator, dtcreatetime)"
+					+ " values(?,?,?,?,?,?)";
+			db.prepareStatement(strSql);
+			db.setString(1, strId);
+			db.setString(2, strMemberCardNo);
+			db.setString(3, strCouponId);
+			db.setString(4, com.ejoysoft.common.Format.getDateTime());
+			db.setString(5, strCreator);
+			db.setString(6, com.ejoysoft.common.Format.getDateTime());
+			if (db.executeUpdate() > 0)
+			{
+				Globa.logger0("添加优惠券收藏记录", globa.loginName, globa.loginIp, strSql, "优惠券收藏", "system");
+				return true;
+			} else
+				return false;
+		} catch (Exception e)
+		{
+			System.out.println("添加优惠券收藏记录异常");
+			e.printStackTrace();
+			return false;
+		}
+	}
 	public String getStrId()
 	{
 		return strId;
