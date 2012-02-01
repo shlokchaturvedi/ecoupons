@@ -101,6 +101,15 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>MemberMobile</servlet-name>
+		<servlet-class>com.ejoysoft.servlet.MemberMobileServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MemberMobile</servlet-name>
+		<url-pattern>/servlet/MemberMobile</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>FileDownload</servlet-name>
 		<servlet-class>com.ejoysoft.servlet.FileDownloadServlet</servlet-class>
 	</servlet>
