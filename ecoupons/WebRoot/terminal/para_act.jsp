@@ -10,7 +10,7 @@
     if(action.equals(Constants.DELETE_STR)){
     	String[] aryStrId = ParamUtil.getStrArray(request, "strId");
     	for (int i = 0; i < aryStrId.length; i++) {
-	    	obj.delete("where strId ='"+aryStrId[i]+"'");
+	    	obj.delete("where strId ='"+aryStrId[i]+"'",aryStrId[i]);
     	}
     	globa.dispatch(true, strUrl);
 	} else {
