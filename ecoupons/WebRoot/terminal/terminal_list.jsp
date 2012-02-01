@@ -181,7 +181,7 @@ function del(){
             </form></td>
           </tr>
         </table>
-		<form name=frm method=post action="terminal_list.jsp">
+		<form name=frm method=post  action="terminal_list.jsp">
 		<input name="strNo" type="hidden" value="<%=strNo%>">
      	<!-- 翻页开始 -->  
      	<%@ include file="../include/jsp/cpage.jsp"%>
