@@ -433,6 +433,24 @@ public class Member
 		if (b)
 			globa.setDynamicProperty(this);
 	}
+	/**
+	 * 修改会员手机号
+	 */
+	public boolean updateMobileNo(String strCardNo,String strMobileNo)
+	{
+		try
+		{
+			String strSql = "update  " + strTableName + "  set strmobileno = ? WHERE strcardno=? ";
+			db.prepareStatement(strSql);
+			db.setString(1, strMobileNo);
+			db.setString(2, strCardNo);
+			db.executeUpdate();
+			return true;
+		} catch (Exception e)
+		{
+				return false;
+		}
+	}
 
 	private String strId;// 自动生成
 	private String strCardNo;// 卡号
