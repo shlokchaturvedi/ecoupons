@@ -24,8 +24,7 @@
 				<%
 					for (int j = 0; j < intPageCount; j++) {
 				%>
-				<option value="<%=j + 1%>"
-					<%if(intCurPage==j+1) out.print("selected");%>>
+				<option value="<%=j + 1%>">
 					第<%=j + 1%>页
 				</option>
 				<%
