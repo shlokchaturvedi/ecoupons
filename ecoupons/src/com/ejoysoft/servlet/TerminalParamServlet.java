@@ -59,48 +59,39 @@ public class TerminalParamServlet extends HttpServlet
 		 String strTerminalNo = req.getParameter("strTerminalNo");
 //		String strTerminalNo = "21";
 		HashMap<String, Terminal> hmTerminal = Terminal.hmTerminal;
-		Terminal terminal2 = new Terminal(globa);// 用于刷新终端状态
-		String strId = hmTerminal.get(strTerminalNo).getStrId();
-		DownLoadAlert downLoadAlert = new DownLoadAlert(globa);
-		Vector<DownLoadAlert> vctAlerts = new Vector<DownLoadAlert>();
-		String strWhere = "where strDataType='t_bz_terminal_param' and intState=0 and strTerminalId='" + strId + "'";
-		TerminalPara terminalParam = new TerminalPara(globa);
-		TerminalPara tempTerminalParam = new TerminalPara();
-		vctAlerts = downLoadAlert.list(strWhere, 0, 0);
-		sbReturn.append("<params>");
-		if (vctAlerts.size() > 0)
+		Terminal terminal = new Terminal(globa);// 用于刷新终端状态
+		if (hmTerminal.get(strTerminalNo) != null)
 		{
-			for (int i = 0; i < vctAlerts.size(); i++)
+			String strId = hmTerminal.get(strTerminalNo).getStrId();
+			TerminalPara terminalParam = new TerminalPara(globa);
+			Vector<TerminalPara> vctParas = new Vector<TerminalPara>();
+			vctParas = terminalParam.list("", 0, 0);
+			if (terminal.updateState(strId, "t_bz_terminal_param"))
 			{
-				tempTerminalParam = terminalParam.show("where strid='" + vctAlerts.get(i).getStrDataId() + "'");
-				sbReturn.append("<param>");
-				sbReturn.append("<strId>" + tempTerminalParam.getStrId() + "</strId>");
-				sbReturn.append("<strParamName>" + tempTerminalParam.getStrParamName() + "</strParamName>");
-				sbReturn.append("<strParamValue>" + tempTerminalParam.getStrParamValue() + "</strParamValue>");
-				sbReturn.append("</param>");
+				sbReturn.append("<params>");
+				if (vctParas.size() > 0)
+				{
+					for (int i = 0; i < vctParas.size(); i++)
+					{
+						sbReturn.append("<param>");
+						sbReturn.append("<strId>" + vctParas.get(i).getStrId() + "</strId>");
+						sbReturn.append("<strParamName>" + vctParas.get(i).getStrParamName() + "</strParamName>");
+						sbReturn.append("<strParamValue>" + vctParas.get(i).getStrParamValue() + "</strParamValue>");
+						sbReturn.append("</param>");
+					}
+				}
+				sbReturn.append("</params>");
+
 			}
 		}
-		sbReturn.append("</params>");
-		if (terminal2.updateState(strId, "t_bz_terminal_param"))
+		try
 		{
-			try
-			{
-				resp.getWriter().print(sbReturn.toString());
-			} catch (IOException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} else
+			resp.getWriter().print(sbReturn.toString());
+		} catch (IOException e)
 		{
-			try
-			{
-				resp.getWriter().print("<?xml version='1.0' encoding='utf-8'?> ");
-			} catch (IOException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
 		}
 		// 关闭数据库连接对象
 		globa.closeCon();
