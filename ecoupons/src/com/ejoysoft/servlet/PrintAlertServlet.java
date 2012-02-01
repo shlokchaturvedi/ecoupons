@@ -55,40 +55,25 @@ private void execute(HttpServletRequest req, HttpServletResponse resp)
 	Globa globa = new Globa();
 	resp.setCharacterEncoding("utf-8");
 	String strTerminalNo = req.getParameter("strTerminalNo");
-//	int intCouponPrint = Integer.parseInt(req.getParameter("intCouponPrint"));
-//	int intCouponPrint = 20;
 	HashMap<String, Terminal> hmTerminal = Terminal.hmTerminal;
 	Terminal terminal = hmTerminal.get(strTerminalNo);
-	Terminal terminal2 = new Terminal(globa);
-	String strId = terminal.getStrId();
-//	String intMaxPrintPaper=(String) getServletContext().getAttribute("MAX_PRINTPAPER");
-//	System.out.println(intMaxPrintPaper);
-	// System.out.println(strImagAddr);
-	
-	if (terminal2.updatePrintPaperState(strId,1))//1代表该终端现在缼纸
+	if(terminal!=null)
 	{
-		
-		sbReturn.append("<return>OK</return>");
-		System.out.println(sbReturn.toString());
-		try
-		{
-			resp.getWriter().print(sbReturn.toString());
-		} catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-
+		Terminal terminal2 = new Terminal(globa);
+		String strId = terminal.getStrId();
+		if (terminal2.updatePrintPaperState(strId,1))//1代表该终端现在缼纸
+		{			
+			sbReturn.append("<return>OK</return>");		
 		}
-	}else {
-		try
-		{
-			resp.getWriter().print("<?xml version='1.0' encoding='utf-8'?> ");
-		} catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	}	
+	try
+	{
+		resp.getWriter().println(sbReturn.toString());
+	} catch (IOException e)
+	{
+		// TODO Auto-generated catch block
+		e.printStackTrace();
 
-		}
 	}
 	
 	// 关闭数据库连接对象

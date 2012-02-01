@@ -2,6 +2,7 @@ package com.ejoysoft.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
@@ -44,54 +45,55 @@ public class CouponPrintServlet extends HttpServlet implements Servlet
 		db = new DbConnect();
 		db = globa.db;
 		String strTerminalNo = req.getParameter("strTerminalNo");
-//		String strTerminalNo ="2222";
 		Terminal obj = new Terminal(globa);
-		String strTerminalId = obj.getTerminalIdsByNames(strTerminalNo);
-		obj.updateState(strTerminalId);//更新终端状态
-		String strPrintContent = req.getParameter("strPrintContent");
-//		String strPrintContent="333$111$2011-12-30 15:44:14$2343";
-	    String strTableName ="t_bz_coupon_print";
-		if(strPrintContent!=null)
+		HashMap<String, Terminal> hmTerminal = Terminal.hmTerminal;
+		Terminal terminal = hmTerminal.get(strTerminalNo);
+		if(terminal!=null)
 		{
-			String[] allContents = strPrintContent.split("@");
-			for(int i=0;i<allContents.length;i++)
+			String strTerminalId = terminal.getStrId();
+			//String strTerminalId = obj.getTerminalIdsByNames(strTerminalNo);
+			obj.updateState(strTerminalId);//更新终端状态
+			String strPrintContent = req.getParameter("strPrintContent");
+		    String strTableName ="t_bz_coupon_print";
+			if(strPrintContent!=null)
 			{
-				if(allContents[i]!=null)
+				String[] allContents = strPrintContent.split("@");
+				for(int i=0;i<allContents.length;i++)
 				{
-					String[] perContent = allContents[i].split("[$]"); 
-					String strMemberCardNo = perContent[0];
-					String strCouponId = perContent[1];
-					String dtPrintTime = perContent[2];
-					String strCouponCode = perContent[3];
-					this.editLimitNum(strCouponId);
-					String strSql = "insert into "+strTableName+"(strid,strmembercardno,strcouponid,strterminalid," +
-							"dtprinttime,strcouponcode,intstate,strcreator,dtcreatetime) values(?,?,?,?,?,?,?,?,?)";
-					try {
-			            db.prepareStatement(strSql);
-			            db.setString(1, UID.getID());
-			            db.setString(2, strMemberCardNo);
-			            db.setString(3, strCouponId); 
-			            db.setString(4, strTerminalId);  //strPWD
-			            db.setString(5, dtPrintTime);
-			            db.setString(6, strCouponCode);
-			            db.setInt(7, 0);
-			            db.setString(8, "system");
-			            db.setString(9, com.ejoysoft.common.Format.getDateTime());
-			            if (db.executeUpdate() > 0) { 	    
-			                Globa.logger0("添加优惠券打印记录信息", globa.loginName, globa.loginIp, strSql, "优惠券打印", "system");
-			            } 			               
-					}catch (Exception e) {
-			            System.out.println("添加优惠券打印记录异常");
-			            e.printStackTrace();
-			        }					
-				}
-			}	
-        	sbReturn.append("<return>OK</return>");	
-        	db.closeCon();
-		}
-		else {
-			sbReturn.append("<return>no</return>");
-		}
+					if(allContents[i]!=null)
+					{
+						String[] perContent = allContents[i].split("[$]"); 
+						String strMemberCardNo = perContent[0];
+						String strCouponId = perContent[1];
+						String dtPrintTime = perContent[2];
+						String strCouponCode = perContent[3];
+						this.editLimitNum(strCouponId);
+						String strSql = "insert into "+strTableName+"(strid,strmembercardno,strcouponid,strterminalid," +
+								"dtprinttime,strcouponcode,intstate,strcreator,dtcreatetime) values(?,?,?,?,?,?,?,?,?)";
+						try {
+				            db.prepareStatement(strSql);
+				            db.setString(1, UID.getID());
+				            db.setString(2, strMemberCardNo);
+				            db.setString(3, strCouponId); 
+				            db.setString(4, strTerminalId);  //strPWD
+				            db.setString(5, dtPrintTime);
+				            db.setString(6, strCouponCode);
+				            db.setInt(7, 0);
+				            db.setString(8, "system");
+				            db.setString(9, com.ejoysoft.common.Format.getDateTime());
+				            if (db.executeUpdate() > 0) { 	    
+				                Globa.logger0("添加优惠券打印记录信息", globa.loginName, globa.loginIp, strSql, "优惠券打印", "system");
+				            } 			               
+						}catch (Exception e) {
+				            System.out.println("添加优惠券打印记录异常");
+				            e.printStackTrace();
+				        }					
+					}
+				}	
+	        	sbReturn.append("<return>OK</return>");	
+	        	db.closeCon();
+			}
+		}		
 		try {
 			resp.getWriter().println(sbReturn.toString());
 		} catch (IOException e) {
