@@ -170,7 +170,7 @@ public class Shop {
             	strSql += "strlargeimg = '" + strLargeImg + "',";
             }
             strSql += " intpoint=? where strid=? ";
-            db.setAutoCommit(false);
+            db.getConnection().setAutoCommit(false);
     		db.executeUpdate(strSql2);
             db.prepareStatement(strSql);
             db.setString(1, strBizName);
