@@ -95,6 +95,7 @@
 	    obj.setStrShopId(au.getString("strShopId"));
 	    obj.setStrTerminals(au.getString("strTerminals"));
 	    obj.setIntRecommend(au.getInt("intRecommend"));
+	    obj.setIntVip(au.getInt("intVip"));
 	    obj.setStrName(au.getString("strName"));
 		if (action.equals(Constants.ADD_STR))
 		{

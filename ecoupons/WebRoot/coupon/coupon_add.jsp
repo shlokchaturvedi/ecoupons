@@ -192,7 +192,7 @@ function addTerminals()
 				</td>
                 <td width="45%" height="30" class="left_txt"><br></td> 
               </tr>
-              <tr  >
+              <tr>
                  <td width="20%" height="30" align="right" class="left_txt2">是否VIP：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30">

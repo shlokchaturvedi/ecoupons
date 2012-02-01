@@ -198,16 +198,16 @@ body,td,tr{font-size:9pt;}
                 <td width="3%" height="30">&nbsp;</td>
                 <td width="32%" height="30">
                 
-					 <input type="radio" name="intVip"  value="0" <%if(obj0.getIntVip()==0) out.print("checked");%> class="input_box" />是
-					 <input type="radio" name="intVip"  value="1" <%if(obj0.getIntVip()==1) out.print("checked");%> class="input_box"/>不是
+					 <input type="radio" name="intVip"  value="1" <%if(obj0.getIntVip()==1) out.print("checked");%> class="input_box" />是
+					 <input type="radio" name="intVip"  value="0" <%if(obj0.getIntVip()==0) out.print("checked");%> class="input_box"/>不是
 				</td>
 				</tr>
               <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">是否推荐：</td>
                 <td width="3%" height="30">&nbsp;</td>
                 <td width="32%" height="30">
-					 <input type="radio" name="intRecommend"  value="0" <%if(obj0.getIntRecommend()==0) out.print("checked");%> class="input_box" />是
-					 <input type="radio" name="intRecommend"  value="1" <%if(obj0.getIntRecommend()==1) out.print("checked");%> class="input_box"/>不是
+					 <input type="radio" name="intRecommend"  value="1" <%if(obj0.getIntRecommend()==1) out.print("checked");%> class="input_box" />是
+					 <input type="radio" name="intRecommend"  value="0" <%if(obj0.getIntRecommend()==0) out.print("checked");%> class="input_box"/>不是
 				</td>
 				</tr>
               <tr >
