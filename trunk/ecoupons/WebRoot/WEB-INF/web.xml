@@ -54,6 +54,14 @@
 		<servlet-name>MemberAuth</servlet-name>
 		<url-pattern>/servlet/MemberAuth</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>CouponFavourite</servlet-name>
+		<servlet-class>com.ejoysoft.servlet.CouponFavouriteServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CouponFavourite</servlet-name>
+		<url-pattern>/servlet/CouponFavourite</url-pattern>
+	</servlet-mapping>
 	
 	<servlet>
 		<servlet-name>TerminalParam</servlet-name>
