@@ -42,7 +42,6 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 	{
 		// TODO Auto-generated method stub
 		StringBuffer sbReturn = new StringBuffer("<?xml version='1.0' encoding='utf-8'?> ");
-		sbReturn.append("<info>");
 		try
 		{
 			req.setCharacterEncoding("utf-8");
@@ -65,132 +64,135 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 //		 String strTerminalNo = "23";
 		HashMap<String, Terminal> hmTerminal = Terminal.hmTerminal;
 		Terminal terminal = hmTerminal.get(strTerminalNo);
-		Terminal terminal2 = new Terminal(globa);// 用于刷新终端状态
-		String strId = terminal.getStrId();
-		// System.out.println(strId);
-		DownLoadAlert downLoadAlert = new DownLoadAlert(globa);
-		Vector<DownLoadAlert> vctAlerts = new Vector<DownLoadAlert>();
-//		String strFileAddr = req.getSession().getServletContext().getRealPath(req.getRequestURI());
-//		strFileAddr = strFileAddr.replace("\\ecoupons\\servlet\\AdDownload", "\\terminal\\advertisement\\");
-		String strWhere = "where strDataType='t_bz_advertisement' and intState=0 and strTerminalId='" + strId + "'";
-		Terminal tempTerminal = new Terminal();
-		vctAlerts = downLoadAlert.list(strWhere, 0, 0);
-		boolean flagAdd = true;
-		boolean flagUpdate = true;
-		boolean flagDelete = true;
-		if (vctAlerts.size() > 0)
+		if (terminal != null)
 		{
-
-			for (int i = 0; i < vctAlerts.size(); i++)
+			Terminal terminal2 = new Terminal(globa);// 用于刷新终端状态
+			String strId = terminal.getStrId();
+			DownLoadAlert downLoadAlert = new DownLoadAlert(globa);
+			Vector<DownLoadAlert> vctAlerts = new Vector<DownLoadAlert>();
+			String strWhere = "where strDataType='t_bz_advertisement' and intState=0 and strTerminalId='" + strId + "'";
+			Terminal tempTerminal = new Terminal();
+			vctAlerts = downLoadAlert.list(strWhere, 0, 0);
+			boolean flagAdd = true;
+			boolean flagUpdate = true;
+			boolean flagDelete = true;
+			if (terminal2.updateState(strId, "t_bz_advertisement"))
 			{
-				tempTerminal = terminal2.showAd("where strid='" + vctAlerts.get(i).getStrDataId() + "'");
-				if ("add".equals(vctAlerts.get(i).getStrDataOpeType()))
+				sbReturn.append("<info>");
+				if (vctAlerts.size() > 0)
 				{
-
-					if (flagAdd)
+					for (int i = 0; i < vctAlerts.size(); i++)
 					{
-						sbReturn.append("<ads>");
-						sbReturn.append("<operate>add</operate>");
-						flagAdd = false;
+						tempTerminal = terminal2.showAd("where strid='" + vctAlerts.get(i).getStrDataId() + "'");
+						if ("add".equals(vctAlerts.get(i).getStrDataOpeType()))
+						{
+							if (flagAdd)
+							{
+								sbReturn.append("<ads>");
+								sbReturn.append("<operate>add</operate>");
+								flagAdd = false;
+							}
+							sbReturn.append(returnSbContent(tempTerminal));
+						}
 					}
-					sbReturn.append(returnSbContent(tempTerminal));
-//					sbReturn.append(returnSbContent(tempTerminal, strFileAddr));
-
-				}
-			}
-			if (!flagAdd)
-			{
-				sbReturn.append("</ads>");
-			}
-			for (int i = 0; i < vctAlerts.size(); i++)
-			{
-				tempTerminal = terminal2.showAd("where strid='" + vctAlerts.get(i).getStrDataId() + "'");
-				if ("update".equals(vctAlerts.get(i).getStrDataOpeType()))
-				{
-					if (flagUpdate)
+					if (!flagAdd)
 					{
-						sbReturn.append("<ads>");
-						sbReturn.append("<operate>update</operate>");
-						flagUpdate = false;
+						sbReturn.append("</ads>");
 					}
-					sbReturn.append(returnSbContent(tempTerminal));
-//					sbReturn.append(returnSbContent(tempTerminal, strFileAddr));
-				}
-			}
-			if (!flagUpdate)
-			{
-				sbReturn.append("</ads>");
-			}
-			for (int i = 0; i < vctAlerts.size(); i++)
-			{
-				tempTerminal = terminal2.showAd("where strid='" + vctAlerts.get(i).getStrDataId() + "'");
-				if ("delete".equals(vctAlerts.get(i).getStrDataOpeType()))
-				{
-					if (flagDelete)
+					for (int i = 0; i < vctAlerts.size(); i++)
 					{
-						sbReturn.append("<ads>");
-						sbReturn.append("<operate>delete</operate>");
-						flagDelete = false;
+						tempTerminal = terminal2.showAd("where strid='" + vctAlerts.get(i).getStrDataId() + "'");
+						if ("update".equals(vctAlerts.get(i).getStrDataOpeType()))
+						{
+							if (flagUpdate)
+							{
+								sbReturn.append("<ads>");
+								sbReturn.append("<operate>update</operate>");
+								flagUpdate = false;
+							}
+							sbReturn.append(returnSbContent(tempTerminal));
+						}
 					}
-					sbReturn.append("<ad>");
-					sbReturn.append("<strId>" + vctAlerts.get(i).getStrDataId() + "</strId>");
-					sbReturn.append("</ad>");
+					if (!flagUpdate)
+					{
+						sbReturn.append("</ads>");
+					}
+					for (int i = 0; i < vctAlerts.size(); i++)
+					{
+						tempTerminal = terminal2.showAd("where strid='" + vctAlerts.get(i).getStrDataId() + "'");
+						if ("delete".equals(vctAlerts.get(i).getStrDataOpeType()))
+						{
+							if (flagDelete)
+							{
+								sbReturn.append("<ads>");
+								sbReturn.append("<operate>delete</operate>");
+								flagDelete = false;
+							}
+							sbReturn.append("<ad>");
+							sbReturn.append("<strId>" + vctAlerts.get(i).getStrDataId() + "</strId>");
+							sbReturn.append("</ad>");
+						}
+					}
+					if (!flagDelete)
+					{
+						sbReturn.append("</ads>");
+					}
 				}
-			}
-			if (!flagDelete)
-			{
-				sbReturn.append("</ads>");
+				sbReturn.append("</info>");
 			}
 		}
-		if (terminal2.updateState(strId, "t_bz_advertisement"))
+		try
 		{
-			try
-			{
-				sbReturn.append("</info>");
-				resp.getWriter().print(sbReturn.toString());
-			} catch (IOException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-
-			}
+			resp.getWriter().print(sbReturn.toString());
+		} catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		// 关闭数据库连接对象
 		globa.closeCon();
 	}
 
 	/**
-	 * 根据条件返回具体内容
-	 * 20120117删除文件内容，返回空
+	 * 根据条件返回具体内容 20120117删除文件内容，返回空
+	 * 
 	 * @param tempTerminal
 	 * @return
 	 */
-//	private StringBuffer returnSbContent(Terminal tempTerminal, String strFileAddr)
+	// private StringBuffer returnSbContent(Terminal tempTerminal, String
+	// strFileAddr)
 	private StringBuffer returnSbContent(Terminal tempTerminal)
 	{
 
-//		String strContent = "";
-//		StringBuffer sbContent=new StringBuffer("");
+		// String strContent = "";
+		// StringBuffer sbContent=new StringBuffer("");
 		StringBuffer sbReturnContent = new StringBuffer();
-//
-//		if ("1".equals(tempTerminal.getIntType()) && tempTerminal.getStrContent() != null && tempTerminal.getStrContent() != "")//视频文件
-//		{
-//			sbContent.append(Base64.getPicBASE64(strFileAddr + tempTerminal.getStrContent()));
-//		} else
-//		if ("2".equals(tempTerminal.getIntType()) && tempTerminal.getStrContent() != null && tempTerminal.getStrContent() != "")//图片文件,可能有多个
-//		{
-//			String[]strContentNames=tempTerminal.getStrContent().split(",");
-//			for (int i = 0; i < strContentNames.length; i++)
-//			{
-//				sbContent.append(Base64.getPicBASE64(strFileAddr + strContentNames[i]));
-//			}
-//		}
+		//
+		// if ("1".equals(tempTerminal.getIntType()) &&
+		// tempTerminal.getStrContent() != null && tempTerminal.getStrContent()
+		// != "")//视频文件
+		// {
+		// sbContent.append(Base64.getPicBASE64(strFileAddr +
+		// tempTerminal.getStrContent()));
+		// } else
+		// if ("2".equals(tempTerminal.getIntType()) &&
+		// tempTerminal.getStrContent() != null && tempTerminal.getStrContent()
+		// != "")//图片文件,可能有多个
+		// {
+		// String[]strContentNames=tempTerminal.getStrContent().split(",");
+		// for (int i = 0; i < strContentNames.length; i++)
+		// {
+		// sbContent.append(Base64.getPicBASE64(strFileAddr +
+		// strContentNames[i]));
+		// }
+		// }
 		sbReturnContent.append("<ad>");
 		sbReturnContent.append("<strId>" + tempTerminal.getStrId() + "</strId>");
 		sbReturnContent.append("<strName>" + tempTerminal.getStrName() + "</strName>");
 		sbReturnContent.append("<intType>" + tempTerminal.getIntType() + "</intType>");
 		sbReturnContent.append("<strContent>" + tempTerminal.getStrContent() + "</strContent>");
-//		sbReturnContent.append("<strFileContent>" + sbContent.toString() + "</strFileContent>");
+		// sbReturnContent.append("<strFileContent>" + sbContent.toString() +
+		// "</strFileContent>");
 		sbReturnContent.append("<dtStartTime>" + tempTerminal.getDtStartTime() + "</dtStartTime>");
 		sbReturnContent.append("<dtEndTime>" + tempTerminal.getDtEndTime() + "</dtEndTime>");
 		sbReturnContent.append("</ad>");

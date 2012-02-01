@@ -1,6 +1,5 @@
 package com.ejoysoft.servlet;
 
-
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -41,10 +40,8 @@ public class CouponDownloadServlet extends HttpServlet implements Servlet
 
 	private void execute(HttpServletRequest req, HttpServletResponse resp)
 	{
-		// TODO Auto-generated method stub
-		// String strTerminalNo = req.getParameter("strCardNo");
 		StringBuffer sbReturn = new StringBuffer("<?xml version='1.0' encoding='utf-8'?> ");
-		sbReturn.append("<info>");
+
 		try
 		{
 			req.setCharacterEncoding("utf-8");
@@ -64,114 +61,96 @@ public class CouponDownloadServlet extends HttpServlet implements Servlet
 		Globa globa = new Globa();
 		resp.setCharacterEncoding("utf-8");
 		String strTerminalNo = req.getParameter("strTerminalNo");
-//		 String strTerminalNo = "23";
+		// String strTerminalNo = "21";
 		HashMap<String, Terminal> hmTerminal = Terminal.hmTerminal;
 		Terminal terminal = hmTerminal.get(strTerminalNo);
-		Terminal terminal2 = new Terminal(globa);
-		String strId = terminal.getStrId();
-		// System.out.println(strId);
-		DownLoadAlert downLoadAlert = new DownLoadAlert(globa);
-		Vector<DownLoadAlert> vctAlerts = new Vector<DownLoadAlert>();
-//		String strImagAddr = req.getSession().getServletContext().getRealPath(req.getRequestURI());
-//		strImagAddr = strImagAddr.replace("\\ecoupons\\servlet\\CouponDownload", "\\coupon\\images\\");
-		// System.out.println(strImagAddr);
-		Coupon coupon = new Coupon(globa);
-		String strWhere = "where strDataType='t_bz_coupon' and intState=0 and strTerminalId='" + strId + "'";
-		Coupon tempCoupon = new Coupon();
-		vctAlerts = downLoadAlert.list(strWhere, 0, 0);
-		boolean flagAdd = true;
-		boolean flagUpdate = true;
-		boolean flagDelete = true;
-		if (vctAlerts.size() > 0)
+		if (terminal != null)
 		{
-
-			for (int i = 0; i < vctAlerts.size(); i++)
+			Terminal terminal2 = new Terminal(globa);
+			String strId = terminal.getStrId();
+			DownLoadAlert downLoadAlert = new DownLoadAlert(globa);
+			Vector<DownLoadAlert> vctAlerts = new Vector<DownLoadAlert>();
+			Coupon coupon = new Coupon(globa);
+			String strWhere = "where strDataType='t_bz_coupon' and intState=0 and strTerminalId='" + strId + "'";
+			Coupon tempCoupon = new Coupon();
+			vctAlerts = downLoadAlert.list(strWhere, 0, 0);
+			boolean flagAdd = true;
+			boolean flagUpdate = true;
+			boolean flagDelete = true;
+			if (terminal2.updateState(strId, "t_bz_coupon"))
 			{
-				tempCoupon = coupon.show("where strid='" + vctAlerts.get(i).getStrDataId() + "'");
-				if ("add".equals(vctAlerts.get(i).getStrDataOpeType()))
+				sbReturn.append("<info>");
+				if (vctAlerts.size() > 0)
 				{
-
-					if (flagAdd)
+					for (int i = 0; i < vctAlerts.size(); i++)
 					{
-						sbReturn.append("<coupons>");
-						sbReturn.append("<operate>add</operate>");
-						flagAdd = false;
+						tempCoupon = coupon.show("where strid='" + vctAlerts.get(i).getStrDataId() + "'");
+						if ("add".equals(vctAlerts.get(i).getStrDataOpeType()))
+						{
+							if (flagAdd)
+							{
+								sbReturn.append("<coupons>");
+								sbReturn.append("<operate>add</operate>");
+								flagAdd = false;
+							}
+							sbReturn.append(returnSbContent(tempCoupon));
+						}
 					}
-					sbReturn.append(returnSbContent(tempCoupon));
-//					sbReturn.append(returnSbContent(tempCoupon, strImagAddr));
-				}
-			}
-			if (!flagAdd)
-			{
-				sbReturn.append("</coupons>");
-			}
-
-			for (int i = 0; i < vctAlerts.size(); i++)
-			{
-				tempCoupon = coupon.show("where strid='" + vctAlerts.get(i).getStrDataId() + "'");
-				if ("update".equals(vctAlerts.get(i).getStrDataOpeType()))
-				{
-
-					if (flagUpdate)
+					if (!flagAdd)
 					{
-						sbReturn.append("<coupons>");
-						sbReturn.append("<operate>update</operate>");
-						flagUpdate = false;
+						sbReturn.append("</coupons>");
 					}
-					sbReturn.append(returnSbContent(tempCoupon));
-//					sbReturn.append(returnSbContent(tempCoupon, strImagAddr));
-
-				}
-			}
-			if (!flagUpdate)
-			{
-				sbReturn.append("</coupons>");
-			}
-			for (int i = 0; i < vctAlerts.size(); i++)
-			{
-				tempCoupon = coupon.show("where strid='" + vctAlerts.get(i).getStrDataId() + "'");
-				if ("delete".equals(vctAlerts.get(i).getStrDataOpeType()))
-				{
-					if (flagDelete)
+					for (int i = 0; i < vctAlerts.size(); i++)
 					{
-						sbReturn.append("<coupons>");
-						sbReturn.append("<operate>delete</operate>");
-						flagDelete = false;
+						tempCoupon = coupon.show("where strid='" + vctAlerts.get(i).getStrDataId() + "'");
+						if ("update".equals(vctAlerts.get(i).getStrDataOpeType()))
+						{
+							if (flagUpdate)
+							{
+								sbReturn.append("<coupons>");
+								sbReturn.append("<operate>update</operate>");
+								flagUpdate = false;
+							}
+							sbReturn.append(returnSbContent(tempCoupon));
+						}
 					}
-					sbReturn.append("<coupon>");
-					sbReturn.append("<strId>" + vctAlerts.get(i).getStrDataId() + "</strId>");
-					sbReturn.append("</coupon>");
+					if (!flagUpdate)
+					{
+						sbReturn.append("</coupons>");
+					}
+					for (int i = 0; i < vctAlerts.size(); i++)
+					{
+						tempCoupon = coupon.show("where strid='" + vctAlerts.get(i).getStrDataId() + "'");
+						if ("delete".equals(vctAlerts.get(i).getStrDataOpeType()))
+						{
+							if (flagDelete)
+							{
+								sbReturn.append("<coupons>");
+								sbReturn.append("<operate>delete</operate>");
+								flagDelete = false;
+							}
+							sbReturn.append("<coupon>");
+							sbReturn.append("<strId>" + vctAlerts.get(i).getStrDataId() + "</strId>");
+							sbReturn.append("</coupon>");
+						}
+					}
+					if (!flagDelete)
+					{
+						sbReturn.append("</coupons>");
+					}
 				}
-			}
-			if (!flagDelete)
-			{
-				sbReturn.append("</coupons>");
+				sbReturn.append("</info>");
+
 			}
 		}
-		if (terminal2.updateState(strId, "t_bz_coupon"))
+		try
 		{
-//			 System.out.println(sbReturn.toString());
-			try
-			{
-				sbReturn.append("</info>");
-				resp.getWriter().print(sbReturn.toString());
-			} catch (IOException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			resp.getWriter().print(sbReturn.toString());
+		} catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 
-			}
-		}else{
-			try
-			{
-//				System.out.println("<?xml version='1.0' encoding='utf-8'?> ");
-				resp.getWriter().print("<?xml version='1.0' encoding='utf-8'?> ");
-			} catch (IOException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-
-			}
 		}
 		// 关闭数据库连接对象
 		globa.closeCon();
@@ -183,19 +162,24 @@ public class CouponDownloadServlet extends HttpServlet implements Servlet
 	 * @param tempTerminal
 	 * @return
 	 */
-//	private StringBuffer returnSbContent(Coupon tempCoupon, String strImagAddr)
+	// private StringBuffer returnSbContent(Coupon tempCoupon, String
+	// strImagAddr)
 	private StringBuffer returnSbContent(Coupon tempCoupon)
 	{
-//		String smallMageContent = "";
-//		String LargeMageContent = "";
-//		if (tempCoupon.getStrSmallImg() != null && tempCoupon.getStrSmallImg() != "")
-//		{
-//			smallMageContent = Base64.getPicBASE64(strImagAddr + tempCoupon.getStrSmallImg());
-//		}
-//		if (tempCoupon.getStrLargeImg() != null && tempCoupon.getStrLargeImg() != "")
-//		{
-//			LargeMageContent = Base64.getPicBASE64(strImagAddr + tempCoupon.getStrLargeImg());
-//		}
+		// String smallMageContent = "";
+		// String LargeMageContent = "";
+		// if (tempCoupon.getStrSmallImg() != null &&
+		// tempCoupon.getStrSmallImg() != "")
+		// {
+		// smallMageContent = Base64.getPicBASE64(strImagAddr +
+		// tempCoupon.getStrSmallImg());
+		// }
+		// if (tempCoupon.getStrLargeImg() != null &&
+		// tempCoupon.getStrLargeImg() != "")
+		// {
+		// LargeMageContent = Base64.getPicBASE64(strImagAddr +
+		// tempCoupon.getStrLargeImg());
+		// }
 		StringBuffer sbReturn = new StringBuffer();
 		sbReturn.append("<coupon>");
 		sbReturn.append("<strId>" + tempCoupon.getStrId() + "</strId>");
@@ -207,9 +191,11 @@ public class CouponDownloadServlet extends HttpServlet implements Servlet
 		sbReturn.append("<intRecommend>" + tempCoupon.getIntRecommend() + "</intRecommend>");
 		sbReturn.append("<flaPrice>" + tempCoupon.getFlaPrice() + "</flaPrice>");
 		sbReturn.append("<strSmallImg>" + tempCoupon.getStrSmallImg() + "</strSmallImg>");
-		//sbReturn.append("<strSmallImgContent>" + smallMageContent + "</strSmallImgContent>");
+		// sbReturn.append("<strSmallImgContent>" + smallMageContent +
+		// "</strSmallImgContent>");
 		sbReturn.append("<strLargeImg>" + tempCoupon.getStrLargeImg() + "</strLargeImg>");
-//		sbReturn.append("<strLargeImgContent>" + LargeMageContent + "</strLargeImgContent>");
+		// sbReturn.append("<strLargeImgContent>" + LargeMageContent +
+		// "</strLargeImgContent>");
 		sbReturn.append("<strPrintImg>" + tempCoupon.getStrPrintImg() + "</strPrintImg>");
 		sbReturn.append("</coupon>");
 		return sbReturn;
