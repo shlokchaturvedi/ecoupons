@@ -22,8 +22,6 @@ if(!globa.userSession.hasRight("13005"))
 	int intAllCount=obj.getCount(tWhere);
 	//当前页
 	int intCurPage=globa.getIntCurPage();
-	if(ParamUtil.getString(request,"curpage")!=null&&ParamUtil.getString(request,"curpage").trim().equals("newsearch"))
-		intCurPage=1;	
 	//每页记录数
 	int intPageSize=globa.getIntPageSize();
 	//共有页数
@@ -67,12 +65,13 @@ function del(){
 	}
     if(!confirm('您是否确认要删除所选中的所有记录？'))
         return;
-     frm1.action="para_act.jsp?<%=Constants.ACTION_TYPE%>=<%=Constants.DELETE_STR%>";
-     frm1.submit();
+     frm.action="para_act.jsp?<%=Constants.ACTION_TYPE%>=<%=Constants.DELETE_STR%>";
+     frm.submit();
 }
 </script>
 </head>
 <body>
+<form name=frm method=post action="para_list.jsp">
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td width="17" height="29" valign="top" background="../images/mail_leftbg.gif"><img src="../images/left-top-right.gif" width="17" height="29" /></td>
@@ -115,7 +114,6 @@ function del(){
           </tr>          
           <tr>
             <td >
-			<form name=frm1 method=post action="para_list.jsp">
 			<table border="0" cellpadding="0" cellspacing="0" width="100%">
 			<tr>
 			<td style="font-size:9pt">
@@ -163,15 +161,12 @@ function del(){
             }
             %>  
             </table>
-            </form></td>
+           </td>
           </tr>
         </table>
-		<form name=frm method=post action="para_list.jsp">
-		<input name="strName" type="hidden" value="<%=strName%>">
      	<!-- 翻页开始 -->  
      	<%@ include file="../include/jsp/cpage.jsp"%>
        	<!-- 翻页结束 --> 
-       	</form>
        </td>
       </tr>
     </table></td>
@@ -183,6 +178,7 @@ function del(){
     <td background="../images/mail_rightbg.gif"><img src="../images/buttom_right2.gif" width="16" height="17" /></td>
   </tr>
 </table>
+</form>
 </body>
 </html>
 <%@ include file="../include/jsp/footer.jsp"%>
