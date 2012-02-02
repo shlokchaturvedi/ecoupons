@@ -22,7 +22,7 @@ public class SysPara {
     private Globa globa;
     private DbConnect db;
 
-    //构�?�方�?
+    //构�?�方�?
     public SysPara() {
     }
 
@@ -31,14 +31,14 @@ public class SysPara {
         db = globa.db;
     }
 
-    //构�?�方�?
+    //构�?�方�?
     public SysPara(Globa globa, boolean b) {
         this.globa = globa;
         db = globa.db;
         if (b) globa.setDynamicProperty(this);
     }
       /**
-     * 根据�?个已有的Parameter对象构�??
+     * 根据�?个已有的Parameter对象构�??
      * @param param 已有的Parameter对象
      */
     public SysPara(SysPara param) {
@@ -50,8 +50,8 @@ public class SysPara {
         this.intSort = param.intSort;
     }
     static String  strTableName = "t_sy_syspara";
-    public static Vector<SysPara> vctSysPara;	//�?有参�?
-    public static HashMap<String, SysPara> hmSysPara;	//�?有参数哈希表
+    public static Vector<SysPara> vctSysPara;	//�?有参�?
+    public static HashMap<String, SysPara> hmSysPara;	//�?有参数哈希表
     
     public static void init() {
     	 hmSysPara = new HashMap<String, SysPara>();
@@ -85,7 +85,7 @@ public class SysPara {
     }
     
     
-    //增加�?个栏�?
+    //增加�?个栏�?
     public boolean add() throws SQLException {
         try {
             strId = UID.getID();
@@ -118,7 +118,7 @@ public class SysPara {
     }
 
     /**
-     * 获取�?大序列号
+     * 获取�?大序列号
      *
      */
     public int netOrder(String tStrType) throws SQLException{
@@ -178,7 +178,7 @@ public class SysPara {
         }
     }
 
-    //删除�?条记�?
+    //删除�?条记�?
     public boolean delete(String where)throws SQLException {
         try {
             //排序
@@ -259,7 +259,7 @@ public class SysPara {
         return theBean;
     }
 
-    //查询符合条件的记录�?�数
+    //查询符合条件的记录�?�数
     public int getCount(String where) throws SQLException{
         int count = 0;
         try {
@@ -280,8 +280,9 @@ public class SysPara {
             return count;
         }
     }
+   
 
-    //列表记录�?
+    //列表记录�?
     public Vector list(String where, int startRow, int rowCount) throws SQLException{
         Vector beans = new Vector();
         try {
@@ -365,16 +366,16 @@ public class SysPara {
     
     
     
-    private String strId;  //	参数id�?
-    private String strType;  //		�?属类�?
+    private String strId;  //	参数id�?
+    private String strType;  //		�?属类�?
     private String strName;  //	选项名称
     private String strValue;  //选项内容
-    private int intSort;  //0	排序�?
-    private String strState  ;//状�??
-    private String strCreator;  //		创建�?
+    private int intSort;  //0	排序�?
+    private String strState  ;//状�??
+    private String strCreator;  //		创建�?
     private String dCreatDate;  //		创建时间
-    private String strOldType;  //原所属类�?
-    private int intOldSort;    //原序�?
+    private String strOldType;  //原所属类�?
+    private int intOldSort;    //原序�?
     //private String strUserid;  //创建
     
     
