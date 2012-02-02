@@ -311,7 +311,7 @@ public class Coupon
 		}
 	}
 
-	/*
+	/**
 	 * 根据条件，返回优惠券信息的集合
 	 */
 	public Vector<Coupon> list(String where, int startRow, int rowCount)
@@ -345,7 +345,33 @@ public class Coupon
 		}
 		return beans;
 	}
-
+	/**
+	 * 根据商家id条件，返回优惠券信息的集合
+	 */
+	public Vector<Coupon> listByShopId(String where)
+	{
+		Vector<Coupon> beans = new Vector<Coupon>();
+		try
+		{
+			String sql = "SELECT *  FROM  " + strTableName + " ";
+			if (where.length() > 0)
+				sql = String.valueOf(sql) + String.valueOf(where);			
+			ResultSet rs = db.executeQuery(sql);
+			if (rs != null && rs.next())
+			{
+				do
+				{
+					Coupon theBean = new Coupon();
+					theBean = load(rs, false);
+					beans.addElement(theBean);
+				} while (rs.next());
+			}
+		} catch (Exception ee)
+		{
+			ee.printStackTrace();
+		}
+		return beans;
+	}
 	// 获取投放终端IDs
 	public String getTerminalIdsByNames(String terminals)
 	{
