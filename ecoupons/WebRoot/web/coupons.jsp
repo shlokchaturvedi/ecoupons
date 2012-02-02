@@ -13,7 +13,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <body>
-<iframe style="HEIGHT: 130px"  marginwidth=0 marginheight=0 src="top.htm" 
+<iframe style="HEIGHT: 130px"  marginwidth=0 marginheight=0 src="top.jsp" 
 frameborder=0 width="100%" scrolling=no></iframe>
 
 <!--正文部分-->
@@ -35,7 +35,7 @@ frameborder=0 width="100%" scrolling=no></iframe>
   <li>
   <div class=list>
     <div class=list_mid>
-  <div class=list_img><a href="CouponInfo.html"><img src="images/s_201112231500013406.jpg" width=136  height=89 border="0"/></a></div>
+  <div class=list_img><a href="couponinfo.jsp"><img src="images/s_201112231500013406.jpg" width=136  height=89 border="0"/></a></div>
   <div class=list_hot> <div class=money>68元</div> </div>
   <div class=clearfloat></div>
   <p>名称：<span><a href="#">遇见咖啡馆&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></span><br/>
@@ -59,7 +59,7 @@ frameborder=0 width="100%" scrolling=no></iframe>
   <div class=list>
 
   <div class=list_mid>
-  <div class=list_img><a href="CouponInfo.html"><img src="images/s_201112051129322203.jpg" width=136 height=89 border="0" /></a></div>
+  <div class=list_img><a href="couponinfo.jsp"><img src="images/s_201112051129322203.jpg" width=136 height=89 border="0" /></a></div>
   <div class=list_hot>
   <div class=money>156元</div>
   </div>
@@ -84,7 +84,7 @@ frameborder=0 width="100%" scrolling=no></iframe>
   
   <div class=list>
    <div class=list_mid>
-  <div class=list_img><a href="CouponInfo.html"><img src="images/s_201112051016241953.jpg"  width=136 height=89 border="0"/></a></div>
+  <div class=list_img><a href="couponinfo.jsp"><img src="images/s_201112051016241953.jpg"  width=136 height=89 border="0"/></a></div>
   <div class=list_hot><div class=money>8502元</div></div>
   <div class=clearfloat></div>
   <p>名称：<span><a href="#">遇见咖啡馆&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></span><br/>
@@ -288,7 +288,7 @@ frameborder=0 width="100%" scrolling=no></iframe>
   
  <div class=sort>
 <div class=sort_top>
-<H2><strong>类别检索</strong></H2></div>
+<h1><strong>类别检索</strong></h1></div>
 <div class=sort_con1>
 <ul>
   <li><a href="javascript:void(0)">餐饮/酒吧/小吃&nbsp;&nbsp;(97)</a></li>
@@ -324,6 +324,6 @@ frameborder=0 width="100%" scrolling=no></iframe>
 <!--正文部分结束-->
 </div>
 
-<iframe style="HEIGHT: 340px" marginwidth=0 marginheight=0 src="bottom.htm" frameborder=0 width="100%" scrolling=no></iframe>
+<iframe style="HEIGHT: 340px" marginwidth=0 marginheight=0 src="bottom.jsp" frameborder=0 width="100%" scrolling=no></iframe>
 </body>
 </html>
