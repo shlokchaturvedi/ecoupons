@@ -1,7 +1,42 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page import="java.util.Vector,com.ejoysoft.ecoupons.system.User,
+				com.ejoysoft.common.Constants,
+				com.ejoysoft.ecoupons.system.SysUserUnit,
+				com.ejoysoft.common.exception.NoRightException,
+				com.ejoysoft.ecoupons.business.Shop" %>
+<%@ include file="../include/jsp/head.jsp"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+<%
+    //初始化
+    Shop  shop0=null;
+    Shop obj=new Shop(globa);
+    //查询条件
+    String  strName=ParamUtil.getString(request,"strName","");
+	String tWhere=" where 1=1";
+	if (!strName.equals("")) {
+		tWhere += " and strbizname like '%" + strName + "%'";
+	}
+	tWhere += " order by strid";
+	//记录总数
+	int intAllCount=obj.getCount(tWhere);
+	//当前页
+	int intCurPage=globa.getIntCurPage();
+    //每页记录数
+	//int intPageSize=globa.getIntPageSize();
+	int intPageSize=5;
+	//共有页数
+ 	int intPageCount=(intAllCount-1)/intPageSize+1;
+	// 循环显示一页内的记录 开始序号
+	int intStartNum=(intCurPage-1)*intPageSize+1;
+	//结束序号
+	int intEndNum=intCurPage*intPageSize;   
+	//获取到当前页面的记录集
+	Vector<Shop> vctObj=obj.list(tWhere,intStartNum,intPageSize);
+	//获取当前页的记录条数
+	int intVct=(vctObj!=null&&vctObj.size()>0?vctObj.size():0);
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -11,7 +46,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link href="css/merchants.css" rel="stylesheet" type="text/css" />
 </head>
 
-<body>&nbsp; 
+<body>
+<form name=frm method=post action="marchants.jsp">		
+&nbsp; 
 <iframe height="130" marginwidth=0 marginheight=0 src="top.jsp" frameborder=0 width="100%" scrolling=no></iframe>
 <!--正文部分-->
 <div class="coupons-content">
@@ -22,22 +59,39 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  
 	<div class=hotList_top>
 		<div class="hotList_sf">商户列表</div>
-	<div class=more>
+<div class=more>
 <table>
   <tbody>
   <tr>
     <td><img src="images/renqi.gif" width=23 height=20 /> </td>
     <td><a onclick="seturl('order','hotnum')" href="javascript:void(0)">按人气排列</a> </td>
     <td><img src="images/Souces.gif" width=22 height=21 /> </td>
-    <td><a onclick="seturl('order','grade')" href="javascript:void(0)">按评分顺序</a> </td></tr></tbody></table></div>
-	</div>
+    <td><a onclick="seturl('order','grade')" href="javascript:void(0)">按评分顺序</a> </td></tr>
+    </tbody>
+ </table>
+</div>
+</div>
     <div class=hotList_mid>
+<% for(int i = 0;i < vctObj.size(); i++) {
+       Shop obj1 = vctObj.get(i);%>
 <div class=pro>	
 	
 	<div class=pro_mid>
-<div class=pro_img><a href="merchantsinfo.jsp" target=_blank><img src="images/s_201103280922392386.jpg" width=112 height=110 border="0" /></a></div>
+<div class=pro_img><a href="merchantsinfo.jsp?strid=<%=obj1.getStrId() %>" target=_blank>
+                <%
+                if (obj1.getStrSmallImg().length() > 0) {
+                %>
+                  <img src="<%="../shop/images/" + obj1.getStrSmallImg() %>" width=<%=application.getAttribute("SHOP_SMALL_IMG_WIDTH") %> height=<%=application.getAttribute("SHOP_SMALL_IMG_HEIGHT") %>/>
+                <%
+                }
+                else
+                {
+                %>
+                 <img src="../shop/images/temp.jpg" width=<%=application.getAttribute("SHOP_SMALL_IMG_WIDTH") %> height=<%=application.getAttribute("SHOP_SMALL_IMG_HEIGHT") %>/>
+                 <%} %>
+</a></div>
 <div class=pro_info>
-<div class=headtitle><a href="#" target=_blank>名店街购物</a></div>
+<div class=headtitle><a href="merchantsinfo.jsp?strid=<%=obj1.getStrId() %>" target=_blank><%=obj1.getStrBizName()%>—<%=obj1.getStrShopName()%></a></div>
 
 <div class=clearfloat></div>
 <div class=line><img src="images/fg.gif" width=525 height=4 /></div>
@@ -45,16 +99,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <table border=0 width=100%>
   <tbody>
   <tr>
-    <td width=267 height="26">*行业：<a href="#">生活购物</a> </td>
-    <td width=253 height="26">*地址：<a href="#">生活购物</a></td>
+    <td width=267 height="26">*行业：<a href="#"><%=obj1.getStrTradeName()%></a> </td>
+    <td width=253 height="26">*地址：<a href="#"><%=obj1.getStrAddr() %></a></td>
   </tr>
   <tr>
-    <td height="26">* 联系电话：13783582891<a href="#"></a> </td>
-    <td height="26">*联系人：<a href="#">张先生</a></td>
+    <td height="26">* 联系电话：<%=obj1.getStrPhone()%><a href="#"></a> </td>
+    <td height="26">*联系人：<a href="#"><%=obj1.getStrPerson() %></a></td>
     </tr>
   <tr>
     <td height="26" colspan="2">* 
-      简介：名店街购物，合肥最大的购物中心，面积100万平米，      
+      简介：<%=obj1.getStrIntro() %>    
     </td>
   </tr>
 </tbody></table>
@@ -62,147 +116,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 <div class=clearfloat></div></div>
 </div>
-
-
-
-<div class=pro>	
-	<div class=pro_mid>
-<div class=pro_img><a href="merchantsinfo.jsp" target=_blank><img src="images/s_201103280922392386.jpg" width=112 height=110 border="0" /></a></div>
-<div class=pro_info>
-<div class=headtitle><a href="#" target=_blank>名店街购物</a></div>
-
-<div class=clearfloat></div>
-<div class=line><img src="images/fg.gif" width=525 height=4 /></div>
-<div class=text_left>
-<table border=0 width=100%>
-  <tbody>
-  <tr>
-    <td width=267 height="26">*行业：<a href="#">生活购物</a> </td>
-    <td width=253 height="26">*地址：<a href="#">生活购物</a></td>
-  </tr>
-  <tr>
-    <td height="26">* 联系电话：13783582891<a href="#"></a> </td>
-    <td height="26">*联系人：<a href="#">张先生</a></td>
-    </tr>
-  <tr>
-    <td height="26" colspan="2">* 
-      简介：名店街购物，合肥最大的购物中心，面积100万平米，      
-      </td>  </tr>
-</tbody></table>
-<br/></div>
-</div>
-<div class=clearfloat></div></div>
-</div>
-
-
-
-
-<div class=pro>	
-	
-	<div class=pro_mid>
-<div class=pro_img><a href="#" target=_blank><img src="images/s_201103280922392386.jpg" width=112 height=110 border="0" /></a></div>
-<div class=pro_info>
-<div class=headtitle><a href="#" target=_blank>名店街购物</a></div>
-
-<div class=clearfloat></div>
-<div class=line><img src="images/fg.gif" width=525 height=4 /></div>
-<div class=text_left>
-<table border=0 width=100%>
-  <tbody>
-  <tr>
-    <td width=267 height="26">*行业：<a href="#">生活购物</a> </td>
-    <td width=253 height="26">*地址：<a href="#">生活购物</a></td>
-  </tr>
-  <tr>
-    <td height="26">* 联系电话：13783582891<a href="#"></a> </td>
-    <td height="26">*联系人：<a href="#">张先生</a></td>
-    </tr>
-  <tr>
-    <td height="26" colspan="2">* 
-      简介：名店街购物，合肥最大的购物中心，面积100万平米，      
-      </td>  </tr>
-</tbody></table>
-<br/></div>
-</div>
-<div class=clearfloat></div></div>
-</div>
-
-
-<div class=pro>	
-	
-	<div class=pro_mid>
-<div class=pro_img><a href="#" target=_blank><img src="images/s_201103280922392386.jpg" width=112 height=110 border="0" /></a></div>
-<div class=pro_info>
-<div class=headtitle><a href="#" target=_blank>名店街购物</a></div>
-
-<div class=clearfloat></div>
-<div class=line><img src="images/fg.gif" width=525 height=4 /></div>
-<div class=text_left>
-<table border=0 width=100%>
-  <tbody>
-  <tr>
-    <td width=267 height="26">*行业：<a href="#">生活购物</a> </td>
-    <td width=253 height="26">*地址：<a href="#">生活购物</a></td>
-  </tr>
-  <tr>
-    <td height="26">* 联系电话：13783582891<a href="#"></a> </td>
-    <td height="26">*联系人：<a href="#">张先生</a></td>
-  </tr>
-  <tr>
-    <td height="26" colspan="2">* 
-      简介：名店街购物，合肥最大的购物中心，面积100万平米，     
-      </td>   </tr>
-</tbody></table>
-<br/></div>
-</div>
-<div class=clearfloat></div></div>
-</div>
-
-
-<div class=pro>	
-	
-	<div class=pro_mid>
-<div class=pro_img><a href="#" target=_blank><img src="images/s_201103280922392386.jpg" width=112 height=110 border="0" /></a></div>
-<div class=pro_info>
-<div class=headtitle><a href="#"target=_blank >名店街购物</a></div>
-
-<div class=clearfloat></div>
-<div class=line><img src="images/fg.gif" width=525 height=4 /></div>
-<div class=text_left>
-<table border=0 width=100%>
-  <tbody>
-  <tr>
-    <td width=267 height="26">*行业：<a href="#">生活购物</a> </td>
-    <td width=253 height="26">*地址：<a href="#">生活购物</a></td>
-  </tr>
-  <tr>
-    <td height="26">* 联系电话：13783582891<a href="#"></a> </td>
-    <td height="26">*联系人：<a href="#">张先生</a></td>
-</tr>
-  <tr>
-    <td height="26" colspan="2">* 
-      简介：名店街购物，合肥最大的购物中心，面积100万平米，        
-      </td></tr>
-</tbody></table>
-<br/></div>
-</div>
-<div class=clearfloat></div></div>
-</div>
-
-
+<%} %>
 </div>
 <div class=hotList_bottom></div></div>
- <div class=pageSide>
-总计852条记录，共6页
-<input type="submit" name="Submit" class="pageipt" value="第一页" />
- <input type="submit" name="Submit2" class="pageipt" value="上一页" />
- <input type="submit" name="Submit3" class="pageipt" value="下一页" />
- <input type="submit" name="Submit4" class="pageipt" value="最末页" />
- <select name="select">
-   <option>1</option>
-   <option>2</option>
- </select>
- </div>
+
+ 	<!-- 翻页开始 -->  
+ 	<%@ include file="include/cpage.jsp"%>
+   	<!-- 翻页结束 --> 
 
 
 </div>
@@ -252,5 +172,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 
 <iframe style="HEIGHT: 340px" marginwidth=0 marginheight=0 src="bottom.jsp" frameborder=0 width="100%" scrolling=no></iframe>
+</form>
+<%globa.closeCon(); %>
 </body>
 </html>
