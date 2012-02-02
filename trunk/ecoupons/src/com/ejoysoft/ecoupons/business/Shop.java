@@ -161,6 +161,7 @@ public class Shop {
     public boolean update(String strId2) {
         try {
         	String strSql2 = "update  " + strTableName7 + " set strdataopetype='update',intstate=0 where strdataid=" + strId2;
+        	
 		    String strSql = "update " + strTableName + "  set strbizname=?, strshopname=?, strtrade=?, straddr=?, strphone=?, " +
             		"strperson=?, strintro=?, " ;
             if (this.strSmallImg!=null&&this.strSmallImg.length() > 0) {
