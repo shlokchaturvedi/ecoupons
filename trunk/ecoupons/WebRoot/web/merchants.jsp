@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <body>&nbsp; 
-<iframe height="130" marginwidth=0 marginheight=0 src="top.htm" frameborder=0 width="100%" scrolling=no></iframe>
+<iframe height="130" marginwidth=0 marginheight=0 src="top.jsp" frameborder=0 width="100%" scrolling=no></iframe>
 <!--正文部分-->
 <div class="coupons-content">
 <!--left部分-->
@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class=pro>	
 	
 	<div class=pro_mid>
-<div class=pro_img><a href="merchantsInfo.html" target=_blank><img src="images/s_201103280922392386.jpg" width=112 height=110 border="0" /></a></div>
+<div class=pro_img><a href="merchantsinfo.jsp" target=_blank><img src="images/s_201103280922392386.jpg" width=112 height=110 border="0" /></a></div>
 <div class=pro_info>
 <div class=headtitle><a href="#" target=_blank>名店街购物</a></div>
 
@@ -67,7 +67,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <div class=pro>	
 	<div class=pro_mid>
-<div class=pro_img><a href="merchantsInfo.html" target=_blank><img src="images/s_201103280922392386.jpg" width=112 height=110 border="0" /></a></div>
+<div class=pro_img><a href="merchantsinfo.jsp" target=_blank><img src="images/s_201103280922392386.jpg" width=112 height=110 border="0" /></a></div>
 <div class=pro_info>
 <div class=headtitle><a href="#" target=_blank>名店街购物</a></div>
 
@@ -213,7 +213,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
  <div class=sort>
 <div class=sort_top>
-<h2><strong>类别检索</strong></h2></div>
+<h1><strong>类别检索</strong></h1></div>
 <div class=sort_con1>
 <ul>
   <li><a href="javascript:void(0)">餐饮/酒吧/小吃&nbsp;&nbsp;(97)</a></li>
@@ -251,6 +251,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--正文部分结束-->
 </div>
 
-<iframe style="HEIGHT: 340px" marginwidth=0 marginheight=0 src="bottom.htm" frameborder=0 width="100%" scrolling=no></iframe>
+<iframe style="HEIGHT: 340px" marginwidth=0 marginheight=0 src="bottom.jsp" frameborder=0 width="100%" scrolling=no></iframe>
 </body>
 </html>

@@ -13,7 +13,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <title>商家详细</title>  
 </head>
 <body>
-<iframe style="HEIGHT: 130px" marginwidth=0 marginheight=0 src="top.htm" frameborder=0 width="100%" scrolling=no></iframe>
+<iframe style="HEIGHT: 130px" marginwidth=0 marginheight=0 src="top.jsp" frameborder=0 width="100%" scrolling=no></iframe>
 
 <!--正文部分-->
 <div id=Main>
@@ -190,6 +190,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
 
-<iframe style="HEIGHT: 340px" marginwidth=0 marginheight=0 src="bottom.htm" frameborder=0 width="100%" scrolling=no></iframe>
+<iframe style="HEIGHT: 340px" marginwidth=0 marginheight=0 src="bottom.jsp" frameborder=0 width="100%" scrolling=no></iframe>
 </body>
 </html>

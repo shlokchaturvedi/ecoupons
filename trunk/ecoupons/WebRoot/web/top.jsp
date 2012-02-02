@@ -57,9 +57,9 @@ function showlayer0(id,index)
  <div class="nav">
  	<ul>
 		<li class="nav_le"><img src="images/nav_le.jpg" /></li>
-		<li><a href="index.html" target="_parent"><img src="images/nav_1.jpg" border="0" /></a></li>
-		<li><a href="coupons.html" target="_parent"><img src="images/nav_2.jpg" border="0" /></a></li>
-		<li><a href="merchants.html" target="_parent"><img src="images/nav_3.jpg" border="0" /></a></li>
+		<li><a href="index.jsp" target="_parent"><img src="images/nav_1.jpg" border="0" /></a></li>
+		<li><a href="coupons.jsp" target="_parent"><img src="images/nav_2.jpg" border="0" /></a></li>
+		<li><a href="merchants.jsp" target="_parent"><img src="images/nav_3.jpg" border="0" /></a></li>
 		<li><img src="images/nav_4.jpg" /></li>
 		<li><img src="images/nav_5.jpg" /></li>
 		<li class="nav_ri"><img src="images/nav_ri.jpg" /></li>
