@@ -42,7 +42,7 @@ a:link,a:hover,a:active,a:visited{
 }
 </style>
 
-<meta http-equiv="Refresh" content="3600">
+<meta http-equiv="Refresh" content="600">
 <meta http-equiv=Content-Type content=text/html;charset=gb2312>
 <script language=JavaScript1.2>
 function showsubmenu(sid) {
