@@ -32,6 +32,8 @@ public class Gift
 	private String strLargeImg;// 大图
 	private String strCreator;// insert操作的用户名
 	private String dtCreateTime;// insert操作的系统时间
+	private String strAttention;
+	private float flaPrice;
 	private String strGiftExchangeTable = "t_bz_gift_exchange";
 
 	/**
@@ -43,7 +45,7 @@ public class Gift
 		String strId = UID.getID();
 
 		String sql = "insert into " + strTableName + " (strId,strIntro,strSmallImg,strName,dtActiveTime,dtExpireTime,intPoint"
-				+ ",strLargeImg,strCreator,dtCreateTime) " + "values (?,?,?,?,?,?,?,?,?,?) ";
+				+ ",strLargeImg,strCreator,dtCreateTime,flaPrice,strAttention) " + "values (?,?,?,?,?,?,?,?,?,?,?,?) ";
 		System.out.println(sql);
 		System.out.println(com.ejoysoft.common.Format.getDate());
 		try
@@ -59,6 +61,8 @@ public class Gift
 			db.setString(8, strLargeImg);
 			db.setString(9, strUserName);
 			db.setString(10, com.ejoysoft.common.Format.getDateTime());
+			db.setFloat(11, flaPrice);
+			db.setString(12, strAttention);
 			if (db.executeUpdate() > 0)
 			{
 				Globa.logger0("增加礼品信息", globa.loginName, globa.loginIp, sql, "会员管理", globa.unitCode);
@@ -93,13 +97,15 @@ public class Gift
 			{
 				strSql += "strlargeimg = '" + strLargeImg + "',";
 			}
-			strSql += " strName = ?, intPoint = ?,  " + "dtExpireTime = ?  WHERE strId=? ";
+			strSql += " strName = ?, intPoint = ?,  " + "dtExpireTime = ? ,strAttention=?, flaPrice=? WHERE strId=? ";
 			db.prepareStatement(strSql);
 			db.setString(1, strIntro);
 			db.setString(2, strName);
 			db.setInt(3, intPoint);
 			db.setString(4, dtExpireTime);
-			db.setString(5, tStrId);
+			db.setString(5, strAttention);
+			db.setFloat(6, flaPrice);
+			db.setString(7, tStrId);
 			db.executeUpdate();
 			Globa.logger0("修改礼品信息", globa.loginName, globa.loginIp, strSql, "会员管理", globa.userSession.getStrDepart());
 			return true;
@@ -255,6 +261,8 @@ public class Gift
 			theBean.setStrLargeImg(rs.getString("strLargeImg"));
 			theBean.setStrName(rs.getString("strName"));
 			theBean.setStrSmallImg(rs.getString("strSmallImg"));
+			theBean.setStrAttention(rs.getString("strAttention"));
+			theBean.setFlaPrice(rs.getFloat("flaPrice"));
 		} catch (Exception e)
 		{
 			e.printStackTrace();
@@ -379,6 +387,26 @@ public class Gift
 	public void setDtCreateTime(String dtCreateTime)
 	{
 		this.dtCreateTime = dtCreateTime;
+	}
+
+	public String getStrAttention()
+	{
+		return strAttention;
+	}
+
+	public void setStrAttention(String strAttention)
+	{
+		this.strAttention = strAttention;
+	}
+
+	public float getFlaPrice()
+	{
+		return flaPrice;
+	}
+
+	public void setFlaPrice(float flaPrice)
+	{
+		this.flaPrice = flaPrice;
 	}
 
 }
