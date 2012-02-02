@@ -23,6 +23,8 @@ function showlayer0(id,index)
 </head>
 
 <body>
+
+<form name=frm method=post action="marchants.jsp">	
 <!--top部分-->
 <div class="top">
 <!--logo部分-->
@@ -69,5 +71,6 @@ function showlayer0(id,index)
 <!--nav导航结束-->
 </div>
 <!--top结束-->
+</form>
 </body>
 </html>

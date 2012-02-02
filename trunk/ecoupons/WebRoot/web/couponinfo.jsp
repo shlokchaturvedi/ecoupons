@@ -1,47 +1,79 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+ <%@ page language="java"  pageEncoding="UTF-8"%>
+<%@page import="java.util.*,
+		com.ejoysoft.common.exception.*,
+		com.ejoysoft.common.*,
+		com.ejoysoft.ecoupons.business.Member,
+		com.ejoysoft.ecoupons.business.Coupon,
+		com.ejoysoft.common.exception.IdObjectException,
+		com.ejoysoft.ecoupons.business.Shop"%>
+<%@page import="com.ejoysoft.ecoupons.business.CouponComment"%>
+<%@ include file="../include/jsp/head.jsp"%>
+<%
+	String strId = ParamUtil.getString(request,"strid","");
+	if(strId.equals(""))
+    	throw new IdObjectException("请求处理的信息id为空！或者已经不存在");
+    String where="where strId='"+strId+"'";
+    Coupon obj=new Coupon(globa,false);
+    Coupon obj0=obj.show(where);
+    if(obj0==null){
+        globa.closeCon();
+        throw new IdObjectException("请求处理的信息id='"+strId+"'对象为空！","请检查该信息的相关信息");
+    }
+    Shop obj2= new Shop(globa);
+    Shop obj3 = obj2.show(" where strid='"+obj0.getStrShopId()+"'");
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="css/couponinfo.css" rel="stylesheet" type="text/css" />
-<LINK rel=stylesheet type=text/css href="css/comment.css">
-<title>优惠券详细</title>
-  
+<link href="css/comment.css" rel="stylesheet" type="text/css" />
+<title>优惠券详细</title>  
 </head>
-
-<body>
-<iframe style="HEIGHT: 130px" border=0 marginwidth=0 marginheight=0 src="top.jsp" 
-frameborder=no width="100%" scrolling=no></iframe>
+<body>&nbsp; 
+<iframe style="HEIGHT: 130px" frameborder=0 marginwidth=0 marginheight=0 src="top.jsp" width="100%" scrolling=no></iframe>
 
 <!--正文部分-->
 <DIV id=Main>
 <DIV id=Left>
 <DIV class=left_top>
-<P>遇见咖啡馆85折券</P></DIV>
+<P>优惠券详细：<%=obj0.getStrName() %></P></DIV>
 <DIV class=left_mid><!--优惠券详情-->
 <DIV class=show>
   <DIV class=show_mid>
-<DIV class=show_img><IMG id=cps_image 
-src="images/s_201112231500013406.jpg" width=340 
-height=218></DIV>
+<DIV class=show_img>
+<%
+if(obj0.getStrLargeImg()!=null && obj0.getStrLargeImg().length()>0)
+{
+	%>
+	<IMG id=cps_image src="../coupon/images/"+<%=obj0.getStrLargeImg()%> width=340 height=218>
+	<%
+}
+else{
+ %>
+<IMG id=cps_image src="images/temp.jpg" width=340 height=218>
+<%
+ }
+%></DIV>
 <DIV class=show_desgin>
 <DIV style="BACKGROUND-IMAGE: url(images/zk.jpg); TEXT-ALIGN: center; WIDTH: 132px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 134px">
-<DIV class=coupon_money>30元</DIV></DIV></DIV>
+<DIV class=coupon_money><%=obj0.getFlaPrice()%>元</DIV></DIV></DIV>
 <DIV class=clearfloat></DIV>
 <DIV class=show_line></DIV>
 <DIV class=info>
   <DIV class=info_mid>使用说明：<BR>
     1、凭此券到店消费可享受优惠！<BR>
-    2、此优惠不得与店内其他优惠一起使用；<BR>3、此券不兑换现金、不找零、不开发票；<BR>4、最终解释权归本店所有。<BR><BR>
-  联系电话：0551-2698102 
+    2、此优惠不得与店内其他优惠一起使用；<BR>
+    3、此券不兑换现金、不找零、不开发票；<BR>
+    4、最终解释权归本店所有。<BR><BR>
+  联系电话：<%=obj3.getStrPhone()%>
 <BR>
-详细地址：大学路华城国际2号楼11号
+详细地址：<%=obj3.getStrAddr()%>
 <div class=info_bottom>
-<div class=coupon_jzrq><FONT color=#ff0000>截止时间：2012-02-29</FONT></div>
+<div class=coupon_jzrq><FONT color=#ff0000>截止时间：<%=obj0.getDtExpireTime().substring(0,10)%></FONT></div>
 <DIV class=coupon_bar>
   <UL>
-  <LI><a href="#"><IMG src="images/print.jpg" border="0" style="CURSOR: pointer"> 打印</a></LI>
+  <LI><a href="#"><img src="images/print.jpg" border="0" style="CURSOR: pointer"> 打印</a></LI>
     <LI><a href="#"><IMG src="images/collection.jpg" border="0" style="CURSOR: pointer"> 收藏</a></LI> 
 	<LI><a href="#"><IMG src="images/sms.jpg" border="0" style="CURSOR: pointer"> 短信</a></LI> </UL>
  </DIV>
@@ -63,28 +95,60 @@ height=218></DIV>
 不得擅自修改短信、彩信优惠券或打印优惠券的内容，如有特殊情况，会在信息中说明。优惠券内容最终解释权归该加盟商家所有。如有问题，可联系网站客服。</DIV>
 <DIV class=link_bottom></DIV></DIV><!--更多相关-->
 <!--发表评论-->
+
+<%
+    CouponComment comobj = new CouponComment(globa);
+    //记录总数
+	int intAllCount=comobj.getCount(" where strcouponid='"+strId+"'");
+	//当前页
+	int intCurPage=globa.getIntCurPage();
+    //每页记录数
+	//int intPageSize=globa.getIntPageSize();
+	int intPageSize=5;
+	//共有页数
+ 	int intPageCount=(intAllCount-1)/intPageSize+1;
+	// 循环显示一页内的记录 开始序号
+	int intStartNum=(intCurPage-1)*intPageSize+1;
+	//结束序号
+	int intEndNum=intCurPage*intPageSize;   
+	//获取到当前页面的记录集
+	Vector<CouponComment> vctcom = comobj.list(" where strcouponid='"+strId+"'",intStartNum,intPageSize);
+	//获取当前页的记录条数
+	int intVct=(vctcom!=null&&vctcom.size()>0?vctcom.size():0);
+%>
 <DIV style="PADDING-LEFT: 23px; width:578px;">
 <DIV style="WIDTH: 100%" class=ny_left>
 <DIV style="FONT-SIZE: 12px" class=line_gray>
 <DIV class=mp_auto>
 <DIV style="HEIGHT: 20px" class="box bold word_gra sp_nav_bg jianju13 ">网友评论：(已有<SPAN 
-class=red>2</SPAN>条评论)</DIV>
+class=red><%=intAllCount%></SPAN>条评论)</DIV>
 <DIV style="HEIGHT: 1px; BORDER-TOP: #ebebeb 1px solid"></DIV>
+<DIV style="PADDING-LEFT: 5px"><BR>
+<form name=frm action="couponinfo.jsp" method="post" >
+<input type="hidden" name="strid" value="<%=strId %>"/>
+<%
+	for (int i = 0;i < vctcom.size(); i++) {
+       CouponComment comobj1 = vctcom.get(i);
+       Member memobj = new Member(globa);
+       Member memobj1 = memobj.show(" where strcardno='"+comobj1.getStrMemberCardNo()+"'");
+%>
 <DIV style="PADDING-LEFT: 5px"><BR>
 <DIV style="HEIGHT: 50px">
 <DIV style="WIDTH: 10%; FLOAT: left; HEIGHT: 45px"><IMG alt="" src="images/201.jpg" width=45 height=45> </DIV>
-<DIV style="LINE-HEIGHT: 18px; WIDTH: 80%; FLOAT: left; HEIGHT: 33px"><SPAN style="COLOR: #001c55">rang：</SPAN><SPAN 
-style="COLOR: gray">真实物美价廉，还赚积分</SPAN> </DIV>
+<DIV style="LINE-HEIGHT: 18px; WIDTH: 80%; FLOAT: left; HEIGHT: 33px"><SPAN style="COLOR: #001c55"><%=memobj1.getStrName()%>：</SPAN><SPAN 
+style="COLOR: gray"><%=comobj1.getStrComment() %></SPAN> </DIV>
 </DIV>
 <DIV style="BORDER-BOTTOM: #808080 1px dotted; HEIGHT: 1px; CLEAR: both"></DIV><BR>
-<DIV style="HEIGHT: 50px">
-<DIV style="WIDTH: 10%; FLOAT: left; HEIGHT: 45px">
-<IMG alt="" src="images/201.jpg" width=45 height=45> </DIV>
-<DIV style="LINE-HEIGHT: 18px; WIDTH: 80%; FLOAT: left; HEIGHT: 33px">
-<SPAN style="COLOR: #001c55">&nbsp;fwer：</SPAN><SPAN style="COLOR: gray">物美价廉</SPAN> 
 </DIV>
-</DIV>
-</DIV></DIV></DIV></DIV>
+<%
+    }
+%>
+<!-- 翻页开始 -->  
+<%@ include file="include/cpage.jsp"%>
+<!-- 翻页结束 -->
+</form>
+</DIV></DIV>
+</DIV></DIV>
 <DIV class="clr height_05"></DIV>
 <DIV></DIV>
 <DIV class="box  line_gray jianju9b">
@@ -93,7 +157,7 @@ style="COLOR: gray">真实物美价廉，还赚积分</SPAN> </DIV>
 <TABLE border=0 width="100%">
   <TBODY>
   <TR>
-    <TD align=middle>内容： </TD>
+    <TD align="center">内容： </TD>
     <TD colSpan=7><LABEL><TEXTAREA style="WIDTH: 500px; HEIGHT: 100px" id=txt_con class=form rows=2 cols=20 name=txt_con></TEXTAREA> 
       </LABEL><SPAN id=span_sub></SPAN></TD></TR></TBODY></TABLE>
 <TABLE id=tr_login>
@@ -128,70 +192,63 @@ style="COLOR: gray">真实物美价廉，还赚积分</SPAN> </DIV>
 <DIV id=Right>
 <DIV class=card>
 <DIV class=card_top>
-<DIV class=heatitle><h6>前沿团购</h6>
+<DIV class=heatitle><h6>其他优惠</h6>
 </DIV>
 </DIV>
 <DIV class=card_mid>
 
-<DIV class=tuangou_index>
-<div class=card_img><img src="images/crad2.jpg" width="126" height="89"/></div>
-<div class=card_js>乐界KTV<br />
-开始日期：2012-01-01<br />
-截止日期：2012-02-20</div>
-</DIV>
-<div class=card_line></div>
-
-<DIV class=tuangou_index>
-<div class=card_img><img src="images/crad1.jpg"/></div>
-<div class=card_js>乐界KTV<br />
-开始日期：2012-01-01<br />
-截止日期：2012-02-20</div>
-</DIV>
-<div class=card_line></div>
-
-<DIV class=tuangou_index>
-<div class=card_img><img src="images/crad2.jpg" width="126" height="89"/></div>
-<div class=card_js>乐界KTV<br />
-开始日期：2012-01-01<br />
-截止日期：2012-02-20</div>
-</DIV>
-<div class=card_line></div>
-
-<DIV class=tuangou_index>
-<div class=card_img><img src="images/crad1.jpg"/></div>
-<div class=card_js>乐界KTV<br />
-开始日期：2012-01-01<br />
-截止日期：2012-02-20</div>
-</DIV>
-<div class=card_line></div>
-
-
+<%
+Vector<Coupon> vctCoupon = obj.listByShopId(" where strshopid='" + obj3.getStrId() + "'");
+if(vctCoupon!=null&&vctCoupon.size()!=0)
+{
+	int k=vctCoupon.size(),n=0;
+	for(int i=0;i<k;i++)
+	{
+		Coupon obj4 = vctCoupon.get(i);
+		if (obj4!=null && !obj4.getStrId().equals(strId)) {
+		n++;
+		if(n==7)
+		{
+		   break;
+		}
+         %>
+		<DIV class=tuangou_index>
+        <div class=card_img><a href="couponinfo.jsp?strid=<%=obj4.getStrId() %>" target="_blank">
+        <%
+        if(obj4.getStrSmallImg()!=null && obj4.getStrSmallImg().length() > 0){
+         %><img src="<%="../coupon/images/" + obj4.getStrSmallImg() %>" width="126" height="89"/>
+         <%
+         }
+         else{
+          %>
+          <img src="<%="images/temp.jpg" %>" width="126" height="89" />
+          <%} %>
+         </a></div>
+        <div class=card_js><%=obj4.getStrName() %><br/>
+		开始日期：<%=obj4.getDtActiveTime().substring(0,10) %><br/>
+		截止日期：<%=obj4.getDtExpireTime().substring(0,10) %></div>
+		</DIV>
+        <div class=card_line></div>
+        <%
+        }       	
+	}	
+} 
+%>
 </DIV>
 <DIV class=card_bottom></DIV></DIV>
 <DIV class=card>
 <DIV class=card_top>
 <DIV class=heatitle><h6>相关商家</h6></DIV></DIV>
 <DIV class=card_mid>
-  <p>店铺名称：自助式KTV<br />
-    行业分类：休闲娱乐</p>
-  <p>联系电话：0551-2563986</p>
-  <p>联系人：张先生</p>
-  <p>地 &nbsp;址：合肥市宣城路158号</p>
-  <p>简 &nbsp;介：自助式KTV</p>
+  <p>店铺名称：<%=obj3.getStrBizName() %>-<%=obj3.getStrShopName() %><br />
+    行业分类：<%=obj3.getStrTradeName() %></p>
+  <p>联系电话：<%=obj3.getStrPhone() %></p>
+  <p>联系人：<%=obj3.getStrPerson() %></p>
+  <p>地 &nbsp;址：<%=obj3.getStrAddr() %></p>
+  <p>简 &nbsp;介：<%=obj3.getStrIntro() %></p>
 </DIV>
 <DIV class=card_bottom></DIV></DIV></DIV></DIV>
-
-
-
-
-
-
-
-
-
-
-
-<iframe style="HEIGHT: 340px" border=0 marginwidth=0 marginheight=0 src="bottom.jsp" 
-frameborder=no width="100%" scrolling=no></iframe>
+<iframe style="HEIGHT: 340px" frameborder=0 marginwidth=0 marginheight=0 src="bottom.jsp"  width="100%" scrolling=no></iframe>
+<%globa.closeCon();%>
 </body>
 </html>
