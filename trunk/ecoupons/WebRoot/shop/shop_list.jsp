@@ -12,9 +12,6 @@ if(!globa.userSession.hasRight("10005"))
 
 <%
     //初始化
-     //获取单位的strId
-    //String  strUnitId=ParamUtil.getString(request,"strUnitId","");
-    //初始化
     Shop  shop0=null;
     Shop obj=new Shop(globa);
     //查询条件
