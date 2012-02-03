@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="com.ejoysoft.ecoupons.business.Member,
 				com.ejoysoft.ecoupons.business.Coupon,
 				java.util.*,
@@ -107,14 +107,15 @@ if(vctcoup!=null&&vctcoup.size()>0)
   </li>
 <%
       }
-	}
 	%>
+
 </ul>
-<div class=clearfloat></div>
+<div class=clearfloat></div></div>
+
 <%
+	}
 }
 %>
-</div>
 <div class=hotList_bottom></div></div>
   
   
