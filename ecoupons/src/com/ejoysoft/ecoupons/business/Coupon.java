@@ -282,7 +282,36 @@ public class Coupon
 			return null;
 		}
 	}
-
+	/**
+	 * 返回某一行业的所有优惠券集合
+	 * 
+	 * @return
+	 */
+	public Vector<Coupon> getPerTradeCoupons(String strTrade)
+	{
+		Vector<Coupon> beans = new Vector<Coupon>();
+		try
+		{
+			String sql = "select a.* from  " + strTableName + " a  left join "+strTableName2+" b on a.strshopid=b.strid ";
+			if (strTrade.length() > 0)
+				sql = String.valueOf(sql) + String.valueOf(" where b.strtrade='"+strTrade+"' ");
+			System.out.println(sql+":111111getPerTradeCoupons");
+			ResultSet rs = db.executeQuery(sql);
+			if (rs != null && rs.next())
+			{
+				do
+				{
+					Coupon theBean = new Coupon();
+					theBean = load(rs, false);
+					beans.addElement(theBean);
+				} while (rs.next());
+			}
+		} catch (Exception ee)
+		{
+			ee.printStackTrace();
+		}
+		return beans;
+	}
 	/**
 	 * 查询符合条件的记录总数
 	 */
@@ -468,6 +497,7 @@ public class Coupon
 	private Globa globa;
 	private DbConnect db;
 	String strTableName = "t_bz_coupon";
+	String strTableName2 = "t_bz_shop";
 
 	public Coupon()
 	{
