@@ -29,9 +29,9 @@
 		globa.dispatch(true, strUrl);
 	} else if (action.equals(Constants.AUDIT_STR))
 	{
-		GiftExchange giftExchange=new GiftExchange(globa);
+		GiftExchange giftExchange = new GiftExchange(globa);
 		String strId = ParamUtil.getString(request, "strId", "");
-		globa.dispatch(giftExchange.audit(strId), "giftexchange_list.jsp");  
+		globa.dispatch(giftExchange.audit(strId), "giftexchange_list.jsp");
 	}
 
 	else
@@ -78,6 +78,8 @@
 		obj.setStrLargeImg(strLargeImg);
 		obj.setStrSmallImg(strSmallImg);
 		obj.setStrName(au.getString("strName"));
+		obj.setStrAttention(au.getString("strAttention"));
+		obj.setFlaPrice(au.getFloat("flaPrice"));
 		if (action.equals(Constants.ADD_STR))
 		{
 

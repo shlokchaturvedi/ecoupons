@@ -47,8 +47,13 @@ body,td,tr{font-size:9pt;}
             frm.strName.focus();
             return false;
         } 
+        if(trim(frm.flaPrice.value)=="") {
+            alert("请输入市场价格！！！")
+            frm.strName.focus();
+            return false;
+        } 
         else 
-        	if(!isNumber(frm.intPoint.value)){
+        	if(!isMoney(frm.intPoint.value)){
 	    		alert("请输入数字，积分为不大于9的整数!")
 		        frm.intPoint.focus();
 		        return false;
@@ -56,6 +61,16 @@ body,td,tr{font-size:9pt;}
 		    		if(frm.intPoint.value.length>9){
 			    		alert("积分为不大于9的整数!")
 				        frm.intPoint.focus();
+				        return false;
+				    	}else
+        	if(!isMoney(frm.flaPrice.value)){
+	    		alert("非法市场价格格式!")
+		        frm.flaPrice.focus();
+		        return false;
+		    	}else
+		    		if(frm.flaPrice.value.length>9){
+			    		alert("市场价格为不大于9的整数!")
+				        frm.flaPrice.focus();
 				        return false;
 				    	}else
              {
@@ -131,7 +146,13 @@ body,td,tr{font-size:9pt;}
               <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">兑换积分：</td>
                 <td width="3%">&nbsp;</td>
-                <td width="32%" height="30"><input name="intPoint" type="text" class="input_box" size="30"  value="<%=obj0.getIntPoint()%>"/></td>
+                <td width="32%" height="30"><input   name="intPoint" type="text" class="input_box" size="30" value="<%=obj0.getIntPoint()%>"/></td>
+                <td width="45%" height="30" class="left_txt">&nbsp;</td> 
+              </tr>
+              <tr >
+                 <td width="20%" height="30" align="right" class="left_txt2">市场价格：</td>
+                <td width="3%">&nbsp;</td>
+                <td width="32%" height="30"><input name="flaPrice" type="text" class="input_box" size="30"  value="<%=obj0.getFlaPrice()%>"/></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
              <tr >
@@ -200,6 +221,12 @@ body,td,tr{font-size:9pt;}
                  <td width="20%" height="30" align="right" class="left_txt2">礼品简介：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30"><textArea name="strIntro" cols="33" rows="5" ><%=Format.forbidNull(obj0.getStrIntro())%></textArea></td>
+                <td width="45%" height="30" class="left_txt" > &nbsp;</td> 
+              </tr> 
+          	  <tr >
+                 <td width="20%" height="30" align="right" class="left_txt2">注意事项：</td>
+                <td width="3%">&nbsp;</td>
+                <td width="32%" height="30"><textArea name="strAttention" cols="33" rows="5" ><%=Format.forbidNull(obj0.getStrAttention())%></textArea></td>
                 <td width="45%" height="30" class="left_txt" > &nbsp;</td> 
               </tr> 
             </table></td>
