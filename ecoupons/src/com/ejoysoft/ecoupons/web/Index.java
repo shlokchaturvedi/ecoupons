@@ -1,7 +1,10 @@
 package com.ejoysoft.ecoupons.web;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
@@ -9,9 +12,9 @@ import java.util.Vector;
 import com.ejoysoft.common.DbConnect;
 import com.ejoysoft.common.Globa;
 import com.ejoysoft.ecoupons.business.Coupon;
+import com.ejoysoft.ecoupons.business.CouponTop;
 import com.ejoysoft.ecoupons.business.Shop;
 import com.ejoysoft.ecoupons.system.SysPara;
-import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
 import com.sun.org.apache.bcel.internal.generic.NEW;
 
 public class Index
@@ -20,47 +23,6 @@ public class Index
 	private Globa globa;
 	private DbConnect db;
 
-	/**
-	 * 返回商家行业和行业中商家的总数
-	 * 
-	 * @return
-	 */
-	public HashMap<String, Integer> returnTrade()
-	{
-		HashMap<String, Integer> hmTrade = new HashMap<String, Integer>();
-		Vector<SysPara> vctParas = new Vector<SysPara>();
-		Shop shop = new Shop(globa);
-		sysPara = new SysPara(globa);
-		try
-		{
-			vctParas = sysPara.list("where strtype='商家行业'", 0, 0);
-		} catch (SQLException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		for (int i = 0; i < vctParas.size(); i++)
-		{
-			hmTrade.put(vctParas.get(i).getStrName(), shop.getCount("where strtrade='" + vctParas.get(i).getStrId() + "'"));
-		}
-		return hmTrade;
-	}
-
-	/**
-	 * 根据下载排行返回top8优惠券名称
-	 * 
-	 * @return
-	 */
-	public String[] returnTopCoupons()
-	{
-		String[]strCouponNames=null;
-       Coupon coupon=new Coupon(globa);
-      return strCouponNames;
-	}
-
-	public Index()
-	{
-	}
 	/**
 	 * 分类返回所有行业的优惠券的记录
 	 * 
@@ -84,6 +46,111 @@ public class Index
 			}
 		}		
 		return allcoupons;
+	}
+
+	/**
+	 * 根据商家行业id返回行业下的商家和商家下的优惠券
+	 */
+	public HashMap<String, String> returnShopCoupon(String strtrade)
+	{
+		HashMap<String, String>hmShopCoupon=new HashMap<String, String>();
+		Shop shop=new Shop(globa);
+		Coupon coupon=new Coupon(globa);
+		Vector<Coupon>vctCoupons=new Vector<Coupon>();
+		String strWhere="";
+		if (strtrade!=null)
+		{
+			strWhere="where strtrade='"+strtrade+"'";
+		}
+		Vector<Shop>vctShops=shop.list(strWhere, 0, 0);
+		for (int i = 0; i < vctShops.size(); i++)
+		{
+			vctCoupons.addAll(coupon.list("where strshopid='"+vctShops.get(i).getStrId()+"' and intRecommend=1 order by dtcreatetime", 0, 0));
+		}
+		if (vctCoupons.size()>12)
+		{
+			for (int i = 0; i < 12; i++)
+			{
+				hmShopCoupon.put(shop.returnBizShopName("where strid='"+vctCoupons.get(i).getStrShopId()+"'"), vctCoupons.get(i).getStrName());
+				
+			}
+		}else {
+			for (int i = 0; i < vctCoupons.size(); i++)
+			{
+				hmShopCoupon.put(shop.returnBizShopName("where strid='"+vctCoupons.get(i).getStrShopId()+"'"), vctCoupons.get(i).getStrName());
+				
+			}
+		}
+		
+		return hmShopCoupon;
+	}
+	
+	
+	/**
+	 * 返回商家行业和行业中商家的总数
+	 * 
+	 * @return
+	 */
+	public HashMap<SysPara, Integer> returnTrade()
+	{
+		HashMap<SysPara, Integer> hmTrade = new HashMap<SysPara, Integer>();
+		Vector<SysPara> vctParas = new Vector<SysPara>();
+		Shop shop = new Shop(globa);
+		sysPara = new SysPara(globa);
+		try
+		{
+			vctParas = sysPara.list("where strtype='商家行业'", 0, 0);
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		for (int i = 0; i < vctParas.size(); i++)
+		{
+			hmTrade.put(vctParas.get(i), shop.getCount("where strtrade='" + vctParas.get(i).getStrId() + "'"));
+		}
+		return hmTrade;
+	}
+
+	/**
+	 * 根据下载排行返回top8优惠券名称
+	 * 
+	 * @return
+	 */
+	public Vector<String> returnTopCoupons(String flag)
+	{
+		String strSql =	"";
+		Vector<String>vctCoupons=new Vector<String>();
+		Coupon coupon=new Coupon(globa);
+		if ("日".equals(flag))
+		{
+			strSql="select strcouponid from t_bz_coupon_print where date(dtprinttime)=date(now())group by strcouponid";
+
+		} else if ("周".equals(flag))
+		{
+            strSql="select strcouponid from t_bz_coupon_print where month(dtprinttime) =month(curdate()) and week(dtprinttime) = week(curdate())group by strcouponid";
+		} else if ("月".equals(flag))
+		{
+			strSql = "select strcouponid from t_bz_coupon_print where month(dtprinttime) =month(curdate()) and year(dtprinttime) = year(curdate())group by strcouponid";
+
+		}
+		ResultSet resultSet=db.executeQuery(strSql);
+		try
+		{
+			while (resultSet.next())
+			{
+				vctCoupons.add(coupon.show("where strid='"+resultSet.getString("strcouponid")+"'").getStrName());
+			}
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return vctCoupons;
+	}
+
+	public Index()
+	{
 	}
 
 	public Index(Globa globa)
