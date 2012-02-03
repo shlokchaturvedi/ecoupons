@@ -14,8 +14,8 @@ if(!globa.userSession.hasRight("13015"))
     ShopBiz  obj0=null;
     ShopBiz obj=new ShopBiz(globa);
    	String  bytime=ParamUtil.getString(request,"byTime");
-   	String stime="1000-01-01";
-   	String etime="9999-12-30";
+   	String stime=ParamUtil.getString(request,"stime","1000-01-01");
+   	String etime=ParamUtil.getString(request,"etime","9999-12-30");
    	String flag = ParamUtil.getString(request,"flag","bymember");   	
     if(bytime!=null&&!(bytime.trim().equals(""))&& bytime.equals("month"))
     {
@@ -163,6 +163,8 @@ if(!globa.userSession.hasRight("13015"))
 	int intAllCount=obj.getCountSA(tWhere);
 	//当前页
 	int intCurPage=globa.getIntCurPage();
+	if(ParamUtil.getString(request,"curpage")!=null&&ParamUtil.getString(request,"curpage").trim().equals("newsearch"))
+		intCurPage=1;	
 	//每页记录数
 	int intPageSize=globa.getIntPageSize();
 	//共有页数
@@ -221,7 +223,7 @@ body,td,th {
 <script type="text/javascript">
 
 function showTime(str){
-    var array = document.frm.getElementsByTagName("select");
+    var array = document.frm1.getElementsByTagName("select");
     for(i=0;i<array.length;i++)
 	 {
 	 	if(array[i].id=="timeid")
@@ -246,7 +248,6 @@ function showTime(str){
 </script>
 </head>
 <body>
-<form name=frm method=post action="shop_biz.jsp">
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td width="17" height="29" valign="top" background="../images/mail_leftbg.gif"><img src="../images/left-top-right.gif" width="17" height="29" /></td>
@@ -289,6 +290,7 @@ function showTime(str){
           </tr>          
           <tr>
             <td >
+            <form name=frm method=post action="shop_biz.jsp">
 			<table border="0" cellpadding="0" cellspacing="0" width="100%">
 			<tr>
 			<td align="left"><div style="height:26"> 时间：
@@ -311,7 +313,8 @@ function showTime(str){
 			</td>
 			
 			<td align="right"><div style="height:26"> 
-			商家名称：<input name="strName" class="input_box" value="" size="10">
+			商家名称：<input name="strName" class="input_box" value="<%=strName%>" size="10">
+			       <input type="hidden" name="curpage" value="newsearch">
 			         <input type="submit" class="button_box" value="统计" /> 
 			</div>
 			</td>
@@ -348,13 +351,21 @@ function showTime(str){
                 </tr>
             <%
             }
+	         //关闭数据库连接对象
+	         globa.closeCon(); 
             %>  
-            </table></td>
+            </table>
+            </form></td>
           </tr>
         </table>
+        <form name=frm method=post action="shop_biz.jsp">
+		<input name="strName" type="hidden" value="<%=strName%>"/>
+		<input name="stime" type="hidden" value="<%=stime%>"/>
+		<input name="etime" type="hidden" value="<%=etime%>"/>
      	<!-- 翻页开始 -->  
      	<%@ include file="../include/jsp/cpage.jsp"%>
        	<!-- 翻页结束 --> 
+       	</form>
        </td>
        </tr>
 		 <tr><td>&nbsp;</td></tr>
@@ -367,7 +378,6 @@ function showTime(str){
     <td background="../images/mail_rightbg.gif"><img src="../images/buttom_right2.gif" width="16" height="17" /></td>
   </tr>
 </table>
-</form>     
 </body>
 </html>
 <%@ include file="../include/jsp/footer.jsp"%>
