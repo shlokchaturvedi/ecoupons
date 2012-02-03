@@ -194,8 +194,7 @@ body,td,tr {
 														<td width="3%">
 															&nbsp;
 														</td>
-														<td width="32%" height="30">
-															<select name="strShopId" class="forms_color1"
+														<td width="32%" height="30"><select name="strShopId" class="forms_color1"
 																style="width: 213px">
 																<option value="">
 																	请选择商家名称
@@ -204,8 +203,11 @@ body,td,tr {
                                                                   //初始化
     				                                            	//SysPara  para=null;
    						                                            Shop para=new Shop(globa,true);
-   						                                            
-   						                                             Vector<Shop> vctShop=para.returnShopFullName();
+   						                                         String Where ="";
+   						                                         if("商家".equals(globa.userSession.getStrCssType())){
+   						                                  		Where =" where strid='"+globa.userSession.getStrShopid()+"' ";
+   						                                  	}
+   						                                             Vector<Shop> vctShop=para.list(Where,0,0);
                                                                      for (int i = 0; i < vctShop.size(); i++) {
                                                                      out.print("<option value=" + vctShop.get(i).getStrId()+ ">");
                                                                      out.println("" +vctShop.get(i).getStrBizName()+vctShop.get(i).getStrShopName() + "</option>");
@@ -213,8 +215,7 @@ body,td,tr {
 																<%
                                                                  }
                                                                %>
-															</select>
-														</td>
+															</select></td>
 														<td width="45%" height="30" class="left_txt">
 
 														</td>

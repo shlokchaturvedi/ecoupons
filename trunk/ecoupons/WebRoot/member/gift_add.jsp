@@ -34,7 +34,17 @@ body,td,tr{font-size:9pt;}
 		        alert("礼品名称过长！！")
 		        frm.strName.focus();
 		        return false;
-		    }else    
+		    }else 
+		    	if(trim(frm.intPoint.value)=="") {
+			        alert("请输入积分！！")
+			        frm.intPoint.focus();
+			        return false;
+			    }else  
+			    	if(trim(frm.flaPrice.value)=="") {
+				        alert("请输入市场价格！！")
+				        frm.flaPrice.focus();
+				        return false;
+				    }else  
     	if(!isNumber(frm.intPoint.value)){
     		alert("请输入数字，积分为不大于9的整数!")
 	        frm.intPoint.focus();
@@ -43,6 +53,16 @@ body,td,tr{font-size:9pt;}
     	if(frm.intPoint.value.length>9){
     		alert("积分为不大于9的整数!")
 	        frm.intPoint.focus();
+	        return false;
+	    	}else
+    	if(!isMoney(frm.flaPrice.value)){
+    		alert("非法市场价格格式!")
+	        frm.flaPrice.focus();
+	        return false;
+	    	}else
+    	if(frm.flaPrice.value.length>10){
+    		alert("市场价格有效数字个数不大于9!")
+	        frm.flaPrice.focus();
 	        return false;
 	    	}else
 if(confirm("确定添加!"))
@@ -117,11 +137,21 @@ frm.submit();
                  <td width="20%" height="30" align="right" class="left_txt2">兑换积分：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30">
-                <input name="intPoint" type="text"  size="30" value="0"/></td>
+                <input name="intPoint" type="text"  size="30" value="0" onclick="document.getElementById('intPoint').value=''" /></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               
                 
               </tr>
+              <tr >
+                 <td width="20%" height="30" align="right" class="left_txt2">市场价格：</td>
+                <td width="3%">&nbsp;</td>
+                <td width="32%" height="30">
+                <input name="flaPrice" type="text"  size="30" value="0" onclick="document.getElementById('flaPrice').value=''" /></td>
+                <td width="45%" height="30" class="left_txt">&nbsp;</td> 
+              
+                
+              </tr>
+              
                <tr  >
                  <td width="20%" height="30" align="right" class="left_txt2">生效时间：</td>
                 <td width="3%">&nbsp;</td>
@@ -153,6 +183,12 @@ frm.submit();
                  <td width="20%" height="30" align="right" class="left_txt2">礼品简介：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30"><textArea class="input_box" name="strIntro" cols="33" rows="5" ></textArea></td>
+                <td width="45%" height="30" class="left_txt" > &nbsp;</td> 
+              </tr>
+               <tr  >
+                 <td width="20%" height="30" align="right" class="left_txt2">注意事项：</td>
+                <td width="3%">&nbsp;</td>
+                <td width="32%" height="30"><textArea class="input_box" name="strAttention" cols="33" rows="5" ></textArea></td>
                 <td width="45%" height="30" class="left_txt" > &nbsp;</td> 
               </tr>
               
