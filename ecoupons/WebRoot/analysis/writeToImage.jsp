@@ -101,6 +101,8 @@ if(!globa.userSession.hasRight("130"))
 				}
 			}
 		}		
+	   	if(maxnum==0&&maxnum1==0)
+			maxnum2=1;
 	    BarChart objBarChart = new BarChart();
         graphURL =objBarChart.returnBarResult(request,"商家统计分析结果",shops, couponnum,resultdata,setime,"商家（名称-分部）",maxnum2);
 		
@@ -170,10 +172,11 @@ if(!globa.userSession.hasRight("130"))
 				}
 			}
 		}		
-	    BarChart objBarChart = new BarChart();
+	   	if(maxnum==0&&maxnum1==0)
+			maxnum2=1;
+        BarChart objBarChart = new BarChart();
         graphURL =objBarChart.returnBarResult(request,"终端统计分析结果",terminals, couponnum,resultdata,setime,"终端（编号）",maxnum2);
-		
-    }
+	  }
     else if(tag.trim().equals("shopbiz"))
       {
 	        ShopAnalysis obj = new ShopAnalysis(globa);
@@ -200,6 +203,8 @@ if(!globa.userSession.hasRight("130"))
 		   PieChart objPieChart = new PieChart();
 	       graphURL =objPieChart.returnPieResult(request,"商家消费统计结果",shops,resultdata,setime);
           }
+	    //关闭数据库连接对象
+	    globa.closeCon();
         
 %>
 <iframe align="middle" marginwidth="50" frameborder=0 id=frmChart name=frmChart src="<%= graphURL %>" scrolling="yes" style=" HEIGHT: 100%; VISIBILITY: inherit; WIDTH: 100%; Z-INDEX: 3"></iframe>

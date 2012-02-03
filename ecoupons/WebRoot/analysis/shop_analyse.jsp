@@ -14,8 +14,8 @@ if(!globa.userSession.hasRight("13005"))
     ShopAnalysis  obj0=null;
     ShopAnalysis obj=new ShopAnalysis(globa);
    	String  bytime=ParamUtil.getString(request,"byTime");
-   	String stime="1000-01-01";
-   	String etime="9999-12-30";
+   	String stime=ParamUtil.getString(request,"stime","1000-01-01");
+   	String etime=ParamUtil.getString(request,"etime","9999-12-30");
     if(bytime!=null&&!(bytime.trim().equals(""))&& bytime.equals("month"))
     {
     	String month= ParamUtil.getString(request,"month","");
@@ -131,8 +131,7 @@ if(!globa.userSession.hasRight("13005"))
     	   int em = Integer.parseInt(emonth2[1]);
     	   if((sy == ey && sm >= em)||(sy>ey))
     	   	   out.print("<script type='text/javascript'>alert('输入时间先后有误，请重新输入');history.go(-1);</script>");   	
-    	
-    	}  	
+      	}  	
     	
     }
     obj.setStime(stime);
@@ -154,14 +153,17 @@ if(!globa.userSession.hasRight("13005"))
     		strbizname = name[0];
     		strshopname = name[1];
 		    tWhere += " and strbizname like '%" + strbizname + "%' and strshopname like '%" + strshopname + "%'";
-    	}
-    	  
+    	}    	  
 	}
 	tWhere += " order by strid";
+	//获取到当前页面的记录集
+	Vector<ShopAnalysis> vctObj=obj.getShopAnalysisList(tWhere);
 	//记录总数
-	int intAllCount=obj.getCountSA(tWhere);
+	int intAllCount=vctObj.size();
 	//当前页
 	int intCurPage=globa.getIntCurPage();
+	if(ParamUtil.getString(request,"curpage")!=null&&ParamUtil.getString(request,"curpage").trim().equals("newsearch"))
+		intCurPage=1;	
 	//每页记录数
 	int intPageSize=globa.getIntPageSize();
 	//共有页数
@@ -170,8 +172,6 @@ if(!globa.userSession.hasRight("13005"))
 	int intStartNum=(intCurPage-1)*intPageSize+1;
 	//结束序号
 	int intEndNum=intCurPage*intPageSize;   
-	//获取到当前页面的记录集
-	Vector<ShopAnalysis> vctObj=obj.getShopAnalysisList(tWhere);
 	//获取当前页的记录条数
 	int intVct=(vctObj!=null&&vctObj.size()>0?vctObj.size():0);
 	String setime="";
@@ -215,7 +215,7 @@ body,td,th {
 <script type="text/javascript">
 
 function showTime(str){
-    var array = document.frm.getElementsByTagName("select");
+    var array = document.frm1.getElementsByTagName("select");
     for(i=0;i<array.length;i++)
 	 {
 	 	if(array[i].id=="timeid")
@@ -240,7 +240,6 @@ function showTime(str){
 </script>
 </head>
 <body>
-<form name=frm method=post action="shop_analyse.jsp">
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td width="17" height="29" valign="top" background="../images/mail_leftbg.gif"><img src="../images/left-top-right.gif" width="17" height="29" /></td>
@@ -283,6 +282,7 @@ function showTime(str){
           </tr>          
           <tr>
             <td >
+			<form name=frm1 method=post action="shop_analyse.jsp">
 			<table border="0" cellpadding="0" cellspacing="0" width="100%">
 			<tr>
 			<td width="40%"><div style="height:26"> 时间：
@@ -297,7 +297,8 @@ function showTime(str){
 			</div>
 			</td>
 			<td width="35%" align="center" ><div style="height:26"> 
-			商家名称：<input name="strName" class="input_box" value="" size="10">
+			商家名称：<input name="strName" class="input_box" value="<%=strName%>" size="10">
+			         <input type="hidden" name="curpage" value="newsearch">
 			         <input type="submit" class="button_box" value="统计" /> 
 			</div>
 			</td>  
@@ -307,12 +308,11 @@ function showTime(str){
 			</div>			
 			</td>		 
 			</tr>
-			 <tr>
+			<tr>
                 <td bgcolor="#b5d6e6" width="10%" colspan="4"  height="23"><div align="center"><%=setime%></div></td>
-              </tr>
-            
-	          </table>
-					<table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="b5d6e6" onmouseover="changeto()"  onmouseout="changeback()">
+            </tr>            
+	        </table>
+			<table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="b5d6e6" onmouseover="changeto()"  onmouseout="changeback()">
                <tr>
                 <td width="10%" class="left_bt2"><div align="center">序号</div></td>
                 <td width="30%" class="left_bt2"><div align="center">商家名称（名称-分部）</div></td>
@@ -334,13 +334,21 @@ function showTime(str){
                 </tr>
             <%
             }
+	        //关闭数据库连接对象
+	        globa.closeCon();
             %>  
-            </table></td>
+            </table>
+	        </form></td>
           </tr>
         </table>
+		<form name=frm method=post action="shop_analyse.jsp">
+		<input name="strName" type="hidden" value="<%=strName%>">
+		<input name="stime" type="hidden" value="<%=stime%>">
+		<input name="etime" type="hidden" value="<%=etime%>">
      	<!-- 翻页开始 -->  
      	<%@ include file="../include/jsp/cpage.jsp"%>
        	<!-- 翻页结束 --> 
+       	</form>
        </td>
        </tr>
 		 <tr><td>&nbsp;</td></tr>
@@ -353,7 +361,6 @@ function showTime(str){
     <td background="../images/mail_rightbg.gif"><img src="../images/buttom_right2.gif" width="16" height="17" /></td>
   </tr>
 </table>
-</form>     
 </body>
 </html>
 <%@ include file="../include/jsp/footer.jsp"%>

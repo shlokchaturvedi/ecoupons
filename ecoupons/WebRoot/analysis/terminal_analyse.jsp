@@ -14,8 +14,8 @@ if(!globa.userSession.hasRight("13015"))
     TerminalAnalysis  obj0=null;
     TerminalAnalysis obj=new TerminalAnalysis(globa);
    	String  bytime=ParamUtil.getString(request,"byTime");
-   	String stime="1000-01-01";
-   	String etime="9999-12-30";
+   	String stime=ParamUtil.getString(request,"stime","1000-01-01");
+   	String etime=ParamUtil.getString(request,"etime","9999-12-30");
     if(bytime!=null&&!(bytime.trim().equals(""))&& bytime.equals("month"))
     {
     	String month= ParamUtil.getString(request,"month","");
@@ -145,20 +145,22 @@ if(!globa.userSession.hasRight("13015"))
     		tWhere += " and strno like '%" + strNo + "%'";    	
 	}
 	tWhere += " order by strid";
+	//获取到当前页面的记录集
+	Vector<TerminalAnalysis> vctObj=obj.getTerminalAnalysisList(tWhere);
 	//记录总数
-	int intAllCount=obj.getCountSA(tWhere);
+	int intAllCount = vctObj.size();
 	//当前页
 	int intCurPage=globa.getIntCurPage();
+	if(ParamUtil.getString(request,"curpage")!=null&&ParamUtil.getString(request,"curpage").trim().equals("newsearch"))
+		intCurPage=1;	
 	//每页记录数
-	int intPageSize=globa.getIntPageSize();
+	int intPageSize=globa.getIntPageSize();	
 	//共有页数
  	int intPageCount=(intAllCount-1)/intPageSize+1;
 	// 循环显示一页内的记录 开始序号
 	int intStartNum=(intCurPage-1)*intPageSize+1;
 	//结束序号
 	int intEndNum=intCurPage*intPageSize;    
-	//获取到当前页面的记录集
-	Vector<TerminalAnalysis> vctObj=obj.getTerminalAnalysisList(tWhere);
 	//获取当前页的记录条数
 	int intVct=(vctObj!=null&&vctObj.size()>0?vctObj.size():0);
 	String setime="";
@@ -202,7 +204,7 @@ body,td,th {
 <script type="text/javascript">
 
 function showTime(str){
-    var array = document.frm.getElementsByTagName("select");
+    var array = document.frm1.getElementsByTagName("select");
     for(i=0;i<array.length;i++)
 	 {
 	 	if(array[i].id=="timeid")
@@ -227,7 +229,6 @@ function showTime(str){
 </script>
 </head>
 <body>
-<form name=frm method=post action="terminal_analyse.jsp">
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td width="17" height="29" valign="top" background="../images/mail_leftbg.gif"><img src="../images/left-top-right.gif" width="17" height="29" /></td>
@@ -269,7 +270,8 @@ function showTime(str){
             <td>&nbsp;</td>
           </tr>          
           <tr>
-            <td >
+            <td >    
+            <form name=frm1 method=post action="shop_top.jsp">        
 			<table border="0" cellpadding="0" cellspacing="0" width="100%">
 			<tr>
 			<td width="40%"><div style="height:26"> 时间：
@@ -284,7 +286,8 @@ function showTime(str){
 			</div>
 			</td>
 			<td align="left" width="35%"><div style="height:26"> 
-			终端编号：<input name="strNo" class="input_box" value="" size="10">
+			终端编号：<input name="strNo" class="input_box" value="<%=strNo%>" size="10">
+					 <input type="hidden" name="curpage" value="newsearch">
 			         <input type="submit" class="button_box" value="统计" /> 
 			</div>
 			</td>  
@@ -294,12 +297,12 @@ function showTime(str){
 			</div>			
 			</td>		 
 			</tr>
-			 <tr>
+			<tr>
                 <td bgcolor="#b5d6e6" width="10%" colspan="4"  height="23"><div align="center"><%=setime%></div></td>
-              </tr>
+            </tr>
             
-	          </table>
-					<table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="b5d6e6" onmouseover="changeto()"  onmouseout="changeback()">
+	        </table>
+			<table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="b5d6e6" onmouseover="changeto()"  onmouseout="changeback()">
                <tr>
                 <td width="10%" class="left_bt2"><div align="center">序号</div></td>
                 <td width="30%" class="left_bt2"><div align="center">终端编号</div></td>
@@ -321,13 +324,21 @@ function showTime(str){
                 </tr>
             <%
             }
+	    //关闭数据库连接对象
+	    globa.closeCon();
             %>  
-            </table></td>
+            </table>
+            </form></td>
           </tr>
-        </table>
+        </table>       
+		<form name=frm method=post action="shop_top.jsp">
+		<input name="strNo" type="hidden" value="<%=strNo%>"/>
+		<input name="stime" type="hidden" value="<%=stime%>"/>
+		<input name="etime" type="hidden" value="<%=etime%>"/>
      	<!-- 翻页开始 -->  
      	<%@ include file="../include/jsp/cpage.jsp"%>
-       	<!-- 翻页结束 --> 
+       	<!-- 翻页结束 -->    
+       	</form> 	
        </td>
        </tr>
 		 <tr><td>&nbsp;</td></tr>
@@ -340,7 +351,6 @@ function showTime(str){
     <td background="../images/mail_rightbg.gif"><img src="../images/buttom_right2.gif" width="16" height="17" /></td>
   </tr>
 </table>
-</form>     
 </body>
 </html>
 <%@ include file="../include/jsp/footer.jsp"%>
