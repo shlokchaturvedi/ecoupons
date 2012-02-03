@@ -1,3 +1,4 @@
+@CHARSET "UTF-8";
 /* CSS Document */
 body{ margin:0; padding:0; font-size:12px; LINE-HEIGHT: 1.5; FONT-FAMILY: Verdana}
 P {
@@ -46,7 +47,7 @@ A:hover {
 
 .newsearch-txt{ height:20px; line-height:20px; margin-top:10px;margin-left:10px; border:0px; width:400px; float:left; }
 
-.newsearch-btn{background: url(../images/newsearch-btn.jpg) no-repeat; cursor:hand; width:96px; height:29px; border:0px; float:right; padding:0px;margin-right:5px; margin-top:5px;}/*“˛≤ÿfont-size:100em; overflow:hidden   input ƒ⁄Œƒ◊÷*/
+.newsearch-btn{background: url(../images/newsearch-btn.jpg) no-repeat; cursor:hand; width:96px; height:29px; border:0px; float:right; padding:0px;margin-right:5px; margin-top:5px;}/*ÈöêËóèfont-size:100em; overflow:hidden   input ÂÜÖÊñáÂ≠ó*/
 
 .nav{ width:985px; height:35px; background:url(../images/nav_bg.jpg);}
 .nav ul{ margin:0px; padding:0px;}
@@ -56,12 +57,12 @@ A:hover {
 .nav li.nav_le{ text-align:left; margin:0px; padding:0px;}
 
 .nav li.nav_ri{ float:right; margin:0px; padding:0px;}
-/* topΩ· ¯ */
+/* topÁªìÊùü */
 
-/* coupons-content≤ø∑÷”≈ª›»Ø */
+/* coupons-contentÈÉ®ÂàÜ‰ºòÊÉ†Âà∏ */
 .coupons-content{ width:985px; margin:0 auto; margin-top:6px;}
 
-/* coupons-left≤ø∑÷”≈ª›»Ø */
+/* coupons-leftÈÉ®ÂàÜ‰ºòÊÉ†Âà∏ */
 
 .coupons-left{ width:762px;float:left;}
 .hotList {
@@ -91,7 +92,7 @@ A:hover {
 	FLOAT: left; PADDING-TOP: 2px;margin:0px; list-style:none;
 }
 .list {
-	FLOAT: left; WIDTH: 242px; background-color:#EEEEEE;margin-right:4px; display:inline;}/**/
+	FLOAT: left; WIDTH: 220px; background-color:#EEEEEE;margin-right:4px; display:inline;}/**/
 
 .more {
 	PADDING-RIGHT: 20px; PADDING-LEFT: 0px; width:400px; PADDING-BOTTOM: 0px; float:right; PADDING-TOP: 5px; TEXT-ALIGN: right
@@ -122,7 +123,7 @@ MARGIN-TOP: 25px; FONT-WEIGHT: bold; FONT-SIZE: 18px; WIDTH: 75px; COLOR: #fffff
 	BACKGROUND: url(../images/list_bottom_bg.gif) no-repeat; WIDTH: 760px; HEIGHT: 12px
 }
 
-/* coupons-leftΩ· ¯ */
+/* coupons-leftÁªìÊùü */
 
 
 
@@ -135,14 +136,14 @@ MARGIN-TOP: 25px; FONT-WEIGHT: bold; FONT-SIZE: 18px; WIDTH: 75px; COLOR: #fffff
 	PADDING-LEFT: 35px; FONT-SIZE: 14px; BACKGROUND: url(../images/left_icon6.gif) no-repeat; FLOAT: left; MARGIN: 8px 0px 0px 8px; HEIGHT: 22px
 }
 .sort H1 STRONG {
-	FONT-WEIGHT: bold; FONT-FAMILY: "∫⁄ÃÂ"
+	FONT-WEIGHT: bold; FONT-FAMILY: "Èªë‰Ωì"
 }
 .sort H2 {
 	PADDING-LEFT: 35px; FONT-SIZE: 14px; BACKGROUND: url(../images/left_icon1.gif) no-repeat; FLOAT: left; MARGIN: 8px 0px 0px 8px; HEIGHT: 22px
 }
 
 .sort H2 STRONG {
-	FONT-WEIGHT: bold; FONT-FAMILY: "∫⁄ÃÂ"
+	FONT-WEIGHT: bold; FONT-FAMILY: "Èªë‰Ωì"
 }
 
 
@@ -187,4 +188,5 @@ MARGIN-TOP: 25px; FONT-WEIGHT: bold; FONT-SIZE: 18px; WIDTH: 75px; COLOR: #fffff
 .sort_con1 UL LI {
 	PADDING-LEFT: 40px; LINE-HEIGHT: 24px; TEXT-ALIGN: left; list-style:none; margin:0px;
 }
+
 

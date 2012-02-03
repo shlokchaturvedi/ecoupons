@@ -1,3 +1,4 @@
+@CHARSET "UTF-8";
 /* CSS Document */
 body{ margin:0; padding:0; font-size:12px; LINE-HEIGHT: 1.5; FONT-FAMILY: Verdana}
 P {
@@ -35,13 +36,13 @@ A:hover {
 	PADDING-LEFT: 35px; FONT-SIZE: 14px; BACKGROUND: url(../images/bg_iconLogin.gif) no-repeat; FLOAT: left; MARGIN: 8px 0px 0px 8px; HEIGHT: 22px
 }
 .sortlogin H1 STRONG {
-	FONT-WEIGHT: bold; FONT-FAMILY: "ΊΪΜε"
+	FONT-WEIGHT: bold; FONT-FAMILY: "ι»‘δ½“"
 }
 .sort H1 {
 	PADDING-LEFT: 35px; FONT-SIZE: 14px; BACKGROUND: url(../images/left_icon6.gif) no-repeat; FLOAT: left; MARGIN: 8px 0px 0px 8px; HEIGHT: 22px
 }
 .sort H1 STRONG {
-	FONT-WEIGHT: bold; FONT-FAMILY: "ΊΪΜε"
+	FONT-WEIGHT: bold; FONT-FAMILY: "ι»‘δ½“"
 }
 
 .sort H2 {
@@ -49,17 +50,17 @@ A:hover {
 }
 
 .sort H2 STRONG {
-	FONT-WEIGHT: bold; FONT-FAMILY: "ΊΪΜε"
+	FONT-WEIGHT: bold; FONT-FAMILY: "ι»‘δ½“"
 }
 
 .sort H3 {
 	PADDING-LEFT: 25px; FONT-SIZE: 14px; BACKGROUND: url(../images/hotfav.png) no-repeat; FLOAT: left; MARGIN: 8px 0px 0px 18px; HEIGHT: 22px; display:inline
 }
 .sort H3 STRONG {
-	FONT-WEIGHT: bold; FONT-FAMILY: "ΊΪΜε"
+	FONT-WEIGHT: bold; FONT-FAMILY: "ι»‘δ½“"
 }
 .sj_name {
-	PADDING-LEFT: 25px; FONT-SIZE: 14px; BACKGROUND: url(../images/hotfav.png) no-repeat; width:300px;FLOAT: left; MARGIN: 8px 0px 0px 18px; HEIGHT: 22px; display:inline;FONT-WEIGHT: bold; FONT-FAMILY: "ΊΪΜε"
+	PADDING-LEFT: 25px; FONT-SIZE: 14px; BACKGROUND: url(../images/hotfav.png) no-repeat; width:300px;FLOAT: left; MARGIN: 8px 0px 0px 18px; HEIGHT: 22px; display:inline;FONT-WEIGHT: bold; FONT-FAMILY: "ι»‘δ½“"
 }
 
 
