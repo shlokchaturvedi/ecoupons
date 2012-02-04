@@ -15,7 +15,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 %>
 <%
     //初始化
-	Index  obj = new Index(globa);
+	Index  obj = new Index(globa);	
 	HashMap<String,Vector<Coupon>> vctobj = obj.getCouponsByClassfiction();	
 	SysPara para=new SysPara(globa);
     ArrayList tradelist = para.list("商家行业");	
@@ -53,10 +53,11 @@ for(int i=0 ;i<tradelist.size();i++)
   int k=0;
 if(vctcoup!=null&&vctcoup.size()>0)
 {
+String strtradeid = para.getIdByName2(syspara1.getStrName());
 %>
 <div class=hotList_tit1>
 		<p><a href="#"><%=syspara1.getStrName()%></a></p>
-		<div class=hotList_more><a href="#">更多&gt;&gt;</a>&nbsp;&nbsp;</div>
+		<div class=hotList_more><a href="coupons_more.jsp?strtrade=<%=strtradeid%>">更多&gt;&gt;</a>&nbsp;&nbsp;</div>
 </div>
 <div class=hotList_mid>
 <ul>
