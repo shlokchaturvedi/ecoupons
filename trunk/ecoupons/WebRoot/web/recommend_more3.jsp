@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="com.ejoysoft.ecoupons.business.Member,
 				com.ejoysoft.ecoupons.business.Coupon,
 				java.util.*,
@@ -7,14 +7,13 @@
 				com.ejoysoft.ecoupons.web.Index,
 				com.ejoysoft.ecoupons.system.SysPara,
 				com.ejoysoft.ecoupons.business.Shop"%>
-<%@page import="com.ejoysoft.ecoupons.business.CouponComment"%>
 <%@ include file="../include/jsp/head.jsp"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <%
-    //初始化
+   //初始化
     Coupon coupobj=new Coupon(globa);
     SysPara syspara = new SysPara(globa);
     //查询条件
@@ -36,23 +35,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	//获取当前页的记录条数
 	int intVct=(vctObj!=null&&vctObj.size()>0?vctObj.size():0);
 
+	System.out.println("intAllCount="+intAllCount);
+	System.out.println("intCurPage="+intCurPage);
+	System.out.println("intPageSize="+intPageSize);
+	
+	System.out.println("intPageCount="+intPageCount);
+	System.out.println("intStartNum="+intStartNum);
+	System.out.println("intEndNum="+intEndNum);
+	
 	Index  obj = new Index(globa);
 	HashMap<String,Vector<Coupon>> vctobj = obj.getCouponsByClassfiction();	
 	SysPara para=new SysPara(globa);
     ArrayList tradelist = para.list("商家行业");
+    
+	
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBliC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<link href="css/style.css" rel="stylesheet" type="text/css" />
 <title>推荐优惠券</title>
-<link href="css/merchants.css" rel="stylesheet" type="text/css" />
+  
 </head>
 
 <body>
-<form name=frm method=post action="recommend_jsp.jsp">		
-&nbsp; 
-<iframe height="130" marginwidth=0 marginheight=0 src="top.jsp" frameborder=0 width="100%" scrolling=no></iframe>
+
+<form name=frm method=post action="marchants.jsp">
+<iframe style="HEIGHT: 130px"  marginwidth=0 marginheight=0 src="top.jsp" 
+frameborder=0 width="100%" scrolling=no></iframe>
+
 <!--正文部分-->
 <div class="coupons-content">
 <!--left部分-->
@@ -60,21 +72,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
  <div class=hotList>
  
-	<div class=hotList_top>
-		<div class="hotList_sf">推荐优惠券列表</div>
-<div class=more>
-<table>
-  <tbody>
-  <tr>
-    <td></td>
-    <td><a onclick="seturl('order','hotnum')" href="javascript:void(0)"></a> </td>
-    <td></td>
-    <td><a onclick="seturl('order','grade')" href="javascript:void(0)"></a> </td></tr>
-    </tbody>
- </table>
+<div class=hotList_top>
+	<p>推荐优惠券</p>
 </div>
-</div>
-    <div class=hotList_mid>
+
+<div class=hotList_mid>
 <ul>
 <% for(int i = 0;i < vctObj.size(); i++) {
        Coupon obj1 = vctObj.get(i);%>
@@ -119,74 +121,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </li>
 <%} %>
  </ul>
-<div class=clearfloat></div>
-</div>
-<div class=hotList_bottom>
-</div></div>
-
- 	<!-- 翻页开始 -->  
- 	<%@ include file="include/cpage.jsp"%>
-   	<!-- 翻页结束 --> 
+<div class=clearfloat></div></div>
 
 
-</div>
+<!-- ---------------------------------------------------------------------- -->
+<div class=hotList_bottom></div></div>
+
+  </div>
  <!--left结束-->
+ 
   
 <!--right部分-->
   <div class="coupons-right">
-  
- <div class=sort>
-<div class=sort_top>
-<h1><strong>优惠券检索（按类别）</strong></h1></div>
-<div class=sort_con1>
-<ul> 
-<%
-Index index=new Index(globa);
-HashMap<SysPara, Integer> hmTrades=index.returnTradeForCoup();
-Vector<SysPara> vctTrades=new Vector<SysPara>();
-Iterator iterator=hmTrades.entrySet().iterator();
-while(iterator.hasNext()){
-	Map.Entry<SysPara, Integer> entry=(Map.Entry<SysPara, Integer>)iterator.next();
-	String strtradeid = para.getIdByName2(entry.getKey().getStrName());
-	out.print("<LI><A href='coupons_more.jsp?strtrade="+strtradeid+"'>"+entry.getKey().getStrName()+"&nbsp;&nbsp;("+entry.getValue()+")</A></LI>");
-	vctTrades.add(entry.getKey());
-}
-%>
-</ul>
-</div>
-<div class=sort_bottom></div></div> 
- 
  
  <div class=sort>
-<div class=sort_top>
-<h1><strong>热门评论</strong></h1></div>
-	<div class=sort_con>
-	<ul>
-	  <%
-	CouponComment couponComment=new CouponComment(globa);
-	Vector<CouponComment> vctCouponComment=couponComment.list("",0,0);
-	if(vctCouponComment.size()>6){
-		for(int i=0;i<6;i++){
-			out.print("<LI>・<A href='#'>"+vctCouponComment.get(i).getStrComment()+"</A></LI>");
-		}
-	}else{
-		for(int i=0;i<vctCouponComment.size();i++){
-			out.print("<LI>・<A href='#'>"+vctCouponComment.get(i).getStrComment()+"</A></LI>");
-		}
-	}
-	%> </ul>
-	</div>
-<div class=sort_bottom></div>
-  </div>
-  <div class=sort>
 <div class=sort_top>
 <h1><strong>推荐优惠券</strong></h1>
-<div class=hotList_more><a href="recommend_more.jsp">更多&gt;&gt;</a>&nbsp;&nbsp;</div></div>
+<div class=hotList_more><a href="recommed_more.jsp">更多&gt;&gt;</a>&nbsp;&nbsp;</div></div>
 	<div class=sort_con2>
 	<ul>
 	<%
 	Coupon coupon = new Coupon(globa);
-	Vector<Coupon> vctcoup = coupon.list(" where intrecommend='1'",0,0);
+	Vector<Coupon> vctcoup = coupon.list(" where intrecommend='1' order by dtcreatetime desc",0,0);
 	int k =1;
 	for(int i=0;i<vctcoup.size();i++)
 	{   
@@ -205,7 +161,23 @@ while(iterator.hasNext()){
 	</ul>
 	</div>
 <div class=sort_bottom></div>
-  </div> 
+  </div>   
+ 
+ <div class=sort>
+<div class=sort_top>
+<h1><strong>热门评论</strong></h1></div>
+	<div class=sort_con>
+	<ul>
+	  <li><a href="#">那店确实还不错，口...</a></li>
+	  <li><a href="#">看着还行，昨天去吃了...</a></li> 
+	  <li><a href="#">真实物美价廉，还赚积...</a></li>
+	  <li><a href="#">去尝尝吧，还不错&nbsp;&nbsp;</a></li>
+	  <li><a href="#">太远了</a></li>
+	  <li><a href="#">没去过，准备去尝尝</a></li>
+	 </ul>
+	</div>
+<div class=sort_bottom></div>
+  </div>
  <!--right结束-->
  
   
@@ -214,7 +186,7 @@ while(iterator.hasNext()){
 </div>
 
 <iframe style="HEIGHT: 340px" marginwidth=0 marginheight=0 src="bottom.jsp" frameborder=0 width="100%" scrolling=no></iframe>
-</form>
 <%globa.closeCon(); %>
+</form>
 </body>
 </html>
