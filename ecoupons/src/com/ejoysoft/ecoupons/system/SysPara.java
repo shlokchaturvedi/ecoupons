@@ -202,6 +202,13 @@ public class SysPara {
 		}
 		return null;
 	}
+    public static String getIdByName2(String strName) {
+		for (int i = 0; i < vctSysPara.size(); i++) {
+			if (vctSysPara.get(i).getStrName().equals(strName))
+				return vctSysPara.get(i).getStrId();
+		}
+		return null;
+	}
     public static String getNameById(String strId) {
 		for (int i = 0; i < vctSysPara.size(); i++) {
 			if (vctSysPara.get(i).getStrId().equals(strId))
