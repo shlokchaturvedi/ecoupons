@@ -375,6 +375,41 @@ public class Coupon
 		return beans;
 	}
 	/**
+	 * 根据商家行业条件，返回优惠券信息的集合
+	 */
+	public Vector<Coupon> listByTrade(String where, int startRow, int rowCount)
+	{
+		Vector<Coupon> beans = new Vector<Coupon>();
+		try
+		{
+			String sql = "SELECT a.*  FROM  " + strTableName + " a left join "+strTableName2+" b on a.strshopid=b.strid";
+			if (where.length() > 0)
+				sql = String.valueOf(sql) + String.valueOf(where);
+			Statement s = db.getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+    //	System.out.println("Coupon.listByTrade():"+sql);
+			if (startRow != 0 && rowCount != 0)
+				s.setMaxRows((startRow + rowCount) - 1);
+			ResultSet rs = s.executeQuery(sql);
+			if (rs != null && rs.next())
+			{
+				if (startRow != 0 && rowCount != 0)
+					rs.absolute(startRow);
+				do
+				{
+					Coupon theBean = new Coupon();
+					theBean = load(rs, false);
+					beans.addElement(theBean);
+				} while (rs.next());
+			}
+			rs.close();
+			s.close();
+		} catch (Exception ee)
+		{
+			ee.printStackTrace();
+		}
+		return beans;
+	}
+	/**
 	 * 根据商家id条件，返回优惠券信息的集合
 	 */
 	public Vector<Coupon> listByShopId(String where)
