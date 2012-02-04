@@ -6,7 +6,8 @@
 				com.ejoysoft.common.*,
 				com.ejoysoft.ecoupons.web.Index,
 				com.ejoysoft.ecoupons.system.SysPara,
-				com.ejoysoft.ecoupons.business.Shop"%>
+				com.ejoysoft.ecoupons.business.Shop,
+				com.ejoysoft.ecoupons.business.CouponComment"%>
 <%@ include file="../include/jsp/head.jsp"%>
 <%
 String path = request.getContextPath();
@@ -17,8 +18,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	Index  obj = new Index(globa);
 	HashMap<String,Vector<Coupon>> vctobj = obj.getCouponsByClassfiction();	
 	SysPara para=new SysPara(globa);
-    ArrayList tradelist = para.list("商家行业");
-	
+    ArrayList tradelist = para.list("商家行业");	
 	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -26,6 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
 <link href="css/style.css" rel="stylesheet" type="text/css" />
+<link href="css/merchants.css" rel="stylesheet" type="text/css" />
 <title>优惠券</title>
   
 </head>
@@ -116,10 +117,7 @@ if(vctcoup!=null&&vctcoup.size()>0)
 	}
 }
 %>
-<div class=hotList_bottom></div></div>
-  
-  
-  
+<div class=hotList_bottom></div></div>  
   </div>
  <!--left结束-->
  
@@ -130,7 +128,7 @@ if(vctcoup!=null&&vctcoup.size()>0)
  <div class=sort>
 <div class=sort_top>
 <h1><strong>推荐优惠券</strong></h1>
-<div class=hotList_more><a href="#">更多&gt;&gt;</a>&nbsp;&nbsp;</div></div>
+<div class=hotList_more><a href="recommend_more.jsp">更多&gt;&gt;</a>&nbsp;&nbsp;</div></div>
 	<div class=sort_con2>
 	<ul>
 	<%
@@ -158,17 +156,21 @@ if(vctcoup!=null&&vctcoup.size()>0)
   
  <div class=sort>
 <div class=sort_top>
-<h1><strong>类别检索</strong></h1></div>
+<h1><strong>优惠券检索（按类别）</strong></h1></div>
 <div class=sort_con1>
-<ul>
-  <li><a href="javascript:void(0)">餐饮/酒吧/小吃&nbsp;&nbsp;(97)</a></li>
-  <li><a href="javascript:void(0)">休闲/娱乐/游戏&nbsp;&nbsp;(28)</a></li> 
-  <li><a href="javascript:void(0)">购物/生活/商超&nbsp;&nbsp;(30)</a></li> 
-  <li><a href="javascript:void(0)">美容/美体/健身&nbsp;&nbsp;(50)</a></li>
-  <li><a href="javascript:void(0)">旅游/酒店/票务&nbsp;&nbsp;(7)</a></li>
-  <li><a href="javascript:void(0)">房产/家居/建材&nbsp;&nbsp;(0)</a></li>
-  <li><a href="javascript:void(0)">汽车/4s店/租赁&nbsp;(4)</a></li>
-  <li><a href="javascript:void(0)">教育/培训/文化&nbsp;&nbsp;(6)</a> </li></ul></div>
+<ul> 
+<%
+Index index=new Index(globa);
+HashMap<SysPara, Integer> hmTrades=index.returnTradeForCoup();
+Vector<SysPara> vctTrades=new Vector<SysPara>();
+Iterator iterator=hmTrades.entrySet().iterator();
+while(iterator.hasNext()){
+	Map.Entry<SysPara, Integer> entry=(Map.Entry<SysPara, Integer>)iterator.next();
+	String strtradeid = para.getIdByName2(entry.getKey().getStrName());
+	out.print("<LI><A href='coupons_more.jsp?strtrade="+strtradeid+"'>"+entry.getKey().getStrName()+"&nbsp;&nbsp;("+entry.getValue()+")</A></LI>");
+	vctTrades.add(entry.getKey());
+}
+%></ul></div>
 <div class=sort_bottom></div></div> 
  
  
@@ -177,13 +179,19 @@ if(vctcoup!=null&&vctcoup.size()>0)
 <h1><strong>热门评论</strong></h1></div>
 	<div class=sort_con>
 	<ul>
-	  <li><a href="#">那店确实还不错，口...</a></li>
-	  <li><a href="#">看着还行，昨天去吃了...</a></li> 
-	  <li><a href="#">真实物美价廉，还赚积...</a></li>
-	  <li><a href="#">去尝尝吧，还不错&nbsp;&nbsp;</a></li>
-	  <li><a href="#">太远了</a></li>
-	  <li><a href="#">没去过，准备去尝尝</a></li>
-	 </ul>
+	<%
+	CouponComment couponComment=new CouponComment(globa);
+	Vector<CouponComment> vctCouponComment=couponComment.list("",0,0);
+	if(vctCouponComment.size()>6){
+		for(int i=0;i<6;i++){
+			out.print("<LI>・<A href='#'>"+vctCouponComment.get(i).getStrComment()+"</A></LI>");
+		}
+	}else{
+		for(int i=0;i<vctCouponComment.size();i++){
+			out.print("<LI>・<A href='#'>"+vctCouponComment.get(i).getStrComment()+"</A></LI>");
+		}
+	}
+	%>	 </ul>
 	</div>
 <div class=sort_bottom></div>
   </div>
