@@ -15,6 +15,7 @@ import com.ejoysoft.ecoupons.business.Coupon;
 import com.ejoysoft.ecoupons.business.CouponTop;
 import com.ejoysoft.ecoupons.business.Shop;
 import com.ejoysoft.ecoupons.system.SysPara;
+import com.sun.accessibility.internal.resources.accessibility;
 import com.sun.org.apache.bcel.internal.generic.NEW;
 
 public class Index
@@ -111,7 +112,43 @@ public class Index
 		}
 		return hmTrade;
 	}
-
+	/**
+	 * 返回商家行业和行业中优惠券的总数
+	 * 
+	 * @return
+	 */
+	public HashMap<SysPara, Integer> returnTradeForCoup()
+	{
+		HashMap<SysPara, Integer> hmTrade = new HashMap<SysPara, Integer>();
+		Vector<SysPara> vctParas = new Vector<SysPara>();
+		Shop shop = new Shop(globa);
+		sysPara = new SysPara(globa);
+		try
+		{
+			vctParas = sysPara.list("where strtype='商家行业'", 0, 0);
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		for (int i = 0; i < vctParas.size(); i++)
+		{
+			String tradeid = vctParas.get(i).getStrId();
+			String sql = "select count(a.strid) from t_bz_coupon a left join t_bz_shop b on a.strshopid=b.strid where b.strtrade='"+tradeid+"'";
+//			System.out.println(sql+":Index.returnTradeForCoup()");
+			ResultSet re = db.executeQuery(sql);
+			int num=0;
+			try {
+				if(re.next())
+					num = re.getInt("count(a.strid)");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			hmTrade.put(vctParas.get(i), num);			
+		}
+		return hmTrade;
+	}
 	/**
 	 * 根据下载排行返回top8优惠券名称
 	 * 
