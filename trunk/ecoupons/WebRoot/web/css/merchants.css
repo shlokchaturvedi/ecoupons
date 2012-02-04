@@ -216,3 +216,41 @@ MARGIN-TOP: 25px; FONT-WEIGHT: bold; FONT-SIZE: 18px; WIDTH: 75px; COLOR: #fffff
 	PADDING-BOTTOM: 5px; PADDING-LEFT: 3px; WIDTH: 525px; PADDING-RIGHT: 0px; HEIGHT: 4px; margin:0px; padding-top:5px;}
 .pro_mid .pro_info .text_left {
 }
+.hotList_mid UL {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 13px; PADDING-BOTTOM: 0px; WIDTH: 740px; PADDING-TOP: 0px; margin:0px;
+}
+.hotList_mid UL LI {
+	FLOAT: left; PADDING-TOP: 2px;margin:0px; list-style:none;
+}
+.list {
+	FLOAT: left; WIDTH: 220px; background-color:#EEEEEE;margin-right:4px; display:inline;}/**/
+
+.more {
+	PADDING-RIGHT: 20px; PADDING-LEFT: 0px; width:400px; PADDING-BOTTOM: 0px; float:right; PADDING-TOP: 5px; TEXT-ALIGN: right
+}
+.list_mid {
+	BACKGROUND: url(../images/mid_bg.gif) repeat-y; FLOAT: left; WIDTH: 242px; HEIGHT: 245px; margin-top:10px; padding:0px;}
+.list_mid P {
+	MARGIN: 10px 5px 5px 20px
+}
+.list_img {
+	BACKGROUND: url(../images/kuang.gif) no-repeat; FLOAT: left; MARGIN: 0px 2px 5px 5px; WIDTH: 150px; HEIGHT: 100px;display:inline;}
+.list_img IMG {	MARGIN: 5px}
+.list_hot {
+	FLOAT: left;display:inline; MARGIN: 10px 2px 5px 0px; BACKGROUND-IMAGE: url(../images/zhe.png); WIDTH: 75px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 75px; TEXT-ALIGN: center; padding:0px;}
+	
+.line { MARGIN: 15px 5px 5px 20px; WIDTH: 220px}
+
+.list_bar {	MARGIN: 4px auto; WIDTH: 220px; padding:0px; text-align:center; height:30px;}
+.list_bar UL {WIDTH: 220px; padding:0px; margin:0px;}
+.list_bar UL LI {FLOAT: left; WIDTH: 60px; HEIGHT: 26px; TEXT-ALIGN: center; display:block;}
+
+.money{
+MARGIN-TOP: 25px; FONT-WEIGHT: bold; FONT-SIZE: 18px; WIDTH: 75px; COLOR: #ffffff; FONT-FAMILY: Arial, Helvetica, sans-serif;  HEIGHT: 75px; TEXT-ALIGN: center;}
+.clearfloat {
+	CLEAR: both; FONT-SIZE: 1px; LINE-HEIGHT: 0px; HEIGHT: 0px
+}
+.pageSide {
+	MARGIN: 10px 0px; WIDTH: 740px; HEIGHT: 42px; text-align: right;
+}
+.pageipt{ background-color:#FFFFFF; border:1px solid #999999;}
