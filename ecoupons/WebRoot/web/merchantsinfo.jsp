@@ -102,11 +102,16 @@ if(vctCoupon!=null&&vctCoupon.size()!=0)
 	{
 		Coupon obj3 = vctCoupon.get(i);
 		System.out.println(obj3.getStrSmallImg()+":ddd");
-		if (obj3!=null && obj3.getStrSmallImg()!=null && obj3.getStrSmallImg().length() > 0) {
+		if (obj3.getStrSmallImg()!=null && obj3.getStrSmallImg().length() > 0) {
          %>
          <div class="zs_img"><a href="couponinfo.jsp?strid=<%=obj3.getStrId() %>" target="_blank"><img src="<%="../coupon/images/" + obj3.getStrSmallImg() %>" /></a></div>
         <%
-        }       	
+        }   
+        else{
+         %>
+         <div class="zs_img"><a href="couponinfo.jsp?strid=<%=obj3.getStrId() %>" target="_blank"><img src="images/temp.jpg" /></a></div>
+        <%
+        }    	
 	}	
 } 
 %>
@@ -118,22 +123,30 @@ if(vctCoupon!=null&&vctCoupon.size()!=0)
 <div id=Right>
 <div class=card>
 <div class=card_top>
-<div class=heatitle><h6>前沿团购</h6>
+<div class=heatitle><h6>优惠券推荐 </h6>
 </div>
 </div>
 <div class=card_mid>
 <%
-for(int i=0;i<=5;i++)
-{
- %>
+Coupon coupon = new Coupon(globa);
+	Vector<Coupon> vctcoup = coupon.list(" where intrecommend='1'",0,0);
+	int k =1;
+	for(int i=0;i<vctcoup.size();i++)
+	{   
+		if(k++ >6){break;}
+		Coupon coupon2 = vctcoup.get(i);
+		if(coupon2.getStrSmallImg()!=null&&coupon2.getStrSmallImg().length()>0)
+		{
+	%>
 <div class=tuangou_index>
-<div class=card_img><img src="images/crad2.jpg" width="126" height="89"/></div>
-<div class=card_js>乐界KTV<br />
-开始日期：2012-01-01<br />
-截止日期：2012-02-20</div>
+<div class=card_img> <a href="couponinfo.jsp?strid=<%=coupon2.getStrId() %>" target="_blank"><img src=<%="../coupon/images/"+coupon2.getStrSmallImg()%> width="126" height="89"/></a></div>
+<div class=card_js><%=coupon2.getStrName() %><br />
+开始日期：<%=coupon2.getDtActiveTime().substring(0,10) %><br />
+截止日期：<%=coupon2.getDtExpireTime().substring(0,10) %></div>
 </div>
 <div class=card_line></div>
 <%
+}
 }
  %>
 </div>
