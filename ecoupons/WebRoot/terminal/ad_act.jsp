@@ -124,7 +124,7 @@
          obj.setDtStartTime(au.getString("dtStartTime"));
          obj.setDtEndTime(au.getString("dtEndTime"));
          obj.setStrCreator(globa.loginName);
-		 obj.setStrCreator(globa.fullRealName);
+		 //obj.setStrCreator(globa.userSession.getStrName());
 	    if(action.equals(Constants.ADD_STR)) {
              globa.dispatch(obj.addAd(),strUrl);                
 		}
