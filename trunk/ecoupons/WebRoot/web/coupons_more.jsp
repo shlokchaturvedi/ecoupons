@@ -17,7 +17,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     //初始化
     Coupon coupobj=new Coupon(globa);
     SysPara syspara = new SysPara(globa);
-    String  strName=ParamUtil.getString(request,"strname","");
+    String  strName=ParamUtil.getString(request,"strName2","");
     //查询条件
 	String tWhere=" where 1=1";
 	if(!strName.equals(""))
@@ -54,6 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	HashMap<String,Vector<Coupon>> vctobj = obj.getCouponsByClassfiction();	
 	SysPara para=new SysPara(globa);
     ArrayList tradelist = para.list("商家行业");
+    System.out.println(strName+":DDDDDDDDDDDDDDDDDDDDDDDDDDDDD"+strTrade);
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -92,7 +93,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 
 <div class=hotList_tit1>
-		<p><a href="#"><%=syspara.getNameById(strTrade)%></a></p>
+		<p><a href="#">
+		<%if(!strTrade.equals("")) {%>
+		<%=syspara.getNameById(strTrade)%>		
+		<%}else {%>
+		<%="关于"+strName+"查询结果"%>
+		<%}%>
+		</a></p>
 </div>
     <div class=hotList_mid>
     
