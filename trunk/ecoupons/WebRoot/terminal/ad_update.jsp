@@ -95,7 +95,7 @@ body,td,tr{font-size:9pt;}
     }
 function addTerminals()
 {
-    var terminals = window.showModalDialog("terminals_select.jsp?random="+ Math.random(), "选择投放终端", "width=370,height=250,top=200,left=200,scrollbars=yes,status=yes"); //写成一行 
+    var terminals = window.showModalDialog("terminals_select.jsp?random="+ Math.random(), "选择投放终端", "dialogWidth=450px;dialogHeight:600px;dialogTop:300px;dialogLeft:450px;scrollbars=yes;status=yes;"); //写成一行 
 	document.getElementById("strTerminals").value=terminals.substring(0,terminals.length-1);
 		  
 } function addPicRow(){ 	 
