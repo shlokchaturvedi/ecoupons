@@ -47,7 +47,7 @@ public class Coupon
 		{
 			strDbTerminalIds = strDbTerminalIds.replace(TerminalIds[i], "");
 		}
-		strDbTerminalIds = strDbTerminalIds.replace(",,", ",");
+		strDbTerminalIds = strDbTerminalIds.replace(",", ",");
 		System.out.println(strDbTerminalIds);
 		if (strDbTerminalIds.length() > 0)
 		{
@@ -295,7 +295,7 @@ public class Coupon
 			String sql = "select a.* from  " + strTableName + " a  left join "+strTableName2+" b on a.strshopid=b.strid ";
 			if (strTrade.length() > 0)
 				sql = String.valueOf(sql) + String.valueOf(" where b.strtrade='"+strTrade+"' ");
-			System.out.println(sql+":111111getPerTradeCoupons");
+	//		System.out.println(sql+":111111getPerTradeCoupons");
 			ResultSet rs = db.executeQuery(sql);
 			if (rs != null && rs.next())
 			{
@@ -386,8 +386,7 @@ public class Coupon
 			if (where.length() > 0)
 				sql = String.valueOf(sql) + String.valueOf(where);
 			Statement s = db.getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-    //	System.out.println("Coupon.listByTrade():"+sql);
-			if (startRow != 0 && rowCount != 0)
+    		if (startRow != 0 && rowCount != 0)
 				s.setMaxRows((startRow + rowCount) - 1);
 			ResultSet rs = s.executeQuery(sql);
 			if (rs != null && rs.next())
