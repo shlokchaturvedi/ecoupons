@@ -1,0 +1,243 @@
+.fr {
+	FLOAT: right
+}
+.fl {
+	FLOAT: left
+}
+A {
+	TEXT-DECORATION: none
+}
+.top {
+	FONT-SIZE: 12px; BACKGROUND: url(../images/bg.top.png) repeat-x
+}
+.top .header {
+	MARGIN: 0px auto; WIDTH: 960px; COLOR: #666; HEIGHT: 55px
+}
+.top .header .right {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; WIDTH: 280px; PADDING-TOP: 10px
+}
+.top .header .right UL {
+	
+}
+.top .header .right UL LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 30px; FLOAT: left; PADDING-BOTTOM: 0px; PADDING-TOP: 4px; HEIGHT: 16px
+}
+.top .header .right UL LI A {
+	COLOR: #06c
+}
+.top .header .right UL LI A:hover {
+	TEXT-DECORATION: underline
+}
+.top .header .right UL LI.cart {
+	BACKGROUND: url(../images/bg_cart.gif) no-repeat; MARGIN-RIGHT: 15px
+}
+.top .header .right UL LI.kf {
+	BACKGROUND: url(../images/bg.kf.gif) no-repeat; MARGIN-RIGHT: 15px
+}
+.top .header .right UL LI.hy {
+	BACKGROUND: url(../images/bg.hy.gif) no-repeat
+}
+.top .header .left P {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 0px; PADDING-BOTTOM: 10px; PADDING-TOP: 12px
+}
+.top .header .left P A:hover {
+	TEXT-DECORATION: underline
+}
+.top .header .left P A.A {
+	COLOR: #c00
+}
+.top .header .left P A.B {
+	COLOR: #06c
+}
+.top .bodyer {
+	MARGIN: 0px auto; WIDTH: 960px; HEIGHT: 65px
+}
+.top .bodyer .right {
+	MARGIN-TOP: 8px; BACKGROUND: url(../images/bg.mailSearch.gif) no-repeat; WIDTH: 440px; HEIGHT: 52px
+}
+.top .bodyer .right {
+	
+}
+.top .bodyer .right INPUT.mailInput {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 10px; FONT-SIZE: 12px; BACKGROUND: none transparent scroll repeat 0% 0%; PADDING-BOTTOM: 12px; MARGIN: 0px 0px 0px 40px; WIDTH: 270px; COLOR: #999; BORDER-TOP-STYLE: none; PADDING-TOP: 12px; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; BORDER-BOTTOM-STYLE: none
+}
+.top .bodyer .right INPUT.mailSearchBtn {
+	PADDING-RIGHT: 0px; DISPLAY: inline; PADDING-LEFT: 0px; FONT-WEIGHT: bold; FONT-SIZE: 16px; BACKGROUND: none transparent scroll repeat 0% 0%; PADDING-BOTTOM: 0px; WIDTH: 100px; CURSOR: pointer; COLOR: #fff; BORDER-TOP-STYLE: none; PADDING-TOP: 0px; FONT-FAMILY: "microsoft yahei",ºÚÌå; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; HEIGHT: 36px; TEXT-ALIGN: center; BORDER-BOTTOM-STYLE: none
+}
+.top .bodyer .left {
+	
+}
+.top .bodyer .left A H1 {
+	BACKGROUND: url(../images/bg.logo.gif) no-repeat; MARGIN: 0px 0px 0px 4px; WIDTH: 198px; HEIGHT: 50px
+}
+.top .bodyer .center {
+	
+}
+.top .bodyer .center UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; LINE-HEIGHT: 22px; PADDING-TOP: 6px
+}
+.top .bodyer .center UL LI.kh {
+	FONT-SIZE: 13px; COLOR: #f60
+}
+.top .bodyer .center UL LI.cs {
+	COLOR: #555
+}
+.top .bodyer .center UL LI.cs A {
+	COLOR: #000
+}
+.top .footer {
+	MARGIN: 0px auto; WIDTH: 960px
+}
+.top .footer .nav {
+	BACKGROUND: url(../images/bg.nav.png) no-repeat; WIDTH: 960px; HEIGHT: 40px
+}
+.top .footer .nav UL.hotline {
+	WIDTH: auto
+}
+.top .footer .nav UL {
+	COLOR: #f4f4f4
+}
+.top .footer .nav UL LI {
+	DISPLAY: inline
+}
+.top .footer .nav UL.list {
+	PADDING-LEFT: 16px
+}
+.top .footer .nav UL.list LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-WEIGHT: bold; FONT-SIZE: 16px; FLOAT: left; PADDING-BOTTOM: 0px; WIDTH: 100px; LINE-HEIGHT: 40px; PADDING-TOP: 0px; FONT-FAMILY: "microsoft yahei",ºÚÌå; HEIGHT: 40px; TEXT-ALIGN: center
+}
+.top .footer .nav UL.list LI A {
+	COLOR: #fff
+}
+.top .footer .nav UL.list LI A:hover {
+	DISPLAY: inline-block; FONT-WEIGHT: bold; BACKGROUND: url(../images/bg.nav.hover.gif) no-repeat; MARGIN: 0px auto; WIDTH: 100px; LINE-HEIGHT: 40px; HEIGHT: 40px
+}
+.top .footer .nav UL.list LI#home {
+	BACKGROUND: none transparent scroll repeat 0% 0%
+}
+.top .footer .nav UL.list LI#home A {
+	COLOR: #fff
+}
+.top .footer .nav UL.list LI#home A:hover {
+	
+}
+.top .footer .nav UL.list LI.highlight {
+	BACKGROUND: url(../images/bg.nav.selected.gif) no-repeat
+}
+.top .footer .nav UL.list LI.highlight A {
+	FONT-SIZE: 16px; COLOR: #c00
+}
+.top .footer .nav UL.list LI.highlight A:hover {
+	BACKGROUND: none transparent scroll repeat 0% 0%; COLOR: red
+}
+.top .footer .nav UL.hotline {
+	PADDING-RIGHT: 30px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 14px
+}
+.top .footer .nav UL.hotline LI {
+	PADDING-LEFT: 30px; BACKGROUND: url(../images/bg.hotline.gif) no-repeat left center; HEIGHT: 20px
+}
+.top .footer .navbar {
+	BACKGROUND: url(../images/bg.navbar.png) no-repeat; WIDTH: 960px; HEIGHT: 44px
+}
+.top .footer .navbar .gg {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 20px; PADDING-BOTTOM: 0px; PADDING-TOP: 16px
+}
+.top .footer .navbar .gg A {
+	COLOR: #369
+}
+.top .footer .navbar .gg A:hover {
+	COLOR: red; TEXT-DECORATION: underline
+}
+.top .footer .navbar .search {
+	PADDING-RIGHT: 20px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; WIDTH: 265px; PADDING-TOP: 8px
+}
+.top .footer .navbar .search .keyInput {
+	BORDER-RIGHT: #ddd 1px solid; PADDING-RIGHT: 10px; BORDER-TOP: #ddd 1px solid; PADDING-LEFT: 10px; PADDING-BOTTOM: 0px; BORDER-LEFT: #ddd 1px solid; WIDTH: 200px; COLOR: #999; LINE-HEIGHT: 25px; PADDING-TOP: 0px; BORDER-BOTTOM: #ddd 1px solid; HEIGHT: 25px
+}
+.top .footer .navbar .search .keyBtn {
+	BACKGROUND: url(../images/bg.search.gif) no-repeat; MARGIN-LEFT: 10px; WIDTH: 30px; CURSOR: pointer; BORDER-TOP-STYLE: none; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; HEIGHT: 25px; BORDER-BOTTOM-STYLE: none
+}
+.bottom {
+	
+}
+.bottom .header {
+	PADDING-RIGHT: 24px; PADDING-LEFT: 24px; BACKGROUND: url(../images/bg.help.gif) no-repeat left top; PADDING-BOTTOM: 0px; MARGIN: 0px auto; WIDTH: 912px; PADDING-TOP: 0px; HEIGHT: 200px; overfollow: hidden
+}
+.bottom .header UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 24px; FLOAT: left; PADDING-BOTTOM: 0px; MARGIN: 15px 0px; BORDER-LEFT: #ccc 1px dotted; WIDTH: 150px; COLOR: #047; PADDING-TOP: 10px; overfollow: hidden
+}
+.bottom .header UL.A {
+	BORDER-LEFT-STYLE: none
+}
+.bottom .header UL H1 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 30px; FONT-SIZE: 14px; PADDING-BOTTOM: 0px; WIDTH: auto; COLOR: #047; PADDING-TOP: 4px; HEIGHT: 30px; overfollow: hidden
+}
+.bottom .header UL H1 A {
+	COLOR: #047
+}
+.bottom .header UL H1 A:hover {
+	COLOR: #c00; TEXT-DECORATION: underline
+}
+.bottom .header UL.A H1 {
+	BACKGROUND: url(../images/bg.rm.gif) no-repeat
+}
+.bottom .header UL.B H1 {
+	BACKGROUND: url(../images/bg.sm.gif) no-repeat
+}
+.bottom .header UL.C H1 {
+	BACKGROUND: url(../images/bg.wt.gif) no-repeat
+}
+.bottom .header UL.D H1 {
+	BACKGROUND: url(../images/bg.sh.gif) no-repeat
+}
+.bottom .header UL.E H1 {
+	BACKGROUND: url(../images/bg.zn.gif) no-repeat
+}
+.bottom .header UL LI {
+	FONT-SIZE: 12px; COLOR: #666; LINE-HEIGHT: 18pt
+}
+.bottom .header UL LI A {
+	COLOR: #047
+}
+.bottom .header UL LI A:hover {
+	COLOR: #c00; TEXT-DECORATION: underline
+}
+.bottom .bodyer {
+	BACKGROUND: url(../images/bg.links.gif) repeat-x; MARGIN: 0px auto; WIDTH: 960px; HEIGHT: 100px
+}
+.bottom .bodyer .right {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 0px; WIDTH: 890px; LINE-HEIGHT: 14pt; PADDING-TOP: 20px; TEXT-ALIGN: center
+}
+.bottom .bodyer .right {
+	FONT-SIZE: 12px; COLOR: #ddd
+}
+.bottom .bodyer .right A {
+	FONT-SIZE: 12px; COLOR: #666; LETTER-SPACING: 4px
+}
+.bottom .bodyer .right A:hover {
+	COLOR: #c00; TEXT-DECORATION: underline
+}
+.bottom .bodyer .left {
+	PADDING-RIGHT: 12px; PADDING-LEFT: 12px; PADDING-BOTTOM: 17px; WIDTH: 20px; PADDING-TOP: 17px
+}
+.bottom .bodyer .left A {
+	FONT-SIZE: 12px; COLOR: #666; LETTER-SPACING: 4px; WRITING-MODE: tb-rl
+}
+.bottom .bodyer .left A:hover {
+	COLOR: #c00
+}
+.bottom .footer P {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 12px; BACKGROUND: url(../images/bg.footer.gif) repeat-x; PADDING-BOTTOM: 25px; LINE-HEIGHT: 18pt; PADDING-TOP: 15px; TEXT-ALIGN: center
+}
+.bottom .footer A {
+	COLOR: #047
+}
+.bottom .footer SPAN {
+	COLOR: #047
+}
+.bottom .footer A:hover {
+	COLOR: #c00; TEXT-DECORATION: underline
+}
+.bottom .footer IMG {
+	MARGIN: 4px
+}
