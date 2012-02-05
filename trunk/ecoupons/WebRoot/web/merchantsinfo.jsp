@@ -133,7 +133,7 @@ Coupon coupon = new Coupon(globa);
 	int k =1;
 	for(int i=0;i<vctcoup.size();i++)
 	{   
-		if(k++ >6){break;}
+		if(k++ >8){break;}
 		Coupon coupon2 = vctcoup.get(i);
 		if(coupon2.getStrSmallImg()!=null&&coupon2.getStrSmallImg().length()>0)
 		{
