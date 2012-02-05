@@ -52,7 +52,7 @@ function ReturnShops(){
 <form name="frm" method="post" action="">
 <input type="hidden" name="<%=Constants.ACTION_TYPE%>" value="<%=Constants.ADD_STR%>">
 <div class="MainDiv">
-<table width="99%" border="0" cellpadding="0" cellspacing="0" class="CContent">
+<table width=400 border="0" cellpadding="0" cellspacing="0" class="CContent">
   <tr>
       <th ><div class="titlebt">
         <div align="left">选择商家</div>
@@ -68,16 +68,16 @@ function ReturnShops(){
                 <legend>商家列表</legend>
                <table border="0" cellpadding="2" cellspacing="1" style="width:100%">
 			  <tr>
-                 <td width="20%">  
+                 <td >  
                         &nbsp;		
                 </td>
-                 <td width="20%">  
+                 <td >  
                         &nbsp;		
                 </td>
-                 <td width="20%">  
+                 <td >  
                         &nbsp;		
                 </td>
-                 <td width="20%">  
+                 <td >  
                         &nbsp;		
                 </td>
                  <td>  
@@ -108,7 +108,7 @@ function ReturnShops(){
 	           %>
 		               
 		                 <td >         
-							&nbsp;<input name="shopname" type="checkbox" value="<%=allshopname[j] %>" /><%=allshopname[j].split("-")[1]%>			
+						 <input name="shopname" type="checkbox" value="<%=allshopname[j] %>" /><%=allshopname[j].split("-")[1]%>			
 		                </td>
                <% 
               			  }
