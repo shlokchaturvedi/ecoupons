@@ -121,6 +121,9 @@ BODY {
 .cx_button {
 	PADDING-BOTTOM: 4px; PADDING-LEFT: 16px; PADDING-RIGHT: 2px; BACKGROUND: url(../images/menunew_12.jpg) no-repeat; HEIGHT: 22px; width:64px; COLOR: #fff; FONT-SIZE: 12px; BORDER:0px; PADDING-TOP: 2px
 }
+.cy_button {
+	PADDING-BOTTOM: 4px; PADDING-LEFT: 16px; PADDING-RIGHT: 2px; BACKGROUND: url(../images/menunew_13.jpg) no-repeat; HEIGHT: 22px; width:64px; COLOR: #fff; FONT-SIZE: 12px; BORDER:0px; PADDING-TOP: 2px
+}
 center_img {
 	POSITION: relative; TOP: -50%; LEFT: -50%
 }
