@@ -30,7 +30,7 @@ public class CouponPrint
 	 */
 	public boolean add()
 	{
-		String strUserName = globa.userSession.getStrId();
+		//strCreator = globa.userSession.getStrId();
 		String strId = UID.getID();
 		String sql = "insert into " + strTableName + " (strId,strMemberCardNo,strCouponId,strTerminalId,dtPrintTime,strCouponCode,intState"
 				+ ",strCreator,dtCreateTime) " + "values (?,?,?,?,?,?,?,?,?) ";
@@ -44,7 +44,7 @@ public class CouponPrint
 			db.setString(5, com.ejoysoft.common.Format.getDateTime());
 			db.setString(6, strCouponCode);
 			db.setInt(7, 0);
-			db.setString(8, strUserName);
+			db.setString(8, strCreator);
 			db.setString(9, com.ejoysoft.common.Format.getDateTime());
 			if (db.executeUpdate() > 0)
 			{

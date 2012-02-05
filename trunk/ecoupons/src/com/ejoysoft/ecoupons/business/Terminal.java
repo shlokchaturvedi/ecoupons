@@ -517,6 +517,7 @@ public class Terminal
 	// 添加广告记录
 	public boolean addAd()
 	{
+		strId = UID.getID();
 		String strSql = "";
 		try
 		{

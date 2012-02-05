@@ -328,6 +328,21 @@ public class Member
 		}
 		return a;
 	}
+	/**
+	 * 根据卡号更新余额
+	 */
+	public int setFlaBalance(String strMemberCardNo,float newbalance)
+	{
+		int a=0;
+		String sql = "update " + strTableName + "set flabalance='"+newbalance+"' where strCardNo='" + strMemberCardNo + "' ";
+		try {
+			a=db.executeUpdate(sql);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return a;
+	}
 
 	/**
 	 * 激活会员
