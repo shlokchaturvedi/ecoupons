@@ -3,11 +3,20 @@
 				 com.ejoysoft.common.Constants,
 				 com.ejoysoft.util.ParamUtil,
 				 com.ejoysoft.ecoupons.business.CouponComment,
-				 com.ejoysoft.auth.LogonForm" %>
+				 com.ejoysoft.auth.LogonForm,
+				 com.ejoysoft.common.exception.IdObjectException" %>
 <%@ include file="../include/jsp/head.jsp" %>
 <%
+	String membercardno = "111";
+	 if(membercardno==null ||membercardno.trim().equals(""))
+	 {
+	    out.print("<script>alert('您还未登录！请先登录！');window.close();</script>");
+	 }
     CouponComment obj=new CouponComment(globa); 
-    String  strId=ParamUtil.getString(request,"strcouponid","");
+    String  strId=ParamUtil.getString(request,"strcouponid","");    
+	if(strId.equals(""))
+    	throw new IdObjectException("请求处理的信息id为空！或者已经不存在");
+    String where="where strId='"+strId+"'";
     String strUrl="couponinfo.jsp?strid="+strId;
     ServletContext application1 = getServletContext();
     
@@ -23,9 +32,9 @@
 			
 	         String strComment=ParamUtil.getString(request,"strcomment"," ");	       
 	         obj.setStrComment(strComment);
-	         obj.setStrCreator(globa.loginName);
+	         obj.setStrCreator("system");
 	         obj.setStrCouponId(strId);
-	         obj.setStrMemberCardNo("23423423423423423");
+	         obj.setStrMemberCardNo(membercardno);
 		
 	    if(action.equals(Constants.ADD_STR)) { 
 	         LogonForm form = new LogonForm(application1, request, response);

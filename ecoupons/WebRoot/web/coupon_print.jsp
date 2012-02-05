@@ -15,7 +15,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 String memberCardno = "111";
 	 if(memberCardno==null ||memberCardno.trim().equals(""))
 	 {
-	    out.print("<script>alert('您还未登录！请先登录！');window.location.href='javascript:history.go(-1)';</script>");
+	    out.print("<script>alert('您还未登录！请先登录！');window.close();</script>");
 	 }
 	 String strId = ParamUtil.getString(request,"strid");
 	 if(strId.equals(""))
@@ -51,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		else
 		{
-			out.print("<script>alert('您的会员卡余额不足！请即使充值');window.location.href='javascript:history.go(-1)';</script>");
+			out.print("<script>alert('您的会员卡余额不足！请即使充值');window.close();</script>");
 		}
  	  
  	 }
