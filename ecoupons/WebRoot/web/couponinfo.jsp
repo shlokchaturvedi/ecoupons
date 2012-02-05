@@ -73,7 +73,7 @@ else{
 <div class=coupon_jzrq><FONT color=#ff0000>截止时间：<%=obj0.getDtExpireTime().substring(0,10)%></FONT></div>
 <DIV class=coupon_bar>
   <UL>
-  <LI><a href="#"><img src="images/print.jpg" border="0" style="CURSOR: pointer"> 打印</a></LI>
+  <LI><a href="#" onclick="window.open('coupon_print.jsp?random=<%= Math.random()%>&strid=<%=obj0.getStrId()%>&strimg=<%=obj0.getStrPrintImg()%>','','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,width=420,height=540,left=450,top=160');">打印</a></LI>
     <LI><a href="#"><IMG src="images/collection.jpg" border="0" style="CURSOR: pointer"> 收藏</a></LI> 
 	<LI><a href="#"><IMG src="images/sms.jpg" border="0" style="CURSOR: pointer"> 短信</a></LI> </UL>
  </DIV>
@@ -130,12 +130,20 @@ class=red><%=intAllCount%></SPAN>条评论)</DIV>
 	for (int i = 0;i < vctcom.size(); i++) {
        CouponComment comobj1 = vctcom.get(i);
        Member memobj = new Member(globa);
-       Member memobj1 = memobj.show(" where strcardno='"+comobj1.getStrMemberCardNo()+"'");
+       String twhere=" where strcardno='111'";
+       if(comobj1.getStrMemberCardNo()!=null)
+       	{	twhere =" where strcardno='"+comobj1.getStrMemberCardNo()+"'";}
+       Member memobj1 = memobj.show(twhere);
+       String namememb="Xman";
+       if(memobj1!=null)
+       {
+        	namememb=memobj1.getStrName();
+       }
 %>
 <DIV style="PADDING-LEFT: 5px"><BR>
 <DIV style="HEIGHT: 50px">
 <DIV style="WIDTH: 10%; FLOAT: left; HEIGHT: 45px"><IMG alt="" src="images/201.jpg" width=45 height=45> </DIV>
-<DIV style="LINE-HEIGHT: 18px; WIDTH: 80%; FLOAT: left; HEIGHT: 33px"><SPAN style="COLOR: #001c55"><%=memobj1.getStrName()%>：</SPAN><SPAN 
+<DIV style="LINE-HEIGHT: 18px; WIDTH: 80%; FLOAT: left; HEIGHT: 33px"><SPAN style="COLOR: #001c55"><%=namememb%>：</SPAN><SPAN 
 style="COLOR: gray"><%=comobj1.getStrComment() %></SPAN> </DIV>
 </DIV>
 <DIV style="BORDER-BOTTOM: #808080 1px dotted; HEIGHT: 1px; CLEAR: both"></DIV><BR>
@@ -154,12 +162,19 @@ style="COLOR: gray"><%=comobj1.getStrComment() %></SPAN> </DIV>
 <DIV class="box  line_gray jianju9b">
 <DIv class="box bold word_gra sp_nav_bg jianju13 ">发表评论：</DIV>
 <DIV class="box jianju13 jianju2a word_12px">
+<form action="comment_act.jsp" method=post name=frm1>
+<input type="hidden" name="strcouponid" value="<%=strId%>" > 
 <TABLE border=0 width="100%">
   <TBODY>
   <TR>
     <TD align="center">内容： </TD>
-    <TD colSpan=7><LABEL><TEXTAREA style="WIDTH: 500px; HEIGHT: 100px" id=txt_con class=form rows=2 cols=20 name=txt_con></TEXTAREA> 
+    <TD colSpan=7><LABEL><TEXTAREA style="WIDTH: 500px; HEIGHT: 100px" id=txt_con class=form rows=2 cols=20 name=strcomment></TEXTAREA> 
       </LABEL><SPAN id=span_sub></SPAN></TD></TR></TBODY></TABLE>
+<%
+if(strId.equals(""))
+{
+ %>
+<input type="hidden" name="<%=Constants.ACTION_TYPE%>" value="login" >
 <TABLE id=tr_login>
   <TBODY>
   <TR>
@@ -169,23 +184,35 @@ style="COLOR: gray"><%=comobj1.getStrComment() %></SPAN> </DIV>
     <TD align=left>&nbsp; 密码： </TD>
     <TD align=left><INPUT style="WIDTH: 80px" id=txt_userpass class=form type=password name=txt_userpass> </TD>
     <TD align=left>&nbsp; 验证码： </TD>
-    <TD align=left><INPUT style="WIDTH: 60px" id=txt_yzm class=form type=text name=txt_yzm> </TD>
-    <TD align=left><IMG style="BORDER: #ffffff 1px solid; WIDTH: 65px; HEIGHT: 20px; CURSOR: pointer;"id=checkcode border=0 name=checkcode  alt=看不清楚，换个图片 src="images/Code.jpg"> </TD>
+    <TD align=left><INPUT style="WIDTH: 60px" class=form name=yanzm type=text value="" maxLength=4 size=10> </TD>
+    <TD align=left><a style="CURSOR:hand" onclick="javascript:var dt=new Date();document.getElementById('code').src='../image.jsp?dt='+dt;" title="看不清楚，换个图片"> 
+    <IMG style="BORDER: #ffffff 1px solid; WIDTH: 65px; HEIGHT: 20px; CURSOR: pointer;" id=code border=0 name=checkcode src="../image.jsp"> </a></TD>
     <TD align=left><INPUT id=btn_login class=cx_button value=" " type=submit name=btn_login> 
-    </TD></TR></TBODY></TABLE>
-<TABLE style="DISPLAY: none; MARGIN-LEFT: 100px" id=tr2>
+    </TD></TR></TBODY>
+ </TABLE>
+ <%
+ }
+ else{  %>
+<input type="hidden" name="<%=Constants.ACTION_TYPE%>" value="<%=Constants.ADD_STR%>" >
+<TABLE id=tr2>
   <TBODY>
   <TR>
     <TD align=right>验证码： </TD>
-    <TD align=left><INPUT style="WIDTH: 150px" id=txt_com_yzm class=form type=text name=txt_com_yzm> </TD>
-    <TD align=left><IMG style="BORDER: #ffffff 1px solid; WIDTH: 65px; HEIGHT: 20px; CURSOR: pointer;"  id=Img2 border=0 name=checkcode  alt=看不清楚，换个图片 src="images/Code_Comment.jpg"> </TD>
-    <TD align=left><INPUT id=btn_Sub class=cx_button value=发表评论 type=submit name=btn_Sub> 
-    </TD></TR></TBODY></TABLE></DIV></DIV>
-
+    <TD align=left><INPUT style="WIDTH: 60px" name=yanzm class=form type=text value="" maxLength=4 size=10> </TD>
+    <TD align=left> <a style="CURSOR:hand" onclick="javascript:var dt=new Date();document.getElementById('code2').src='../image.jsp?dt='+dt;" title="看不清楚，换个图片"> 
+    <IMG style="BORDER: #ffffff 1px solid; WIDTH: 65px; HEIGHT: 20px; CURSOR: pointer;" id=code2 border=0 name=checkcode src="../image.jsp"> 
+    </a></TD>
+    <TD align=left><INPUT id=btn_login class=cy_button value=" " type=submit name=btn_login> 
+    </TD></TR></TBODY></TABLE>    
+    
+ <%
+ } 
+ %>
+ 
+ </form>
+    </DIV></DIV>
 </DIV>
 <!--评论结束-->
-
-
 
 </DIV>
 <DIV class=left_bottom></DIV></DIV>
