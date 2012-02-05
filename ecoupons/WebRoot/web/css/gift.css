@@ -1,0 +1,115 @@
+/* CSS Document */
+body{ margin:0; padding:0; font-size:12px; LINE-HEIGHT: 1.5; FONT-FAMILY: Verdana}
+P {
+	PADDING: 0px; MARGIN: 0px;}
+UL { MARGIN: 0px; PADDING: 0px}
+H1 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+
+H2 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+A {
+	COLOR: #444; TEXT-DECORATION: none
+}
+A:hover {
+	COLOR: #f00
+}
+
+/* coupons-content部分优惠券 */
+.gift-content{ width:985px; margin:0 auto; margin-top:6px;}
+
+/* coupons-left部分优惠券 */
+
+.gift-left{ width:762px;float:left;}
+.giftList {
+	PADDING-BOTTOM: 10px; }
+.giftList_top {
+	BACKGROUND: url(../images/list_top_bg.gif) no-repeat; WIDTH: 760px; HEIGHT: 46px
+}
+.giftList_top P {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 20px; FONT-WEIGHT: bold; FONT-SIZE: 14px; PADDING-BOTTOM: 0px; COLOR: #666; LINE-HEIGHT: 25px; PADDING-TOP: 5px; TEXT-ALIGN: left; margin:0px; float: left;}
+.giftList_tit{	BACKGROUND: url(../images/list_mid_bg.gif) repeat-y; WIDTH: 750px; HEIGHT:25px; padding-left:10px;padding-top:10px;}
+.giftList_sf{
+	PADDING-RIGHT: 0px; PADDING-LEFT: 20px; PADDING-top: 5px; FONT-WEIGHT: bold; FONT-SIZE: 14px;PADDING-BOTTOM: 0px; COLOR: #666; LINE-HEIGHT: 25px;  TEXT-ALIGN: left; margin:0px;}
+	
+
+.giftList_mid {
+	BACKGROUND: url(../images/list_mid_bg.gif) repeat-y; WIDTH: 760px; margin:0px; padding:0px;
+}
+
+.giftList_mid UL {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 13px; PADDING-BOTTOM: 0px; WIDTH: 740px; PADDING-TOP: 0px; margin:0px;
+}
+.giftList_mid UL LI {
+	FLOAT: left; PADDING-TOP: 2px;PADDING-bottom: 10px;margin:0px; list-style:none;
+}
+
+
+.giftList_list_mid {
+	BACKGROUND: url(../images/mid_bg.gif) repeat-y; FLOAT: left; WIDTH:180px;  margin-top:10px; padding:0px;}
+.giftList_list_mid P {
+	MARGIN: 2px 15px 5px 20px; line-height:150%; color:#373737; text-align:center
+}
+
+.giftname{	MARGIN: 10px 15px 2px 20px;line-height:150%; color:#373737; height:40px; text-align:center }
+
+.giftList_list_img { HEIGHT: 140px; text-align:center}
+.giftList_list_img IMG {MARGIN: 5px}
+
+
+.clearfloat {
+	CLEAR: both; FONT-SIZE: 1px; LINE-HEIGHT: 0px; HEIGHT: 0px
+}
+.gift_bottom {
+	BACKGROUND: url(../images/list_bottom_bg.gif) no-repeat; WIDTH: 760px; HEIGHT: 12px
+}
+
+/* coupons-left结束 */
+
+
+
+.gift-right{ width:218px; float: right; }
+
+.gift_sort {
+	MARGIN-top: 10px; padding:0px; WIDTH: 215px; display:inline;}
+
+.gift_sort H1 {
+	PADDING-LEFT: 35px; FONT-SIZE: 14px; BACKGROUND: url(../images/left_icon6.gif) no-repeat; FLOAT: left; MARGIN: 8px 0px 0px 8px; HEIGHT: 22px
+}
+.gift_sort H1 STRONG {
+	FONT-WEIGHT: bold; FONT-FAMILY: "黑体"
+}
+
+.gift_sort_top {
+	BACKGROUND: url(../images/left_top_bg.gif) no-repeat; WIDTH: 215px; HEIGHT: 40px
+}
+.gift_sort_top P {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 15px; PADDING-BOTTOM: 0px; FONT: bold 14px/1 microsoft yahei; COLOR: #666; PADDING-TOP: 8px
+}
+.gift_sort_top IMG {
+	PADDING-LEFT: 5px
+}
+.gift_sort_bottom {
+	BACKGROUND: url(../images/left_bottom_bg.gif) no-repeat; WIDTH: 215px; HEIGHT: 20px; padding:
+}
+.gift_sort_con {
+	BACKGROUND: url(../images/left_middle_bg.gif) repeat-y; margin:0px; padding:10px 10px 10px 20px;
+}
+
+.gift_sort_con span{ color:#CC7122; font-weight:bolder; padding:5px 0px; display:block;}
+.gift_sort_con p{ line-height:150%; color:#454545;}
+
+
+
+.gift_pro {
+	PADDING-BOTTOM: 15px; PADDING-LEFT: 30px; WIDTH: 700px; PADDING-RIGHT: 0px; PADDING-TOP: 15px; clear:both;
+}
+
+
+
+.gift_pageSide {
+	MARGIN: 10px 0px; WIDTH: 740px; HEIGHT: 42px; text-align: right;
+}
+.gift_pageipt{ background-color:#FFFFFF; border:1px solid #999999;}
