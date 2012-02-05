@@ -6,6 +6,7 @@ import java.util.Vector;
 
 import com.ejoysoft.common.DbConnect;
 import com.ejoysoft.common.Globa;
+import com.ejoysoft.common.UID;
 
 public class CouponComment
 {
@@ -138,7 +139,36 @@ public class CouponComment
 		return theBean;
 	}
 	
-	
+	// 添加评论
+	public boolean addComment()
+	{
+		String strSql = "";
+		strId = UID.getID();
+		try
+		{
+
+			strSql = "insert into " + strTableName + "  (strid, strmembercardno,strcouponid, strcomment,"
+					+ "strcreator, dtcreatetime) values(?,?,?,?,?,?)";			
+			db.prepareStatement(strSql);
+			db.setString(1, strId);
+			db.setString(2, strMemberCardNo);
+			db.setString(3, StrCouponId);
+			db.setString(4, StrComment);
+			db.setString(5, strCreator);
+			db.setString(6, com.ejoysoft.common.Format.getDateTime());
+			if (db.executeUpdate() > 0)
+			{
+				Globa.logger0("添加优惠券评论信息", globa.loginName, globa.loginIp, strSql, "网站/优惠券评论","system");
+				return true;
+			} else
+				return false;
+		} catch (Exception e)
+		{
+			System.out.println("添加优惠券评论异常");
+			e.printStackTrace();
+			return false;
+		}
+	}
 	
 	
 	
