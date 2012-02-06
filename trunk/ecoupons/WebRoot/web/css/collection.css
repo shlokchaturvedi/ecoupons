@@ -1,0 +1,73 @@
+/* CSS Document */
+body{ margin:0; padding:0; font-size:12px; LINE-HEIGHT: 1.5; FONT-FAMILY: Verdana}
+P {
+	PADDING: 0px; MARGIN: 0px;}
+UL { MARGIN: 0px; PADDING: 0px}
+.clearfloat {
+	LINE-HEIGHT: 0px; HEIGHT: 0px; CLEAR: both; FONT-SIZE: 1px
+}
+#Main {
+	MARGIN: 10px auto 0px; WIDTH: 985px
+}
+#Left {
+	WIDTH: 640px; FLOAT: left
+}
+.collect_left_top {
+	BACKGROUND: url(../images/list_top_bg.gif) no-repeat; WIDTH: 760px; HEIGHT: 46px
+}
+.collect_left_top P {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 15px; PADDING-RIGHT: 0px; FONT: bold 14px/1 microsoft yahei; COLOR: #f00; PADDING-TOP: 10px
+}
+.collect_left_mid {
+	BACKGROUND: url(../images/list_mid_bg.gif) repeat-y; WIDTH: 760px; margin:0px; padding:0px;min-height:350px;height:350px;height:auto!important;
+
+}
+
+
+.collect_show {
+	PADDING-BOTTOM: 5px; PADDING-LEFT: 22px; WIDTH: 700px; PADDING-RIGHT: 5px; PADDING-TOP: 10px
+}
+.collect_show_bottom {
+	BACKGROUND: url(../images/list_bottom_bg.gif) no-repeat; WIDTH: 760px; HEIGHT: 12px
+}
+
+.collect_show_tit{ color:#973301;}
+
+#collect_Right {
+	WIDTH: 215px; FLOAT: left;  margin-left:5px;
+}
+.collect_list{
+	WIDTH: 215px; MARGIN-BOTTOM: 10px
+}
+.collect_right_top {
+	BACKGROUND: url(../images/left_top_bg.gif) no-repeat;  width:215px; HEIGHT: 40px
+
+}
+.collect_right_top P {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 100px; PADDING-RIGHT: 0px; FLOAT: left; COLOR: #666; FONT-SIZE: 14px; FONT-WEIGHT: bold; PADDING-TOP: 10px
+}
+.collect_heatitle {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 15px;  FLOAT:left; FONT-SIZE: 12px;COLOR: #484848; FONT-WEIGHT: bold; PADDING-TOP:10px; }
+	
+.collect_heatitle h6{MARGIN: 0px; FONT-SIZE: 12px;COLOR: #484848; background:url(../images/left_icon2.gif) no-repeat 8px 0px;PADDING-LEFT: 35px;PADDING-top: 2px; }
+
+.collect_mid {
+	BACKGROUND: url(../images/left_middle_bg.gif) repeat-y; margin:0px; padding-left:20px; min-height:350px;height:350px;height:auto!important;
+
+}
+
+.list_wz{ font-size:14px; }
+.list_wz a:link{font-size:14px;  color:#424242;TEXT-DECORATION: none}
+.list_wz a:visited{font-size:14px;color:#424242;TEXT-DECORATION: none}
+.list_wz a:hover{font-size:14px;color:#ff0000;TEXT-DECORATION: none}
+.list_wz a:active{font-size:14px;color:#ff0000;TEXT-DECORATION: none}
+
+.collect_bottom {
+	BACKGROUND: url(../images/left_bottom_bg.gif) no-repeat; WIDTH: 215px; HEIGHT: 20px; padding:
+}
+
+.collect_sf{
+	PADDING-RIGHT: 0px; PADDING-LEFT: 20px; PADDING-top: 8px; FONT-WEIGHT: bold; FONT-SIZE: 12px;FLOAT: left; width:420px; PADDING-BOTTOM: 0px; COLOR: #666; LINE-HEIGHT: 25px;  TEXT-ALIGN: left; margin:0px;}
+.fjwz{ font-size:24px; color:#F96705;}
+
+.bzb{ font-size:14px; color:#973301;} 
