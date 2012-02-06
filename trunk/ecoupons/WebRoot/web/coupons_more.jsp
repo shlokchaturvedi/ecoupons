@@ -78,7 +78,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  <div class=hotList>
  
 	<div class=hotList_top>
-		<div class="hotList_sf">更多优惠券列表</div>
+		<div class="hotList_sf"> <%
+	   if(!strName.equals(""))
+	   {
+	   %>优惠券列表<%="(关于'"+strName+"'的查询结果)"%>
+	   <%
+	   }else if(!strTrade.equals(""))
+	   {
+	   %>优惠券列表<%="("+syspara.getNameById(strTrade)+")"%>
+	   <%
+	   }else
+	   {
+	   %>优惠券列表<%="(所有)"%>
+	   <%
+	   }
+	   %></div>
 <div class=more>
 <table>
   <tbody>
@@ -92,15 +106,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 </div>
 
-<div class=hotList_tit1>
-		<p><a href="#">
-		<%if(!strTrade.equals("")) {%>
-		<%=syspara.getNameById(strTrade)%>		
-		<%}else {%>
-		<%="关于"+strName+"查询结果"%>
-		<%}%>
-		</a></p>
-</div>
+
     <div class=hotList_mid>
     
 <ul>
