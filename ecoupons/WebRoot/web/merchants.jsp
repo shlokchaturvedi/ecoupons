@@ -69,7 +69,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  <div class=hotList>
  
 	<div class=hotList_top>
-		<div class="hotList_sf">商户列表</div>
+		<div class="hotList_sf">
+	   <%
+	   if(!strName.equals(""))
+	   {
+	   %>商户列表<%="(关于'"+strName+"'的查询结果)"%>
+	   <%
+	   }else if(!strTrade.equals(""))
+	   {
+	   %>商户列表<%="("+syspara.getNameById(strTrade)+")"%>
+	   <%
+	   }else
+	   {
+	   %>商户列表<%="(所有)"%>
+	   <%
+	   }
+	   %>
+	   </div>
+	   
 <div class=more>
 <table>
   <tbody>
