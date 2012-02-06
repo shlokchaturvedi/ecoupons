@@ -43,8 +43,8 @@ public class CouponAuthServlet extends HttpServlet
 		StringBuffer sbReturn = new StringBuffer("<?xml version='1.0' encoding='utf-8'?> ");
 		ServletContext application = getServletContext();
 		globa.initialize(application, req, resp);
-		//String strTerminalNo = req.getParameter("strTerminalNo");
-		String strTerminalNo ="3423";
+		String strTerminalNo = req.getParameter("strTerminalNo");
+//		String strTerminalNo ="3423";
 		Terminal obj0 = new Terminal(globa);
 		HashMap<String, Terminal> hmTerminal = Terminal.hmTerminal;
 		Terminal terminal = hmTerminal.get(strTerminalNo);
@@ -52,12 +52,12 @@ public class CouponAuthServlet extends HttpServlet
 		{
 			String strTerminalId = terminal.getStrId();
 			obj0.updateState(strTerminalId);//更新终端状态
-		//	String strCode = req.getParameter("strCode");
-		//	String strCardNo = req.getParameter("strCardNo");
-		//	String strCouponId = req.getParameter("strCouponId");
-			String strCode = "ewrwesdfs";
-			String strCardNo = "111";
-			String strCouponId ="1326253170109014";
+			String strCode = req.getParameter("strCode");
+			String strCardNo = req.getParameter("strCardNo");
+			String strCouponId = req.getParameter("strCouponId");
+//			String strCode = "ewrwesdfs";
+//			String strCardNo = "111";
+//			String strCouponId ="1326253170109014";
 			String strPhone="",strName="";	
 			float balance= -1;
 			if(strCardNo!=null && !strCardNo.trim().equals("")&&strCouponId!=null && !strCouponId.trim().equals(""))
