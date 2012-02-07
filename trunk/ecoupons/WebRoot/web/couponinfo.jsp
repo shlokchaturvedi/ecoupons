@@ -219,7 +219,7 @@ if(strId.equals(""))
 <DIV id=Right>
 <DIV class=card>
 <DIV class=card_top>
-<DIV class=heatitle><h6>其他优惠</h6>
+<DIV class=heatitle><h6>本店其他优惠</h6>
 </DIV>
 </DIV>
 <DIV class=card_mid>
