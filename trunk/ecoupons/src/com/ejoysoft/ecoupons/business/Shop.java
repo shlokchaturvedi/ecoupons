@@ -45,8 +45,8 @@ public class Shop {
         String strSql = "";
         strId = UID.getID();  //添加商家信息
         strSql = "insert into " + strTableName + "  (strid, strbizname, strshopname, strtrade, straddr, strphone, " +
-		"strperson, strintro, strsmallimg,strlargeimg,intpoint, strcreator, dtcreatetime" +
-        ") values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		"strperson,inttype, strintro, strsmallimg,strlargeimg,intpoint, strcreator, dtcreatetime" +
+        ") values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
 
         	db.getConnection().setAutoCommit(false);//禁止自动提交事务        
@@ -70,12 +70,13 @@ public class Shop {
             db.setString(5, strAddr);
             db.setString(6, strPhone);
             db.setString(7, strPerson);
-            db.setString(8, strIntro);
-            db.setString(9, strSmallImg);
-            db.setString(10, strLargeImg);
-            db.setInt(11, intPoint);
-            db.setString(12, strCreator);
-            db.setString(13, com.ejoysoft.common.Format.getDateTime());
+            db.setInt(8, intType);
+            db.setString(9, strIntro);
+            db.setString(10, strSmallImg);
+            db.setString(11, strLargeImg);
+            db.setInt(12, intPoint);
+            db.setString(13, strCreator);
+            db.setString(14, com.ejoysoft.common.Format.getDateTime());
             if (db.executeUpdate() > 0) {                
             	db.getConnection().commit(); //统一提交
 			    db.setAutoCommit(true);
@@ -163,7 +164,7 @@ public class Shop {
         	String strSql2 = "update  " + strTableName7 + " set strdataopetype='update',intstate=0 where strdataid=" + strId2;
         	
 		    String strSql = "update " + strTableName + "  set strbizname=?, strshopname=?, strtrade=?, straddr=?, strphone=?, " +
-            		"strperson=?, strintro=?, " ;
+            		"strperson=?,inttype=?, strintro=?, " ;
             if (this.strSmallImg!=null&&this.strSmallImg.length() > 0) {
             	strSql += "strsmallimg = '" + strSmallImg + "',";
             }
@@ -180,9 +181,10 @@ public class Shop {
             db.setString(4, strAddr);
             db.setString(5, strPhone);
             db.setString(6, strPerson);
-            db.setString(7, strIntro);      //"strUnitCode
-            db.setInt(8, intPoint);
-            db.setString(9,strId2);
+            db.setInt(7, intType);
+            db.setString(8, strIntro);      //"strUnitCode
+            db.setInt(9, intPoint);
+            db.setString(10,strId2);
             db.executeUpdate();
 			db.commit();
 			db.setAutoCommit(true);
@@ -244,20 +246,25 @@ public class Shop {
     public Shop load(ResultSet rs, boolean isView) {
     	Shop theBean = new Shop();
         try {
-        	theBean.setStrId(rs.getString(1));
-            theBean.setStrBizName(rs.getString(2));
-            theBean.setStrShopName(rs.getString(3));
-            theBean.setStrTrade(rs.getString(4));
-            theBean.setStrTradeName(SysPara.getNameById(rs.getString(4)));
-            theBean.setStrAddr(rs.getString(5));
-            theBean.setStrPhone(rs.getString(6));
-            theBean.setStrPerson(rs.getString(7));
-            theBean.setStrIntro(rs.getString(8));
-            theBean.setStrSmallImg(rs.getString(9));
-            theBean.setStrLargeImg(rs.getString(10));
-            theBean.setIntPoint(rs.getInt(11));
-            theBean.setStrCreator(rs.getString(12));
-            theBean.setDtCreateTime(rs.getString(13));
+            theBean.setStrId(rs.getString("strid"));
+            theBean.setStrBizName(rs.getString("strbizname"));
+            theBean.setStrShopName(rs.getString("strshopname"));
+            theBean.setStrTrade(rs.getString("strtrade"));
+            theBean.setStrTradeName(SysPara.getNameById(rs.getString("strtrade")));
+            theBean.setStrAddr(rs.getString("strAddr"));
+            theBean.setStrPhone(rs.getString("strphone"));
+            theBean.setStrPerson(rs.getString("strperson"));
+            theBean.setIntType(rs.getInt("inttype"));
+            if(rs.getInt("inttype")==1)
+            	theBean.setIntTypeName("是");
+            else if(rs.getInt("inttype")==0)
+            	theBean.setIntTypeName("否");
+            theBean.setStrIntro(rs.getString("strintro"));
+            theBean.setStrSmallImg(rs.getString("strsmallimg"));
+            theBean.setStrLargeImg(rs.getString("strlargeimg"));
+            theBean.setIntPoint(rs.getInt("intpoint"));
+            theBean.setStrCreator(rs.getString("strcreator"));
+            theBean.setDtCreateTime(rs.getString("dtcreatetime"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -280,7 +287,7 @@ public class Shop {
                     rs.absolute(startRow);
                 do {
                 	Shop theBean = new Shop();
-                    theBean = load2(rs, false);
+                    theBean = load(rs, false);
                     beans.addElement(theBean);
                 } while (rs.next());
             }
@@ -291,31 +298,6 @@ public class Shop {
         }
         return beans;
     }
-
-    //封装结果集2
-    public Shop load2(ResultSet rs, boolean isView) {
-    	Shop theBean = new Shop();
-        try {
-            theBean.setStrId(rs.getString("strid"));
-            theBean.setStrBizName(rs.getString("strbizname"));
-            theBean.setStrShopName(rs.getString("strshopname"));
-            theBean.setStrTrade(rs.getString("strtrade"));
-            theBean.setStrTradeName(SysPara.getNameById(rs.getString("strtrade")));
-            theBean.setStrAddr(rs.getString("strAddr"));
-            theBean.setStrPhone(rs.getString("strphone"));
-            theBean.setStrPerson(rs.getString("strperson"));
-            theBean.setStrIntro(rs.getString("strintro"));
-            theBean.setStrSmallImg(rs.getString("strsmallimg"));
-            theBean.setStrLargeImg(rs.getString("strlargeimg"));
-            theBean.setIntPoint(rs.getInt("intpoint"));
-            theBean.setStrCreator(rs.getString("strcreator"));
-            theBean.setDtCreateTime(rs.getString("dtcreatetime"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return theBean;
-    }
-
     //分页整理
     public Vector<Shop> list(String where, int startRow, int rowCount) {
         Vector<Shop> beans = new Vector<Shop>();
@@ -350,7 +332,7 @@ public class Shop {
         try {
 
 			    String strSql = "update  " + strTableName + "  set strbizbame=?, strshopname=?, strtrade=?, straddr=?, strphone=?, " +
-			    		"strperson=?, strintro=?, strsmallimg=?,strlargeimg=?,intpoint=?, strcreator=?, strcreatetime=?  where strid=? ";
+			    		"strperson=?,inttype=?, strintro=?, strsmallimg=?,strlargeimg=?,intpoint=?, strcreator=?, strcreatetime=?  where strid=? ";
 			    db.prepareStatement(strSql);
 			    db.setString(1, strBizName);
 			    db.setString(2, strShopName);
@@ -358,12 +340,13 @@ public class Shop {
 			    db.setString(4, strAddr);
 			    db.setString(5, strPhone);
 			    db.setString(6, strPerson);
-			    db.setString(7, strIntro);
-			    db.setString(8, strSmallImg);
-			    db.setString(9, strLargeImg);       //"strUnitCode
-			    db.setInt(10, intPoint);
-			    db.setString(11, strCreator);
-			    db.setString(12,com.ejoysoft.common.Format.getDateTime());
+			    db.setString(7, strPerson);
+			    db.setString(8, strIntro);
+			    db.setString(9, strSmallImg);
+			    db.setString(10, strLargeImg);       //"strUnitCode
+			    db.setInt(11, intPoint);
+			    db.setString(12, strCreator);
+			    db.setString(13,com.ejoysoft.common.Format.getDateTime());
 			    db.executeUpdate();
 			    Globa.logger0("�޸��û���Ϣ", globa.loginName, globa.loginIp, strSql, "�û�����", globa.userSession.getStrDepart());
 			    return true;
@@ -566,6 +549,8 @@ public class Shop {
     private String strSmallImg;//小图
     private String strLargeImg;//大图
     private int intPoint;//积分余额
+    private int intType;//商家推荐与否
+    private String intTypeName;//商家推荐与否
     private String strCreator;//创建人
     private String dtCreateTime;//创建时间
 
@@ -695,5 +680,21 @@ public class Shop {
 
 	public void setDtCreateTime(String dtCreateTime) {
 		this.dtCreateTime = dtCreateTime;
+	}
+
+	public int getIntType() {
+		return intType;
+	}
+
+	public void setIntType(int intType) {
+		this.intType = intType;
+	}
+
+	public String getIntTypeName() {
+		return intTypeName;
+	}
+
+	public void setIntTypeName(String intTypeName) {
+		this.intTypeName = intTypeName;
 	}
 }
