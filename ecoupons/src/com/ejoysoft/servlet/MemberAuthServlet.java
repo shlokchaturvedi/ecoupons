@@ -62,9 +62,10 @@ public class MemberAuthServlet extends HttpServlet implements Servlet
 		if (member.getCount(" where strcardno='" + strCardNo+"'") > 0)
 		{
 			
-			
+			Member memberTemp=member.show(" where strcardno='" + strCardNo+"'");
 			sbReturn.append("<auth>yes</auth>");
-			sbReturn.append("<strMobileNo>"+member.show(" where strcardno='" + strCardNo+"'").getStrMobileNo()+"</strMobileNo>");
+			sbReturn.append("<intType>"+memberTemp.getIntType()+"</intType>");
+			sbReturn.append("<strMobileNo>"+memberTemp.getStrMobileNo()+"</strMobileNo>");
 			//2012131增加手机号码字段
 			vctCouponFavourites = couponFavourite.list("where strmembercardno=" + strCardNo, 0, 0);
 			sbReturn.append("<favourite>");
