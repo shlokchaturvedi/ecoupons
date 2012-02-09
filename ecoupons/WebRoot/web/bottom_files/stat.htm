@@ -8,7 +8,7 @@ function gc_cnzz(n){
 	var alen=arg.length;
 	var clen=document.cookie.length;
 	var i=0;
-	while(i < clen){
+	while(i<clen){
 	var j=i+alen;
 	if(document.cookie.substring(i,j)==arg) return gv_cnzz(j);
 	i=document.cookie.indexOf(" ",i)+1;
