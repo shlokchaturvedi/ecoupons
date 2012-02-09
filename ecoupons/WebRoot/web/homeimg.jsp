@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="com.ejoysoft.ecoupons.business.Coupon"%>
+<%@page import="java.util.Vector"%>
+   <%@ include file="../include/jsp/head.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head id=Head1>
+<head >
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title></title>
 <META content="text/html; charset=utf-8" http-equiv=Content-Type>
@@ -43,42 +46,53 @@ name=__VIEWSTATE> </DIV>
     document.write('</style>');
     document.write('<div id="focuseFrom">');
 
-    tt = 1;
-    imgUrl[tt] = 'images/chang.jpg';
+     <%
+     Coupon coupon=new Coupon(globa);
+     Vector<Coupon>vctCoupons=coupon.list("order by dtcreatetime  desc",1,6);
+     
+     %>
+     tt = 1;
+    imgUrl[tt] = '../coupon/images/<% if(vctCoupons.size()>=1){
+    	out.print(vctCoupons.get(0).getStrSmallImg()); %>';
     imgtext[tt] = '<A HREF="#" TARGET="_blank" class="' + textLinkStyle + '"></A>';
-    imgLink[tt] = '#';
-    imgAlt[tt] = '手机客户端推广';
+    imgLink[tt] = 'couponinfo.jsp?strid=<%=vctCoupons.get(0).getStrId() %>';
+    imgAlt[tt] = '<%out.print(vctCoupons.get(0).getStrName());}%>';
 
     tt = 2;
-    imgUrl[tt] = 'images/lijin.jpg';
+    imgUrl[tt] = '../coupon/images/<% if(vctCoupons.size()>=2){
+    	out.print(vctCoupons.get(1).getStrSmallImg()); %>';
     imgtext[tt] = '<A HREF="#" TARGET="_blank" class="' + textLinkStyle + '"></A>';
-    imgLink[tt] = '#';
-    imgAlt[tt] = '李锦记';
+    imgLink[tt] = 'couponinfo.jsp?strid=<%=vctCoupons.get(1).getStrId() %>';
+    imgAlt[tt] = '<%out.print(vctCoupons.get(1).getStrName());}%>';
 
     tt = 3;
-    imgUrl[tt] = 'images/lida.jpg';
+    imgUrl[tt] = '../coupon/images/<% if(vctCoupons.size()>=3){
+    	out.print(vctCoupons.get(2).getStrSmallImg()); %>';
     imgtext[tt] = '<A HREF="#" TARGET="_blank" class="' + textLinkStyle + '"></A>';
-    imgLink[tt] = '#';
-    imgAlt[tt] = '力士';
+    imgLink[tt] = 'couponinfo.jsp?strid=<%=vctCoupons.get(2).getStrId() %>';
+    imgAlt[tt] = '<%out.print(vctCoupons.get(2).getStrName());}%>';
 
     tt = 4;
-    imgUrl[tt] = 'images/lan.jpg';
+    imgUrl[tt] = '../coupon/images/<% if(vctCoupons.size()>=4){
+    	out.print(vctCoupons.get(3).getStrSmallImg()); %>';
     imgtext[tt] = '<A HREF="#" TARGET="_blank" class="' + textLinkStyle + '"></A>';
-    imgLink[tt] = '#';
-    imgAlt[tt] = '兰缪';
+    imgLink[tt] = 'couponinfo.jsp?strid=<%=vctCoupons.get(3).getStrId() %>';
+    imgAlt[tt] = '<%out.print(vctCoupons.get(3).getStrName());}%>';
 
     tt = 5;
 
-    imgUrl[tt] = 'images/jifen.jpg';
+    imgUrl[tt] = '../coupon/images/<% if(vctCoupons.size()>=5){
+    	out.print(vctCoupons.get(4).getStrSmallImg()); %>';
     imgtext[tt] = '<A HREF="#" TARGET="_blank" class="' + textLinkStyle + '"></A>';
-    imgLink[tt] = '#';
-    imgAlt[tt] = '积分商户';
+    imgLink[tt] = 'couponinfo.jsp?strid=<%=vctCoupons.get(4).getStrId() %>';
+    imgAlt[tt] = '<%out.print(vctCoupons.get(4).getStrName());}%>';
 
     tt = 6;
-    imgUrl[tt] = 'images/chang.jpg';
+    imgUrl[tt] = '../coupon/images/<% if(vctCoupons.size()>=6){
+    	out.print(vctCoupons.get(5).getStrSmallImg()); %>';
     imgtext[tt] = '<A HREF="#" TARGET="_blank" class="' + textLinkStyle + '"></A>';
-    imgLink[tt] = '#';
-    imgAlt[tt] = '长风公园';
+    imgLink[tt] = 'couponinfo.jsp?strid=<%=vctCoupons.get(5).getStrId() %>';
+    imgAlt[tt] = '<%out.print(vctCoupons.get(5).getStrName());}%>';
 	
 /*  tt = 7;
     imgUrl[tt] = '../images/womaiwang.jpg';
@@ -200,3 +214,4 @@ name=__VIEWSTATE> </DIV>
 </SCRIPT>
 </body>
 </html>
+<%@ include file="../include/jsp/footer.jsp"%>
