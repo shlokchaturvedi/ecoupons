@@ -151,6 +151,15 @@ body,td,tr{font-size:9pt;}
                 <td width="45%" height="30" align="left" >
               &nbsp;</td>    
               </tr>
+               <tr>
+                 <td width="20%" height="30" align="right" class="left_txt2">是否推荐：</td>
+                <td width="3%">&nbsp;</td>
+                <td width="32%" height="30">
+                 <input type="radio" name="intType" checked="checked" value="0"  class="input_box">否
+                  <input type="radio" name="intType" value="1"  class="input_box"> 是
+                </td>
+                <td width="45%" height="30" class="left_txt">&nbsp;</td> 
+              </tr>
               <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">地		址：</td>
                 <td width="3%">&nbsp;</td>
