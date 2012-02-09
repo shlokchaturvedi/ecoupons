@@ -28,16 +28,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 String codeString = memberCardno.trim()+strId.trim()+Format.getDateTime();
 	 String md5Code = MD5.getMD5ofString(codeString);
 	 String strCouponCode = md5Code.substring(0,4)+md5Code.substring(md5Code.length()-5,md5Code.length()-1);
+ 	 float couponPrice = obj1.getFlaPrice();
+     int couponvip= obj1.getIntVip();	    
+	 Member member = new Member(globa);
+	 Member memberobj = member.show(" where strcardno='"+memberCardno+"'");
+     int membervip = memberobj.getIntType();
+	 float balance = memberobj.getFlaBalance();
+	 if(couponvip==1 && membervip ==0)
+	 {
+		out.print("<script>alert('您非VIP会员，无法打印Vip优惠券！');window.close();</script>");
+	 }
+	 if(couponPrice > balance)
+	 {
+		out.print("<script>alert('您的会员卡余额不足！请即使充值');window.close();</script>");
+	 }	 
  	 if(flag.equals("print"))
- 	 {		
- 	    Coupon coupon = new Coupon(globa);
-		Coupon objCoupon = coupon.show(" where strid='"+strId+"'");
-		float couponPrice = objCoupon.getFlaPrice();
-		Member member = new Member(globa);
-		float balance = member.getFlaBalance(memberCardno);
-		if(couponPrice <= balance)
-		{
-		   int k = member.setFlaBalance(memberCardno,balance-couponPrice);
+ 	 {	   int k = member.setFlaBalance(memberCardno,balance-couponPrice);
 		   CouponPrint obj = new CouponPrint(globa);
 	 	   String strCouponCode2 = ParamUtil.getString(request,"code");
 	 	   obj.setStrCreator("system");
@@ -46,14 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 	   obj.setStrMemberCardNo(memberCardno);
 	 	   obj.setStrTerminalId("system");
  	  	   boolean result = obj.add();		
- 	  	   out.print("<script>window.print();</script>");
-	
-		}
-		else
-		{
-			out.print("<script>alert('您的会员卡余额不足！请即使充值');window.close();</script>");
-		}
- 	  
+ 	  	   out.print("<script>window.print();</script>");	
  	 }
 	// System.out.println(codeString+":"+md5Code+":"+strCouponCode);
  %>
