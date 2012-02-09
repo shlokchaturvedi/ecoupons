@@ -35,7 +35,7 @@ eval("document.getElementById('sort_con_"+other+"').style.display='none'");
 
 </head>
 <body>
-<iframe height="130" border=0 marginwidth=0 marginheight=0 src="top.jsp" 
+<iframe height="130" border=0 marginwidth=0 marginheight=0 src="top.htm" 
 frameborder=no width="100%" scrolling=no></iframe>
 <!--正文部分-->
 <div class="content">
@@ -44,6 +44,8 @@ frameborder=no width="100%" scrolling=no></iframe>
  <DIV class=sortlogin>
 <DIV class=sortlogin_top>
 <H1><STRONG>会员登录</STRONG></H1></DIV>
+
+<!--会员登录显示 -->
 <DIV class=left-bar-mid>
   <P class=userbg><INPUT id=txt_username class=user value=账号/手机 onclick="document.getElementById('txt_username').value=''" type=text name=txt_username></P>
 <P class=passwordbg><INPUT id=txt_pwd class=password type=password name=txt_pwd></P>
@@ -52,6 +54,19 @@ frameborder=no width="100%" scrolling=no></iframe>
 class=change href="#" onclick="javascript:var dt=new Date();document.getElementById('code').src='../image.jsp?dt='+dt;">换一张图片</A><BR><INPUT id=btn_login class=loginBtn value="登 录" type=submit name=btn_login> 
 <INPUT class=regBtn value="注 册" type=button> 
 </DIV>
+<!--会员登录结束 -->
+
+<!--会员登录后切换显示 -->
+<DIV id=left-bar-mid2 >
+<p class=weluser><b>wqi</b>,欢迎回来</p>
+<p>我的余额：300元</p>
+<p>我的积分：2332分</p>
+<p><INPUT class=Btn value="我的收藏" type=submit> 
+<INPUT class=Btn value="历史记录" type=button> </p>
+</DIV> 
+<!--会员登录后结束 -->
+
+
 <DIV class=sortlogin_bottom></DIV>
 </div>
  
@@ -76,8 +91,16 @@ while(iterator.hasNext()){
 </div>
   	<form name=frm action="index.jsp">
   <div class="mid">
-	<DIV class=mid_xt><marquee behavior="scroll" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();"><img src="images/ig1.jpg" /><img src="images/ig2.jpg" /><img src="images/ig3.jpg" /><img src="images/ig4.jpg" /></marquee></DIV>
-  	<DIV class=jsadbox><!--切屏广告--><IFRAME height=200 marginHeight=0 src="homeimg.htm" frameBorder=0 width=535 marginWidth=0 scrolling=no></IFRAME></DIV>
+	<DIV class=mid_xt><marquee behavior="scroll" scrollamount="5" onmouseover="this.stop();" onmouseout="this.start();">
+	<%
+	Shop shop=new Shop(globa);
+    Vector<Shop> vctShops=shop.list("order by dtcreatetime  desc",1,10);
+    for(int i=0;i<vctShops.size();i++){
+    out.print("<a href='merchantsinfo.jsp?strid="+vctShops.get(i).getStrId()+"' target=_blank alt='"+vctShops.get(i).getStrBizName()+"'><img src='../shop/images/" +vctShops.get(i).getStrSmallImg() +"' width='99' height='44'  border='0' /></a>");
+    }
+	%>
+	</marquee></DIV>
+  	<DIV class=jsadbox><!--切屏广告--><IFRAME height=200 marginHeight=0 src="homeimg.jsp" frameBorder=0 width=535 marginWidth=0 scrolling=no></IFRAME></DIV>
 	<DIV class=mid_sj>
 		<div class="sj_tit">
 		  <div class="sj_name" >商家优惠信息</div>
@@ -111,10 +134,32 @@ while(iterator.hasNext()){
 		  %>
             
             
+           
             <tr>
-              <td height="26"><a href="#"><b>・&nbsp;商家名称 </b>商家优惠活动信息</a></td>
-              <td><a href="#"><b>・&nbsp;商家名称 </b>商家优惠活动信息</a></td>
+              <td height="26"><a id="abc1" href="#"><b>・&nbsp;商家名称</b></a></td>
+              <td><a id="abc2" href="#"><b>・&nbsp;商家名称 </b>商家优惠活动信息</a></td>
             </tr>
+            <tr>
+              <td height="26"><a id="abc3" href="#"><b>・&nbsp;商家名称</b></a></td>
+              <td><a id="abc4" href="#"><b>・&nbsp;商家名称 </b>商家优惠活动信息</a></td>
+            </tr>
+            <tr>
+              <td height="26"><a id="abc5" href="#"><b>・&nbsp;商家名称</b></a></td>
+              <td><a id="abc6" href="#"><b>・&nbsp;商家名称 </b>商家优惠活动信息</a></td>
+            </tr>
+            <tr>
+              <td height="26"><a id="abc7" href="#"><b>・&nbsp;商家名称</b></a></td>
+              <td><a id="abc8" href="#"><b>・&nbsp;商家名称 </b>商家优惠活动信息</a></td>
+            </tr>
+            <tr>
+              <td height="26"><a id="abc9" href="#"><b>・&nbsp;商家名称</b></a></td>
+              <td><a id="abc10" href="#"><b>・&nbsp;商家名称 </b>商家优惠活动信息</a></td>
+            </tr>
+            <tr>
+              <td height="26"><a id="abc11" href="#"><b>・&nbsp;商家名称</b></a></td>
+              <td><a id="abc12" href="#"><b>・&nbsp;商家名称 </b>商家优惠活动信息</a></td>
+            </tr>
+            
           </table>
 		</div>
 	</DIV>
@@ -192,15 +237,9 @@ for(int i=0;i<8;i++){
 	<UL>
 	<%
 	CouponComment couponComment=new CouponComment(globa);
-	Vector<CouponComment> vctCouponComment=couponComment.list("",0,0);
-	if(vctCouponComment.size()>6){
-		for(int i=0;i<6;i++){
-			out.print("<LI>・<A href='#'>"+vctCouponComment.get(i).getStrComment()+"</A></LI>");
-		}
-	}else{
+	Vector<CouponComment> vctCouponComment=couponComment.list("",1,6);
 		for(int i=0;i<vctCouponComment.size();i++){
 			out.print("<LI>・<A href='#'>"+vctCouponComment.get(i).getStrComment()+"</A></LI>");
-		}
 	}
 	%>
 	  
@@ -217,3 +256,4 @@ for(int i=0;i<8;i++){
 frameborder=no width="100%" scrolling=no></iframe>
 </body>
 </html>
+<%@ include file="../include/jsp/footer.jsp"%>
