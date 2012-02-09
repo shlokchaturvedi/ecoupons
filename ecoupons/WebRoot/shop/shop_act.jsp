@@ -65,6 +65,7 @@
 	    obj.setStrPhone(au.getString("strPhone"));
 	    obj.setStrPerson(au.getString("strPerson"));
 	    obj.setStrIntro(au.getString("strIntro"));
+	    obj.setIntType(Integer.parseInt(au.getString("intType")));
 	    obj.setStrSmallImg(strSmallImg);
 	    obj.setStrLargeImg(strLargeImg);
 		obj.setIntPoint(Integer.parseInt(au.getString("intPoint")));
