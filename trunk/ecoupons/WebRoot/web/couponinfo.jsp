@@ -46,7 +46,7 @@
 if(obj0.getStrLargeImg()!=null && obj0.getStrLargeImg().length()>0)
 {
 	%>
-	<IMG id=cps_image src="../coupon/images/"+<%=obj0.getStrLargeImg()%> width=340 height=218>
+	<IMG id=cps_image src=<%="../coupon/images/"+obj0.getStrLargeImg()%> width=340 height=218>
 	<%
 }
 else{
