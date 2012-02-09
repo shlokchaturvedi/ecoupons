@@ -196,8 +196,3 @@ A:hover {
 .card_bottom {
 	WIDTH: 328px; BACKGROUND: url(../images/card_bottom.gif) no-repeat; HEIGHT: 14px
 }
-
-.pageSide {
-	MARGIN: 10px 0px; WIDTH: 570px; HEIGHT: 42px; text-align: right;
-}
-.pageipt{ background-color:#FFFFFF; border:1px solid #999999;}
