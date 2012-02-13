@@ -234,7 +234,7 @@ body,td,tr{font-size:9pt;}
                  <%
                 if (obj0.getStrSmallImg().length() > 0) {
                 %>
-                  <img src="<%="images/" + obj0.getStrSmallImg() %>" width=<%=application.getAttribute("COUPON_SMALL_IMG_WIDTH") %> height=<%=application.getAttribute("COUPON_SMALL_IMG_HEIGHT") %>/><br>
+                  <img src="<%="images/" + obj0.getStrSmallImg()+"?random="+Math.random() %>" width=<%=application.getAttribute("COUPON_SMALL_IMG_WIDTH") %> height=<%=application.getAttribute("COUPON_SMALL_IMG_HEIGHT") %> alt="小图片"/><br>
                 <%
                 }
                 %>  </td>  
@@ -256,7 +256,7 @@ body,td,tr{font-size:9pt;}
                 <%
                 if (obj0.getStrLargeImg().length() > 0) {
                 %>
-                  <img src="<%="images/" + obj0.getStrLargeImg() %>" width=<%=application.getAttribute("COUPON_LARGE_IMG_WIDTH") %> height=<%=application.getAttribute("COUPON_LARGE_IMG_HEIGHT") %>/><br>
+                  <img alt="大图片" src="<%="images/" + obj0.getStrLargeImg()+"?random="+Math.random() %>" width=<%=application.getAttribute("COUPON_LARGE_IMG_WIDTH") %> height=<%=application.getAttribute("COUPON_LARGE_IMG_HEIGHT") %>/><br>
                 <%
                 }
                 %> 
@@ -278,7 +278,7 @@ body,td,tr{font-size:9pt;}
                 <%
                 if (obj0.getStrPrintImg().length() > 0) {
                 %>
-                  <img src="<%="images/" + obj0.getStrPrintImg() %>" width=<%=application.getAttribute("COUPON_PRINT_IMG_WIDTH") %> height=<%=application.getAttribute("COUPON_PRINT_IMG_HEIGHT") %>/><br>
+                  <img alt="打印图片" src="<%="images/" + obj0.getStrPrintImg()+"?random="+Math.random() %>" width=<%=application.getAttribute("COUPON_PRINT_IMG_WIDTH") %> height=<%=application.getAttribute("COUPON_PRINT_IMG_HEIGHT") %>/><br>
                 <%
                 }
                 %> 

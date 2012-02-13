@@ -57,30 +57,31 @@
 		
 		if (au.getFileName(0).length() > 0)
 		{
-			strSmallImg =au.saveFile(strFilePath,strId+"_"+"2", 0);
 			if (action.equals(Constants.UPDATE_STR) && obj0.getStrSmallImg() != null && obj0.getStrSmallImg().length() > 0)
 			{
 				File f = new File(strFilePath + obj0.getStrSmallImg());
 				f.delete();
 			}
+			strSmallImg =au.saveFile(strFilePath,strId+"_"+"2", 0);
 		}
 		if (au.getFileName(1).length() > 0)
 		{
-			strLargeImg =au.saveFile(strFilePath,strId+"_"+"1", 1);
 			if (action.equals(Constants.UPDATE_STR) && obj0.getStrLargeImg()!= null && obj0.getStrLargeImg().length() > 0)
 			{
 				File f = new File(strFilePath + obj0.getStrLargeImg());
 				f.delete();
+				
 			}
+			strLargeImg =au.saveFile(strFilePath,strId+"_"+"1", 1);
 		}
 		if (au.getFileName(2).length() > 0)
 		{
-			strPrintImg =au.saveFile(strFilePath,strId+"_"+"3", 2);
 			if (action.equals(Constants.UPDATE_STR) && obj0.getStrPrintImg().length() > 0  && obj0.getStrPrintImg()!= null )
 			{
 				File f = new File(strFilePath + obj0.getStrPrintImg());
 				f.delete();
 			}
+			strPrintImg =au.saveFile(strFilePath,strId+"_"+"3", 2);
 		}
 		//赋值
 		obj.setStrId(strId);
