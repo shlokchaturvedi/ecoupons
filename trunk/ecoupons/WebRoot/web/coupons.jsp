@@ -26,7 +26,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
 <link href="css/style.css" rel="stylesheet" type="text/css" />
-<link href="css/merchants.css" rel="stylesheet" type="text/css" />
 <title>优惠券</title>
   
 </head>
