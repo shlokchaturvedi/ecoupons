@@ -61,6 +61,8 @@ eval("document.getElementById('clay0_"+index+"').style.display='none'");
 		<li><a href="coupons.jsp" target="_parent"><img src="images/nav_2.jpg" border="0" /></a></li>
 		<li><a href="merchants.jsp" target="_parent"><img src="images/nav_3.jpg" border="0" /></a></li>
 		<li><a href="gift.jsp" target="_parent"><img src="images/nav_4.jpg" border="0" /></a></li>
+		<li><a href="terminals.jsp" target="_parent"><img src="images/nav_3.jpg" border="0" /></a></li>
+		<li><a href="vips.jsp" target="_parent"><img src="images/nav_4.jpg" border="0" /></a></li>
 		<li></li>
 		<li class="nav_ri"><img src="images/nav_ri.jpg" /></li>
 
