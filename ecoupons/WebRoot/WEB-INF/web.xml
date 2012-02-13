@@ -147,6 +147,10 @@
 			<param-value>/servlet/</param-value>
 		</init-param>
 		<init-param>
+			<param-name>nocheck_page</param-name>
+			<param-value>/web/</param-value>
+		</init-param>
+		<init-param>
 			<param-name>uncheck</param-name>
 			<param-value>image.jsp</param-value>
 		</init-param>
