@@ -35,7 +35,7 @@ eval("document.getElementById('sort_con_"+other+"').style.display='none'");
 
 </head>
 <body>
-<iframe height="130" border=0 marginwidth=0 marginheight=0 src="top.htm" 
+<iframe height="130" border=0 marginwidth=0 marginheight=0 src="top.jsp" 
 frameborder=no width="100%" scrolling=no></iframe>
 <!--正文部分-->
 <div class="content">
@@ -46,24 +46,25 @@ frameborder=no width="100%" scrolling=no></iframe>
 <H1><STRONG>会员登录</STRONG></H1></DIV>
 
 <!--会员登录显示 -->
+<form ACTION="<%=application.getServletContextName()%>/Auth">
+<input type="hidden" name="actiontype" value="logon" />
+<input type="hidden" name="screensize" value=""/>
+<input type="hidden" name="authType" value="password"/>
+
 <DIV class=left-bar-mid>
-  <P class=userbg><INPUT id=txt_username class=user value=账号/手机 onclick="document.getElementById('txt_username').value=''" type=text name=txt_username></P>
-<P class=passwordbg><INPUT id=txt_pwd class=password type=password name=txt_pwd></P>
+<P class=userbg><INPUT id=txt_username class=user value=账号/手机 onclick="document.getElementById('txt_username').value=''" type=text name=username></P>
+<P class=passwordbg><INPUT id=txt_pwd class=password type=password name=password></P>
 <DIV class="floatR"><IMG id=code border=0 name=checkcode alt=验证码  align=absMiddle src="../image.jsp" width=60 height=18></DIV>
-<P class=numberbg><INPUT id=txt_yzm class="number floatL" type=text name=txt_yzm></P><A class=forget href="#">忘记密码了？</A>&nbsp;&nbsp;<A 
-class=change href="#" onclick="javascript:var dt=new Date();document.getElementById('code').src='../image.jsp?dt='+dt;">换一张图片</A><BR><INPUT id=btn_login class=loginBtn value="登 录" type=submit name=btn_login> 
+<P class=numberbg><INPUT id=txt_yzm class="number floatL" type=text name=yanzm></P><A class=forget href="#">忘记密码了？</A>&nbsp;&nbsp;<A 
+class=change href="#" onclick="javascript:var dt=new Date();document.getElementById('code').src='../image.jsp?dt='+dt;">换一张图片</A><BR>
+<INPUT id=btn_login class=loginBtn value="登 录" type=submit name=btn_login> 
 <INPUT class=regBtn value="注 册" type=button> 
 </DIV>
+</form>
 <!--会员登录结束 -->
 
 <!--会员登录后切换显示 -->
-<DIV id=left-bar-mid2 >
-<p class=weluser><b>wqi</b>,欢迎回来</p>
-<p>我的余额：300元</p>
-<p>我的积分：2332分</p>
-<p><INPUT class=Btn value="我的收藏" type=submit> 
-<INPUT class=Btn value="历史记录" type=button> </p>
-</DIV> 
+
 <!--会员登录后结束 -->
 
 
