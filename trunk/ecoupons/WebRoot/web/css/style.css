@@ -108,7 +108,7 @@ A:hover {
 .list_hot {
 	FLOAT: left;display:inline; MARGIN: 10px 2px 5px 0px; BACKGROUND-IMAGE: url(../images/zhe.png); WIDTH: 75px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 75px; TEXT-ALIGN: center; padding:0px;}
 	
-.line { MARGIN: 15px 5px 5px 20px; WIDTH: 220px}
+.line { MARGIN: 15px 5px 5px 15px; WIDTH: 220px}
 
 .list_bar {	MARGIN: 4px auto; WIDTH: 220px; padding:0px; text-align:center; height:30px;}
 .list_bar UL {WIDTH: 220px; padding:0px; margin:0px;}
