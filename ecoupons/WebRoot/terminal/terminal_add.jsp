@@ -89,7 +89,7 @@ function openwin() {
 </head>
 
 <body>
-<form name="frm" method="post" action="terminal_act.jsp" >
+<form name="frm" method="post" action="terminal_act.jsp" enctype="multipart/form-data" >
 <input type="hidden" name="<%=Constants.ACTION_TYPE%>" value="<%=Constants.ADD_STR%>" />
 <table width="100%" border="0" cellpadding="0" cellspacing="0">  <tr>
     <td width="17" height="29" valign="top" background="../images/mail_leftbg.gif"><img src="../images/left-top-right.gif" width="17" height="29" /></td>
@@ -213,6 +213,12 @@ function openwin() {
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30"><input name="strAroundShops" type="text" class="input_box" readonly onclick="openwin()" size="30"/><input type="button" value="..." onclick="openwin()" /></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
+              </tr>
+                <tr>
+                <td height="30" align="right" class="left_txt2">图            片：</td>
+                <td>&nbsp;</td>
+                <td height="30"><input name="strImage" type="file" class="input_box" size="30" /></td>
+                <td height="30" class="left_txt">（大小：<%=application.getAttribute("SHOP_SMALL_IMG_WIDTH") %>*<%=application.getAttribute("SHOP_SMALL_IMG_HEIGHT") %>px，用于前台列表显示）</td>
               </tr>
               <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">主屏分辨率：</td>
