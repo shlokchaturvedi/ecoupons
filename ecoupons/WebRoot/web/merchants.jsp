@@ -37,7 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	int intCurPage=globa.getIntCurPage();
     //每页记录数
 	//int intPageSize=globa.getIntPageSize();
-	int intPageSize=5;
+	int intPageSize=6;
 	//共有页数
  	int intPageCount=(intAllCount-1)/intPageSize+1;
 	// 循环显示一页内的记录 开始序号
@@ -109,13 +109,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <%
                 if (obj1.getStrSmallImg().length() > 0) {
                 %>
-                  <img src="<%="../shop/images/" + obj1.getStrSmallImg() %>" width=<%=application.getAttribute("SHOP_SMALL_IMG_WIDTH") %> height=<%=application.getAttribute("SHOP_SMALL_IMG_HEIGHT") %>/>
+                  <img src="<%="../shop/images/" + obj1.getStrSmallImg() %>" width=112 height=110 border="0" />
                 <%
                 }
                 else
                 {
                 %>
-                 <img src="../shop/images/temp.jpg" width=<%=application.getAttribute("SHOP_SMALL_IMG_WIDTH") %> height=<%=application.getAttribute("SHOP_SMALL_IMG_HEIGHT") %>/>
+                 <img src="../shop/images/temp.jpg" width=112 height=110 border="0" />
                  <%} %>
 </a></div>
 <div class=pro_info>
