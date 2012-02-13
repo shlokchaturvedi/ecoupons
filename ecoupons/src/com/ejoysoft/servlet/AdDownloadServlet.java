@@ -38,7 +38,7 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 		this.execute(req, resp);
 	}
 
-	private void execute(HttpServletRequest req, HttpServletResponse resp)
+	private void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException
 	{
 		// TODO Auto-generated method stub
 		StringBuffer sbReturn = new StringBuffer("<?xml version='1.0' encoding='utf-8'?> ");
@@ -49,19 +49,13 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			try
-			{
-				resp.getWriter().print(sbReturn.toString());
-			} catch (IOException e1)
-			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			sbReturn.append("<return>error</return>");
+			resp.getWriter().print(sbReturn.toString());
 		}
 		Globa globa = new Globa();
 		resp.setCharacterEncoding("utf-8");
 		String strTerminalNo = req.getParameter("strTerminalNo");
-//		 String strTerminalNo = "23";
+		// String strTerminalNo = "23";
 		HashMap<String, Terminal> hmTerminal = Terminal.hmTerminal;
 		Terminal terminal = hmTerminal.get(strTerminalNo);
 		if (terminal != null)
@@ -137,9 +131,18 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 					{
 						sbReturn.append("</ads>");
 					}
+				} else
+				{
+					sbReturn.append("null");
 				}
 				sbReturn.append("</info>");
+			} else
+			{
+				sbReturn.append("<return>update_error</return>");
 			}
+		} else
+		{
+			sbReturn.append("<return>terminal_error</return>");
 		}
 		try
 		{
@@ -148,9 +151,12 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally
+		{
+			// 关闭数据库连接对象
+			globa.closeCon();
+			resp.getWriter().println(sbReturn.toString());
 		}
-		// 关闭数据库连接对象
-		globa.closeCon();
 	}
 
 	/**
@@ -159,44 +165,19 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 	 * @param tempTerminal
 	 * @return
 	 */
-	// private StringBuffer returnSbContent(Terminal tempTerminal, String
-	// strFileAddr)
+
 	private StringBuffer returnSbContent(Terminal tempTerminal)
 	{
-
-		// String strContent = "";
-		// StringBuffer sbContent=new StringBuffer("");
+		StringBuffer sbContent = new StringBuffer("");
 		StringBuffer sbReturnContent = new StringBuffer();
-		//
-		// if ("1".equals(tempTerminal.getIntType()) &&
-		// tempTerminal.getStrContent() != null && tempTerminal.getStrContent()
-		// != "")//视频文件
-		// {
-		// sbContent.append(Base64.getPicBASE64(strFileAddr +
-		// tempTerminal.getStrContent()));
-		// } else
-		// if ("2".equals(tempTerminal.getIntType()) &&
-		// tempTerminal.getStrContent() != null && tempTerminal.getStrContent()
-		// != "")//图片文件,可能有多个
-		// {
-		// String[]strContentNames=tempTerminal.getStrContent().split(",");
-		// for (int i = 0; i < strContentNames.length; i++)
-		// {
-		// sbContent.append(Base64.getPicBASE64(strFileAddr +
-		// strContentNames[i]));
-		// }
-		// }
 		sbReturnContent.append("<ad>");
 		sbReturnContent.append("<strId>" + tempTerminal.getStrId() + "</strId>");
 		sbReturnContent.append("<strName>" + tempTerminal.getStrName() + "</strName>");
 		sbReturnContent.append("<intType>" + tempTerminal.getIntType() + "</intType>");
 		sbReturnContent.append("<strContent>" + tempTerminal.getStrContent() + "</strContent>");
-		// sbReturnContent.append("<strFileContent>" + sbContent.toString() +
-		// "</strFileContent>");
 		sbReturnContent.append("<dtStartTime>" + tempTerminal.getDtStartTime() + "</dtStartTime>");
 		sbReturnContent.append("<dtEndTime>" + tempTerminal.getDtEndTime() + "</dtEndTime>");
 		sbReturnContent.append("</ad>");
-
 		return sbReturnContent;
 	}
 
