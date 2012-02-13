@@ -19,15 +19,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     SysPara syspara = new SysPara(globa);
     String  strName=ParamUtil.getString(request,"strName2","");
     //查询条件
-	String tWhere=" where 1=1";
+	String tWhere=" where 1=1 and a.intvip='1' ";
 	if(!strName.equals(""))
 	{
 		tWhere += " and a.strname like'%" + strName + "%'";
-	}
-    String  strTrade=ParamUtil.getString(request,"strtrade","");
-	if(!strTrade.equals(""))
-	{
-		tWhere += " and b.strtrade='" + strTrade + "'";
 	}
 	tWhere+=" order by a.dtcreatetime";
 	//获取到当前页面的记录集
@@ -53,19 +48,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	HashMap<String,Vector<Coupon>> vctobj = obj.getCouponsByClassfiction();	
 	SysPara para=new SysPara(globa);
     ArrayList tradelist = para.list("商家行业");
-    System.out.println(strName+":DDDDDDDDDDDDDDDDDDDDDDDDDDDDD"+strTrade);
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>更多优惠券</title>
+<title>VIP专区</title>
 <link href="css/merchants.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
-<form name=frm method=post action="coupons_more.jsp">		
-<input type=hidden name=strtrade value="<%=strTrade%>" />
+<form name=frm method=post action="coupons_more.jsp">	
 <input type=hidden name=strname value="<%=strName%>" />
 &nbsp; 
 <iframe height="130" marginwidth=0 marginheight=0 src="top.jsp" frameborder=0 width="100%" scrolling=no></iframe>
@@ -77,21 +70,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  <div class=hotList>
  
 	<div class=hotList_top>
-		<div class="hotList_sf"> <%
-	   if(!strName.equals(""))
-	   {
-	   %>优惠券列表<%="(关于'"+strName+"'的查询结果)"%>
-	   <%
-	   }else if(!strTrade.equals(""))
-	   {
-	   %>优惠券列表<%="("+syspara.getNameById(strTrade)+")"%>
-	   <%
-	   }else
-	   {
-	   %>优惠券列表<%="(所有)"%>
-	   <%
-	   }
-	   %></div>
+		<div class="hotList_sf"> 优惠券列表（VIP专区）
+	  </div>
 <div class=more>
 <table>
   <tbody>
