@@ -27,8 +27,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 Coupon obj1 = coupobj.show(" where strid='"+strId+"'");
 	 String codeString = memberCardno.trim()+strId.trim()+Format.getDateTime();
 	 String md5Code = MD5.getMD5ofString(codeString);
-	 String strCouponCode = md5Code.substring(0,4)+md5Code.substring(md5Code.length()-5,md5Code.length()-1);
+	 String strCouponCode ="",strCouponCode3 ="";
  	 float couponPrice = obj1.getFlaPrice();
+ 	 if(couponPrice>0)
+ 	 {
+ 		 strCouponCode = md5Code.substring(0,4)+md5Code.substring(md5Code.length()-5,md5Code.length()-1);
+ 	 	 strCouponCode3="验证码："+strCouponCode;
+ 	 }
      int couponvip= obj1.getIntVip();	    
 	 Member member = new Member(globa);
 	 Member memberobj = member.show(" where strcardno='"+memberCardno+"'");
@@ -97,7 +102,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    	<td colspan="2" width=100% ><img src="web/images/show_line.gif" width=400 height=5 /></td>
    </tr>
    <tr>
-   	<td height=50 colspan="2"><font size="5">验证码：<%=strCouponCode%></font></td>
+   	<td height=50 colspan="2"><font size="5"><%=strCouponCode3%></font></td>
    </tr>
    <tr>
    	<td>
