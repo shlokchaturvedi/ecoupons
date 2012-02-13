@@ -30,7 +30,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		tWhere += " and b.strtrade='" + strTrade + "'";
 	}
 	tWhere+=" order by dtcreatetime";
-	
 	//获取到当前页面的记录集
 	Vector<Coupon> vctObj1=coupobj.listByTrade(tWhere,0,0);	
 	//记录总数
