@@ -105,10 +105,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  </table>
 </div>
 </div>
-
-
-    <div class=hotList_mid>
-    
+<div class=hotList_mid>    
 <ul>
 <% for(int i = 0;i < vctObj.size(); i++) {
        Coupon obj1 = vctObj.get(i);%>
@@ -140,7 +137,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      String shopname = objshop.returnBizShopName(" where strid='"+obj1.getStrShopId()+"'");
     %>
    <a href="merchantsinfo.jsp?strid=<%=obj1.getStrShopId() %>" target="_blank" ><%=shopname %>&nbsp;</a> </span> </p>
-  <div class=line><img src="images/line.gif" /></div>
+  <div class=line><img src="images/line.gif"/></div>
   <div class=list_bar>
   <ul>
     <li><a href="#" onclick="window.open('coupon_print.jsp?random=<%= Math.random()%>&strid=<%=obj1.getStrId()%>&strimg=<%=obj1.getStrPrintImg()%>','','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,width=420,height=540,left=450,top=160');"><img src="images/print.jpg" border="0" style="CURSOR: pointer" /> 打印</a></li>
