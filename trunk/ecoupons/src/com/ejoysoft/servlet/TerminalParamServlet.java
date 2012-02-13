@@ -35,66 +35,59 @@ public class TerminalParamServlet extends HttpServlet
 		this.execute(req, resp);
 	}
 
-	private void execute(HttpServletRequest req, HttpServletResponse resp)
+	private void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException
 	{
 		StringBuffer sbReturn = new StringBuffer("<?xml version='1.0' encoding='utf-8'?> ");
-		try
-		{
-			req.setCharacterEncoding("utf-8");
-		} catch (UnsupportedEncodingException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			try
-			{
-				resp.getWriter().print(sbReturn.toString());
-			} catch (IOException e1)
-			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		}
 		Globa globa = new Globa();
-		resp.setCharacterEncoding("utf-8");
-		 String strTerminalNo = req.getParameter("strTerminalNo");
-//		String strTerminalNo = "21";
-		HashMap<String, Terminal> hmTerminal = Terminal.hmTerminal;
-		Terminal terminal = new Terminal(globa);// 用于刷新终端状态
-		if (hmTerminal.get(strTerminalNo) != null)
-		{
-			String strId = hmTerminal.get(strTerminalNo).getStrId();
-			TerminalPara terminalParam = new TerminalPara(globa);
-			Vector<TerminalPara> vctParas = new Vector<TerminalPara>();
-			vctParas = terminalParam.list("", 0, 0);
-			if (terminal.updateState(strId, "t_bz_terminal_param"))
+		try{
+			req.setCharacterEncoding("utf-8");
+			resp.setCharacterEncoding("utf-8");
+			 String strTerminalNo = req.getParameter("strTerminalNo");
+	//		String strTerminalNo = "21";
+			HashMap<String, Terminal> hmTerminal = Terminal.hmTerminal;
+			Terminal terminal = new Terminal(globa);// 用于刷新终端状态
+			if (hmTerminal.get(strTerminalNo) != null)
 			{
-				sbReturn.append("<params>");
-				if (vctParas.size() > 0)
+				String strId = hmTerminal.get(strTerminalNo).getStrId();
+				TerminalPara terminalParam = new TerminalPara(globa);
+				Vector<TerminalPara> vctParas = new Vector<TerminalPara>();
+				vctParas = terminalParam.list("", 0, 0);
+				if (terminal.updateState(strId, "t_bz_terminal_param"))
 				{
-					for (int i = 0; i < vctParas.size(); i++)
+					sbReturn.append("<params>");
+					if (vctParas.size() > 0)
 					{
-						sbReturn.append("<param>");
-						sbReturn.append("<strId>" + vctParas.get(i).getStrId() + "</strId>");
-						sbReturn.append("<strParamName>" + vctParas.get(i).getStrParamName() + "</strParamName>");
-						sbReturn.append("<strParamValue>" + vctParas.get(i).getStrParamValue() + "</strParamValue>");
-						sbReturn.append("</param>");
+						for (int i = 0; i < vctParas.size(); i++)
+						{
+							sbReturn.append("<param>");
+							sbReturn.append("<strId>" + vctParas.get(i).getStrId() + "</strId>");
+							sbReturn.append("<strParamName>" + vctParas.get(i).getStrParamName() + "</strParamName>");
+							sbReturn.append("<strParamValue>" + vctParas.get(i).getStrParamValue() + "</strParamValue>");
+							sbReturn.append("</param>");
+						}
 					}
+					else {
+						sbReturn.append("<params>noparam</params>");
+					}
+					sbReturn.append("</params>");
+	
 				}
-				sbReturn.append("</params>");
-
+				else {
+					sbReturn.append("<params>updatestate_erro</params>");
+				}
 			}
-		}
-		try
-		{
-			resp.getWriter().print(sbReturn.toString());
-		} catch (IOException e)
+			else {
+				sbReturn.append("<params>terminal_erro</params>");
+			}
+		} catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-
+			sbReturn.append("<params>erro</params>");
+		}finally {			
+			globa.closeCon();
+			resp.getWriter().println(sbReturn.toString());
 		}
-		// 关闭数据库连接对象
-		globa.closeCon();
 	}
 
 }
