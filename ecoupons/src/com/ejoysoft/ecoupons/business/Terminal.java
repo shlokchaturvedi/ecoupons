@@ -37,8 +37,7 @@ public class Terminal
 	{
 		this.globa = globa;
 		db = globa.db;
-		if (b)
-			globa.setDynamicProperty(this);
+		if (b) globa.setDynamicProperty(this);
 	}
 
 	static String strTableName = "t_bz_terminal";
@@ -136,8 +135,8 @@ public class Terminal
 			db.setAutoCommit(false);
 			// 添加券打机信息
 			strSql = "insert into " + strTableName + "  (strid, strno, dtactivetime, strlocation,straroundshopids,strproducer, strtype, "
-					+ "strresolution, strresolution2, strresolution3,intstate,dtrefreshtime, strcreator, dtcreatetime,intpaperstate)"
-					+ " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+					+ "strresolution, strresolution2, strresolution3,intstate,dtrefreshtime, strcreator, dtcreatetime,intpaperstate,strimage)"
+					+ " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			db.prepareStatement(strSql);
 			db.setString(1, strId);
 			db.setString(2, strNo);
@@ -154,6 +153,7 @@ public class Terminal
 			db.setString(13, strCreator);
 			db.setString(14, com.ejoysoft.common.Format.getDateTime());
 			db.setInt(15, 0);
+			db.setString(16, strImage);
 			if (db.executeUpdate() > 0)
 			{
 				for (int i = 0; i < vctShops.size(); i++)
@@ -241,7 +241,11 @@ public class Terminal
 		{
 			// System.out.println("where strbizname='"+strAroundShops+"' and strshopname='"+getAroundShopIds(strAroundShops)+"'");
 			String strSql = "update " + strTableName + "  set strno=?, dtactivetime=?, strlocation=?,strAroundShopIds=?, strproducer=?, strtype=?, "
-					+ "strresolution=?, strresolution2=?, strresolution3=? where strid=? ";
+					+ "strresolution=?, strresolution2=?, strresolution3=?," ;
+		    if (this.strImage!=null&&this.strImage.length() > 0) {
+            	strSql += "strimage = '" + strImage + "' ";
+            }
+		    strSql += " where strid=? ";
 			db.prepareStatement(strSql);
 			db.setString(1, strNo);
 			db.setString(2, com.ejoysoft.common.Format.getStrDate2(dtActiveTime));
@@ -308,6 +312,7 @@ public class Terminal
 			theBean.setStrResolution(rs.getString("strresolution"));
 			theBean.setStrResolution2(rs.getString("strresolution2"));
 			theBean.setStrResolution3(rs.getString("strresolution3"));
+			theBean.setStrImage(rs.getString("strimage"));
 			theBean.setIntState(rs.getInt("intstate"));
 			theBean.setIntPaperState(rs.getInt("intPaperState"));
 			if (rs.getInt("intstate") == -1)
@@ -872,6 +877,7 @@ public class Terminal
 	private String strProducerName;// 生产厂家
 	private String strType;// 规格型号
 	private String strTypeName;// 规格型号
+	private String strImage;// 规格型号
 	private String strResolution;// 主屏分辨率
 	private String strResolution2;// 主屏分辨率2
 	private String strResolution3;// 主屏分辨率3
@@ -906,6 +912,14 @@ public class Terminal
 	public DbConnect getDb()
 	{
 		return db;
+	}
+
+	public String getStrImage() {
+		return strImage;
+	}
+
+	public void setStrImage(String strImage) {
+		this.strImage = strImage;
 	}
 
 	public String getStrProducerName()
