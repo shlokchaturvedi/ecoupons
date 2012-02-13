@@ -17,67 +17,62 @@ import com.ejoysoft.ecoupons.business.Terminal;
 
 public class PrintAlertServlet extends HttpServlet
 {
-public PrintAlertServlet()
-{
-	// TODO Auto-generated constructor stub
-}
-@Override
+	public PrintAlertServlet()
+	{
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
 	{
 		// TODO Auto-generated method stub
-	this.execute(req, resp);
+		this.execute(req, resp);
 	}
-@Override
+
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
 	{
 		// TODO Auto-generated method stub
 		this.execute(req, resp);
 	}
-private void execute(HttpServletRequest req, HttpServletResponse resp)
-{
-	StringBuffer sbReturn = new StringBuffer("<?xml version='1.0' encoding='utf-8'?> ");
-	try
+
+	private void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException
 	{
+		StringBuffer sbReturn = new StringBuffer("<?xml version='1.0' encoding='utf-8'?> ");
 		req.setCharacterEncoding("utf-8");
-	} catch (UnsupportedEncodingException e)
-	{
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+		Globa globa = new Globa();
+		resp.setCharacterEncoding("utf-8");
+		String strTerminalNo = req.getParameter("strTerminalNo");
+		HashMap<String, Terminal> hmTerminal = Terminal.hmTerminal;
+		Terminal terminal = hmTerminal.get(strTerminalNo);
+		if (terminal != null)
+		{
+			Terminal terminal2 = new Terminal(globa);
+			String strId = terminal.getStrId();
+			if (terminal2.updatePrintPaperState(strId, 1))// 1代表该终端现在缼纸
+			{
+				sbReturn.append("<return>OK</return>");
+			} else
+			{
+				sbReturn.append("<return>error</return>");
+			}
+		} else
+		{
+			sbReturn.append("<return>terminal_error</return>");
+		}
 		try
 		{
-			resp.getWriter().print(sbReturn.toString());
-		} catch (IOException e1)
+			resp.getWriter().println(sbReturn.toString());
+		} catch (IOException e)
 		{
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	}
-	Globa globa = new Globa();
-	resp.setCharacterEncoding("utf-8");
-	String strTerminalNo = req.getParameter("strTerminalNo");
-	HashMap<String, Terminal> hmTerminal = Terminal.hmTerminal;
-	Terminal terminal = hmTerminal.get(strTerminalNo);
-	if(terminal!=null)
-	{
-		Terminal terminal2 = new Terminal(globa);
-		String strId = terminal.getStrId();
-		if (terminal2.updatePrintPaperState(strId,1))//1代表该终端现在缼纸
-		{			
-			sbReturn.append("<return>OK</return>");		
-		}
-	}	
-	try
-	{
-		resp.getWriter().println(sbReturn.toString());
-	} catch (IOException e)
-	{
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+			e.printStackTrace();
 
+		} finally
+		{
+			// 关闭数据库连接对象
+			globa.closeCon();
+			resp.getWriter().println(sbReturn.toString());
+		}
 	}
-	
-	// 关闭数据库连接对象
-	globa.closeCon();
-	
-}
 }

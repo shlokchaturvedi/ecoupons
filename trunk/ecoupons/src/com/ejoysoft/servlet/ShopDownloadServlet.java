@@ -39,26 +39,11 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 		this.execute(req, resp);
 	}
 
-	private void execute(HttpServletRequest req, HttpServletResponse resp)
+	private void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException
 	{
 		// TODO Auto-generated method stub
 		StringBuffer sbReturn = new StringBuffer("<?xml version='1.0' encoding='utf-8'?> ");
-		try
-		{
-			req.setCharacterEncoding("utf-8");
-		} catch (UnsupportedEncodingException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			try
-			{
-				resp.getWriter().print(sbReturn.toString());
-			} catch (IOException e1)
-			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		}
+		req.setCharacterEncoding("utf-8");
 		Globa globa = new Globa();
 		resp.setCharacterEncoding("utf-8");
 		String strTerminalNo = req.getParameter("strTerminalNo");
@@ -176,9 +161,18 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 					{
 						sbReturn.append("</shops>");
 					}
+				} else
+				{
+					sbReturn.append("null");
 				}
 				sbReturn.append("</info>");
+			} else
+			{
+				sbReturn.append("<return>update_error</return>");
 			}
+		} else
+		{
+			sbReturn.append("<return>terminal_error</return>");
 		}
 		try
 		{
@@ -188,9 +182,12 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 
+		} finally
+		{
+			// 关闭数据库连接对象
+			globa.closeCon();
+			resp.getWriter().println(sbReturn.toString());
 		}
-		// 关闭数据库连接对象
-		globa.closeCon();
 	}
 
 	/**
