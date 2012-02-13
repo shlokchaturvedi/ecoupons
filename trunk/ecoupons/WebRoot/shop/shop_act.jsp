@@ -25,10 +25,9 @@
 	    	globa.dispatch(true, strUrl);
 		} 
 	}
-	else{
-	
+	else{	
 	    Shop obj=new Shop(globa,false);	
-	    String strUrl="shop_list.jsp";
+	    String strUrl="terminal_list.jsp";
 		ApacheUpload au = new ApacheUpload(request);
 		action = au.getString(Constants.ACTION_TYPE);
 	 	//上传文件
