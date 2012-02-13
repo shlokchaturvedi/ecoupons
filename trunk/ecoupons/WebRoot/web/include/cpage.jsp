@@ -25,6 +25,7 @@ function goto(inputVlaue)
 {
 	if(inputVlaue==0){
 	    alert("已经是第一页！");
+	    return false;
 	    
 	}
 	if(inputVlaue==<%=(intPageCount + 1)%>){
