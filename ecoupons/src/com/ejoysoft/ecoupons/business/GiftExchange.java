@@ -63,13 +63,11 @@ public class GiftExchange
 	 */
 	public boolean add()
 	{
-		String strUserName = globa.userSession.getStrId();
+		//String strUserName = globa.userSession.getStrId();
 		String strId = UID.getID();
 
-		String sql = "insert into " + strTableName + " (strId,strGiftId,strMemberCardNo,dtExchangeTime,strAddr" + ",strCreator,dtCreateTime) "
-				+ "values (?,?,?,?,?,?,?) ";
-		System.out.println(sql);
-		System.out.println(com.ejoysoft.common.Format.getDate());
+		String sql = "insert into " + strTableName + " (strId,strGiftId,strMemberCardNo,dtExchangeTime,strAddr,intstate,strCreator,dtCreateTime) "
+				+ "values (?,?,?,?,?,?,?,?) ";
 		try
 		{
 			db.prepareStatement(sql);
@@ -78,8 +76,9 @@ public class GiftExchange
 			db.setString(3, strMemberCardNo);
 			db.setString(4, dtExchangeTime);
 			db.setString(5, strAddr);
-			db.setString(6, strUserName);
-			db.setString(7, com.ejoysoft.common.Format.getDateTime());
+			db.setInt(6, 0);
+			db.setString(7, strCreator);
+			db.setString(8, com.ejoysoft.common.Format.getDateTime());
 			if (db.executeUpdate() > 0)
 			{
 				Globa.logger0("增加礼品兑换记录", globa.loginName, globa.loginIp, sql, "会员管理", globa.unitCode);
