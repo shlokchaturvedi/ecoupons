@@ -290,7 +290,7 @@ function showTime(str){
           </tr>          
           <tr>
             <td >
-            <form name=frm method=post action="shop_biz.jsp">
+            <form name=frm1 method=post action="shop_biz.jsp">
 			<table border="0" cellpadding="0" cellspacing="0" width="100%">
 			<tr>
 			<td align="left"><div style="height:26"> 时间：
@@ -358,14 +358,19 @@ function showTime(str){
             </form></td>
           </tr>
         </table>
-        <form name=frm method=post action="shop_biz.jsp">
-		<input name="strName" type="hidden" value="<%=strName%>"/>
-		<input name="stime" type="hidden" value="<%=stime%>"/>
-		<input name="etime" type="hidden" value="<%=etime%>"/>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr><td >
+        <form name=frm method=post action="shop_biz.jsp" style="height=0">
+		<input name="strName" type="hidden" value="<%=strName%>">
+		<input name="stime" type="hidden" value="<%=stime%>">
+		<input name="flag" type="hidden" value="<%=flag%>">
+		<input name="etime" type="hidden" value="<%=etime%>">
      	<!-- 翻页开始 -->  
      	<%@ include file="../include/jsp/cpage.jsp"%>
        	<!-- 翻页结束 --> 
        	</form>
+        </td></tr>
+        </table>        
        </td>
        </tr>
 		 <tr><td>&nbsp;</td></tr>
