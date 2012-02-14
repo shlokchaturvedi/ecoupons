@@ -13,7 +13,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <body>
-<iframe style="HEIGHT: 130px" border=0 marginwidth=0 marginheight=0 src="top.htm" 
+<iframe style="HEIGHT: 180px" border=0 marginwidth=0 marginheight=0 src="top.htm" 
 frameborder=no width="100%" scrolling=no></iframe>
 
 <!--正文部分-->
@@ -27,16 +27,16 @@ frameborder=no width="100%" scrolling=no></iframe>
   <p>&nbsp;</p>
   <table width="81%" border="0" cellpadding="0" cellspacing="0">
     <tr>
-      <td height="32" class="list_wz"><a href="collection.html">&nbsp;&gt;&gt; 我的收藏</a></td>
+      <td height="32" class="list_wz"><a href="collection.jsp">&nbsp;&gt;&gt; 我的收藏</a></td>
     </tr>
     <tr>
-      <td height="32" class="list_wz"><a href="history.html">&nbsp;&gt;&gt; 历史记录</a></td>
+      <td height="32" class="list_wz"><a href="history.jsp">&nbsp;&gt;&gt; 历史记录</a></td>
     </tr>
     <tr>
-      <td height="32" class="list_wz"><a href="balance.html" >&nbsp;&gt;&gt; 我的余额</a></td>
+      <td height="32" class="list_wz"><a href="balance.jsp" >&nbsp;&gt;&gt; 我的余额</a></td>
     </tr>
     <tr>
-      <td height="32" class="list_wz"><a href="integral.html">&nbsp;&gt;&gt; 我的积分</a></td>
+      <td height="32" class="list_wz"><a href="integral.jsp">&nbsp;&gt;&gt; 我的积分</a></td>
     </tr>
     <tr>
       <td height="32" class="list_wz"><a href="#">&nbsp;&gt;&gt; 退出系统</a></td>

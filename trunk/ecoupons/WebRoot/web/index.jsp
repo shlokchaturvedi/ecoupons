@@ -3,6 +3,7 @@
 <%@page import="java.util.Vector"%>
 <%@page import="com.ejoysoft.ecoupons.web.Index"%>
 <%@page import="java.util.HashMap"%>
+<%@page import="com.ejoysoft.common.*"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.Map"%>
 <%@page import="com.ejoysoft.ecoupons.business.CouponTop"%>
@@ -10,6 +11,11 @@
 <%@page import="com.ejoysoft.ecoupons.business.Shop"%>
     <%@ include file="../include/jsp/head.jsp"%>
 <%@page import="com.ejoysoft.ecoupons.system.SysPara"%>
+<%
+	String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -35,40 +41,73 @@ eval("document.getElementById('sort_con_"+other+"').style.display='none'");
 
 </head>
 <body>
-<iframe height="130" border=0 marginwidth=0 marginheight=0 src="top.jsp" 
+<iframe height="180" border=0 marginwidth=0 marginheight=0 src="top.jsp" 
 frameborder=no width="100%" scrolling=no></iframe>
 <!--正文部分-->
 <div class="content">
-  <div class="left">
+
+ <div class="left">
   
  <DIV class=sortlogin>
 <DIV class=sortlogin_top>
 <H1><STRONG>会员登录</STRONG></H1></DIV>
 
 <!--会员登录显示 -->
-<form ACTION="<%=application.getServletContextName()%>/Auth">
-<input type="hidden" name="actiontype" value="logon" />
-<input type="hidden" name="screensize" value=""/>
-<input type="hidden" name="authType" value="password"/>
+<%
+if(session.getAttribute(Constants.MEMBER_KEY) != null)
+{
+%>
+	<DIV id=left-bar-mid2  >
+	<form action="">
+	<p class=weluser><b><%out.print(globa.memberSession.getStrName()); %></b>,欢迎回来</p>
+	<p>我的余额：<a ><%= globa.memberSession.getFlaBalance() %></a></p>
+	<p>我的积分：<a ><%= globa.memberSession.getIntPoint() %></a></p>
+	<p><INPUT class=Btn value="我的收藏" type=submit> 
+	<INPUT class=Btn value="历史记录" type=button> </p>
+	</form>
+	</DIV> 
+	<%
 
-<DIV class=left-bar-mid>
-<P class=userbg><INPUT id=txt_username class=user value=账号/手机 onclick="document.getElementById('txt_username').value=''" type=text name=username></P>
-<P class=passwordbg><INPUT id=txt_pwd class=password type=password name=password></P>
-<DIV class="floatR"><IMG id=code border=0 name=checkcode alt=验证码  align=absMiddle src="../image.jsp" width=60 height=18></DIV>
-<P class=numberbg><INPUT id=txt_yzm class="number floatL" type=text name=yanzm></P><A class=forget href="#">忘记密码了？</A>&nbsp;&nbsp;<A 
-class=change href="#" onclick="javascript:var dt=new Date();document.getElementById('code').src='../image.jsp?dt='+dt;">换一张图片</A><BR>
-<INPUT id=btn_login class=loginBtn value="登 录" type=submit name=btn_login> 
-<INPUT class=regBtn value="注 册" type=button> 
-</DIV>
-</form>
+}else {%>
+	<DIV id=left-bar-mid   >	
+	<form name="frm" METHOD=POST ACTION="<%=application.getServletContextName()%>/web/Auth">		
+	<input type="hidden" name="actiontype" value="weblogon" />		
+	<input type="hidden" name="authType" value="password"/>		
+	<P class=userbg>		
+	<INPUT id=txt_username class=user value=账号/手机 onclick="document.getElementById('txt_username').value=''" type=text name=username>		
+	</P><P class=passwordbg><INPUT id=txt_pwd class=password type=password name=password></P>		
+	<DIV class="floatR"><IMG id=code border=0 name=checkcode alt=验证码 align=absMiddle src="../image.jsp" width=60 height=18></DIV>		
+	<P class=numberbg><INPUT id=txt_yzm class="number floatL" type=text name=yanzm></P><A class=forget href="#">忘记密码了？</A>&nbsp;&nbsp;		
+	<A class=change href="#" onclick="javascript:var dt=new Date();document.getElementById('code').src='../image.jsp?dt='+dt;">换一张图片</A><BR>		
+	<INPUT id=btn_login class=loginBtn value="登 录" type=submit name=btn_login> 		
+	<INPUT class=regBtn value="注 册" type=button></form></DIV>		
+<%
+}
+%>
+
+
+
+
+  
+  
+  
+
+
+
+
+ 
+
+
 <!--会员登录结束 -->
 
+			
 <!--会员登录后切换显示 -->
 
 <!--会员登录后结束 -->
 
 
 <DIV class=sortlogin_bottom></DIV>
+
 </div>
  
   <DIV class=sort>
@@ -83,7 +122,7 @@ Vector<SysPara> vctTrades=new Vector<SysPara>();
 Iterator iterator=hmTrades.entrySet().iterator();
 while(iterator.hasNext()){
 	Map.Entry<SysPara, Integer> entry=(Map.Entry<SysPara, Integer>)iterator.next();
-	out.print("<LI><A href='javascript:void(0)'>"+entry.getKey().getStrName()+"&nbsp;&nbsp;("+entry.getValue()+")</A></LI>");
+	out.print("<LI><A href=javascript:void(0)'>"+entry.getKey().getStrName()+"&nbsp;&nbsp;("+entry.getValue()+")</A></LI>");
 	vctTrades.add(entry.getKey());
 }
 %>
@@ -100,6 +139,7 @@ while(iterator.hasNext()){
     out.print("<a href='merchantsinfo.jsp?strid="+vctShops.get(i).getStrId()+"' target=_blank alt='"+vctShops.get(i).getStrBizName()+"'><img src='../shop/images/" +vctShops.get(i).getStrSmallImg() +"' width='99' height='44'  border='0' /></a>");
     }
 	%>
+	
 	</marquee></DIV>
   	<DIV class=jsadbox><!--切屏广告--><IFRAME height=200 marginHeight=0 src="homeimg.jsp" frameBorder=0 width=535 marginWidth=0 scrolling=no></IFRAME></DIV>
 	<DIV class=mid_sj>
@@ -257,4 +297,4 @@ for(int i=0;i<8;i++){
 frameborder=no width="100%" scrolling=no></iframe>
 </body>
 </html>
-<%@ include file="../include/jsp/footer.jsp"%>
+<%@ include file="/include/jsp/footer.jsp"%>
