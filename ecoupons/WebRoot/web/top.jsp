@@ -24,15 +24,16 @@ eval("document.getElementById('clay0_"+index+"').style.display='none'");
 </script></head>
 
 <body>
+
 <form action="merchants.jsp" method="post" name=frm target="_parent">
 <!--top部分-->
 <div class="top">
 <!--logo部分-->
   <div class="logo">
-    <div class="logo_img"><img src="images/logo.jpg"/></div>
+     <div class="top_lx"><img src="images/xlwb.gif" /><a href="#"> 新浪微博&nbsp;</a>  <img src="images/txwb.gif"/><a href="#"> 腾讯收听&nbsp;</a>  <img src="images/kf.gif" /><a href="#"> 客服在线</a> &nbsp;&nbsp;电话：400-868-968&nbsp;&nbsp;<a href="#">收藏本站</a> | <a href="#">我要留言</a></div>
+     <div class="logo_img"><img src="images/logo.jpg"/></div>
     <div class="tab"> 
-      <div class="tab_txt">电话：400-868-968&nbsp;&nbsp;&nbsp;<a href="#">收藏本站</a> | <a href="#"><font color="#CC6600">我要留言</font></a></div>
- 
+     
 			<div class="logo_tab">
 		
 				<div class="searchtab">
@@ -49,6 +50,7 @@ eval("document.getElementById('clay0_"+index+"').style.display='none'");
 				<input type="button" name="Button" onclick="frm.action='coupons_more.jsp';frm.submit();" value=" " class="newsearch-btn"  />
 			 </div>
 			</div>
+			<div class="search_txt">热门搜索：<a href="#">麦当劳</a> <a href="#">肯德鸡</a> <a href="#">三福</a> <a href="#">米乐迪</a></div>
 </div>
  </div>
 <!--logo结束-->
@@ -61,8 +63,8 @@ eval("document.getElementById('clay0_"+index+"').style.display='none'");
 		<li><a href="coupons.jsp" target="_parent"><img src="images/nav_2.jpg" border="0" /></a></li>
 		<li><a href="merchants.jsp" target="_parent"><img src="images/nav_3.jpg" border="0" /></a></li>
 		<li><a href="gift.jsp" target="_parent"><img src="images/nav_4.jpg" border="0" /></a></li>
-		<li><a href="terminals.jsp" target="_parent"><img src="images/nav_3.jpg" border="0" /></a></li>
-		<li><a href="vips.jsp" target="_parent"><img src="images/nav_4.jpg" border="0" /></a></li>
+		<li><a href="terminals.jsp" target="_parent"><img src="images/nav_6.jpg" border="0" /></a></li>
+		<li><a href="vips.jsp" target="_parent"><img src="images/nav_7.jpg" border="0" /></a></li>
 		<li></li>
 		<li class="nav_ri"><img src="images/nav_ri.jpg" /></li>
 
