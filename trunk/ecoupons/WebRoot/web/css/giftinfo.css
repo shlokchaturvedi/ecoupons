@@ -1,3 +1,4 @@
+@CHARSET "UTF-8";
 /* CSS Document */
 body{ margin:0; padding:0; font-size:12px; LINE-HEIGHT: 1.5; FONT-FAMILY: Verdana}
 P {
@@ -17,10 +18,10 @@ A:hover {
 	COLOR: #f00
 }
 
-/* coupons-content≤ø∑÷”≈ª›»Ø */
+/* coupons-contentÈÉ®ÂàÜ‰ºòÊÉ†Âà∏ */
 .gift-content{ width:985px; margin:0 auto; margin-top:6px;}
 
-/* coupons-left≤ø∑÷”≈ª›»Ø */
+/* coupons-leftÈÉ®ÂàÜ‰ºòÊÉ†Âà∏ */
 
 .gift-left{ width:762px;float:left;}
 .giftList {
@@ -46,7 +47,7 @@ A:hover {
 	BACKGROUND: url(../images/list_bottom_bg.gif) no-repeat; WIDTH: 760px; HEIGHT: 12px
 }
 
-/* coupons-leftΩ· ¯ */
+/* coupons-leftÁªìÊùü */
 
 
 
@@ -59,7 +60,7 @@ A:hover {
 	PADDING-LEFT: 35px; FONT-SIZE: 14px; BACKGROUND: url(../images/left_icon6.gif) no-repeat; FLOAT: left; MARGIN: 8px 0px 0px 8px; HEIGHT: 22px
 }
 .gift_sort H1 STRONG {
-	FONT-WEIGHT: bold; FONT-FAMILY: "∫⁄ÃÂ"
+	FONT-WEIGHT: bold; FONT-FAMILY: "Èªë‰Ωì"
 }
 
 .gift_sort_top {
