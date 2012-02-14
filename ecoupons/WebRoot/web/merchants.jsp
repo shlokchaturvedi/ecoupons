@@ -58,7 +58,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <body>
-<form name=frm method=post action="marchants.jsp">		
+<form name=frm method=post action="marchants.jsp" >		
 &nbsp; 
 <iframe height="130" marginwidth=0 marginheight=0 src="top.jsp" frameborder=0 width="100%" scrolling=no></iframe>
 <!--正文部分-->
@@ -115,7 +115,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 else
                 {
                 %>
-                 <img src="../shop/images/temp.jpg" width=112 height=110 border="0" />
+                 <img src="images/temp.jpg" width=112 height=110 border="0" />
                  <%} %>
 </a></div>
 <div class=pro_info>
