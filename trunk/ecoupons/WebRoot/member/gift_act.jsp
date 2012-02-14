@@ -79,7 +79,7 @@
 		obj.setStrSmallImg(strSmallImg);
 		obj.setStrName(au.getString("strName"));
 		obj.setStrAttention(au.getString("strAttention"));
-		obj.setFlaPrice(au.getFloat("flaPrice"));
+		obj.setFlaPrice(Float.parseFloat(au.getString("flaPrice")));
 		if (action.equals(Constants.ADD_STR))
 		{
 
