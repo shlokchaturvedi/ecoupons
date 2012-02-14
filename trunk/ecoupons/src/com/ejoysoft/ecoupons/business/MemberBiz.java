@@ -99,9 +99,18 @@ public class MemberBiz {
 					while(re.next())
 					{	
 						String strterminalid = re.getString("strterminalid");
-						String name = obj.getTerminalNoById(strterminalid);	
-						int num = obj.getPerNumofPrintByTerminal(strterminalid,cardno);
-						vector.addElement(loadByFlag(cardno,name, num));
+						if(strterminalid!=null & !strterminalid.equals("system"))
+						{
+							String name = obj.getTerminalNoById(strterminalid);	
+							int num = obj.getPerNumofPrintByTerminal(strterminalid,cardno);
+							vector.addElement(loadByFlag(cardno,name, num));
+						}
+						else if(strterminalid!=null & strterminalid.equals("system"))
+						{
+							String name = "网站打印";	
+							int num = obj.getPerNumofPrintByTerminal(strterminalid,cardno);
+							vector.addElement(loadByFlag(cardno,name, num));
+						}
 					}
 				}
 			} catch (SQLException e) {
@@ -182,7 +191,8 @@ public class MemberBiz {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}    	
+		}    		
+    	  	
     	return perprintnum;
     } 
     /**
@@ -212,7 +222,7 @@ public class MemberBiz {
     	String name="";
     	Coupon obj = new Coupon(globa);
     	Coupon obj0 = new Coupon();
-    	obj0 = obj.show("where strid='"+strid+"'");
+    	obj0 = obj.show(" where strid='"+strid+"'");
     	name = obj0.getStrName();
     	return name;
     }
