@@ -29,6 +29,15 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>WebAuth</servlet-name>
+		<servlet-class>com.ejoysoft.auth.AppClass</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>WebAuth</servlet-name>
+		<url-pattern>/web/Auth</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>CouponAuth</servlet-name>
 		<servlet-class>com.ejoysoft.servlet.CouponAuthServlet</servlet-class>
 	</servlet>
