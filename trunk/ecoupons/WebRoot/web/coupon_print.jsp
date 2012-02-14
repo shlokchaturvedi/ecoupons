@@ -59,7 +59,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  	  	   boolean result = obj.add();		
  	  	   out.print("<script>window.print();</script>");	
  	 }
-	// System.out.println(codeString+":"+md5Code+":"+strCouponCode);
  %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
