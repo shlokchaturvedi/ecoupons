@@ -1,4 +1,3 @@
-@CHARSET "UTF-8";
 /* CSS Document */
 body{ margin:0; padding:0; font-size:12px; LINE-HEIGHT: 1.5; FONT-FAMILY: Verdana}
 P {
@@ -18,14 +17,18 @@ A:hover {
 	COLOR: #f00
 }
 /* top */
-.top{ width:985px; margin:0 auto; margin-top:6px; }
-.logo{ margin-bottom:10px; height:78px;}
+.top{ width:985px; margin:0 auto; margin-top:3px; }
+.logo{ margin-bottom:10px; height:108px;}
 .logo_img{ width:441px; float:left; margin:0px 6px; display: inline}
-.tab{ float:left; width:532px;  position: relative; margin:0px; padding:0px;}
 
-.tab_txt{ text-align:right; padding:0px; margin:0px; padding-bottom:22px;color:#686868; }
-.tab_txt a{ text-decoration:none;color:#686868;}
-.tab_txt a:hover{ text-decoration:underline}
+.top_lx{ height:22px; line-height:20px;width:985px; margin-bottom:6px; text-align:right;}
+
+
+.tab{ float:left; width:532px;  position: relative; margin:0px;padding-top:25px;}
+
+.search_txt{padding-left:8px;padding-top:3px; margin:0px;color:#686868; }
+.search_txt a{ text-decoration:none;color:#686868;}
+.search_txt a:hover{ text-decoration:underline}
 .logo_tab{text-align:right; }
 
 .searchtab{
@@ -33,7 +36,7 @@ A:hover {
 	margin:0px;
 	padding:0px;
 	position:absolute;
-	top:15px;
+	top:3px;
 	left: 21px;
 }
 .searchtab ul{ margin:0px; padding:0px; }
@@ -47,7 +50,7 @@ A:hover {
 
 .newsearch-txt{ height:20px; line-height:20px; margin-top:10px;margin-left:10px; border:0px; width:400px; float:left; }
 
-.newsearch-btn{background: url(../images/newsearch-btn.jpg) no-repeat; cursor:hand; width:96px; height:29px; border:0px; float:right; padding:0px;margin-right:5px; margin-top:5px;}/*ÈöêËóèfont-size:100em; overflow:hidden   input ÂÜÖÊñáÂ≠ó*/
+.newsearch-btn{background: url(../images/newsearch-btn.jpg) no-repeat; cursor:hand; width:96px; height:29px; border:0px; float:right; padding:0px;margin-right:5px; margin-top:5px;}/*“˛≤ÿfont-size:100em; overflow:hidden   input ƒ⁄Œƒ◊÷*/
 
 .nav{ width:985px; height:35px; background:url(../images/nav_bg.jpg);}
 .nav ul{ margin:0px; padding:0px;}
@@ -57,12 +60,12 @@ A:hover {
 .nav li.nav_le{ text-align:left; margin:0px; padding:0px;}
 
 .nav li.nav_ri{ float:right; margin:0px; padding:0px;}
-/* topÁªìÊùü */
+/* topΩ· ¯ */
 
-/* coupons-contentÈÉ®ÂàÜ‰ºòÊÉ†Âà∏ */
+/* coupons-content≤ø∑÷”≈ª›»Ø */
 .coupons-content{ width:985px; margin:0 auto; margin-top:6px;}
 
-/* coupons-leftÈÉ®ÂàÜ‰ºòÊÉ†Âà∏ */
+/* coupons-left≤ø∑÷”≈ª›»Ø */
 
 .coupons-left{ width:762px;float:left;}
 .hotList {
@@ -92,7 +95,7 @@ A:hover {
 	FLOAT: left; PADDING-TOP: 2px;margin:0px; list-style:none;
 }
 .list {
-	FLOAT: left; WIDTH: 220px; background-color:#EEEEEE;margin-right:4px; display:inline;}/**/
+	FLOAT: left; WIDTH: 242px; background-color:#EEEEEE;margin-right:4px; display:inline;}/**/
 
 .more {
 	PADDING-RIGHT: 20px; PADDING-LEFT: 0px; width:400px; PADDING-BOTTOM: 0px; float:right; PADDING-TOP: 5px; TEXT-ALIGN: right
@@ -108,7 +111,7 @@ A:hover {
 .list_hot {
 	FLOAT: left;display:inline; MARGIN: 10px 2px 5px 0px; BACKGROUND-IMAGE: url(../images/zhe.png); WIDTH: 75px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 75px; TEXT-ALIGN: center; padding:0px;}
 	
-.line { MARGIN: 15px 5px 5px 15px; WIDTH: 220px}
+.line { MARGIN: 15px 5px 5px 20px; WIDTH: 220px}
 
 .list_bar {	MARGIN: 4px auto; WIDTH: 220px; padding:0px; text-align:center; height:30px;}
 .list_bar UL {WIDTH: 220px; padding:0px; margin:0px;}
@@ -123,7 +126,7 @@ MARGIN-TOP: 25px; FONT-WEIGHT: bold; FONT-SIZE: 18px; WIDTH: 75px; COLOR: #fffff
 	BACKGROUND: url(../images/list_bottom_bg.gif) no-repeat; WIDTH: 760px; HEIGHT: 12px
 }
 
-/* coupons-leftÁªìÊùü */
+/* coupons-leftΩ· ¯ */
 
 
 
@@ -136,14 +139,14 @@ MARGIN-TOP: 25px; FONT-WEIGHT: bold; FONT-SIZE: 18px; WIDTH: 75px; COLOR: #fffff
 	PADDING-LEFT: 35px; FONT-SIZE: 14px; BACKGROUND: url(../images/left_icon6.gif) no-repeat; FLOAT: left; MARGIN: 8px 0px 0px 8px; HEIGHT: 22px
 }
 .sort H1 STRONG {
-	FONT-WEIGHT: bold; FONT-FAMILY: "Èªë‰Ωì"
+	FONT-WEIGHT: bold; FONT-FAMILY: "∫⁄ÃÂ"
 }
 .sort H2 {
 	PADDING-LEFT: 35px; FONT-SIZE: 14px; BACKGROUND: url(../images/left_icon1.gif) no-repeat; FLOAT: left; MARGIN: 8px 0px 0px 8px; HEIGHT: 22px
 }
 
 .sort H2 STRONG {
-	FONT-WEIGHT: bold; FONT-FAMILY: "Èªë‰Ωì"
+	FONT-WEIGHT: bold; FONT-FAMILY: "∫⁄ÃÂ"
 }
 
 
@@ -188,9 +191,4 @@ MARGIN-TOP: 25px; FONT-WEIGHT: bold; FONT-SIZE: 18px; WIDTH: 75px; COLOR: #fffff
 .sort_con1 UL LI {
 	PADDING-LEFT: 40px; LINE-HEIGHT: 24px; TEXT-ALIGN: left; list-style:none; margin:0px;
 }
-
-.pageSide {
-	MARGIN: 10px 0px; WIDTH: 740px; HEIGHT: 42px; text-align: right;
-}
-.pageipt{ background-color:#FFFFFF; border:1px solid #999999;}
 
