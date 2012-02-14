@@ -11,7 +11,6 @@
    	String etime="9999-12-30";
    	
     String  bytime=ParamUtil.getString(request,"byTime");
-    System.out.println(bytime+":222222222222222222222222");
     if(bytime.equals("month"))
     {
     	String month= ParamUtil.getString(request,"month","");
