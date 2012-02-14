@@ -16,6 +16,7 @@ public final class Constants {
     public final static String OnlineUserInfo = "_OnlineUserInfo";
     public final static String OnlineName = "_OnlineName";
     public final static String USER_KEY = "_UserSession";
+    public final static String MEMBER_KEY = "_MemberSession";
     public final static String MAIL_DEFINED = "Mail_Defined";
     public static final String CHECK_NUM = "_CheckNum";
     public static final String Error_Lock_Num = "intErrorLockNum";
@@ -69,6 +70,10 @@ public final class Constants {
     public final static String ARCH_STR = "arch";
     //��½��־
     public final static String LOGON = "logon";
+    //网站登录标识
+    public final static String WEBLOGON = "weblogon";
+    //网站退出标识
+    public final static String WEBLOGOFF = "weblogoff";
     //mac��½��־
     public final static String MACLOGON = "maclogon";
     //�˳��־

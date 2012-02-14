@@ -101,7 +101,8 @@ public final class LogonForm {
                 userSession.setStrId(rs.getString("strId"));
                 userSession.setStrUserId(rs.getString("strUserId"));
                 String pwd = rs.getString("strPWD");
-                if (pwd == null || !pwd.equals(this.getPassword())) {
+                if (pwd == null || !pwd.equals(this.getPassword())) 
+                {
            			error = new String("你输入的密码有误！");
            			return -1;   			
           		}
@@ -147,29 +148,39 @@ public final class LogonForm {
     }
   //会员认证
     public int memberPwdAuth(String strCardNo) {
+    	HttpSession session = globa.session;
         int value = 0;
-        int intErrorLockNum = getErrorLockNum();
+        memberSession = new MemberSession(globa.application);
+        memberSession.setExculpate(this.getScreensize());
+        memberSession.setLoginIp(globa.loginIp);
+        memberSession.setdLatestLoginTime(Format.getDateTime());
+        String tUserId = Format.removeNull(this.getUsername()).replaceAll(" ", "");
+        String strCaNO = Format.removeNull(this.getCaNO());
+//      int intErrorLockNum = getErrorLockNum();
         try {
             java.sql.ResultSet rs = null;
-            String strSql = "SELECT * " +
-            		"FROM t_bz_member WHERE strCardNo='" + strCardNo + "' ";
+            String strSql = "SELECT distinct * " +
+            		"FROM t_bz_member WHERE strCardNo='" + strCardNo + "' or strMobileNo='"+strCardNo+"'";
+            System.out.println(strSql);
             rs = globa.db.executeQuery(strSql);
             if (!rs.next()) {
-                error = new String("会员不存在，或者你输入的会员卡号有误！");
+                error = new String("会员不存在，或者你输入的会员帐号和手机号码有误！");
                 value = -1;
             } else {
                 //用户相关信息
             	memberSession.setStrId(rs.getString("strId"));
             	memberSession.setStrCardNo(rs.getString("strCardNo"));
                 String pwd = rs.getString("strPWD");
+                System.out.println();
                 if (pwd == null || !pwd.equals(this.getPassword())) {
+//                	if (pwd == null || !pwd.equals(this.getPassword1())) {
            			error = new String("你输入的密码有误！");
            			return -1;   			
           		}
-                memberSession.setStrPWD(this.getPassword1());
+                memberSession.setStrPWD(pwd);
                 memberSession.setStrName(rs.getString("strName"));
-                int intError = rs.getInt("intError");
-                int intState = rs.getInt("intState");
+//                int intError = rs.getInt("intError");
+//                int intState = rs.getInt("intState");
                 value = rs.getInt("intType");
                 memberSession.setIntType(value);
                 //memberSession.setIntType(rs.getInt("intType"));
@@ -177,7 +188,7 @@ public final class LogonForm {
                 memberSession.setFlaBalance(rs.getFloat("flaBalance"));
                 memberSession.setIntPoint(rs.getInt("intPoint"));
                 //memberSession.sets(rs.getString("strCssType"));
-               
+                session.setAttribute(com.ejoysoft.common.Constants.MEMBER_KEY, memberSession);
                
             }
         } catch (Exception ex) {
@@ -281,6 +292,7 @@ public final class LogonForm {
 
     public boolean doExit() {
         globa.session.removeAttribute(Constants.USER_KEY);
+        globa.session.removeAttribute(Constants.MEMBER_KEY);
         globa.session.invalidate();
         return true;
     }

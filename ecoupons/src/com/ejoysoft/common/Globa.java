@@ -11,14 +11,11 @@ import javax.servlet.ServletException;
 
 import java.sql.SQLException;
 import java.sql.ResultSet;
-import java.sql.Clob;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Vector;
 import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 
+import com.ejoysoft.ecoupons.business.Member;
 import com.ejoysoft.util.ParamUtil;
 import com.ejoysoft.util.RequestUtils;
 
@@ -36,6 +33,8 @@ public class Globa {
 	public HttpServletResponse response;
 	public DbConnect db;
 	public UserSession userSession;
+	public MemberSession memberSession;
+	private Member member;
 	
 	public String loginName;
 	public String fullRealName;//��ʽ��u/loginName/realName
@@ -89,7 +88,15 @@ public class Globa {
 	        unitId = userSession.getStrUnitId();
 	        css= userSession.getStrCssType();
 	        fullRealName="u/"+loginName+"/"+userSession.getStrName();
-	    }
+	    }else if (session.getAttribute(Constants.MEMBER_KEY) != null) {
+			memberSession=(MemberSession)session.getAttribute(Constants.MEMBER_KEY);
+			member=new Member();
+			member.setFlaBalance(memberSession.getFlaBalance());
+			member.setIntPoint(memberSession.getIntPoint());
+			member.setIntType(memberSession.getIntType());
+			member.setStrCardNo(memberSession.getStrCardNo());
+			member.setStrMobileNo(memberSession.getStrMobileNo());
+		}
 	    this.loginIp = request.getRemoteAddr();
 	    //String requestUrl = request.getRequestURL().toString();
 	}
@@ -331,6 +338,16 @@ public class Globa {
 	
 	public static void addCollectStatus(String status) {
 		vctCollectStatus.add(0, status);
+	}
+
+	public Member getMember()
+	{
+		return member;
+	}
+
+	public void setMember(Member member)
+	{
+		this.member = member;
 	}
 }
 

@@ -156,27 +156,29 @@ public class Index
 	 */
 	public Vector<String> returnTopCoupons(String flag)
 	{
-		String strSql =	"";
+		String strSql="";
 		Vector<String>vctCoupons=new Vector<String>();
 		Coupon coupon=new Coupon(globa);
 		if ("日".equals(flag))
 		{
 			strSql="select strcouponid from t_bz_coupon_print where date(dtprinttime)=date(now())group by strcouponid";
-
 		} else if ("周".equals(flag))
 		{
             strSql="select strcouponid from t_bz_coupon_print where month(dtprinttime) =month(curdate()) and week(dtprinttime) = week(curdate())group by strcouponid";
 		} else if ("月".equals(flag))
 		{
 			strSql = "select strcouponid from t_bz_coupon_print where month(dtprinttime) =month(curdate()) and year(dtprinttime) = year(curdate())group by strcouponid";
-
 		}
 		ResultSet resultSet=db.executeQuery(strSql);
 		try
 		{
 			while (resultSet.next())
 			{
-				vctCoupons.add(coupon.show("where strid='"+resultSet.getString("strcouponid")+"'").getStrName());
+				Coupon couponTemp=coupon.show("where strid='"+resultSet.getString("strcouponid")+"'");
+				if (couponTemp!=null)
+				{
+					vctCoupons.add(couponTemp.getStrName());
+				}
 			}
 		} catch (SQLException e)
 		{
