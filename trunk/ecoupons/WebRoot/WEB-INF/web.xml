@@ -38,6 +38,15 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>CouponTop</servlet-name>
+		<servlet-class>com.ejoysoft.servlet.CouponTopServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CouponTop</servlet-name>
+		<url-pattern>/servlet/CouponTop</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>CouponPrint</servlet-name>
 		<servlet-class>com.ejoysoft.servlet.CouponPrintServlet</servlet-class>
 	</servlet>
