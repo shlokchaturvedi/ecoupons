@@ -80,6 +80,7 @@
 		obj.setStrName(au.getString("strName"));
 		obj.setStrAttention(au.getString("strAttention"));
 		obj.setFlaPrice(Float.parseFloat(au.getString("flaPrice")));
+		obj.setStrCreator(globa.loginName);
 		if (action.equals(Constants.ADD_STR))
 		{
 
