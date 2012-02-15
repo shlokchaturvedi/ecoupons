@@ -69,7 +69,7 @@ protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws Se
 	{
 		sbReturn.append("<return>terminal_error</return>");
 	}
-	System.out.println(sbReturn.toString());
+//	System.out.println(sbReturn.toString());
 	resp.getWriter().println(sbReturn.toString());
 	globa.closeCon();
 	
