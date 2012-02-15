@@ -1,3 +1,4 @@
+@CHARSET "UTF-8";
 /* CSS Document */
 body{ margin:0; padding:0; font-size:12px; LINE-HEIGHT: 1.5; FONT-FAMILY: Verdana}
 P {
@@ -50,7 +51,7 @@ A:hover {
 
 .newsearch-txt{ height:20px; line-height:20px; margin-top:10px;margin-left:10px; border:0px; width:400px; float:left; }
 
-.newsearch-btn{background: url(../images/newsearch-btn.jpg) no-repeat; cursor:hand; width:96px; height:29px; border:0px; float:right; padding:0px;margin-right:5px; margin-top:5px;}/*“˛≤ÿfont-size:100em; overflow:hidden   input ƒ⁄Œƒ◊÷*/
+.newsearch-btn{background: url(../images/newsearch-btn.jpg) no-repeat; cursor:hand; width:96px; height:29px; border:0px; float:right; padding:0px;margin-right:5px; margin-top:5px;}/*ÈöêËóèfont-size:100em; overflow:hidden   input ÂÜÖÊñáÂ≠ó*/
 
 .nav{ width:985px; height:35px; background:url(../images/nav_bg.jpg);}
 .nav ul{ margin:0px; padding:0px;}
@@ -60,12 +61,12 @@ A:hover {
 .nav li.nav_le{ text-align:left; margin:0px; padding:0px;}
 
 .nav li.nav_ri{ float:right; margin:0px; padding:0px;}
-/* topΩ· ¯ */
+/* topÁªìÊùü */
 
-/* coupons-content≤ø∑÷”≈ª›»Ø */
+/* coupons-contentÈÉ®ÂàÜ‰ºòÊÉ†Âà∏ */
 .coupons-content{ width:985px; margin:0 auto; margin-top:6px;}
 
-/* coupons-left≤ø∑÷”≈ª›»Ø */
+/* coupons-leftÈÉ®ÂàÜ‰ºòÊÉ†Âà∏ */
 
 .coupons-left{ width:762px;float:left;}
 .hotList {
@@ -111,7 +112,7 @@ A:hover {
 .list_hot {
 	FLOAT: left;display:inline; MARGIN: 10px 2px 5px 0px; BACKGROUND-IMAGE: url(../images/zhe.png); WIDTH: 75px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 75px; TEXT-ALIGN: center; padding:0px;}
 	
-.line { MARGIN: 15px 5px 5px 20px; WIDTH: 220px}
+.line { MARGIN: 15px 5px 5px 15px; WIDTH: 220px}
 
 .list_bar {	MARGIN: 4px auto; WIDTH: 220px; padding:0px; text-align:center; height:30px;}
 .list_bar UL {WIDTH: 220px; padding:0px; margin:0px;}
@@ -126,7 +127,7 @@ MARGIN-TOP: 25px; FONT-WEIGHT: bold; FONT-SIZE: 18px; WIDTH: 75px; COLOR: #fffff
 	BACKGROUND: url(../images/list_bottom_bg.gif) no-repeat; WIDTH: 760px; HEIGHT: 12px
 }
 
-/* coupons-leftΩ· ¯ */
+/* coupons-leftÁªìÊùü */
 
 
 
@@ -139,14 +140,14 @@ MARGIN-TOP: 25px; FONT-WEIGHT: bold; FONT-SIZE: 18px; WIDTH: 75px; COLOR: #fffff
 	PADDING-LEFT: 35px; FONT-SIZE: 14px; BACKGROUND: url(../images/left_icon6.gif) no-repeat; FLOAT: left; MARGIN: 8px 0px 0px 8px; HEIGHT: 22px
 }
 .sort H1 STRONG {
-	FONT-WEIGHT: bold; FONT-FAMILY: "∫⁄ÃÂ"
+	FONT-WEIGHT: bold; FONT-FAMILY: "Èªë‰Ωì"
 }
 .sort H2 {
 	PADDING-LEFT: 35px; FONT-SIZE: 14px; BACKGROUND: url(../images/left_icon1.gif) no-repeat; FLOAT: left; MARGIN: 8px 0px 0px 8px; HEIGHT: 22px
 }
 
 .sort H2 STRONG {
-	FONT-WEIGHT: bold; FONT-FAMILY: "∫⁄ÃÂ"
+	FONT-WEIGHT: bold; FONT-FAMILY: "Èªë‰Ωì"
 }
 
 
