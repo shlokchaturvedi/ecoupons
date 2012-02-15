@@ -42,7 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <body>
 <form method=post action="gift.jsp" name=frm />
-<iframe height="180" border=0 marginwidth=0 marginheight=0 src="top.jsp" 
+<iframe height="167" border=0 marginwidth=0 marginheight=0 src="top.jsp" 
 frameborder=no width="100%" scrolling=no></iframe>
 <!--正文部分-->
 <div class="gift-content">
