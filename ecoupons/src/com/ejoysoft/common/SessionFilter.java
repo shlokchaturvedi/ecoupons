@@ -35,14 +35,10 @@ public class SessionFilter implements Filter {
 		if(membersession!=null){
 			chain.doFilter(request, response);
 		}
-			try {
+		try {
 				
 				if(userSession == null && (request_uri.indexOf(logon_page)==-1 &&request_uri.indexOf(uncheck)==-1&& request_uri.indexOf(nocheck_page)==-1 && !(ctxPath+"/").equals(request_uri))) {
 					
-					PrintWriter out = rsp.getWriter();
-					out.println("<script type='text/javascript'>alert('登录超时,重新登录！');top.location='"+mServerUrl+"/"+logon_page+"'</script>");
-					return;
-				}else if(membersession == null && (request_uri.indexOf(logon_page)==-1 &&request_uri.indexOf(uncheck)==-1&& request_uri.indexOf(nocheck_page)==-1 && !(ctxPath+"/").equals(request_uri))) {
 					PrintWriter out = rsp.getWriter();
 					out.println("<script type='text/javascript'>alert('登录超时,重新登录！');top.location='"+mServerUrl+"/"+logon_page+"'</script>");
 					return;
