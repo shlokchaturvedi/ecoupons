@@ -81,14 +81,14 @@ public class MemberAuthServlet extends HttpServlet implements Servlet
 				sbReturn.append("</history>");
 			} else
 			{
-				sbReturn.append("nomember");
+				sbReturn.append("<auth>no</auth>");
 			}
 			sbReturn.append("</info>");			
 		} catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			sbReturn.append("<info>erro</info>");	
+			sbReturn.append("<info><auth>no</auth></info>");	
 		}finally {			
 			globa.closeCon();
 			resp.getWriter().println(sbReturn.toString());
