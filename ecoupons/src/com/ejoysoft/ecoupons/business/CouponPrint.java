@@ -14,6 +14,7 @@ public class CouponPrint
 	private Globa globa;
 	private DbConnect db;
 	String strTableName = "t_bz_coupon_print";
+	
 	String strTableName2 = "t_bz_member";
 
 	private String strId;
@@ -58,6 +59,7 @@ public class CouponPrint
 			db.setString(9, com.ejoysoft.common.Format.getDateTime());
 			if (db.executeUpdate() > 0)
 			{
+				coupon.updateIntPrint(strId);
 	            db.getConnection().commit(); //统一提交
 				db.setAutoCommit(true);
 				Globa.logger0("增加优惠券打印记录记录 ", globa.loginName, globa.loginIp, sql, "商家管理", globa.unitCode);

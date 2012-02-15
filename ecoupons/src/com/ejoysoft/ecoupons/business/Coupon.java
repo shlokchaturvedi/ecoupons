@@ -22,6 +22,7 @@ public class Coupon
 	private int intRecommend;
 	private float flaPrice;
 	private int intPrintLimit;
+	private int intPrint;
 	private String strSmallImg;
 	private String strLargeImg;
 	private String strPrintImg;
@@ -54,6 +55,28 @@ public class Coupon
 			return strDbTerminalIds.split(",");
 		}
 		return null;
+	}
+/**
+ * 修改优惠券打印的数量，当打印一次增加一次。
+ * @param couponId
+ * @return
+ */
+	public boolean updateIntPrint(String couponId)
+	{
+		String strSql = "update "+strTableName+" set intprint=intprint+1 where strid='" + couponId + "'";
+		try
+		{
+			if (db.executeUpdate(strSql) > 0)
+			{
+				return true;
+			}
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		return false;
 	}
 
 	/**
@@ -165,8 +188,8 @@ public class Coupon
 		String strId = UID.getID();
 		String[] strDownSql = null;
 		String sql = "insert into " + strTableName + " (strId,strName,strSmallImg,dtActiveTime,dtExpireTime,strShopId,strTerminalIds"
-				+ ",intVip,intRecommend,flaPrice,intPrintLimit,strPrintImg,strLargeImg,strCreator,dtCreateTime) "
-				+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
+				+ ",intVip,intRecommend,flaPrice,intPrintLimit,strPrintImg,strLargeImg,strCreator,dtCreateTime,intprint) "
+				+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
 
 		try
 		{
@@ -177,9 +200,7 @@ public class Coupon
 			db.setString(4, dtActiveTime);
 			db.setString(5, dtExpireTime);
 			db.setString(6, strShopId);
-			System.out.println(strTerminals);
 			db.setString(7, getTerminalIdsByNames(strTerminals));
-			System.out.println(getTerminalIdsByNames(strTerminals));
 			db.setInt(8, intVip);
 			db.setInt(9, intRecommend);
 			db.setFloat(10, flaPrice);
@@ -188,6 +209,7 @@ public class Coupon
 			db.setString(13, strLargeImg);
 			db.setString(14, strUserName);
 			db.setString(15, com.ejoysoft.common.Format.getDateTime());
+			db.setInt(16, 0);
 			if (db.executeUpdate() > 0)
 			{
 				if (strTerminals != null && strTerminals != "")
@@ -282,6 +304,7 @@ public class Coupon
 			return null;
 		}
 	}
+
 	/**
 	 * 返回某一行业的所有优惠券集合
 	 * 
@@ -292,10 +315,10 @@ public class Coupon
 		Vector<Coupon> beans = new Vector<Coupon>();
 		try
 		{
-			String sql = "select a.* from  " + strTableName + " a  left join "+strTableName2+" b on a.strshopid=b.strid ";
+			String sql = "select a.* from  " + strTableName + " a  left join " + strTableName2 + " b on a.strshopid=b.strid ";
 			if (strTrade.length() > 0)
-				sql = String.valueOf(sql) + String.valueOf(" where b.strtrade='"+strTrade+"' ");
-	//		System.out.println(sql+":111111getPerTradeCoupons");
+				sql = String.valueOf(sql) + String.valueOf(" where b.strtrade='" + strTrade + "' ");
+			// System.out.println(sql+":111111getPerTradeCoupons");
 			ResultSet rs = db.executeQuery(sql);
 			if (rs != null && rs.next())
 			{
@@ -312,6 +335,7 @@ public class Coupon
 		}
 		return beans;
 	}
+
 	/**
 	 * 查询符合条件的记录总数
 	 */
@@ -374,6 +398,7 @@ public class Coupon
 		}
 		return beans;
 	}
+
 	/**
 	 * 根据商家行业条件，返回优惠券信息的集合
 	 */
@@ -382,11 +407,11 @@ public class Coupon
 		Vector<Coupon> beans = new Vector<Coupon>();
 		try
 		{
-			String sql = "SELECT a.*  FROM  " + strTableName + " a left join "+strTableName2+" b on a.strshopid=b.strid";
+			String sql = "SELECT a.*  FROM  " + strTableName + " a left join " + strTableName2 + " b on a.strshopid=b.strid";
 			if (where.length() > 0)
 				sql = String.valueOf(sql) + String.valueOf(where);
 			Statement s = db.getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-    		if (startRow != 0 && rowCount != 0)
+			if (startRow != 0 && rowCount != 0)
 				s.setMaxRows((startRow + rowCount) - 1);
 			ResultSet rs = s.executeQuery(sql);
 			if (rs != null && rs.next())
@@ -408,6 +433,7 @@ public class Coupon
 		}
 		return beans;
 	}
+
 	/**
 	 * 根据商家id条件，返回优惠券信息的集合
 	 */
@@ -418,7 +444,7 @@ public class Coupon
 		{
 			String sql = "SELECT *  FROM  " + strTableName + " ";
 			if (where.length() > 0)
-				sql = String.valueOf(sql) + String.valueOf(where);			
+				sql = String.valueOf(sql) + String.valueOf(where);
 			ResultSet rs = db.executeQuery(sql);
 			if (rs != null && rs.next())
 			{
@@ -435,6 +461,7 @@ public class Coupon
 		}
 		return beans;
 	}
+
 	// 获取投放终端IDs
 	public String getTerminalIdsByNames(String terminals)
 	{
@@ -717,6 +744,16 @@ public class Coupon
 	public void setStrTerminals(String strTerminals)
 	{
 		this.strTerminals = strTerminals;
+	}
+
+	public int getIntPrint()
+	{
+		return intPrint;
+	}
+
+	public void setIntPrint(int intPrint)
+	{
+		this.intPrint = intPrint;
 	}
 
 }
