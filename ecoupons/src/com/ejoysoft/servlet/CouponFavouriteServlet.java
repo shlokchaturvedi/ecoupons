@@ -64,14 +64,16 @@ private void execute(HttpServletRequest req, HttpServletResponse resp) throws IO
 				else {
 					sbReturn.append("<return>add_erro</return>");	
 				}
+			} else {
+				sbReturn.append("<return>cardorcouponid_erro</return>");
 			}
-			sbReturn.append("<return>cardorcouponid_erro</return>");	
+		} else {
+			sbReturn.append("<return>terminal_erro</return>");
 		}
-		sbReturn.append("<return>terminal_erro</return>");	
 	} catch (Exception e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
-		sbReturn.append("<return>erro</return>");	
+		sbReturn.append("<return>error</return>");	
 	}finally {			
 		globa.closeCon();
 		resp.getWriter().println(sbReturn.toString());
