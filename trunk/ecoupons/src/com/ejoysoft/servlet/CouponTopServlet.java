@@ -23,8 +23,8 @@ protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws Se
 	req.setCharacterEncoding("utf-8");
 	Globa globa = new Globa();
 	resp.setCharacterEncoding("utf-8");
-//	String strTerminalNo = req.getParameter("strTerminalNo");
-	 String strTerminalNo = "23";
+	String strTerminalNo = req.getParameter("strTerminalNo");
+//	 String strTerminalNo = "23";
 	HashMap<String, Terminal> hmTerminal = Terminal.hmTerminal;
 	Terminal terminal = hmTerminal.get(strTerminalNo);
 	Vector<String>vctString=new Vector<String>();
