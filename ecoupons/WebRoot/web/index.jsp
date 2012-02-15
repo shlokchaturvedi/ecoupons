@@ -41,7 +41,7 @@ eval("document.getElementById('sort_con_"+other+"').style.display='none'");
 
 </head>
 <body>
-<iframe height="180" border=0 marginwidth=0 marginheight=0 src="top.jsp" 
+<iframe height="167" border=0 marginwidth=0 marginheight=0 src="top.jsp" 
 frameborder=no width="100%" scrolling=no></iframe>
 <!--正文部分-->
 <div class="content">

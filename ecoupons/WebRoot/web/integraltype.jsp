@@ -9,7 +9,7 @@
 <title>我的积分</title>
 </head>
 <body>
-<iframe style="HEIGHT: 180px" border=0 marginwidth=0 marginheight=0 src="top.jsp" 
+<iframe style="HEIGHT: 167px" border=0 marginwidth=0 marginheight=0 src="top.jsp" 
 frameborder=no width="100%" scrolling=no></iframe>
 <!--正文部分-->
 <DIV id=Main>

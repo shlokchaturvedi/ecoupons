@@ -31,7 +31,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <body>
-<iframe style="HEIGHT: 180px"  marginwidth=0 marginheight=0 src="top.jsp" 
+<iframe style="HEIGHT: 167px"  marginwidth=0 marginheight=0 src="top.jsp" 
 frameborder=0 width="100%" scrolling=no></iframe>
 
 <!--正文部分-->

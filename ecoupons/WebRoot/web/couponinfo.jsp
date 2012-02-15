@@ -31,7 +31,7 @@
 <title>优惠券详细</title>  
 </head>
 <body>&nbsp; 
-<iframe style="HEIGHT: 130px" frameborder=0 marginwidth=0 marginheight=0 src="top.jsp" width="100%" scrolling=no></iframe>
+<iframe style="HEIGHT: 167px" frameborder=0 marginwidth=0 marginheight=0 src="top.jsp" width="100%" scrolling=no></iframe>
 
 <!--正文部分-->
 <DIV id=Main>
