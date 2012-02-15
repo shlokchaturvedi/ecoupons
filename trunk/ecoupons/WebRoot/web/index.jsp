@@ -60,8 +60,8 @@ if(session.getAttribute(Constants.MEMBER_KEY) != null)
 	<DIV id=left-bar-mid2  >
 	<form action="">
 	<p class=weluser><b><%out.print(globa.memberSession.getStrName()); %></b>,欢迎回来</p>
-	<p>我的余额：<a ><%= globa.memberSession.getFlaBalance() %></a></p>
-	<p>我的积分：<a ><%= globa.memberSession.getIntPoint() %></a></p>
+	<p>我的余额：<a href="balance.jsp"><%= globa.memberSession.getFlaBalance() %></a></p>
+	<p>我的积分：<a href="integral.jsp"><%= globa.memberSession.getIntPoint() %></a></p>
 	<p><INPUT class=Btn value="我的收藏" type=submit> 
 	<INPUT class=Btn value="历史记录" type=button> </p>
 	</form>
