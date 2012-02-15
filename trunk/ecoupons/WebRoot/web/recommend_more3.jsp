@@ -62,7 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 
 <form name=frm method=post action="marchants.jsp">
-<iframe style="HEIGHT: 130px"  marginwidth=0 marginheight=0 src="top.jsp" 
+<iframe style="HEIGHT: 180px"  marginwidth=0 marginheight=0 src="top.jsp" 
 frameborder=0 width="100%" scrolling=no></iframe>
 
 <!--正文部分-->

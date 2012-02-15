@@ -9,7 +9,7 @@
 <title>历史记录</title>
 </head>
 <body>
-<iframe style="HEIGHT: 130px" border=0 marginwidth=0 marginheight=0 src="top.htm" 
+<iframe style="HEIGHT: 180px" border=0 marginwidth=0 marginheight=0 src="top.jsp" 
 frameborder=no width="100%" scrolling=no></iframe>
 
 <!--正文部分-->
@@ -73,7 +73,7 @@ frameborder=no width="100%" scrolling=no></iframe>
 <DIV class=collect_show_bottom></DIV></DIV>
 </DIV>
 
-<iframe style="HEIGHT: 140px" border=0 marginwidth=0 marginheight=0 src="bottom2.htm" 
+<iframe style="HEIGHT: 140px" border=0 marginwidth=0 marginheight=0 src="bottom2.jsp" 
 frameborder=no width="100%" scrolling=no></iframe>
 </body>
 </html>

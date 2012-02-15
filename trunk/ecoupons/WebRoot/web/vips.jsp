@@ -61,7 +61,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <form name=frm method=post action="coupons_more.jsp">	
 <input type=hidden name=strname value="<%=strName%>" />
 &nbsp; 
-<iframe height="130" marginwidth=0 marginheight=0 src="top.jsp" frameborder=0 width="100%" scrolling=no></iframe>
+<iframe height="180" marginwidth=0 marginheight=0 src="top.jsp" frameborder=0 width="100%" scrolling=no></iframe>
 <!--正文部分-->
 <div class="coupons-content">
 <!--left部分-->
