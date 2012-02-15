@@ -333,7 +333,8 @@ public class Member
 	public int setFlaBalance(String strMemberCardNo,float newbalance)
 	{
 		int a=0;
-		String sql = "update " + strTableName + "set flabalance='"+newbalance+"' where strCardNo='" + strMemberCardNo + "' ";
+		String sql = "update " + strTableName + " set flabalance="+newbalance+" where strCardNo='" + strMemberCardNo + "' ";
+	
 		try {
 			a=db.executeUpdate(sql);
 		} catch (SQLException e1) {
@@ -348,7 +349,7 @@ public class Member
 	public int setIntPoint(String strMemberCardNo,int newbalance)
 	{
 		int a=0;
-		String sql = "update " + strTableName + "set intpoint='"+newbalance+"' where strCardNo='" + strMemberCardNo + "' ";
+		String sql = "update " + strTableName + " set intpoint='"+newbalance+"' where strCardNo='" + strMemberCardNo + "' ";
 		try {
 			a=db.executeUpdate(sql);
 		} catch (SQLException e1) {
