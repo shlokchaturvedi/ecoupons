@@ -45,16 +45,19 @@ public class CouponPrintServlet extends HttpServlet implements Servlet
 		db = new DbConnect();
 		db = globa.db;
 		try {
-			String strTerminalNo = req.getParameter("strTerminalNo");
+			String strTerminalNo = "23";
+//			String strTerminalNo = req.getParameter("strTerminalNo");
 			Terminal obj = new Terminal(globa);
 			HashMap<String, Terminal> hmTerminal = Terminal.hmTerminal;
 			Terminal terminal = hmTerminal.get(strTerminalNo);
+		    Coupon coupon=new Coupon(globa);
 			if(terminal!=null)
 			{
 				String strTerminalId = terminal.getStrId();
 				//String strTerminalId = obj.getTerminalIdsByNames(strTerminalNo);
 				obj.updateState(strTerminalId);//更新终端状态
-				String strPrintContent = req.getParameter("strPrintContent");
+				String strPrintContent = "3897$1328060264108040$2012-02-14 20:34:49$34564";
+//				String strPrintContent = req.getParameter("strPrintContent");
 			    String strTableName ="t_bz_coupon_print";
 				if(strPrintContent!=null)
 				{
@@ -82,7 +85,8 @@ public class CouponPrintServlet extends HttpServlet implements Servlet
 					            db.setInt(7, 0);
 					            db.setString(8, "system");
 					            db.setString(9, com.ejoysoft.common.Format.getDateTime());
-					            if (db.executeUpdate() > 0) { 	    
+					            if (db.executeUpdate() > 0&&coupon.updateIntPrint(strCouponId)) 
+					            { 	
 					                Globa.logger0("添加优惠券打印记录信息", globa.loginName, globa.loginIp, strSql, "优惠券打印", "system");
 					            } 			               
 							}catch (Exception e) {
