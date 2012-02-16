@@ -28,16 +28,9 @@ public class Index
 	public HashMap<String, Integer> returnTradeForCoup()
 	{
 		HashMap<String, Integer> hmTrade = new HashMap<String, Integer>();
-		Vector<SysPara> vctParas = new Vector<SysPara>();
+		List<SysPara> vctParas = new ArrayList<SysPara>();
 		sysPara = new SysPara(globa);
-		try
-		{
-			vctParas = sysPara.list("where strtype='商家行业'", 0, 0);
-		} catch (SQLException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		vctParas = sysPara.list("商家行业");
 		for (int i = 0; i < vctParas.size(); i++)
 		{
 			String tradeid = vctParas.get(i).getStrId();
@@ -68,9 +61,9 @@ public class Index
 	public HashMap<String, Vector<Coupon>> getCouponsByClassfiction()
 	{
 		HashMap<String, Vector<Coupon>> allcoupons = new HashMap<String, Vector<Coupon>>();
-		List<SysPara> listParas = new ArrayList<SysPara>();
 		Coupon coupon = new Coupon(globa);
 		Vector<Coupon> vctcoupon = new Vector<Coupon>();
+		List<SysPara> listParas = new ArrayList<SysPara>();
 		sysPara = new SysPara(globa);
 		listParas = sysPara.list("商家行业");
 		if (listParas != null)
@@ -149,23 +142,16 @@ public class Index
 	{
 		
 		Vector<String[]> vctTrades=new Vector<String[]>();
-		Vector<SysPara> vctParas = new Vector<SysPara>();
 		Shop shop = new Shop(globa);
+		List<SysPara> listParas = new ArrayList<SysPara>();
 		sysPara = new SysPara(globa);
-		try
-		{
-			vctParas = sysPara.list("where strtype='商家行业' order by dcreatdate  desc", 0, 0);
-		} catch (SQLException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		for (int i = 0; i < vctParas.size(); i++)
+		listParas = sysPara.list("商家行业");
+		for (int i = 0; i < listParas.size(); i++)
 		{
 			String [] strTrades=new String[3];
-			strTrades[0]=vctParas.get(i).getStrId();
-			strTrades[1]=vctParas.get(i).getStrName();
-			strTrades[2]=String.valueOf(shop.getCount("where strtrade='" + vctParas.get(i).getStrId() + "'"));
+			strTrades[0]=listParas.get(i).getStrId();
+			strTrades[1]=listParas.get(i).getStrName();
+			strTrades[2]=String.valueOf(shop.getCount("where strtrade='" + listParas.get(i).getStrId() + "'"));
 			vctTrades.add(strTrades);
 		}
 		return vctTrades;
