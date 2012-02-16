@@ -25,11 +25,10 @@ public class Index
 	 * 
 	 * @return
 	 */
-	public HashMap<SysPara, Integer> returnTradeForCoup()
+	public HashMap<String, Integer> returnTradeForCoup()
 	{
-		HashMap<SysPara, Integer> hmTrade = new HashMap<SysPara, Integer>();
+		HashMap<String, Integer> hmTrade = new HashMap<String, Integer>();
 		Vector<SysPara> vctParas = new Vector<SysPara>();
-		Shop shop = new Shop(globa);
 		sysPara = new SysPara(globa);
 		try
 		{
@@ -42,23 +41,23 @@ public class Index
 		for (int i = 0; i < vctParas.size(); i++)
 		{
 			String tradeid = vctParas.get(i).getStrId();
-			String sql = "select count(a.strid) from t_bz_coupon a left join t_bz_shop b on a.strshopid=b.strid where b.strtrade='" + tradeid + "'";
-			// System.out.println(sql+":Index.returnTradeForCoup()");
+			String sql = "select count(a.strid) from t_bz_coupon a left join t_bz_shop b on a.strshopid=b.strid where b.strtrade='"+tradeid+"'";
 			ResultSet re = db.executeQuery(sql);
-			int num = 0;
-			try
-			{
-				if (re.next())
+			int num=0;
+			try {
+				if(re.next())
 					num = re.getInt("count(a.strid)");
-			} catch (SQLException e)
-			{
+			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-			hmTrade.put(vctParas.get(i), num);
+			}	
+			hmTrade.put(vctParas.get(i).getStrName(), num);		
+			System.out.println(vctParas.get(i).getStrName()+":Index.returnTradeForCoup()"+num);
+				
 		}
 		return hmTrade;
 	}
+
 
 	/**
 	 * 分类返回所有行业的优惠券的记录
