@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@page import="java.util.*,com.ejoysoft.common.*"%>
+<%@page import="com.ejoysoft.auth.AppClass"%>
+<%@page import="com.ejoysoft.ecoupons.business.CouponPrint"%>
+<%@page import="com.ejoysoft.ecoupons.business.CouponFavourite"%>
+<%@page import="com.ejoysoft.ecoupons.business.Shop"%>
+<%@page import="com.ejoysoft.ecoupons.business.Coupon"%>
   <%@ include file="../include/jsp/head.jsp"%>
 <%
 String path = request.getContextPath();
@@ -57,7 +62,14 @@ frameborder=no width="100%" scrolling=no></iframe>
 </DIV>
 <DIV class=collect_bottom></DIV></DIV>
 </DIV>
+<%
+CouponFavourite couponFavourite=new CouponFavourite(globa);
+Vector<CouponFavourite> vctCouponFavourites=couponFavourite.list("where strMemberCardNo='"+globa.getMember().getStrCardNo()+"'",0,0);
+Shop shop=new Shop(globa);
+Coupon couponGloba=new Coupon(globa);
+Coupon coupon=new Coupon();
 
+%>
 
 
 <DIV id=Left>
@@ -74,13 +86,19 @@ frameborder=no width="100%" scrolling=no></iframe>
       <td align="center" bgcolor="EEEEEE" class="collect_show_tit">失效时间</td>
       <td align="center" bgcolor="EEEEEE" class="collect_show_tit">收藏时间</td>
     </tr>
+    <%if(vctCouponFavourites.size()>0){ %>
+    <%for(int i=0;i<vctCouponFavourites.size();i++){
+    	coupon=couponGloba.show("where strid='"+vctCouponFavourites.get(i).getStrCouponId()+"'");
+    	
+    	%>
     <tr>
-      <td height="25" align="center" bgcolor="#FFFFFF"><span class="STYLE1">KFC</span></td>
-      <td align="center" bgcolor="#FFFFFF">肯德鸡KFC优惠券8折</td>
-      <td align="center" bgcolor="#FFFFFF"><span class="STYLE1">60元</span></td>
-      <td align="center" bgcolor="#FFFFFF"><span class="STYLE1">2012-02-20</span></td>
-      <td align="center" bgcolor="#FFFFFF"><span class="STYLE1">2012-01-01</span></td>
+      <td height="25" align="center" bgcolor="#FFFFFF"><span class="STYLE1"><%=shop.returnBizShopName("where strid='"+coupon.getStrShopId()+"'") %></span></td>
+      <td align="center" bgcolor="#FFFFFF"><%=coupon.getStrName() %></td>
+      <td align="center" bgcolor="#FFFFFF"><span class="STYLE1"><%=coupon.getFlaPrice() %></span></td>
+      <td align="center" bgcolor="#FFFFFF"><span class="STYLE1"><%=coupon.getDtActiveTime() %></span></td>
+      <td align="center" bgcolor="#FFFFFF"><span class="STYLE1"><%=coupon.getDtExpireTime() %></span></td>
     </tr>
+    <%} }else{%>
     <tr>
       <td height="25" align="center" bgcolor="#FFFFFF">&nbsp;</td>
       <td align="center" bgcolor="#FFFFFF">&nbsp;</td>
@@ -88,6 +106,7 @@ frameborder=no width="100%" scrolling=no></iframe>
       <td align="center" bgcolor="#FFFFFF">&nbsp;</td>
       <td align="center" bgcolor="#FFFFFF">&nbsp;</td>
     </tr>
+    <%} %>
   </table>
 </DIV>
 
@@ -96,7 +115,7 @@ frameborder=no width="100%" scrolling=no></iframe>
 </DIV>
 </DIV>
 
-<iframe style="HEIGHT: 140px" border=0 marginwidth=0 marginheight=0 src="bottom2.jsp" 
+<iframe style="HEIGHT: 340px" border=0 marginwidth=0 marginheight=0 src="bottom.jsp" 
 frameborder=no width="100%" scrolling=no></iframe>
 </body>
 </html>
