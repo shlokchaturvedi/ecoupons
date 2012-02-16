@@ -226,13 +226,20 @@ for(int i=0;i<8;i++){
 	<UL>
 	<%
 	CouponComment couponComment=new CouponComment(globa);
-	Vector<CouponComment> vctCouponComment=couponComment.list("",1,6);
+	Vector<CouponComment> vctCouponComment=couponComment.list("",0,0);
+	if(vctCouponComment.size()>6){
+		for(int i=0;i<6;i++){
+		%>
+			<li>・<a href="couponinfo.jsp?strid=<%=vctCouponComment.get(i).getStrCouponId() %>" ><%=vctCouponComment.get(i).getStrComment() %></a></li>
+		<%}
+	}else{
 		for(int i=0;i<vctCouponComment.size();i++){
-			out.print("<LI>・<A href='#'>"+vctCouponComment.get(i).getStrComment()+"</A></LI>");
+		%>
+		<li>・<a href="couponinfo.jsp?strid=<%=vctCouponComment.get(i).getStrCouponId() %>" ><%=vctCouponComment.get(i).getStrComment() %></a></li>
+		<%
+		}
 	}
-	%>
-	  
-	 
+	%>	
 	 </UL>
 	</DIV>
 <DIV class=sort_bottom></DIV>
