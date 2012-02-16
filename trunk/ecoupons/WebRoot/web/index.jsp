@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="java.util.Vector"%>
 <%@page import="com.ejoysoft.ecoupons.web.Index"%>
-<%@page import="java.util.HashMap"%>
+<%@page import="java.util.*"%>
 <%@page import="com.ejoysoft.common.*"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.Map"%>
@@ -20,6 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <title>乐购_信息创想生活</title>
 <link href="css/index.css" rel="stylesheet" type="text/css" />
 <SCRIPT type=text/javascript>
@@ -58,12 +58,12 @@ if(session.getAttribute(Constants.MEMBER_KEY) != null)
 {
 %>
 	<DIV id=left-bar-mid2  >
-	<form action="">
+	<form action="collection.jsp">
 	<p class=weluser><b><%out.print(globa.memberSession.getStrName()); %></b>,欢迎回来</p>
 	<p>我的余额：<a href="balance.jsp"><%= globa.memberSession.getFlaBalance() %></a></p>
 	<p>我的积分：<a href="integral.jsp"><%= globa.memberSession.getIntPoint() %></a></p>
-	<p><INPUT class=Btn value="我的收藏" type=submit> 
-	<INPUT class=Btn value="历史记录" type=button> </p>
+	<p><INPUT id="btnCollection" class=Btn value="我的收藏" type=submit> 
+	<INPUT class=Btn value="历史记录" type=button onclick="top.location = '<%=application.getServletContextName()%>/web/history.jsp'"> </p>
 	</form>
 	</DIV> 
 	<%
@@ -80,33 +80,11 @@ if(session.getAttribute(Constants.MEMBER_KEY) != null)
 	<P class=numberbg><INPUT id=txt_yzm class="number floatL" type=text name=yanzm></P><A class=forget href="#">忘记密码了？</A>&nbsp;&nbsp;		
 	<A class=change href="#" onclick="javascript:var dt=new Date();document.getElementById('code').src='../image.jsp?dt='+dt;">换一张图片</A><BR>		
 	<INPUT id=btn_login class=loginBtn value="登 录" type=submit name=btn_login> 		
-	<INPUT class=regBtn value="注 册" type=button></form></DIV>		
+	<INPUT class=regBtn value="注 册" type=button onclick="frm.action='member.jsp';frm.submit();"></form></DIV>		
+<DIV class=sortlogin_bottom></DIV>
 <%
 }
 %>
-
-
-
-
-  
-  
-  
-
-
-
-
- 
-
-
-<!--会员登录结束 -->
-
-			
-<!--会员登录后切换显示 -->
-
-<!--会员登录后结束 -->
-
-
-<DIV class=sortlogin_bottom></DIV>
 
 </div>
  
@@ -117,27 +95,27 @@ if(session.getAttribute(Constants.MEMBER_KEY) != null)
 <UL>
 <%
 Index index=new Index(globa);
-HashMap<SysPara, Integer> hmTrades=index.returnTrade();
-Vector<SysPara> vctTrades=new Vector<SysPara>();
-Iterator iterator=hmTrades.entrySet().iterator();
-while(iterator.hasNext()){
-	Map.Entry<SysPara, Integer> entry=(Map.Entry<SysPara, Integer>)iterator.next();
-	out.print("<LI><A href=javascript:void(0)'>"+entry.getKey().getStrName()+"&nbsp;&nbsp;("+entry.getValue()+")</A></LI>");
-	vctTrades.add(entry.getKey());
+Vector<String[]> vctStrades=index.returnVctTrades();
+for(int i=0;i<vctStrades.size();i++){
+	out.print("<LI><A href='merchants.jsp?strtrade="+vctStrades.get(i)[0]+"'>"+vctStrades.get(i)[1]+"&nbsp;&nbsp;("+vctStrades.get(i)[2]+")</A></LI>");	
+	
 }
+
 %>
   </UL></DIV>
 <DIV class=sort_bottom></DIV></DIV> 
 </div>
-  	<form name=frm action="index.jsp">
+  	<form name=frmTrade action="index.jsp">
   <div class="mid">
 	<DIV class=mid_xt><marquee behavior="scroll" scrollamount="5" onmouseover="this.stop();" onmouseout="this.start();">
 	<%
+	String  strTradeId=ParamUtil.getString(request,"strTradeId");
 	Shop shop=new Shop(globa);
     Vector<Shop> vctShops=shop.list("order by dtcreatetime  desc",1,10);
     for(int i=0;i<vctShops.size();i++){
     out.print("<a href='merchantsinfo.jsp?strid="+vctShops.get(i).getStrId()+"' target=_blank alt='"+vctShops.get(i).getStrBizName()+"'><img src='../shop/images/" +vctShops.get(i).getStrSmallImg() +"' width='99' height='44'  border='0' /></a>");
     }
+    
 	%>
 	
 	</marquee></DIV>
@@ -145,14 +123,12 @@ while(iterator.hasNext()){
 	<DIV class=mid_sj>
 		<div class="sj_tit">
 		  <div class="sj_name" >商家优惠信息</div>
-		  <div class="sj_sel"><select name="strTradeId" class="sjfl" onchange="document.getElementById('strTradeId').value=this.value;frm.submit();">
-		    
+		  <div class="sj_sel"><select name="strTradeId" class="sjfl" onchange="document.getElementById('strTradeId').value=this.value;frmTrade.submit();">
+		     <option  <%if(strTradeId==null){out.print("selected");} %>>全部</option>
 		     <% 
-		    for(int j=0;j< vctTrades.size();j++){
-		    	out.print("<option value="+vctTrades.get(j).getStrId()+">"+vctTrades.get(j).getStrName()+"</option>");
-		    }
-		    
-		    %>
+		    for(int j=0;j< vctStrades.size();j++){%>
+		    	<option value=<%=vctStrades.get(j)[0]%> <%if(vctStrades.get(j)[0].equals(strTradeId)){out.print("selected");} %> ><%=vctStrades.get(j)[1] %></option>
+		   <%}%>
 	      </select></div>
 	    </div>
 		
@@ -162,52 +138,24 @@ while(iterator.hasNext()){
 		<div class="sj_box">
 		  <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
 		  <%
-		  String  strTradeId=ParamUtil.getString(request,"strTradeId");
-		    
-		    	HashMap<String, String>hmShopCoupon=index.returnShopCoupon(strTradeId);
-		    	Iterator iter=hmShopCoupon.entrySet().iterator();
-		    	while(iter.hasNext()){
-		    		Map.Entry<String, String> entry=(Map.Entry<String, String>)iter.next();
-		    		out.print("<tr><td width='50%' height='26'><a href='#'><b>・&nbsp;"+entry.getKey()+"&nbsp;</b>"+entry.getValue()+"</a></td></tr>");
-		    		
-		    	}	
-		   
+		  
+		    Vector<String[]>vctStrings=index.returnVctShopCoupon(strTradeId);
+		    for(int i=0;i<vctStrings.size();i+=2){
 		  %>
-            
-            
-           
             <tr>
-              <td height="26"><a id="abc1" href="#"><b>・&nbsp;商家名称</b></a></td>
-              <td><a id="abc2" href="#"><b>・&nbsp;商家名称 </b>商家优惠活动信息</a></td>
+              <td height="26"><a id="abc1" href="couponinfo.jsp?strid=<%=vctStrings.get(i)[2]%>"><b>・&nbsp;<%=vctStrings.get(i)[0] %> </b><%=vctStrings.get(i)[1] %></a></td>
+              <td>
+              <% if(vctStrings.size()>i+1){%>
+              <a id="abc2" href="couponinfo.jsp?strid=<%out.print(vctStrings.get(i+1)[2]);%>"><b>・&nbsp;<%out.print(vctStrings.get(i+1)[0]); %> </b><%out.print(vctStrings.get(i+1)[1]); %></a>
+              <% }%>
+              </td>
             </tr>
-            <tr>
-              <td height="26"><a id="abc3" href="#"><b>・&nbsp;商家名称</b></a></td>
-              <td><a id="abc4" href="#"><b>・&nbsp;商家名称 </b>商家优惠活动信息</a></td>
-            </tr>
-            <tr>
-              <td height="26"><a id="abc5" href="#"><b>・&nbsp;商家名称</b></a></td>
-              <td><a id="abc6" href="#"><b>・&nbsp;商家名称 </b>商家优惠活动信息</a></td>
-            </tr>
-            <tr>
-              <td height="26"><a id="abc7" href="#"><b>・&nbsp;商家名称</b></a></td>
-              <td><a id="abc8" href="#"><b>・&nbsp;商家名称 </b>商家优惠活动信息</a></td>
-            </tr>
-            <tr>
-              <td height="26"><a id="abc9" href="#"><b>・&nbsp;商家名称</b></a></td>
-              <td><a id="abc10" href="#"><b>・&nbsp;商家名称 </b>商家优惠活动信息</a></td>
-            </tr>
-            <tr>
-              <td height="26"><a id="abc11" href="#"><b>・&nbsp;商家名称</b></a></td>
-              <td><a id="abc12" href="#"><b>・&nbsp;商家名称 </b>商家优惠活动信息</a></td>
-            </tr>
-            
+            <%} %>
           </table>
 		</div>
 	</DIV>
   </div>
   </form>
-  
-  
   <div class="right">
   
   <DIV class=sort>
