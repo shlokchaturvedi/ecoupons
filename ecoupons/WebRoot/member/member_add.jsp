@@ -40,14 +40,15 @@ function chkFrm() {
 		    alert("非法的手机号码") 
 		    frm.strMobileNo.focus();   
 		    return false; 
-	  	}else {
+	  	  }
+	 }else{
 	    	if(confirm("确定添加!"))
 	        {
 				frm.submit();
 		    }
-	    }
+		    }
 	} 
-}
+
 </script>
 </head>
 
