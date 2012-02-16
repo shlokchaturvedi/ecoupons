@@ -43,7 +43,6 @@
 	    obj.setStrAddr(" ");
 	    boolean result = obj.add();
 	    String strPhone =ParamUtil.getString(request,"strPhone","");
-	    System.out.println(strPhone+"ddddddddddddd");
 	    if(!strPhone.equals(""))
 	    {
 		    String messege="亲爱的"+globa.memberSession.getStrName()+"会员，您此次于乐购网成功兑换礼品"+giftobj.getStrName()+"！请至XX地址凭您的会员卡领取";
@@ -62,7 +61,7 @@
 		     				 response.getWriter().print("<script>alert('礼品兑换成功！请查收短信');window.close();</script>");
 						else
 						{
-		     				 response.getWriter().print("<script>alert('"+strPhone+"礼品兑换成功！短信发送失败！');window.close();</script>");
+		     				 response.getWriter().print("<script>alert('礼品兑换成功！短信发送失败！');window.close();</script>");
 			    		}
 			    	}
 				    else {			    	
