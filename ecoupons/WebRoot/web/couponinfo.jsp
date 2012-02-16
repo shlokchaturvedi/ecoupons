@@ -163,21 +163,47 @@ style="COLOR: gray"><%=comobj1.getStrComment() %></SPAN> </DIV>
 <DIV class="box  line_gray jianju9b">
 <DIv class="box bold word_gra sp_nav_bg jianju13 ">发表评论：</DIV>
 <DIV class="box jianju13 jianju2a word_12px">
+<%
+ if(session.getAttribute(Constants.MEMBER_KEY) != null)
+ {  %>
+<form action="comment_act.jsp" method=post name=frm1 >
 <input type="hidden" name="strcouponid" value="<%=strId%>" > 
+<input type="hidden" name="<%=Constants.ACTION_TYPE%>" value="<%=Constants.ADD_STR%>" >
 <TABLE border=0 width="100%">
   <TBODY>
   <TR>
     <TD align="center">内容： </TD>
     <TD colSpan=7><LABEL><TEXTAREA style="WIDTH: 500px; HEIGHT: 100px" id=txt_con class=form rows=2 cols=20 name=strcomment></TEXTAREA> 
       </LABEL><SPAN id=span_sub></SPAN></TD></TR></TBODY></TABLE>
-<%
-if(session.getAttribute(Constants.MEMBER_KEY) == null)
+
+<TABLE id=tr2>
+  <TBODY>
+  <TR>
+    <TD align=right>验证码： </TD>
+    <TD align=left><INPUT style="WIDTH: 60px" name=yanzm class=form type=text value="" maxLength=4 size=10> </TD>
+    <TD align=left> <a style="CURSOR:hand" onclick="javascript:var dt=new Date();document.getElementById('code2').src='../image.jsp?dt='+dt;" title="看不清楚，换个图片"> 
+    <IMG style="BORDER: #ffffff 1px solid; WIDTH: 65px; HEIGHT: 20px; CURSOR: pointer;" id=code2 border=0 name=checkcode src="../image.jsp"> 
+    </a></TD>
+    <TD align=left><INPUT id=btn_login class=cy_button value=" " type=submit name=btn_login> 
+    </TD></TR></TBODY></TABLE>   
+    </form> 
+    
+ <%
+ } 
+else
 {
  %>
-<form name="frm2" METHOD=POST ACTION="<%=application.getServletContextName()%>/web/Auth">		
+<form name="frm2" method=post action="<%=application.getServletContextName()%>/web/Auth" >		
 <input type="hidden" name="actiontype" value="weblogon2" />		
 <input type="hidden" name="authType" value="password"/>		
-<input type="hidden" name="strCouponId" value="<%=strId%>"/>		
+<input type="hidden" name="strCouponId" value="<%=strId%>"/>
+<TABLE border=0 width="100%">
+  <TBODY>
+  <TR>
+    <TD align="center">内容： </TD>
+    <TD colSpan=7><LABEL><TEXTAREA style="WIDTH: 500px; HEIGHT: 100px" id=txt_con class=form rows=2 cols=20 name=strcomment></TEXTAREA> 
+      </LABEL><SPAN id=span_sub></SPAN></TD></TR></TBODY></TABLE>
+	
 <TABLE id=tr_login>
   <TBODY>
   <TR>
@@ -196,23 +222,6 @@ if(session.getAttribute(Constants.MEMBER_KEY) == null)
  </form>
  <%
  }
- else{  %>
-<form action="comment_act.jsp" method=post name=frm1>
-<input type="hidden" name="<%=Constants.ACTION_TYPE%>" value="<%=Constants.ADD_STR%>" >
-<TABLE id=tr2>
-  <TBODY>
-  <TR>
-    <TD align=right>验证码： </TD>
-    <TD align=left><INPUT style="WIDTH: 60px" name=yanzm class=form type=text value="" maxLength=4 size=10> </TD>
-    <TD align=left> <a style="CURSOR:hand" onclick="javascript:var dt=new Date();document.getElementById('code2').src='../image.jsp?dt='+dt;" title="看不清楚，换个图片"> 
-    <IMG style="BORDER: #ffffff 1px solid; WIDTH: 65px; HEIGHT: 20px; CURSOR: pointer;" id=code2 border=0 name=checkcode src="../image.jsp"> 
-    </a></TD>
-    <TD align=left><INPUT id=btn_login class=cy_button value=" " type=submit name=btn_login> 
-    </TD></TR></TBODY></TABLE>   
-    </form> 
-    
- <%
- } 
  %>
     </DIV></DIV>
 </DIV>
