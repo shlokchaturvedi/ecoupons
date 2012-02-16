@@ -72,6 +72,8 @@ public final class Constants {
     public final static String LOGON = "logon";
     //网站登录标识
     public final static String WEBLOGON = "weblogon";
+    //网站登录标识
+    public final static String WEBLOGON2 = "weblogon2";
     //网站退出标识
     public final static String WEBLOGOFF = "weblogoff";
     //mac��½��־
