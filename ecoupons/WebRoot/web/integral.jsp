@@ -86,7 +86,7 @@ frameborder=no width="100%" scrolling=no></iframe>
 <DIV class=collect_show_bottom></DIV></DIV>
 </DIV>
 
-<iframe style="HEIGHT: 140px" border=0 marginwidth=0 marginheight=0 src="bottom2.jsp" 
+<iframe style="HEIGHT: 340px" border=0 marginwidth=0 marginheight=0 src="bottom.jsp" 
 frameborder=no width="100%" scrolling=no></iframe>
 </body>
 </html>
