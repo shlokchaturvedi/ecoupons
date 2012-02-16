@@ -74,7 +74,7 @@ if(session.getAttribute(Constants.MEMBER_KEY) != null)
 	<input type="hidden" name="actiontype" value="weblogon" />		
 	<input type="hidden" name="authType" value="password"/>		
 	<P class=userbg>		
-	<INPUT id=txt_username class=user value=账号/手机 onclick="document.getElementById('txt_username').value=''" type=text name=username>		
+	<INPUT id=txt_username class=user value=账号/手机 onclick="document.getElementById('txt_username').value=''" type=text name=username >		
 	</P><P class=passwordbg><INPUT id=txt_pwd class=password type=password name=password></P>		
 	<DIV class="floatR"><IMG id=code border=0 name=checkcode alt=验证码 align=absMiddle src="../image.jsp" width=60 height=18></DIV>		
 	<P class=numberbg><INPUT id=txt_yzm class="number floatL" type=text name=yanzm></P><A class=forget href="#">忘记密码了？</A>&nbsp;&nbsp;		
