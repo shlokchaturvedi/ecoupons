@@ -30,6 +30,7 @@ public class Coupon
 	private String dtCreateTime;
 	private String strTerminals;// 投放终端编码
 	private String strDownLoadAlertTable = "t_bz_download_alert";
+	String strPrintTable="t_bz_coupon_print";
 	DownLoadAlert downLoadAlert;
 
 	/**
@@ -98,7 +99,7 @@ public class Coupon
 			String[] strDbTerminalIds = strDbTerminalId.split(",");// 得到在修改时丢弃的终端id，增加时选中1、2、3、4但是修改时选中3、4，此时我们将得到1、2
 
 			System.out.println(strDbTerminalId + "位被选中");
-			String strSql = "UPDATE  " + strTableName + "  SET dtActiveTime = ?, ";
+			String strSql = "update  " + strTableName + "  SET dtActiveTime = ?, ";
 			db.setAutoCommit(false);
 			if (this.strSmallImg != null && this.strSmallImg.length() > 0)
 			{
@@ -128,6 +129,9 @@ public class Coupon
 			db.setString(10, strId);
 			if (db.executeUpdate() > 0)
 			{
+				//修改couponprint表中的终端字段  当优惠券修改的时候
+				String strSqlPrint="update "+strPrintTable+" set strTerminalIds='"+getTerminalIdsByNames(strTerminals)+"' where strcouponid='"+strId+"'";
+				db.executeUpdate(strSqlPrint);
 				// 如果丢弃的终端已处理就增加delete语句，如果没有处理，直接删除
 				for (int i = 0; i < strDbTerminalIds.length; i++)
 				{
@@ -212,6 +216,7 @@ public class Coupon
 			db.setInt(16, 0);
 			if (db.executeUpdate() > 0)
 			{
+				
 				if (strTerminals != null && strTerminals != "")
 				{
 					String[] strTerminalId = getTerminalIdsByNames(strTerminals).split(",");
@@ -257,8 +262,10 @@ public class Coupon
 		try
 		{
 			db.setAutoCommit(false);
-			String sql = "DELETE FROM " + strTableName + "  where strId =" + where;
+			String sql = "delete from " + strTableName + "  where strId =" + where;
 			db.executeUpdate(sql);
+			String strSqlPrint="delete from "+strPrintTable+" where strcouponid='"+strId+"'";
+			db.executeUpdate(strSqlPrint);
 			if (strTerminals != null && strTerminals != "")
 			{
 				String[] TerminalIds = getTerminalIdsByNames(strTerminals).split(",");
