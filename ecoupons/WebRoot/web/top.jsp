@@ -1,4 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@page import="com.ejoysoft.ecoupons.system.SysPara"%>
+  <%@ include file="../include/jsp/head.jsp"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -50,7 +52,16 @@ eval("document.getElementById('clay0_"+index+"').style.display='none'");
 				<input type="button" name="Button" onclick="frm.action='coupons_more.jsp';frm.submit();" value=" " class="newsearch-btn"  />
 			 </div>
 			</div>
-			<div class="search_txt">热门搜索：<a href="#">麦当劳</a> <a href="#">肯德鸡</a> <a href="#">三福</a> <a href="#">米乐迪</a></div>
+			<%
+			SysPara sysPara=new SysPara(globa);
+			Vector<SysPara> vctSyspParas=sysPara.list("where strtype='热门搜索' order by dcreatdate  desc",1,4);
+			%>
+			<div class="search_txt">热门搜索：
+			<%for(int i=0;i<vctSyspParas.size();i++){ %>
+			<a href="#"><%=vctSyspParas.get(i).getStrName() %></a> 
+			<%} %>
+			
+			</div>
 </div>
  </div>
 <!--logo结束-->
@@ -76,4 +87,4 @@ eval("document.getElementById('clay0_"+index+"').style.display='none'");
 </form>
 </body>
 </html>
-
+<%@ include file="/include/jsp/footer.jsp"%>
