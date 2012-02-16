@@ -15,6 +15,7 @@ public class AppClass extends javax.servlet.http.HttpServlet
 	private String homeUrl = "/index.jsp";
 	private String logonUrl = "/login.jsp";
 	private String strUrl = "/web/index.jsp";
+	private String strUrl2 = "/web/couponinfo.jsp";
 
 	public AppClass()
 	{
@@ -72,6 +73,28 @@ public class AppClass extends javax.servlet.http.HttpServlet
 						gotoPage(strUrl, request, response);
 					}
 				}
+			} else if (Constants.WEBLOGON2.equals(actionType))
+			{
+				// 判断验证码
+				String rand = (String) request.getSession().getAttribute("rand");
+				String input = request.getParameter("yanzm");
+				String strUserName=request.getParameter("username");
+				String couponid=request.getParameter("strCouponId");
+//				String strPwd=request.getParameter("password");
+				if (!rand.toLowerCase().equals(input.toLowerCase()))
+				{
+					getFullwinScript(actionType,response, "验证码错误，请重新输入！");
+				} else
+				{
+					int intType = form.memberPwdAuth(strUserName);
+					if (intType == -1)
+					{
+						getFullwinScript(actionType,response, form.getError());
+					} else
+					{
+						gotoPage(strUrl2+"?strid="+couponid, request, response);
+					}
+				}
 			}
 			else if (Constants.WEBLOGOFF.equals(actionType))
 			{
@@ -109,6 +132,8 @@ public class AppClass extends javax.servlet.http.HttpServlet
 			pw.println("<script>alert('" + strError + "');location.href='/ecoupons" + logonUrl + "';</script>");
 		}else if (Constants.WEBLOGON.equals(actionType)) {
 			pw.println("<script>alert('" + strError + "');location.href='/ecoupons" + strUrl + "';</script>");
+		}else if (Constants.WEBLOGON2.equals(actionType)) {
+			pw.println("<script>alert('" + strError + "');location.href='/ecoupons" + strUrl2 + "';</script>");
 		}
 		return pw;
 	}
