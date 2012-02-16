@@ -5,22 +5,29 @@
 				com.ejoysoft.auth.MD5,
 				com.ejoysoft.common.Format,
 				com.ejoysoft.ecoupons.business.CouponPrint,
-				com.ejoysoft.ecoupons.business.Member"%>
+				com.ejoysoft.ecoupons.business.Member,
+				com.ejoysoft.common.Constants"%>
 <%@include file="../include/jsp/head.jsp"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-<%
-	 String memberCardno = "111";
-	 if(memberCardno==null ||memberCardno.trim().equals(""))
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+ <%
+	 String memberCardno="";  
+	 if(session.getAttribute(Constants.MEMBER_KEY) == null)
 	 {
-	    out.print("<script>alert('您还未登录！请先登录！');window.close();</script>");
+   		globa.closeCon();   		
+      response.getWriter().println("<script>alert('您还未登录！请先登录！');window.opener=null;window.close();</script>");
 	 }
+	 memberCardno = globa.memberSession.getStrCardNo(); 	 
 	 String strId = ParamUtil.getString(request,"strid");
 	 if(strId.equals(""))
 	    	throw new IdObjectException("请求处理的信息id为空！或者已经不存在");
-	 
 	 String strimg = ParamUtil.getString(request,"strimg","temp.jpg");
 	 String flag = ParamUtil.getString(request,"flag"," ");
 	 Coupon coupobj = new Coupon(globa);
@@ -41,14 +48,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 float balance = memberobj.getFlaBalance();
 	 if(couponvip==1 && membervip ==0)
 	 {
-		out.print("<script>alert('您非VIP会员，无法打印Vip优惠券！');window.close();</script>");
+	 	response.getWriter().println("<script>alert('您非VIP会员，无法打印Vip优惠券！');window.opener=null;window.close();</script>");
 	 }
 	 if(couponPrice > balance)
 	 {
-		out.print("<script>alert('您的会员卡余额不足！请即使充值');window.close();</script>");
+	    response.getWriter().println("<script>alert('您的会员卡余额不足！请即使充值');window.opener=null;window.close();</script>");
 	 }	 
  	 if(flag.equals("print"))
- 	 {	   int k = member.setFlaBalance(memberCardno,balance-couponPrice);
+ 	 {	  
+ 	       int k = member.setFlaBalance(memberCardno,balance-couponPrice);
 		   CouponPrint obj = new CouponPrint(globa);
 	 	   String strCouponCode2 = ParamUtil.getString(request,"code");
 	 	   obj.setStrCreator("system");
@@ -57,13 +65,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 	   obj.setStrMemberCardNo(memberCardno);
 	 	   obj.setStrTerminalId("system");
  	  	   boolean result = obj.add();		
- 	  	   out.print("<script>window.print();</script>");	
+ 	  	   response.getWriter().println("<script>window.print();</script>");	
  	 }
  %>
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-  <head>
     <base href="<%=basePath%>">
     
     <title><%=obj1.getStrName() %>(优惠券)</title>
@@ -79,7 +83,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
   </head>
   <body>
-  <form action="web/coupon_print.jsp" method=post name=frm>
+  <form name=frm action="web/coupon_print.jsp" method=post id=frm >
+  <input type=hidden name=code value="<%=strCouponCode%>" />
+  <input type=hidden name=strimg value="<%=strimg%>" />
+  <input type=hidden name=strid value="<%=strId%>" />
+  <input type=hidden name=flag value=" " />
    <table width=100% border=0> 
    <tr>
 	   <td colspan="2">
@@ -105,12 +113,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    </tr>
    <tr>
    	<td>
-	   <input type=hidden name=code value="<%=strCouponCode%>" />
-	   <input type=hidden name=strimg value="<%=strimg%>" />
-	   <input type=hidden name=strid value="<%=strId%>" />
-	   <input type=hidden name=flag value=" " />
-	   <input class=Noprint style="width=200;height=30" type=button onclick="frm.flag.value='print';frm.submit();" value="打     印"/></td>
-   	<td><input class=Noprint style="width=200;height=30" type=button onclick="window.close();" value="关     闭"/></td>
+	   <input class=Noprint style="width=200;height=30" type=button name=button1 onclick="document.getElementById('flag').value='print' ;document.getElementById('frm').submit();" value="打     印"/></td>
+   	<td><input class=Noprint style="width=200;height=30" type=button name=button2 onclick="window.close();" value="关     闭"/></td>
    </tr>
    </table>
    </form>

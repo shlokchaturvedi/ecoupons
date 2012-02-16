@@ -43,10 +43,10 @@ eval("document.getElementById('clay0_"+index+"').style.display='none'");
 					</ul>
 				</div>
 		
-		  	 <div id=clay0_1 style="display:block"><input class="newsearch-txt" id=headbcsearchtxt onkeyup=searchSuggest(event); name="strName" />
+		  	 <div id=clay0_1 style="display:block"><input class="newsearch-txt" id=headbcsearchtxt  name="strName" />
 			      <input type="button" name="Button" value=" " onclick="frm.action='merchants.jsp';frm.submit();" class="newsearch-btn"  />
 			 </div>
-	         <div id=clay0_2 style="display:none"><input class="newsearch-txt" id=headbcsearchtxt onkeyup=searchSuggest(event); name="strName2" />
+	         <div id=clay0_2 style="display:none"><input class="newsearch-txt" id=headbcsearchtxt  name="strName2" />
 				<input type="button" name="Button" onclick="frm.action='coupons_more.jsp';frm.submit();" value=" " class="newsearch-btn"  />
 			 </div>
 			</div>

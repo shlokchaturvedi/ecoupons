@@ -7,34 +7,36 @@
 				 com.ejoysoft.common.exception.IdObjectException" %>
 <%@ include file="../include/jsp/head.jsp" %>
 <%
-	String membercardno = "111";
-	 if(membercardno==null ||membercardno.trim().equals(""))
-	 {
-	    out.print("<script>alert('您还未登录！请先登录！');window.close();</script>");
-	 }
-    CouponFavourite obj=new CouponFavourite(globa); 
-    String  strId=ParamUtil.getString(request,"strid","");    
-	if(strId.equals(""))
+	String membercardno="";  
+	if(session.getAttribute(Constants.MEMBER_KEY) == null)
 	{
-		out.print("<script>alert('操作失败！');window.close();</script>");
-		//throw new IdObjectException("请求处理的信息id为空！或者已经不存在");
+   		globa.closeCon();
+	    response.getWriter().println("<script>alert('您还未登录！请先登录！');window.close();</script>");
+	}
+	else
+	{
+		membercardno = globa.memberSession.getStrCardNo(); 
+		CouponFavourite obj=new CouponFavourite(globa); 
+	    String  strId=ParamUtil.getString(request,"strid","");    
+		if(strId.equals(""))
+		{
+			response.getWriter().println("<script>alert('操作失败！');window.close();</script>");
+			//throw new IdObjectException("请求处理的信息id为空！或者已经不存在");
+		}
+	    obj.setStrCreator("system");
+	    obj.setStrCouponId(strId);
+	    obj.setStrMemberCardNo(membercardno);
+	    boolean result = obj.add();
+	    if(result)
+	    {
+	       response.getWriter().println("<script>alert('收藏成功！');window.close();</script>");
+	    }
+	    else
+	    {
+	       response.getWriter().println("<script>alert('收藏失败!');window.close();</script>");
+	    }	
+	    //关闭数据库连接对象
+	    globa.closeCon(); 
 	}
     
-	System.out.println(strId);	
-    obj.setStrCreator("system");
-    obj.setStrCouponId(strId);
-    obj.setStrMemberCardNo(membercardno);
-    boolean result = obj.add();
-    if(result)
-    {
-      out.print("<script>alert('收藏成功！');window.close();</script>");
-    }
-    else
-    {
-       out.print("<script>alert('收藏失败!');window.close();</script>");
-    }
-	
-
-    //关闭数据库连接对象
-    globa.closeCon();
 %>

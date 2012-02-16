@@ -52,7 +52,7 @@ for(int i=0 ;i<tradelist.size();i++)
   int k=0;
 if(vctcoup!=null&&vctcoup.size()>0)
 {
-String strtradeid = para.getIdByName2(syspara1.getStrName());
+String strtradeid = syspara1.getStrId();
 %>
 <div class=hotList_tit1>
 		<p><a href="#"><%=syspara1.getStrName()%></a></p>
@@ -142,7 +142,7 @@ String strtradeid = para.getIdByName2(syspara1.getStrName());
 		{
 		%>
 		  <li>
-         <a href="couponinfo.jsp?strid=<%=coupon2.getStrId() %>" target="_blank"><img src=<%="../coupon/images/"+coupon2.getStrSmallImg()%> width="173" height="110" />
+         <a href="couponinfo.jsp?strid=<%=coupon2.getStrId() %>" target="_blank"><img src=<%="../coupon/images/"+coupon2.getStrSmallImg()%> width="173" height="110" border="0" title="<%=coupon2.getStrName()%>" />
          </a></li> 
 		<%
 		}
@@ -160,15 +160,18 @@ String strtradeid = para.getIdByName2(syspara1.getStrName());
 <ul> 
 <%
 Index index=new Index(globa);
-HashMap<SysPara, Integer> hmTrades=index.returnTradeForCoup();
-Vector<SysPara> vctTrades=new Vector<SysPara>();
-Iterator iterator=hmTrades.entrySet().iterator();
-while(iterator.hasNext()){
-	Map.Entry<SysPara, Integer> entry=(Map.Entry<SysPara, Integer>)iterator.next();
-	String strtradeid = para.getIdByName2(entry.getKey().getStrName());
-	out.print("<LI><A href='coupons_more.jsp?strtrade="+strtradeid+"'>"+entry.getKey().getStrName()+"&nbsp;&nbsp;("+entry.getValue()+")</A></LI>");
-	vctTrades.add(entry.getKey());
+HashMap<String, Integer> hmTrades=index.returnTradeForCoup();
+for(int i=0;i<tradelist.size();i++)
+{
+    SysPara syspara1 = (SysPara)tradelist.get(i);
+    int coupnum = hmTrades.get(syspara1.getStrName());
+    System.out.println(syspara1.getStrName()+coupnum);
+	String strtradeid = syspara1.getStrId();
+	%>
+	<li><a href="coupons_more.jsp?strtrade=<%=strtradeid%>" ><%=syspara1.getStrName()%>&nbsp;&nbsp;(<%=coupnum%>)</a></li>
+<%
 }
+
 %></ul></div>
 <div class=sort_bottom></div></div> 
  
@@ -183,11 +186,14 @@ while(iterator.hasNext()){
 	Vector<CouponComment> vctCouponComment=couponComment.list("",0,0);
 	if(vctCouponComment.size()>6){
 		for(int i=0;i<6;i++){
-			out.print("<LI>・<A href='#'>"+vctCouponComment.get(i).getStrComment()+"</A></LI>");
-		}
+		%>
+			<li>・<a href="couponinfo.jsp?strid=<%=vctCouponComment.get(i).getStrCouponId() %>" ><%=vctCouponComment.get(i).getStrComment() %></a></li>
+		<%}
 	}else{
 		for(int i=0;i<vctCouponComment.size();i++){
-			out.print("<LI>・<A href='#'>"+vctCouponComment.get(i).getStrComment()+"</A></LI>");
+		%>
+		<li>・<a href="couponinfo.jsp?strid=<%=vctCouponComment.get(i).getStrCouponId() %>" ><%=vctCouponComment.get(i).getStrComment() %></a></li>
+		<%
 		}
 	}
 	%>	 </ul>
@@ -196,7 +202,6 @@ while(iterator.hasNext()){
   </div>
  <!--right结束-->
  
-  
 </div>
 <!--正文部分结束-->
 </div>
