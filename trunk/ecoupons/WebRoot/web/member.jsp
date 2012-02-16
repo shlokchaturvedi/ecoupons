@@ -60,6 +60,6 @@ frameborder=0 width="100%" scrolling=no></iframe>
 
 </div>
 <!--正文部分结束-->
-<iframe style="HEIGHT: 140px" marginwidth=0 marginheight=0 src="jsp.htm" frameborder=0 width="100%" scrolling=no></iframe>
+<iframe style="HEIGHT: 140px" marginwidth=0 marginheight=0 src="bottom.jsp" frameborder=0 width="100%" scrolling=no></iframe>
 </body>
 </html>
