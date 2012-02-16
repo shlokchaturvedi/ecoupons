@@ -45,10 +45,6 @@ frameborder=no width="100%" scrolling=no></iframe>
 </DIV>
 <DIV class=collect_bottom></DIV></DIV>
 </DIV>
-
-
-
-
 <DIV id=Left>
 <DIV class=collect_left_top>
 		<div class="collect_sf">我的积分</div>
