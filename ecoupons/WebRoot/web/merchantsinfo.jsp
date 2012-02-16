@@ -65,12 +65,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <table border=0 width=100%>
   <tbody>
   <tr>
-    <td width=300 height="26">*行业：<%=obj1.getStrTradeName()%> </td>
-    <td width=400 height="26">*地址：<%=obj1.getStrAddr()%></td>
+    <td width=165 height="26">*行业：<%=obj1.getStrTradeName()%> </td>
+    <td height="26">*地址：<%=obj1.getStrAddr()%></td>
   </tr>
   <tr>
-    <td height="26">* 联系电话：<%=obj1.getStrPhone()%></td>
     <td height="26">*联系人：<%=obj1.getStrPerson()%></td>
+    <td height="26">* 联系电话：<%=obj1.getStrPhone()%></td>
    </tr>
   </tbody></table>
 <br/></div>
@@ -104,12 +104,12 @@ if(vctCoupon!=null&&vctCoupon.size()!=0)
 		System.out.println(obj3.getStrSmallImg()+":ddd");
 		if (obj3.getStrSmallImg()!=null && obj3.getStrSmallImg().length() > 0) {
          %>
-         <div class="zs_img"><a href="couponinfo.jsp?strid=<%=obj3.getStrId() %>" target="_blank"><img src="<%="../coupon/images/" + obj3.getStrSmallImg() %>" /></a></div>
+         <div class="zs_img"><a href="couponinfo.jsp?strid=<%=obj3.getStrId() %>" target="_blank"><img src="<%="../coupon/images/" + obj3.getStrSmallImg() %>" border="0" title="<%=obj3.getStrName() %>" /></a></div>
         <%
         }   
         else{
          %>
-         <div class="zs_img"><a href="couponinfo.jsp?strid=<%=obj3.getStrId() %>" target="_blank"><img src="images/temp.jpg" /></a></div>
+         <div class="zs_img"><a href="couponinfo.jsp?strid=<%=obj3.getStrId() %>" target="_blank"><img src="images/temp.jpg"  border="0" title="<%=obj3.getStrName() %>" /></a></div>
         <%
         }    	
 	}	
