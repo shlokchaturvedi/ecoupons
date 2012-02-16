@@ -6,7 +6,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link href="css/collection.css" rel="stylesheet" type="text/css" />
 <LINK rel=stylesheet type=text/css href="css/comment.css">
 <title>我的积分</title>
@@ -59,7 +59,7 @@ frameborder=no width="100%" scrolling=no></iframe>
 <DIV class=collect_show>
   <table width="96%" border="0" cellpadding="0" cellspacing="0">
     <tr>
-      <td height="60" valign="top">可用积分：<span class="fjwz">1569 </span> 分 &nbsp;&nbsp;&nbsp;&nbsp;<img src="images/fjkban.jpg" width="98" height="24" /></td>
+      <td height="60" valign="top">可用积分：<span class="fjwz">1569 </span> 分 &nbsp;&nbsp;&nbsp;&nbsp;<a href="integraltype.jsp"><img src="images/fjkban.jpg" width="98" height="24" /></a></td>
     </tr>
     <tr>
       <td height="28"><span class="bzb">积分变动情况</span></td>

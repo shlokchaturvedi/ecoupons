@@ -1,20 +1,22 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@page import="java.util.*,com.ejoysoft.common.*"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+    <%@page import="com.ejoysoft.common.*"%>
 <%@page import="com.ejoysoft.auth.AppClass"%>
 <%@page import="com.ejoysoft.ecoupons.business.CouponPrint"%>
 <%@page import="com.ejoysoft.ecoupons.business.CouponFavourite"%>
 <%@page import="com.ejoysoft.ecoupons.business.Shop"%>
 <%@page import="com.ejoysoft.ecoupons.business.Coupon"%>
   <%@ include file="../include/jsp/head.jsp"%>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+  <%
+if(session.getAttribute(Constants.MEMBER_KEY) == null)
+{
+		globa.closeCon();
+    response.getWriter().print("<script>alert('您还未登录！请先登录！');top.location = '"+application.getServletContextName()+"/web/index.jsp';</script>");
+}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link href="css/collection.css" rel="stylesheet" type="text/css" />
 <LINK rel="stylesheet" type="text/css" href="css/comment.css">
 <title>我的收藏</title>
@@ -88,15 +90,15 @@ Coupon coupon=new Coupon();
     </tr>
     <%if(vctCouponFavourites.size()>0){ %>
     <%for(int i=0;i<vctCouponFavourites.size();i++){
-    	coupon=couponGloba.show("where strid='"+vctCouponFavourites.get(i).getStrCouponId()+"'");
+    	coupon=couponGloba.show("where strid='"+vctCouponFavourites.get(i).getStrCouponId()+"' order by dtcreatetime desc");
     	
     	%>
     <tr>
-      <td height="25" align="center" bgcolor="#FFFFFF"><span class="STYLE1"><%=shop.returnBizShopName("where strid='"+coupon.getStrShopId()+"'") %></span></td>
-      <td align="center" bgcolor="#FFFFFF"><%=coupon.getStrName() %></td>
+      <td height="25" align="center" bgcolor="#FFFFFF"><span class="STYLE1"><a href="merchantsinfo.jsp?strid=<%=coupon.getStrShopId()%>"><%=shop.returnBizShopName("where strid='"+coupon.getStrShopId()+"'") %></a></span></td>
+      <td align="center" bgcolor="#FFFFFF"><a href="couponinfo.jsp?strid=<%=coupon.getStrId() %>"><%=coupon.getStrName() %></a></td>
       <td align="center" bgcolor="#FFFFFF"><span class="STYLE1"><%=coupon.getFlaPrice() %></span></td>
-      <td align="center" bgcolor="#FFFFFF"><span class="STYLE1"><%=coupon.getDtActiveTime() %></span></td>
       <td align="center" bgcolor="#FFFFFF"><span class="STYLE1"><%=coupon.getDtExpireTime() %></span></td>
+      <td align="center" bgcolor="#FFFFFF"><span class="STYLE1"><%=coupon.getDtCreateTime() %></span></td>
     </tr>
     <%} }else{%>
     <tr>
