@@ -31,7 +31,9 @@ public class CouponTopServlet extends HttpServlet
 		Vector<String> vctString = new Vector<String>();
 		if (terminal != null)
 		{
-			String strSql = "select strid from t_bz_coupon where dtexpiretime>now() and strTerminalIds like '%"+terminal.getStrId()+"%' order by intprint desc  LIMIT 24";
+			String strSql ="select strcouponid from t_bz_coupon_print where dtprinttime>"
+				+"date_sub(curdate(),interval 10 day)and strterminalids like '%"
+				+terminal.getStrId()+"%' group by strcouponid order by count(strcouponid) desc limit 24";
 			ResultSet resultSet = globa.db.executeQuery(strSql);
 			try
 			{
