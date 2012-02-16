@@ -42,7 +42,7 @@ public class CouponPrint
 		float couponprice = objCoupon.getFlaPrice();
 		float balance = memberbalance - couponprice;
 		String sql = "insert into " + strTableName + " (strId,strMemberCardNo,strCouponId,strTerminalId,dtPrintTime,strCouponCode,intState"
-				+ ",strCreator,dtCreateTime) " + "values (?,?,?,?,?,?,?,?,?) ";
+				+ ",strCreator,dtCreateTime,strterminalids) " + "values (?,?,?,?,?,?,?,?,?,?) ";
 		try
 		{	
 			db.getConnection().setAutoCommit(false);//禁止自动提交事务
@@ -57,6 +57,7 @@ public class CouponPrint
 			db.setInt(7, 0);
 			db.setString(8, strCreator);
 			db.setString(9, com.ejoysoft.common.Format.getDateTime());
+			db.setString(10, objCoupon.getStrTerminalIds());
 			if (db.executeUpdate() > 0)
 			{
 				coupon.updateIntPrint(strId);
