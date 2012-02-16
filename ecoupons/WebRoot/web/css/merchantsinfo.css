@@ -195,7 +195,7 @@ A:hover {
 	BORDER-BOTTOM: #ccc 1px solid; BORDER-LEFT: #ccc 1px solid; PADDING-BOTTOM: 2px; MARGIN:10px 30px 5px 20px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; FLOAT: left; BORDER-TOP: #ccc 1px solid; BORDER-RIGHT: #ccc 1px solid; PADDING-TOP: 2px
 }
  .mer_mid .mer_info {
-	WIDTH: 360px; FLOAT: left;
+	WIDTH: 580px; FLOAT: left;
 }
  .mer_mid .mer_info .mer_headtitle {
 	PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; PADDING-RIGHT: 0px; COLOR: #f00; FONT-SIZE: 14px; FONT-WEIGHT: bold; PADDING-TOP: 15px
@@ -207,4 +207,4 @@ A:hover {
 .zs_mid img{
 	 WIDTH:130px;height:95px; }
 	 
-.zs_img{ width:126px; margin:3px 6px; float:left;}
+.zs_img{ width:126px; margin:3px 3px; float:left;}
