@@ -1,0 +1,36 @@
+@CHARSET "UTF-8";
+/* CSS Document */
+body{ margin:0; padding:0; font-size:12px; LINE-HEIGHT: 1.5; FONT-FAMILY: Verdana}
+P {
+	PADDING: 0px; MARGIN: 0px;}
+UL { MARGIN: 0px; PADDING: 0px}
+H1 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+
+H2 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+A {
+	COLOR: #444; TEXT-DECORATION: none
+}
+A:hover {
+	COLOR: #f00
+}
+
+/* coupons-content部分优惠券 */
+.member-content{ width:985px; margin:0 auto; margin-top:0px;}
+
+/* coupons-left部分优惠券 */
+.member_tit{ background:url(../images/zctitbg.jpg) repeat-x; height:26px;width:955px; padding-left:30px; padding-top:15px; font-size:14px; color:#4C4C4C; font-weight:bolder;}
+
+.member_box{width:984px; padding-top:50px; background-color:#F7F7F7; height:400px;}
+.member_left{width:530px; float:left; padding-left:70px;}
+.member_td_wz{ font-size:14px;color:#4C4C4C; height:50px; text-align:right;}
+
+.member_ipt{ border:1px solid #C3C3C3; width:200px; height:20px;}
+.yzm{border:1px solid #C3C3C3; width:100px; height:20px;}
+
+.member_right{width:380px; float:left;}
+.member_right span{ font-size:14px; color:#DA7724; font-weight:bolder; display: block; height:30px;}
+.ts_nr{ border:1px solid #E9E9E9; width:300px; height:240px; padding:8px; line-height:150%}
