@@ -1,4 +1,4 @@
- <%@ page language="java"  pageEncoding="UTF-8"%>
+<%@ page language="java"  pageEncoding="UTF-8"%>
 <%@page import="java.util.*,
 		com.ejoysoft.common.exception.*,
 		com.ejoysoft.common.*,
@@ -163,7 +163,6 @@ style="COLOR: gray"><%=comobj1.getStrComment() %></SPAN> </DIV>
 <DIV class="box  line_gray jianju9b">
 <DIv class="box bold word_gra sp_nav_bg jianju13 ">发表评论：</DIV>
 <DIV class="box jianju13 jianju2a word_12px">
-<form action="comment_act.jsp" method=post name=frm1>
 <input type="hidden" name="strcouponid" value="<%=strId%>" > 
 <TABLE border=0 width="100%">
   <TBODY>
@@ -175,15 +174,18 @@ style="COLOR: gray"><%=comobj1.getStrComment() %></SPAN> </DIV>
 if(session.getAttribute(Constants.MEMBER_KEY) == null)
 {
  %>
-<input type="hidden" name="<%=Constants.ACTION_TYPE%>" value="login" >
+<form name="frm2" METHOD=POST ACTION="<%=application.getServletContextName()%>/web/Auth">		
+<input type="hidden" name="actiontype" value="weblogon2" />		
+<input type="hidden" name="authType" value="password"/>		
+<input type="hidden" name="strCouponId" value="<%=strId%>"/>		
 <TABLE id=tr_login>
   <TBODY>
   <TR>
     <TD align=left>用户名： </TD>
-    <TD align=left><INPUT style="WIDTH: 90px" id=txt_username class=form value=用户名 type=text name=txt_username> 
+    <TD align=left><INPUT style="WIDTH: 90px;" id=txt_username class=form value="" onclick="document.getElementById('txt_username').value=''" type=text name=username> 
     </TD>
     <TD align=left>&nbsp; 密码： </TD>
-    <TD align=left><INPUT style="WIDTH: 80px" id=txt_userpass class=form type=password name=txt_userpass> </TD>
+    <TD align=left><INPUT style="WIDTH: 80px;" id=txt_userpass class=form type=password name=password > </TD>
     <TD align=left>&nbsp; 验证码： </TD>
     <TD align=left><INPUT style="WIDTH: 60px" class=form name=yanzm type=text value="" maxLength=4 size=10> </TD>
     <TD align=left><a style="CURSOR:hand" onclick="javascript:var dt=new Date();document.getElementById('code').src='../image.jsp?dt='+dt;" title="看不清楚，换个图片"> 
@@ -191,9 +193,11 @@ if(session.getAttribute(Constants.MEMBER_KEY) == null)
     <TD align=left><INPUT id=btn_login class=cx_button value=" " type=submit name=btn_login> 
     </TD></TR></TBODY>
  </TABLE>
+ </form>
  <%
  }
  else{  %>
+<form action="comment_act.jsp" method=post name=frm1>
 <input type="hidden" name="<%=Constants.ACTION_TYPE%>" value="<%=Constants.ADD_STR%>" >
 <TABLE id=tr2>
   <TBODY>
@@ -204,13 +208,12 @@ if(session.getAttribute(Constants.MEMBER_KEY) == null)
     <IMG style="BORDER: #ffffff 1px solid; WIDTH: 65px; HEIGHT: 20px; CURSOR: pointer;" id=code2 border=0 name=checkcode src="../image.jsp"> 
     </a></TD>
     <TD align=left><INPUT id=btn_login class=cy_button value=" " type=submit name=btn_login> 
-    </TD></TR></TBODY></TABLE>    
+    </TD></TR></TBODY></TABLE>   
+    </form> 
     
  <%
  } 
  %>
- 
- </form>
     </DIV></DIV>
 </DIV>
 <!--评论结束-->
