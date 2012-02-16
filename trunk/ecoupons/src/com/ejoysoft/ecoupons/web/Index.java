@@ -183,20 +183,20 @@ public class Index
 	 * 
 	 * @return
 	 */
-	public Vector<String> returnTopCoupons(String flag)
+	public Vector<String[]> returnTopCoupons(String flag)
 	{
 		String strSql = "";
-		Vector<String> vctCoupons = new Vector<String>();
+		Vector<String[]> vctCoupons = new Vector<String[]>();
 		Coupon coupon = new Coupon(globa);
 		if ("日".equals(flag))
 		{
-			strSql = "select strcouponid from t_bz_coupon_print where date(dtprinttime)=date(now())group by strcouponid";
+			strSql = "select strcouponid from t_bz_coupon_print where date(dtprinttime)=date(now())group by strcouponid order by count(strcouponid) desc limit 8";
 		} else if ("周".equals(flag))
 		{
-			strSql = "select strcouponid from t_bz_coupon_print where month(dtprinttime) =month(curdate()) and week(dtprinttime) = week(curdate())group by strcouponid";
+			strSql = "select strcouponid from t_bz_coupon_print where month(dtprinttime) =month(curdate()) and week(dtprinttime) = week(curdate())group by strcouponid order by count(strcouponid) desc limit 8";
 		} else if ("月".equals(flag))
 		{
-			strSql = "select strcouponid from t_bz_coupon_print where month(dtprinttime) =month(curdate()) and year(dtprinttime) = year(curdate())group by strcouponid";
+			strSql = "select strcouponid from t_bz_coupon_print where month(dtprinttime) =month(curdate()) and year(dtprinttime) = year(curdate())group by strcouponid order by count(strcouponid) desc limit 8";
 		}
 		ResultSet resultSet = db.executeQuery(strSql);
 		try
@@ -206,7 +206,10 @@ public class Index
 				Coupon couponTemp = coupon.show("where strid='" + resultSet.getString("strcouponid") + "'");
 				if (couponTemp != null)
 				{
-					vctCoupons.add(couponTemp.getStrName());
+					String [] strCoupons=new String[2];
+					strCoupons[0]=couponTemp.getStrId();
+					strCoupons[1]=couponTemp.getStrName();
+					vctCoupons.add(strCoupons);
 				}
 			}
 		} catch (SQLException e)

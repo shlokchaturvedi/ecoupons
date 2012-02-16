@@ -1,14 +1,62 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@page import="com.ejoysoft.common.Constants,java.util.*"%>
+<%@page import="com.ejoysoft.ecoupons.business.CouponPrint"%>
+<%@page import="com.ejoysoft.ecoupons.business.Coupon"%>
+<%@page import="com.ejoysoft.ecoupons.business.Shop"%>
+<%@ include file="../include/jsp/head.jsp"%>
+<%
+if(session.getAttribute(Constants.MEMBER_KEY) == null)
+{
+		globa.closeCon();
+    response.getWriter().print("<script>alert('您还未登录！请先登录！');top.location = '"+application.getServletContextName()+"/web/index.jsp';</script>");
+}
+%>
+<%
+String tWhere=" where strMemberCardNo='"+globa.getMember().getStrCardNo()+"'";
+tWhere += " order by dtCreateTime desc";
+CouponPrint obj=new CouponPrint(globa);
+//记录总数
+int intAllCount=obj.getCount(tWhere);
+//当前页
+int intCurPage=globa.getIntCurPage();
+//每页记录数
+//int intPageSize=globa.getIntPageSize();
+int intPageSize=6;
+//共有页数
+	int intPageCount=(intAllCount-1)/intPageSize+1;
+// 循环显示一页内的记录 开始序号
+int intStartNum=(intCurPage-1)*intPageSize+1;
+//结束序号
+int intEndNum=intCurPage*intPageSize;   
+//获取到当前页面的记录集
+Vector<CouponPrint> vctObj=obj.list(tWhere,intStartNum,intPageSize);
+//获取当前页的记录条数
+int intVct=(vctObj!=null&&vctObj.size()>0?vctObj.size():0);
+Coupon coupon=new Coupon(globa);
+Shop shop=new Shop(globa);
+%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="css/collection.css" rel="stylesheet" type="text/css" />
 <link rel=stylesheet type=text/css href="css/comment.css">
 <title>历史记录</title>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 </head>
+<script language=JavaScript>
+function logout(){
+	if (confirm("您确定要退出吗？"))
+		top.location = "<%=application.getServletContextName()%>/web/Auth?actiontype=<%=Constants.WEBLOGOFF%>";
+	return false;
+}
+</script>
 <body>
+<form name=frm method=post action="marchants.jsp" >	
 <iframe style="HEIGHT: 180px" border=0 marginwidth=0 marginheight=0 src="top.jsp" 
 frameborder=no width="100%" scrolling=no></iframe>
 
@@ -36,16 +84,13 @@ frameborder=no width="100%" scrolling=no></iframe>
     </tr>
 
     <tr>
-      <td height="32" class="list_wz"><a href="#">&nbsp;&gt;&gt; 退出系统</a></td>
+      <td height="32" class="list_wz"><a href="#" onClick="logout();">&nbsp;&gt;&gt; 退出系统</a></td>
     </tr>
   </table>
   <p>&nbsp;</p>
 </DIV>
 <DIV class=collect_bottom></DIV></DIV>
 </DIV>
-
-
-
 
 <DIV id=Left>
 <DIV class=collect_left_top>
@@ -60,20 +105,32 @@ frameborder=no width="100%" scrolling=no></iframe>
       <td align="center" bgcolor="EEEEEE" class="collect_show_tit">金额</td>
       <td align="center" bgcolor="EEEEEE" class="collect_show_tit">时间</td>
       </tr>
+      <%
+      for(int i=0;i<vctObj.size();i++)
+      {
+       Coupon couponTemp=coupon.show("where strid='"+vctObj.get(i).getStrCouponId()+"'");
+      %>
     <tr>
-      <td height="25" align="center" bgcolor="#FFFFFF"><span class="STYLE1">KFC</span></td>
-      <td align="center" bgcolor="#FFFFFF">肯德鸡KFC优惠券8折</td>
-      <td align="center" bgcolor="#FFFFFF"><span class="STYLE1">60元</span></td>
-      <td align="center" bgcolor="#FFFFFF"><span class="STYLE1">2012-02-20</span></td>
+      <td height="25" align="center" bgcolor="#FFFFFF"><span class="STYLE1"><a href="merchantsinfo.jsp?strid=<%=couponTemp.getStrShopId() %>"><%=shop.returnBizShopName("where strid='"+couponTemp.getStrShopId()+"'")%></a></span></td>
+      <td align="center" bgcolor="#FFFFFF"><a href="couponinfo.jsp?strid=<%=couponTemp.getStrId() %>"><%=couponTemp.getStrName() %></a></td>
+      <td align="center" bgcolor="#FFFFFF"><span class="STYLE1"><%=couponTemp.getFlaPrice() %></span></td>
+      <td align="center" bgcolor="#FFFFFF"><span class="STYLE1"><%=vctObj.get(i).getDtPrintTime() %></span></td>
       </tr>
+      <%} %>
   </table>
 </DIV>
+  <!-- 翻页开始 -->  
+ 	<%@ include file="include/cpage.jsp"%>
+   	<!-- 翻页结束 -->
 
 </DIV>
+
 <DIV class=collect_show_bottom></DIV></DIV>
 </DIV>
 
 <iframe style="HEIGHT: 340px" border=0 marginwidth=0 marginheight=0 src="bottom.jsp" 
 frameborder=no width="100%" scrolling=no></iframe>
+</form>
 </body>
 </html>
+<%@ include file="/include/jsp/footer.jsp"%>

@@ -164,35 +164,19 @@ for(int i=0;i<vctStrades.size();i++){
 <DIV id=sort_con_1>
 <UL>
 <%
-Vector<String>vecCouponps=index.returnTopCoupons("日");
-if(vecCouponps.size()>8){
-for(int i=0;i<8;i++){
-	out.print("<LI>・<A href='#'>"+vecCouponps.get(i)+"</A></LI>");
-}}else{
+Vector<String[]>vecCouponps=index.returnTopCoupons("日");
 	for(int i=0;i<vecCouponps.size();i++){
-		out.print("<LI>・<A href='#'>"+vecCouponps.get(i)+"</A></LI>");
+		out.print("<LI>・<A href='couponinfo.jsp?strid="+vecCouponps.get(i)[0]+"'>"+vecCouponps.get(i)[1]+"</A></LI>");
 	}	
-	
-}
-
 %>
-
   </UL></DIV>
-  
  <DIV id=sort_con_2 style="display:none">
 <UL>
  <%
 vecCouponps=index.returnTopCoupons("周");
-if(vecCouponps.size()>8){
-for(int i=0;i<8;i++){
-	out.print("<LI>・<A href='#'>"+vecCouponps.get(i)+"</A></LI>");
-}}else{
 	for(int i=0;i<vecCouponps.size();i++){
-		out.print("<LI>・<A href='#'>"+vecCouponps.get(i)+"</A></LI>");
+		out.print("<LI>・<A href='couponinfo.jsp?strid="+vecCouponps.get(i)[0]+"'>"+vecCouponps.get(i)[1]+"</A></LI>");
 	}	
-	
-}
-
 %>
 </UL></DIV> 
   
@@ -200,16 +184,9 @@ for(int i=0;i<8;i++){
 <UL>
  <%
 vecCouponps=index.returnTopCoupons("月");
-if(vecCouponps.size()>8){
-for(int i=0;i<8;i++){
-	out.print("<LI>・<A href='#'>"+vecCouponps.get(i)+"</A></LI>");
-}}else{
 	for(int i=0;i<vecCouponps.size();i++){
-		out.print("<LI>・<A href='#'>"+vecCouponps.get(i)+"</A></LI>");
+		out.print("<LI>・<A href='couponinfo.jsp?strid="+vecCouponps.get(i)[0]+"'>"+vecCouponps.get(i)[1]+"</A></LI>");
 	}	
-	
-}
-
 %>
 </UL></DIV>
   

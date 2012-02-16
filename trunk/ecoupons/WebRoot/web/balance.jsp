@@ -1,12 +1,29 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@page import="com.ejoysoft.ecoupons.business.Recharge,com.ejoysoft.common.*"%>
+<%@page import="com.ejoysoft.ecoupons.web.RecordModel"%>
+    <%@ include file="../include/jsp/head.jsp"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
+<%
+if(session.getAttribute(Constants.MEMBER_KEY) == null)
+{
+		globa.closeCon();
+    response.getWriter().print("<script>alert('您还未登录！请先登录！');top.location = '"+application.getServletContextName()+"/web/index.jsp';</script>");
+}
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312" /> 
+<script language=JavaScript>
+function logout(){
+	if (confirm("您确定要退出吗？"))
+		top.location = "<%=application.getServletContextName()%>/web/Auth?actiontype=<%=Constants.WEBLOGOFF%>";
+	return false;
+}
+</script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link href="css/collection.css" rel="stylesheet" type="text/css" />
 <LINK rel=stylesheet type=text/css href="css/comment.css">
 <title>我的余额</title>
@@ -38,7 +55,7 @@ frameborder=no width="100%" scrolling=no></iframe>
       <td height="32" class="list_wz"><a href="integral.jsp">&nbsp;&gt;&gt; 我的积分</a></td>
     </tr>
     <tr>
-      <td height="32" class="list_wz"><a href="#">&nbsp;&gt;&gt; 退出系统</a></td>
+      <td height="32" class="list_wz"><a href="#" onClick="logout();">&nbsp;&gt;&gt; 退出系统</a></td>
     </tr>
   </table>
   <p>&nbsp;</p>
@@ -49,6 +66,12 @@ frameborder=no width="100%" scrolling=no></iframe>
 <DIV class=collect_left_top>
 		<div class="collect_sf">我的积分</div>
 </DIV>
+<%
+Recharge recharge=new Recharge(globa);
+Vector<RecordModel> vctRecords=new Vector<RecordModel>();
+Vector<Recharge>vctRecharges=recharge.list("where strmembercardno='"+globa.getMember().getStrCardNo()+"' order by dtcreatetime desc",0,0);
+
+%>
 <DIV class=collect_left_mid>
 <DIV class=collect_show>
   <table width="96%" border="0" align="center" cellpadding="0" cellspacing="0">
@@ -94,3 +117,4 @@ frameborder=no width="100%" scrolling=no></iframe>
 frameborder=no width="100%" scrolling=no></iframe>
 </body>
 </html>
+<%@ include file="/include/jsp/footer.jsp"%>

@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="com.ejoysoft.common.Constants"%>
+<%@ include file="../include/jsp/head.jsp"%>
+<%
+if(session.getAttribute(Constants.MEMBER_KEY) == null)
+{
+		globa.closeCon();
+    response.getWriter().print("<script>alert('您还未登录！请先登录！');top.location = '"+application.getServletContextName()+"/web/index.jsp';</script>");
+}
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -78,3 +87,4 @@ frameborder=no width="100%" scrolling=no></iframe>
 frameborder=no width="100%" scrolling=no></iframe>
 </body>
 </html>
+<%@ include file="/include/jsp/footer.jsp"%>

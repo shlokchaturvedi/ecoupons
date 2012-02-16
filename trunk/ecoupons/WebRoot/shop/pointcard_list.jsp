@@ -151,9 +151,9 @@ function del(){
                 </div></td>
                 <td bgcolor="#FFFFFF"><div align="center" class="STYLE1"><%=obj1.getStrPointCardNo()%></div>
                 </td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><input name="strPointCardPwd" readonly="readonly" type="password" 
+                <td bgcolor="#FFFFFF"><div align="center" class="STYLE1"><input name="strPointCardPwd" readonly="readonly" type="password" 
 																size="30" border="0"
-																value="<%=obj1.getStrPointCardPwd()%>" /></span></div></td>
+																value="<%=obj1.getStrPointCardPwd()%>" /></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getIntPoint()%></span></div></td>
                  <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE4">
                   <a href="pointcard_update.jsp?strId=<%=obj1.getStrId()%>"><img src="../images/edit.gif" width="16" height="16" border="0" />编辑</a> 
