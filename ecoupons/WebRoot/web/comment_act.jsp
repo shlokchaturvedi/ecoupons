@@ -7,20 +7,21 @@
 				 com.ejoysoft.common.exception.IdObjectException" %>
 <%@ include file="../include/jsp/head.jsp" %>
 <%
-	String membercardno = "111";
-	 if(membercardno==null ||membercardno.trim().equals(""))
-	 {
-	    out.print("<script>alert('您还未登录！请先登录！');window.close();</script>");
-	 }
+	String membercardno="";  
+	if(session.getAttribute(Constants.MEMBER_KEY) == null)
+	{
+   		globa.closeCon();
+	    out.print("<script>alert('您还未登录！请先登录！');window.close();</script>");	}
+	else
+	{
+		membercardno = globa.memberSession.getStrCardNo(); 	 
+	}
     CouponComment obj=new CouponComment(globa); 
     String  strId=ParamUtil.getString(request,"strcouponid","");    
 	if(strId.equals(""))
     	throw new IdObjectException("请求处理的信息id为空！或者已经不存在");
     String where="where strId='"+strId+"'";
     String strUrl="couponinfo.jsp?strid="+strId;
-    ServletContext application1 = getServletContext();
-    
-   
     if(action.equals(Constants.DELETE_STR)){
     	String[] aryStrId = ParamUtil.getStrArray(request, "strId");
     	for (int i = 0; i < aryStrId.length; i++) {
@@ -30,15 +31,13 @@
 	} 
 	else {
 			
-	         String strComment=ParamUtil.getString(request,"strcomment"," ");	       
-	         obj.setStrComment(strComment);
-	         obj.setStrCreator("system");
-	         obj.setStrCouponId(strId);
-	         obj.setStrMemberCardNo(membercardno);
-		
-	    if(action.equals(Constants.ADD_STR)) { 
-	         LogonForm form = new LogonForm(application1, request, response);
-		     //判断验证码
+         String strComment=ParamUtil.getString(request,"strcomment"," ");	       
+         obj.setStrComment(strComment);
+         obj.setStrCreator("system");
+         obj.setStrCouponId(strId);
+         obj.setStrMemberCardNo(membercardno);		
+	     if(action.equals(Constants.ADD_STR)) { 
+	         //判断验证码
 			 String rand = (String)request.getSession().getAttribute("rand");
 			 String input = request.getParameter("yanzm");
 		
@@ -50,15 +49,15 @@
                 globa.closeCon();
                 out.print("<script>alert('输入验证码错误！评价失败！');window.location.href='javascript:history.go(-1)';</script>");
              }
-             else if(rand.toLowerCase().equals(input.toLowerCase())&&form.authenticate()==1){
-                globa.closeCon();
-			     out.print("<script>alert('"+form.getError()+"');window.location.href='javascript:history.go(-1)';</script>");
-             }else{
+             else{
 	              globa.dispatch(obj.addComment(),strUrl);
-             }
-                  
+             }                  
+		}
+		else
+		{
 		}
 	}
     //关闭数据库连接对象
     globa.closeCon();
+    
 %>

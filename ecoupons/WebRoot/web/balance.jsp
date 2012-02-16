@@ -6,12 +6,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" /> 
 <link href="css/collection.css" rel="stylesheet" type="text/css" />
 <LINK rel=stylesheet type=text/css href="css/comment.css">
 <title>我的余额</title>
-</head>
-
+</head> 
 <body>
 <iframe style="HEIGHT: 167px" border=0 marginwidth=0 marginheight=0 src="top.jsp" 
 frameborder=no width="100%" scrolling=no></iframe>

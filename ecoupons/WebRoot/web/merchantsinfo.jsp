@@ -139,7 +139,7 @@ Coupon coupon = new Coupon(globa);
 		{
 	%>
 <div class=tuangou_index>
-<div class=card_img> <a href="couponinfo.jsp?strid=<%=coupon2.getStrId() %>" target="_blank"><img src=<%="../coupon/images/"+coupon2.getStrSmallImg()%> width="126" height="89"/></a></div>
+<div class=card_img> <a href="couponinfo.jsp?strid=<%=coupon2.getStrId() %>" target="_blank"><img src=<%="../coupon/images/"+coupon2.getStrSmallImg()%> width="126" height="89" border="0" title="<%=coupon2.getStrName()%>" /></a></div>
 <div class=card_js><%=coupon2.getStrName() %><br />
 开始日期：<%=coupon2.getDtActiveTime().substring(0,10) %><br />
 截止日期：<%=coupon2.getDtExpireTime().substring(0,10) %></div>

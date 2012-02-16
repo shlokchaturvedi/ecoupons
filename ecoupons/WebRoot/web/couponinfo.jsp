@@ -9,6 +9,7 @@
 <%@page import="com.ejoysoft.ecoupons.business.CouponComment"%>
 <%@ include file="../include/jsp/head.jsp"%>
 <%
+
 	String strId = ParamUtil.getString(request,"strid","");
 	if(strId.equals(""))
     	throw new IdObjectException("请求处理的信息id为空！或者已经不存在");
@@ -73,7 +74,7 @@ else{
 <div class=coupon_jzrq><FONT color=#ff0000>截止时间：<%=obj0.getDtExpireTime().substring(0,10)%></FONT></div>
 <DIV class=coupon_bar>
   <UL>
-  <LI><a href="#" onclick="window.open('coupon_print.jsp?random=<%= Math.random()%>&strid=<%=obj0.getStrId()%>&strimg=<%=obj0.getStrPrintImg()%>','','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,width=420,height=540,left=450,top=160');">打印</a></LI>
+  <LI><a href="#" onclick="window.open('coupon_print.jsp?random=<%= Math.random()%>&strid=<%=obj0.getStrId()%>&strimg=<%=obj0.getStrPrintImg()%>','','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,width=420,height=540,left=450,top=160');"><img src="images/print.jpg" border="0" style="CURSOR: pointer" /> 打印</a></LI>
     <li><a href="#" onclick="window.showModalDialog('favourite_act.jsp?strid=<%=obj0.getStrId()%>&random=<%= Math.random()%>', '', 'dialogWidth=200px;dialogHeight:150px;dialogTop:400px;dialogLeft:550px;scrollbars=yes;status=yes;center=yes;')";><img src="images/collection.jpg" border="0" style="CURSOR: pointer" /> 收藏</a></li> 
 	<LI><a href="#"><IMG src="images/sms.jpg" border="0" style="CURSOR: pointer"> 短信</a></LI> </UL>
  </DIV>
@@ -171,7 +172,7 @@ style="COLOR: gray"><%=comobj1.getStrComment() %></SPAN> </DIV>
     <TD colSpan=7><LABEL><TEXTAREA style="WIDTH: 500px; HEIGHT: 100px" id=txt_con class=form rows=2 cols=20 name=strcomment></TEXTAREA> 
       </LABEL><SPAN id=span_sub></SPAN></TD></TR></TBODY></TABLE>
 <%
-if(strId.equals(""))
+if(session.getAttribute(Constants.MEMBER_KEY) == null)
 {
  %>
 <input type="hidden" name="<%=Constants.ACTION_TYPE%>" value="login" >
@@ -243,12 +244,12 @@ if(vctCoupon!=null&&vctCoupon.size()!=0)
         <div class=card_img><a href="couponinfo.jsp?strid=<%=obj4.getStrId() %>" target="_blank">
         <%
         if(obj4.getStrSmallImg()!=null && obj4.getStrSmallImg().length() > 0){
-         %><img src="<%="../coupon/images/" + obj4.getStrSmallImg() %>" width="126" height="89"/>
+         %><img src="<%="../coupon/images/" + obj4.getStrSmallImg() %>" width="126" height="89" border="0" title="<%=obj4.getStrName()%>" />
          <%
          }
          else{
           %>
-          <img src="<%="images/temp.jpg" %>" width="126" height="89" />
+          <img src="<%="images/temp.jpg" %>" width="126" height="89" border="0" title="<%=obj4.getStrName()%>" />
           <%} %>
          </a></div>
         <div class=card_js><%=obj4.getStrName() %><br/>
