@@ -42,7 +42,10 @@ function ReturnShops(){
 	        retunshop += shoparray[i].value+"£¬";
 	 	}
 	 }
-    
+    if(retunshop==null)
+    {
+    	retunshop="";
+    }
 	window.returnValue = retunshop;
 	window.close();	
 }
