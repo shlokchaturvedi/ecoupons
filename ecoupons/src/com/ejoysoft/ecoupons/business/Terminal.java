@@ -241,9 +241,9 @@ public class Terminal
 		{
 			// System.out.println("where strbizname='"+strAroundShops+"' and strshopname='"+getAroundShopIds(strAroundShops)+"'");
 			String strSql = "update " + strTableName + "  set strno=?, dtactivetime=?, strlocation=?,strAroundShopIds=?, strproducer=?, strtype=?, "
-					+ "strresolution=?, strresolution2=?, strresolution3=?," ;
+					+ "strresolution=?, strresolution2=?, strresolution3=?" ;
 		    if (this.strImage!=null&&this.strImage.length() > 0) {
-            	strSql += "strimage = '" + strImage + "' ";
+            	strSql += ",strimage = '" + strImage + "' ";
             }
 		    strSql += " where strid=? ";
 			db.prepareStatement(strSql);
