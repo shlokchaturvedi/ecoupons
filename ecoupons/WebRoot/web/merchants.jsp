@@ -169,15 +169,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <ul> 
 <%
 Index index=new Index(globa);
-HashMap<SysPara, Integer> hmTrades=index.returnTrade();
-Vector<SysPara> vctTrades=new Vector<SysPara>();
-Iterator iterator=hmTrades.entrySet().iterator();
-while(iterator.hasNext()){
-	Map.Entry<SysPara, Integer> entry=(Map.Entry<SysPara, Integer>)iterator.next();	
-	String strtradeid = syspara.getIdByName2(entry.getKey().getStrName());
-	out.print("<LI><A href='merchants.jsp?strtrade="+strtradeid+"'>"+entry.getKey().getStrName()+"&nbsp;&nbsp;("+entry.getValue()+")</A></LI>");
-	vctTrades.add(entry.getKey());
+Vector<String[]> vctStrades=index.returnVctTrades();
+for(int i=0;i<vctStrades.size();i++){
+	out.print("<LI><A href='merchants.jsp?strtrade="+vctStrades.get(i)[0]+"'>"+vctStrades.get(i)[1]+"&nbsp;&nbsp;("+vctStrades.get(i)[2]+")</A></LI>");	
+	
 }
+
 %>
 </ul>
 </div>
