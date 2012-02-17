@@ -56,6 +56,12 @@ function chkFrm()
               frm.strPwd.focus();         
     		    return false;
     	  }
+    	  if(trim(frm.yanzm.value)!=(trim(frm.randomYazm.value)))
+    	  {
+    	  	    alert("您输入的验证码错误！");
+                frm.yanzm.focus();         
+    		    return false;
+    	  }
     	frm.submit();
     }
 }
@@ -86,7 +92,8 @@ function getYzm()
 		}  
 		else
 		{
-			window.showModalDialog("memberreg_act.jsp?flag=getyzm&strCardNo="+strCardNo+"&strPhone="+strPhone+"&random="+<%= Math.random()%>, "", "dialogWidth=200px;dialogHeight:150px;dialogTop:400px;dialogLeft:550px;scrollbars=yes;status=yes;center=yes;");
+			var randomyazm=window.showModalDialog("memberreg_act.jsp?flag=getyzm&strCardNo="+strCardNo+"&strPhone="+strPhone+"&random="+<%=Math.random()%>, "", "dialogWidth=200px;dialogHeight:150px;dialogTop:400px;dialogLeft:550px;scrollbars=yes;status=yes;center=yes;");
+			document.getElementById("randomYazm").value=randomyazm;
 		}
 	}
 }
@@ -125,6 +132,7 @@ function getYzm()
     <tr>
       <td class="member_td_wz">验证码：&nbsp;&nbsp;</td>
       <td><input name="yanzm"  type="text"  class="yzm"/>
+     	 <input name="randomYazm"  type="text"  class="yzm"/>
         <input type="button" name="botton" onclick="getYzm();" value="获取验证码" /></td>
     </tr>
     <tr>
