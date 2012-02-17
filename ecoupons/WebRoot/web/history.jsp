@@ -46,20 +46,14 @@ Shop shop=new Shop(globa);
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="css/collection.css" rel="stylesheet" type="text/css" />
 <link rel=stylesheet type=text/css href="css/comment.css">
+
 <title>历史记录</title>
 </head>
-<script language=JavaScript>
-function logout(){
-	if (confirm("您确定要退出吗？"))
-		top.location = "<%=application.getServletContextName()%>/web/Auth?actiontype=<%=Constants.WEBLOGOFF%>";
-	return false;
-}
-</script>
-<body>
-<iframe style="HEIGHT: 180px" border=0 marginwidth=0 marginheight=0 src="top.jsp" 
-frameborder=no width="100%" scrolling=no></iframe>
 
-<form name=frm method=post action="marchants.jsp" >	
+<body>
+<form name="frm" method=post action=" " >	
+<iframe style="HEIGHT: 180px" marginwidth=0 marginheight=0 src="top.jsp" frameborder=0 width="100%" scrolling=no></iframe>
+
 <!--正文部分-->
 <DIV id=Main>
 <DIV id=collect_Right>
@@ -85,7 +79,7 @@ frameborder=no width="100%" scrolling=no></iframe>
     </tr>
 
     <tr>
-      <td height="32" class="list_wz"><a href="#" onClick="logout();">&nbsp;&gt;&gt; 退出系统</a></td>
+      <td height="32" class="list_wz"><a href="#" onClick="if (confirm('您确定要退出吗？')){top.location = '<%=application.getServletContextName()%>/web/Auth?actiontype=<%=Constants.WEBLOGOFF%>';}	return false;">&nbsp;&gt;&gt; 退出系统</a></td>
     </tr>
     </tbody>
   </table>
@@ -130,11 +124,10 @@ frameborder=no width="100%" scrolling=no></iframe>
 
 <DIV class=collect_show_bottom></DIV></DIV>
 </DIV>
+
+<iframe style="HEIGHT: 340px" marginwidth=0 marginheight=0 src="bottom.jsp" 
+frameborder=0 width="100%" scrolling=no></iframe>
 </form>
-
-<iframe style="HEIGHT: 340px" border=0 marginwidth=0 marginheight=0 src="bottom.jsp" 
-frameborder=no width="100%" scrolling=no></iframe>
-
 </body>
 </html>
 <%@ include file="/include/jsp/footer.jsp"%>
