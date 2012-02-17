@@ -10,24 +10,24 @@ import com.ejoysoft.common.Globa;
 import com.ejoysoft.common.UID;
 import com.ejoysoft.ecoupons.system.User;
 
-public class PointCard
+public class PointCardInput
 {
 
 	private Globa globa;
 	private DbConnect db;
 
-	public PointCard()
+	public PointCardInput()
 	{
 
 	}
 
-	public PointCard(Globa globa)
+	public PointCardInput(Globa globa)
 	{
 		this.globa = globa;
 		db = globa.db;
 	}
 
-	public PointCard(Globa globa, boolean b)
+	public PointCardInput(Globa globa, boolean b)
 	{
 		this.globa = globa;
 		db = globa.db;
@@ -38,11 +38,13 @@ public class PointCard
 	private String strId;
 	private String strPointCardNo;
 	private String strPointCardPwd;
+	private String strMemberCardNo;
 	private int intPoint;
 	private String strCreator;
 	private String dtCreateTime;
-	private int intType;
-	String strTableName= "t_bz_pointcard";
+	String strTableName= "t_bz_pointcard_input";
+	String strTableMember="t_bz_member";
+	String strTablePonitCard="t_bz_pointcard";
 	/**
 	 *修改纸质积分卡信息
 	 * @param where
@@ -50,12 +52,13 @@ public class PointCard
 	 */
 	 public boolean update(String tStrUserId) {
 	        try {
-	            String strSql = "UPDATE  " + strTableName + "  SET  strPointCardNo = ?, strPointCardPwd = ?, intPoint = ? WHERE strId=? ";
+	            String strSql = "UPDATE  " + strTableName + "  SET  strPointCardNo = ?, strPointCardPwd = ?, intPoint = ?,strMemberCardNo=? WHERE strId=? ";
 	            db.prepareStatement(strSql);
 	            db.setString(1, strPointCardNo);
 	            db.setString(2, strPointCardPwd);
 	            db.setInt(3, intPoint);
-	            db.setString(4, tStrUserId);
+	            db.setString(4, strMemberCardNo);
+	            db.setString(5, tStrUserId);
 	            db.executeUpdate();
 	            Globa.logger0("修改纸质积分信息", globa.loginName, globa.loginIp, strSql, "商家管理", globa.userSession.getStrDepart());
 	            return true;
@@ -83,7 +86,7 @@ public class PointCard
 	  * 详细显示单条记录
 	  */
 	
-	    public PointCard show(String where) {
+	    public PointCardInput show(String where) {
 	        try {
 	            String strSql = "select * from  " + strTableName + "  ".concat(where);
 	            ResultSet rs = db.executeQuery(strSql);
@@ -97,39 +100,47 @@ public class PointCard
 	    }
 	
 	/**
-	 * 增加纸质积分
+	 * 录入纸质积分卡
 	 */
 	public boolean add()
 	{
 		
-		String strUserName = globa.userSession.getStrId();
 		String strId = UID.getID();
-		String sql = "insert into " + strTableName + " (strId,strPointCardNo,strPointCardPwd,intPoint" + ",strCreator,dtCreateTime,inttype) "
-				+ "values (?,?,?,?,?,?) ";
+		String sql = "insert into " + strTableName + " (strId,strPointCardNo,strPointCardPwd,intPoint" 
+		+ ",strCreator,dtCreateTime,strMemberCardNo) "
+				+ "values (?,?,?,?,?,?,?) ";
+		String strSql = "update " + strTableMember + " set flabalance=flabalance+"+intPoint+" where strcardno='" + strMemberCardNo + "' ";
+	
+		String strSqlPointCard = "update " + strTablePonitCard + " set inttype="+1+" where strPointCardNo='" + strPointCardNo + "' ";
 		try
 		{
-			
+			db.setAutoCommit(false);
 			db.prepareStatement(sql);
 			db.setString(1, strId);
 			db.setString(2, strPointCardNo);
 			db.setString(3, strPointCardPwd);
 			db.setInt(4,intPoint);
-			db.setString(5, strUserName);
+			db.setString(5, "system");
 			db.setString(6, com.ejoysoft.common.Format.getDateTime());
-			db.setInt(7, 0);
+			db.setString(7, strMemberCardNo);
 			if (db.executeUpdate() > 0 )
 			{
-				
-				Globa.logger0("增加纸质积分 ", globa.loginName, globa.loginIp, sql, "商家管理", globa.unitCode);
+				db.executeUpdate(strSql);
+				db.executeUpdate(strSqlPointCard);
+				db.commit();
+				db.setAutoCommit(true);
+				Globa.logger0("录入纸质积分卡 ", globa.loginName, globa.loginIp, sql, "商家管理", globa.unitCode);
 				return true;
 			} else
 			{
+				db.rollback();
 				return false;
 			}
 		} catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			db.rollback();
 			return false;
 		}
 
@@ -166,9 +177,9 @@ public class PointCard
 	 * 根据条件返回积分的集合
 	 */
 
-	public Vector<PointCard> list(String where, int startRow, int rowCount)
+	public Vector<PointCardInput> list(String where, int startRow, int rowCount)
 	{
-		Vector<PointCard> beans = new Vector<PointCard>();
+		Vector<PointCardInput> beans = new Vector<PointCardInput>();
 		try
 		{
 			String sql = "SELECT *  FROM  " + strTableName + " ";
@@ -184,7 +195,7 @@ public class PointCard
 					rs.absolute(startRow);
 				do
 				{
-					PointCard theBean = new PointCard();
+					PointCardInput theBean = new PointCardInput();
 					theBean = load(rs, false);
 					beans.addElement(theBean);
 				} while (rs.next());
@@ -198,9 +209,9 @@ public class PointCard
 		return beans;
 	}
 
-	public PointCard load(ResultSet rs, boolean isView)
+	public PointCardInput load(ResultSet rs, boolean isView)
 	{
-		PointCard theBean = new PointCard();
+		PointCardInput theBean = new PointCardInput();
 		try
 		{
 			theBean.setDtCreateTime(rs.getString("dtCreateTime"));
@@ -209,7 +220,7 @@ public class PointCard
 			theBean.setStrPointCardPwd(rs.getString("strPointCardPwd"));
 			theBean.setStrCreator(rs.getString("strCreator"));
 			theBean.setStrId(rs.getString("strId"));
-			theBean.setIntType(rs.getInt("intType"));
+			theBean.setStrMemberCardNo(rs.getString("strMemberCardNo"));
 		} catch (Exception e)
 		{
 			e.printStackTrace();
@@ -277,13 +288,13 @@ public class PointCard
 		this.dtCreateTime = dtCreateTime;
 	}
 
-	public int getIntType()
+	public String getStrMemberCardNo()
 	{
-		return intType;
+		return strMemberCardNo;
 	}
 
-	public void setIntType(int intType)
+	public void setStrMemberCardNo(String strMemberCardNo)
 	{
-		this.intType = intType;
+		this.strMemberCardNo = strMemberCardNo;
 	}
 }
