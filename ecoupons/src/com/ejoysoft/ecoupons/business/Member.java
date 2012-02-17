@@ -79,17 +79,18 @@ public class Member
 		try
 		{
 			String strSql = "UPDATE  " + strTableName + "  SET strCardNo = ?, strName = ?, intType = ?,  "
-					+ "dtExpireTime = ?, strSalesman = ?  WHERE strId=? ";
+					+ "dtExpireTime = ?, strSalesman = ? ,strpwd=? WHERE strId=? ";
 			db.prepareStatement(strSql);
 			db.setString(1, strCardNo);
 //			db.setString(2, strSalesman);
 			db.setString(2, strName);
 			db.setInt(3, intType);
 			db.setString(4, dtExpireTime);
-			db.setString(5, strSalesman);
-			db.setString(6, tStrId);
+			db.setString(5, strSalesman); 
+			db.setString(6, MD5.getMD5ofString(strPwd));
+			db.setString(7, tStrId);
 			db.executeUpdate();
-			Globa.logger0("修改会员信息", globa.loginName, globa.loginIp, strSql, "会员管理", globa.userSession.getStrDepart());
+			Globa.logger0("修改会员信息", "", "", strSql, "会员管理", "");
 			return true;
 		} catch (Exception e)
 		{
