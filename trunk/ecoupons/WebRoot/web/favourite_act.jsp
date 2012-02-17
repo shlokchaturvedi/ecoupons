@@ -23,18 +23,26 @@
 			response.getWriter().println("<script>alert('操作失败！');window.close();</script>");
 			//throw new IdObjectException("请求处理的信息id为空！或者已经不存在");
 		}
-	    obj.setStrCreator("system");
-	    obj.setStrCouponId(strId);
-	    obj.setStrMemberCardNo(membercardno);
-	    boolean result = obj.add();
-	    if(result)
-	    {
-	       response.getWriter().println("<script>alert('收藏成功！');window.close();</script>");
-	    }
-	    else
-	    {
-	       response.getWriter().println("<script>alert('收藏失败!');window.close();</script>");
-	    }	
+		CouponFavourite obj2 = obj.show(" where strmembercardno='"+membercardno+"' and strcouponid='"+strId+"'");
+		if(obj2!=null)
+		{
+			response.getWriter().println("<script>alert('你已经收藏过该优惠券！');window.close();</script>");
+		}
+		else{
+			obj.setStrCreator("system");
+		    obj.setStrCouponId(strId);
+		    obj.setStrMemberCardNo(membercardno);
+		    boolean result = obj.add();
+		    if(result)
+		    {
+		       response.getWriter().println("<script>alert('收藏成功！');window.returnValue='2';window.close();</script>");
+		    }
+		    else
+		    {
+		       response.getWriter().println("<script>alert('收藏失败!');window.close();</script>");
+		    }	
+		}
+	    
 	    //关闭数据库连接对象
 	    globa.closeCon(); 
 	}
