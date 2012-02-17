@@ -97,13 +97,13 @@ public class ShopBiz {
 					while(re.next())
 					{	
 						String terminalid = re.getString("strterminalid");	
-						if(terminalid!=null & !terminalid.equals("system"))
+						if(terminalid!=null && !terminalid.equals("system"))
 						{
 							String name = obj.getTerminalNoById(terminalid);
 							int num = obj.getPerNumofPrintByTerminal(shopid,terminalid);
 							vector.addElement(loadByFlag(shopid,name, num));
 						}
-						else if(terminalid!=null & terminalid.equals("system"))
+						else if(terminalid!=null && terminalid.equals("system"))
 						{
 							String name = "网站打印";
 							int num = obj.getPerNumofPrintByTerminal(shopid,terminalid);
