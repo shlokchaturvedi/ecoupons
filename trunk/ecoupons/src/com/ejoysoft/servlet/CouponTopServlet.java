@@ -39,8 +39,17 @@ public class CouponTopServlet extends HttpServlet
 			{
 				while (resultSet.next())
 				{
-					vctString.add(resultSet.getString("strid"));
+					vctString.add(resultSet.getString("strcouponid"));
 				}
+				sbReturn.append("<coupons>");
+				for (int i = 0; i < vctString.size(); i++)
+				{
+						sbReturn.append("<coupon>");
+						sbReturn.append(vctString.get(i));
+						sbReturn.append("</coupon>");
+				}
+				
+				sbReturn.append("</coupons>");
 			} catch (SQLException e)
 			{
 				// TODO Auto-generated catch block
@@ -49,20 +58,11 @@ public class CouponTopServlet extends HttpServlet
 				globa.closeCon();
 				resp.getWriter().println(sbReturn.toString());
 			}
-			sbReturn.append("<coupons>");
-			for (int i = 0; i < vctString.size(); i++)
-			{
-					sbReturn.append("<coupon>");
-					sbReturn.append(vctString.get(i));
-					sbReturn.append("</coupon>");
-			}
-			
-			sbReturn.append("</coupons>");
 		} else
 		{
 			sbReturn.append("<return>terminal_error</return>");
 		}
-		// System.out.println(sbReturn.toString());
+		//System.out.println(sbReturn.toString());
 		resp.getWriter().println(sbReturn.toString());
 		globa.closeCon();
 
