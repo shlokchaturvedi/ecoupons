@@ -37,10 +37,10 @@ public class SessionFilter implements Filter
 		MemberSession membersession = (MemberSession) req.getSession().getAttribute(Constants.MEMBER_KEY);
 		String mHttpUrlName = req.getContextPath();
 		String mServerUrl = "http://" + request.getServerName() + ":" + request.getServerPort() + mHttpUrlName;
-		if (membersession != null)
-		{
-			chain.doFilter(request, response);
-		}
+//		if (membersession != null)
+//		{
+//			chain.doFilter(request, response);
+//		}
 		try
 		{
 
