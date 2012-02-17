@@ -13,6 +13,31 @@ if(session.getAttribute(Constants.MEMBER_KEY) == null)
     response.getWriter().print("<script>alert('您还未登录！请先登录！');top.location = '"+application.getServletContextName()+"/web/index.jsp';</script>");
 }
 %>
+<%
+CouponFavourite couponFavourite=new CouponFavourite(globa);
+Vector<CouponFavourite> vctCouponFavourites=couponFavourite.list("where strMemberCardNo='"+globa.getMember().getStrCardNo()+"'",0,0);
+Shop shop=new Shop(globa);
+Coupon couponGloba=new Coupon(globa);
+Coupon coupon=new Coupon();
+//记录总数
+int intAllCount=vctCouponFavourites.size();
+//当前页
+int intCurPage=globa.getIntCurPage();
+//每页记录数
+//int intPageSize=globa.getIntPageSize();
+int intPageSize=6;
+//共有页数
+	int intPageCount=(intAllCount-1)/intPageSize+1;
+// 循环显示一页内的记录 开始序号
+int intStartNum=(intCurPage-1)*intPageSize+1;
+//结束序号
+int intEndNum=intCurPage*intPageSize;   
+//获取到当前页面的记录集
+//获取当前页的记录条数
+int intVct=(vctCouponFavourites!=null&&vctCouponFavourites.size()>0?vctCouponFavourites.size():0);
+%>
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -30,6 +55,7 @@ function logout(){
 </head>
 
 <body>
+<form name="frm" method=post action=" " >	
 <iframe style="HEIGHT: 167px" border=0 marginwidth=0 marginheight=0 src="top.jsp" 
 frameborder=no width="100%" scrolling=no></iframe>
 
@@ -57,21 +83,15 @@ frameborder=no width="100%" scrolling=no></iframe>
     </tr>
 
     <tr>
-      <td height="32" class="list_wz"><a href="#" onClick="logout();">&nbsp;&gt;&gt; 退出系统</a></td>
+      <td height="32" class="list_wz"><a href="#" 
+      onClick="if (confirm('您确定要退出吗？')){top.location = '<%=application.getServletContextName()%>/web/Auth?actiontype=<%=Constants.WEBLOGOFF%>';}	return false;">
+      &nbsp;&gt;&gt; 退出系统</a></td>
     </tr>
   </table>
   <p>&nbsp;</p>
 </DIV>
 <DIV class=collect_bottom></DIV></DIV>
 </DIV>
-<%
-CouponFavourite couponFavourite=new CouponFavourite(globa);
-Vector<CouponFavourite> vctCouponFavourites=couponFavourite.list("where strMemberCardNo='"+globa.getMember().getStrCardNo()+"'",0,0);
-Shop shop=new Shop(globa);
-Coupon couponGloba=new Coupon(globa);
-Coupon coupon=new Coupon();
-
-%>
 
 
 <DIV id=Left>
@@ -91,8 +111,7 @@ Coupon coupon=new Coupon();
     <%if(vctCouponFavourites.size()>0){ %>
     <%for(int i=0;i<vctCouponFavourites.size();i++){
     	coupon=couponGloba.show("where strid='"+vctCouponFavourites.get(i).getStrCouponId()+"' order by dtcreatetime desc");
-    	
-    	%>
+    %>
     <tr>
       <td height="25" align="center" bgcolor="#FFFFFF"><span class="STYLE1"><a href="merchantsinfo.jsp?strid=<%=coupon.getStrShopId()%>"><%=shop.returnBizShopName("where strid='"+coupon.getStrShopId()+"'") %></a></span></td>
       <td align="center" bgcolor="#FFFFFF"><a href="couponinfo.jsp?strid=<%=coupon.getStrId() %>"><%=coupon.getStrName() %></a></td>
@@ -110,15 +129,20 @@ Coupon coupon=new Coupon();
     </tr>
     <%} %>
   </table>
+  <!-- 翻页开始 -->  
+ 	<%@ include file="include/cpage.jsp"%>
+   	<!-- 翻页结束 -->
 </DIV>
 
 </DIV>
+
 <DIV class=collect_show_bottom></DIV>
 </DIV>
 </DIV>
 
 <iframe style="HEIGHT: 340px" border=0 marginwidth=0 marginheight=0 src="bottom.jsp" 
 frameborder=no width="100%" scrolling=no></iframe>
+</form>
 </body>
 </html>
 <%@ include file="/include/jsp/footer.jsp"%>

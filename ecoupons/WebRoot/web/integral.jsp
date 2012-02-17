@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@page import="com.ejoysoft.common.Constants"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -38,9 +39,8 @@ frameborder=no width="100%" scrolling=no></iframe>
     <tr>
       <td height="32" class="list_wz"><a href="integral.jsp">&nbsp;&gt;&gt; 我的积分</a></td>
     </tr>
-
     <tr>
-      <td height="32" class="list_wz"><a href="#">&nbsp;&gt;&gt; 退出系统</a></td>
+      <td height="32" class="list_wz"><a href="#" onClick="if (confirm('您确定要退出吗？')){top.location = '<%=application.getServletContextName()%>/web/Auth?actiontype=<%=Constants.WEBLOGOFF%>';}	return false;">&nbsp;&gt;&gt; 退出系统</a></td>
     </tr>
   </table>
   <p>&nbsp;</p>
