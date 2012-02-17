@@ -5,6 +5,10 @@
 <%@page import="com.ejoysoft.ecoupons.business.Shop"%>
 <%@ include file="../include/jsp/head.jsp"%>
 <%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+<%
 if(session.getAttribute(Constants.MEMBER_KEY) == null)
 {
 		globa.closeCon();
@@ -43,10 +47,6 @@ Shop shop=new Shop(globa);
 <link href="css/collection.css" rel="stylesheet" type="text/css" />
 <link rel=stylesheet type=text/css href="css/comment.css">
 <title>历史记录</title>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
 </head>
 <script language=JavaScript>
 function logout(){
@@ -56,10 +56,10 @@ function logout(){
 }
 </script>
 <body>
-<form name=frm method=post action="marchants.jsp" >	
 <iframe style="HEIGHT: 180px" border=0 marginwidth=0 marginheight=0 src="top.jsp" 
 frameborder=no width="100%" scrolling=no></iframe>
 
+<form name=frm method=post action="marchants.jsp" >	
 <!--正文部分-->
 <DIV id=Main>
 <DIV id=collect_Right>
@@ -70,6 +70,7 @@ frameborder=no width="100%" scrolling=no></iframe>
 <DIV class=collect_mid>
   <p>&nbsp;</p>
   <table width="81%" border="0"  cellpadding="0" cellspacing="0">
+  <tbody>
       <tr>
       <td height="32" class="list_wz"><a href="collection.jsp">&nbsp;&gt;&gt; 我的收藏</a></td>
     </tr>
@@ -86,6 +87,7 @@ frameborder=no width="100%" scrolling=no></iframe>
     <tr>
       <td height="32" class="list_wz"><a href="#" onClick="logout();">&nbsp;&gt;&gt; 退出系统</a></td>
     </tr>
+    </tbody>
   </table>
   <p>&nbsp;</p>
 </DIV>
@@ -96,6 +98,7 @@ frameborder=no width="100%" scrolling=no></iframe>
 <DIV class=collect_left_top>
 		<div class="collect_sf">历史记录</div>
 </DIV>
+
 <DIV class=collect_left_mid>
 <DIV class=collect_show>
   <table width="96%" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="DCDCDC">
@@ -119,18 +122,19 @@ frameborder=no width="100%" scrolling=no></iframe>
       <%} %>
   </table>
 </DIV>
+
   <!-- 翻页开始 -->  
  	<%@ include file="include/cpage.jsp"%>
    	<!-- 翻页结束 -->
-
 </DIV>
 
 <DIV class=collect_show_bottom></DIV></DIV>
 </DIV>
+</form>
 
 <iframe style="HEIGHT: 340px" border=0 marginwidth=0 marginheight=0 src="bottom.jsp" 
 frameborder=no width="100%" scrolling=no></iframe>
-</form>
+
 </body>
 </html>
 <%@ include file="/include/jsp/footer.jsp"%>
