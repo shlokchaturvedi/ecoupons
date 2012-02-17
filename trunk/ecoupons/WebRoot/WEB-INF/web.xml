@@ -63,6 +63,14 @@
 		<servlet-name>CouponPrint</servlet-name>
 		<url-pattern>/servlet/CouponPrint</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>ShopAround</servlet-name>
+		<servlet-class>com.ejoysoft.servlet.ShopAroundServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ShopAround</servlet-name>
+		<url-pattern>/servlet/ShopAround</url-pattern>
+	</servlet-mapping>
 	
 	<servlet>
 		<servlet-name>MemberAuth</servlet-name>
