@@ -1,6 +1,8 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@page import="com.ejoysoft.ecoupons.business.Recharge,com.ejoysoft.common.*"%>
 <%@page import="com.ejoysoft.ecoupons.web.RecordModel"%>
+<%@page import="com.ejoysoft.ecoupons.business.CouponPrint"%>
+<%@page import="com.ejoysoft.ecoupons.business.Coupon"%>
     <%@ include file="../include/jsp/head.jsp"%>
 <%
 String path = request.getContextPath();
@@ -16,13 +18,7 @@ if(session.getAttribute(Constants.MEMBER_KEY) == null)
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<script language=JavaScript>
-function logout(){
-	if (confirm("您确定要退出吗？"))
-		top.location = "<%=application.getServletContextName()%>/web/Auth?actiontype=<%=Constants.WEBLOGOFF%>";
-	return false;
-}
-</script>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link href="css/collection.css" rel="stylesheet" type="text/css" />
 <LINK rel=stylesheet type=text/css href="css/comment.css">
@@ -55,7 +51,7 @@ frameborder=no width="100%" scrolling=no></iframe>
       <td height="32" class="list_wz"><a href="integral.jsp">&nbsp;&gt;&gt; 我的积分</a></td>
     </tr>
     <tr>
-      <td height="32" class="list_wz"><a href="#" onClick="logout();">&nbsp;&gt;&gt; 退出系统</a></td>
+      <td height="32" class="list_wz"><a href="#" onClick="if (confirm('您确定要退出吗？')){top.location = '<%=application.getServletContextName()%>/web/Auth?actiontype=<%=Constants.WEBLOGOFF%>';}	return false;" >&nbsp;&gt;&gt; 退出系统</a></td>
     </tr>
   </table>
   <p>&nbsp;</p>
@@ -70,13 +66,37 @@ frameborder=no width="100%" scrolling=no></iframe>
 Recharge recharge=new Recharge(globa);
 Vector<RecordModel> vctRecords=new Vector<RecordModel>();
 Vector<Recharge>vctRecharges=recharge.list("where strmembercardno='"+globa.getMember().getStrCardNo()+"' order by dtcreatetime desc",0,0);
+for(int i=0;i<vctRecharges.size();i++){
+	RecordModel recordModel=new RecordModel();
+	recordModel.setDtCreateTime(vctRecharges.get(i).getDtCreateTime());
+	recordModel.setIntRecharge(vctRecharges.get(i).getIntMoney());
+	recordModel.setFlaPay(-1);
+	recordModel.setStrName("充值");
+	vctRecords.add(recordModel);
+}
+Coupon couponCloba=new Coupon(globa);
+CouponPrint couponPrint=new CouponPrint(globa);
+float flaPriceTemp;
+Vector<CouponPrint>vctCouponPrintTemp=couponPrint.list("where strmembercardno='"+globa.getMember().getStrCardNo()+"' order by dtcreatetime desc",0,0);
+for(int i=0;i<vctCouponPrintTemp.size();i++){
+	flaPriceTemp=couponCloba.show(" where strid='"+vctCouponPrintTemp.get(i).getStrCouponId()+"'").getFlaPrice();
+	if(flaPriceTemp>0){
+		RecordModel recordModel=new RecordModel();
+		recordModel.setDtCreateTime(vctCouponPrintTemp.get(i).getDtPrintTime());
+		recordModel.setFlaPay(flaPriceTemp);
+		recordModel.setIntRecharge(-1);
+		recordModel.setStrName("打印有价券");
+		vctRecords.add(recordModel);
+	}
+}
+
 
 %>
 <DIV class=collect_left_mid>
 <DIV class=collect_show>
   <table width="96%" border="0" align="center" cellpadding="0" cellspacing="0">
     <tr>
-      <td height="60" valign="top">可用余额：<span class="fjwz">280.00 </span> 元 &nbsp;&nbsp;&nbsp;&nbsp;<a href="alipay/payindex.jsp" /><img src="images/czban.jpg" width="56" height="24" /></a></td>
+      <td height="60" valign="top">可用余额：<span class="fjwz"><%=globa.getMember().getFlaBalance() %> </span> 元 &nbsp;&nbsp;&nbsp;&nbsp;<a href="alipay/payindex.jsp" /><img src="images/czban.jpg" width="56" height="24" /></a></td>
     </tr>
     <tr>
       <td height="28"><span class="bzb">余额变动情况</span></td>
@@ -88,24 +108,20 @@ Vector<Recharge>vctRecharges=recharge.list("where strmembercardno='"+globa.getMe
       <td align="center" bgcolor="EEEEEE" class="collect_show_tit">项目</td>
       <td align="center" bgcolor="EEEEEE" class="collect_show_tit">支出</td>
       <td align="center" bgcolor="EEEEEE" class="collect_show_tit">支入</td>
-      <td align="center" bgcolor="EEEEEE" class="collect_show_tit">账户余额</td>
+      
       </tr>
+      <%
+      for(int i=0;i< vctRecords.size();i++){
+      %>
     <tr>
-       <td height="25" align="center" bgcolor="#FFFFFF"><span class="STYLE1">2012-02-02 <br />
-        10:50:02 </span></td>
-      <td align="center" bgcolor="#FFFFFF">打印有价券</td>
-      <td align="center" bgcolor="#FFFFFF"><span class="STYLE1">60元</span></td>
-      <td align="center" bgcolor="#FFFFFF">&nbsp;</td>
-      <td align="center" bgcolor="#FFFFFF"><span class="STYLE1">620元</span></td>
+       <td height="25" align="center" bgcolor="#FFFFFF"><span class="STYLE1"><%=vctRecords.get(i).getDtCreateTime() %> 
+         </span></td>
+      <td align="center" bgcolor="#FFFFFF"><%=vctRecords.get(i).getStrName() %></td>
+      <td align="center" bgcolor="#FFFFFF"><span class="STYLE1"><%if(vctRecords.get(i).getFlaPay()>0){out.print(vctRecords.get(i).getFlaPay());} %></span></td>
+      <td align="center" bgcolor="#FFFFFF"><%if(vctRecords.get(i).getIntRecharge()>0){out.print(vctRecords.get(i).getIntRecharge());} %></td>
       </tr>
-    <tr>
-      <td height="25" align="center" bgcolor="#FFFFFF"><span class="STYLE1">2012-02-03 <br />
-10:50:02 </span></td>
-      <td align="center" bgcolor="#FFFFFF">充值</td>
-      <td align="center" bgcolor="#FFFFFF">&nbsp;</td>
-      <td align="center" bgcolor="#FFFFFF">80元</td>
-      <td align="center" bgcolor="#FFFFFF">680元</td>
-    </tr>
+      <%} %>
+    
   </table>
 </DIV>
 

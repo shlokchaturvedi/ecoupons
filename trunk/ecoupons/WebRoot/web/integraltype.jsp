@@ -16,8 +16,17 @@ if(session.getAttribute(Constants.MEMBER_KEY) == null)
 <link href="css/collection.css" rel="stylesheet" type="text/css" />
 <LINK rel=stylesheet type=text/css href="css/comment.css">
 <title>我的积分</title>
+<script language=JavaScript>
+function logout(){
+	if (confirm("您确定要退出吗？"))
+		top.location = "<%=application.getServletContextName()%>/web/Auth?actiontype=<%=Constants.WEBLOGOFF%>";
+	return false;
+}
+</script>
 </head>
 <body>
+<form name=frm method="post" action="integral_act.jsp">
+
 <iframe style="HEIGHT: 167px" border=0 marginwidth=0 marginheight=0 src="top.jsp" 
 frameborder=no width="100%" scrolling=no></iframe>
 <!--正文部分-->
@@ -44,7 +53,7 @@ frameborder=no width="100%" scrolling=no></iframe>
     </tr>
 
     <tr>
-      <td height="32" class="list_wz"><a href="#">&nbsp;&gt;&gt; 退出系统</a></td>
+      <td height="32" class="list_wz"><a href="#" onClick="logout();">&nbsp;&gt;&gt; 退出系统</a></td>
     </tr>
   </table>
   <p>&nbsp;</p>
@@ -67,15 +76,17 @@ frameborder=no width="100%" scrolling=no></iframe>
       </tr>
     <tr>
       <td width="18%" height="45" class="intergal_zw">积分卡卡号：</td>
-      <td width="82%"><input type="text" name="textfield"  class="type_k"/></td>
+      <td width="82%"><input type="text" name="strPointCardNo"  class="type_k"/></td>
     </tr>
     <tr>
       <td height="45" class="intergal_zw">密&nbsp;&nbsp;码：</td>
-      <td><input type="text" name="textfield2"  class="type_k"/></td>
+      <td><input type="text" name="strPointCardPwd"  class="type_k"/></td>
     </tr>
     <tr>
       <td height="60">&nbsp;</td>
-      <td valign="bottom"><img src="images/sure.jpg" width="80" height="32" /></td>
+      <td valign="bottom">
+      <input type="submit" value="提交"  BACKGROUND="url(../images/left_sure.jpg)" no-repeat WIDTH=80px HEIGHT=32px/>
+      </td> 
     </tr>
   </table>
   </DIV>
@@ -85,6 +96,7 @@ frameborder=no width="100%" scrolling=no></iframe>
 
 <iframe style="HEIGHT: 340px" border=0 marginwidth=0 marginheight=0 src="bottom.jsp" 
 frameborder=no width="100%" scrolling=no></iframe>
+</form>
 </body>
 </html>
 <%@ include file="/include/jsp/footer.jsp"%>
