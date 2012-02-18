@@ -234,7 +234,7 @@ body,td,tr{font-size:9pt;}
                 <%
                 if (obj0.getStrImage()!=null && obj0.getStrImage().length() > 0) {
                 %>
-                  <img src="<%="images/" + obj0.getStrImage() %>" width=<%=application.getAttribute("SHOP_SMALL_IMG_WIDTH") %> height=<%=application.getAttribute("SHOP_SMALL_IMG_HEIGHT") %>/><br>
+                  <img src="<%="images/" + obj0.getStrImage() %>" width=119 height=138 /><br>
                 <%
                 }
                 %>  
