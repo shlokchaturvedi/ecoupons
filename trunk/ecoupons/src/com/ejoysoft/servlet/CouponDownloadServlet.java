@@ -48,10 +48,10 @@ public class CouponDownloadServlet extends HttpServlet implements Servlet
 		// String strTerminalNo = "21";
 		HashMap<String, Terminal> hmTerminal = Terminal.hmTerminal;
 		Terminal terminal = hmTerminal.get(strTerminalNo);
+		Terminal terminal2 = new Terminal(globa);
+		String strId = terminal.getStrId();
 		if (terminal != null)
 		{
-			Terminal terminal2 = new Terminal(globa);
-			String strId = terminal.getStrId();
 			DownLoadAlert downLoadAlert = new DownLoadAlert(globa);
 			Vector<DownLoadAlert> vctAlerts = new Vector<DownLoadAlert>();
 			Coupon coupon = new Coupon(globa);
@@ -61,8 +61,6 @@ public class CouponDownloadServlet extends HttpServlet implements Servlet
 			boolean flagAdd = true;
 			boolean flagUpdate = true;
 			boolean flagDelete = true;
-			if (terminal2.updateState(strId, "t_bz_coupon"))
-			{
 				sbReturn.append("<info>");
 				if (vctAlerts.size() > 0)
 				{
@@ -132,7 +130,7 @@ public class CouponDownloadServlet extends HttpServlet implements Servlet
 			{
 				sbReturn.append("<return>update_error</return>");
 			}
-		} else
+		if (!terminal2.updateState(strId, "t_bz_coupon"))
 		{
 			sbReturn.append("<return>terminal_error</return>");
 		}

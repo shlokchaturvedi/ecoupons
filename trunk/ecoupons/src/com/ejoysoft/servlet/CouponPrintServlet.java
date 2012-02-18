@@ -55,7 +55,7 @@ public class CouponPrintServlet extends HttpServlet implements Servlet
 			{
 				String strTerminalId = terminal.getStrId();
 				//String strTerminalId = obj.getTerminalIdsByNames(strTerminalNo);
-				obj.updateState(strTerminalId);//更新终端状态
+				//obj.updateState(strTerminalId);//更新终端状态
 				String strPrintContent = "3897$1328060264108040$2012-02-14 20:34:49$34564";
 //				String strPrintContent = req.getParameter("strPrintContent");
 			    String strTableName ="t_bz_coupon_print";
