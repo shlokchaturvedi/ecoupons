@@ -219,7 +219,7 @@ body,td,tr{font-size:9pt;}
                 <%
                 if (obj0.getStrSmallImg().length() > 0) {
                 %>
-                  <img src="<%="images/" + obj0.getStrSmallImg() %>" width=<%=application.getAttribute("SHOP_SMALL_IMG_WIDTH") %> height=<%=application.getAttribute("SHOP_SMALL_IMG_HEIGHT") %>/><br>
+                  <img src="<%="images/" + obj0.getStrSmallImg() %>" width=119 height=138 /><br>
                 <%
                 }
                 %>  
@@ -235,7 +235,7 @@ body,td,tr{font-size:9pt;}
                 <%
                 if (obj0.getStrLargeImg().length() > 0) {
                 %>
-                  <img src="<%="images/" + obj0.getStrLargeImg() %>" width=<%=application.getAttribute("SHOP_LARGE_IMG_WIDTH") %> height=<%=application.getAttribute("SHOP_LARGE_IMG_HEIGHT") %>/><br>
+                  <img src="<%="images/" + obj0.getStrLargeImg() %>" width=381 height=198 /><br>
                 <%
                 }
                 %> 	   
