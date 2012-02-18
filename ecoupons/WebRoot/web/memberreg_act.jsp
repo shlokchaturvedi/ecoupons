@@ -26,7 +26,7 @@
 		 	 response.getWriter().println("<script>alert('对不起！您输入的卡号无效，请重新输入！');window.returnValue='';window.close();</script>");
 		 }
 		 else if(member.getStrPwd()!=null&&!member.getStrPwd().equals(""))
-	 	 {
+	 	 { 
 	 		 response.getWriter().println("<script>alert('对不起！您输入的卡号已经被注册！');window.returnValue='';window.close();</script>");
 	 	 }		 
 	 	 else{	

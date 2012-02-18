@@ -82,7 +82,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class=pro_mid>
 
 <div style="WIDTH: 680px; FLOAT: left; MARGIN-RIGHT: 15px;">
-<div style="PADDING-BOTTOM: 0px; PADDING-LEFT: 10px; PADDING-RIGHT: 0px; COLOR: #000000; FONT-SIZE: 14px; FONT-WEIGHT: bold; PADDING-TOP: 5px">
+<div style="PADDING-BOTTOM: 0px; PADDING-LEFT: 10px; PADDING-RIGHT: 0px; COLOR: #444444; FONT-SIZE: 14px; FONT-WEIGHT: bold; PADDING-TOP: 5px">
 <%=obj1.getStrName()%>
 </div>
 
