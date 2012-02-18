@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ejoysoft.common.Format;
 import com.ejoysoft.common.Globa;
 import com.ejoysoft.ecoupons.business.CouponComment;
 import com.ejoysoft.ecoupons.business.CouponFavourite;
@@ -47,16 +48,17 @@ public class MemberAuthServlet extends HttpServlet implements Servlet
 			CouponFavourite couponFavourite = new CouponFavourite(globa);
 			CouponComment couponComment = new CouponComment(globa);
 			resp.setCharacterEncoding("utf-8");
-			String strCardNo = req.getParameter("strCardNo");
-			//String strCardNo = "234234";
+//			String strCardNo = req.getParameter("strCardNo");
+			String strCardNo = "3897";
 			
 			sbReturn.append("<info>");
 			Member member = new Member(globa);
 			Vector<CouponFavourite> vctCouponFavourites = new Vector<CouponFavourite>();
 			Vector<CouponComment> vctCouponComments = new Vector<CouponComment>();
-			if (member.getCount(" where strcardno='" + strCardNo+"'") > 0)
+			String nowdate = Format.getDateTime();
+			if (member.getCount(" where strcardno='"+strCardNo+"' and dtactivetime <='"+nowdate+"' and dtexpiretime >='"+nowdate+"'") > 0)
 			{
-				Member memberTemp=member.show(" where strcardno='" + strCardNo+"'");
+				Member memberTemp=member.show(" where strcardno='"+strCardNo+"' and dtactivetime <='"+nowdate+"' and dtexpiretime >='"+nowdate+"'");
 				sbReturn.append("<auth>yes</auth>");
 				sbReturn.append("<intType>"+memberTemp.getIntType()+"</intType>");
 				sbReturn.append("<strMobileNo>"+memberTemp.getStrMobileNo()+"</strMobileNo>");
