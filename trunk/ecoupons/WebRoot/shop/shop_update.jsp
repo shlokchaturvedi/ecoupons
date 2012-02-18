@@ -145,21 +145,21 @@ body,td,tr{font-size:9pt;}
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30" >
                <select name="strTrade" class="forms_color1" style= "width:213px">
-                    <option selected="selected" value="<%=obj0.getStrTrade()%>"><%=obj0.getStrTradeName()%></option>
 				  <%
-                        //初始化
-    					//SysPara  para=null;
+                     	//SysPara  para=null;
    						SysPara para=new SysPara(globa);
                         ArrayList para1 = para.list("商家行业");
                         for (int i = 0; i < para1.size(); i++) {
                             SysPara d = (SysPara)para1.get(i);
-                              out.print("<option value=" + d.getStrId() + ">");
-                           
-                            out.println("" + d.getStrName() + "</option>");
-                       
-                	%>
-				 
-                 <%
+                            if(d.getStrId().equals(obj0.getStrTrade()))
+                            {
+                            	 out.print("<option value=" + d.getStrId() + " selected=selected >");
+                            }
+                            else
+                            {
+                               out.print("<option value=" + d.getStrId() + ">");
+                            }
+                            out.println("" + d.getStrName() + "</option>");                       
                  }
                  
                   %>
