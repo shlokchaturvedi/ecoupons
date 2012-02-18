@@ -143,7 +143,7 @@ class=red><%=intAllCount%></SPAN>条评论)</DIV>
 %>
 <DIV style="PADDING-LEFT: 5px"><BR>
 <DIV style="HEIGHT: 50px">
-<DIV style="WIDTH: 10%; FLOAT: left; HEIGHT: 45px"><IMG alt="" src="images/201.jpg" width=45 height=45> </DIV>
+<DIV style="WIDTH: 10%; FLOAT: left; HEIGHT: 40px"><IMG alt="" src="images/touxiang.jpg" width=45 height=33> </DIV>
 <DIV style="LINE-HEIGHT: 18px; WIDTH: 80%; FLOAT: left; HEIGHT: 33px"><SPAN style="COLOR: #001c55"><%=namememb%>：</SPAN><SPAN 
 style="COLOR: gray"><%=comobj1.getStrComment() %></SPAN> </DIV>
 </DIV>
