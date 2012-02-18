@@ -52,7 +52,7 @@ private void execute(HttpServletRequest req, HttpServletResponse resp)throws Ser
 		{
 			strTerminalId = terminal.getStrId();
 			Terminal obj = new Terminal(globa);
-			obj.updateState(strTerminalId);//更新终端状态
+			//obj.updateState(strTerminalId);//更新终端状态
 			String strName="";
 			if(strCode!=null && !strCode.trim().equals(""))
 			{

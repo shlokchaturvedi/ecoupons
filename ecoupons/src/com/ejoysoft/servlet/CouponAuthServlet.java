@@ -52,7 +52,7 @@ public class CouponAuthServlet extends HttpServlet
 			if(terminal!=null)
 			{
 				String strTerminalId = terminal.getStrId();
-				obj0.updateState(strTerminalId);//更新终端状态
+				//obj0.updateState(strTerminalId);//更新终端状态
 				String strCardNo = req.getParameter("strCardNo");
 				String strCode = req.getParameter("strCode");
 				String strCouponId = req.getParameter("strCouponId");

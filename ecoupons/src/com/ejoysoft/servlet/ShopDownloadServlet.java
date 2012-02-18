@@ -51,9 +51,9 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 		HashMap<String, Terminal> hmTerminal = Terminal.hmTerminal;
 		Terminal terminal = hmTerminal.get(strTerminalNo);
 		Terminal terminal2 = new Terminal(globa);// 用于刷新终端状态
+		String strId = terminal.getStrId();
 		if (terminal != null)
 		{
-			String strId = terminal.getStrId();
 			DownLoadAlert downLoadAlert = new DownLoadAlert(globa);
 			Vector<DownLoadAlert> vctAlerts = new Vector<DownLoadAlert>();
 			Shop shop = new Shop(globa);
@@ -63,8 +63,7 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 			boolean flagAdd = true;
 			boolean flagUpdate = true;
 			boolean flagDelete = true;
-			if (terminal2.updateState(strId, "t_bz_shop"))
-			{
+			
 				sbReturn.append("<info>");
 				if (vctAlerts.size() > 0)
 				{
@@ -170,7 +169,7 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 			{
 				sbReturn.append("<return>update_error</return>");
 			}
-		} else
+		if (!terminal2.updateState(strId, "t_bz_shop"))
 		{
 			sbReturn.append("<return>terminal_error</return>");
 		}

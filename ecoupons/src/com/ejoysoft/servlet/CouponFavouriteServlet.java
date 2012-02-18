@@ -49,7 +49,7 @@ private void execute(HttpServletRequest req, HttpServletResponse resp) throws IO
 		{
 			strTerminalId = terminal.getStrId();
 			Terminal obj = new Terminal(globa);
-			obj.updateState(strTerminalId);//更新终端状态
+			//obj.updateState(strTerminalId);//更新终端状态
 			CouponFavourite obj2 = new CouponFavourite(globa);
 			if(strCardNo!=null&&!strCardNo.trim().equals("") && strCouponId!=null && !strCouponId.trim().equals(""))
 			{
