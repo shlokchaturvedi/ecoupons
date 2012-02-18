@@ -57,7 +57,17 @@ frameborder=0 width="100%" scrolling=no></iframe>
     <div class=giftList_mid>
 	
 <div class=gift_pro>
-<div class=gift_mid_img><img src="images/giftimg.jpg" /></div>
+<div class=gift_mid_img><%
+       if (obj1.getStrSmallImg().length() > 0) {
+       %>
+         <img src="<%="../member/images/" + obj1.getStrSmallImg() %>" width=<%=application.getAttribute("SHOP_LARGE_IMG_WIDTH") %> height=<%=application.getAttribute("SHOP_LARGE_IMG_HEIGHT") %> />
+       <%
+       }
+       else
+       {
+       %>
+        <img src="images/temp.jpg"  />
+        <%} %></div>
 <div class=gift_mid_img_txt>
 	<span class=gift_cpmc><%=obj1.getStrName() %></span>
     <span class=gift_jf>积分：<%=obj1.getIntPoint() %>分</span>
