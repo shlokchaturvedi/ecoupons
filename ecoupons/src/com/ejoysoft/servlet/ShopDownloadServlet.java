@@ -47,23 +47,25 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 		Globa globa = new Globa();
 		resp.setCharacterEncoding("utf-8");
 		String strTerminalNo = req.getParameter("strTerminalNo");
-		// String strTerminalNo = "23";
+//		 String strTerminalNo = "23";
 		HashMap<String, Terminal> hmTerminal = Terminal.hmTerminal;
 		Terminal terminal = hmTerminal.get(strTerminalNo);
 		Terminal terminal2 = new Terminal(globa);// 用于刷新终端状态
-		String strId = terminal.getStrId();
-		if (terminal != null)
+		try
 		{
-			DownLoadAlert downLoadAlert = new DownLoadAlert(globa);
-			Vector<DownLoadAlert> vctAlerts = new Vector<DownLoadAlert>();
-			Shop shop = new Shop(globa);
-			String strWhere = "where strDataType='t_bz_shop' and intState=0 and strTerminalId='" + strId + "'";
-			Shop tempShop = new Shop();
-			vctAlerts = downLoadAlert.list(strWhere, 0, 0);
-			boolean flagAdd = true;
-			boolean flagUpdate = true;
-			boolean flagDelete = true;
-			
+			String strId = terminal.getStrId();
+			if (terminal != null)
+			{
+				DownLoadAlert downLoadAlert = new DownLoadAlert(globa);
+				Vector<DownLoadAlert> vctAlerts = new Vector<DownLoadAlert>();
+				Shop shop = new Shop(globa);
+				String strWhere = "where strDataType='t_bz_shop' and intState=0 and strTerminalId='" + strId + "'";
+				Shop tempShop = new Shop();
+				vctAlerts = downLoadAlert.list(strWhere, 0, 0);
+				boolean flagAdd = true;
+				boolean flagUpdate = true;
+				boolean flagDelete = true;
+
 				sbReturn.append("<info>");
 				if (vctAlerts.size() > 0)
 				{
@@ -78,22 +80,9 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 								sbReturn.append("<operate>add</operate>");
 								flagAdd = false;
 							}
-							try
-							{
+							
 								sbReturn.append(returnSbContent(globa, tempShop));
-							} catch (SQLException e)
-							{
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-								try
-								{
-									resp.getWriter().print("<?xml version='1.0' encoding='utf-8'?> ");
-								} catch (IOException e1)
-								{
-									// TODO Auto-generated catch block
-									e1.printStackTrace();
-								}
-							}
+							
 							// sbReturn.append(returnSbContent(tempShop,
 							// strImagAddr));
 
@@ -115,25 +104,9 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 								sbReturn.append("<operate>update</operate>");
 								flagUpdate = false;
 							}
-							try
-							{
+							
 								sbReturn.append(returnSbContent(globa, tempShop));
-							} catch (SQLException e)
-							{
-								try
-								{
-									resp.getWriter().print("<?xml version='1.0' encoding='utf-8'?> ");
-								} catch (IOException e1)
-								{
-									// TODO Auto-generated catch block
-									e1.printStackTrace();
-								}
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-
-							}
-							// sbReturn.append(returnSbContent(tempShop,
-							// strImagAddr));
+							
 						}
 					}
 					if (!flagUpdate)
@@ -160,23 +133,18 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 					{
 						sbReturn.append("</shops>");
 					}
-				} else
-				{
-					sbReturn.append("null");
-				}
+				} 
 				sbReturn.append("</info>");
 			} else
 			{
 				sbReturn.append("<return>update_error</return>");
 			}
-		if (!terminal2.updateState(strId, "t_bz_shop"))
-		{
-			sbReturn.append("<return>terminal_error</return>");
-		}
-		try
-		{
-			resp.getWriter().print(sbReturn.toString());
-		} catch (IOException e)
+			if (!terminal2.updateState(strId, "t_bz_shop"))
+			{
+				sbReturn.append("<return>terminal_error</return>");
+			}
+
+		} catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -196,7 +164,7 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 	 * @return
 	 * @throws SQLException
 	 */
-	private StringBuffer returnSbContent(Globa globa, Shop tempShop) throws SQLException
+	private StringBuffer returnSbContent(Globa globa, Shop tempShop) 
 	{
 		SysPara sysPara = new SysPara(globa);
 
@@ -205,7 +173,14 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 		sbReturn.append("<strId>" + tempShop.getStrId() + "</strId>");
 		sbReturn.append("<strBizName>" + tempShop.getStrBizName() + "</strBizName>");
 		sbReturn.append("<strShopName>" + tempShop.getStrShopName() + "</strShopName>");
-		sbReturn.append("<strTrade>" + sysPara.show("where strid='" + tempShop.getStrTrade() + "'").getStrName() + "</strTrade>");
+		try
+		{
+			sbReturn.append("<strTrade>" + sysPara.show("where strid='" + tempShop.getStrTrade() + "'").getStrName() + "</strTrade>");
+		} catch (SQLException e)
+		{
+			sbReturn.append("<return>strTrade_error</return>");
+			e.printStackTrace();
+		}
 		sbReturn.append("<strAddr>" + tempShop.getStrAddr() + "</strAddr>");
 		sbReturn.append("<strIntro>" + tempShop.getStrIntro() + "</strIntro>");
 		sbReturn.append("<strSmallImg>" + tempShop.getStrSmallImg() + "</strSmallImg>");
