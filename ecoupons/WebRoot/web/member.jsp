@@ -62,7 +62,10 @@ function chkFrm()
                 frm.yanzm.focus();         
     		    return false;
     	  }
-    	frm.submit();
+    	  if(confirm("确定提交注册信息？"))
+    	  {
+    		  frm.submit();
+    	  }
     }
 }
 function getYzm()
