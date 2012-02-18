@@ -33,6 +33,7 @@ function openwin()
 	{
 		url ="giftexchange_act.jsp?strid="+<%=obj1.getStrId()%>+"&random="+<%= Math.random()%>+"&strPhone="+document.getElementById("strPhone").value;
 		window.showModalDialog(url, "", "dialogWidth=200px;dialogHeight:150px;dialogTop:400px;dialogLeft:550px;scrollbars=yes;status=yes;center=yes;");
+		window.location.reload();
 	}
 }
 
@@ -63,10 +64,11 @@ frameborder=0 width="100%" scrolling=no></iframe>
     <span class=gift_rcj> 市场价：<%=obj1.getFlaPrice()%>元</span>
     <span class=gift_lppp>兑换截止时间：<%=obj1.getDtExpireTime() %></span>
   <%
-  String strPhone="";System.out.println("eeeeeeeeeeeeeeeee");
+  String strPhone="";
   if(globa.memberSession!=null){if(globa.memberSession.getStrMobileNo()!=null){strPhone=globa.memberSession.getStrMobileNo();}}
    %>
    <span class=gift_lppp>短信接收号码：<input type="text" id="strPhone" value="<%=strPhone %>" /></span>
+   <span class=gift_lppp>&nbsp;</span>
      <p><a href="#" onclick="openwin()">
   <img src="images/zjdh.jpg" width="100" height="27" border="0"/>
   </a></p>

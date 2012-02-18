@@ -35,7 +35,7 @@
 		    boolean result = obj.add();
 		    if(result)
 		    {
-		       response.getWriter().println("<script>alert('收藏成功！');window.returnValue='2';window.close();</script>");
+		       response.getWriter().println("<script>alert('收藏成功！');window.returnValue='success';window.close();</script>");
 		    }
 		    else
 		    {
