@@ -135,7 +135,24 @@ public class PointPresent
 		}
 		return beans;
 	}
-
+	/*
+	 * 详细显示单条记录
+	 */
+	public PointPresent show(String where)
+	{
+		try
+		{
+			String strSql = "select * from  " + strTableName + "  ".concat(where);
+			ResultSet rs = db.executeQuery(strSql);
+			if (rs != null && rs.next())
+				return load(rs, true);
+			else
+				return null;
+		} catch (Exception ee)
+		{
+			return null;
+		}
+	}
 	public PointPresent load(ResultSet rs, boolean isView)
 	{
 		PointPresent theBean = new PointPresent();

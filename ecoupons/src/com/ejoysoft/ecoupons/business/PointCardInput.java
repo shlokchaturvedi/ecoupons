@@ -109,7 +109,7 @@ public class PointCardInput
 		String sql = "insert into " + strTableName + " (strId,strPointCardNo,strPointCardPwd,intPoint" 
 		+ ",strCreator,dtCreateTime,strMemberCardNo) "
 				+ "values (?,?,?,?,?,?,?) ";
-		String strSql = "update " + strTableMember + " set flabalance=flabalance+"+intPoint+" where strcardno='" + strMemberCardNo + "' ";
+		String strSql = "update " + strTableMember + " set intPoint=intPoint+"+intPoint+" where strcardno='" + strMemberCardNo + "' ";
 	
 		String strSqlPointCard = "update " + strTablePonitCard + " set inttype="+1+" where strPointCardNo='" + strPointCardNo + "' ";
 		try

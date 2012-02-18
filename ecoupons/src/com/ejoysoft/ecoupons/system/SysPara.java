@@ -296,7 +296,6 @@ public class SysPara {
             String sql = "SELECT *  FROM  " + strTableName + " ";
             if (where.length() > 0)
                 sql = String.valueOf(sql) + String.valueOf(where);
-            System.out.println(sql);
             Statement s = db.getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             if (startRow != 0 && rowCount != 0)
                 s.setMaxRows((startRow + rowCount) - 1);
