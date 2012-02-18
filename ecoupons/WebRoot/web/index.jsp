@@ -192,7 +192,7 @@ for(int i=0;i<vctStrades.size();i++){
 	<%
 	Activity activity=new Activity(globa);
 	Vector<Activity> vctActivities=new Vector<Activity>();
-	vctActivities=activity.list(" order by dtcreateTime desc limit 8",0,0);
+	vctActivities=activity.list(" order by dtcreateTime desc limit 10",0,0);
 		for(int i=0;i<vctActivities.size();i++){
 		%>
 		<li>・<%=vctActivities.get(i).getStrName() %></li>
