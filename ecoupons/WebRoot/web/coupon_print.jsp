@@ -113,7 +113,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    </tr>
    <tr>
    	<td>
-	   <input class=Noprint style="width=200;height=30" type=button name=button1 onclick="document.getElementById('flag').value='print' ;document.getElementById('frm').submit();" value="打     印"/></td>
+	   <input class=Noprint style="width=200;height=30" type=button name=button1 onclick="if(confirm('确定打印该优惠吗？')){document.getElementById('flag').value='print' ;document.getElementById('frm').submit();}" value="打     印"/></td>
    	<td><input class=Noprint style="width=200;height=30" type=button name=button2 onclick="window.close();" value="关     闭"/></td>
    </tr>
    </table>
