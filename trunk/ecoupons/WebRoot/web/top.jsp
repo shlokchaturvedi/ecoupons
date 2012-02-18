@@ -57,9 +57,10 @@ eval("document.getElementById('clay0_"+index+"').style.display='none'");
 			SysPara sysPara=new SysPara(globa);
 			Vector<SysPara> vctSyspParas=sysPara.list("where strtype='热门搜索' order by dcreatdate  desc limit 4",0,0);
 			%>
+			<input type="hidden" name="hiddeId"/>
 			<div class="search_txt">热门搜索：
 			<%for(int i=0;i<vctSyspParas.size();i++){ %>
-			<a id="hotId" href="#" onclick="document.getElementById('headbcsearchtxt').value=<%=vctSyspParas.get(i).getStrName() %>;"><%=vctSyspParas.get(i).getStrName() %></a> 
+			<a id="hotId" href="#" onclick="frm.strName.value=<%=vctSyspParas.get(i).getStrName() %>;frm.button.onclick();"><%=vctSyspParas.get(i).getStrName() %></a> 
 			<%} %>
 			
 			</div>

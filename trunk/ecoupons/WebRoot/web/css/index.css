@@ -213,8 +213,8 @@ PADDING: 0px; WIDTH: 67px; ; BACKGROUND: url(../images/indbtn.jpg) no-repeat; HE
 
 
 
-.mid_xt{ height:56px;}
+.mid_xt{ height:116px;}
 .mid_xt img{ margin:5px 15px 5px 15px;}
-.sj_tit{ margin-top:10px; width:535px; height:35px;} 
+.sj_tit{ margin-top:10px; margin-bottom:5px; width:535px; height:35px;} 
 
 .sjfl{ border:1px solid #999999; width:120px; height:22px;}

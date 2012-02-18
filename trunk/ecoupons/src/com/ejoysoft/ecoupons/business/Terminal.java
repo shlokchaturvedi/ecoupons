@@ -37,7 +37,8 @@ public class Terminal
 	{
 		this.globa = globa;
 		db = globa.db;
-		if (b) globa.setDynamicProperty(this);
+		if (b)
+			globa.setDynamicProperty(this);
 	}
 
 	static String strTableName = "t_bz_terminal";
@@ -53,15 +54,15 @@ public class Terminal
 	{
 
 		String strSql = "update " + strTableName + "  set intpaperstate=" + num + " where strid='" + strId + "'";
-		String strSql1 = "update " + strTableName + "  set intstate=0, dtRefreshTime='" + com.ejoysoft.common.Format.getDateTime()
-				+ "' where strid='" + strId + "'";
+		//String strSql1 = "update " + strTableName + "  set intstate=0, dtRefreshTime='" + com.ejoysoft.common.Format.getDateTime()
+		//		+ "' where strid='" + strId + "'";
 		try
 		{
-			db.setAutoCommit(false);
-			db.executeUpdate(strSql1);
+			//db.setAutoCommit(false);
+			//db.executeUpdate(strSql1);
 			db.executeUpdate(strSql);
-			db.commit();
-			db.setAutoCommit(true);
+			//db.commit();
+			//db.setAutoCommit(true);
 			return true;
 		} catch (Exception e)
 		{
@@ -168,7 +169,7 @@ public class Terminal
 				return true;
 			} else
 				db.rollback();
-				return false;
+			return false;
 		} catch (Exception e)
 		{
 			System.out.println("添加终端信息异常");
@@ -207,22 +208,19 @@ public class Terminal
 	 */
 	public boolean updateState(String strId, String strDateType)
 	{
-		String strSql = "update " + strTableName + "  set intstate=0, dtRefreshTime='" + com.ejoysoft.common.Format.getDateTime() + "' where strid='"
-				+ strId + "'";
 		String strSql2 = "update t_bz_download_alert set intstate=1 where strDataType='" + strDateType + "' and" + " strTerminalId='" + strId + "'";
 		db.setAutoCommit(false);
 		try
 		{
-			if (db.executeUpdate(strSql) > 0)
+			if ("t_bz_coupon".equals(strDateType))
 			{
-				db.executeUpdate(strSql2);
-				db.commit();
-				return true;
-			} else
-			{
-				db.rollback();
-				return false;
+				String strSql = "update " + strTableName + "  set intstate=0, dtRefreshTime='" + com.ejoysoft.common.Format.getDateTime()
+						+ "' where strid='" + strId + "'";
+				db.executeUpdate(strSql);
 			}
+			db.executeUpdate(strSql2);
+			db.commit();
+			return true;
 
 		} catch (SQLException e)
 		{
@@ -241,11 +239,12 @@ public class Terminal
 		{
 			// System.out.println("where strbizname='"+strAroundShops+"' and strshopname='"+getAroundShopIds(strAroundShops)+"'");
 			String strSql = "update " + strTableName + "  set strno=?, dtactivetime=?, strlocation=?,strAroundShopIds=?, strproducer=?, strtype=?, "
-					+ "strresolution=?, strresolution2=?, strresolution3=?" ;
-		    if (this.strImage!=null&&this.strImage.length() > 0) {
-            	strSql += ",strimage = '" + strImage + "' ";
-            }
-		    strSql += " where strid=? ";
+					+ "strresolution=?, strresolution2=?, strresolution3=?";
+			if (this.strImage != null && this.strImage.length() > 0)
+			{
+				strSql += ",strimage = '" + strImage + "' ";
+			}
+			strSql += " where strid=? ";
 			db.prepareStatement(strSql);
 			db.setString(1, strNo);
 			db.setString(2, com.ejoysoft.common.Format.getStrDate2(dtActiveTime));
@@ -914,11 +913,13 @@ public class Terminal
 		return db;
 	}
 
-	public String getStrImage() {
+	public String getStrImage()
+	{
 		return strImage;
 	}
 
-	public void setStrImage(String strImage) {
+	public void setStrImage(String strImage)
+	{
 		this.strImage = strImage;
 	}
 

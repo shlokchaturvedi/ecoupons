@@ -136,13 +136,13 @@ for(int i=0;i<vctStrades.size();i++){
 	Shop shop=new Shop(globa);
     Vector<Shop> vctShops=shop.list("order by dtcreatetime  desc",1,10);
     for(int i=0;i<vctShops.size();i++){
-    out.print("<a href='merchantsinfo.jsp?strid="+vctShops.get(i).getStrId()+"' target=_blank alt='"+vctShops.get(i).getStrBizName()+"'><img src='../shop/images/" +vctShops.get(i).getStrSmallImg() +"'  height='44'  border='0' /></a>");
+    out.print("<a href='merchantsinfo.jsp?strid="+vctShops.get(i).getStrId()+"' target=_blank alt='"+vctShops.get(i).getStrBizName()+"'><img src='../shop/images/" +vctShops.get(i).getStrSmallImg() +"'  height='88'  border='0' /></a>");
     }
     
 	%>
 	
 	</marquee></DIV>
-  	<DIV class=jsadbox><!--切屏广告--><IFRAME height=<%=application.getAttribute("COUPON_LARGE_IMG_HEIGHT")%>*<%=application.getAttribute("COUPON_LARGE_IMG_WIDTH") %>/535 marginHeight=0 src="homeimg.jsp" frameBorder=0 width=535 marginWidth=0 scrolling=no>
+  	<DIV class=jsadbox><!--切屏广告--><IFRAME  height=306 marginHeight=0 src="homeimg.jsp" frameBorder=0 width=535 marginWidth=0 scrolling=no>
   	</IFRAME></DIV>
 	<DIV class=mid_sj>
 		<div class="sj_tit">
@@ -150,6 +150,7 @@ for(int i=0;i<vctStrades.size();i++){
 		  <div class="sj_sel"><select name="strTradeId" class="sjfl" onchange="document.getElementById('strTradeId').value=this.value;frmTrade.submit();">
 		     <option  <%if(strTradeId==null){out.print("selected");} %>>全部</option>
 		     <% 
+		     System.out.print(200*760/535);
 		    for(int j=0;j< vctStrades.size();j++){%>
 		    	<option value=<%=vctStrades.get(j)[0]%> <%if(vctStrades.get(j)[0].equals(strTradeId)){out.print("selected");} %> ><%=vctStrades.get(j)[1] %></option>
 		   <%}%>
