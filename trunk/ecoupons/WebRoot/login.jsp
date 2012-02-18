@@ -109,8 +109,8 @@ window.attachEvent("onload", correctPNG);
                     </tr>
                     <tr>
                       <td>&nbsp;</td>
-                      <td width="30%" height="40"><img src="images/icon-demo.gif" width="16" height="16"><a href="/help/help.apsx" target="_blank" class="left_txt3"> 使用说明</a> </td>
-                      <td width="35%"><img src="images/icon-login-seaver.gif" width="16" height="16"><a href="http://wpa.qq.com/pa?p=1:357346833:17" class="left_txt3"> 在线客服</a></td>
+                      <td width="30%" height="40"> </td>
+                      <td width="35%"></td>
                     </tr>
                   </table></td>
                 </tr>
