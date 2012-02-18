@@ -3,6 +3,7 @@
 <%@page import="com.ejoysoft.ecoupons.web.RecordModel"%>
 <%@page import="com.ejoysoft.ecoupons.business.CouponPrint"%>
 <%@page import="com.ejoysoft.ecoupons.business.Coupon"%>
+<%@page import="com.ejoysoft.ecoupons.business.Member"%>
     <%@ include file="../include/jsp/head.jsp"%>
 <%
 String path = request.getContextPath();
@@ -90,13 +91,29 @@ for(int i=0;i<vctCouponPrintTemp.size();i++){
 	}
 }
 
-
+//记录总数
+int intAllCount=vctRecords.size();
+//当前页
+int intCurPage=globa.getIntCurPage();
+//每页记录数
+//int intPageSize=globa.getIntPageSize();
+int intPageSize=6;
+//共有页数
+	int intPageCount=(intAllCount-1)/intPageSize+1;
+// 循环显示一页内的记录 开始序号
+int intStartNum=(intCurPage-1)*intPageSize+1;
+//结束序号
+int intEndNum=intCurPage*intPageSize;   
+//获取到当前页面的记录集
+//获取当前页的记录条数
+int intVct=(vctRecords!=null&&vctRecords.size()>0?vctRecords.size():0);
+Member member=new Member(globa);
 %>
 <DIV class=collect_left_mid>
 <DIV class=collect_show>
   <table width="96%" border="0" align="center" cellpadding="0" cellspacing="0">
     <tr>
-      <td height="60" valign="top">可用余额：<span class="fjwz"><%=globa.getMember().getFlaBalance() %> </span> 元 &nbsp;&nbsp;&nbsp;&nbsp;<a href="alipay/payindex.jsp" /><img src="images/czban.jpg" width="56" height="24" /></a></td>
+      <td height="60" valign="top">可用余额：<span class="fjwz"><%=member.show("where strCardNo='"+globa.getMember().getStrCardNo()+"'").getFlaBalance() %> </span> 元 &nbsp;&nbsp;&nbsp;&nbsp;<a href="alipay/payindex.jsp" /><img src="images/czban.jpg" width="56" height="24" /></a></td>
     </tr>
     <tr>
       <td height="28"><span class="bzb">余额变动情况</span></td>
@@ -123,6 +140,9 @@ for(int i=0;i<vctCouponPrintTemp.size();i++){
       <%} %>
     
   </table>
+   <!-- 翻页开始 -->  
+ 	<%@ include file="include/cpage.jsp"%>
+   	<!-- 翻页结束 -->
 </DIV>
 
 </DIV>

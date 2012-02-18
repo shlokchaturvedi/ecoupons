@@ -48,51 +48,17 @@ name=__VIEWSTATE> </DIV>
 
      <%
      Coupon coupon=new Coupon(globa);
-     Vector<Coupon>vctCoupons=coupon.list("order by dtcreatetime  desc",1,6);
-     
+     Vector<Coupon>vctCoupons=coupon.list("order by dtcreatetime  desc limit 6",0,0);
+     for(int i=0;i<vctCoupons.size();i++)
+     {
      %>
-     tt = 1;
-    imgUrl[tt] = '../coupon/images/<% if(vctCoupons.size()>=1){
-    	out.print(vctCoupons.get(0).getStrSmallImg()); %>';
+     tt = <%=i%>;
+    imgUrl[tt] = '../coupon/images/<%=vctCoupons.get(i).getStrSmallImg() %>';
     imgtext[tt] = '<A HREF="#" TARGET="_blank" class="' + textLinkStyle + '"></A>';
-    imgLink[tt] = 'couponinfo.jsp?strid=<%=vctCoupons.get(0).getStrId() %>';
-    imgAlt[tt] = '<%out.print(vctCoupons.get(0).getStrName());}%>';
-
-    tt = 2;
-    imgUrl[tt] = '../coupon/images/<% if(vctCoupons.size()>=2){
-    	out.print(vctCoupons.get(1).getStrSmallImg()); %>';
-    imgtext[tt] = '<A HREF="#" TARGET="_blank" class="' + textLinkStyle + '"></A>';
-    imgLink[tt] = 'couponinfo.jsp?strid=<%=vctCoupons.get(1).getStrId() %>';
-    imgAlt[tt] = '<%out.print(vctCoupons.get(1).getStrName());}%>';
-
-    tt = 3;
-    imgUrl[tt] = '../coupon/images/<% if(vctCoupons.size()>=3){
-    	out.print(vctCoupons.get(2).getStrSmallImg()); %>';
-    imgtext[tt] = '<A HREF="#" TARGET="_blank" class="' + textLinkStyle + '"></A>';
-    imgLink[tt] = 'couponinfo.jsp?strid=<%=vctCoupons.get(2).getStrId() %>';
-    imgAlt[tt] = '<%out.print(vctCoupons.get(2).getStrName());}%>';
-
-    tt = 4;
-    imgUrl[tt] = '../coupon/images/<% if(vctCoupons.size()>=4){
-    	out.print(vctCoupons.get(3).getStrSmallImg()); %>';
-    imgtext[tt] = '<A HREF="#" TARGET="_blank" class="' + textLinkStyle + '"></A>';
-    imgLink[tt] = 'couponinfo.jsp?strid=<%=vctCoupons.get(3).getStrId() %>';
-    imgAlt[tt] = '<%out.print(vctCoupons.get(3).getStrName());}%>';
-
-    tt = 5;
-
-    imgUrl[tt] = '../coupon/images/<% if(vctCoupons.size()>=5){
-    	out.print(vctCoupons.get(4).getStrSmallImg()); %>';
-    imgtext[tt] = '<A HREF="#" TARGET="_blank" class="' + textLinkStyle + '"></A>';
-    imgLink[tt] = 'couponinfo.jsp?strid=<%=vctCoupons.get(4).getStrId() %>';
-    imgAlt[tt] = '<%out.print(vctCoupons.get(4).getStrName());}%>';
-
-    tt = 6;
-    imgUrl[tt] = '../coupon/images/<% if(vctCoupons.size()>=6){
-    	out.print(vctCoupons.get(5).getStrSmallImg()); %>';
-    imgtext[tt] = '<A HREF="#" TARGET="_blank" class="' + textLinkStyle + '"></A>';
-    imgLink[tt] = 'couponinfo.jsp?strid=<%=vctCoupons.get(5).getStrId() %>';
-    imgAlt[tt] = '<%out.print(vctCoupons.get(5).getStrName());}%>';
+    imgLink[tt] = 'couponinfo.jsp?strid=<%=vctCoupons.get(i).getStrId() %>';
+    imgAlt[tt] = '<%out.print(vctCoupons.get(i).getStrName());%>';
+    <%}%>
+    
 	
 /*  tt = 7;
     imgUrl[tt] = '../images/womaiwang.jpg';

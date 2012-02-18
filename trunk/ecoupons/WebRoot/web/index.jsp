@@ -8,6 +8,8 @@
 <%@page import="com.ejoysoft.ecoupons.business.CouponTop"%>
 <%@page import="com.ejoysoft.ecoupons.business.CouponComment"%>
 <%@page import="com.ejoysoft.ecoupons.business.Shop"%>
+<%@page import="com.ejoysoft.ecoupons.business.Member"%>
+<%@page import="com.ejoysoft.ecoupons.business.Activity"%>
     <%@ include file="../include/jsp/head.jsp"%>
 <%@page import="com.ejoysoft.ecoupons.system.SysPara"%>
 <%
@@ -56,12 +58,14 @@ frameborder=no width="100%" scrolling=no></iframe>
 <%
 if(session.getAttribute(Constants.MEMBER_KEY) != null)
 {
+	Member member=new Member(globa);
+	Member memberTemp=member.show("where strCardNo='"+globa.getMember().getStrCardNo()+"'");
 %>
 	<DIV id=left-bar-mid2  >
 	<form action="collection.jsp">
 	<p class=weluser><b><%out.print(globa.memberSession.getStrName()); %></b>,欢迎回来</p>
-	<p>我的余额：<a href="balance.jsp"><%= globa.memberSession.getFlaBalance() %></a></p>
-	<p>我的积分：<a href="integral.jsp"><%= globa.memberSession.getIntPoint() %></a></p>
+	<p>我的余额：<a href="balance.jsp"><%= memberTemp.getFlaBalance() %></a></p>
+	<p>我的积分：<a href="integral.jsp"><%= memberTemp.getIntPoint() %></a></p>
 	<p><INPUT id="btnCollection" class=Btn value="我的收藏" type=submit> 
 	<INPUT class=Btn value="历史记录" type=button onclick="top.location = '<%=application.getServletContextName()%>/web/history.jsp'"> </p>
 	</form>
@@ -157,7 +161,26 @@ for(int i=0;i<vctStrades.size();i++){
   </div>
   </form>
   <div class="right">
-  
+   <DIV class=sort>
+<DIV class=sort_top>
+<H1><STRONG>最新动态</STRONG></H1>
+<div class=hotList_more><span><a href="activity_more.jsp"><font color="#CC6600">更多</font>&gt;&gt;</a>&nbsp;&nbsp;</span></div></DIV>
+	<DIV class=sort_con>
+	<UL>
+	<%
+	Activity activity=new Activity();
+	Vector<Activity> vctActivities=new Vector<Activity>();
+	vctActivities=activity.list(" order by dtcreateTime desc limit 6",0,0);
+		for(int i=0;i<vctActivities.size();i++){
+		%>
+		<li>・<%=vctActivities.get(i).getStrName() %></li>
+		<%
+	}
+	%>	
+	 </UL>
+	</DIV>
+<DIV class=sort_bottom></DIV>
+  </div>
   <DIV class=sort>
 <DIV class=sort_top><H3><STRONG>下载优惠券排行</STRONG></H1> 
   <span><a href="#" id=clayer0_1  onmouseover=showlayer(1,2,3)><font color="#CC6600">日</font></a>&nbsp;<a href="#" id=clayer0_2  onmouseover=showlayer(2,1,3)><font color="#CC6600">周</font></a>&nbsp;<a href="#" id=clayer0_3  onmouseover=showlayer(3,1,2)><font color="#CC6600">月</font></a></span></DIV>
@@ -196,6 +219,7 @@ vecCouponps=index.returnTopCoupons("月");
   
   
   
+  
    <DIV class=sort>
 <DIV class=sort_top>
 <H1><STRONG>热门评论</STRONG></H1></DIV>
@@ -203,18 +227,11 @@ vecCouponps=index.returnTopCoupons("月");
 	<UL>
 	<%
 	CouponComment couponComment=new CouponComment(globa);
-	Vector<CouponComment> vctCouponComment=couponComment.list("",0,0);
-	if(vctCouponComment.size()>6){
-		for(int i=0;i<6;i++){
-		%>
-			<li>・<a href="couponinfo.jsp?strid=<%=vctCouponComment.get(i).getStrCouponId() %>" ><%=vctCouponComment.get(i).getStrComment() %></a></li>
-		<%}
-	}else{
+	Vector<CouponComment> vctCouponComment=couponComment.list(" order by dtcreateTime desc limit 6",0,0);
 		for(int i=0;i<vctCouponComment.size();i++){
 		%>
 		<li>・<a href="couponinfo.jsp?strid=<%=vctCouponComment.get(i).getStrCouponId() %>" ><%=vctCouponComment.get(i).getStrComment() %></a></li>
 		<%
-		}
 	}
 	%>	
 	 </UL>

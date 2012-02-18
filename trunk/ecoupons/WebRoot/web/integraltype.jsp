@@ -85,7 +85,7 @@ frameborder=no width="100%" scrolling=no></iframe>
     <tr>
       <td height="60">&nbsp;</td>
       <td valign="bottom">
-      <input type="submit" value="提交"  BACKGROUND="url(../images/left_sure.jpg)" no-repeat WIDTH=80px HEIGHT=32px/>
+     <input type="submit" value="提交"  class="suBtn"/>
       </td> 
     </tr>
   </table>

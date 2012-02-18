@@ -22,7 +22,8 @@ eval("document.getElementById('clayer0_"+index+"').className='midri1_1'");
 eval("document.getElementById('clay0_"+id+"').style.display='block'");
 eval("document.getElementById('clay0_"+index+"').style.display='none'");
 }
-// -->
+
+-->
 </script></head>
 
 <body>
@@ -54,11 +55,11 @@ eval("document.getElementById('clay0_"+index+"').style.display='none'");
 			</div>
 			<%
 			SysPara sysPara=new SysPara(globa);
-			Vector<SysPara> vctSyspParas=sysPara.list("where strtype='热门搜索' order by dcreatdate  desc",1,4);
+			Vector<SysPara> vctSyspParas=sysPara.list("where strtype='热门搜索' order by dcreatdate  desc limit 4",0,0);
 			%>
 			<div class="search_txt">热门搜索：
 			<%for(int i=0;i<vctSyspParas.size();i++){ %>
-			<a href="#"><%=vctSyspParas.get(i).getStrName() %></a> 
+			<a id="hotId" href="#" onclick="document.getElementById('headbcsearchtxt').value=<%=vctSyspParas.get(i).getStrName() %>;"><%=vctSyspParas.get(i).getStrName() %></a> 
 			<%} %>
 			
 			</div>
