@@ -127,16 +127,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <table border=0 width=100%>
   <tbody>
   <tr>
-    <td width=267 height="26">*行业：<a href="#"><%=obj1.getStrTradeName()%></a> </td>
-    <td width=253 height="26">*地址：<a href="#"><%=obj1.getStrAddr() %></a></td>
+    <td width=267 height="26">* 行        业：<%=obj1.getStrTradeName()%></td>
+    <td height="26">* 联系电话：<%=obj1.getStrPhone()%></td>
   </tr>
   <tr>
-    <td height="26">* 联系电话：<%=obj1.getStrPhone()%><a href="#"></a> </td>
-    <td height="26">*联系人：<a href="#"><%=obj1.getStrPerson() %></a></td>
+    <td width=253 height="26">* 地        址：<%=obj1.getStrAddr() %></td>
+    <td height="26">* 联   系  人：<%=obj1.getStrPerson() %></td>
     </tr>
   <tr>
-    <td height="26" colspan="2">* 
-      简介：<%=obj1.getStrIntro() %>    
+    <td height="26" colspan="2">
+    * 简          介：<%=obj1.getStrIntro() %>    
     </td>
   </tr>
 </tbody></table>
