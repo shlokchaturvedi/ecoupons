@@ -15,7 +15,7 @@ Vector<SysPara> vctSyspParas=sysPara.list("where strtype='热门搜索' order by
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
 <title>无标题文档</title>
 <link href="css/style.css" rel="stylesheet" type="text/css" />
- <script type=text/javascript>
+ <script type=text/javascript> 
 <!--
 
 function showlayer0(id,index)
