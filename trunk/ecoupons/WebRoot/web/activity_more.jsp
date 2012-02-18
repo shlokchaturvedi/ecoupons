@@ -16,7 +16,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 %>
 <%
     //初始化
-    Activity activity=new Activity();
+    Activity activity=new Activity(globa);
 	Vector<Activity> vctActivities=new Vector<Activity>();
 	vctActivities=activity.list(" order by dtcreateTime desc ",0,0);
 		
