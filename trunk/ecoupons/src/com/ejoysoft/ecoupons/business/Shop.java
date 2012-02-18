@@ -58,7 +58,7 @@ public class Shop {
             	  {
             		  String[] strid = strTerminalId[i].split("-");
             		  String strsql2 ="insert into " + strTableName7 + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) "
-            		  + "values (" + UID.getID() + ",'" + strid[0]+ "','" + strTableName + "','" + strId + "','add',0)";
+            		  + "values (" + UID.getID() + ",'" + strid[i]+ "','" + strTableName + "','" + strId + "','add',0)";
             		  db.executeUpdate(strsql2);
             	  }                
             }
@@ -161,7 +161,6 @@ public class Shop {
     //商家更新信息
     public boolean update(String strId2) {
         try {
-        	String strSql2 = "update  " + strTableName7 + " set strdataopetype='update',intstate=0 where strdataid=" + strId2;
         	
 		    String strSql = "update " + strTableName + "  set strbizname=?, strshopname=?, strtrade=?, straddr=?, strphone=?, " +
             		"strperson=?,inttype=?, strintro=?, " ;
@@ -173,7 +172,18 @@ public class Shop {
             }
             strSql += " intpoint=? where strid=? ";
             db.getConnection().setAutoCommit(false);
-    		db.executeUpdate(strSql2);
+            Terminal obj = new Terminal(globa);
+            String[] strTerminalId = obj.getAllTerminalNos();
+            if(strTerminalId!=null)
+            {
+            	  for(int i=0;i<strTerminalId.length;i++)
+            	  {
+            		  String[] strid = strTerminalId[i].split("-");
+            		  String strsql2 ="insert into " + strTableName7 + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) "
+            		  + "values (" + UID.getID() + ",'" + strid[i]+ "','" + strTableName + "','" + strId2 + "','update',0)";
+            		  db.executeUpdate(strsql2);
+            	  }                
+            }
             db.prepareStatement(strSql);
             db.setString(1, strBizName);
             db.setString(2, strShopName);

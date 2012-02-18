@@ -55,22 +55,24 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 		Globa globa = new Globa();
 		resp.setCharacterEncoding("utf-8");
 		String strTerminalNo = req.getParameter("strTerminalNo");
-		// String strTerminalNo = "23";
+//		String strTerminalNo = "21";
 		HashMap<String, Terminal> hmTerminal = Terminal.hmTerminal;
 		Terminal terminal = hmTerminal.get(strTerminalNo);
 		Terminal terminal2 = new Terminal(globa);// 用于刷新终端状态
 		String strId = terminal.getStrId();
-		if (terminal != null)
+		try
 		{
-			DownLoadAlert downLoadAlert = new DownLoadAlert(globa);
-			Vector<DownLoadAlert> vctAlerts = new Vector<DownLoadAlert>();
-			String strWhere = "where strDataType='t_bz_advertisement' and intState=0 and strTerminalId='" + strId + "'";
-			Terminal tempTerminal = new Terminal();
-			vctAlerts = downLoadAlert.list(strWhere, 0, 0);
-			boolean flagAdd = true;
-			boolean flagUpdate = true;
-			boolean flagDelete = true;
-			
+			if (terminal != null)
+			{
+				DownLoadAlert downLoadAlert = new DownLoadAlert(globa);
+				Vector<DownLoadAlert> vctAlerts = new Vector<DownLoadAlert>();
+				String strWhere = "where strDataType='t_bz_advertisement' and intState=0 and strTerminalId='" + strId + "'";
+				Terminal tempTerminal = new Terminal();
+				vctAlerts = downLoadAlert.list(strWhere, 0, 0);
+				boolean flagAdd = true;
+				boolean flagUpdate = true;
+				boolean flagDelete = true;
+
 				sbReturn.append("<info>");
 				if (vctAlerts.size() > 0)
 				{
@@ -130,23 +132,17 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 					{
 						sbReturn.append("</ads>");
 					}
-				} else
-				{
-					sbReturn.append("null");
 				}
 				sbReturn.append("</info>");
 			} else
 			{
 				sbReturn.append("<return>update_error</return>");
 			}
-		if (!terminal2.updateState(strId, "t_bz_advertisement"))
-		{
-			sbReturn.append("<return>terminal_error</return>");
-		}
-		try
-		{
-			resp.getWriter().print(sbReturn.toString());
-		} catch (IOException e)
+			if (!terminal2.updateState(strId, "t_bz_advertisement"))
+			{
+				sbReturn.append("<return>terminal_error</return>");
+			}
+		} catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
