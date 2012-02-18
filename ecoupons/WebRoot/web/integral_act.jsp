@@ -15,12 +15,15 @@
 	String strMemberCardNo = globa.getMember().getStrCardNo();
 	String strPointCardNo = ParamUtil.getString(request, "strPointCardNo", "");
 	String strPointCardPwd = ParamUtil.getString(request, "strPointCardPwd", "");
-	PointCard pointCard = new PointCard(globa);
+	Member member=new Member(globa);
+	PointCard pointCard = new PointCard(globa,true);
 	PointCard pCard = pointCard.show("where strpointcardno='" + strPointCardNo + "'");
 	if (pCard.getStrPointCardPwd().equals(strPointCardPwd))
 	{
 		if(pCard.getIntType()==0){
 		PointCardInput pointCardInput = new PointCardInput(globa, true);
+		pointCardInput.setStrMemberCardNo(strMemberCardNo);
+		pointCardInput.setIntPoint(member.show("where strCardNo='"+strMemberCardNo+"'").getIntPoint());
 		globa.dispatch(pointCardInput.add(), "integral.jsp");
 		}else
 		{
