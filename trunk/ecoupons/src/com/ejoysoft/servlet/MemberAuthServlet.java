@@ -48,8 +48,8 @@ public class MemberAuthServlet extends HttpServlet implements Servlet
 			CouponFavourite couponFavourite = new CouponFavourite(globa);
 			CouponComment couponComment = new CouponComment(globa);
 			resp.setCharacterEncoding("utf-8");
-//			String strCardNo = req.getParameter("strCardNo");
-			String strCardNo = "3897";
+			String strCardNo = req.getParameter("strCardNo");
+//			String strCardNo = "3897";
 			
 			sbReturn.append("<info>");
 			Member member = new Member(globa);
