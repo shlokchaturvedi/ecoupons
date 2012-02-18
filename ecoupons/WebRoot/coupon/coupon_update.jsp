@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8"%>
+ <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ page import="com.ejoysoft.ecoupons.system.User,com.ejoysoft.common.Constants,com.ejoysoft.common.Format,com.ejoysoft.common.exception.IdObjectException,com.ejoysoft.ecoupons.system.SysUserUnit,java.util.Vector,com.ejoysoft.ecoupons.system.Unit,
                  com.ejoysoft.ecoupons.business.Shop,java.util.HashMap" %>
 <%@page import="com.ejoysoft.ecoupons.business.Coupon"%>
@@ -234,7 +234,7 @@ body,td,tr{font-size:9pt;}
                  <%
                 if (obj0.getStrSmallImg().length() > 0) {
                 %>
-                  <img src="<%="images/" + obj0.getStrSmallImg()+"?random="+Math.random() %>" width=<%=application.getAttribute("COUPON_SMALL_IMG_WIDTH") %> height=<%=application.getAttribute("COUPON_SMALL_IMG_HEIGHT") %> alt="小图片"/><br>
+                  <img src="<%="images/" + obj0.getStrSmallImg()+"?random="+Math.random() %>" width=138 height=150 alt="小图片"/><br>
                 <%
                 }
                 %>  </td>  
@@ -256,7 +256,7 @@ body,td,tr{font-size:9pt;}
                 <%
                 if (obj0.getStrLargeImg().length() > 0) {
                 %>
-                  <img alt="大图片" src="<%="images/" + obj0.getStrLargeImg()+"?random="+Math.random() %>" width=<%=application.getAttribute("COUPON_LARGE_IMG_WIDTH") %> height=<%=application.getAttribute("COUPON_LARGE_IMG_HEIGHT") %>/><br>
+                  <img alt="大图片" src="<%="images/" + obj0.getStrLargeImg()+"?random="+Math.random() %>" width=380 height=217 /><br>
                 <%
                 }
                 %> 
@@ -278,7 +278,7 @@ body,td,tr{font-size:9pt;}
                 <%
                 if (obj0.getStrPrintImg().length() > 0) {
                 %>
-                  <img alt="打印图片" src="<%="images/" + obj0.getStrPrintImg()+"?random="+Math.random() %>" width=<%=application.getAttribute("COUPON_PRINT_IMG_WIDTH") %> height=<%=application.getAttribute("COUPON_PRINT_IMG_HEIGHT") %>/><br>
+                  <img alt="打印图片" src="<%="images/" + obj0.getStrPrintImg()+"?random="+Math.random() %>" width=300 height=270 alt="打印图"/> <br>
                 <%
                 }
                 %> 
