@@ -56,7 +56,7 @@ public class ShopAroundServlet extends HttpServlet
 				obj0.updateState(strTerminalId);//更新终端状态
 				Terminal objTerminal = new Terminal(globa);
 				Terminal objTerminal2 = objTerminal.show(" where strno='"+strTerminalNo+"'");
-				String shopids = objTerminal2.getStrAroundShopIds();
+				String shopids = objTerminal2.getStrAroundShopIds().trim();
 				sbReturn.append("<shops>");
 				if(shopids!=null&&!shopids.equals(""))
 				{
