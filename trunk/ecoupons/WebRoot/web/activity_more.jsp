@@ -42,7 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>商户</title>
+<title>最新动态</title>
 <link href="css/merchants.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -81,22 +81,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<div class=pro_mid>
 
-<div class=pro_info>
-<div class=headtitle>
+<div style="WIDTH: 680px; FLOAT: left; MARGIN-RIGHT: 15px;">
+<div style="PADDING-BOTTOM: 0px; PADDING-LEFT: 10px; PADDING-RIGHT: 0px; COLOR: #000000; FONT-SIZE: 14px; FONT-WEIGHT: bold; PADDING-TOP: 5px">
+<%=obj1.getStrName()%>
 </div>
 
 <div class=clearfloat></div>
-<div class=line><img src="images/fg.gif" width=525 height=4 /></div>
+<div class=line><img src="images/fg.gif" width=680 height=4 /></div>
 <div class=text_left>
 <table border=0 width=100%>
   <tbody>
   <tr>
-    <td width=267 height="26">*标题：<a href="#"><%=obj1.getStrName()%></a> </td>
-    <td width=253 height="26">*时间：<a href="#"><%=obj1.getDtActiveTime() %></a></td>
+    <td width=267 height="26">*标   题：<a href="#"><%=obj1.getStrName()%></a> </td>
+    <td width=253 height="26">*时   间：<a href="#"><%=obj1.getDtActiveTime() %></a></td>
   </tr>
   <tr>
-    <td height="26" colspan="2">* 
-      内容：<%=obj1.getStrContent() %>    
+    <td height="26" colspan="2">*内   容：<%=obj1.getStrContent() %>    
     </td>
   </tr>
 </tbody></table>
