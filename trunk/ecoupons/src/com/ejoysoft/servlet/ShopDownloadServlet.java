@@ -210,6 +210,7 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 		sbReturn.append("<strIntro>" + tempShop.getStrIntro() + "</strIntro>");
 		sbReturn.append("<strSmallImg>" + tempShop.getStrSmallImg() + "</strSmallImg>");
 		sbReturn.append("<strLargeImg>" + tempShop.getStrLargeImg() + "</strLargeImg>");
+		sbReturn.append("<intType>" + tempShop.getIntType() + "</intType>");
 		sbReturn.append("</shop>");
 		return sbReturn;
 	}
