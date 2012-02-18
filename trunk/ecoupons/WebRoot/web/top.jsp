@@ -25,6 +25,8 @@ eval("document.getElementById('clayer0_"+index+"').className='midri1_1'");
 
 eval("document.getElementById('clay0_"+id+"').style.display='block'");
 eval("document.getElementById('clay0_"+index+"').style.display='none'");
+eval("document.getElementById('hot_"+id+"').style.display='block'");
+eval("document.getElementById('hot_"+index+"').style.display='none'");
 }
 
 -->
@@ -51,21 +53,23 @@ eval("document.getElementById('clay0_"+index+"').style.display='none'");
 				</div>
 		
 		  	 <div id=clay0_1 style="display:block">
+		  	
 		  	 	  <input class="newsearch-txt" id=headbcsearchtxt  name="strName" />
 			      <input type="button" name="Button" value=" " onclick="frm.action='merchants.jsp';frm.submit();" class="newsearch-btn"  />
-			       <div style="MARGIN-top: 8px;" align="left">热门搜索：<%for(int i=0;i<vctSyspParas.size();i++){ %>
+		  	
+			 </div>
+			       <div id=hot_1   style="display:block" align="left">热门搜索：<%for(int i=0;i<vctSyspParas.size();i++){ %>
 					<a id="hotId" href="#" onclick="frm.action='merchants.jsp';frm.strName.value='<%=vctSyspParas.get(i).getStrName() %>';frm.submit();"><%=vctSyspParas.get(i).getStrName() %></a> 
 					<%} %>	
 					</div>
-			 </div>
 		     <div id=clay0_2 style="display:none">
 	          <input class="newsearch-txt" id=headbcsearchtxt  name="strName2" />
 			  <input type="button" name="Button" onclick="frm.action='coupons_more.jsp';frm.submit();" value=" " class="newsearch-btn"  />
-			    <div style="MARGIN-top: 8px;" align="left">热门搜索：<%for(int i=0;i<vctSyspParas.size();i++){ %>
+			 </div>
+			    <div id=hot_2 style="display:none" align="left">热门搜索：<%for(int i=0;i<vctSyspParas.size();i++){ %>
 				<a id="hotId" href="#" onclick="frm.action='coupons_more.jsp';frm.strName2.value='<%=vctSyspParas.get(i).getStrName() %>';frm.submit();"><%=vctSyspParas.get(i).getStrName() %></a> 
 				<%} %>	
 				</div> 			
-			 </div>
 			</div>
 			
 </div>
