@@ -32,6 +32,7 @@ public class ApacheUpload {
     public ApacheUpload(HttpServletRequest req) throws FileUploadException, UnsupportedEncodingException {
         //初始化ApacheUpload对象
         DiskFileUpload fu = new DiskFileUpload();
+        fu.setHeaderEncoding("UTF-8");
         fu.setSizeMax(50*1024*1024);
         fu.setSizeThreshold(4096);
         fu.setRepositoryPath(req.getRealPath(""));
