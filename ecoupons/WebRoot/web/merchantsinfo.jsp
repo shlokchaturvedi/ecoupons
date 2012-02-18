@@ -47,13 +47,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <%
                 if (obj1.getStrSmallImg().length() > 0) {
                 %>
-                  <img src="<%="../shop/images/" + obj1.getStrLargeImg() %>" width=<%=application.getAttribute("SHOP_LARGE_IMG_WIDTH") %> height=<%=application.getAttribute("SHOP_LARGE_IMG_HEIGHT") %>/>
+                  <img src="<%="../shop/images/" + obj1.getStrLargeImg() %>" width=400 height=360 />
                 <%
                 }
                 else
                 {
                 %>
-                 <img src="../shop/images/temp.jpg" width=<%=application.getAttribute("SHOP_LARGE_IMG_WIDTH") %> height=<%=application.getAttribute("SHOP_LARGE_IMG_HEIGHT") %>/>
+                 <img src="../shop/images/temp.jpg" width=400 height=360 />
                  <%}
                   %>
 </div>
@@ -65,12 +65,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <table border=0 width=100%>
   <tbody>
   <tr>
-    <td width=165 height="26">*行业：<%=obj1.getStrTradeName()%> </td>
-    <td height="26">*地址：<%=obj1.getStrAddr()%></td>
+    <td width=165 height="26">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* 行业：<%=obj1.getStrTradeName()%> </td>
+    <td height="26">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* 地址：<%=obj1.getStrAddr()%></td>
   </tr>
   <tr>
-    <td height="26">*联系人：<%=obj1.getStrPerson()%></td>
-    <td height="26">* 联系电话：<%=obj1.getStrPhone()%></td>
+    <td height="26">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* 联系人：<%=obj1.getStrPerson()%></td>
+    <td height="26">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* 联系电话：<%=obj1.getStrPhone()%></td>
    </tr>
   </tbody></table>
 <br/></div>
