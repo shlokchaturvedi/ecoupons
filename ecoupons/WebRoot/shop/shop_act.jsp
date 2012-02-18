@@ -42,7 +42,8 @@
 			obj.setStrId(au.getString("strId"));
 	    	obj0 = obj.show(" where strId='" + obj.getStrId() + "'");
 	    }
-	    if (au.getFileName(0).length() > 0) {  
+	   
+	   if (au.getFileName(0).length() > 0) {  
 	    	strSmallImg = au.saveFile(strFilePath, 0);
 	    	if (action.equals(Constants.UPDATE_STR) && obj0.getStrSmallImg()!=null&&obj0.getStrSmallImg().length() > 0) {
 	    		File f = new File(strFilePath + obj0.getStrSmallImg());
