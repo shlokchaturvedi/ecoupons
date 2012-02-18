@@ -59,7 +59,7 @@ body,td,tr{font-size:9pt;}
             var reParn = new RegExp(TelPhoneParn);
         	for(i=0;i<tel.length;i++)
         	{
-        	 	if(!reParn.test(tel[i]))
+        	 	if(!reParn.test(trim(tel[i])))
         		{
                   alert(tel[i]+"请输入正确的联系电话！！！如0551-2342345或13200000001");
                   frm.strPhone.focus();         
