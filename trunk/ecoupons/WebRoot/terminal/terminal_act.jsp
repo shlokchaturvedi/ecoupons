@@ -26,14 +26,12 @@
 	    String strUrl="terminal_list.jsp";		
 	    ApacheUpload au = new ApacheUpload(request);
 		action = au.getString(Constants.ACTION_TYPE);
-		System.out.println(action);
-	 	//上传文件
+		//上传文件
 	    String strFilePath = application.getRealPath("") + "/terminal/images/";
 	    File path = new File(strFilePath);
 	    if (!path.exists()) {
 	    	path.mkdirs();
-	    }         System.out.println(action);
- 
+	    }     
 	    String strImage = "";
 	    Terminal obj0 = new Terminal();
 	   if(action.equals(Constants.UPDATE_STR)){

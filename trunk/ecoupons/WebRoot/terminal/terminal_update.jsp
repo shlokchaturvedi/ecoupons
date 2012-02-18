@@ -168,15 +168,17 @@ body,td,tr{font-size:9pt;}
                 <td width="3%" height="30">&nbsp;</td>
                 <td width="32%" height="30">
 				 <select name="strProducer" class="forms_color1" style= "width:213px">
-                    <option selected="selected" value="<%=obj0.getStrProducer()%>"><%=obj0.getStrProducerName()%></option>
-				  <%
-                        //初始化
-    					//SysPara  para=null;
-                        ArrayList para1 = para.list("券打机厂家");
+                   <%
+                         ArrayList para1 = para.list("券打机厂家");
                         for (int i = 0; i < para1.size(); i++) {
                             SysPara d = (SysPara)para1.get(i);
+                            if(d.getStrId().equals(obj0.getStrProducer()))
+                            {
+                            	out.print("<option value=" + d.getStrId() + " selected=selected >");                         
+                            }
+                            else{
                               out.print("<option value=" + d.getStrId() + ">");
-                           
+                            }
                             out.println("" + d.getStrName() + "</option>");
                        
                 	%>
@@ -194,21 +196,21 @@ body,td,tr{font-size:9pt;}
                 <td width="3%" height="30">&nbsp;</td>
                 <td width="32%" height="30">
                 <select name="strType" class="forms_color1" style= "width:213px">
-                    <option selected="selected" value="<%=obj0.getStrType()%>"><%=obj0.getStrTypeName()%></option>
-				  <%
+                 <%
                         //初始化
     					//SysPara  para=null;
                         ArrayList para3 = para.list("券打机规格型号");
                         for (int i = 0; i < para3.size(); i++) {
                             SysPara d = (SysPara)para3.get(i);
+                            if(d.getStrId().equals(obj0.getStrType()))
+                            {
+                            	out.print("<option value=" + d.getStrId() + " selected=selected >");                         
+                            }
+                            else{
                               out.print("<option value=" + d.getStrId() + ">");
-                           
+                            }                        
                             out.println("" + d.getStrName() + "</option>");
-                       
-                	%>
-				 
-                 <%
-                 }                 
+                       }                 
                  %>
                    </select></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
