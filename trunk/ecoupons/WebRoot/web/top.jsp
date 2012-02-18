@@ -58,7 +58,7 @@ eval("document.getElementById('hot_"+index+"').style.display='none'");
 			      <input type="button" name="Button" value=" " onclick="frm.action='merchants.jsp';frm.submit();" class="newsearch-btn"  />
 		  	
 			 </div>
-			       <div id=hot_1   style="display:block" align="left">热门搜索：<%for(int i=0;i<vctSyspParas.size();i++){ %>
+			       <div id=hot_1   style="display:block" align="left">&nbsp;&nbsp;&nbsp;&nbsp;热门搜索：<%for(int i=0;i<vctSyspParas.size();i++){ %>
 					<a id="hotId" href="#" onclick="frm.action='merchants.jsp';frm.strName.value='<%=vctSyspParas.get(i).getStrName() %>';frm.submit();"><%=vctSyspParas.get(i).getStrName() %></a> 
 					<%} %>	
 					</div>
@@ -66,7 +66,7 @@ eval("document.getElementById('hot_"+index+"').style.display='none'");
 	          <input class="newsearch-txt" id=headbcsearchtxt  name="strName2" />
 			  <input type="button" name="Button" onclick="frm.action='coupons_more.jsp';frm.submit();" value=" " class="newsearch-btn"  />
 			 </div>
-			    <div id=hot_2 style="display:none" align="left">热门搜索：<%for(int i=0;i<vctSyspParas.size();i++){ %>
+			    <div id=hot_2 style="display:none" align="left">&nbsp;&nbsp;&nbsp;&nbsp;热门搜索：<%for(int i=0;i<vctSyspParas.size();i++){ %>
 				<a id="hotId" href="#" onclick="frm.action='coupons_more.jsp';frm.strName2.value='<%=vctSyspParas.get(i).getStrName() %>';frm.submit();"><%=vctSyspParas.get(i).getStrName() %></a> 
 				<%} %>	
 				</div> 			
