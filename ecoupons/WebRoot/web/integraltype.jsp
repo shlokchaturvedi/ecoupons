@@ -23,6 +23,27 @@ function logout(){
 	return false;
 }
 </script>
+<script language=JavaScript>
+function frmClick(){
+	if(frm.strPointCardNo.value=="") {
+        alert("积分卡号！！")
+        frm.strPointCardNo.focus();
+        return false;
+    }else
+    if(frm.strPointCardPwd.value=="") {
+        alert("请输入密码！！！")
+        frm.strPointCardPwd.focus();
+        return false;
+    }
+    if(confirm("确定录入积分卡："+frm.strPointCardNo.value+"!!"))
+	{
+ 	   frm.submit();
+ 	}
+	     
+    
+}
+</script>
+
 </head>
 <body>
 <form name=frm method="post" action="integral_act.jsp">
@@ -85,7 +106,7 @@ frameborder=no width="100%" scrolling=no></iframe>
     <tr>
       <td height="60">&nbsp;</td>
       <td valign="bottom">
-     <input type="submit" value="提交"  class="suBtn"/>
+     <input type="button" value="提交" onclick="frmClick();"  class="suBtn"/>
       </td> 
     </tr>
   </table>
