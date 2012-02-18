@@ -24,7 +24,21 @@ eval("document.getElementById('clay0_"+index+"').style.display='none'");
 }
 
 -->
-</script></head>
+</script>
+
+ <script type=text/javascript>
+ function btnClick()
+ {
+ if(document.getElementById("clay0_1").style.display=="block")
+ top.location ="merchants.jsp";
+ 	} else
+ if(document.getElementById("clay0_2").style.display=="block")
+ top.location ="coupons_more.jsp";
+ }
+
+</script>
+
+</head>
 
 <body>
 
@@ -37,6 +51,10 @@ eval("document.getElementById('clay0_"+index+"').style.display='none'");
      <div class="logo_img"><img src="images/logo.jpg"/></div>
     <div class="tab"> 
      
+			<%
+			SysPara sysPara=new SysPara(globa);
+			Vector<SysPara> vctSyspParas=sysPara.list("where strtype='热门搜索' order by dcreatdate  desc limit 4",0,0);
+			%>
 			<div class="logo_tab">
 		
 				<div class="searchtab">
@@ -52,17 +70,12 @@ eval("document.getElementById('clay0_"+index+"').style.display='none'");
 	         <div id=clay0_2 style="display:none"><input class="newsearch-txt" id=headbcsearchtxt  name="strName2" />
 				<input type="button" name="Button" onclick="frm.action='coupons_more.jsp';frm.submit();" value=" " class="newsearch-btn"  />
 			 </div>
-			</div>
-			<%
-			SysPara sysPara=new SysPara(globa);
-			Vector<SysPara> vctSyspParas=sysPara.list("where strtype='热门搜索' order by dcreatdate  desc limit 4",0,0);
-			%>
-			<input type="hidden" name="hiddeId"/>
 			<div class="search_txt">热门搜索：
 			<%for(int i=0;i<vctSyspParas.size();i++){ %>
-			<a id="hotId" href="#" onclick="frm.strName.value=<%=vctSyspParas.get(i).getStrName() %>;frm.button.onclick();"><%=vctSyspParas.get(i).getStrName() %></a> 
+			<a id="hotId" href="#" onclick="btnClick();"><%=vctSyspParas.get(i).getStrName() %></a> 
 			<%} %>
 			
+			</div>
 			</div>
 </div>
  </div>
