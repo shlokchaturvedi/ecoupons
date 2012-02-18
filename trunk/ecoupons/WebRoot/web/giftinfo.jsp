@@ -60,13 +60,13 @@ frameborder=0 width="100%" scrolling=no></iframe>
 <div class=gift_mid_img><%
        if (obj1.getStrSmallImg().length() > 0) {
        %>
-         <img src="<%="../member/images/" + obj1.getStrSmallImg() %>" width=<%=application.getAttribute("SHOP_LARGE_IMG_WIDTH") %> height=<%=application.getAttribute("SHOP_LARGE_IMG_HEIGHT") %> />
+         <img src="<%="../member/images/" + obj1.getStrSmallImg() %>" width=190 height=190 />
        <%
        }
        else
        {
        %>
-        <img src="images/temp.jpg"  />
+        <img src="images/temp.jpg" width=190 height=190 />
         <%} %></div>
 <div class=gift_mid_img_txt>
 	<span class=gift_cpmc><%=obj1.getStrName() %></span>
