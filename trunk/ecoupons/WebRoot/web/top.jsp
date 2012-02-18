@@ -5,6 +5,10 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
+<%
+SysPara sysPara=new SysPara(globa);
+Vector<SysPara> vctSyspParas=sysPara.list("where strtype='热门搜索' order by dcreatdate  desc limit 4",0,0);
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -24,21 +28,7 @@ eval("document.getElementById('clay0_"+index+"').style.display='none'");
 }
 
 -->
-</script>
-
- <script type=text/javascript>
- function btnClick()
- {
- if(document.getElementById("clay0_1").style.display=="block")
- top.location ="merchants.jsp";
- 	} else
- if(document.getElementById("clay0_2").style.display=="block")
- top.location ="coupons_more.jsp";
- }
-
-</script>
-
-</head>
+</script></head>
 
 <body>
 
@@ -51,10 +41,6 @@ eval("document.getElementById('clay0_"+index+"').style.display='none'");
      <div class="logo_img"><img src="images/logo.jpg"/></div>
     <div class="tab"> 
      
-			<%
-			SysPara sysPara=new SysPara(globa);
-			Vector<SysPara> vctSyspParas=sysPara.list("where strtype='热门搜索' order by dcreatdate  desc limit 4",0,0);
-			%>
 			<div class="logo_tab">
 		
 				<div class="searchtab">
@@ -64,19 +50,24 @@ eval("document.getElementById('clay0_"+index+"').style.display='none'");
 					</ul>
 				</div>
 		
-		  	 <div id=clay0_1 style="display:block"><input class="newsearch-txt" id=headbcsearchtxt  name="strName" />
+		  	 <div id=clay0_1 style="display:block">
+		  	 	  <input class="newsearch-txt" id=headbcsearchtxt  name="strName" />
 			      <input type="button" name="Button" value=" " onclick="frm.action='merchants.jsp';frm.submit();" class="newsearch-btn"  />
+			       <div style="MARGIN-top: 8px;" align="left">热门搜索：<%for(int i=0;i<vctSyspParas.size();i++){ %>
+					<a id="hotId" href="#" onclick="frm.action='merchants.jsp';frm.strName.value='<%=vctSyspParas.get(i).getStrName() %>';frm.submit();"><%=vctSyspParas.get(i).getStrName() %></a> 
+					<%} %>	
+					</div>
 			 </div>
-	         <div id=clay0_2 style="display:none"><input class="newsearch-txt" id=headbcsearchtxt  name="strName2" />
-				<input type="button" name="Button" onclick="frm.action='coupons_more.jsp';frm.submit();" value=" " class="newsearch-btn"  />
+		     <div id=clay0_2 style="display:none">
+	          <input class="newsearch-txt" id=headbcsearchtxt  name="strName2" />
+			  <input type="button" name="Button" onclick="frm.action='coupons_more.jsp';frm.submit();" value=" " class="newsearch-btn"  />
+			    <div style="MARGIN-top: 8px;" align="left">热门搜索：<%for(int i=0;i<vctSyspParas.size();i++){ %>
+				<a id="hotId" href="#" onclick="frm.action='coupons_more.jsp';frm.strName2.value='<%=vctSyspParas.get(i).getStrName() %>';frm.submit();"><%=vctSyspParas.get(i).getStrName() %></a> 
+				<%} %>	
+				</div> 			
 			 </div>
-			<div class="search_txt">热门搜索：
-			<%for(int i=0;i<vctSyspParas.size();i++){ %>
-			<a id="hotId" href="#" onclick="btnClick();"><%=vctSyspParas.get(i).getStrName() %></a> 
-			<%} %>
+			</div>
 			
-			</div>
-			</div>
 </div>
  </div>
 <!--logo结束-->
