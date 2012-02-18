@@ -106,7 +106,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <tbody>
   <tr>
     <td width=267 height="26">* 生产厂家：<%=obj1.getStrProducerName()%> </td>
-    <td width=253 height="26">* 规格型号：<%=obj1.getIntType() %></td>
+    <td width=253 height="26">* 规格型号：<%=obj1.getStrTypeName() %></td>
   </tr>
   <tr>
     <td height="26">* 主屏分辨率：<%=obj1.getStrResolution()%></td>
@@ -158,30 +158,9 @@ for(int i=0;i<vctStrades.size();i++){
 %>
 </ul>
 </div>
-<div class=sort_bottom></div></div> 
+<div class=sort_bottom></div></div>  
  
  
- <div class=sort>
-<div class=sort_top>
-<h1><strong>热门评论</strong></h1></div>
-	<div class=sort_con>
-	<ul>
-	  <%
-	CouponComment couponComment=new CouponComment(globa);
-	Vector<CouponComment> vctCouponComment=couponComment.list("",0,0);
-	if(vctCouponComment.size()>6){
-		for(int i=0;i<6;i++){
-			out.print("<LI>・<A href='#'>"+vctCouponComment.get(i).getStrComment()+"</A></LI>");
-		}
-	}else{
-		for(int i=0;i<vctCouponComment.size();i++){
-			out.print("<LI>・<A href='#'>"+vctCouponComment.get(i).getStrComment()+"</A></LI>");
-		}
-	}
-	%> </ul>
-	</div>
-<div class=sort_bottom></div>
-  </div>
   <div class=sort>
 <div class=sort_top>
 <h1><strong>推荐优惠券</strong></h1>
