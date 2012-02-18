@@ -231,19 +231,19 @@ function addTerminals()
                 <td height="30" align="right" class="left_txt2">小图片：</td>
                 <td>&nbsp;</td>
                 <td height="30"><input name="strSmallImg" type="file" class="input_box" size="30" /></td>
-                <td height="30" class="left_txt">（大小：<%=application.getAttribute("GIFT_SMALL_IMG_WIDTH") %>*<%=application.getAttribute("GIFT_SMALL_IMG_HEIGHT") %>px，用于前台列表显示）</td>
+                <td height="30" class="left_txt">（大小：<%=application.getAttribute("COUPON_SMALL_IMG_WIDTH") %>*<%=application.getAttribute("COUPON_SMALL_IMG_HEIGHT") %>px，用于前台列表显示）</td>
               </tr>
               <tr >
                 <td height="30" align="right" class="left_txt2">大图片：</td>
                 <td>&nbsp;</td>
                 <td height="30"><input name="strLargeImg" type="file" class="input_box" size="30" /></td>
-                <td height="30" class="left_txt">（大小：<%=application.getAttribute("GIFT_LARGE_IMG_WIDTH") %>*<%=application.getAttribute("GIFT_LARGE_IMG_HEIGHT") %>px，用于前台详细显示）</td>
+                <td height="30" class="left_txt">（大小：<%=application.getAttribute("COUPON_LARGE_IMG_WIDTH") %>*<%=application.getAttribute("COUPON_LARGE_IMG_HEIGHT") %>px，用于前台详细显示）</td>
               </tr>
               <tr  >
                 <td height="30" align="right" class="left_txt2">打印图：</td>
                 <td>&nbsp;</td>
                 <td height="30"><input name="strPrintImg" type="file" class="input_box" size="30" /></td>
-                <td height="30" class="left_txt">（大小：<%=application.getAttribute("GIFT_LARGE_IMG_WIDTH") %>*<%=application.getAttribute("GIFT_LARGE_IMG_HEIGHT") %>px，用于用户打印下载）</td>
+                <td height="30" class="left_txt">（大小：<%=application.getAttribute("COUPON_PRINT_IMG_WIDTH") %>*<%=application.getAttribute("COUPON_PRINT_IMG_HEIGHT") %>px，用于用户打印下载）</td>
               </tr>
             </table></td>
           </tr>

@@ -17,8 +17,9 @@ value=/wEPDwUKLTU2NzgzNzU1NmRkQSb+zRUw7aolg2/RtctQMgt0bp4= type=hidden
 name=__VIEWSTATE> </DIV>
 <IMG style="DISPLAY: none" src="images/lijin.jpg">
 <SCRIPT language=javascript type=text/javascript>
-    var imgWidth = 535;
-    var imgHeight = 200;
+    var imgWidth =535 ;
+    var imgHeight = <%=application.getAttribute("COUPON_LARGE_IMG_HEIGHT")%>*<%=application.getAttribute("COUPON_LARGE_IMG_WIDTH") %>/535 ;
+    alert(imgHeight);
     var textFromHeight = 0;
     var textStyle = "f12";
     var textLinkStyle = "p1";

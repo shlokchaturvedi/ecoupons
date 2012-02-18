@@ -107,23 +107,43 @@ for(int i=0;i<vctStrades.size();i++){
 
 %>
   </UL></DIV>
-<DIV class=sort_bottom></DIV></DIV> 
+<DIV class=sort_bottom></DIV>
+</DIV> 
+ <DIV class=sort>
+<DIV class=sort_top>
+<H1><STRONG>热门评论</STRONG></H1></DIV>
+	<DIV class=sort_con>
+	<UL>
+	<%
+	CouponComment couponComment=new CouponComment(globa);
+	Vector<CouponComment> vctCouponComment=couponComment.list(" order by dtcreateTime desc limit 5",0,0);
+		for(int i=0;i<vctCouponComment.size();i++){
+		%>
+		<li>・<a href="couponinfo.jsp?strid=<%=vctCouponComment.get(i).getStrCouponId() %>" ><%=vctCouponComment.get(i).getStrComment() %></a></li>
+		<%
+	}
+	%>	
+	 </UL>
+	</DIV>
+<DIV class=sort_bottom></DIV>
+  </div>
 </div>
   	<form name=frmTrade action="index.jsp">
   <div class="mid">
-	<DIV class=mid_xt><marquee behavior="scroll" scrollamount="5" onmouseover="this.stop();" onmouseout="this.start();">
+	<DIV class=mid_xt ><marquee  behavior="scroll" scrollamount="5" onmouseover="this.stop();" onmouseout="this.start();">
 	<%
 	String  strTradeId=ParamUtil.getString(request,"strTradeId");
 	Shop shop=new Shop(globa);
     Vector<Shop> vctShops=shop.list("order by dtcreatetime  desc",1,10);
     for(int i=0;i<vctShops.size();i++){
-    out.print("<a href='merchantsinfo.jsp?strid="+vctShops.get(i).getStrId()+"' target=_blank alt='"+vctShops.get(i).getStrBizName()+"'><img src='../shop/images/" +vctShops.get(i).getStrSmallImg() +"' width='99' height='44'  border='0' /></a>");
+    out.print("<a href='merchantsinfo.jsp?strid="+vctShops.get(i).getStrId()+"' target=_blank alt='"+vctShops.get(i).getStrBizName()+"'><img src='../shop/images/" +vctShops.get(i).getStrSmallImg() +"'  height='44'  border='0' /></a>");
     }
     
 	%>
 	
 	</marquee></DIV>
-  	<DIV class=jsadbox><!--切屏广告--><IFRAME height=200 marginHeight=0 src="homeimg.jsp" frameBorder=0 width=535 marginWidth=0 scrolling=no></IFRAME></DIV>
+  	<DIV class=jsadbox><!--切屏广告--><IFRAME height=<%=application.getAttribute("COUPON_LARGE_IMG_HEIGHT")%>*<%=application.getAttribute("COUPON_LARGE_IMG_WIDTH") %>/535 marginHeight=0 src="homeimg.jsp" frameBorder=0 width=535 marginWidth=0 scrolling=no>
+  	</IFRAME></DIV>
 	<DIV class=mid_sj>
 		<div class="sj_tit">
 		  <div class="sj_name" >商家优惠信息</div>
@@ -160,6 +180,7 @@ for(int i=0;i<vctStrades.size();i++){
 	</DIV>
   </div>
   </form>
+  
   <div class="right">
    <DIV class=sort>
 <DIV class=sort_top>
@@ -168,9 +189,9 @@ for(int i=0;i<vctStrades.size();i++){
 	<DIV class=sort_con>
 	<UL>
 	<%
-	Activity activity=new Activity();
+	Activity activity=new Activity(globa);
 	Vector<Activity> vctActivities=new Vector<Activity>();
-	vctActivities=activity.list(" order by dtcreateTime desc limit 6",0,0);
+	vctActivities=activity.list(" order by dtcreateTime desc limit 8",0,0);
 		for(int i=0;i<vctActivities.size();i++){
 		%>
 		<li>・<%=vctActivities.get(i).getStrName() %></li>
@@ -212,36 +233,9 @@ vecCouponps=index.returnTopCoupons("月");
 	}	
 %>
 </UL></DIV>
-  
-  
-  
 <DIV class=sort_bottom></DIV></DIV>
-  
-  
-  
-  
-   <DIV class=sort>
-<DIV class=sort_top>
-<H1><STRONG>热门评论</STRONG></H1></DIV>
-	<DIV class=sort_con>
-	<UL>
-	<%
-	CouponComment couponComment=new CouponComment(globa);
-	Vector<CouponComment> vctCouponComment=couponComment.list(" order by dtcreateTime desc limit 6",0,0);
-		for(int i=0;i<vctCouponComment.size();i++){
-		%>
-		<li>・<a href="couponinfo.jsp?strid=<%=vctCouponComment.get(i).getStrCouponId() %>" ><%=vctCouponComment.get(i).getStrComment() %></a></li>
-		<%
-	}
-	%>	
-	 </UL>
-	</DIV>
-<DIV class=sort_bottom></DIV>
   </div>
-  </div>
-
 </div>
-
 <iframe style="HEIGHT: 340px" border=0 marginwidth=0 marginheight=0 src="bottom.jsp" 
 frameborder=no width="100%" scrolling=no></iframe>
 </body>
