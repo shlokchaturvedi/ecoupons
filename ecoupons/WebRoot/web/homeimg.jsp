@@ -53,7 +53,7 @@ name=__VIEWSTATE> </DIV>
      for(int i=0;i<vctCoupons.size();i++)
      {
      %>
-     tt = <%=i%>;
+     tt = <%=i+1%>;
     imgUrl[tt] = '../coupon/images/<%=vctCoupons.get(i).getStrSmallImg() %>';
     imgtext[tt] = '<A HREF="#" TARGET="_blank" class="' + textLinkStyle + '"></A>';
     imgLink[tt] = 'couponinfo.jsp?strid=<%=vctCoupons.get(i).getStrId() %>';
