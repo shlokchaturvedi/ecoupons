@@ -198,6 +198,10 @@
         <filter-name>CharEncoding</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+    
+    <listener> 
+        <listener-class>com.ejoysoft.ecoupons.TerminalStateListener</listener-class>
+    </listener>
 	
 	<session-config>
 		<session-timeout>180</session-timeout>
