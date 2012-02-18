@@ -142,7 +142,7 @@ for(int i=0;i<vctStrades.size();i++){
 	%>
 	
 	</marquee></DIV>
-  	<DIV class=jsadbox><!--切屏广告--><IFRAME  height=306 marginHeight=0 src="homeimg.jsp" frameBorder=0 width=535 marginWidth=0 scrolling=no>
+  	<DIV class=jsadbox><!--切屏广告--><IFRAME  height=310 marginHeight=0 src="homeimg.jsp" frameBorder=0 width=535 marginWidth=0 scrolling=no>
   	</IFRAME></DIV>
 	<DIV class=mid_sj>
 		<div class="sj_tit">
