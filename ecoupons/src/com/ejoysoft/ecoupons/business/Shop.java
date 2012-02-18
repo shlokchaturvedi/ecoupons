@@ -58,7 +58,7 @@ public class Shop {
             	  {
             		  String[] strid = strTerminalId[i].split("-");
             		  String strsql2 ="insert into " + strTableName7 + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) "
-            		  + "values (" + UID.getID() + ",'" + strid[i]+ "','" + strTableName + "','" + strId + "','add',0)";
+            		  + "values (" + UID.getID() + ",'" + strid[0]+ "','" + strTableName + "','" + strId + "','add',0)";
             		  db.executeUpdate(strsql2);
             	  }                
             }
@@ -180,7 +180,7 @@ public class Shop {
             	  {
             		  String[] strid = strTerminalId[i].split("-");
             		  String strsql2 ="insert into " + strTableName7 + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) "
-            		  + "values (" + UID.getID() + ",'" + strid[i]+ "','" + strTableName + "','" + strId2 + "','update',0)";
+            		  + "values (" + UID.getID() + ",'" + strid[0]+ "','" + strTableName + "','" + strId2 + "','update',0)";
             		  db.executeUpdate(strsql2);
             	  }                
             }
