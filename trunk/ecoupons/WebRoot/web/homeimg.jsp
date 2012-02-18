@@ -49,7 +49,7 @@ name=__VIEWSTATE> </DIV>
 
      <%
      Coupon coupon=new Coupon(globa);
-     Vector<Coupon>vctCoupons=coupon.list("order by dtcreatetime  desc limit 6",0,0);
+     Vector<Coupon>vctCoupons=coupon.list(" where intRecommend=1 order by dtcreatetime  desc limit 6",0,0);
      for(int i=0;i<vctCoupons.size();i++)
      {
      %>
