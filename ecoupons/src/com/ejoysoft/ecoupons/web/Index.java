@@ -45,8 +45,7 @@ public class Index
 				e.printStackTrace();
 			}	
 			hmTrade.put(vctParas.get(i).getStrName(), num);		
-			System.out.println(vctParas.get(i).getStrName()+":Index.returnTradeForCoup()"+num);
-				
+			//System.out.println(vctParas.get(i).getStrName()+":Index.returnTradeForCoup()"+num);				
 		}
 		return hmTrade;
 	}
