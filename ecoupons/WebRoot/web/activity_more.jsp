@@ -18,7 +18,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     //初始化
     Activity activity=new Activity(globa);
 	Vector<Activity> vctActivities=new Vector<Activity>();
-	vctActivities=activity.list(" order by dtcreateTime desc ",0,0);
+	String strId = ParamUtil.getString(request,"strId","");
+	String tWhere = "";
+	if(!strId.equals(""))
+	{
+		tWhere=" where strid='"+strId+"'";
+	}
+	tWhere+=" order by dtcreateTime desc ";
+	vctActivities=activity.list(tWhere,0,0);
 		
 	//记录总数
 	int intAllCount=vctActivities.size();

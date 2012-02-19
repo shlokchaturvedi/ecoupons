@@ -186,7 +186,7 @@ for(int i=0;i<vctStrades.size();i++){
    <DIV class=sort>
 <DIV class=sort_top>
 <H1><STRONG>最新动态</STRONG></H1>
-<div class=hotList_more><span><a href="activity_more.jsp"><font color="#CC6600">更多</font>&gt;&gt;</a>&nbsp;&nbsp;</span></div></DIV>
+<div class=hotList_more><span><a href="activity_more.jsp?strId=''"><font color="#CC6600">更多</font>&gt;&gt;</a>&nbsp;&nbsp;</span></div></DIV>
 	<DIV class=sort_con>
 	<UL>
 	<%
@@ -194,8 +194,13 @@ for(int i=0;i<vctStrades.size();i++){
 	Vector<Activity> vctActivities=new Vector<Activity>();
 	vctActivities=activity.list(" order by dtcreateTime desc limit 10",0,0);
 		for(int i=0;i<vctActivities.size();i++){
+		String name= vctActivities.get(i).getStrName();
+		if(name!=null && name.length()>=13)
+		{
+			name = name.substring(0,12)+"...";
+		}
 		%>
-		<li>・<%=vctActivities.get(i).getStrName() %></li>
+		<li><a href="activity_more.jsp?strId=<%=vctActivities.get(i).getStrId() %>">・<%=name%></a></li>
 		<%
 	}
 	%>	
