@@ -213,10 +213,10 @@ function showPicContent(){
                 <td width="45%" height="30" class="left_txt">&nbsp;</td>
               </tr>
                <% 
-                	String type = "";
-                	if(obj0.getIntType().equals("1")) type = "视频";
-                	else if(obj0.getIntType().equals("2")) type = "图片";
-                	else type = "走马灯";
+                	String type = "",checked1="",checked2="",checked3="";
+                	if(obj0.getIntType().equals("1")) {type = "视频";checked1="checked";}
+                	else if(obj0.getIntType().equals("2")) {type = "图片";checked2="checked";}
+                	else {type = "走马灯";checked3="checked";}
                 %>
               <tr bgcolor="#f2f2f2">
                  <td width="20%" height="30" align="right" class="left_txt2">内容介绍：</td>
@@ -228,16 +228,30 @@ function showPicContent(){
                  <td width="20%" height="30" align="right" class="left_txt2">广告更改：</td>
                 <td width="3%" height="30">&nbsp;</td>
                 <td width="32%" height="30">
-					 <input type="radio" name="intType" id="type1" value="1" checked onclick="showFileContent()" class="input_box" />视频
-					 <input type="radio" name="intType" id="type2" value="2" onclick="showPicContent()" class="input_box">图片
-                     <input type="radio" name="intType" id="type3" value="3" onclick="showTextContent()" class="input_box">走马灯
+					 <input type="radio" name="intType" id="type1" value="1" <%=checked1%> onclick="showFileContent()" class="input_box" />视频
+					 <input type="radio" name="intType" id="type2" value="2" <%=checked2%> onclick="showPicContent()" class="input_box">图片
+                     <input type="radio" name="intType" id="type3" value="3" <%=checked3%> onclick="showTextContent()" class="input_box">走马灯
 				</td>
 				</tr>
               <tr bgcolor="#f2f2f2">
                  <td width="20%" height="30" align="right" class="left_txt2"></td>
                 <td width="3%" height="30">&nbsp;</td>
                 <td width="32%" height="30">
+              <%
+                if(type.equals("视频"))
+                {
+              %>
 	              <span id="strContentid"><input type="file" style="width:213" name="strContent" id="strContent" >(视频文件)</span>
+	          <%}else if(type.equals("图片"))
+                {%>
+	              <span id="strContentid"><input type="file" style="width:213" name="strContent" id="strContent" size="30"><input type="button" value="+"  onclick="addPicRow();"/>(图片文件)</span>
+	          <%
+	            } else if(type.equals("走马灯"))
+                {%>
+	              <span id="strContentid"><input type="text" name="strContent" value="<%=obj0.getStrContent() %>" id="strContent" class="input_box" size="30">(走马灯内容)</span>
+	          <%
+                }
+	           %>
 				</td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
