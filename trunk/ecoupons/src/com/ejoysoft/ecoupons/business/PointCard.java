@@ -105,7 +105,7 @@ public class PointCard
 		String strUserName = globa.userSession.getStrId();
 		String strId = UID.getID();
 		String sql = "insert into " + strTableName + " (strId,strPointCardNo,strPointCardPwd,intPoint" + ",strCreator,dtCreateTime,inttype) "
-				+ "values (?,?,?,?,?,?) ";
+				+ "values (?,?,?,?,?,?,?) ";
 		try
 		{
 			
