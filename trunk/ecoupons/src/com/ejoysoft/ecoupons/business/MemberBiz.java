@@ -271,7 +271,7 @@ public class MemberBiz {
 					}
 					else
 					{
-						vector.addElement(loadByFlag(cardno,"无优惠券发布记录" , 0));
+						vector.addElement(loadByFlag(cardno,"无优惠券打印记录" , 0));
 					}
 									
 				}while (re.next()) ;
