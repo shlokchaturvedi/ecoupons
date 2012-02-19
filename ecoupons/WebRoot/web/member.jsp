@@ -24,7 +24,7 @@ function chkFrm()
         frm.strPhone.focus();
         return false;
     }else if(trim(frm.strName.value)==""){        
-        alert("请输入您的手机号！！！");
+        alert("请输入您的姓名！！！");
         frm.strName.focus();
         return false;
     }else if(trim(frm.strPwd.value)=="") {
@@ -118,19 +118,19 @@ function getYzm()
 <form action="memberreg_act.jsp" method="post" name="frm"  >
   <table width="96%" border="0" cellspacing="0" cellpadding="0">
     <tr>
-      <td width="17%" class="member_td_wz">卡&nbsp;&nbsp;&nbsp;号：&nbsp;&nbsp;</td>
+      <td width="17%" class="member_td_wz">卡  &nbsp;&nbsp;&nbsp;&nbsp;号：&nbsp;&nbsp;</td>
       <td width="83%" class="member_td_wz1"><input type="text" name="strCardNo" class="member_ipt"/>&nbsp;&nbsp;（*必填项）</td>
     </tr>
     <tr>
-      <td class="member_td_wz">手机号：&nbsp;&nbsp;</td>
+      <td class="member_td_wz">手 机 号：&nbsp;&nbsp;</td>
       <td class="member_td_wz1"><input name="strPhone" id="strPhone" type="text"  class="member_ipt"/>&nbsp;&nbsp;（*必填项）</td>
     </tr>
     <tr>
-      <td class="member_td_wz">真实姓名：&nbsp;&nbsp;</td>
+      <td class="member_td_wz">姓  &nbsp;&nbsp;&nbsp;&nbsp;名：&nbsp;&nbsp;</td>
       <td class="member_td_wz1"><input name="strName" type="text"  class="member_ipt"/>&nbsp;&nbsp;（*必填项）</td>
     </tr>
     <tr>
-      <td class="member_td_wz">密&nbsp;&nbsp;&nbsp;码：&nbsp;&nbsp;</td>
+      <td class="member_td_wz">密  &nbsp;&nbsp;&nbsp;&nbsp;码：&nbsp;&nbsp;</td>
       <td class="member_td_wz1"><input name="strPwd" type="password"  class="member_ipt"/>&nbsp;&nbsp;（*必填项）</td>
     </tr>
     <tr>
@@ -138,7 +138,7 @@ function getYzm()
       <td class="member_td_wz1"><input name="strPwd2" type="password" class="member_ipt"/>&nbsp;&nbsp;（*必填项）</td>
     </tr>
     <tr>
-      <td class="member_td_wz">验证码：&nbsp;&nbsp;</td>
+      <td class="member_td_wz">验 证 码：&nbsp;&nbsp;</td>
       <td class="member_td_wz1"><input name="yanzm"  type="text"  class="yzm"/>
      	 <input name="randomYazm"  type="hidden"  class="yzm"/>
          <input type="button" name="botton" onclick="getYzm();" value="获取验证码" /></td>
@@ -155,7 +155,7 @@ function getYzm()
 </div>
 <div class="member_right">
 <span>&nbsp;温馨提示：</span>
-<textarea name="wxts" cols="" rows="" class="ts_nr">1. 注册前沿生活会员完全免费， 前沿生活承诺绝不会向任何第三方透露您的手机号， 也不会在未经您许可的情况下向您的手机发送其他信息；
+<textarea name="wxts" cols="" rows="" class="ts_nr">1. 注册乐购生活会员完全免费， 乐购生活承诺绝不会向任何第三方透露您的手机号， 也不会在未经您许可的情况下向您的手机发送其他信息；
  
 2. 目前暂不支持小灵通用户注册。</textarea>
 </div>
