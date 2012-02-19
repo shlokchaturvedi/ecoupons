@@ -7,10 +7,18 @@
 <%@page import="com.ejoysoft.ecoupons.business.Point"%>
 <%@page import="com.ejoysoft.ecoupons.business.PointCardInput"%>
 <%@page import="com.ejoysoft.ecoupons.business.GiftExchange"%>
+<%@page import="com.ejoysoft.common.Globa"%>
   <%@ include file="../include/jsp/head.jsp"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+<%
+if(session.getAttribute(Constants.MEMBER_KEY) == null)
+{
+		globa.closeCon();
+    response.getWriter().print("<script>alert('您还未登录！请先登录！');top.location = '"+application.getServletContextName()+"/web/index.jsp';</script>");
+}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -22,6 +30,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <body>
+<form action="" name="frm" method="post">
 <iframe style="HEIGHT: 167px" border=0 marginwidth=0 marginheight=0 src="top.jsp" 
 frameborder=no width="100%" scrolling=no></iframe>
 
@@ -57,29 +66,13 @@ frameborder=no width="100%" scrolling=no></iframe>
 </DIV>
 <%
 String strMemberCardNo=globa.getMember().getStrCardNo();
-Vector<RecordModel> vctRecords=new Vector<RecordModel>();
-Member member=new Member(globa);
-String sql="select strId,intpoint,dtcreatetime from t_bz_point_present where strMemberCardNo='"
-+strMemberCardNo+"' union all select strId,intpoint,dtcreatetime from t_bz_pointcard_input where strMemberCardNo='"+strMemberCardNo+"' union all "
-+"select a1.strId,a2.intpoint,a1.dtcreatetime from t_bz_gift_exchange a1,t_bz_gift a2 where strmembercardno='"+strMemberCardNo+"' and a2.strid=a1.strgiftid";
-ResultSet resultSet=globa.db.executeQuery(sql);
-PointPresent pointPresent=new PointPresent(globa);
-PointCardInput pointInput=new PointCardInput(globa);
-GiftExchange giftExchange=new GiftExchange(globa);
-while(resultSet.next()){
-	RecordModel recordModel=new RecordModel();
-	recordModel.setDtCreateTime(resultSet.getString("dtcreatetime"));
-	recordModel.setIntPoint(resultSet.getInt("intpoint"));
-	if(pointPresent.getCount("where strid='"+resultSet.getString("strId")+"'")>0)
-		recordModel.setStrName("商家转赠");
-	if(pointInput.getCount("where strid='"+resultSet.getString("strId")+"'")>0)
-		recordModel.setStrName("积分卡录入");
-	if(giftExchange.getCount("where strid='"+resultSet.getString("strId")+"'")>0)
-		recordModel.setStrName("购买礼品");
-	vctRecords.add(recordModel);
-}
+
+RecordModel reModel=new RecordModel(globa);
 //记录总数
-int intAllCount=vctRecords.size();
+String sql1="select count(strId) from ( select strId,intpoint,dtcreatetime from t_bz_point_present where strMemberCardNo='"
++strMemberCardNo+"' union all select strId,intpoint,dtcreatetime from t_bz_pointcard_input where strMemberCardNo='"+strMemberCardNo+"' union all "
++"select a1.strId,a2.intpoint,a1.dtcreatetime from t_bz_gift_exchange a1,t_bz_gift a2 where strmembercardno='"+strMemberCardNo+"' and a2.strid=a1.strgiftid) b order by b.dtcreatetime desc ";
+int intAllCount=reModel.getCount(sql1);
 //当前页
 int intCurPage=globa.getIntCurPage();
 //每页记录数
@@ -92,8 +85,14 @@ int intStartNum=(intCurPage-1)*intPageSize+1;
 //结束序号
 int intEndNum=intCurPage*intPageSize;   
 //获取到当前页面的记录集
+String sql="select strId,intpoint,dtcreatetime from ( select strId,intpoint,dtcreatetime from t_bz_point_present where strMemberCardNo='"
++strMemberCardNo+"' union all select strId,intpoint,dtcreatetime from t_bz_pointcard_input where strMemberCardNo='"+strMemberCardNo+"' union all "
++"select a1.strId,a2.intpoint,a1.dtcreatetime from t_bz_gift_exchange a1,t_bz_gift a2 where strmembercardno='"+strMemberCardNo+"' and a2.strid=a1.strgiftid) b order by b.dtcreatetime desc ";
+Vector<RecordModel> vctRecords=reModel.listIntegral(sql,intStartNum,intPageSize);
 //获取当前页的记录条数
 int intVct=(vctRecords!=null&&vctRecords.size()>0?vctRecords.size():0);
+Member member=new Member(globa);
+
 %>
 
 
@@ -122,7 +121,7 @@ int intVct=(vctRecords!=null&&vctRecords.size()>0?vctRecords.size():0);
       for(int i=0;i< vctRecords.size();i++){
       %>
     <tr>
-      <td height="25" align="center" bgcolor="#FFFFFF"><span class="STYLE1"><%=vctRecords.get(i).getDtCreateTime() %> 
+      <td height="25" align="center" bgcolor="#FFFFFF"><span class="STYLE1"><%=vctRecords.get(i).getDtCreateTime().replace(".0","") %> 
       </span></td>
       <td align="center" bgcolor="#FFFFFF"><%=vctRecords.get(i).getStrName() %></td>
       <td align="center" bgcolor="#FFFFFF"><span class="STYLE1"><%=vctRecords.get(i).getIntPoint() %></span></td>
@@ -140,6 +139,7 @@ int intVct=(vctRecords!=null&&vctRecords.size()>0?vctRecords.size():0);
 
 <iframe style="HEIGHT: 340px" border=0 marginwidth=0 marginheight=0 src="bottom.jsp" 
 frameborder=no width="100%" scrolling=no></iframe>
+</form>
 </body>
 </html>
 <%@ include file="/include/jsp/footer.jsp"%>

@@ -26,6 +26,7 @@ if(session.getAttribute(Constants.MEMBER_KEY) == null)
 <title>我的余额</title>
 </head> 
 <body>
+<form action="" name="frm" method="post">
 <iframe style="HEIGHT: 167px" border=0 marginwidth=0 marginheight=0 src="top.jsp" 
 frameborder=no width="100%" scrolling=no></iframe>
 
@@ -65,34 +66,12 @@ frameborder=no width="100%" scrolling=no></iframe>
 </DIV>
 <%
 Recharge recharge=new Recharge(globa);
-Vector<RecordModel> vctRecords=new Vector<RecordModel>();
-Vector<Recharge>vctRecharges=recharge.list("where strmembercardno='"+globa.getMember().getStrCardNo()+"' order by dtcreatetime desc",0,0);
-for(int i=0;i<vctRecharges.size();i++){
-	RecordModel recordModel=new RecordModel();
-	recordModel.setDtCreateTime(vctRecharges.get(i).getDtCreateTime());
-	recordModel.setIntRecharge(vctRecharges.get(i).getIntMoney());
-	recordModel.setFlaPay(-1);
-	recordModel.setStrName("充值");
-	vctRecords.add(recordModel);
-}
-Coupon couponCloba=new Coupon(globa);
-CouponPrint couponPrint=new CouponPrint(globa);
-float flaPriceTemp;
-Vector<CouponPrint>vctCouponPrintTemp=couponPrint.list("where strmembercardno='"+globa.getMember().getStrCardNo()+"' order by dtcreatetime desc",0,0);
-for(int i=0;i<vctCouponPrintTemp.size();i++){
-	flaPriceTemp=couponCloba.show(" where strid='"+vctCouponPrintTemp.get(i).getStrCouponId()+"'").getFlaPrice();
-	if(flaPriceTemp>0){
-		RecordModel recordModel=new RecordModel();
-		recordModel.setDtCreateTime(vctCouponPrintTemp.get(i).getDtPrintTime());
-		recordModel.setFlaPay(flaPriceTemp);
-		recordModel.setIntRecharge(-1);
-		recordModel.setStrName("打印有价券");
-		vctRecords.add(recordModel);
-	}
-}
-
+String strMemberCardNo =globa.getMember().getStrCardNo();
+RecordModel reModel=new RecordModel(globa);
 //记录总数
-int intAllCount=vctRecords.size();
+String strSql1="select count(strId) from (select dtcreatetime,strid,intmoney from t_bz_member_recharge where strmembercardno='"+strMemberCardNo+"' union all "
+		+"select a1.dtcreatetime,a1.strid,a2.flaprice  from t_bz_coupon_print a1,t_bz_coupon a2 where a1.strmembercardno='"+strMemberCardNo+"' and a1.strcouponid=a2.strid and a2.flaprice>0) c order by c.dtcreatetime desc";
+int intAllCount=reModel.getCount(strSql1);
 //当前页
 int intCurPage=globa.getIntCurPage();
 //每页记录数
@@ -100,11 +79,14 @@ int intCurPage=globa.getIntCurPage();
 int intPageSize=6;
 //共有页数
 	int intPageCount=(intAllCount-1)/intPageSize+1;
-// 循环显示一页内的记录 开始序号
+//循环显示一页内的记录 开始序号
 int intStartNum=(intCurPage-1)*intPageSize+1;
 //结束序号
 int intEndNum=intCurPage*intPageSize;   
 //获取到当前页面的记录集
+String strSql="select * from (select dtcreatetime,strid,intmoney from t_bz_member_recharge where strmembercardno='"+strMemberCardNo+"' union all "
+		+"select a1.dtcreatetime,a1.strid,a2.flaprice  from t_bz_coupon_print a1,t_bz_coupon a2 where a1.strmembercardno='"+strMemberCardNo+"' and a1.strcouponid=a2.strid and a2.flaprice>0) c order by c.dtcreatetime desc";
+Vector<RecordModel> vctRecords=reModel.listBalance(strSql,intStartNum,intPageSize);
 //获取当前页的记录条数
 int intVct=(vctRecords!=null&&vctRecords.size()>0?vctRecords.size():0);
 Member member=new Member(globa);
@@ -131,7 +113,9 @@ Member member=new Member(globa);
       for(int i=0;i< vctRecords.size();i++){
       %>
     <tr>
-       <td height="25" align="center" bgcolor="#FFFFFF"><span class="STYLE1"><%=vctRecords.get(i).getDtCreateTime() %> 
+       <td height="25" align="center" bgcolor="#FFFFFF"><span class="STYLE1">
+       
+       <%=vctRecords.get(i).getDtCreateTime().replace(".0","") %> 
          </span></td>
       <td align="center" bgcolor="#FFFFFF"><%=vctRecords.get(i).getStrName() %></td>
       <td align="center" bgcolor="#FFFFFF"><span class="STYLE1"><%if(vctRecords.get(i).getFlaPay()>0){out.print(vctRecords.get(i).getFlaPay());} %></span></td>
@@ -151,6 +135,7 @@ Member member=new Member(globa);
 
 <iframe style="HEIGHT: 340px" border=0 marginwidth=0 marginheight=0 src="bottom.jsp" 
 frameborder=no width="100%" scrolling=no></iframe>
+</form>
 </body>
 </html>
 <%@ include file="/include/jsp/footer.jsp"%>
