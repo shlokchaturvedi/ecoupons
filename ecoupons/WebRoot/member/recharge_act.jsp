@@ -6,12 +6,12 @@
 <%@ include file="../include/jsp/head.jsp"%>
 <%
 	Recharge obj = new Recharge(globa, true);
-	String strUrl = "recharge_list.jsp";
 	String  strMemberCardNo=ParamUtil.getString(request,"strMemberCardNo","");
+		String strId = ParamUtil.getString(request, "strId", "");
+	String strUrl = "recharge_list.jsp?strMemberCardNo="+strMemberCardNo+"&strId="+strId;
 	if (action.equals(Constants.UPDATE_STR))
 	{
 		int intMoney = Integer.parseInt(ParamUtil.getString(request, "intMoney", ""));
-		String strId = ParamUtil.getString(request, "strId", "");
 		if (obj.update(intMoney))
 		{
 			globa.dispatch(true, strUrl);
