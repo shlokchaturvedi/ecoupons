@@ -191,7 +191,7 @@ for(int i=0;i<vctStrades.size();i++){
    <DIV class=sort>
 <DIV class=sort_top>
 <H1><STRONG>最新动态</STRONG></H1>
-<div class=hotList_more><span><a href="activity_more.jsp?strId=''"><font color="#CC6600">更多</font>&gt;&gt;</a>&nbsp;&nbsp;</span></div></DIV>
+<div class=hotList_more><span><a href="activity_more.jsp"><font color="#CC6600">更多</font>&gt;&gt;</a>&nbsp;&nbsp;</span></div></DIV>
 	<DIV class=sort_con>
 	<UL>
 	<%
