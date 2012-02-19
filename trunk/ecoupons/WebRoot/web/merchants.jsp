@@ -27,7 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 	if(!strTrade.equals(""))
 	{
-    System.out.println(strTrade);
+    //System.out.println(strTrade);
 		tWhere += " and strtrade='" + strTrade + "'";
 	}
 	tWhere += " order by strid";
