@@ -85,11 +85,11 @@ if(session.getAttribute(Constants.MEMBER_KEY) != null)
 	<A class=change href="#" onclick="javascript:var dt=new Date();document.getElementById('code').src='../image.jsp?dt='+dt;">换一张图片</A><BR>		
 	<INPUT id=btn_login class=loginBtn value="登 录" type=submit name=btn_login> 		
 	<INPUT class=regBtn value="注 册" type=button onclick="frm.action='member.jsp';frm.submit();"></form></DIV>		
-<DIV class=sortlogin_bottom></DIV>
+
 <%
 }
 %>
-
+<DIV class=sortlogin_bottom></DIV>
 </div>
  
   <DIV class=sort>
