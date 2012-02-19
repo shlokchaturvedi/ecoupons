@@ -38,23 +38,23 @@ body,td,tr{font-size:9pt;}
             alert("请输选择所属行业！！！")
             frm.strTrade.focus();
             return false;
-        } else if(trim(frm.strPhone.value)!=""){        
-            var telphone = trim(frm.strPhone.value);
-            var tel=new Array();
-            tel = telphone.split("、"); 
-            var TelPhoneParn =/(^[0-9]{3,4}\-[0-9]{3,8}$)|(^[0-9]{3,8}$)|(^\([0-9]{3,4}\)[0-9]{3,8}$)|(^0{0,1}1(3|5|8)[0-9]{9}$)/; 
-            var reParn = new RegExp(TelPhoneParn);
-        	for(i=0;i<tel.length;i++)
-        	{
-        	 	if(!reParn.test(tel[i]))
-        		{
-                  alert(tel[i]+"请输入正确的联系电话！！！如0551-2342345或13200000001");
-                  frm.strPhone.focus();         
-        		  return false;
-        		}      		
+        } else {
+       		if(trim(frm.strPhone.value)!=""){      
+	            var telphone = trim(frm.strPhone.value);
+	            var tel=new Array(); 
+	            tel = telphone.split("、"); 
+	            var TelPhoneParn =/(^[0-9]{3,4}\-[0-9]{7,8}$)|(^[0-9]{7,8}$)|(^\([0-9]{3,4}\)[0-9]{7,8}$)|(^0{0,1}1(3|5|8)[0-9]{9}$)/; 
+	            var reParn = new RegExp(TelPhoneParn);
+	        	for(i=0;i<tel.length;i++)
+	        	{
+	        	 	if(!reParn.test(trim(tel[i])))
+	        		{
+	                  alert("请输入正确的联系电话！！！如0551-2342345或13200000001");
+	                  frm.strPhone.focus();         
+	        		  return false;
+	        		}      		
+	        	}
         	}
-        	frm.submit();
-         }else {
         	frm.submit();
         }
     }
