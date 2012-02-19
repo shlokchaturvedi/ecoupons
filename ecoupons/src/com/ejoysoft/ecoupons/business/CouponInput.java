@@ -28,7 +28,6 @@ public class CouponInput
 	{
 		
 		String strSql = "update t_bz_coupon_input set intState=1 where strCouponCode=" + id +where;
-		System.out.println(strSql);
 		try
 		{
 			db.prepareStatement(strSql);
@@ -55,8 +54,6 @@ public class CouponInput
 		String strSql = "update t_bz_coupon_print set intState=1 where strCouponCode='" + strCouponCode+"'";
 		String sql = "insert into " + strTableName + " (strId,strCouponId,strCouponCode,strMemberCardNo,dtPrintTime,strShopId"
 				+ ",strCreator,dtCreateTime,intState) " + "values (?,?,?,?,?,?,?,?,?) ";
-		System.out.println(sql);
-		System.out.println(com.ejoysoft.common.Format.getDate());
 		try
 		{
 			db.setAutoCommit(false);
@@ -164,7 +161,6 @@ public class CouponInput
 		} catch (Exception e)
 		{
 			db.rollback();
-			System.out.println("修改有价券录入信息：" + e);
 			return false;
 		}
 

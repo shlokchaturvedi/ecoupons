@@ -174,12 +174,7 @@ function chkFrm() {
 															</select></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
-               <tr  >
-                 <td width="20%" height="30" align="right" class="left_txt2">打印时间：</td>
-                <td width="3%">&nbsp;</td>
-                <td width="32%" height="30"><input name="dtPrintTime" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" value="<%=Format.getDateTime()%>" readonly="readonly" type="text" class="input_box" size="30" /></td>
-                <td width="45%" height="30" class="left_txt">&nbsp;</td> 
-              </tr>
+               
               
             </table></td>
           </tr>
