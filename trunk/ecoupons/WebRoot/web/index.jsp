@@ -94,7 +94,7 @@ if(session.getAttribute(Constants.MEMBER_KEY) != null)
  
   <DIV class=sort>
 <DIV class=sort_top>
-<H2><STRONG>类别检索</STRONG></H2></DIV>
+<H2><STRONG>商家检索（按类别）</STRONG></H2></DIV>
 <DIV class=sort_con1>
 <UL>
 <%

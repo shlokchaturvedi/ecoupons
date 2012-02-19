@@ -23,7 +23,11 @@ function chkFrm()
         alert("请输入您的手机号！！！");
         frm.strPhone.focus();
         return false;
-     }else if(trim(frm.strPwd.value)=="") {
+    }else if(trim(frm.strName.value)==""){        
+        alert("请输入您的手机号！！！");
+        frm.strName.focus();
+        return false;
+    }else if(trim(frm.strPwd.value)=="") {
         alert("请设置您的密码！！！");
         frm.strPwd.focus();
         return false;
@@ -106,11 +110,12 @@ function getYzm()
 <body>
 <iframe height="167" marginwidth=0 marginheight=0 src="top.jsp" frameborder=0 width="100%" scrolling=no></iframe>
 <!--正文部分-->
-<form action="memberreg_act.jsp" method="post" name="frm"  >
 <div class="member-content">
 <div class="member_tit">会员注册</div>
 <div class="member_box">
 <div class="member_left">
+
+<form action="memberreg_act.jsp" method="post" name="frm"  >
   <table width="96%" border="0" cellspacing="0" cellpadding="0">
     <tr>
       <td width="17%" class="member_td_wz">卡&nbsp;&nbsp;&nbsp;号：&nbsp;&nbsp;</td>
@@ -122,7 +127,7 @@ function getYzm()
     </tr>
     <tr>
       <td class="member_td_wz">真实姓名：&nbsp;&nbsp;</td>
-      <td><input name="strName" type="text"  class="member_ipt"/></td>
+      <td class="member_td_wz1"><input name="strName" type="text"  class="member_ipt"/>&nbsp;&nbsp;（*必填项）</td>
     </tr>
     <tr>
       <td class="member_td_wz">密&nbsp;&nbsp;&nbsp;码：&nbsp;&nbsp;</td>
@@ -146,6 +151,7 @@ function getYzm()
       <td>&nbsp;<img src="images/tjzc.jpg" onclick="chkFrm();" /></td>
     </tr>
   </table>
+</form>
 </div>
 <div class="member_right">
 <span>&nbsp;温馨提示：</span>
@@ -156,7 +162,6 @@ function getYzm()
 </div>
 
 </div>
-</form>
 <!--正文部分结束-->
 <iframe style="HEIGHT: 340px" marginwidth=0 marginheight=300 src="bottom.jsp" frameborder=0 width="100%" scrolling=no></iframe>
 </body>
