@@ -50,7 +50,7 @@ public class AppClass extends javax.servlet.http.HttpServlet
 			} else if (Constants.LOGOFF.equals(actionType))
 			{
 				form.doExit();
-				System.out.println("------------" + logonUrl);
+//				System.out.println("------------" + logonUrl);
 				gotoPage(logonUrl, request, response);
 			} else if (Constants.WEBLOGON.equals(actionType))
 			{
@@ -99,7 +99,7 @@ public class AppClass extends javax.servlet.http.HttpServlet
 			else if (Constants.WEBLOGOFF.equals(actionType))
 			{
 				form.doExit();
-				System.out.println("------------" + logonUrl);
+//				System.out.println("------------" + logonUrl);
 				gotoPage(strUrl, request, response);
 			} 
 			else
@@ -150,7 +150,7 @@ public class AppClass extends javax.servlet.http.HttpServlet
 			targetURL = logonUrl;
 		RequestDispatcher rd;
 		rd = getServletContext().getRequestDispatcher(targetURL);
-		System.out.println(targetURL);
+		//System.out.println(targetURL);
 		rd.forward(request, response);
 	}
 

@@ -81,7 +81,7 @@ if(session.getAttribute(Constants.MEMBER_KEY) != null)
 	<INPUT id=txt_username class=user value=账号/手机 onclick="document.getElementById('txt_username').value=''" type=text name=username >		
 	</P><P class=passwordbg><INPUT id=txt_pwd class=password type=password name=password></P>		
 	<DIV class="floatR"><IMG id=code border=0 name=checkcode alt=验证码 align=absMiddle src="../image.jsp" width=60 height=18></DIV>		
-	<P class=numberbg><INPUT id=txt_yzm class="number floatL" type=text name=yanzm></P><A class=forget href="#">忘记密码了？</A>&nbsp;&nbsp;		
+	<P class=numberbg><INPUT id=txt_yzm class="number floatL" type=text name=yanzm></P><A class=forget href="forgetpwd.jsp">忘记密码了？</A>&nbsp;&nbsp;		
 	<A class=change href="#" onclick="javascript:var dt=new Date();document.getElementById('code').src='../image.jsp?dt='+dt;">换一张图片</A><BR>		
 	<INPUT id=btn_login class=loginBtn value="登 录" type=submit name=btn_login> 		
 	<INPUT class=regBtn value="注 册" type=button onclick="frm.action='member.jsp';frm.submit();"></form></DIV>		
@@ -118,8 +118,13 @@ for(int i=0;i<vctStrades.size();i++){
 	CouponComment couponComment=new CouponComment(globa);
 	Vector<CouponComment> vctCouponComment=couponComment.list(" order by dtcreateTime desc limit 5",0,0);
 		for(int i=0;i<vctCouponComment.size();i++){
+			String name= vctCouponComment.get(i).getStrComment();
+			if(name!=null && name.length()>=13)
+			{
+				name = name.substring(0,12)+"...";
+			}
 		%>
-		<li>・<a href="couponinfo.jsp?strid=<%=vctCouponComment.get(i).getStrCouponId() %>" ><%=vctCouponComment.get(i).getStrComment() %></a></li>
+		<li>・<a href="couponinfo.jsp?strid=<%=vctCouponComment.get(i).getStrCouponId() %>" ><%=name %></a></li>
 		<%
 	}
 	%>	
