@@ -93,8 +93,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   <td colspan="2">
 	    <table>	    
 		   <tr>
-		   	<td width=90 height=50 align="left"><img src="web/images/jifen.jpg" width=100 height=50 /></td>
-		   	<td align="left"><font size="5">&nbsp;&nbsp;联系电话：0550-51888888</font></td>
+		   	<td width=90 height=50 align="left"><img src="web/images/xinjiutian.jpg" width=100 height=50 /></td>
+		   	<td align="left"><font size="5">&nbsp;&nbsp;联系电话：0558-2282609</font></td>
 		   </tr> 
 	    </table>
 	   </td>
