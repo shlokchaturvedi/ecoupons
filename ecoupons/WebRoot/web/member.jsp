@@ -114,11 +114,11 @@ function getYzm()
   <table width="96%" border="0" cellspacing="0" cellpadding="0">
     <tr>
       <td width="17%" class="member_td_wz">卡&nbsp;&nbsp;&nbsp;号：&nbsp;&nbsp;</td>
-      <td width="83%"><input type="text" name="strCardNo" class="member_ipt"/></td>
+      <td width="83%" class="member_td_wz1"><input type="text" name="strCardNo" class="member_ipt"/>&nbsp;&nbsp;（*必填项）</td>
     </tr>
     <tr>
       <td class="member_td_wz">手机号：&nbsp;&nbsp;</td>
-      <td><input name="strPhone" id="strPhone" type="text"  class="member_ipt"/></td>
+      <td class="member_td_wz1"><input name="strPhone" id="strPhone" type="text"  class="member_ipt"/>&nbsp;&nbsp;（*必填项）</td>
     </tr>
     <tr>
       <td class="member_td_wz">真实姓名：&nbsp;&nbsp;</td>
@@ -126,17 +126,17 @@ function getYzm()
     </tr>
     <tr>
       <td class="member_td_wz">密&nbsp;&nbsp;&nbsp;码：&nbsp;&nbsp;</td>
-      <td><input name="strPwd" type="password"  class="member_ipt"/></td>
+      <td class="member_td_wz1"><input name="strPwd" type="password"  class="member_ipt"/>&nbsp;&nbsp;（*必填项）</td>
     </tr>
     <tr>
       <td class="member_td_wz">重复密码：&nbsp;&nbsp;</td>
-      <td><input name="strPwd2" type="password" class="member_ipt"/></td>
+      <td class="member_td_wz1"><input name="strPwd2" type="password" class="member_ipt"/>&nbsp;&nbsp;（*必填项）</td>
     </tr>
     <tr>
       <td class="member_td_wz">验证码：&nbsp;&nbsp;</td>
-      <td><input name="yanzm"  type="text"  class="yzm"/>
-     	 <input name="randomYazm"  type="text"  class="yzm"/>
-        <input type="button" name="botton" onclick="getYzm();" value="获取验证码" /></td>
+      <td class="member_td_wz1"><input name="yanzm"  type="text"  class="yzm"/>
+     	 <input name="randomYazm"  type="hidden"  class="yzm"/>
+         <input type="button" name="botton" onclick="getYzm();" value="获取验证码" /></td>
     </tr>
     <tr>
       <td height="40" colspan="2">&nbsp;</td>
