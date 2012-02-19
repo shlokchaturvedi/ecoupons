@@ -138,7 +138,7 @@ function del(){
 			<table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="b5d6e6" onmouseover="changeto()"  onmouseout="changeback()">
               <tr>
                
-                <td width="10%" class="left_bt2"><div align="center">商家</div></td>
+                <td width="25%" class="left_bt2"><div align="center">商家</div></td>
                 <td width="10%" class="left_bt2"><div align="center">购买金额</div></td>
                 <td width="10%" class="left_bt2"><div align="center">积分</div></td>                
                  <td width="15%" class="left_bt2"><div align="center">购买日期</div></td>
