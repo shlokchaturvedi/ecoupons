@@ -27,6 +27,7 @@ A:hover {
 .member_box{width:984px; padding-top:50px; background-color:#F7F7F7; height:400px;}
 .member_left{width:530px; float:left; padding-left:70px;}
 .member_td_wz{ font-size:14px;color:#4C4C4C; height:50px; text-align:right;}
+.member_td_wz1{ font-size:14px;color:#444444; height:50px; text-align:left;}
 
 .member_ipt{ border:1px solid #C3C3C3; width:200px; height:20px;}
 .yzm{border:1px solid #C3C3C3; width:100px; height:20px;}
