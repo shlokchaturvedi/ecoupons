@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.*,com.ejoysoft.common.exception.*,com.ejoysoft.common.*" pageEncoding="UTF-8"%>
 <%@page import="com.ejoysoft.ecoupons.business.Member"%>
 <%@page import="com.ejoysoft.ecoupons.business.Coupon"%>
+<%@page import="com.ejoysoft.ecoupons.business.Shop"%>
 <%@ include file="../include/jsp/head.jsp"%>
 <%
 	String path = request.getContextPath();
@@ -156,6 +157,8 @@ function del(){
             <%
             	for (int i = 0;i < vctObj.size(); i++) {
                         	Coupon obj1 = vctObj.get(i);
+                        	Shop obj2 = new Shop(globa);
+                        	String shopname = obj2.returnBizShopName(" where strid='"+obj1.getStrShopId()+"'");
             %>
               <tr>
                 <td height="20" bgcolor="#FFFFFF"><div align="center">
@@ -164,7 +167,7 @@ function del(){
                 <td bgcolor="#FFFFFF"><div align="center" class="STYLE1"><%=obj1.getStrName() %></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getDtActiveTime()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getDtExpireTime()%></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrShopId()%></span></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=shopname%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrTerminals()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.returnStrRecommendOrVip(obj1.getIntVip())%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.returnStrRecommendOrVip(obj1.getIntRecommend())%></span></div></td>
