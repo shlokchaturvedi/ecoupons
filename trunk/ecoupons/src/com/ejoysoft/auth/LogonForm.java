@@ -160,8 +160,7 @@ public final class LogonForm {
         try {
             java.sql.ResultSet rs = null;
             String strSql = "SELECT distinct * " +
-            		"FROM t_bz_member WHERE strCardNo='" + strCardNo + "' or strMobileNo='"+strCardNo+"'";
-            System.out.println(strSql);
+            		"from t_bz_member where strcardno='" + strCardNo + "' or strmobileno='"+strCardNo+"' and dtactivetime <=now() and dtexpiretime >=now()";
             rs = globa.db.executeQuery(strSql);
             if (!rs.next()) {
                 error = new String("会员不存在，或者你输入的会员帐号和手机号码有误！");
@@ -171,7 +170,6 @@ public final class LogonForm {
             	memberSession.setStrId(rs.getString("strId"));
             	memberSession.setStrCardNo(rs.getString("strCardNo"));
                 String pwd = rs.getString("strPWD");
-                System.out.println();
                 if (pwd == null || !pwd.equals(this.getPassword())) {
 //                	if (pwd == null || !pwd.equals(this.getPassword1())) {
            			error = new String("你输入的密码有误！");
@@ -193,8 +191,10 @@ public final class LogonForm {
             }
         } catch (Exception ex) {
             ex.printStackTrace();
+        }finally {
+            globa.db.closeCon();
+            return value;
         }
-        return value;
     }
     //领导的Mac地址认证
     private int authMac(String CaNO) throws SQLException {
@@ -344,7 +344,6 @@ public final class LogonForm {
                         strAllUnits = strAllUnits + "," + SysUserUnit.getAllRootUnitIds(arryUnit[i]);
                     }
             }
-            System.out.println("Begin Load [" + userSession.getStrUserId() + "] 's  All  Affairs");
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

@@ -182,20 +182,19 @@ for(int i=0;i<tradelist.size();i++)
 	<ul>
 	<%
 	CouponComment couponComment=new CouponComment(globa);
-	Vector<CouponComment> vctCouponComment=couponComment.list("",0,0);
-	if(vctCouponComment.size()>6){
-		for(int i=0;i<6;i++){
-		%>
-			<li>・<a href="couponinfo.jsp?strid=<%=vctCouponComment.get(i).getStrCouponId() %>" ><%=vctCouponComment.get(i).getStrComment() %></a></li>
-		<%}
-	}else{
+	Vector<CouponComment> vctCouponComment=couponComment.list(" order by dtcreateTime desc limit 5",0,0);
 		for(int i=0;i<vctCouponComment.size();i++){
+			String name= vctCouponComment.get(i).getStrComment();
+			if(name!=null && name.length()>=13)
+			{
+				name = name.substring(0,12)+"...";
+			}
 		%>
-		<li>・<a href="couponinfo.jsp?strid=<%=vctCouponComment.get(i).getStrCouponId() %>" ><%=vctCouponComment.get(i).getStrComment() %></a></li>
+		<li>・<a href="couponinfo.jsp?strid=<%=vctCouponComment.get(i).getStrCouponId() %>" ><%=name %></a></li>
 		<%
-		}
 	}
-	%>	 </ul>
+	%>	
+	 </ul>
 	</div>
 <div class=sort_bottom></div>
   </div>

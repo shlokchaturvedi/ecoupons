@@ -174,19 +174,21 @@ for(int i=0;i<tradelist.size();i++)
 <h1><strong>热门评论</strong></h1></div>
 	<div class=sort_con>
 	<ul>
-	  <%
+	<%
 	CouponComment couponComment=new CouponComment(globa);
-	Vector<CouponComment> vctCouponComment=couponComment.list("",0,0);
-	if(vctCouponComment.size()>6){
-		for(int i=0;i<6;i++){
-			out.print("<LI>・<A href='#'>"+vctCouponComment.get(i).getStrComment()+"</A></LI>");
-		}
-	}else{
+	Vector<CouponComment> vctCouponComment=couponComment.list(" order by dtcreateTime desc limit 5",0,0);
 		for(int i=0;i<vctCouponComment.size();i++){
-			out.print("<LI>・<A href='#'>"+vctCouponComment.get(i).getStrComment()+"</A></LI>");
-		}
+			String name= vctCouponComment.get(i).getStrComment();
+			if(name!=null && name.length()>=13)
+			{
+				name = name.substring(0,12)+"...";
+			}
+		%>
+		<li>・<a href="couponinfo.jsp?strid=<%=vctCouponComment.get(i).getStrCouponId() %>" ><%=name %></a></li>
+		<%
 	}
-	%> </ul>
+	%>	
+	 </ul>
 	</div>
 <div class=sort_bottom></div>
   </div>

@@ -70,6 +70,26 @@ public class Member
 	}
 
 	/**
+	 * 修改会员密码信息
+	 */
+	public boolean updatePwd(String strPwd,String tStrId)
+	{
+		try
+		{
+			String strSql = "UPDATE  " + strTableName + "  SET strpwd=?  WHERE strId=? ";
+			db.prepareStatement(strSql);
+			db.setString(1, strPwd);
+			db.setString(2, tStrId);
+			db.executeUpdate();
+			Globa.logger0("修改会员密码", "", "", strSql, "会员管理", "");
+			return true;
+		} catch (Exception e)
+		{
+			System.out.println("修改会员密码时出错：" + e);
+			return false;
+		}
+	}
+	/**
 	 * 修改会员信息
 	 */
 	public boolean update(String tStrId)
@@ -81,7 +101,6 @@ public class Member
 					+ "dtExpireTime = ?, strSalesman = ? ,strpwd=? ,strmobileno=? WHERE strId=? ";
 			db.prepareStatement(strSql);
 			db.setString(1, strCardNo);
-			db.setString(2, strSalesman);
 			db.setString(2, strName);
 			db.setInt(3, intType);
 			db.setString(4, dtExpireTime);
