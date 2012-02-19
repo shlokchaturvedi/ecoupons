@@ -85,6 +85,7 @@ body,td,th {
 </style>
 <link href="../images/skin.css" rel="stylesheet" type="text/css" />
 <script src="../include/js/list.js"></script>
+<script src="../include/js/chkFrm.js"></script>
 <script type="text/javascript">
 //批量删除信息
 function del(){
@@ -95,6 +96,17 @@ function del(){
     if(!confirm('您是否确认要导出所选中的所有记录？'))
         return;
      frm.action="member_act.jsp?<%=Constants.ACTION_TYPE%>=<%=Constants.EXPORT_STR%>";
+     frm.submit();
+}
+function chkNo(){
+	if (trim(frm.strStartId.value)=="") {
+		alert("请输入需要导出的起始号码！");
+		return;
+	}
+  	else if (trim(frm.strEndId.value)=="") {
+		alert("请输入需要导出的结束号码！");
+		return;
+	}
      frm.submit();
 }
 </script>
@@ -154,7 +166,7 @@ function del(){
 			<td align="right" width="600"><div style="height:26"> 
 			  请输入：&nbsp;起始卡号:<input name="strStartId" class="editbox4" onclick="" value="" size="10">结束卡号：<input class="editbox4" value="" name="strEndId" size="10" />
 			  &nbsp;&nbsp;&nbsp;&nbsp;
-              <input type="submit" class="button_box" value="导出" /> 
+              <input type="button" class="button_box" onclick="chkNo();" value="导出" /> 
 			</div>
 			</td>   
 			</tr>
