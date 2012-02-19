@@ -17,6 +17,8 @@
 	String strPointCardPwd = ParamUtil.getString(request, "strPointCardPwd", "");
 	Member member=new Member(globa);
 	PointCard pointCard = new PointCard(globa,true);
+	if(pointCard.getCount("where strpointcardno='" + strPointCardNo + "'")>0)
+	{
 	PointCard pCard = pointCard.show("where strpointcardno='" + strPointCardNo + "'");
 	if (pCard.getStrPointCardPwd().equals(strPointCardPwd))
 	{
@@ -31,9 +33,11 @@
 		}
 	} else
 	{
-		response.getWriter().print("<script>alert('积分卡卡号和密码不正确，请重新输入！');window.close();</script>");
+		response.getWriter().print("<script>alert('积分卡卡号和密码不正确，请重新输入！');top.location = '" + application.getServletContextName() + "/web/integral.jsp';</script>");
 	}
-
+	}else{
+	response.getWriter().print("<script>alert('该输入正确的积分卡卡号！');top.location = '" + application.getServletContextName() + "/web/integral.jsp';</script>");
+	}
 	//关闭数据库连接对象
 	globa.closeCon();
 %>

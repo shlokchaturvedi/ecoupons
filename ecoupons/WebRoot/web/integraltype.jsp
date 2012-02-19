@@ -106,7 +106,7 @@ frameborder=no width="100%" scrolling=no></iframe>
     <tr>
       <td height="60">&nbsp;</td>
       <td valign="bottom">
-     <input type="button" value="提交" onclick="frmClick();"  class="suBtn"/>
+      <img src="images/sure.jpg" onclick="frmClick();" />
       </td> 
     </tr>
   </table>
