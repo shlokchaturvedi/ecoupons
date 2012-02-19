@@ -129,7 +129,7 @@ function del(){
 			 
 			</td>
 			<td align="right" width="600"><div style="height:26"> 
-			  名称：<input name="strName" class="editbox4" value="" size="10">
+			  名称：<input name="strName" class="editbox4" value="<%=strName%>" size="10">
 			  &nbsp;&nbsp;&nbsp;&nbsp;
               <input type="submit" class="button_box" value="搜索" /> 
 			</div>
