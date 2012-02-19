@@ -129,6 +129,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
  <div class=sort>
 <div class=sort_top>
+<h1><strong>最新动态</strong></h1>
+<div class=hotList_more><a href="activity_more.jsp">更多&gt;&gt;</a>&nbsp;&nbsp;</div></div>
+	<div class=sort_con>
+	<ul>
+	<%
+	Activity activity1=new Activity(globa);
+	Vector<Activity> vctActivities1=new Vector<Activity>();
+	vctActivities1=activity1.list(" order by dtcreateTime desc limit 10",0,0);
+		for(int i=0;i<vctActivities1.size();i++){
+		String name= vctActivities1.get(i).getStrName();
+		if(name!=null && name.length()>=13)
+		{
+			name = name.substring(0,12)+"...";
+		}
+		%>
+		<li><a href="activity_more.jsp?strId=<%=vctActivities1.get(i).getStrId() %>">・<%=name%></a></li>
+		<%
+	}
+	%>	 </ul>
+	</div>
+<div class=sort_bottom></div>
+  </div>
+  
+ <div class=sort>
+<div class=sort_top>
 <h1><strong>商家检索（按类别）</strong></h1></div>
 <div class=sort_con1>
 <ul> 
@@ -145,32 +170,7 @@ for(int i=0;i<vctStrades.size();i++){
 </div>
 <div class=sort_bottom></div></div> 
  
- 
- <div class=sort>
-<div class=sort_top>
-<h1><strong>热门评论</strong></h1></div>
-	<div class=sort_con>
-	<ul>
-	  <%
-	CouponComment couponComment=new CouponComment(globa);
-	Vector<CouponComment> vctCouponComment=couponComment.list("",0,0);
-	if(vctCouponComment.size()>6){
-		for(int i=0;i<6;i++){
-		%>
-			<li>・<a href="couponinfo.jsp?strid=<%=vctCouponComment.get(i).getStrCouponId() %>" ><%=vctCouponComment.get(i).getStrComment() %></a></li>
-		<%}
-	}else{
-		for(int i=0;i<vctCouponComment.size();i++){
-		%>
-		<li>・<a href="couponinfo.jsp?strid=<%=vctCouponComment.get(i).getStrCouponId() %>" ><%=vctCouponComment.get(i).getStrComment() %></a></li>
-		<%
-		}
-	}
-	%>	 </ul>
-	</div>
-<div class=sort_bottom></div>
-  </div>
-  <div class=sort>
+   <div class=sort>
 <div class=sort_top>
 <h1><strong>推荐优惠券</strong></h1>
 <div class=hotList_more><a href="recommend_more.jsp">更多&gt;&gt;</a>&nbsp;&nbsp;</div></div>
