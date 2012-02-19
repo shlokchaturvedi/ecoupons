@@ -55,7 +55,7 @@ body,td,tr{font-size:9pt;}
             var telphone = trim(frm.strPhone.value);
             var tel=new Array();
             tel = telphone.split("、"); 
-            var TelPhoneParn =/(^[0-9]{3,4}\-[0-9]{3,8}$)|(^[0-9]{3,8}$)|(^\([0-9]{3,4}\)[0-9]{3,8}$)|(^0{0,1}1(3|5|8)[0-9]{9}$)/; 
+            var TelPhoneParn =/(^[0-9]{3,4}\-[0-9]{7,8}$)|(^[0-9]{3,8}$)|(^\([0-9]{3,4}\)[0-9]{7,8}$)|(^0{0,1}1(3|5|8)[0-9]{9}$)/; 
             var reParn = new RegExp(TelPhoneParn);
         	for(i=0;i<tel.length;i++)
         	{
