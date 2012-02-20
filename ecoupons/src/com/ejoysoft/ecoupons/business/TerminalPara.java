@@ -41,8 +41,21 @@ public class TerminalPara {
         String strSql = "";
         strId = UID.getID();
         try {        
+        	db.getConnection().setAutoCommit(false);//禁止自动提交事务      
         	strSql = "insert into " + strTableName + "  (strid, strparamname, strparamvalue, strcreator," +
             		" dtcreatetime) values(?,?,?,?,?)";
+        	 Terminal obj = new Terminal(globa);
+             String[] strTerminalId = obj.getAllTerminalNos();
+             if(strTerminalId!=null)
+             {
+             	  for(int i=0;i<strTerminalId.length;i++)
+             	  {
+             		  String[] strid = strTerminalId[i].split("-");
+             		  String strsql2 ="insert into " + strTableName2 + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) "
+             		  + "values (" + UID.getID() + ",'" + strid[0]+ "','" + strTableName + "','" + strId + "','add',0)";
+             		  db.executeUpdate(strsql2);
+             	  }                
+             }
             db.prepareStatement(strSql);
             db.setString(1, strId);
             db.setString(2, strParamName);
@@ -50,11 +63,17 @@ public class TerminalPara {
             db.setString(4, strCreator);
             db.setString(5, com.ejoysoft.common.Format.getDateTime());
             if (db.executeUpdate() > 0) { 
+                db.getConnection().commit(); //统一提交
+    		    db.setAutoCommit(true);
                 Globa.logger0("添加终端参数信息", globa.loginName, globa.loginIp, strSql, "终端管理", globa.userSession.getStrDepart());
                 return true;
             } else
+            {
+            	db.rollback();
                 return false;
+            }
         } catch (Exception e) {
+        	db.rollback();
             System.out.println("添加终端参数信息异常");
             e.printStackTrace();
             return false;
@@ -63,15 +82,49 @@ public class TerminalPara {
    //删除终端参数信息
     public boolean delete(String where ,String strid) {
     	String sql1 = "delete from " + strTableName + "  ".concat(where);
+    	DownLoadAlert alert = new DownLoadAlert(globa);
+    	Vector<DownLoadAlert> vctAlerts = alert.list(" where strdataid='"+strid+"'",0,0);
+    	
     	//事务处理
     	try {
         	db.getConnection().setAutoCommit(false);//禁止自动提交事务        
-            db.executeUpdate(sql1);//删除终端参数 
-            db.getConnection().commit(); //统一提交
+        	for(int i=0;i<vctAlerts.size();i++)
+        	{
+        		DownLoadAlert alert2 = vctAlerts.get(i);
+        		if(alert2.getIntState().equals("0") && alert2.getStrDataOpeType().equals("add"))
+        		{
+        			String sql = "delete from "+strTableName2+" where strid='"+alert2.getStrId()+"' and intstate=0";
+        			db.executeUpdate(sql);
+        		}
+        		else if(alert2.getIntState().equals("1") && alert2.getStrDataOpeType().equals("add"))
+        		{
+        			int  alert3 = alert.getCount(" where strterminalid='"+alert2.getStrTerminalId()+"' and strdataopetype='update' and intstate=0");
+        			if(alert3>0)
+            		{
+        			//	System.err.println("dddddddddddddd");
+            			String sql = "delete from "+strTableName2+" where strterminalid='"+alert2.getStrTerminalId()+"' and intstate=0";
+            			db.executeUpdate(sql);
+            			String sql2 ="insert into " + strTableName2 + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) "
+               		     + "values (" + UID.getID() + ",'" + alert2.getStrTerminalId()+ "','" + strTableName + "','" + alert2.getStrDataId() + "','delete',0)";
+               		    db.executeUpdate(sql2);
+            		}
+        			else 
+        			{
+        				String sql2 ="insert into " + strTableName2 + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) "
+              		     + "values (" + UID.getID() + ",'" + alert2.getStrTerminalId()+ "','" + strTableName + "','" + alert2.getStrDataId() + "','delete',0)";
+              		    db.executeUpdate(sql2);
+        			}
+        		}
+        		
+        	}
+        	db.executeUpdate(sql1);//删除终端参数 
+		    db.getConnection().commit(); //统一提交
 		    db.setAutoCommit(true);
             Globa.logger0("删除终端参数信息", globa.loginName, globa.loginIp, sql1, "终端管理", globa.unitCode);
             return true;
+		   
         } catch (Exception ee) {
+        	db.rollback();
             ee.printStackTrace();
             return false;
         } 
@@ -80,16 +133,46 @@ public class TerminalPara {
     //更新终端参数
     public boolean update(String strId) {
         try {	
+        	db.getConnection().setAutoCommit(false);//禁止自动提交事务      
           	String strSql = "update " + strTableName + "  set strparamname=?, strparamvalue=? where strid=? ";
-            db.prepareStatement(strSql);
+            DownLoadAlert alert = new DownLoadAlert(globa);
+        	Vector<DownLoadAlert> vctAlerts = alert.list(" where strdataid='"+strId+"'",0,0);
+        	for(int i=0;i<vctAlerts.size();i++)
+        	{
+        		DownLoadAlert alert2 = vctAlerts.get(i);
+        		if(alert2.getIntState().equals("1") && alert2.getStrDataOpeType().equals("add"))
+        		{
+        			int  alert3 = alert.getCount(" where strterminalid='"+alert2.getStrTerminalId()+"' and strdataopetype='update' and intstate=0");
+        			if(alert3==0)
+        			{
+        				String sql2 ="insert into " + strTableName2 + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) "
+              		     + "values (" + UID.getID() + ",'" + alert2.getStrTerminalId()+ "','" + strTableName + "','" + alert2.getStrDataId() + "','update',0)";
+              		    db.executeUpdate(sql2);
+        			}
+        		}        		
+        	}
+
+          	db.prepareStatement(strSql);
             db.setString(1, strParamName);
             db.setString(2, strParamValue);
             db.setString(3,strId);
             db.executeUpdate();
-            Globa.logger0("更新终端参数信息", globa.loginName, globa.loginIp, strSql, "终端管理", globa.userSession.getStrDepart());
-            return true;
+            db.getConnection().commit(); //统一提交
+            db.setAutoCommit(true);		    
+            if(db.executeUpdate()>0)
+		    {
+            	 Globa.logger0("更新终端参数信息", globa.loginName, globa.loginIp, strSql, "终端管理", globa.userSession.getStrDepart());
+                 return true;
+		    }
+		    else{
+		    	db.rollback();
+		    	return false;
+		    }
+           
         } catch (Exception e) {
             System.out.println("更行终端参数信息异常" + e);
+            e.printStackTrace();
+        	db.rollback();
             return false;
         }
     }
