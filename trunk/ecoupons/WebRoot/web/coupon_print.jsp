@@ -65,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 	   obj.setStrMemberCardNo(memberCardno);
 	 	   obj.setStrTerminalId("system");
  	  	   boolean result = obj.add();		
- 	  	   response.getWriter().println("<script>window.print();</script>");	
+ 	  	   response.getWriter().println("<script>window.print();setTimeout('window.opener=null;window.close();',400);</script>");	
  	 }
  %>
     <base href="<%=basePath%>">
@@ -117,7 +117,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    	<td><input class=Noprint style="width=200;height=30" type=button name=button2 onclick="window.close();" value="关     闭"/></td>
    </tr>
    </table>
-   </form>
-   <%globa.closeCon(); %>
+   </form> 
+    <%globa.closeCon(); %>
   </body>
 </html>
