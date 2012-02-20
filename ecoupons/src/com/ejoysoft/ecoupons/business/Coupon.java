@@ -275,13 +275,12 @@ public class Coupon
 					strSql2 = downLoadAlert.retStrSql(TerminalIds[i], where, strTableName);
 					if (!strSql2.equals(""))
 					{
-						System.out.println(strSql2);
 						db.executeUpdate(strSql2);
 					}
 				}
 			}
 			db.commit();
-			db.setAutoCommit(true);
+			//db.setAutoCommit(true);
 			Globa.logger0("删除优惠券信息", globa.loginName, globa.loginIp, sql, "优惠券管理", globa.unitCode);
 			Globa.logger0("删除优惠券信息时，删除下载提醒表中的优惠券信息", globa.loginName, globa.loginIp, strSql2, "优惠券管理", globa.unitCode);
 			return true;

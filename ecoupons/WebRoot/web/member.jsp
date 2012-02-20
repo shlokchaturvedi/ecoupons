@@ -13,6 +13,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link href="css/member.css" rel="stylesheet" type="text/css" />
 <script src="../include/js/chkFrm.js"></script>
 <script language="javascript">
+function getYzm()
+{
+	 if(trim(frm.strCardNo.value)==""){
+	        alert("请输入您的卡号！！！");
+	        frm.strCardNo.focus();
+	        return false;
+	    }
+	else if(trim(frm.strPhone.value)==""){        
+	        alert("请输入您的手机号！！！");
+	        frm.strPhone.focus();
+	        return false;
+	    }	
+	else{
+		var telphone = trim(frm.strPhone.value);
+        var tel=new Array();
+        tel = telphone.split("、"); 
+        var TelPhoneParn =/^0{0,1}1(3|5|8)[0-9]{9}$/; 
+        var reParn = new RegExp(TelPhoneParn);
+        for(i=0;i<tel.length;i++)
+    	  {
+    	 	if(!reParn.test(tel[i]))
+    		{
+              alert(tel[i]+"请输入正确的联系电话！！！如13258886888");
+              frm.strPhone.focus();         
+    		  return false;
+    		}      		
+    	  }
+			var randomyazm=window.showModalDialog("memberreg_act.jsp?flag=getyzm&strCardNo="+trim(frm.strCardNo.value)+"&strPhone="+trim(frm.strPhone.value)+"&random="+Math.random(), "", "dialogWidth=200px;dialogHeight:150px;dialogTop:400px;dialogLeft:550px;scrollbars=yes;status=yes;center=yes;");
+			frm.randomYazm.value=randomyazm;
+		
+	}
+}
 function chkFrm()
 {
     if(trim(frm.strCardNo.value)==""){
@@ -72,38 +104,8 @@ function chkFrm()
     	  }
     }
 }
-function getYzm()
-{
-	strCardNo = document.getElementById("strCardno").value;
-	strPhone = document.getElementById("strPhone").value;
-	if(trim(strCardNo)=="")
-	{
-	  alert("请输入您的卡号！！！");
-      document.getElementById("strCardno").focus();         
-	  return false;
-	}	
-	else if(trim(strPhone)=="")
-	{
-	  alert("请输入联系电话！！！如13258886888");
-      document.getElementById("strPhone").focus();         
-	  return false;
-	}	    		
-	else{
-		var TelPhoneParn =/^0{0,1}1(3|5|8)[0-9]{9}$/; 
-	    var reParn = new RegExp(TelPhoneParn);
-	   	if(!reParn.test(trim(strPhone)))
-		{
-	      alert("联系电话有误！请重新输入！！");
-	      document.getElementById("strPhone").focus();         
-		  return false;
-		}  
-		else
-		{
-			var randomyazm=window.showModalDialog("memberreg_act.jsp?flag=getyzm&strCardNo="+strCardNo+"&strPhone="+strPhone+"&random="+<%=Math.random()%>, "", "dialogWidth=200px;dialogHeight:150px;dialogTop:400px;dialogLeft:550px;scrollbars=yes;status=yes;center=yes;");
-			document.getElementById("randomYazm").value=randomyazm;
-		}
-	}
-}
+
+
 
 </script>
 </head>
@@ -119,7 +121,7 @@ function getYzm()
   <table width="96%" border="0" cellspacing="0" cellpadding="0">
     <tr>
       <td width="17%" class="member_td_wz">卡  &nbsp;&nbsp;&nbsp;&nbsp;号：&nbsp;&nbsp;</td>
-      <td width="83%" class="member_td_wz1"><input type="text" name="strCardNo" class="member_ipt"/>&nbsp;&nbsp;（*必填项）</td>
+      <td width="83%" class="member_td_wz1"><input type="text" id="strCardNo" name="strCardNo" class="member_ipt"/>&nbsp;&nbsp;（*必填项）</td>
     </tr>
     <tr>
       <td class="member_td_wz">手 机 号：&nbsp;&nbsp;</td>
