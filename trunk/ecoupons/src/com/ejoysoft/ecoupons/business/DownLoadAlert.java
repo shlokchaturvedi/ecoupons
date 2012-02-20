@@ -45,14 +45,10 @@ public class DownLoadAlert
 	 */
 	public String retStrSql(String strTerminalIds, String where, String strDataType)
 	{
-		if (getCount("where intstate=0 and strdataid='" + where + "' and strterminalid=" + strTerminalIds + " and strdataopetype='update'") > 0)
-		{
-			return "update  " + strTableName + "  SET strdataopetype='delete',intstate=0 where intstate=0 and strdataid=" + where;
-		} else if (getCount("where intstate=0 and strdataid='" + where + "' and strterminalid=" + strTerminalIds + " and strdataopetype='add'") > 0)
-		{
-			return "delete from " + strTableName + " where intstate=0 and strdataid='" + where + "' and strterminalid='" + strTerminalIds + "'";
-		}
-		return "";
+		if (getCount("where intstate=1 and strdataid='" + where + "' and strterminalid='" + strTerminalIds + "' ") > 0)
+			return "insert into " + strTableName + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) " + "values (" + UID.getID()
+					+ ",'" + strTerminalIds + "','" + strDataType + "','" + where + "','delete',0); ";
+		return "delete from " + strTableName + " where intstate=0 and strdataid='" + where + "' and strterminalid='" + strTerminalIds + "' ; ";
 	}
 
 	/**
