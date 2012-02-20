@@ -98,7 +98,7 @@ public class Coupon
 			}
 			String[] strDbTerminalIds = strDbTerminalId.split(",");// 得到在修改时丢弃的终端id，增加时选中1、2、3、4但是修改时选中3、4，此时我们将得到1、2
 
-			System.out.println(strDbTerminalId + "位被选中");
+			System.out.println(strDbTerminalId + "未被选中");
 			String strSql = "update  " + strTableName + "  SET dtActiveTime = ?, ";
 			db.setAutoCommit(false);
 			if (this.strSmallImg != null && this.strSmallImg.length() > 0)
@@ -153,9 +153,13 @@ public class Coupon
 					if (downLoadAlert.getCount("where intstate=1 and strterminalid='" + TerminalIds[i] + "' and strdataid='" + where
 							+ "' and strdataopetype='add' ") > 0)
 					{
+						if (downLoadAlert.getCount("where intstate=0 and strterminalid='" + TerminalIds[i] + "' and strdataid='" + strId
+								+ "' and strdataopetype='update' ") <= 0)
+						{
 						strSql2 = "insert into " + strDownLoadAlertTable + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) "
 								+ "values (" + UID.getID() + ",'" + TerminalIds[i] + "','" + strTableName + "','" + where + "','update',0) ";
 						db.executeUpdate(strSql2);
+						}
 					} else if (downLoadAlert.getCount("where intstate=0 and strterminalid='" + TerminalIds[i] + "' and strdataid='" + where
 							+ "' and strdataopetype='add' ") <= 0)
 					{
@@ -164,8 +168,27 @@ public class Coupon
 						db.executeUpdate(strSql2);
 					}
 				}
+				for (int i = 0; i < TerminalIds.length; i++)
+				{
+					if (downLoadAlert.getCount("where intstate=1 and strterminalid='" + TerminalIds[i] + "' and strdataid='" + where
+							+ "' and strdataopetype='delete' ") > 0)
+					{
+						strSql2="update "+strDownLoadAlertTable+" set strdataopetype='add' where intstate=0 and strterminalid='" + TerminalIds[i] + "' and strdataid='" + where
+							+ "' and strdataopetype='update' ";
+						db.executeUpdate(strSql2);
+						
+					} 
+					if (downLoadAlert.getCount("where intstate=0 and strterminalid='" + TerminalIds[i] + "' and strdataid='" + where
+							+ "' and strdataopetype='delete' ") > 0)
+					{
+						strSql="delete from "+strDownLoadAlertTable+" where intstate=0 and strterminalid='" + TerminalIds[i] + "' and strdataid='" + where
+							+ "' and strdataopetype='delete' " ;
+						db.executeUpdate(strSql);
+						
+					} 
+					
+				}
 				db.commit();
-				db.setAutoCommit(true);
 				Globa.logger0("修改优惠券信息", globa.loginName, globa.loginIp, strSql, "优惠券管理", globa.userSession.getStrDepart());
 				return true;
 			} else

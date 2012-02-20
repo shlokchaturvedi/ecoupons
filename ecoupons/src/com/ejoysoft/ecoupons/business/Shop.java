@@ -126,7 +126,6 @@ public class Shop
 			for (int i = 0; i < vctCoupons.size(); i++)
 			{
 				String strTerminals = coupon.show("where strid='" + vctCoupons.get(i).getStrId() + "'").getStrTerminals();
-				db.setAutoCommit(false);
 				String sql = "delete from " + strTableName2 + "  where strId =" + vctCoupons.get(i).getStrId();
 				db.executeUpdate(sql);
 				String strSqlPrint = "delete from " + strPrintTable + " where strcouponid='" + strId + "'";

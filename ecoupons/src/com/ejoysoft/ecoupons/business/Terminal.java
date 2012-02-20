@@ -641,6 +641,28 @@ public class Terminal
 					db.executeUpdate(strSql2);
 				}
 			}
+			
+			for (int i = 0; i < TerminalIds.length; i++)
+			{
+				if (downLoadAlert.getCount("where intstate=1 and strterminalid='" + TerminalIds[i] + "' and strdataid='" + strId
+						+ "' and strdataopetype='delete' ") > 0)
+				{
+					strSql2="update "+strTableName3+" set strdataopetype='add' where intstate=0 and strterminalid='" + TerminalIds[i] + "' and strdataid='" + strId
+						+ "' and strdataopetype='update' ";
+					db.executeUpdate(strSql2);
+					
+				} 
+				if (downLoadAlert.getCount("where intstate=0 and strterminalid='" + TerminalIds[i] + "' and strdataid='" + strId
+						+ "' and strdataopetype='delete' ") > 0)
+				{
+					strSql="delete from "+strTableName3+" where intstate=0 and strterminalid='" + TerminalIds[i] + "' and strdataid='" + strId
+						+ "' and strdataopetype='delete' " ;
+					db.executeUpdate(strSql);
+					
+				} 
+				
+			}
+			
 			// -------------------------------------------------------------------------------------------------------------
 			db.getConnection().commit(); // 统一提交
 			db.setAutoCommit(true);
