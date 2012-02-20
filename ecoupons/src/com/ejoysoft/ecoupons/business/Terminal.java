@@ -54,15 +54,17 @@ public class Terminal
 	{
 
 		String strSql = "update " + strTableName + "  set intpaperstate=" + num + " where strid='" + strId + "'";
-		//String strSql1 = "update " + strTableName + "  set intstate=0, dtRefreshTime='" + com.ejoysoft.common.Format.getDateTime()
-		//		+ "' where strid='" + strId + "'";
+		// String strSql1 = "update " + strTableName +
+		// "  set intstate=0, dtRefreshTime='" +
+		// com.ejoysoft.common.Format.getDateTime()
+		// + "' where strid='" + strId + "'";
 		try
 		{
-			//db.setAutoCommit(false);
-			//db.executeUpdate(strSql1);
+			// db.setAutoCommit(false);
+			// db.executeUpdate(strSql1);
 			db.executeUpdate(strSql);
-			//db.commit();
-			//db.setAutoCommit(true);
+			// db.commit();
+			// db.setAutoCommit(true);
 			return true;
 		} catch (Exception e)
 		{
@@ -623,9 +625,14 @@ public class Terminal
 				if (downLoadAlert.getCount("where intstate=1 and strterminalid='" + TerminalIds[i] + "' and strdataid='" + strId
 						+ "' and strdataopetype='add' ") > 0)
 				{
-					strSql2 = "insert into " + strTableName3 + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) " + "values ("
-							+ UID.getID() + ",'" + TerminalIds[i] + "','" + strTableName2 + "','" + strId + "','update',0) ";
-					db.executeUpdate(strSql2);
+					if (downLoadAlert.getCount("where intstate=0 and strterminalid='" + TerminalIds[i] + "' and strdataid='" + strId
+							+ "' and strdataopetype='update' ") <= 0)
+					{
+						
+						strSql2 = "insert into " + strTableName3 + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) "
+								+ "values (" + UID.getID() + ",'" + TerminalIds[i] + "','" + strTableName2 + "','" + strId + "','update',0) ";
+						db.executeUpdate(strSql2);
+					}
 				} else if (downLoadAlert.getCount("where intstate=0 and strterminalid='" + TerminalIds[i] + "' and strdataid='" + strId
 						+ "' and strdataopetype='add' ") <= 0)
 				{
