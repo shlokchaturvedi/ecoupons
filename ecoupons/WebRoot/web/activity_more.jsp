@@ -65,8 +65,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  <div class=hotList>
  
 	<div class=hotList_top>
-		<div class="hotList_sf">
-	   最新动态（全部）
+		<div class="hotList_sf">		
+	   最新动态列表
 	   </div>
 	   
 <div class=more>
