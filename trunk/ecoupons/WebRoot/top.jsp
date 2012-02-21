@@ -103,8 +103,6 @@ StringBuffer sbTip=new StringBuffer("提醒:");
 			}
 		sbTip.append("终端机，打印纸已经打印完，请重新添加！！");
 		out.print(sbTip);
-		//关闭数据库连接对象
-		globa.closeCon();	
 		}
 	}	
 %>
@@ -120,3 +118,4 @@ StringBuffer sbTip=new StringBuffer("提醒:");
 </form>
 </body>
 </html>
+<%@ include file="include/jsp/footer.jsp"%>
