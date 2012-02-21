@@ -178,7 +178,7 @@ public class Index
 	}
 
 	/**
-	 * 根据下载排行返回top8优惠券名称
+	 * 根据下载排行返回top12优惠券名称
 	 * 
 	 * @return
 	 */
@@ -189,13 +189,13 @@ public class Index
 		Coupon coupon = new Coupon(globa);
 		if ("日".equals(flag))
 		{
-			strSql = "select strcouponid from t_bz_coupon_print where date(dtprinttime)=date(now())group by strcouponid order by count(strcouponid) desc limit 8";
+			strSql = "select strcouponid from t_bz_coupon_print where date(dtprinttime)=date(now())group by strcouponid order by count(strcouponid) desc limit 12";
 		} else if ("周".equals(flag))
 		{
-			strSql = "select strcouponid from t_bz_coupon_print where month(dtprinttime) =month(curdate()) and week(dtprinttime,1) = week(curdate(),1)group by strcouponid order by count(strcouponid) desc limit 8";
+			strSql = "select strcouponid from t_bz_coupon_print where month(dtprinttime) =month(curdate()) and week(dtprinttime,1) = week(curdate(),1)group by strcouponid order by count(strcouponid) desc limit 12";
 		} else if ("月".equals(flag))
 		{
-			strSql = "select strcouponid from t_bz_coupon_print where month(dtprinttime) =month(curdate()) and year(dtprinttime) = year(curdate())group by strcouponid order by count(strcouponid) desc limit 8";
+			strSql = "select strcouponid from t_bz_coupon_print where month(dtprinttime) =month(curdate()) and year(dtprinttime) = year(curdate())group by strcouponid order by count(strcouponid) desc limit 12";
 		}
 		ResultSet resultSet = db.executeQuery(strSql);
 		try
