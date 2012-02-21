@@ -123,7 +123,7 @@ if(vctCoupon!=null&&vctCoupon.size()!=0)
 <div id=Right>
 <div class=card>
 <div class=card_top>
-<div class=heatitle><h6>优惠券推荐 </h6>
+<div class=heatitle><h6>优惠券推荐<font><a href="recommend_more.jsp">更多&gt;&gt;</a></font></h6> </div>
 </div>
 </div>
 <div class=card_mid>
