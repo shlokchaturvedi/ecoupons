@@ -201,7 +201,11 @@ body,td,tr{font-size:9pt;}
 					 <input type="radio" name="intVip"  value="1" <%if(obj0.getIntVip()==1) out.print("checked");%> class="input_box" />是
 					 <input type="radio" name="intVip"  value="0" <%if(obj0.getIntVip()==0) out.print("checked");%> class="input_box"/>不是
 				</td>
-				</tr>
+				</tr>				
+              <%
+              if(!"商家".equals(globa.userSession.getStrCssType()))
+              {
+               %>
               <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">是否推荐：</td>
                 <td width="3%" height="30">&nbsp;</td>
@@ -210,6 +214,7 @@ body,td,tr{font-size:9pt;}
 					 <input type="radio" name="intRecommend"  value="0" <%if(obj0.getIntRecommend()==0) out.print("checked");%> class="input_box"/>不是
 				</td>
 				</tr>
+				<%} %>
               <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">价格：</td>
                 <td width="3%">&nbsp;</td>

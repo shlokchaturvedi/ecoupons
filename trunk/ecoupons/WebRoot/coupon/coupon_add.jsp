@@ -203,6 +203,10 @@ function addTerminals()
                                  </td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
+              <%
+              if(!"商家".equals(globa.userSession.getStrCssType()))
+              {
+               %>
               <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">是否推荐：</td>
                 <td width="3%">&nbsp;</td>
@@ -213,7 +217,10 @@ function addTerminals()
                   否
                 </td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
-              </tr>
+              </tr>              
+              <%
+              }
+               %>
               <tr  >
                  <td width="20%" height="30" align="right" class="left_txt2">价格：</td>
                 <td width="3%">&nbsp;</td>
