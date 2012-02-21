@@ -155,7 +155,7 @@ A:hover {
 	WIDTH: 320px; FLOAT: right; margin-right:12px;
 }
 .card {
-	WIDTH: 328px; MARGIN-BOTTOM: 10px
+	WIDTH: 328px; MARGIN-BOTTOM: 0px
 }
 .card_top {
 	WIDTH: 328px; BACKGROUND: url(../images/card_top.gif) no-repeat; HEIGHT: 45px
@@ -166,7 +166,8 @@ A:hover {
 .heatitle {
 	PADDING-BOTTOM: 0px; PADDING-LEFT: 15px;  FLOAT:left; COLOR: #000; FONT-SIZE: 14px; FONT-WEIGHT: bold; PADDING-TOP:10px
 }
-.heatitle h6{MARGIN: 1px 0px 0px 1px; FONT-SIZE: 14px;COLOR: #000; background:url(../images/left_icon6.gif) no-repeat; 	PADDING-LEFT: 35px;}
+.heatitle h6{MARGIN: 1px 0px 0px 1px; FONT-SIZE: 14px;COLOR: #000; background:url(../images/left_icon6.gif) no-repeat;PADDING-LEFT: 35px;}
+.heatitle h6 font{FONT-SIZE: 12px;FONT-WEIGHT:normal;COLOR: #777777; PADDING-LEFT:135px; }
 
 .card_mid {
 	PADDING-BOTTOM: 10px; PADDING-LEFT: 20px; WIDTH: 298px; PADDING-RIGHT: 10px; BACKGROUND: url(../images/card_bg.gif) repeat-y; PADDING-TOP: 10px
