@@ -23,6 +23,9 @@ body,td,th {
 	font-size: 9pt;
 	color: #111111;
 }
+.ipt{ background:url(../images/folder.gif) no-repeat;}
+a{ font-size:12px; color:#333333; text-decoration:none;}
+a:hover{font-size:12px; color:#993300; text-decoration:none;}
 -->
 </style>
 <link href="../images/skin.css" rel="stylesheet" type="text/css" />
@@ -86,7 +89,7 @@ function viewUser() {
              <tr>
                <td height="20"></td>
                <td width="40%" align="right" >
-	              <input type="button" class="button"   value="增加"  style="cursor:hand" onClick="add()">
+	              <input type="button" class="button"   value="增加"  style="cursor:hand" onClick="add()" >
 		          <input type="button" class="button"   value="修改"  style="cursor:hand" onClick="update()" >
 		          <input type="button" class="button"   value="删除"  style="cursor:hand" onClick="del()" >
 		          <input type="button" class="button"   value="用户管理" style="cursor:hand" onClick="viewUser()">
@@ -100,11 +103,11 @@ function viewUser() {
                     <td  align="center"><div align="left"><strong> 组织机构管理</strong></div></td>
                   </tr>
                   <tr  height="20">
-                  <td   height="300" valign="top">
+                  <td   height="300" valign="top" style="border:1px solid #B9BEC1">
                <!-- start -->
                <table width="100%" border="1" style="border-collapse:collapse " bordercolor="#FFFFFF" align="center" cellspacing="0" cellpadding="0">
               <tr>
-                <td width="20%" height="109" valign="top">
+                <td width="20%" height="109" valign="top" >
                   <%
                   
                   	String unitId = globa.userSession.getStrUnitId()[0];
@@ -113,7 +116,7 @@ function viewUser() {
                     int curLevel = 1;
                     for (int i = 0; i < userGroupTree.size(); i++) {
                         Unit ug = (Unit)userGroupTree.get(i);
-                        if (ug.getIntLevel() < curLevel) {   //上级用户组
+                        if (ug.getIntLevel() < curLevel) {   //上级用户�?
                              for (int j = ug.getIntLevel(); j < curLevel; j++) {  //输出收口标签
                 %>
                     </td>
@@ -126,21 +129,20 @@ function viewUser() {
         <table width="100%" border="0" align="center" cellspacing="1" cellpadding="4" id="g<%=ug.getStrParentId()%>" style="display:<%=ug.getStrParentId().equals("") ? "":"none"%>" class="td_color_1">
           <tr >
             <td width="4%" height="22" valign="top" bgcolor="#F6F6F6">
-              <table width="12" border="0" cellspacing="0" cellpadding="0">
+              <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td width="30">
+                  <td width="30" align="right">
         <%
                 if (ug.haveChild()) {   //有下级用户组
         %>
-                    <input type="button" name="b_<%=ug.getStrId()%>" value="+"  onclick="expand(this,'g<%=ug.getStrId()%>');">
+        <input type="button" name="b_<%=ug.getStrId()%>" value=" "  onClick="expand(this,'g<%=ug.getStrId()%>');" class="ipt">
         <%
                 } else {
         %>
                     &nbsp;
         <%
                 }
-        %>
-                  </td>
+        %>                  </td>
                 </tr>
               </table>
             </td>
@@ -157,7 +159,7 @@ function viewUser() {
                 }
                 curLevel = ug.getIntLevel();
             }
-            //最后收口
+            //最后收�?
             for (int j = 1; j < curLevel; j++) {
         %>
             </td>
