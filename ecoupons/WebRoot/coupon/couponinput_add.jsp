@@ -26,11 +26,7 @@ body,td,tr{font-size:9pt;}
 <script src="../include/js/chkFrm.js"></script>
 <script language="javascript">
 function chkFrm() {
-    if(trim(frm.strCouponId.value)=="") {
-        alert("请选择优惠券！！！")
-        frm.strCouponId.focus();
-        return false;
-    }else if(trim(frm.strCouponCode.value)=="") {
+     if(trim(frm.strCouponCode.value)=="") {
         alert("请输入券面代码！！！")
         frm.strCouponCode.focus();
         return false;
@@ -39,13 +35,7 @@ function chkFrm() {
         alert("请输入会员卡！！！")
         frm.strMemberCardNo.focus();
         return false;
-    }
-    else if(trim(frm.strShopId.value)=="") {
-        alert("请选择商家！！！")
-        frm.strShopId.focus();
-        return false;
-    }
-    else {
+    } else {
     	frm.submit();
     }
 }
@@ -103,36 +93,7 @@ function chkFrm() {
             </table></td>
           </tr>
           <tr>
-            <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
-               <tr  >
-                <td width="20%" height="30" align="right" class="left_txt2">优惠券：</td>
-                <td width="3%">&nbsp;</td>
-                <td width="32%" height="30">
-                <select name="strCouponId" class="forms_color1"
-																style="width: 213px">
-																<option value="">
-																	请选择优惠券名称
-																</option>
-																<%
-                                                                  //初始化
-    				                                            	//SysPara  para=null;
-   						                                            Coupon coupon=new Coupon(globa,true);
-   						                                         String Where ="";
-  						                                         if("商家".equals(globa.userSession.getStrCssType())){
-  						                                  		Where =" where strshopid='"+globa.userSession.getStrShopid()+"' ";
-  						                                  	}
-   						                                             Vector<Coupon> vctCoupon=coupon.list(Where,0,0);
-                                                                     for (int i = 0; i < vctCoupon.size(); i++) {
-                                                                     out.print("<option value=" + vctCoupon.get(i).getStrId()+ ">");
-                                                                     out.println("" +vctCoupon.get(i).getStrName() + "</option>");
-                	                                          %>
-																<%
-                                                                 }
-                                                               %>
-															</select>
-                </td>
-                <td width="45%" height="30" class="left_txt">&nbsp;</td>
-              </tr>
+            <td><table width="100%" border="0" cellspacing="0" cellpadding="0">              
              <tr  >
                  <td width="20%" height="30" align="right" class="left_txt2">券面代码：</td>
                 <td width="3%">&nbsp;</td>
@@ -145,37 +106,7 @@ function chkFrm() {
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30"><input name="strMemberCardNo"   type="text" class="input_box" size="30" /></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
-              </tr>
-             
-               
-              <tr  >
-                 <td width="20%" height="30" align="right" class="left_txt2">商家：</td>
-                <td width="3%">&nbsp;</td>
-                <td width="32%" height="30"><select name="strShopId" class="forms_color1"
-																style="width: 213px">
-																<option value="">
-																	请选择商家名称
-																</option>
-																<%
-                                                                  //初始化
-    				                                            	//SysPara  para=null;
-   						                                            Shop para=new Shop(globa,true);
-  						                                         if("商家".equals(globa.userSession.getStrCssType())){
-  						                                  		Where =" where strid='"+globa.userSession.getStrShopid()+"' ";
-  						                                  	}
-   						                                             Vector<Shop> vctShop=para.list(Where,0,0);
-                                                                     for (int i = 0; i < vctShop.size(); i++) {
-                                                                     out.print("<option value=" + vctShop.get(i).getStrId()+ ">");
-                                                                     out.println("" +vctShop.get(i).getStrBizName()+vctShop.get(i).getStrShopName() + "</option>");
-                	                                          %>
-																<%
-                                                                 }
-                                                               %>
-															</select></td>
-                <td width="45%" height="30" class="left_txt">&nbsp;</td> 
-              </tr>
-               
-              
+              </tr>             
             </table></td>
           </tr>
         </table>

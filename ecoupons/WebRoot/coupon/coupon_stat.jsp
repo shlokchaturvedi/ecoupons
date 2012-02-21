@@ -14,10 +14,6 @@
 		throw new NoRightException("用户不具备操作该功能模块的权限，请与系统管理员联系！");
 %>
 <%
-	//初始化
-	//获取单位的strId
-	//String  strUnitId=ParamUtil.getString(request,"strUnitId","");
-	//初始化
 	CouponInput member = null;
 	CouponInput obj = new CouponInput(globa);
 	boolean flag = false;
@@ -26,8 +22,33 @@
 	String tWhere = " WHERE 1=1";
 	if (!dtCreateTime.equals(""))
 	{
-		tWhere += " and dtCreateTime LIKE '" + dtCreateTime + "%' ";
-		flag = true;
+		obj.State(dtCreateTime);	
+		flag = true; 	
+		Vector<CouponInput>vctCouponInputs=obj.returnDistinctStrShopId();
+		Shop shop=new Shop(globa);
+		StringBuffer sb = new StringBuffer();
+		sb.append("<table border=1>");
+		sb.append("<tr><td>商家ID+名称</td><td>有价券数量</td><td>统计时间</td></tr>");
+		if (vctCouponInputs.size() != 0)
+		{
+			for (int i = 0; i < vctCouponInputs.size(); i++)
+			{ 
+					if("商家".equals(globa.userSession.getStrCssType()) && !vctCouponInputs.get(i).getStrShopId().equals(globa.userSession.getStrShopid()))
+					{
+						continue;
+					}
+			      	sb.append("<tr><td>" + vctCouponInputs.get(i).getStrShopId() +shop.returnBizShopName("where strid='"+vctCouponInputs.get(i).getStrShopId()+"'")+ "</td>"+"<td>"
+						+ obj.getCount("where strShopid='" + vctCouponInputs.get(i).getStrShopId() + "' and dtCreateTime LIKE '" + dtCreateTime + "%'")
+						+ "</td><td>"+dtCreateTime.replace("-","年")+"月"+"</td>");
+			}
+		}
+		sb.append("</tr></table>");
+		String strFileName = "有价券统计表_" + dtCreateTime + ".xls";		
+		response.setContentType("APPLICATION/*");
+		response.setHeader("Content-Disposition", "attachment;filename=" + new String(strFileName.getBytes("gbk"), "ISO8859-1"));
+		ServletOutputStream output = response.getOutputStream();		
+		output.write(sb.toString().getBytes());
+
 	}
 	tWhere += "  ORDER BY strId";
 	//记录总数
@@ -46,30 +67,7 @@
 	Vector<CouponInput> vctObj = obj.list(tWhere, intStartNum, intPageSize);
 	//获取当前页的记录条数
 	int intVct = (vctObj != null && vctObj.size() > 0 ? vctObj.size() : 0);
-	if (flag)
-	{
-		Vector<CouponInput>vctCouponInputs=obj.returnDistinctStrShopId();
-		Shop shop=new Shop(globa);
-		StringBuffer sb = new StringBuffer();
-		sb.append("<table border=1>");
-		sb.append("<tr><td>商家ID+名称</td><td>有价券数量</td><td>统计时间</td></tr>");
-		if (vctCouponInputs.size() != 0)
-		{
-			for (int i = 0; i < vctCouponInputs.size(); i++)
-			{
-				obj.State(obj.show(" where strshopid= '"+vctCouponInputs.get(i).getStrShopId()+"'").getStrMemberCardNo()," and dtCreateTime LIKE '" + dtCreateTime + "%'");
-				sb.append("<tr><td>" + vctCouponInputs.get(i).getStrShopId() +shop.returnBizShopName("where strid='"+vctCouponInputs.get(i).getStrShopId()+"'")+ "</td>"+"<td>"
-						+ obj.getCount("where strShopid='" + vctCouponInputs.get(i).getStrShopId() + "' and dtCreateTime LIKE '" + dtCreateTime + "%'")
-						+ "</td><td>"+dtCreateTime.replace("-","年")+"月"+"</td>");
-			}
-		}
-		sb.append("</tr></table>");
-		String strFileName = "有价券统计表_" + dtCreateTime + ".xls";
-		response.setContentType("APPLICATION/*");
-		response.setHeader("Content-Disposition", "attachment;filename=" + new String(strFileName.getBytes("gbk"), "ISO8859-1"));
-		ServletOutputStream output = response.getOutputStream();
-		output.write(sb.toString().getBytes());
-	}
+
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
@@ -188,7 +186,7 @@ body,td,th {
 														<td align="right" width="600">
 															<div style="height: 26">
 																统计年月：
-																<input  name="dtCreateTime" class="editbox4" value="<%=Format.getDate().substring(0,7) %>"
+																<input  name="dtCreateTime" class="editbox4" value=""
 																	onClick="WdatePicker({dateFmt:'yyyy-MM'})"
 																	readonly="readonly" size="10">
 																&nbsp;&nbsp;&nbsp;&nbsp;
@@ -200,9 +198,7 @@ body,td,th {
 
 												<table width="100%" border="0" cellpadding="0"
 													cellspacing="1" bgcolor="b5d6e6"
-													onmouseover="chang
-	eto();
-							onmouseout="changeback()">
+													onmouseover="changeto();" onmouseout="changeback();">
 													<tr>
 														<td width="5%" height="22" class="left_bt2">
 															<div align="center">
@@ -251,7 +247,11 @@ body,td,th {
 														Shop shop = new Shop(globa);
 														for (int i = 0; i < vctObj.size(); i++)
 														{
-															CouponInput obj1 = vctObj.get(i);
+															 CouponInput obj1 = vctObj.get(i);
+															 if("商家".equals(globa.userSession.getStrCssType()) && !obj1.getStrShopId().equals(globa.userSession.getStrShopid()))
+															 {
+															 	continue;
+															 }
 													%>
 													<tr>
 														<td height="20" bgcolor="#FFFFFF">

@@ -111,37 +111,7 @@ body,td,tr{font-size:9pt;}
             </table></td>
           </tr>
           <tr>
-            <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
-              
-             <tr>
-                <td width="20%" height="30" align="right" class="left_txt2">优惠券：</td>
-                <td width="3%">&nbsp;</td>
-                <td width="32%" height="30">
-                <select name="strCouponId" class="forms_color1"
-																style="width: 213px">
-																<%  Coupon coupon=new Coupon(globa,true); %>
-																<option value="<%=obj0.getStrCouponId() %>">
-																	<%=coupon.show("where strId='"+obj0.getStrCouponId()+"'").getStrName()%>
-																</option>
-																<%
-                                                                  //初始化
-                                                                   String Where ="";
-  						                                         if("商家".equals(globa.userSession.getStrCssType())){
-  						                                  		Where =" where strshopid='"+globa.userSession.getStrShopid()+"' ";
-  						                                  	}
-   						                                             Vector<Coupon> vctCoupon=coupon.list(Where,0,0);
-                                                                     for (int i = 0; i < vctCoupon.size(); i++) {
-                                                                     out.print("<option value=" + vctCoupon.get(i).getStrId()+ ">");
-                                                                     out.println("" +vctCoupon.get(i).getStrName() + "</option>");
-                	                                          %>
-																<%
-                                                                 }
-                                                               %>
-															</select>
-                </td>
-                <td width="45%" height="30" class="left_txt">&nbsp;</td>
-              </tr>
-               
+            <td><table width="100%" border="0" cellspacing="0" cellpadding="0">           
               <tr bgcolor="#f2f2f2">
                  <td width="20%" height="30" align="right" class="left_txt2">券面代码：</td>
                 <td width="3%">&nbsp;</td>
@@ -157,47 +127,7 @@ body,td,tr{font-size:9pt;}
                    <input name="strMemberCardNo" type="text" class="input_box" size="30"  value="<%=obj0.getStrMemberCardNo()%>"/>
 				</td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
-              </tr>
-              <tr bgcolor="#f2f2f2">
-                 <td width="20%" height="30" align="right" class="left_txt2">商家：</td>
-                <td width="3%">&nbsp;</td>
-                <td width="32%" height="30">
-               <select name="strShopId" class="forms_color1" style="width: 213px">
-																<%  Shop para=new Shop(globa,true);%>
-																<option value="<%=obj0.getStrShopId()%>">
-																	<%=para.returnBizShopName("where strId="+obj0.getStrShopId())%>
-																</option>
-																<%
-                                                                  //初始化
-                                                                  
-   						                                         if("商家".equals(globa.userSession.getStrCssType())){
-   						                                  		Where =" where strid='"+globa.userSession.getStrShopid()+"' ";
-   						                                  	}
-   						                                             Vector<Shop> vctShop=para.list(Where,0,0);
-                                                                     for (int i = 0; i < vctShop.size(); i++) {
-                                                                     out.print("<option value=" + vctShop.get(i).getStrId()+ ">");
-                                                                     out.println("" +vctShop.get(i).getStrBizName()+vctShop.get(i).getStrShopName() + "</option>");
-                	                                          %>
-																<%
-                                                                 }
-                                                               %>
-															</select>
-                </td>
-                <td width="45%" height="30" class="left_txt">&nbsp;</td> 
-              </tr>
-             <tr >
-                 <td width="20%" height="30" align="right" class="left_txt2">打印时间时间：</td>
-                <td width="3%">&nbsp;</td>
-                <td width="32%" height="30">
-                 <input name="dtPrintTime" type="text" class="input_box" size="30"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" readonly="readonly" value="<%=obj0.getDtPrintTime().substring(0,obj0.getDtPrintTime().length()-2)%> "/>
-                </td>
-                <td width="45%" height="30" class="left_txt">&nbsp;</td> 
-              
-                
-             
-              
-             
-          	  
+              </tr>            
             </table></td>
           </tr>
         </table>
