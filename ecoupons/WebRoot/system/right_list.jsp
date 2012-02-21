@@ -24,6 +24,9 @@ body,td,th {
 	font-size: 9pt;
 	color: #111111;
 }
+.ipt{ background:url(../images/folder.gif) no-repeat;}
+a{ font-size:12px; color:#333333; text-decoration:none;}
+a:hover{font-size:12px; color:#993300; text-decoration:none;}
 -->
 </style>
 <link href="../images/skin.css" rel="stylesheet" type="text/css" />
@@ -84,7 +87,7 @@ function rightSet() {
                     <td  align="center"><div align="left"><strong> 权限分配</strong></div></td>
                   </tr>
                   <tr  height="20">
-                  <td   height="300" valign="top">
+                  <td   height="300" valign="top" style="border:1px solid #B9BEC1">
                <!-- start -->
                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_color_1">
               <tr>
@@ -110,13 +113,12 @@ function rightSet() {
         <table width="100%" border="0" align="center" cellspacing="1" cellpadding="4" id="g<%=ug.getStrParentId()%>" style="display:<%=ug.getStrParentId().equals("") ? "":"none"%>" class="td_color_1">
           <tr >
             <td width="4%" height="22" valign="top" bgcolor="#F6F6F6">
-              <table width="12" border="0" cellspacing="0" cellpadding="0">
+              <table width="100%" border="0" align="right" cellpadding="0" cellspacing="0">
                 <tr>
-                  <td width="30">
+                  <td width="30" align="right">
 <%--        <%if (ug.haveChild()) {   //有下级用户组%>--%>
-                    <input type="button" name="b_<%=ug.getStrId()%>" value="+"  onclick="expand(this,'g<%=ug.getStrId()%>');">
-<%--        <%} else {%>&nbsp;<% }%>--%>
-                  </td>
+                    <input type="button" name="b_<%=ug.getStrId()%>" value=" "  onclick="expand(this,'g<%=ug.getStrId()%>');" class="ipt">
+<%--        <%} else {%>&nbsp;<% }%>--%>                  </td>
                 </tr>
               </table>
             </td>
