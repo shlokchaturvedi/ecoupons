@@ -308,7 +308,7 @@ function showTime(str){
 				<span id="showtime"><input name="month" onclick="WdatePicker({dateFmt:'yyyy-MM'});" class="input_box" style="width:100"/>(年-月)</span>
 			</div>
 			</td>
-			<td align="right"><div style="height:26"> 统计前 <input name="strTopnum" type="text"  class="input_box" maxlength="9" value="" size="6"/>名
+			<td align="right"><div style="height:26"> 统计前 <input name="strTopnum" type="text"  class="input_box" maxlength="9" value="<%=topnum %>" size="6"/>名
 		    </div>
 			</td>
 			
@@ -362,6 +362,7 @@ function showTime(str){
          <td>
 	        <form name=frm method=post action="coupon_top.jsp">
 			<input name="strName" type="hidden" value="<%=strName%>"/>
+			<input name="strTopnum" type="hidden" value="<%=topnum%>"/>
 			<input name="stime" type="hidden" value="<%=stime%>"/>
 			<input name="etime" type="hidden" value="<%=etime%>"/>
 	     	<!-- 翻页开始 -->  
