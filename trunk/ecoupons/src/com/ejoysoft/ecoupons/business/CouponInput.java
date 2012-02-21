@@ -24,10 +24,10 @@ public class CouponInput
 	/**
 	 * 统计
 	 */
-	public boolean State(String id,String where)
+	public boolean State(String printtime)
 	{
 		
-		String strSql = "update t_bz_coupon_input set intState=1 where strCouponCode=" + id +where;
+		String strSql = "update t_bz_coupon_input set intState=1 where dtprinttime like'"+printtime+"%'";
 		try
 		{
 			db.prepareStatement(strSql);
@@ -110,7 +110,7 @@ public class CouponInput
 	 * 修改有价券录入信息
 	 */
 
-	public boolean update(String tStrId)
+/*	public boolean update(String tStrId)
 	{
 		CouponInput couponInput = new CouponInput();
 		CouponPrint couponPrint = new CouponPrint(globa);
@@ -134,16 +134,12 @@ public class CouponInput
 		}
 		try
 		{
-			String strSql = "UPDATE  " + strTableName + "  SET strCouponId = ?, " + " strCouponCode = ?, strMemberCardNo = ?,dtPrintTime=?,  "
-					+ "strShopId = ?" + "  WHERE strId=? ";
+			String strSql = "UPDATE  " + strTableName + "  SET   strCouponCode = ?, strMemberCardNo = ?   WHERE strId=? ";
 			db.setAutoCommit(false);
 			db.prepareStatement(strSql);
-			db.setString(1, strCouponId);
-			db.setString(2, strCouponCode);
-			db.setString(3, strMemberCardNo);
-			db.setString(4, dtPrintTime);
-			db.setString(5, strShopId);
-			db.setString(6, tStrId);
+			db.setString(1, strCouponCode);
+			db.setString(2, strMemberCardNo);
+			db.setString(3, tStrId);
 			db.executeUpdate();
 			if (strSql2 != null)
 			{
@@ -164,8 +160,34 @@ public class CouponInput
 			return false;
 		}
 
-	}
+	}*/
+	/**
+	 * 修改有价券录入信息
+	 */
 
+	public boolean update(String tStrId)
+	{
+		try
+		{
+			String strSql = "UPDATE  " + strTableName + "  SET   strCouponCode = ?, strMemberCardNo = ?   WHERE strId=? ";
+			db.setAutoCommit(false);
+			db.prepareStatement(strSql);
+			db.setString(1, strCouponCode);
+			db.setString(2, strMemberCardNo);
+			db.setString(3, tStrId);
+			db.executeUpdate();
+			db.commit();
+			db.setAutoCommit(true);
+			Globa.logger0("修改有价券录入信息", globa.loginName, globa.loginIp, strSql, "优惠券管理", globa.userSession.getStrDepart());
+			return true;
+
+		} catch (Exception e)
+		{
+			db.rollback();
+			return false;
+		}
+
+	}
 	/**
 	 * 详细显示单条记录
 	 */
