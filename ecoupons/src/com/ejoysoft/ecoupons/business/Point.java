@@ -42,14 +42,14 @@ public class Point
 		int intDbPoint=show("where strId='" + tStrId+"'").getIntPoint();
 		if (intMoney < intDbPoint)
 		{
-			if (intDbPoint-intMoney>shop.show("where strId='" + show("where strId=" + tStrId+"'").getStrShopId()).getIntPoint())
+			if (intDbPoint-intMoney>shop.show("where strId='" + show("where strId='" + tStrId+"'").getStrShopId()+"'").getIntPoint())
 			{
 				return false;
 			}
 		}
 		try
 		{
-			String strSql="update "+strTableName+" set strShopId=?,intMoney=?,intPoint=?,intType=? "+"where strId=? ";
+			String strSql="update "+strTableName+" set strShopId=?,intMoney=?,intPoint=?,intType=?  where strId=? ";
 			System.out.println(strSql);
 			System.out.println(strShopId);
 			System.out.println(intMoney);

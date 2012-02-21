@@ -145,7 +145,7 @@ public class TerminalPara {
         			int  alert3 = alert.getCount(" where strterminalid='"+alert2.getStrTerminalId()+"' and strdataopetype='update' and intstate=0");
         			if(alert3==0)
         			{
-        				String sql2 ="insert into " + strTableName2 + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) "
+        				String sql2 ="insert into " + strTableName2 + " (strid,strterminalid,strdatatype,strdataid,strdataopetype,intstate) "
               		     + "values (" + UID.getID() + ",'" + alert2.getStrTerminalId()+ "','" + strTableName + "','" + alert2.getStrDataId() + "','update',0)";
               		    db.executeUpdate(sql2);
         			}
