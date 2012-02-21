@@ -22,22 +22,22 @@ if(session.getAttribute(Constants.MEMBER_KEY) == null)
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link href="css/collection.css" rel="stylesheet" type="text/css" />
-<LINK rel=stylesheet type=text/css href="css/comment.css">
+<link rel=stylesheet type=text/css href="css/comment.css" />
 <title>我的余额</title>
 </head> 
 <body>
 <form action="" name="frm" method="post">
-<iframe style="HEIGHT: 167px" border=0 marginwidth=0 marginheight=0 src="top.jsp" 
-frameborder=no width="100%" scrolling=no></iframe>
+<iframe style="HEIGHT: 167px"  marginwidth=0 marginheight=0 src="top.jsp" 
+frameborder=0 width="100%" scrolling=no></iframe>
 
 <!--正文部分-->
-<DIV id=Main>
-<DIV id=collect_Right>
-<DIV class=collect_list>
-<DIV class=collect_right_top>
-<DIV class=collect_heatitle><h6>会员中心</h6></DIV>
-</DIV>
-<DIV class=collect_mid>
+<div id=Main>
+<div id=collect_Right>
+<div class=collect_list>
+<div class=collect_right_top>
+<div class=collect_heatitle><h6>会员中心</h6></div>
+</div>
+<div class=collect_mid>
   <p>&nbsp;</p>
   <table width="81%" border="0" cellpadding="0" cellspacing="0">
     <tr>
@@ -53,17 +53,17 @@ frameborder=no width="100%" scrolling=no></iframe>
       <td height="32" class="list_wz"><a href="integral.jsp">&nbsp;&gt;&gt; 我的积分</a></td>
     </tr>
     <tr>
-      <td height="32" class="list_wz"><a href="#" onClick="if (confirm('您确定要退出吗？')){top.location = '<%=application.getServletContextName()%>/web/Auth?actiontype=<%=Constants.WEBLOGOFF%>';}	return false;" >&nbsp;&gt;&gt; 退出系统</a></td>
+      <td height="32" class="list_wz"><a href="#" onclick="if (confirm('您确定要退出吗？')){top.location = '<%=application.getServletContextName()%>/web/Auth?actiontype=<%=Constants.WEBLOGOFF%>';}	return false;" >&nbsp;&gt;&gt; 退出系统</a></td>
     </tr>
   </table>
   <p>&nbsp;</p>
-</DIV>
-<DIV class=collect_bottom></DIV></DIV>
-</DIV>
-<DIV id=Left>
-<DIV class=collect_left_top>
+</div>
+<div class=collect_bottom></div></div>
+</div>
+<div id=Left>
+<div class=collect_left_top>
 		<div class="collect_sf">我的积分</div>
-</DIV>
+</div>
 <%
 Recharge recharge=new Recharge(globa);
 String strMemberCardNo =globa.getMember().getStrCardNo();
@@ -91,8 +91,8 @@ Vector<RecordModel> vctRecords=reModel.listBalance(strSql,intStartNum,intPageSiz
 int intVct=(vctRecords!=null&&vctRecords.size()>0?vctRecords.size():0);
 Member member=new Member(globa);
 %>
-<DIV class=collect_left_mid>
-<DIV class=collect_show>
+<div class=collect_left_mid>
+<div class=collect_show>
   <table width="96%" border="0" align="center" cellpadding="0" cellspacing="0">
     <tr>
       <td height="60" valign="top">可用余额：<span class="fjwz"><%=member.show("where strCardNo='"+globa.getMember().getStrCardNo()+"'").getFlaBalance() %> </span> 元 &nbsp;&nbsp;&nbsp;&nbsp;<a href="alipay/payindex.jsp" /><img src="images/czban.jpg" width="56" height="24" /></a></td>
@@ -127,14 +127,14 @@ Member member=new Member(globa);
    <!-- 翻页开始 -->  
  	<%@ include file="include/cpage.jsp"%>
    	<!-- 翻页结束 -->
-</DIV>
+</div>s
 
-</DIV>
-<DIV class=collect_show_bottom></DIV></DIV>
-</DIV>
+</div>
+<div class=collect_show_bottom></div></div>
+</div>
 
-<iframe style="HEIGHT: 340px" border=0 marginwidth=0 marginheight=0 src="bottom.jsp" 
-frameborder=no width="100%" scrolling=no></iframe>
+<iframe style="HEIGHT: 340px" marginwidth=0 marginheight=0 src="bottom.jsp" 
+frameborder=0 width="100%" scrolling=no></iframe>
 </form>
 </body>
 </html>
