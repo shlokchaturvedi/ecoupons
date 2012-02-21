@@ -182,7 +182,7 @@ a:link,a:hover,a:active,a:visited {
 					</tr>
 					<tr>
 						<td>
-							<a href="right1.html" target="main"><%=root %></a>
+							<%=root %>
 						</td>
 					</tr>
 				</table>
