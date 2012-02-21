@@ -52,7 +52,7 @@ Shop shop=new Shop(globa);
 
 <body>
 <form name="frm" method=post action=" " >	
-<iframe style="HEIGHT: 180px" marginwidth=0 marginheight=0 src="top.jsp" frameborder=0 width="100%" scrolling=no></iframe>
+<iframe style="HEIGHT: 167px" marginwidth=0 marginheight=0 src="top.jsp" frameborder=0 width="100%" scrolling=no></iframe>
 
 <!--正文部分-->
 <DIV id=Main>
@@ -63,7 +63,7 @@ Shop shop=new Shop(globa);
 </DIV>
 <DIV class=collect_mid>
   <p>&nbsp;</p>
-  <table width="81%" border="0"  cellpadding="0" cellspacing="0">
+  <table width="96%" border="0"  cellpadding="0" cellspacing="0">
   <tbody>
       <tr>
       <td height="32" class="list_wz"><a href="collection.jsp">&nbsp;&gt;&gt; 我的收藏</a></td>

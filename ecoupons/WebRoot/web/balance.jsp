@@ -39,7 +39,7 @@ frameborder=0 width="100%" scrolling=no></iframe>
 </div>
 <div class=collect_mid>
   <p>&nbsp;</p>
-  <table width="81%" border="0" cellpadding="0" cellspacing="0">
+  <table width="96%" border="0" cellpadding="0" cellspacing="0">
     <tr>
       <td height="32" class="list_wz"><a href="collection.jsp">&nbsp;&gt;&gt; 我的收藏</a></td>
     </tr>
