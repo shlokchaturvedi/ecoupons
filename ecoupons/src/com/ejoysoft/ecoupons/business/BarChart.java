@@ -60,6 +60,8 @@ public class BarChart extends javax.servlet.http.HttpServlet {
 		plot.setForegroundAlpha(1.0f);
 		chart.getLegend().setItemFont(new Font("宋体", Font.CENTER_BASELINE, 12));
 		CategoryAxis domainAxis = plot.getDomainAxis();
+		domainAxis.setMaximumCategoryLabelLines(10);//横坐标行数
+		domainAxis.setMaximumCategoryLabelWidthRatio(0.5f);//每行宽度，这里设一个汉字宽
 		NumberAxis numberAxis = (NumberAxis)plot.getRangeAxis();
 		domainAxis.setTickLabelFont(new Font("楷体", Font.CENTER_BASELINE, 11));
 		domainAxis.setLabelFont(new Font("宋体",Font.CENTER_BASELINE, 13));
