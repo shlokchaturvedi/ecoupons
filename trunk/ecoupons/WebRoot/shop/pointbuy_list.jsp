@@ -150,6 +150,11 @@ function del(){
             Shop shop=new Shop(globa);
             for (int i = 0;i < vctObj.size(); i++) {
             	Point obj1 = vctObj.get(i);
+            	String printtime = "";
+            	if(obj1.getDtBuyTime()!=null && obj1.getDtBuyTime().length()>=3)
+            	{
+            		printtime=obj1.getDtBuyTime().substring(0,obj1.getDtBuyTime().length()-2);
+            	}
             	
             %>
               <tr>
@@ -158,7 +163,7 @@ function del(){
                 </td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getIntMoney() %></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getIntPoint()%></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getDtBuyTime().substring(0,obj1.getDtBuyTime().length()-2)%></span></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=printtime%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.returnType(obj1.getIntType())%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.returnState(obj1.getIntState())%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE4">
