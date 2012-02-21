@@ -50,12 +50,12 @@ public class Point
 		try
 		{
 			String strSql="update "+strTableName+" set strShopId=?,intMoney=?,intPoint=?,intType=?  where strId=? ";
-			System.out.println(strSql);
-			System.out.println(strShopId);
-			System.out.println(intMoney);
-			System.out.println(intPoint);
-			System.out.println(intType);
-			System.out.println(strId);
+//			System.out.println(strSql);
+//			System.out.println(strShopId);
+//			System.out.println(intMoney);
+//			System.out.println(intPoint);
+//			System.out.println(intType);
+//			System.out.println(strId);
 			String strSql2 = "update t_bz_shop set intpoint=intPoint-" + intPoint + " where strid=" + strShopId;
 			db.getConnection().setAutoCommit(false);
 			db.prepareStatement(strSql);
