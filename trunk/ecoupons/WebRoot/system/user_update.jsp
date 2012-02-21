@@ -248,7 +248,7 @@ body,td,tr{font-size:9pt;}
         </table>
           <table width="100%" border="0" cellspacing="0" cellpadding="0">
             <tr>
-              <td width="50%" height="56" align="right"><input name="B1" type="button" class="button_box" value="确定" onclick="chkFrm()" /></td>
+              <td width="30%" height="56" align="right"><input name="B1" type="button" class="button_box" value="确定" onclick="chkFrm()" /></td>
   			  <td width="1%" height="56" align="right">&nbsp;</td>
               <td width="10%" height="56"><input name="B12" type="reset" class="button_box" value="取消" /></td>
               <td width="1%" height="56" align="right">&nbsp;</td>
