@@ -45,20 +45,20 @@ public class CouponAuthServlet extends HttpServlet
 			ServletContext application = getServletContext();
 			globa.initialize(application, req, resp);
 			String strTerminalNo = req.getParameter("strTerminalNo");
-	//		String strTerminalNo ="3423";
-			Terminal obj0 = new Terminal(globa);
+//	 		String strTerminalNo ="0001";
+//			Terminal obj0 = new Terminal(globa);
 			HashMap<String, Terminal> hmTerminal = Terminal.hmTerminal;
 			Terminal terminal = hmTerminal.get(strTerminalNo);
 			if(terminal!=null)
 			{
-				String strTerminalId = terminal.getStrId();
-				//obj0.updateState(strTerminalId);//更新终端状态
+//				String strTerminalId = terminal.getStrId();
+//				obj0.updateState(strTerminalId);//更新终端状态
 				String strCardNo = req.getParameter("strCardNo");
 				String strCode = req.getParameter("strCode");
 				String strCouponId = req.getParameter("strCouponId");
-	//			String strCode = "ewrwesdfs";
-	//			String strCardNo = "111";
-	//			String strCouponId ="1326253170109014";
+//				String strCode = "23424";
+//				String strCardNo = "1001";
+//				String strCouponId ="1329534030203063";
 				String strPhone="",strName="";	
 				float balance= -1;
 				if(strCardNo!=null && !strCardNo.trim().equals("")&&strCouponId!=null && !strCouponId.trim().equals(""))
@@ -92,7 +92,7 @@ public class CouponAuthServlet extends HttpServlet
 									sbReturn.append("<return>sms_error</return>");
 					    	}
 						    else {
-						    	sbReturn.append("<return>OK</return>");
+						    	sbReturn.append("<return>sms_error</return>");
 							}
 						} catch (UnsupportedEncodingException e) {
 							// TODO Auto-generated catch block
