@@ -96,7 +96,7 @@ Shop shop=new Shop(globa);
 </DIV>
 
 <DIV class=collect_left_mid>
-<DIV class=collect_show>
+<DIV class=collect_show>  
   <table width="96%" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="DCDCDC">
     <tr> 
       <td height="25" align="center" bgcolor="EEEEEE" class="collect_show_tit">商家名称</td>
