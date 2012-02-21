@@ -140,11 +140,11 @@ function del(){
               <tr>
                 <td  width="5%" height="22"  class="left_bt2"><div align="center">&nbsp;</div></td>
                 <td width="10%" class="left_bt2"><div align="center">商家名</div></td>
-                <td width="10%" class="left_bt2"><div align="center">分部名称</div></td>
+                <td width="16%" class="left_bt2"><div align="center">分部名称</div></td>
                 <td width="10%" class="left_bt2"><div align="center">所属行业</div></td>      
-                <td width="10%" class="left_bt2"><div align="center">是否推荐</div></td>          
-                <td width="10%" class="left_bt2"><div align="center">联系电话</div></td>
-                <td width="15%" class="left_bt2"><div align="center">积分余额</div></td>
+                <td width="7%" class="left_bt2"><div align="center">是否推荐</div></td>          
+                <td width="16%" class="left_bt2"><div align="center">联系电话</div></td>
+                <td width="7%" class="left_bt2"><div align="center">积分余额</div></td>
                 <td width="10%" class="left_bt2"><div align="center">操作</div></td>
               </tr>
             <%
