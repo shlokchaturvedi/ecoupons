@@ -334,8 +334,6 @@ function showTime(str){
                 </tr>
             <%
             }
-	        //关闭数据库连接对象
-	        globa.closeCon();
             %>  
             </table>
 	        </form></td>
