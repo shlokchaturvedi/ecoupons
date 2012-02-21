@@ -4,6 +4,7 @@
 				java.net.UnknownHostException" %>
 <%@page import="com.ejoysoft.ecoupons.business.Member"%>
 <%@page import="com.ejoysoft.common.Format"%>
+<%@page import="com.ejoysoft.common.Constants"%>
 <%@ include file="../include/jsp/head.jsp"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -48,9 +49,12 @@
 			    		int beginIdx = ret.indexOf("<MsgState>") + "<MsgState>".length();
 						int endIdx = ret.indexOf("</MsgState>");
 						String retMsgState = ret.substring(beginIdx, endIdx);
-						if(retMsgState.equals("审查"))				        
+						if(retMsgState.equals("审查"))		
+						{		      
+							 globa.setMember(null);
+							 session.setAttribute(Constants.MEMBER_KEY,null);
 		     				 response.getWriter().print("<script>alert('短信发送验证码成功！请查收短信');window.returnValue='"+randomCode+"';window.close();</script>");
-						else
+						}else
 						{
 		     				 response.getWriter().print("<script>alert('短信发送验证码失败1！');window.returnValue='"+randomCode+"';window.close();</script>");
 			    		}
