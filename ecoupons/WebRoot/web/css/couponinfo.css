@@ -29,7 +29,7 @@ A:hover {
 	WIDTH: 638px; BACKGROUND: url(../images/left_top.gif) no-repeat; HEIGHT: 45px
 }
 .left_top P {
-	PADDING-BOTTOM: 0px; PADDING-LEFT: 15px; PADDING-RIGHT: 0px; FONT: bold 14px/1 microsoft yahei; COLOR: #f00; PADDING-TOP: 10px
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 15px; PADDING-RIGHT: 0px; FONT: bold 14px/1 microsoft yahei; COLOR: #444444; PADDING-TOP: 10px
 }
 .left_mid {
 	WIDTH: 638px; BACKGROUND: url(../images/left_bg.gif) repeat-y
