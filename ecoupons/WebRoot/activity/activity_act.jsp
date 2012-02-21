@@ -3,8 +3,13 @@
 				com.ejoysoft.util.ParamUtil,
 				com.ejoysoft.ecoupons.business.Activity,
 				com.ejoysoft.common.ApacheUpload,
+				com.ejoysoft.common.exception.NoRightException,
 				java.io.File"%>
 <%@ include file="../include/jsp/head.jsp"%>
+<%
+if(!globa.userSession.hasRight("15005"))
+      throw new NoRightException("用户不具备操作该功能模块的权限，请与系统管理员联系！");
+%>
 <%
 	if(action.equals(Constants.DELETE_STR)){
 		Activity obj=new Activity(globa,false);

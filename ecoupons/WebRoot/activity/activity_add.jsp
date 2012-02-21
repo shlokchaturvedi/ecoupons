@@ -3,13 +3,13 @@
 				 java.util.Vector,
 				 com.ejoysoft.ecoupons.system.SysPara,
 				 java.util.ArrayList,
-				 com.ejoysoft.common.Constants" %>
+				 com.ejoysoft.common.Constants,
+				 com.ejoysoft.common.exception.NoRightException" %>
 <%@ include file="../include/jsp/head.jsp"%>
-
-
-
-
-
+<%
+if(!globa.userSession.hasRight("15005"))
+      throw new NoRightException("用户不具备操作该功能模块的权限，请与系统管理员联系！");
+%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
