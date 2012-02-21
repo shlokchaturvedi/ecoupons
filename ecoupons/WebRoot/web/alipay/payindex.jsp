@@ -35,18 +35,39 @@ function CheckForm()
 	function getStrLength(value){
         return value.replace(/[^\x00-\xFF]/g,'**').length;
     }
+    function trim(str)
+	{
+	    rstr="";
+	    for(i=0;i<str.length;i++)
+	    {
+	        if(str.charAt(i)!="　"&&str.charAt(i)!=" ")
+	        {
+	            rstr=str.substring(i);
+	            break;
+	        }
+	    }
+	    for(i=rstr.length-1;i>0;i--)
+	    {
+	        if(rstr.charAt(i)!="　"&&rstr.charAt(i)!=" ")
+	        {
+	            rstr=rstr.substring(0,i+1);
+	            break;
+	        }
+	    }
+	    return rstr;
+	}
 	var reg	= new RegExp(/^\d*\.?\d{0,2}$/);
 	if (getStrLength(frm.subject.value)<= 0) {
 		alert("请输入商品名称！");
 		frm.subject.focus();
 		return false;
 	}
-	else if (frm.total_fee.value.length == 0) {
+	else if (trim(frm.total_fee.value) == "") {
 		alert("请输入付款金额！");
 		frm.total_fee.focus();
 		return false;
 	}
-	else if (! reg.test(frm.total_fee.value))
+	else if (! reg.test(trim(frm.total_fee.value)))
 	{
         alert("请正确输入付款金额！");
 		frm.total_fee.focus();
@@ -146,7 +167,7 @@ frameborder=0 width="100%" scrolling=no></iframe>
 	<dt>备注：</dt>
 	<dd><span class="null-star">*</span> 
 	<textarea style="margin-left: 3px;" name=alibody rows=2 cols=40 ></textarea><br />
-	<span>（如联系方法，商品要求、数量等。100汉字内）</span></dd>
+	<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（如联系方法，商品要求、数量等。100汉字内）</span></dd>
 	<dt></dt>
 	<dd><span class="new-btn-login-sp">
 	<button class="new-btn-login" type="button" style="text-align: center;" onclick="CheckForm();">确认付款</button>
