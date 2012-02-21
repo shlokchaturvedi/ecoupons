@@ -4,8 +4,13 @@
 				 com.ejoysoft.common.Constants,
 				 com.ejoysoft.ecoupons.system.SysPara,
 				 java.util.ArrayList,
-				  com.ejoysoft.common.exception.IdObjectException" %>
+				  com.ejoysoft.common.exception.IdObjectException,
+				  com.ejoysoft.common.exception.NoRightException" %>
 <%@ include file="../include/jsp/head.jsp"%>
+<%
+if(!globa.userSession.hasRight("15005"))
+      throw new NoRightException("用户不具备操作该功能模块的权限，请与系统管理员联系！");
+%>
 <%
 	String strId = ParamUtil.getString(request,"strId","");
 	if(strId.equals(""))
