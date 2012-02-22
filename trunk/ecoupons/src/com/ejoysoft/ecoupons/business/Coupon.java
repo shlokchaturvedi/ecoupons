@@ -98,7 +98,7 @@ public class Coupon
 			}
 			String[] strDbTerminalIds = strDbTerminalId.split(",");// 得到在修改时丢弃的终端id，增加时选中1、2、3、4但是修改时选中3、4，此时我们将得到1、2
 
-			System.out.println(strDbTerminalId + "未被选中");
+//			System.out.println(strDbTerminalId + "未被选中");
 			String strSql = "update  " + strTableName + "  SET dtActiveTime = ?, ";
 			db.setAutoCommit(false);
 			if (this.strSmallImg != null && this.strSmallImg.length() > 0)
