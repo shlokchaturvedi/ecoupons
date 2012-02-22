@@ -26,11 +26,10 @@
 
 		if (obj.getCount(" where strPointCardNo='" + strPointCardNo + "'") > 0)
 		{
+			globa.dispatch(false, strUrl,"已经存在"+ strPointCardNo + "纸质积分卡, 请输入其他纸质积分卡,录入");
 			globa.closeCon();
-			out.print("<script>alert('已经存在" + strPointCardNo + "纸质积分卡, 请输入其他纸质积分卡');</script>");
 		} else
 		{
-
 			globa.dispatch(obj.add(), strUrl);
 		}
 	} 

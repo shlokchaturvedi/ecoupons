@@ -35,13 +35,12 @@
 	} else if (action.equals(Constants.ADD_STR))
 	{
 		String strCardNo = ParamUtil.getString(request, "strCardNo", "");
-
-		if (obj.getCount(" where strCardNo='" + strCardNo + "'") > 0)
+		String strMobileNo = ParamUtil.getString(request, "strMobileNo", "");
+		if (obj.getCount(" where strcardno='" + strCardNo + "' or strmobileno='"+strMobileNo+"'") > 0)
 		{
-			globa.dispatch(false, strUrl,"已经存在会员卡号：" + strCardNo + ", 请输入其他会员卡号，增加");
+			globa.dispatch(false, strUrl,"会员卡号或者手机号已经存在, 请输入其他会员卡号或手机号，增加");
 		} else
 		{
-
 			globa.dispatch(obj.add(), strUrl);
 		}
 	} else if (action.equals(Constants.EXPORT_STR))

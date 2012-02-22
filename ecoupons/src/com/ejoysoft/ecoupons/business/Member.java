@@ -94,11 +94,11 @@ public class Member
 	 */
 	public boolean update(String tStrId)
 	{
-		System.out.println(strCardNo + strName);
+//		System.out.println(strCardNo + strName);
 		try
 		{
-			String strSql = "UPDATE  " + strTableName + "  SET strCardNo = ?, strName = ?, intType = ?,  "
-					+ "dtExpireTime = ?, strSalesman = ? ,strpwd=? ,strmobileno=? WHERE strId=? ";
+			String strSql = "update  " + strTableName + "  set strcardno = ?, strname = ?, inttype = ?,  "
+					+ "dtexpiretime = ?, strsalesman = ? ,strpwd=? ,strmobileno=? where strid=? ";
 			db.prepareStatement(strSql);
 			db.setString(1, strCardNo);
 			db.setString(2, strName);

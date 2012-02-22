@@ -40,9 +40,9 @@ public class Point
 		Shop shop = new Shop(globa);
 		
 		int intDbPoint=show("where strId='" + tStrId+"'").getIntPoint();
-		if (intMoney < intDbPoint)
+		if (intPoint < intDbPoint)
 		{
-			if (intDbPoint-intMoney>shop.show("where strId='" + show("where strId='" + tStrId+"'").getStrShopId()+"'").getIntPoint())
+			if (intDbPoint-intPoint>shop.show("where strId='" + show("where strId='" + tStrId+"'").getStrShopId()+"'").getIntPoint())
 			{
 				return false;
 			}
@@ -50,24 +50,19 @@ public class Point
 		try
 		{
 			String strSql="update "+strTableName+" set strShopId=?,intMoney=?,intPoint=?,intType=?  where strId=? ";
-//			System.out.println(strSql);
-//			System.out.println(strShopId);
-//			System.out.println(intMoney);
-//			System.out.println(intPoint);
-//			System.out.println(intType);
-//			System.out.println(strId);
-			String strSql2 = "update t_bz_shop set intpoint=intPoint-" + intPoint + " where strid=" + strShopId;
-			db.getConnection().setAutoCommit(false);
+			db.setAutoCommit(false);
 			db.prepareStatement(strSql);
 			db.setString(1, strShopId);
 			db.setInt(2, intMoney);
 			db.setInt(3, intPoint);
 			db.setInt(4, intType);
 			db.setString(5, tStrId);
+			String strSql2 = "update t_bz_shop set intpoint=intPoint-" + intDbPoint+"+"+intPoint + " where strid='" + strShopId+"'";
+			System.out.println(strSql2);
 			if (db.executeUpdate() > 0 && db.executeUpdate(strSql2) > 0)
 			{
+				db.commit();
 				Globa.logger0("修改积分购买记录", globa.loginName, globa.loginIp, strSql, "商家管理", globa.userSession.getStrDepart());
-
 				return true;
 			} else
 			{
@@ -78,7 +73,7 @@ public class Point
 		} catch (Exception e)
 		{
 			db.rollback();
-			System.out.println("修改积分购买记录：" + e);
+//			System.out.println("修改积分购买记录：" + e);
 			return false;
 		}
 	}

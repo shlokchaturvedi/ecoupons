@@ -631,7 +631,7 @@ public class Coupon
 	{
 		if (!dtActiveTime.equals(null) && !dtActiveTime.equals(""))
 		{
-			return dtActiveTime.substring(0, dtActiveTime.length() - 2);
+			return dtActiveTime.substring(0,10);
 		}
 		return dtActiveTime;
 	}
@@ -645,7 +645,7 @@ public class Coupon
 	{
 		if (!dtExpireTime.equals(null) && !dtExpireTime.equals(""))
 		{
-			return dtExpireTime.substring(0, dtExpireTime.length() - 2);
+			return dtExpireTime.substring(0,10);
 		}
 		return dtExpireTime;
 	}

@@ -185,10 +185,10 @@ body,td,tr {
 														<td width="32%" height="30">
 															<input name="strCardNo" type="text" class="input_box"
 																size="30"
-																value="<%=Format.forbidNull(obj0.getStrCardNo())%>" />
+																value="<%=Format.forbidNull(obj0.getStrCardNo())%>" readonly="readonly"/>
 														</td>
 														<td width="45%" height="30" class="left_txt">
-															&nbsp;
+															&nbsp;提示：不能修改！
 														</td>
 													</tr>
 													<tr>
@@ -229,7 +229,7 @@ body,td,tr {
 																value="<%=Format.forbidNull(obj0.getStrMobileNo())%>" />
 														</td>
 														<td width="45%" height="30" class="left_txt">
-															&nbsp;
+															&nbsp;提示：不能修改！
 														</td>
 													</tr>
 													<tr bgcolor="#f2f2f2">
@@ -263,7 +263,7 @@ body,td,tr {
 																value="<%=Format.forbidNull(String.valueOf(obj0.getFlaBalance()))%>" />
 														</td>
 														<td width="45%" height="30" class="left_txt">
-															&nbsp;
+															&nbsp;提示：不能修改！
 														</td>
 													</tr>
 													<tr>
@@ -280,7 +280,7 @@ body,td,tr {
 																value="<%=Format.forbidNull(String.valueOf(obj0.getIntPoint()))%>" />
 														</td>
 														<td width="45%" height="30" class="left_txt">
-															&nbsp;
+															&nbsp;提示：不能修改！
 														</td>
 													</tr>
 													<tr  bgcolor="#f2f2f2">
@@ -317,23 +317,7 @@ body,td,tr {
 															&nbsp;
 														</td>
 													</tr>
-													<tr  >
-														<td width="20%" height="30" align="right"
-															class="left_txt2">
-															密码：
-														</td>
-														<td width="3%">
-															&nbsp;
-														</td>
-														<td width="32%" height="30">
-															<input name="strPwd" readonly="readonly" type="text"
-																class="input_box" size="30"
-																value="<%=Format.forbidNull(obj0.getStrPwd())%>" />
-														</td>
-														<td width="45%" height="30" class="left_txt">
-															&nbsp;
-														</td>
-													</tr>
+													
 													
 													
 													
