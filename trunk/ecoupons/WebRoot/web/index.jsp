@@ -141,7 +141,7 @@ for(int i=0;i<vctStrades.size();i++){
 	Shop shop=new Shop(globa);
     Vector<Shop> vctShops=shop.list(" where intType=1 order by dtcreatetime  desc",1,10);
     for(int i=0;i<vctShops.size();i++){
-    out.print("<a href='merchantsinfo.jsp?strid="+vctShops.get(i).getStrId()+"' target=_blank alt='"+vctShops.get(i).getStrBizName()+"'><img src='../shop/images/" +vctShops.get(i).getStrSmallImg() +"'  height='88'  border='0' /></a>");
+    out.print("<a href='merchantsinfo.jsp?strid="+vctShops.get(i).getStrId()+"' alt='"+vctShops.get(i).getStrBizName()+"-"+vctShops.get(i).getStrShopName()+"' target=_blank alt='"+vctShops.get(i).getStrBizName()+"'><img src='../shop/images/" +vctShops.get(i).getStrSmallImg() +"'  height='88'  border='0' /></a>");
     }
     
 	%>

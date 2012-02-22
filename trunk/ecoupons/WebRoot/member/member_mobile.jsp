@@ -43,26 +43,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	Vector<Member> vctObj=obj.list(tWhere,intStartNum,intPageSize);
 	//获取当前页的记录条数
 	int intVct=(vctObj!=null&&vctObj.size()>0?vctObj.size():0);
-	if(flag){
-		StringBuffer sb = new StringBuffer();
-		sb.append("<table border=1>");
-		sb.append("<tr><td>手机</td><td>姓名</td><td>卡号</td></tr>");
-		if (vctObj.size() != 0)
-		{
-			for (int i = 0; i < vctObj.size(); i++)
-			{
-				sb.append("<tr><td>" + vctObj.get(i).getStrMobileNo() + "</td><td>" + vctObj.get(i).getStrName() + "</td><td>"
-						+ vctObj.get(i).getStrCardNo() + "</td>");
-			}
-		}
+	//if(flag){
+		//StringBuffer sb = new StringBuffer();
+	//	sb.append("<table border=1>");
+	//	sb.append("<tr><td>手机</td><td>姓名</td><td>卡号</td></tr>");
+	//	if (vctObj.size() != 0)
+	//	{
+	//		for (int i = 0; i < vctObj.size(); i++)
+	//		{
+	//			sb.append("<tr><td>" + vctObj.get(i).getStrMobileNo() + "</td><td>" + vctObj.get(i).getStrName() + "</td><td>"
+	//					+ vctObj.get(i).getStrCardNo() + "</td>");
+	//		}
+	//	}
 		
-		sb.append("</table>");
-		String strFileName = "手机号码批量导出表_"+strStartId+"_"+strEndId+".xls";
-	    response.setContentType("APPLICATION/*");
-	    response.setHeader( "Content-Disposition", "attachment;filename="  + new String( strFileName.getBytes("gbk"), "ISO8859-1" ));
-	    ServletOutputStream output = response.getOutputStream();
-	    output.write(sb.toString().getBytes());
-	}
+	//	sb.append("</table>");
+	//	String strFileName = "手机号码批量导出表_"+strStartId+"_"+strEndId+".xls";
+	 //   response.setContentType("APPLICATION/*");
+	 //   response.setHeader( "Content-Disposition", "attachment;filename="  + new String( strFileName.getBytes("gbk"), "ISO8859-1" ));
+	  //  ServletOutputStream output = response.getOutputStream();
+	  //  output.write(sb.toString().getBytes());
+	//	strStartId="";
+//		strEndId="";
+//	}
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -112,7 +114,7 @@ function chkNo(){
 </script>
 </head>
 <body>
-<form name=frm method=post action="member_mobile.jsp">
+<form name=frm method=post action="member_mobile_act.jsp">
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td width="17" height="29" valign="top" background="../images/mail_leftbg.gif"><img src="../images/left-top-right.gif" width="17" height="29" /></td>
@@ -164,7 +166,7 @@ function chkNo(){
 			
 			</td>
 			<td align="right" width="600"><div style="height:26"> 
-			  请输入：&nbsp;起始卡号:<input name="strStartId" class="editbox4" onclick="" value="" size="10">结束卡号：<input class="editbox4" value="" name="strEndId" size="10" />
+			  请输入：&nbsp;起始卡号:<input name="strStartId" class="editbox4" onclick="" value="<%=strStartId %>" size="10">结束卡号：<input class="editbox4" value="<%=strEndId %>" name="strEndId" size="10" />
 			  &nbsp;&nbsp;&nbsp;&nbsp;
               <input type="button" class="button_box" onclick="chkNo();" value="导出" /> 
 			</div>

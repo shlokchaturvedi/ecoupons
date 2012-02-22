@@ -22,7 +22,7 @@
 	} else if (action.equals(Constants.UPDATE_STR))
 	{
 		String strId = ParamUtil.getString(request, "strId", "");
-
+		String intPoint = ParamUtil.getString(request, "intPoint", "");
 		globa.dispatch(obj.update(strId), strUrl);
 
 	} else if (action.equals(Constants.AUDIT_STR))
@@ -54,11 +54,10 @@
 		PointPresent pointPresent = new PointPresent(globa, true);
 		String strId = ParamUtil.getString(request, "strId", "");
 		String strCardNo = ParamUtil.getString(request, "strMemberCardNo", "");
-		if (member.getCount(" where strCardNo='" + strCardNo + "'") == 0)
+		if (member.getCount(" where strCardNo='" + strCardNo + "' and dtactivetime <=now() and dtexpiretime >=now()" ) == 0)
 		{
-			
-			out.print("<script>alert('不存在会员卡号：" + strCardNo + ", 请输入其他会员卡号');</script>");
-			globa.dispatch(false, strPresentUrl,"不存在会员卡号："+ strCardNo + ", 请输入其他会员卡号,转赠");
+			//out.print("<script>alert('不存在会员卡号：" + strCardNo + ",或者该卡号没有激活， 请输入其他会员卡号或者激活该卡号');</script>");
+			globa.dispatch(false, strPresentUrl,"不存在会员卡号："+ strCardNo + ", 或者该卡号没有激活，请输入其他会员卡号或者激活该卡号,转赠");
 		} else
 		{
 			globa.dispatch(pointPresent.add(), strPresentUrl);

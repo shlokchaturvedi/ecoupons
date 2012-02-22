@@ -199,7 +199,7 @@ body,td,tr {
 																size="30" value="<%=obj0.getIntMoney()%>" />
 														</td>
 														<td width="45%" height="30" class="left_txt">
-															&nbsp;
+															提示：单位为元！
 														</td>
 													</tr>
 													

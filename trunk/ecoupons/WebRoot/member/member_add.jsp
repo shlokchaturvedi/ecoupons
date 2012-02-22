@@ -116,7 +116,7 @@ function chkFrm() {
                  <td width="20%" height="30" align="right" class="left_txt2">卡号：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30"><input name="strCardNo" type="text" class="input_box" size="30" /></td>
-                <td width="45%" height="30" class="left_txt">&nbsp;</td> 
+                <td width="45%" height="30" class="left_txt">&nbsp;提示：必填</td> 
               </tr>
              <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">会员类型：</td>
@@ -135,7 +135,7 @@ function chkFrm() {
                  <td width="20%" height="30" align="right" class="left_txt2">手机：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30"><input name="strMobileNo" type="text" class="input_box" size="30" /></td>
-                <td width="45%" height="30" class="left_txt">&nbsp;</td> 
+                <td width="45%" height="30" class="left_txt">&nbsp;提示：必填</td> 
               </tr>
              
                
@@ -146,10 +146,9 @@ function chkFrm() {
             	<td width="32%" height="30"><input name="strSalesman" type="text"  class="input_box" size="30"
             	<%if("代理员".equals(globa.userSession.getStrCssType())){
             		out.print("value='"+globa.userSession.getStrName()+"' readonly ");}%>
-            	
             	 /></td>
             	
-                <td width="45%" height="30" class="left_txt">&nbsp;</td> 
+                <td width="45%" height="30" class="left_txt">&nbsp;提示：必填</td> 
               </tr>
              
               

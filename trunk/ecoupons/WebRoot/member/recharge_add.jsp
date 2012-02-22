@@ -153,7 +153,7 @@ function chkFrm() {
 																size="30" />
 														</td>
 														<td width="45%" height="30" class="left_txt">
-															提示：金额为整数！
+															提示：金额为整数，单位为元！
 														</td>
 													</tr>
 

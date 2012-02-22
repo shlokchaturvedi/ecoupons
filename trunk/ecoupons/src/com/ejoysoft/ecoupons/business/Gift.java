@@ -123,8 +123,8 @@ public class Gift
 	{
 		try
 		{
-			String sql = "DELETE FROM " + strTableName + " where strId='" + where+"'";
-			String strSql = "delete from " + strGiftExchangeTable + " where strGiftId='" + where+"'";
+			String sql = "DELETE FROM " + strTableName + " where strId='" + where + "'";
+			String strSql = "delete from " + strGiftExchangeTable + " where strGiftId='" + where + "'";
 			db.setAutoCommit(false);
 			db.executeUpdate(sql);
 			db.executeUpdate(strSql);
@@ -331,7 +331,15 @@ public class Gift
 
 	public String getDtActiveTime()
 	{
-		return dtActiveTime;
+		if (dtActiveTime != null)
+		{
+
+			return dtActiveTime.substring(0, 10);
+
+		} else
+		{
+			return null;
+		}
 	}
 
 	public void setDtActiveTime(String dtActiveTime)
@@ -351,7 +359,16 @@ public class Gift
 
 	public String getDtExpireTime()
 	{
-		return dtExpireTime;
+		if (dtExpireTime != null)
+		{
+
+			return dtExpireTime.substring(0, 10);
+
+		} else
+		{
+			return null;
+		}
+
 	}
 
 	public void setDtExpireTime(String dtExpireTime)
