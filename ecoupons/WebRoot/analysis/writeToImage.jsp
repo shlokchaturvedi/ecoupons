@@ -35,9 +35,10 @@ if(!globa.userSession.hasRight("130"))
 		setime =stime+ "之后";
 	}
 	else setime = stime+"至"+etime;
-	
+	String titile="";
 	if(tag.trim().equals("shopanalyse"))
-	{
+	{	
+		titile="商家统计分析结果";
 	    ShopAnalysis obj = new ShopAnalysis(globa);
 		obj.setStime(stime);
 		obj.setEtime(etime);
@@ -109,6 +110,7 @@ if(!globa.userSession.hasRight("130"))
     }
     else if(tag.trim().equals("terminalanalyse"))
     {
+		titile="终端统计分析结果";
     	TerminalAnalysis obj = new TerminalAnalysis(globa);
 		obj.setStime(stime);
 		obj.setEtime(etime);
@@ -179,6 +181,7 @@ if(!globa.userSession.hasRight("130"))
 	  }
     else if(tag.trim().equals("shopbiz"))
       {
+			titile="商家消费统计结果";
 	        ShopAnalysis obj = new ShopAnalysis(globa);
 			obj.setStime(stime);
 			obj.setEtime(etime);
@@ -207,4 +210,11 @@ if(!globa.userSession.hasRight("130"))
 	    globa.closeCon();
         
 %>
+<html>
+<head>
+<title><%=titile %></title>
+</head>
+<body>
 <iframe align="middle" marginwidth="50" frameborder=0 id=frmChart name=frmChart src="<%= graphURL %>" scrolling="yes" style=" HEIGHT: 100%; VISIBILITY: inherit; WIDTH: 100%; Z-INDEX: 3"></iframe>
+</body>
+</html>
