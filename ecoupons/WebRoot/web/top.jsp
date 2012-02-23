@@ -39,7 +39,8 @@ eval("document.getElementById('hot_"+index+"').style.display='none'");
 <div class="top">
 <!--logo部分-->
   <div class="logo">
-     <div class="top_lx"><img src="images/xlwb.gif" /><a href="#"> 新浪微博&nbsp;</a>  <img src="images/txwb.gif"/><a href="#"> 腾讯收听&nbsp;</a>  <img src="images/kf.gif" /><a href="#"> 客服在线</a> &nbsp;&nbsp;电话：400-868-968&nbsp;&nbsp;<a href="#">收藏本站</a> | <a href="#">我要留言</a></div>
+     <div class="top_lx"><img src="images/xlwb.gif" /><a href="#"> 新浪微博&nbsp;</a>  <img src="images/txwb.gif"/><a href="#"> 腾讯收听&nbsp;</a>  <img src="images/kf.gif" /><a href="#"> 客服在线</a> &nbsp;&nbsp;电话：400-868-968&nbsp;&nbsp;<span style="CURSOR: hand" onClick="window.external.addFavorite('http://www.baidu.com','乐购')" title="乐购">收藏本站</span>
+      | <a href="#">我要留言</a></div>
      <div class="logo_img"><img src="images/logo.jpg"/></div>
     <div class="tab"> 
      

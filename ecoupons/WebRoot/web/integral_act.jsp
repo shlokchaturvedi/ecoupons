@@ -25,7 +25,7 @@
 		if(pCard.getIntType()==0){
 		PointCardInput pointCardInput = new PointCardInput(globa, true);
 		pointCardInput.setStrMemberCardNo(strMemberCardNo);
-		pointCardInput.setIntPoint(member.show("where strCardNo='"+strMemberCardNo+"'").getIntPoint());
+		pointCardInput.setIntPoint(pCard.getIntPoint());
 		globa.dispatch(pointCardInput.add(), "integral.jsp");
 		}else
 		{
