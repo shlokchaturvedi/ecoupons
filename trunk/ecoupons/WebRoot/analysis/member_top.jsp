@@ -308,7 +308,7 @@ function chkFrm()
 			</div>
 			</td>
 			<td align="right"><div style="height:26"> 统计前 
-		    <input name="strTopnum" type="text"  class="input_box" value="<%=topnum%>" maxlength="9" value="" size="6"/>
+		    <input name="strTopnum" type="text"  class="input_box" value="<%=topnum%>" maxlength="9"  size="6"/>
 			名
 		    </div>
 			</td>
