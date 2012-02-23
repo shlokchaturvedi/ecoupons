@@ -152,7 +152,7 @@ for(int i=0;i<vctStrades.size();i++){
 	<DIV class=mid_sj>
 		<div class="sj_tit">
 		  <div class="sj_name" >商家优惠信息</div>
-		  <div class="sj_sel"><select name="strTradeId" class="sjfl" onchange="document.getElementById('strTradeId').value=this.value;frmTrade.submit();">
+		  <div class="sj_sel"><select name="strTradeId"  class="sjfl" onchange="document.getElementById('strTradeId').value=value;frmTrade.submit();">
 		     <option  <%if(strTradeId==null){out.print("selected");} %>>全部</option>
 		     <% 
 		     System.out.print(200*760/535);
