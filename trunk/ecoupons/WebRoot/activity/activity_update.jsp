@@ -119,13 +119,13 @@ body,td,tr{font-size:9pt;}
           <tr>
             <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tr>
-                <td width="20%" height="30" align="right" class="left_txt2">活  动  名：</td>
+                <td width="20%" height="30" align="right" class="left_txt2">活动名称：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30"><input name="strName" type="text" class="input_box" size="30" value="<%=obj0.getStrName()%>" /></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td>
               </tr>
               <tr bgcolor="#f2f2f2">
-                 <td width="20%" height="30" align="right" class="left_txt2">活动名称：</td>
+                 <td width="20%" height="30" align="right" class="left_txt2">活动时间：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30"><input readonly name="dtActiveTime" type="text" class="input_box" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'});" value="<%=obj0.getDtActiveTime() %>" size="30" /></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 

@@ -283,6 +283,10 @@ public class Activity {
 	}
 
 	public String getDtActiveTime() {
+		if (dtActiveTime!=null)
+		{
+			return dtActiveTime.substring(0, dtActiveTime.length()-2);
+		}
 		return dtActiveTime;
 	}
 
