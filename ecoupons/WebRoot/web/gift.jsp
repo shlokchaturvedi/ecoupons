@@ -14,7 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     Gift  shop0=null;
     Gift obj=new Gift(globa);
     //查询条件
-	String tWhere=" where 1=1 order by strid";
+	String tWhere=" where  dtactivetime <=now() and dtexpiretime >=now() order by strid";
 	//记录总数
 	int intAllCount=obj.getCount(tWhere);
 	//当前页

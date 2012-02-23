@@ -22,33 +22,8 @@
 	String tWhere = " WHERE 1=1";
 	if (!dtCreateTime.equals(""))
 	{
-		obj.State(dtCreateTime);	
-		flag = true; 	
-		Vector<CouponInput>vctCouponInputs=obj.returnDistinctStrShopId();
-		Shop shop=new Shop(globa);
-		StringBuffer sb = new StringBuffer();
-		sb.append("<table border=1>");
-		sb.append("<tr><td>商家ID+名称</td><td>有价券数量</td><td>统计时间</td></tr>");
-		if (vctCouponInputs.size() != 0)
-		{
-			for (int i = 0; i < vctCouponInputs.size(); i++)
-			{ 
-					if("商家".equals(globa.userSession.getStrCssType()) && !vctCouponInputs.get(i).getStrShopId().equals(globa.userSession.getStrShopid()))
-					{
-						continue;
-					}
-			      	sb.append("<tr><td>" + vctCouponInputs.get(i).getStrShopId() +shop.returnBizShopName("where strid='"+vctCouponInputs.get(i).getStrShopId()+"'")+ "</td>"+"<td>"
-						+ obj.getCount("where strShopid='" + vctCouponInputs.get(i).getStrShopId() + "' and dtCreateTime LIKE '" + dtCreateTime + "%'")
-						+ "</td><td>"+dtCreateTime.replace("-","年")+"月"+"</td>");
-			}
-		}
-		sb.append("</tr></table>");
-		String strFileName = "有价券统计表_" + dtCreateTime + ".xls";		
-		response.setContentType("APPLICATION/*");
-		response.setHeader("Content-Disposition", "attachment;filename=" + new String(strFileName.getBytes("gbk"), "ISO8859-1"));
-		ServletOutputStream output = response.getOutputStream();		
-		output.write(sb.toString().getBytes());
 
+		tWhere = " dtCreateTime LIKE '" + dtCreateTime + "%'";
 	}
 	tWhere += "  ORDER BY strId";
 	//记录总数
@@ -67,7 +42,6 @@
 	Vector<CouponInput> vctObj = obj.list(tWhere, intStartNum, intPageSize);
 	//获取当前页的记录条数
 	int intVct = (vctObj != null && vctObj.size() > 0 ? vctObj.size() : 0);
-
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
@@ -93,11 +67,11 @@ body,td,th {
 		<script src="../include/js/list.js"></script>
 		<script language="JavaScript"
 			src="../include/DatePicker/WdatePicker.js"></script>
-		
+
 
 	</head>
 	<body>
-		<form name=frm method=post action="coupon_stat.jsp">
+		<form name=frm method=post action="coupon_stat_act.jsp">
 			<table width="100%" border="0" cellpadding="0" cellspacing="0">
 				<tr>
 					<td width="17" height="29" valign="top"
@@ -186,19 +160,21 @@ body,td,th {
 														<td align="right" width="600">
 															<div style="height: 26">
 																统计年月：
-																<input  name="dtCreateTime" class="editbox4" value=""
+																<input name="dtCreateTime" class="editbox4" value=""
 																	onClick="WdatePicker({dateFmt:'yyyy-MM'})"
 																	readonly="readonly" size="10">
 																&nbsp;&nbsp;&nbsp;&nbsp;
-																<input  type="submit"  class="button_box" value="统计" />
+																<input type="submit" class="button_box" value="统计" />
 															</div>
 														</td>
 													</tr>
 												</table>
 
 												<table width="100%" border="0" cellpadding="0"
-													cellspacing="1" bgcolor="b5d6e6"
-													onmouseover="changeto();" onmouseout="changeback();">
+													cellspacing="1" bgcolor="b5d6e6" onmouseover="changeto();"
+													onmouseou
+	changeback()
+;">
 													<tr>
 														<td width="5%" height="22" class="left_bt2">
 															<div align="center">
@@ -247,20 +223,20 @@ body,td,th {
 														Shop shop = new Shop(globa);
 														for (int i = 0; i < vctObj.size(); i++)
 														{
-															 CouponInput obj1 = vctObj.get(i);
-															 if("商家".equals(globa.userSession.getStrCssType()) && !obj1.getStrShopId().equals(globa.userSession.getStrShopid()))
-															 {
-															 	continue;
-															 }
+															CouponInput obj1 = vctObj.get(i);
+															if ("商家".equals(globa.userSession.getStrCssType()) && !obj1.getStrShopId().equals(globa.userSession.getStrShopid()))
+															{
+																continue;
+															}
 													%>
 													<tr>
 														<td height="20" bgcolor="#FFFFFF">
 															<div align="center">
-																
+
 															</div>
 														</td>
 														<td bgcolor="#FFFFFF">
-															<div align="center" class="STYLE1"><%=coupon.show("where strId='" + obj1.getStrCouponId()+"'").getStrName()%></div>
+															<div align="center" class="STYLE1"><%=coupon.show("where strId='" + obj1.getStrCouponId() + "'").getStrName()%></div>
 														</td>
 														<td bgcolor="#FFFFFF">
 															<div align="center">
@@ -302,7 +278,7 @@ body,td,th {
 														}
 													%>
 												</table>
-										</td>
+											</td>
 										</tr>
 									</table>
 									<!-- 翻页开始 -->

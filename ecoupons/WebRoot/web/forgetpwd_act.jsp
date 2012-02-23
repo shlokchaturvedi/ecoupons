@@ -2,7 +2,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@page
 	import="java.util.*,
-				com.ejoysoft.common.SendSms,
+				com.ejoysoft.common.*,com.ejoysoft.auth.MD5,
 				java.net.UnknownHostException"%>
 <%@page import="com.ejoysoft.ecoupons.business.Member"%>
 <%@page import="com.ejoysoft.common.Format"%>
@@ -32,7 +32,7 @@ if (rand.toLowerCase().equals(input.toLowerCase()))
 		         }
 			 String randomCode = new String(randBuffer);
 			 System.out.println(randomCode);
-			 String messege="亲爱的会员您好，您于乐购网注册的密码改为："+randomCode+"！请根据此此新密码登录网站！";
+			 String messege="亲爱的会员您好，您于乐购网注册的密码改为："+randomCode+"！请根据此新密码登录网站！";
 			 String PostData;
 		     try {
 					PostData = "sname="+application.getAttribute("SNAME")+"&spwd="+application.getAttribute("SPWD")+"&scorpid="+application.getAttribute("SCORPID")+"&sprdid="+application.getAttribute("SPRDID")+"&sdst="+strPhone+"&smsg="+java.net.URLEncoder.encode(messege,"utf-8");
@@ -43,8 +43,8 @@ if (rand.toLowerCase().equals(input.toLowerCase()))
 						int endIdx = ret.indexOf("</MsgState>");
 						String retMsgState = ret.substring(beginIdx, endIdx);
 						if(retMsgState.equals("审查"))	{			        
-						    if( member.updatePwd(randomCode,member.show("where strMobileNo='"+strPhone+"'").getStrId()))
-		     				 response.getWriter().print("<script>alert('短信发送密码成功！请查收短信');top.location = '" + application.getServletContextName() + "/web/index.jsp';</script>");
+						    if( member.updatePwd(MD5.getMD5ofString(randomCode),member.show("where strMobileNo='"+strPhone+"'").getStrId()))
+		     				 response.getWriter().print("<script>alert('短信发送密码成功，请重新登录！');top.location = '" + application.getServletContextName() + "/web/index.jsp';</script>");
 						    else
 		     				 response.getWriter().print("<script>alert('操作失败，请联系管理员！');top.location = '" + application.getServletContextName() + "/web/forgetpwd.jsp';</script>");
 						     }

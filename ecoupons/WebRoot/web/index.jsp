@@ -64,7 +64,7 @@ if(session.getAttribute(Constants.MEMBER_KEY) != null)
 	<DIV id=left-bar-mid2  >
 	<form action="collection.jsp">
 	<p class=weluser><b><%out.print(globa.memberSession.getStrName()); %></b>,欢迎回来</p>
-	<p>我的余额：<a href="balance.jsp"><%= memberTemp.getFlaBalance() %></a></p>
+	<p>我的余额：<a href="balance.jsp"><%= memberTemp.getFlaBalance() %>元</a></p>
 	<p>我的积分：<a href="integral.jsp"><%= memberTemp.getIntPoint() %></a></p>
 	<p><INPUT id="btnCollection" class=Btn value="我的收藏" type=submit> 
 	<INPUT class=Btn value="历史记录" type=button onclick="top.location = '<%=application.getServletContextName()%>/web/history.jsp'"> </p>
