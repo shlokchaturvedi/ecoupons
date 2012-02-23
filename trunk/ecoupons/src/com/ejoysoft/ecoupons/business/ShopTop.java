@@ -65,7 +65,7 @@ public class ShopTop {
 	    	return vector;
 	    }
 	    public Vector<ShopAnalysis> resortVector(Vector<ShopAnalysis> vector)
-	    {
+		{
 	    	for(int i=0;i<vector.size();i++)
 	    	{
 	    		for(int j =i+1;j<vector.size();j++)
@@ -75,7 +75,7 @@ public class ShopTop {
 		    		if(obj.getShopPrintNum() < obj1.getShopPrintNum())
 		    		{
 		    			 ShopAnalysis temp = obj;
-		    		     vector.set(j, vector.get(i));  
+		    		     vector.set(j, obj1);  
 		    		     vector.set(i, temp);  			
 		    		}
 	    		}
