@@ -9,6 +9,7 @@ import java.util.TreeMap;
 import java.util.Vector;
 
 import com.ejoysoft.common.DbConnect;
+import com.ejoysoft.common.Format;
 import com.ejoysoft.common.Globa;
 import com.ejoysoft.ecoupons.business.Coupon;
 import com.ejoysoft.ecoupons.business.Shop;
@@ -34,7 +35,7 @@ public class Index
 		for (int i = 0; i < vctParas.size(); i++)
 		{
 			String tradeid = vctParas.get(i).getStrId();
-			String sql = "select count(a.strid) from t_bz_coupon a left join t_bz_shop b on a.strshopid=b.strid where b.strtrade='"+tradeid+"' "+where;;
+			String sql = "select count(a.strid) from t_bz_coupon a left join t_bz_shop b on a.strshopid=b.strid where b.strtrade='"+tradeid+"' and '"+Format.getDateTime()+"'>a.dtactivetime and '"+Format.getDateTime()+"'<a.dtexpiretime "+where;;
 			ResultSet re = db.executeQuery(sql);
 			int num=0;
 			try {
