@@ -90,7 +90,7 @@ eval("document.getElementById('hot_"+index+"').style.display='none'");
  	<ul>
 		<li class="nav_le"><img src="images/nav_le.jpg" /></li>
 		<li><a href="index.jsp" target="_parent"><img src="images/nav_1.jpg" border="0" /></a></li>
-		<li><a href="coupons.jsp" target="_parent"><img src="images/nav_2.jpg" border="0" /></a></li>
+		<li><a href="coupons_more.jsp" target="_parent"><img src="images/nav_2.jpg" border="0" /></a></li>
 		<li><a href="merchants.jsp" target="_parent"><img src="images/nav_3.jpg" border="0" /></a></li>
 		<li><a href="gift.jsp" target="_parent"><img src="images/nav_4.jpg" border="0" /></a></li>
 		<li><a href="terminals.jsp" target="_parent"><img src="images/nav_6.jpg" border="0" /></a></li>
