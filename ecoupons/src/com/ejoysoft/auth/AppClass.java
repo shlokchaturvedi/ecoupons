@@ -79,6 +79,7 @@ public class AppClass extends javax.servlet.http.HttpServlet
 				String rand = (String) request.getSession().getAttribute("rand");
 				String input = request.getParameter("yanzm");
 				String strUserName=request.getParameter("username");
+				
 				String couponid=request.getParameter("strCouponId");
 //				String strPwd=request.getParameter("password");
 				if (!rand.toLowerCase().equals(input.toLowerCase()))
@@ -86,7 +87,7 @@ public class AppClass extends javax.servlet.http.HttpServlet
 					getFullwinScript(actionType,response, "验证码错误，请重新输入！");
 				} else
 				{
-					int intType = form.memberPwdAuth(strUserName);
+					int intType = form.memberPwdAuth(strUserName.replace("<", "*").replace(">", "*").replace("'", "“"));
 					if (intType == -1)
 					{
 						getFullwinScript(actionType,response, form.getError());
