@@ -13,6 +13,7 @@
 	if (!globa.userSession.hasRight("12015"))
 		throw new NoRightException("用户不具备操作该功能模块的权限，请与系统管理员联系！");
 %>
+
 <%
 	CouponInput member = null;
 	CouponInput obj = new CouponInput(globa);
@@ -68,7 +69,20 @@ body,td,th {
 		<script language="JavaScript"
 			src="../include/DatePicker/WdatePicker.js"></script>
 
+<script language="javascript">
+function chkFrm() {
+    if(frm.dtCreateTime.value=="") {
+        alert("请输入统计年月！")
+        frm.dtCreateTime.focus();
+        return false;
+    }else
+    if(confirm("确定统计!"))
+      {
+	   frm.submit();
+      }
+}
 
+</script>
 	</head>
 	<body>
 		<form name=frm method=post action="coupon_stat_act.jsp">
@@ -164,7 +178,7 @@ body,td,th {
 																	onClick="WdatePicker({dateFmt:'yyyy-MM'})"
 																	readonly="readonly" size="10">
 																&nbsp;&nbsp;&nbsp;&nbsp;
-																<input type="submit" class="button_box" value="统计" />
+																<input type="button" class="button_box" onclick="chkFrm()" value="统计" />
 															</div>
 														</td>
 													</tr>

@@ -49,9 +49,6 @@ if (!dtCreateTime.equals(""))
 
 }
 	
-			globa.dispatch(true, strUrl);
-		
-		
 	//关闭数据库连接对象
 	globa.closeCon();
 %>
