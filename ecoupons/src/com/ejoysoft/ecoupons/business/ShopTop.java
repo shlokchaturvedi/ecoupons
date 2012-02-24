@@ -76,7 +76,7 @@ public class ShopTop {
 		    		{
 		    			 ShopAnalysis temp = obj;
 		    		     vector.set(j, obj1);  
-		    		     vector.set(i, temp);  			
+		    		     vector.set(i, temp);  			 
 		    		}
 	    		}
 	    	}
