@@ -75,8 +75,8 @@ public class ShopTop {
 		    		if(obj.getShopPrintNum() < obj1.getShopPrintNum())
 		    		{
 		    			 ShopAnalysis temp = obj;
-		    		     vector.set(j, obj1);  
-		    		     vector.set(i, temp);  			 
+		    		     vector.set(i, obj1);  
+		    		     vector.set(j, temp);  			 
 		    		}
 	    		}
 	    	}
