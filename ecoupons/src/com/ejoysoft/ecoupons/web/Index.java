@@ -25,7 +25,7 @@ public class Index
 	 * 
 	 * @return
 	 */
-	public HashMap<String, Integer> returnTradeForCoup()
+	public HashMap<String, Integer> returnTradeForCoup(String where)
 	{
 		HashMap<String, Integer> hmTrade = new HashMap<String, Integer>();
 		List<SysPara> vctParas = new ArrayList<SysPara>();
@@ -34,7 +34,7 @@ public class Index
 		for (int i = 0; i < vctParas.size(); i++)
 		{
 			String tradeid = vctParas.get(i).getStrId();
-			String sql = "select count(a.strid) from t_bz_coupon a left join t_bz_shop b on a.strshopid=b.strid where b.strtrade='"+tradeid+"'";
+			String sql = "select count(a.strid) from t_bz_coupon a left join t_bz_shop b on a.strshopid=b.strid where b.strtrade='"+tradeid+"' "+where;;
 			ResultSet re = db.executeQuery(sql);
 			int num=0;
 			try {
