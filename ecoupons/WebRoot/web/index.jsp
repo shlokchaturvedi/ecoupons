@@ -25,8 +25,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <title>乐购_信息创想生活</title>
 <link href="css/index.css" rel="stylesheet" type="text/css" />
 <SCRIPT type=text/javascript>
-<!--
-
 function showlayer(id,index,other)
 {
 eval("document.getElementById('clayer0_"+id+"').className='searchtabxz'");
@@ -38,7 +36,6 @@ eval("document.getElementById('sort_con_"+index+"').style.display='none'");
 eval("document.getElementById('sort_con_"+other+"').style.display='none'");
 }
 
-// -->
 </SCRIPT>
 
 
@@ -127,6 +124,15 @@ for(int i=0;i<vctStrades.size();i++){
 		%>
 		<li>・<a href="couponinfo.jsp?strid=<%=vctCouponComment.get(i).getStrCouponId() %>" ><%=name %></a></li>
 		<%
+	}
+	if(5-vctCouponComment.size()>0)
+	{
+		for(int j=0;j<5-vctCouponComment.size();j++)
+		{
+		%>
+		<li></li>
+		<%
+		}
 	}
 	%>	
 	 </UL>
@@ -236,6 +242,15 @@ tab.onmouseout=function() {MyMar=setInterval(Marquee,speed)};
 		<li><a href="activity_more.jsp?strId=<%=vctActivities.get(i).getStrId() %>">・<%=name%></a></li>
 		<%
 	}
+	if(12-vctActivities.size()>0)
+	{
+		for(int j=0;j<12-vctActivities.size();j++)
+		{
+		%>
+		<li>&nbsp;</li>
+		<%
+		}
+	}
 	%>	
 	 </UL>
 	</DIV>
@@ -251,6 +266,15 @@ Vector<String[]>vecCouponps=index.returnTopCoupons("日");
 	for(int i=0;i<vecCouponps.size();i++){
 		out.print("<LI>・<A href='couponinfo.jsp?strid="+vecCouponps.get(i)[0]+"'>"+vecCouponps.get(i)[1]+"</A></LI>");
 	}	
+	if(12-vecCouponps.size()>0)
+	{
+		for(int j=0;j<12-vecCouponps.size();j++)
+		{
+		%>
+		<li>&nbsp;</li>
+		<%
+		}
+	}
 %>
   </UL></DIV>
  <DIV id=sort_con_2 style="display:none">
@@ -260,6 +284,15 @@ vecCouponps=index.returnTopCoupons("周");
 	for(int i=0;i<vecCouponps.size();i++){
 		out.print("<LI>・<A href='couponinfo.jsp?strid="+vecCouponps.get(i)[0]+"'>"+vecCouponps.get(i)[1]+"</A></LI>");
 	}	
+	if(12-vecCouponps.size()>0)
+	{
+		for(int j=0;j<12-vecCouponps.size();j++)
+		{
+		%>
+		<li>&nbsp;</li>
+		<%
+		}
+	}
 %>
 </UL></DIV> 
   
@@ -270,6 +303,15 @@ vecCouponps=index.returnTopCoupons("月");
 	for(int i=0;i<vecCouponps.size();i++){
 		out.print("<LI>・<A href='couponinfo.jsp?strid="+vecCouponps.get(i)[0]+"'>"+vecCouponps.get(i)[1]+"</A></LI>");
 	}	
+	if(12-vecCouponps.size()>0)
+	{
+		for(int j=0;j<12-vecCouponps.size();j++)
+		{
+		%>
+		<li>&nbsp;</li>
+		<%
+		}
+	}
 %>
 </UL></DIV>
 <DIV class=sort_bottom></DIV></DIV>
