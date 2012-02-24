@@ -31,7 +31,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <body>
-<iframe style="HEIGHT: 167px"  marginwidth=0 marginheight=0 src="top.jsp" 
+<iframe style="HEIGHT: 164px"  marginwidth=0 marginheight=0 src="top.jsp" 
 frameborder=0 width="100%" scrolling=no></iframe>
 
 <!--正文部分-->
@@ -100,8 +100,8 @@ String strtradeid = syspara1.getStrId();
   <ul>
     <li><a href="#" onclick="window.open('coupon_print.jsp?random=<%= Math.random()%>&strid=<%=obj1.getStrId()%>&strimg=<%=obj1.getStrPrintImg()%>','','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,width=420,height=540,left=450,top=160');"><img src="images/print.jpg" border="0" style="CURSOR: pointer" /> 打印</a></li>
      <li><a href="#" onclick="if(window.showModalDialog('favourite_act.jsp?strid=<%=obj1.getStrId()%>&random=<%= Math.random()%>', '', 'dialogWidth=200px;dialogHeight:150px;dialogTop:400px;dialogLeft:550px;scrollbars=yes;status=yes;center=yes;')=='success'){window.location.reload();};" ><img src="images/collection.jpg" border="0" style="CURSOR: pointer" /> 收藏</a></li> 
-	<li><a href="#"><img src="images/sms.jpg" border="0" style="CURSOR: pointer" /> 短信</a></li>
- </ul>
+	<!--<li><a href="#"><img src="images/sms.jpg" border="0" style="CURSOR: pointer" /> 短信</a></li>
+ --></ul>
  </div></div>
   <div class=clearfloat></div>
   </div>
@@ -160,7 +160,7 @@ String strtradeid = syspara1.getStrId();
 <ul> 
 <%
 Index index=new Index(globa);
-HashMap<String, Integer> hmTrades=index.returnTradeForCoup();
+HashMap<String, Integer> hmTrades=index.returnTradeForCoup("");
 for(int i=0;i<tradelist.size();i++)
 {
     SysPara syspara1 = (SysPara)tradelist.get(i);

@@ -56,7 +56,7 @@ function logout(){
 
 <body>
 <form name="frm" method=post action=" " >	
-<iframe style="HEIGHT: 167px" border=0 marginwidth=0 marginheight=0 src="top.jsp" 
+<iframe style="HEIGHT: 164px" border=0 marginwidth=0 marginheight=0 src="top.jsp" 
 frameborder=no width="100%" scrolling=no></iframe>
 
 <!--正文部分-->
