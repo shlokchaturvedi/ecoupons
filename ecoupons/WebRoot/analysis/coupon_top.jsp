@@ -3,6 +3,7 @@
 				com.ejoysoft.common.Constants,
 				com.ejoysoft.common.exception.NoRightException,
 				com.ejoysoft.ecoupons.business.CouponTop" %>
+<%@page import="com.ejoysoft.ecoupons.business.Coupon"%>
 <%@ include file="../include/jsp/head.jsp"%>
 <%
 if(!globa.userSession.hasRight("13020"))
@@ -169,19 +170,36 @@ if(!globa.userSession.hasRight("13020"))
 	//获取当前页的记录条数
 	int intVct=(vctObj!=null&&vctObj.size()>0?vctObj.size():0);
 	String setime="";
+	Coupon objCoupon = new Coupon(globa);
+    int allcoupon= objCoupon.getCount("");
 	if(stime.equals("1000-01-01")&&etime.equals("9999-12-30"))
 	{
-		setime = "所   有   统   计   记   录";
+		if(allcoupon == topnum)
+			setime = "所   有  优   惠   券   排  行   统   计   记   录";
+		else		
+			setime = "前 "+topnum+" 名   优   惠   券   排  行   统   计   记   录";
 	}
 	else if(stime.equals("1000-01-01")&&!etime.equals("9999-12-30"))
 	{
-		setime =etime+ "之   前   统   计   记   录";
+		if(allcoupon == topnum)
+			setime =etime+ "之   前  所  有   优   惠   券    统   计   记   录";
+		else
+			setime =etime+ "之   前  前  "+topnum+" 名    优   惠   券   统   计   记   录";
 	}
 	else if(!stime.equals("1000-01-01")&&etime.equals("9999-12-30"))
 	{
-		setime =stime+ "之   后   统   计   记   录";
+		if(allcoupon == topnum)
+			setime =stime+ "之   后   所  有   优   惠   券   统   计   记   录";
+		else
+			setime =stime+ "之   后  前  "+topnum+" 名   优   惠   券    统   计   记   录";
 	}
-	else setime = stime+"  至  "+etime+"   统   计   记   录";
+	else 
+	{
+		if(allcoupon == topnum)
+			setime = stime+"  至  "+etime+"  所  有   优   惠   券    统   计   记   录";
+		else
+			setime = stime+"  至  "+etime+"  前  "+topnum+" 名   优   惠   券    统   计   记   录";		
+	}
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
