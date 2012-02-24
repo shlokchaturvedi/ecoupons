@@ -162,10 +162,12 @@ function openwin() {
    						SysPara para=new SysPara(globa);
                         ArrayList para1= para.list("券打机厂家");
                         for (int i = 0; i < para1.size(); i++) {
-                            SysPara d = (SysPara)para1.get(i);
+                            SysPara d = (SysPara)para1.get(i); 
+                            if(d.getStrState()!=null &&d.getStrState().equals("正常"))
+                            {
                               out.print("<option value=" + d.getStrId() + ">");
-                           
-                            out.println("" + d.getStrName() + "</option>");
+                              out.println("" + d.getStrName() + "</option>");
+                            }
                        
                 	%>
 				 
@@ -187,10 +189,12 @@ function openwin() {
     					//SysPara  para=null;
                         ArrayList para3 = para.list("券打机规格型号");
                         for (int i = 0; i < para3.size(); i++) {
-                            SysPara d = (SysPara)para3.get(i);
-                              out.print("<option value=" + d.getStrId() + ">");
-                           
-                            out.println("" + d.getStrName() + "</option>");
+                            SysPara d = (SysPara)para3.get(i); 
+                            if(d.getStrState()!=null &&d.getStrState().equals("正常"))
+                            {
+                              out.print("<option value=" + d.getStrId() + ">");                           
+                              out.println("" + d.getStrName() + "</option>");
+                            }
                        
                 	%>
 				 

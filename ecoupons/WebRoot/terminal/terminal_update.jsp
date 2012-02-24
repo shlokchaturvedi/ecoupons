@@ -172,14 +172,17 @@ body,td,tr{font-size:9pt;}
                          ArrayList para1 = para.list("券打机厂家");
                         for (int i = 0; i < para1.size(); i++) {
                             SysPara d = (SysPara)para1.get(i);
-                            if(d.getStrId().equals(obj0.getStrProducer()))
+                            if(d.getStrState()!=null &&d.getStrState().equals("正常"))
                             {
-                            	out.print("<option value=" + d.getStrId() + " selected=selected >");                         
-                            }
-                            else{
-                              out.print("<option value=" + d.getStrId() + ">");
-                            }
-                            out.println("" + d.getStrName() + "</option>");
+	                            if(d.getStrId().equals(obj0.getStrProducer()))
+	                            {
+	                            	out.print("<option value=" + d.getStrId() + " selected=selected >");                         
+	                            }
+	                            else{
+	                              out.print("<option value=" + d.getStrId() + ">");
+	                            }
+	                            out.println("" + d.getStrName() + "</option>");
+	                         }
                        
                 	%>
 				 
