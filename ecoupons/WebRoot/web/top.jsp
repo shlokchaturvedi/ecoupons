@@ -7,7 +7,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 %>
 <%
 SysPara sysPara=new SysPara(globa);
-Vector<SysPara> vctSyspParas=sysPara.list("where strtype='热门搜索' order by dcreatdate  desc limit 4",0,0);
+Vector<SysPara> vctSyspParas=sysPara.list("where strtype='热门搜索' and  strstate='正常' order by dcreatdate  desc limit 4",0,0);
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
