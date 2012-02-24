@@ -13,7 +13,7 @@ Vector<SysPara> vctSyspParas=sysPara.list("where strtype='热门搜索' order by
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
-<title>无标题文档</title>
+<title>乐购</title>
 <link href="css/style.css" rel="stylesheet" type="text/css" />
  <script type=text/javascript> 
 <!--
@@ -39,8 +39,16 @@ eval("document.getElementById('hot_"+index+"').style.display='none'");
 <div class="top">
 <!--logo部分-->
   <div class="logo">
-     <div class="top_lx"><img src="images/xlwb.gif" /><a href="#"> 新浪微博&nbsp;</a>  <img src="images/txwb.gif"/><a href="#"> 腾讯收听&nbsp;</a>  <img src="images/kf.gif" /><a href="#"> 客服在线</a> &nbsp;&nbsp;电话：400-868-968&nbsp;&nbsp;<span style="CURSOR: hand" onClick="window.external.addFavorite('http://www.baidu.com','乐购')" title="乐购">收藏本站</span>
-      | <a href="#">我要留言</a></div>
+     <div class="top_lx">
+     
+     <img src="images/xlwb.gif" />
+     <a href="http://weibo.com/xjtcm" target="_target"> 新浪微博&nbsp;</a> 
+    
+      <img src="images/txwb.gif"/><a href="http://t.qq.com/fyjt2010" target="_target"> 腾讯收听&nbsp;</a> 
+      <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=307075831&site=qq&menu=yes"><img border="0" src="images/kf.gif" alt="点击这里给我发消息" title="点击这里给我发消息">客服在线</a>
+      &nbsp;&nbsp;电话：400-868-968&nbsp;&nbsp;
+      <a href="javascript:window.external.AddFavorite(location.href, document.title);" >加入收藏</a>
+      </div>
      <div class="logo_img"><img src="images/logo.jpg"/></div>
     <div class="tab"> 
      
