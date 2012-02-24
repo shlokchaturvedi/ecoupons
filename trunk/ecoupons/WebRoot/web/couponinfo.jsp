@@ -67,8 +67,9 @@ else{
     2、此优惠不得与店内其他优惠一起使用；<BR>
     3、此券不兑换现金、不找零、不开发票；<BR>
     4、最终解释权归本店所有。<BR><BR>
+    <!--
   联系电话：<%=obj3.getStrPhone()%>
-<BR>
+--><BR>
 详细地址：<%=obj3.getStrAddr()%>
 <div class=info_bottom>
 <div class=coupon_jzrq><FONT color=#ff0000>截止时间：<%=obj0.getDtExpireTime().substring(0,10)%></FONT></div>
@@ -282,8 +283,10 @@ if(vctCoupon!=null&&vctCoupon.size()!=0)
 <DIV class=card_mid>
   <p>店铺名称：<%=obj3.getStrBizName() %>-<%=obj3.getStrShopName() %><br />
     行业分类：<%=obj3.getStrTradeName() %></p>
+    <!--
   <p>联系电话：<%=obj3.getStrPhone() %></p>
   <p>联系人：<%=obj3.getStrPerson() %></p>
+  -->
   <p>地 &nbsp;址：<%=obj3.getStrAddr() %></p>
   <p>简 &nbsp;介：<%=obj3.getStrIntro() %></p>
 </DIV>

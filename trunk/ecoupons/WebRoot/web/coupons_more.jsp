@@ -20,7 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     String  strName=ParamUtil.getString(request,"strName2","");
     String  flag=ParamUtil.getString(request,"flag","");
     //查询条件
-	String tWhere=" where 1=1";
+	String tWhere=" where 1=1 and '"+Format.getDateTime()+"'>a.dtactivetime and '"+Format.getDateTime()+"'<a.dtexpiretime ";
 	if(!strName.equals(""))
 	{
 		tWhere += " and a.strname like'%" + strName + "%'";
@@ -71,7 +71,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <form name=frm method=post action="coupons_more.jsp">		
 <input type=hidden name=strtrade value="<%=strTrade%>" />
 <input type=hidden name=strName2 value="<%=strName%>" />
-&nbsp; 
 <iframe height="164" marginwidth=0 marginheight=0 src="top.jsp" frameborder=0 width="100%" scrolling=no></iframe>
 <!--正文部分-->
 <div class="coupons-content">
@@ -131,8 +130,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <div class=clearfloat></div>
   <p>名称：<span> <a href="couponinfo.jsp?strid=<%=obj1.getStrId() %>" target="_blank"><%=obj1.getStrName() %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></span><br/>
   开始时间
-    ：<a href="#">2012-01-01</a><br/>
-    <font color=#ff0000>截止时间：<%=obj1.getDtExpireTime().substring(0,10) %></font><br/>
+    ：<a href="#"><%=obj1.getDtActiveTime() %></a><br/>
+    <font color=#ff0000>截止时间：<%=obj1.getDtExpireTime() %></font><br/>
     商家
     ：<span>
     <%

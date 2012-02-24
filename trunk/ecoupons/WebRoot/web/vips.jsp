@@ -19,7 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     SysPara syspara = new SysPara(globa);
     String  strName=ParamUtil.getString(request,"strName2","");
     //查询条件
-	String tWhere=" where 1=1 and a.intvip='1' ";
+	String tWhere=" where 1=1 and a.intvip='1' and '"+Format.getDateTime()+"'>a.dtactivetime and '"+Format.getDateTime()+"'<a.dtexpiretime";
 	if(!strName.equals(""))
 	{
 		tWhere += " and a.strname like'%" + strName + "%'";
