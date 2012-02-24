@@ -41,6 +41,7 @@ eval("document.getElementById('sort_con_"+other+"').style.display='none'");
 // -->
 </SCRIPT>
 
+
 </head>
 <body>
 <iframe height="167" border=0 marginwidth=0 marginheight=0 src="top.jsp" 
@@ -135,8 +136,12 @@ for(int i=0;i<vctStrades.size();i++){
 </div>
   	<form name=frmTrade action="index.jsp">
   <div class="mid">
-	<DIV class=mid_xt ><marquee  behavior="scroll" scrollamount="5" onmouseover="this.stop();" onmouseout="this.start();">
-	<%
+	<DIV class=mid_xt >
+
+<div id="demo">
+<div id="indemo">
+<div id="demo1">
+<%
 	String  strTradeId=ParamUtil.getString(request,"strTradeId");
 	Shop shop=new Shop(globa);
     Vector<Shop> vctShops=shop.list(" where intType=1 order by dtcreatetime  desc",1,10);
@@ -145,8 +150,31 @@ for(int i=0;i<vctStrades.size();i++){
     }
     
 	%>
-	
-	</marquee></DIV>
+
+</div>
+<div id="demo2"></div>
+</div>
+</div>
+<script>
+<!--
+var speed=15; //数字越大速度越慢
+var tab=document.getElementById("demo");
+var tab1=document.getElementById("demo1");
+var tab2=document.getElementById("demo2");
+tab2.innerHTML=tab1.innerHTML;
+function Marquee(){
+if(tab2.offsetWidth-tab.scrollLeft<=0)
+tab.scrollLeft-=tab1.offsetWidth
+else{
+tab.scrollLeft++;
+}
+}
+var MyMar=setInterval(Marquee,speed);
+tab.onmouseover=function() {clearInterval(MyMar)};
+tab.onmouseout=function() {MyMar=setInterval(Marquee,speed)};
+-->
+</script>
+	</DIV>
   	<DIV class=jsadbox><!--切屏广告--><IFRAME  height=310 marginHeight=0 src="homeimg.jsp" frameBorder=0 width=535 marginWidth=0 scrolling=no>
   	</IFRAME></DIV>
 	<DIV class=mid_sj>
