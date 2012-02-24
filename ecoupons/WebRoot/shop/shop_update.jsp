@@ -150,16 +150,20 @@ body,td,tr{font-size:9pt;}
    						SysPara para=new SysPara(globa);
                         ArrayList para1 = para.list("商家行业");
                         for (int i = 0; i < para1.size(); i++) {
-                            SysPara d = (SysPara)para1.get(i);
-                            if(d.getStrId().equals(obj0.getStrTrade()))
+                            SysPara d = (SysPara)para1.get(i); 
+                            System.out.println(d.getStrState());
+                            if(d.getStrState()!=null &&d.getStrState().equals("正常"))
                             {
-                            	 out.print("<option value=" + d.getStrId() + " selected=selected >");
-                            }
-                            else
-                            {
-                               out.print("<option value=" + d.getStrId() + ">");
-                            }
-                            out.println("" + d.getStrName() + "</option>");                       
+	                            if(d.getStrId().equals(obj0.getStrTrade()))
+	                            {
+	                            	 out.print("<option value=" + d.getStrId() + " selected=selected >");
+	                            }
+	                            else
+	                            {  
+	                                 out.print("<option value=" + d.getStrId() + ">");
+	                       		}
+                         	   out.println("" + d.getStrName() + "</option>");  
+                            }                     
                  }
                  
                   %>
