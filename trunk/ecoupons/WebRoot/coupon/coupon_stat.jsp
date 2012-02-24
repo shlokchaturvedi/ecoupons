@@ -171,10 +171,7 @@ body,td,th {
 												</table>
 
 												<table width="100%" border="0" cellpadding="0"
-													cellspacing="1" bgcolor="b5d6e6" onmouseover="changeto();"
-													onmouseou
-	changeback()
-;">
+													cellspacing="1" bgcolor="b5d6e6" onmouseover="changeto()"  onmouseout="changeback()">
 													<tr>
 														<td width="5%" height="22" class="left_bt2">
 															<div align="center">
