@@ -320,9 +320,9 @@ public class SysPara {
     //列表显示
     public ArrayList list(String type) {
 
-        String strSql = "SELECT strId,strType,strName,strValue,intSort FROM " + strTableName + "  order by strType , intSort ";
+        String strSql = "SELECT strId,strType,strName,strValue,intSort,strstate FROM " + strTableName + "  order by strType , intSort ";
         if (type != null && !type.equals("")) {
-            strSql = "SELECT strId,strType,strName,strValue,intSort  FROM " + strTableName + " where strType ='" + type + "' order by intSort ";
+            strSql = "SELECT strId,strType,strName,strValue,intSort,strstate  FROM " + strTableName + " where strType ='" + type + "' order by intSort ";
         }
         ArrayList vector = new ArrayList();
         try {
@@ -334,6 +334,7 @@ public class SysPara {
                 bVar.setStrName(rs1.getString(3));
                 bVar.setStrValue(rs1.getString(4));
                 bVar.setIntSort(rs1.getInt(5));
+                bVar.setStrState(rs1.getString(6));
                 vector.add(bVar);
             }
         } catch (Exception e) {
