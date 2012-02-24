@@ -53,8 +53,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <body>
 <form name=frm method=post action="marchants.jsp">		
-&nbsp; 
-<iframe height="167" marginwidth=0 marginheight=0 src="top.jsp" frameborder=0 width="100%" scrolling=no></iframe>
+<iframe height="164" marginwidth=0 marginheight=0 src="top.jsp" frameborder=0 width="100%" scrolling=no></iframe>
 <!--正文部分-->
 <div class="coupons-content">
 <!--left部分-->
@@ -85,7 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class=pro_mid>
 <div class=pro_img>
                 <%
-                if (obj1.getStrImage().length() > 0) {
+                if (obj1.getStrImage()!=null&&obj1.getStrImage().length() > 0) {
                 %>
                   <img src="<%="../terminal/images/" + obj1.getStrImage() %>" width=112 height=110 border="0" />
                 <%

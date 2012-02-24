@@ -110,7 +110,7 @@ function chkFrm()
 </script>
 </head>
 <body>
-<iframe height="167" marginwidth=0 marginheight=0 src="top.jsp" frameborder=0 width="100%" scrolling=no></iframe>
+<iframe height="164" marginwidth=0 marginheight=0 src="top.jsp" frameborder=0 width="100%" scrolling=no></iframe>
 <!--正文部分-->
 <div class="member-content">
 <div class="member_tit">会员注册</div>

@@ -59,8 +59,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <body>
 <form name=frm method=post action="marchants.jsp" >		
-&nbsp; 
-<iframe height="167" marginwidth=0 marginheight=0 src="top.jsp" frameborder=0 width="100%" scrolling=no></iframe>
+<iframe height="164" marginwidth=0 marginheight=0 src="top.jsp" frameborder=0 width="100%" scrolling=no></iframe>
 <!--正文部分-->
 <div class="coupons-content">
 <!--left部分-->
@@ -128,11 +127,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <tbody>
   <tr>
     <td width=267 height="26">* 行        业：<%=obj1.getStrTradeName()%></td>
-    <td height="26">* 联系电话：<%=obj1.getStrPhone()%></td>
+    <td height="26"><!--* 联系电话：<%=obj1.getStrPhone()%>--></td>
   </tr>
   <tr>
     <td width=253 height="26">* 地        址：<%=obj1.getStrAddr() %></td>
-    <td height="26">* 联   系  人：<%=obj1.getStrPerson() %></td>
+    <td height="26"><!--* 联   系  人：<%=obj1.getStrPerson() %>--></td>
     </tr>
   <tr>
     <td height="26" colspan="2">

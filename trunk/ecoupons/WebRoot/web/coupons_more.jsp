@@ -18,6 +18,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     Coupon coupobj=new Coupon(globa);
     SysPara syspara = new SysPara(globa);
     String  strName=ParamUtil.getString(request,"strName2","");
+    String  flag=ParamUtil.getString(request,"flag","");
     //查询条件
 	String tWhere=" where 1=1";
 	if(!strName.equals(""))
@@ -28,6 +29,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	if(!strTrade.equals(""))
 	{
 		tWhere += " and b.strtrade='" + strTrade + "'";
+	}
+	if(!flag.equals(""))
+	{
+		tWhere += " and a.intvip='1'";
 	}
 	tWhere+=" order by a.dtcreatetime";
 	//获取到当前页面的记录集
@@ -67,7 +72,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <input type=hidden name=strtrade value="<%=strTrade%>" />
 <input type=hidden name=strName2 value="<%=strName%>" />
 &nbsp; 
-<iframe height="167" marginwidth=0 marginheight=0 src="top.jsp" frameborder=0 width="100%" scrolling=no></iframe>
+<iframe height="164" marginwidth=0 marginheight=0 src="top.jsp" frameborder=0 width="100%" scrolling=no></iframe>
 <!--正文部分-->
 <div class="coupons-content">
 <!--left部分-->
@@ -140,8 +145,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <ul>
     <li><a href="#" onclick="window.open('coupon_print.jsp?random=<%= Math.random()%>&strid=<%=obj1.getStrId()%>&strimg=<%=obj1.getStrPrintImg()%>','','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,width=420,height=540,left=450,top=160');"><img src="images/print.jpg" border="0" style="CURSOR: pointer" /> 打印</a></li>
     <li><a href="#" onclick="if(window.showModalDialog('favourite_act.jsp?strid=<%=obj1.getStrId()%>&random=<%= Math.random()%>', '', 'dialogWidth=200px;dialogHeight:150px;dialogTop:400px;dialogLeft:550px;scrollbars=yes;status=yes;center=yes;')=='success'){window.location.reload();};" ><img src="images/collection.jpg" border="0" style="CURSOR: pointer" /> 收藏</a></li> 
-	<li><a href="#"><img src="images/sms.jpg" border="0" style="CURSOR: pointer" /> 短信</a></li>
- </ul>
+	<!--<li><a href="#"><img src="images/sms.jpg" border="0" style="CURSOR: pointer" /> 短信</a></li>
+ --></ul>
  </div></div>
   <div class=clearfloat></div>
   </div>
@@ -171,7 +176,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <ul> 
 <%
 Index index=new Index(globa);
-HashMap<String, Integer> hmTrades=index.returnTradeForCoup();
+HashMap<String, Integer> hmTrades=index.returnTradeForCoup(""); 
 for(int i=0;i<tradelist.size();i++)
 {
     SysPara syspara1 = (SysPara)tradelist.get(i);
@@ -193,7 +198,7 @@ for(int i=0;i<tradelist.size();i++)
 <div class=sort_top>
 <h1><strong>热门评论</strong></h1></div>
 	<div class=sort_con>
-	<UL>
+	<ul>
 	<%
 	CouponComment couponComment=new CouponComment(globa);
 	Vector<CouponComment> vctCouponComment=couponComment.list(" order by dtcreateTime desc limit 5",0,0);
@@ -208,7 +213,7 @@ for(int i=0;i<tradelist.size();i++)
 		<%
 	}
 	%>	
-	 </UL>
+	 </ul>
 	</div>
 <div class=sort_bottom></div>
   </div>

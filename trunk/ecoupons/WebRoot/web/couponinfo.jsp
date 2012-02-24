@@ -32,7 +32,7 @@
 <title>优惠券详细</title>  
 </head>
 <body>&nbsp; 
-<iframe style="HEIGHT: 167px" frameborder=0 marginwidth=0 marginheight=0 src="top.jsp" width="100%" scrolling=no></iframe>
+<iframe style="HEIGHT: 164px" frameborder=0 marginwidth=0 marginheight=0 src="top.jsp" width="100%" scrolling=no></iframe>
 
 <!--正文部分-->
 <DIV id=Main>
@@ -76,8 +76,8 @@ else{
   <UL>
   <LI><a href="#" onclick="window.open('coupon_print.jsp?random=<%= Math.random()%>&strid=<%=obj0.getStrId()%>&strimg=<%=obj0.getStrPrintImg()%>','','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,width=420,height=540,left=450,top=160');"><img src="images/print.jpg" border="0" style="CURSOR: pointer" /> 打印</a></LI>
     <li><a href="#" onclick="if(window.showModalDialog('favourite_act.jsp?strid=<%=obj0.getStrId()%>&random=<%= Math.random()%>', '', 'dialogWidth=200px;dialogHeight:150px;dialogTop:400px;dialogLeft:550px;scrollbars=yes;status=yes;center=yes;')=='success'){window.location.reload();};" ><img src="images/collection.jpg" border="0" style="CURSOR: pointer" /> 收藏</a></li> 
-	<LI><a href="#"><IMG src="images/sms.jpg" border="0" style="CURSOR: pointer"> 短信</a></LI> </UL>
- </DIV>
+	<!--<LI><a href="#"><IMG src="images/sms.jpg" border="0" style="CURSOR: pointer"> 短信</a></LI> --> </UL>
+</DIV>
 </div> 
  </DIV>
 </DIV>
@@ -172,14 +172,14 @@ style="COLOR: gray"><%=comobj1.getStrComment() %></SPAN> </DIV>
 <TABLE border=0 width="100%">
   <TBODY>
   <TR>
-    <TD align="center">内容： </TD>
+    <TD align="center">内&nbsp; &nbsp; 容： </TD>
     <TD colSpan=7><LABEL><TEXTAREA style="WIDTH: 500px; HEIGHT: 100px" id=txt_con class=form rows=2 cols=20 name=strcomment></TEXTAREA> 
       </LABEL><SPAN id=span_sub></SPAN></TD></TR></TBODY></TABLE>
 
 <TABLE id=tr2>
   <TBODY>
   <TR>
-    <TD align=right>验证码： </TD>
+    <TD align=right>验 证 码： </TD>
     <TD align=left><INPUT style="WIDTH: 60px" name=yanzm class=form type=text value="" maxLength=4 size=10> </TD>
     <TD align=left> <a style="CURSOR:hand" onclick="javascript:var dt=new Date();document.getElementById('code2').src='../image.jsp?dt='+dt;" title="看不清楚，换个图片"> 
     <IMG style="BORDER: #ffffff 1px solid; WIDTH: 65px; HEIGHT: 20px; CURSOR: pointer;" id=code2 border=0 name=checkcode src="../image.jsp"> 
@@ -200,15 +200,15 @@ else
 <TABLE border=0 width="100%">
   <TBODY>
   <TR>
-    <TD align="center">内容： </TD>
+    <TD align="center">内&nbsp; &nbsp; 容： </TD>
     <TD colSpan=7><LABEL><TEXTAREA style="WIDTH: 500px; HEIGHT: 100px" id=txt_con class=form rows=2 cols=20 name=strcomment></TEXTAREA> 
       </LABEL><SPAN id=span_sub></SPAN></TD></TR></TBODY></TABLE>
 	
 <TABLE id=tr_login>
   <TBODY>
   <TR>
-    <TD align=left>用户名： </TD>
-    <TD align=left><INPUT style="WIDTH: 90px;" id=txt_username class=form value="" onclick="document.getElementById('txt_username').value=''" type=text name=username> 
+    <TD align=left>卡号/手机号： </TD>
+    <TD align=left><INPUT style="WIDTH: 90px;" id=txt_username class=form value=" " onclick="document.getElementById('txt_username').value=''" type=text name=username> 
     </TD>
     <TD align=left>&nbsp; 密码： </TD>
     <TD align=left><INPUT style="WIDTH: 80px;" id=txt_userpass class=form type=password name=password > </TD>

@@ -60,8 +60,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 <form name=frm method=post action="coupons_more.jsp">	
 <input type=hidden name=strname value="<%=strName%>" />
-&nbsp; 
-<iframe height="167" marginwidth=0 marginheight=0 src="top.jsp" frameborder=0 width="100%" scrolling=no></iframe>
+<iframe height="164" marginwidth=0 marginheight=0 src="top.jsp" frameborder=0 width="100%" scrolling=no></iframe>
 <!--正文部分-->
 <div class="coupons-content">
 <!--left部分-->
@@ -147,12 +146,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
  <div class=sort>
 <div class=sort_top>
-<h1><strong>优惠券检索（按类别）</strong></h1></div>
+<h1><strong>VIP优惠券检索 </strong></h1></div>
 <div class=sort_con1>
 <ul> 
 <%
 Index index=new Index(globa);
-HashMap<String, Integer> hmTrades=index.returnTradeForCoup();
+HashMap<String, Integer> hmTrades=index.returnTradeForCoup(" and a.intvip=1");
 for(int i=0;i<tradelist.size();i++)
 {
     SysPara syspara1 = (SysPara)tradelist.get(i);
@@ -160,7 +159,7 @@ for(int i=0;i<tradelist.size();i++)
     //System.out.println(syspara1.getStrName()+coupnum);
 	String strtradeid = syspara1.getStrId();
 	%>
-	<li><a href="coupons_more.jsp?strtrade=<%=strtradeid%>" ><%=syspara1.getStrName()%>&nbsp;&nbsp;(<%=coupnum%>)</a></li>
+	<li><a href="coupons_more.jsp?strtrade=<%=strtradeid%>&flag=vip" ><%=syspara1.getStrName()%>&nbsp;&nbsp;(<%=coupnum%>)</a></li>
 <%
 }
 %>
