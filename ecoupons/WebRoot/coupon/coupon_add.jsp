@@ -225,13 +225,13 @@ function addTerminals()
                  <td width="20%" height="30" align="right" class="left_txt2">价格：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30"><input name="flaPrice"  type="text" value="0" class="input_box"  size="30" /></td>
-                <td width="45%" height="30" class="left_txt">&nbsp;</td> 
+                <td width="45%" height="30" class="left_txt">&nbsp;提示：价格不为0，代表此优惠券为有价券！</td> 
               </tr>
               <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">打印次数：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30"><input name="intPrintLimit"  type="text" class="input_box" value="0" size="30" /></td>
-                <td width="45%" height="30" class="left_txt">提示：0为不受限制。</td> 
+                <td width="45%" height="30" class="left_txt">&nbsp;提示：0为不受限制。</td> 
               </tr>
              
              <tr  >
