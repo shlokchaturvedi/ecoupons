@@ -40,6 +40,8 @@ public class InitClass  extends GenericServlet {
            System.out.println("--------------系统启动时出错：");
            e.printStackTrace();
        }
+       //加载终端参数
+       TerminalParamVector.init();
        intFlag=1;
    }
    public void service(ServletRequest req, ServletResponse res) {
