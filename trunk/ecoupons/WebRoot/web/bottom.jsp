@@ -30,10 +30,9 @@
                 <li><a href="intro3.jsp#d" target="_parent">用乐购优惠券在商户消费，需要预订吗？</a></li>
                 </ul>
         </div>
-
 			<DIV class=footer>
 				<P>
-					Copyright © 1996-2012 鑫九天传媒, All Rights Reserved
+Copyright © 1996-2012 鑫九天传媒, All Rights Reserved
 				</P>
 			</DIV>
 			<!-- *{} -->

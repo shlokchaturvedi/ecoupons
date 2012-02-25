@@ -137,7 +137,7 @@ frameborder=0 width="100%" scrolling=no></iframe>
 <!--正文部分结束-->
 </div>
 
-<iframe style="HEIGHT: 340px" marginwidth=0 marginheight=0 src="bottom.jsp" 
+<iframe style="HEIGHT: 260px" marginwidth=0 marginheight=0 src="bottom.jsp" 
 frameborder=0 width="100%" scrolling=no></iframe>
 <%globa.closeCon(); %>
 </body>
