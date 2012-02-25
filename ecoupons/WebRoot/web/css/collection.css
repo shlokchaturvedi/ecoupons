@@ -238,3 +238,5 @@ ul,ol {
 	text-decoration: none;
 	color: #8D8D8D;
 }
+.memberpwd_td{ font-size:14px;color:#4C4C4C; height:50px; text-align:right;}
+.memberpwd_ipt{ border:1px solid #C3C3C3; width:200px; text-align:left; height:20px;}
