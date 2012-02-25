@@ -136,8 +136,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<%
 	Activity activity1=new Activity(globa);
 	Vector<Activity> vctActivities1=new Vector<Activity>();
-	vctActivities1=activity1.list(" order by dtcreateTime desc limit 10",0,0);
-		for(int i=0;i<vctActivities1.size();i++){
+	vctActivities1=activity1.list(" order by dtcreateTime desc limit 12",0,0);
+	for(int i=0;i<vctActivities1.size();i++){
 		String name= vctActivities1.get(i).getStrName();
 		if(name!=null && name.length()>=13)
 		{
@@ -146,6 +146,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		%>
 		<li><a href="activity_more.jsp?strId=<%=vctActivities1.get(i).getStrId() %>">・<%=name%></a></li>
 		<%
+	}
+	if(12-vctActivities1.size()>0)
+	{
+		for(int j=0;j<12-vctActivities1.size();j++)
+		{
+		%>
+		<li>&nbsp;</li>
+		<%
+		}
 	}
 	%>	 </ul>
 	</div>

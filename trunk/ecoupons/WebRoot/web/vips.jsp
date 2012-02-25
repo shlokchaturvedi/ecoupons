@@ -176,7 +176,7 @@ for(int i=0;i<tradelist.size();i++)
 	<%
 	CouponComment couponComment=new CouponComment(globa);
 	Vector<CouponComment> vctCouponComment=couponComment.list(" order by dtcreateTime desc limit 5",0,0);
-		for(int i=0;i<vctCouponComment.size();i++){
+	for(int i=0;i<vctCouponComment.size();i++){
 			String name= vctCouponComment.get(i).getStrComment();
 			if(name!=null && name.length()>=13)
 			{
@@ -185,6 +185,15 @@ for(int i=0;i<tradelist.size();i++)
 		%>
 		<li>・<a href="couponinfo.jsp?strid=<%=vctCouponComment.get(i).getStrCouponId() %>" ><%=name %></a></li>
 		<%
+	}
+	if(5-vctCouponComment.size()>0)
+	{
+		for(int j=0;j<5-vctCouponComment.size();j++)
+		{
+		%>
+		<li></li>
+		<%
+		}
 	}
 	%>	
 	 </ul>

@@ -41,8 +41,8 @@ eval("document.getElementById('sort_con_"+other+"').style.display='none'");
 
 </head>
 <body>
-<iframe height="164" border=0 marginwidth=0 marginheight=0 src="top.jsp" 
-frameborder=no width="100%" scrolling=no></iframe>
+<iframe height="164" marginwidth=0 marginheight=0 src="top.jsp" 
+frameborder=0 width="100%" scrolling=no></iframe>
 <!--正文部分-->
 <div class="content">
 
@@ -231,7 +231,7 @@ tab.onmouseout=function() {MyMar=setInterval(Marquee,speed)};
 	<%
 	Activity activity=new Activity(globa);
 	Vector<Activity> vctActivities=new Vector<Activity>();
-	vctActivities=activity.list(" order by dtcreateTime desc limit 13",0,0);
+	vctActivities=activity.list(" order by dtcreateTime desc limit 12",0,0);
 		for(int i=0;i<vctActivities.size();i++){
 		String name= vctActivities.get(i).getStrName();
 		if(name!=null && name.length()>=13)
