@@ -165,7 +165,7 @@ A {
 	PADDING-RIGHT: 24px; PADDING-LEFT: 24px; BACKGROUND: url(../images/bg_help.gif) no-repeat left top; PADDING-BOTTOM: 0px; MARGIN: 0px auto; WIDTH: 912px; PADDING-TOP: 0px; HEIGHT: 200px; overfollow: hidden
 }
 .bottom .header UL {
-	PADDING-RIGHT: 0px; PADDING-LEFT: 24px; FLOAT: left; PADDING-BOTTOM: 0px; MARGIN: 15px 0px; BORDER-LEFT: #ccc 1px dotted; WIDTH: 250px; COLOR: #047; PADDING-TOP: 0px; overfollow: hidden
+	PADDING-RIGHT: 0px; PADDING-LEFT: 24px; FLOAT: left; PADDING-BOTTOM: 0px; MARGIN: 15px 0px; BORDER-LEFT: #ccc 1px dotted; WIDTH: 260px; COLOR: #047; PADDING-TOP: 0px; overfollow: hidden
 }
 .bottom .header UL.A {
 	BORDER-LEFT-STYLE: none
