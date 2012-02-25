@@ -221,7 +221,6 @@ PADDING: 0px; WIDTH: 67px; ; BACKGROUND: url(../images/indbtn.jpg) no-repeat; HE
 #demo {
 background: #FFF;
 overflow:hidden;
-border: 1px dashed #CCC;
 width: 535px;
 }
 #demo img { margin:5px 15px 5px 15px;}
