@@ -168,7 +168,7 @@ function del(){
                 <td bgcolor="#FFFFFF"><div align="center" class="STYLE1"><%= coupon.show("where strId='"+obj1.getStrCouponId()+"'").getStrName() %></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrCouponCode()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrMemberCardNo()%></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getDtPrintTime().substring(0,obj1.getDtPrintTime().length()-2)%></span></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getDtPrintTime()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=shop.returnBizShopName("where strId='"+obj1.getStrShopId()+"'")%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.returnStrState(obj1.getIntState())%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE4">
