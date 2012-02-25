@@ -161,7 +161,7 @@ frameborder=0 width="100%" scrolling=no></iframe>
 <div class=collect_show_bottom></div></div>
 </div>
 
-<iframe style="HEIGHT: 340px"  marginwidth=0 marginheight=0 src="bottom.jsp" 
+<iframe style="HEIGHT: 260px"  marginwidth=0 marginheight=0 src="bottom.jsp" 
 frameborder=0 width="100%" scrolling=no></iframe>
 </form>
 </body>
