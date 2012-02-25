@@ -33,25 +33,7 @@
 
 			<DIV class=footer>
 				<P>
-					<A href="#" target=_blank>人才招聘</A> |
-					<A href="#" target=_blank>媒体报道</A> |
-					<A href="#" target=_blank>合作伙伴</A> |
-					<A href="#" target=_blank>隐私政策</A> |
-					<A href="#" target=_blank>联系我们</A> |
-					<A href="#" target=_blank>帮助中心</A> |
-					<A href="#" target=_blank>商务合作</A> |
-					<A href="#" target=_blank>广告合作</A> |
-					<A href="#" target=_blank>友情链接</A> |
-					<A href="#" target=_blank>营业执照</A>
-
-
-					<BR>
-					<IMG src="images/link1.jpg" width="103" height="43" border="0">
-					<IMG src="images/link2.jpg" width="160" height="48" border="0">
-					<IMG src="images/link3.jpg" width="98" height="44" border="0">
-					<IMG src="images/link4.jpg" width="124" height="43" border="0">
-					<IMG src="images/link5.jpg" width="132" height="51" border="0">
-					<IMG src="images/link6.jpg" width="162" height="49" border="0">
+					Copyright © 1996-2012 鑫九天传媒, All Rights Reserved
 				</P>
 			</DIV>
 			<!-- *{} -->
