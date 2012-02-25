@@ -56,11 +56,42 @@ Member member=new Member(globa);
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link href="css/collection.css" rel="stylesheet" type="text/css" />
 <link rel=stylesheet type=text/css href="css/comment.css" />
+<script src="../include/js/chkFrm.js"></script>
+<script language="javascript">
+function chkFrm()
+{
+    if(trim(frm.strPwd.value)==""){        
+        alert("请输入您的旧密码！！！");
+        frm.strPwd.focus();
+        return false;
+    }else if(trim(frm.newPwd.value)=="") {
+        alert("请输入您的新密码！！！");
+        frm.newPwd.focus();
+        return false;
+    }else if(trim(frm.newPwd2.value)=="") {
+        alert("请重复您的新密码！！！");
+        frm.newPwd2.focus();
+        return false;
+    }else {           
+    	 if(trim(frm.newPwd.value)!= trim(frm.newPwd2.value)){
+	        alert("您两次输入的新密码不一致！请重新输入！！！");
+	        frm.newPwd.focus();
+	        return false;
+	     }
+	     if(confirm("确定更改密码？"))
+    	  {
+    		  frm.submit();
+    	  }
+    }
+}
+
+
+</script>
 <title>我的积分</title>
 </head>
 
 <body>
-<form action="" name="frm" method="post">
+<form action="memberpwd_act.jsp" name="frm" method="post">
 <iframe style="HEIGHT: 164px" marginwidth=0 marginheight=0 src="top.jsp" 
 frameborder=0 width="100%" scrolling=no></iframe>
 
@@ -99,37 +130,31 @@ frameborder=0 width="100%" scrolling=no></iframe>
 </div>
 <div id=Left>
 <div class=collect_left_top>
-<div class="collect_sf">我的积分</div></div>
+<div class="collect_sf">修改个人密码</div></div>
 <div class=collect_left_mid>
 <div class=collect_show>
-  <table width="96%" border="0" cellpadding="0" cellspacing="0">
+  <table width="70%" border="0" cellpadding="0" cellspacing="0">
     <tr>
-      <td height="60" valign="top">可用积分：<span class="fjwz"><%=member.show("where strCardNo='"+globa.getMember().getStrCardNo()+"'").getIntPoint() %> </span> 分 &nbsp;&nbsp;&nbsp;&nbsp;<a href="integraltype.jsp"><img src="images/fjkban.jpg" width="98" height="24" /></a></td>
+      <td height="20"></td><td></td>
     </tr>
     <tr>
-      <td height="28"><span class="bzb">积分变动情况</span></td>
-    </tr>
-  </table>
-  <table width="96%" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="DCDCDC">
-    <tr> 
-      <td width="31%" height="25" align="center" bgcolor="EEEEEE" class="collect_show_tit">时间</td>
-      <td width="51%" align="center" bgcolor="EEEEEE" class="collect_show_tit">项目</td>
-      <td width="9%" align="center" bgcolor="EEEEEE" class="collect_show_tit">积分</td>
-      </tr>
-      <%
-      for(int i=0;i< vctRecords.size();i++){
-      %>
-    <tr>
-      <td height="25" align="center" bgcolor="#FFFFFF"><span class="STYLE1"><%=vctRecords.get(i).getDtCreateTime().replace(".0","") %> 
-      </span></td>
-      <td align="center" bgcolor="#FFFFFF"><%=vctRecords.get(i).getStrName() %></td>
-      <td align="center" bgcolor="#FFFFFF"><span class="STYLE1"><%=vctRecords.get(i).getIntPoint() %></span></td>
-      </tr>
-      <%} %>
-  </table>
-  <!-- 翻页开始 -->  
- 	<%@ include file="include/cpage.jsp"%>
-   	<!-- 翻页结束 -->
+      <td width="55%" class="memberpwd_td">旧 密 码：&nbsp;&nbsp;</td>
+      <td width="45%" class="memberpwd_td"><input name="strPwd" id="strPhone" type="password"  class="memberpwd_ipt"/>&nbsp;&nbsp;</td>
+     </tr>
+     <tr>
+      <td width="55%" class="memberpwd_td">新 密 码：&nbsp;&nbsp;</td>
+      <td width="45%" class="memberpwd_td"><input name="newPwd" id="strPhone" type="password"  class="memberpwd_ipt"/>&nbsp;&nbsp;</td>
+     </tr>
+      <tr>
+      <td width="55%" class="memberpwd_td">重复密码：&nbsp;&nbsp;</td>
+      <td width="45%" class="memberpwd_td"><input name="newPwd2" id="strPhone" type="password"  class="memberpwd_ipt"/>&nbsp;&nbsp;</td>
+     </tr>
+     <tr>
+      <td width="55%" class="memberpwd_td">&nbsp;</td>
+      <td width="45%" class="memberpwd_td"><img src="images/sure.jpg" onclick="chkFrm();" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <img src="images/quxiao.jpg" onclick="frm.reset();" /></td>
+     </tr>
+  </table>  
 </div>
 
 </div>
