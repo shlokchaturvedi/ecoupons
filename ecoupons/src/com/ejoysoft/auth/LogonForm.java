@@ -160,10 +160,11 @@ public final class LogonForm {
         try {
             java.sql.ResultSet rs = null;
             String strSql = "SELECT distinct * " +
-            		"from t_bz_member where strcardno='" + strCardNo + "' or strmobileno='"+strCardNo+"' and dtactivetime <=now() and dtexpiretime >=now()";
+            		"from t_bz_member where (strcardno='" + strCardNo + "' or strmobileno='"+strCardNo+"' )and dtactivetime <=now() and dtexpiretime >=now()";
             rs = globa.db.executeQuery(strSql);
             if (!rs.next()) {
-                error = new String("会员不存在，或者你输入的会员帐号和手机号码有误！");
+            	
+                error = new String("会员不存在或已经失效，或者你输入的会员帐号和手机号码有误！");
                 value = -1;
             } else {
                 //用户相关信息
