@@ -3,6 +3,7 @@ package com.ejoysoft.servlet;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
+import java.util.Vector;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -11,9 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.ejoysoft.common.Globa;
 import com.ejoysoft.common.SendSms;
+import com.ejoysoft.ecoupons.TerminalParamVector;
 import com.ejoysoft.ecoupons.business.Coupon;
 import com.ejoysoft.ecoupons.business.Member;
 import com.ejoysoft.ecoupons.business.Terminal;
+import com.ejoysoft.ecoupons.business.TerminalPara;
 
 @SuppressWarnings("serial")
 public class CouponAuthServlet extends HttpServlet
@@ -72,8 +75,9 @@ public class CouponAuthServlet extends HttpServlet
 					Coupon objCoupon = coupon.show(" where strid="+strCouponId);
 					float couponprice = objCoupon.getFlaPrice();
 					balance = memberbalance - couponprice;
-					
-					String messege = "亲爱的"+strName+"会员您好！您此次于"+strTerminalNo+"终端上打印优惠券的验证码为："+strCode+"，请及时使用，祝您购物愉快！";
+					//欢迎语
+					String strWelcome = TerminalParamVector.getWelcome();
+					String messege = "亲爱的乐购会员您好！您此次于券打机上打印优惠券的验证码为："+strCode+"，请及时使用！" + strWelcome;
 					if (balance < 0) {//余额不够
 				        sbReturn.append("<return>balance_error</return>");
 					} else if(strPhone!=null && !strPhone.trim().equals("") && strCode!=null && !strCode.trim().equals("")) {

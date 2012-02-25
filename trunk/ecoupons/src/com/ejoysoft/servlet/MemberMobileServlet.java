@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ejoysoft.common.Globa;
 import com.ejoysoft.common.SendSms;
+import com.ejoysoft.ecoupons.TerminalParamVector;
 import com.ejoysoft.ecoupons.business.Member;
 import com.ejoysoft.ecoupons.business.Terminal;
 
@@ -65,7 +66,9 @@ private void execute(HttpServletRequest req, HttpServletResponse resp)throws Ser
 				else {
 					sbReturn.append("<return>cardno_erro</return>");
 				}
-				String messege = "亲爱的"+strName+"会员您好！您此次于"+strTerminalNo+"终端上操作的验证码为："+strCode+"，请及时使用，祝您购物愉快！";
+				//欢迎语
+				String strWelcome = TerminalParamVector.getWelcome();
+				String messege = "亲爱的乐购会员您好！您此次于券打机上操作的验证码为："+strCode+"，请及时使用！" + strWelcome;
 				if(strMobileNo!=null && !strMobileNo.trim().equals(""))
 				{
 					String PostData;
