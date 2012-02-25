@@ -116,7 +116,7 @@ public class RoleRight {
                         db.executeUpdate();
                     }
                 }
-                Globa.logger0("用户权限分配成功！", globa.loginName, globa.loginIp, strSql, "Ȩ�޷权限分配", globa.unitCode);
+                Globa.logger0("用户权限分配成功！", globa.loginName, globa.loginIp, strSql, "权限分配", globa.unitCode);
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();

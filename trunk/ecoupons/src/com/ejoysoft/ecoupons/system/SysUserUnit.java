@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 /**
- * 系统中所有的用户单位/组（组织机构�?
+ * 系统中所有的用户单位/组（组织机构�?
  * Created by IntelliJ IDEA.
  * User: Administrator
  * Date: 2006-4-10
@@ -20,11 +20,11 @@ import java.sql.Statement;
  * To change this template use Options | File Templates.
  */
 public class SysUserUnit {
-    private static HashMap userUnits = new HashMap();     //保存�?有的用户�?
-    private static Vector rootUserGroups = new Vector();   //保存�?有的顶级用户�?
-    private static Vector userGroupTree = new Vector();    //以树形结构保存所有的用户�?
+    private static HashMap userUnits = new HashMap();     //保存所有的用户组
+    private static Vector rootUserGroups = new Vector();   //保存所有的顶级用户组
+    private static Vector userGroupTree = new Vector();     //以树形结构保存所有的用户组
 
-    //构�?�方�?
+    //构�?�方�?
     public SysUserUnit() {
     }
 
@@ -67,24 +67,24 @@ public class SysUserUnit {
     }
 
     /**
-     * 加载�?有的用户组信息，并保存到用户组树形向量中
-     * @param userGroupTree 用户组树形向�?
+     * 加载�?有的用户组信息，并保存到用户组树形向量中
+     * @param userGroupTree 用户组树形向�?
      */
     private static void loadUserGroupTree2(Vector userGroupTree) {
-        //遍历顶级用户组，加载用户组信�?
+        //遍历顶级用户组，加载用户组信�?
         for (int i = 0; i < rootUserGroups.size(); i++) {
-            //加入顶级用户�?
+            //加入顶级用户�?
             Unit theUserGroup = (Unit) rootUserGroups.get(i);
             theUserGroup.setIntLevel(1);
             userGroupTree.add(theUserGroup);
-            //加载下级用户�?
+            //加载下级用户�?
             theUserGroup.loadChildren(userGroupTree);
         }
     }
 
     /**
-     * 加载�?有的用户组信息，并保存到用户组树形向量中
-     * @param userGroupTree 用户组树形向�?
+     * 加载�?有的用户组信息，并保存到用户组树形向量中
+     * @param userGroupTree 用户组树形向�?
      */
     private static void loadUserGroupTree(Vector userGroupTree) {
 //        // this.rootUserGroups重新排序
@@ -94,13 +94,13 @@ public class SysUserUnit {
         }
         sv.sort();
         rootUserGroups = sv;
-        //遍历顶级用户组，加载用户组信�?
+        //遍历顶级用户组，加载用户组信�?
         for (int i = 0; i < rootUserGroups.size(); i++) {
-            //加入顶级用户�?
+            //加入顶级用户�?
             Unit unit0 = (Unit) rootUserGroups.get(i);
             unit0.setIntLevel(1);
             userGroupTree.add(unit0);
-            //加载下级用户�?
+            //加载下级用户�?
             unit0.loadChildren(userGroupTree);
         }
     }
@@ -121,7 +121,7 @@ public class SysUserUnit {
     }
 
     /**
-     * 验证用户组Id是否符合修改的条�?
+     * 验证用户组Id是否符合修改的条�?
      * 不能允许出现死循环的现象
      * @param id 修改的用户组的id
      * @param parentId 修改的用户组的上级组的id
@@ -131,12 +131,12 @@ public class SysUserUnit {
         if (parentId.equals(""))
             return;
         if (id.equals(parentId))
-            throw new UserUnitIdException("�?个机构不能把自身作为上级机构");
+            throw new UserUnitIdException("一个机构不能把自身作为上级机构");
 
         Unit ug = (Unit) userUnits.get(parentId);
         while (ug!=null&&!ug.getStrParentId().equals("")) {
             if (ug.getStrParentId().equals(id))
-                throw new UserUnitIdException("�?个机构不能�?�择自身的下级机构作为上级机�?");
+                throw new UserUnitIdException("一个机构不能选择自身的下级机构作为上级机构");
             else
                 ug = (Unit) userUnits.get(ug.getStrParentId());
         }
@@ -144,7 +144,7 @@ public class SysUserUnit {
 
     /**
      * 验证是否符合删除条件
-     * 如果用户组有下级组或用户，则不允许删�?
+     * 如果用户组有下级组或用户，则不允许删�?
      * @param id 待删除的用户组ID
      * @throws UserUnitIdException
      * @throws SQLException
@@ -152,8 +152,8 @@ public class SysUserUnit {
     public static void validateDelId(String id) throws UserUnitIdException, SQLException {
         //验证是否有下级组
         if (((Unit) userUnits.get(id)).haveChild())
-            throw new UserUnitIdException("不能删除还有下级机构的上级机�?", "请先删除下级机构");
-        //验证是否有用�?
+            throw new UserUnitIdException("不能删除还有下级机构的上级机构", "请先删除下级机构");
+        //验证是否有用�?
         String sql = "SELECT * FROM t_sy_user WHERE strUnitId='" + id + "'";
         Connection con = DbConnect.getStaticCon();
         Statement stmt = con.createStatement();
@@ -162,7 +162,7 @@ public class SysUserUnit {
             rs.close();
             stmt.close();
             con.close();
-            throw new UserUnitIdException("不能删除还有用户的机�?", "请先删除机构内的用户");
+            throw new UserUnitIdException("不能删除还有用户的机构", "请先删除机构内的用户");
         }
         rs.close();
         stmt.close();
@@ -170,7 +170,7 @@ public class SysUserUnit {
     }
 
     /**
-     * 初始化参数信�?
+     * 初始化参数信�?
      * @throws java.sql.SQLException
      */
     public void clear() throws SQLException {
@@ -180,7 +180,7 @@ public class SysUserUnit {
     }
 
     /**
-     * 返回指定用户组的全称，格式为：省委办公厅/文书�?/办文�?
+     * 返回指定用户组的全称，格式为：省委办公厅/文书�?/办文�?
      * @param userUnitId
      * @return
      */
@@ -192,7 +192,7 @@ public class SysUserUnit {
             totalName = ug.getStrUnitName();
             while (!ug.getStrParentId().equals("")) {
                 ug = (Unit) userUnits.get(ug.getStrParentId());
-                totalName = ug.getStrUnitName() + "�?" + totalName;
+                totalName = ug.getStrUnitName() + "／" + totalName;
             }
         }
         return totalName;
@@ -217,7 +217,7 @@ public class SysUserUnit {
             uNames = ug.getStrUnitName();
             for (int i = 1; i < arrUnitId.length; i++) {
                 ug = (Unit) userUnits.get(arrUnitId[i]);
-                uNames = uNames + "�?" + ug.getStrUnitName();
+                uNames = uNames + "、" + ug.getStrUnitName();
             }
         }
         return uNames;
@@ -228,7 +228,7 @@ public class SysUserUnit {
     }
 
     /**
-     * 返回指定用户�?在组的全路径，strParentId �? strRootUnitCode   的所有id集合�? 格式为：'334'�?'4443'�?'555'�?
+     * 返回指定用户�?在组的全路径，strParentId �? strRootUnitCode   的所有id集合�? 格式为：'334'�?'4443'�?'555'�?
      * @param userUnitId
      * @return
      */
@@ -274,7 +274,7 @@ public class SysUserUnit {
         return strUnitIds;
     }
 
-    //根据�?个UNITID 返回用户的独立单位ID
+    //根据�?个UNITID 返回用户的独立单位ID
     public static String getRootId(String unitId) {
         if (unitId.equals("")) return "";
         Unit ug = (Unit) userUnits.get(unitId);
@@ -289,7 +289,7 @@ public class SysUserUnit {
         return strRootId;
     }
 
-    //根据�?个UNITID 返回用户的单位父节点ID
+    //根据�?个UNITID 返回用户的单位父节点ID
     public static String getParentId(String unitId) {
         if (unitId.equals("")) return "";
         Unit ug = (Unit) userUnits.get(unitId);
@@ -304,7 +304,7 @@ public class SysUserUnit {
     }
     
     /**
-     * 判断strChildId代表的机构是否归strParentId代表的机构管�?
+     * 判断strChildId代表的机构是否归strParentId代表的机构管�?
      * @param strParentId
      * @param strChildId
      * @return
