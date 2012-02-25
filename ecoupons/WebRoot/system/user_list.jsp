@@ -152,7 +152,7 @@ function del(){
                 </div></td>
                 <td bgcolor="#FFFFFF"><div align="center" class="STYLE1"><a href='user_show.jsp?strId=<%=obj1.getStrId()%>'><%=obj1.getStrUserId() %></a></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrName() %></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=SysUserUnit.getTotalName(obj1.getStrUnitId())%></span></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=SysUserUnit.getUnitName(obj1.getStrUnitId())%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrCssType()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE4">
                   <a href="user_update.jsp?strUserId=<%=obj1.getStrUserId()%>&strId=<%=obj1.getStrId()%>"><img src="../images/edit.gif" width="16" height="16" border="0" />编辑</a> 
