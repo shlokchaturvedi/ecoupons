@@ -153,7 +153,7 @@ Coupon coupon = new Coupon(globa);
 <div class=card_bottom></div></div>
 </div>
 </div>
-<iframe style="HEIGHT: 340px" marginwidth=0 marginheight=0 src="bottom.jsp" frameborder=0 width="100%" scrolling=no></iframe>
+<iframe style="HEIGHT: 260px" marginwidth=0 marginheight=0 src="bottom.jsp" frameborder=0 width="100%" scrolling=no></iframe>
 <%
 globa.closeCon();
  %>

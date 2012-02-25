@@ -214,7 +214,7 @@ for(int i=0;i<vctStrades.size();i++){
 <!--正文部分结束-->
 </div>
 
-<iframe style="HEIGHT: 340px" marginwidth=0 marginheight=0 src="bottom.jsp" frameborder=0 width="100%" scrolling=no></iframe>
+<iframe style="HEIGHT: 260px" marginwidth=0 marginheight=0 src="bottom.jsp" frameborder=0 width="100%" scrolling=no></iframe>
 </form>
 <%globa.closeCon(); %>
 </body>

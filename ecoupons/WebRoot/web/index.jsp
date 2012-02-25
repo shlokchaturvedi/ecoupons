@@ -317,7 +317,7 @@ vecCouponps=index.returnTopCoupons("月");
 <DIV class=sort_bottom></DIV></DIV>
   </div>
 </div>
-<iframe style="HEIGHT: 340px" border=0 marginwidth=0 marginheight=0 src="bottom.jsp" 
+<iframe style="HEIGHT: 260px" border=0 marginwidth=0 marginheight=0 src="bottom.jsp" 
 frameborder=no width="100%" scrolling=no></iframe>
 </body>
 </html>

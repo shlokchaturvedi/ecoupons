@@ -291,7 +291,7 @@ if(vctCoupon!=null&&vctCoupon.size()!=0)
   <p>简 &nbsp;介：<%=obj3.getStrIntro() %></p>
 </DIV>
 <DIV class=card_bottom></DIV></DIV></DIV></DIV>
-<iframe style="HEIGHT: 340px" frameborder=0 marginwidth=0 marginheight=0 src="bottom.jsp"  width="100%" scrolling=no></iframe>
+<iframe style="HEIGHT: 260px" frameborder=0 marginwidth=0 marginheight=0 src="bottom.jsp"  width="100%" scrolling=no></iframe>
 <%globa.closeCon();%>
 </body>
 </html>

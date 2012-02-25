@@ -135,7 +135,7 @@ for(int i = 0;i < vctObj.size(); i++) {
 <!--正文部分结束-->
 </div>
 
-<iframe style="HEIGHT: 340px" border=0 marginwidth=0 marginheight=0 src="bottom.jsp" 
+<iframe style="HEIGHT: 260px" border=0 marginwidth=0 marginheight=0 src="bottom.jsp" 
 frameborder=no width="100%" scrolling=no></iframe>
 </form>
 <%globa.closeCon(); %>
