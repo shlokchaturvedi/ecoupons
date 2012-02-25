@@ -154,7 +154,7 @@ function del(){
                 <td width="5%" height="22"  class="left_bt2"><div align="center">&nbsp;</td>
                 <td width="10%" class="left_bt2"><div align="center">操作人</div></td>
                 <td width="10%" class="left_bt2"><div align="center">操作模块</div></td>
-                <td width="25%" class="left_bt2"><div align="center">操作休息</div></td>                
+                <td width="25%" class="left_bt2"><div align="center">操作信息</div></td>                
                  <td width="10%" class="left_bt2"><div align="center">操作日期</div></td>
                 <td width="15%" class="left_bt2"><div align="center">机器IP</div></td>
               </tr>
