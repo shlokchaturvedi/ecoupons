@@ -81,7 +81,7 @@ public class Member
 			db.setString(1, strPwd);
 			db.setString(2, tStrId);
 			db.executeUpdate();
-			Globa.logger0("修改会员密码", "", "", strSql, "会员管理", "");
+			Globa.logger0("修改会员密码", globa.loginName, globa.loginIp, strSql, "会员管理", "");
 			return true;
 		} catch (Exception e)
 		{
@@ -109,7 +109,7 @@ public class Member
 			db.setString(7, strMobileNo);
 			db.setString(8, tStrId);
 			db.executeUpdate();
-			Globa.logger0("修改会员信息", "", "", strSql, "会员管理", "");
+			Globa.logger0("修改会员信息", globa.loginName,globa.loginIp, strSql, "会员管理", "");
 			return true;
 		} catch (Exception e)
 		{

@@ -158,7 +158,7 @@ public class CouponComment
 			db.setString(6, com.ejoysoft.common.Format.getDateTime());
 			if (db.executeUpdate() > 0)
 			{
-				Globa.logger0("添加优惠券评论信息", globa.loginName, globa.loginIp, strSql, "网站/优惠券评论","system");
+				Globa.logger0("添加优惠券评论信息", globa.memberSession.getStrCardNo(), globa.loginIp, strSql, "网站/优惠券评论","system");
 				return true;
 			} else
 				return false;

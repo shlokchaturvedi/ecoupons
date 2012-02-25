@@ -63,7 +63,7 @@ public class CouponPrint
 				coupon.updateIntPrint(strId);
 	            db.getConnection().commit(); //统一提交
 				db.setAutoCommit(true);
-				Globa.logger0("增加优惠券打印记录记录 ", globa.loginName, globa.loginIp, sql, "商家管理", globa.unitCode);
+				Globa.logger0("增加优惠券打印记录记录 ", globa.memberSession.getStrCardNo(), globa.loginIp, sql, "网站/优惠券打印", globa.unitCode);
 				return true;
 			} else
 			{
