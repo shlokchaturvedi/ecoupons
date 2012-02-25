@@ -32,7 +32,7 @@
         </div>
 			<DIV class=footer>
 				<P>
-Copyright © 1996-2012 鑫九天传媒, All Rights Reserved
+Copyright © 2009-2012 鑫九天传媒, All Rights Reserved
 				</P>
 			</DIV>
 			<!-- *{} -->
