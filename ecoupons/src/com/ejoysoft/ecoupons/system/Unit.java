@@ -37,12 +37,12 @@ public class Unit {
 
     String strTableName = "t_sy_unit";
 
-    //���?
+    //���?
     public boolean add() {
         String strSql = "";
         try {
             strId = UID.getID();
-            //��ɵ�λ���룻�?2λΪһ��
+            //��ɵ�λ���룻�?2λΪһ��
             strUnitCode = creatUnitCode(strParentId);
             strSql = "INSERT INTO " + strTableName + " (strId, strUnitName, strEasyName, strUnitCode, " +
             		"strParentId,strDistrictId,intLevel,intSort, " +
@@ -71,7 +71,7 @@ public class Unit {
             db.setString(19, strOrgType);
             db.setString(20, strAFlag);
             if (db.executeUpdate() > 0) {
-                Globa.logger0("��ӵ�λ���?", globa.loginName, globa.loginIp, strSql, "��λ����", globa.userSession.getStrDepart());
+                Globa.logger0("增加部门成功！", globa.loginName, globa.loginIp, strSql, "组织机构管理", globa.userSession.getStrDepart());
                 return true;
             } else
                 return false;
@@ -81,7 +81,7 @@ public class Unit {
         }
     }
 
-    //��ɵ�λ���룻�?2λΪһ��
+    //��ɵ�λ���룻�?2λΪһ��
     public String creatUnitCode(String strParentId) {
         ResultSet rs = null;
         String tStrUnitCode = "10";
@@ -116,7 +116,7 @@ public class Unit {
         }
     }
 
-    //���ͬһ��λ�µ��¼���λ���飩��? �����?
+    //���ͬһ��λ�µ��¼���λ���飩��? �����?
     public int creatSort(String strParentId) {
         ResultSet rs = null;
         int tIntSort = 0;
@@ -142,7 +142,7 @@ public class Unit {
             db.executeUpdate("update " + strTableName + " set intSort=intSort-1 where strParentId= '" + ut0.getStrParentId() + "' and intSort>" + ut0.getIntSort() + "");
             String sql = "DELETE FROM " + strTableName + "  ".concat(where);
             db.executeUpdate(sql);
-            Globa.logger0("ɾ��λ��Ϣ", globa.loginName, globa.loginIp, sql, "��λ����", globa.userSession.getStrDepart());
+            Globa.logger0("删除部门成功！", globa.loginName, globa.loginIp, sql,"组织机构管理", globa.userSession.getStrDepart());
             return true;
         } catch (Exception ee) {
             ee.printStackTrace();
@@ -160,7 +160,7 @@ public class Unit {
                     "strOrgType=?,strAFlag=?  WHERE strId = ? ";
             if (strParentId.equals(strOldParentId)) {
 
-                //��Ÿ���?
+                //��Ÿ���?
                 if (intOldSort != intSort) {
                     if (intSort > intOldSort) {
                         db.executeUpdate("update " + strTableName + " set intSort=intSort-1 where strParentId= '" + strParentId + "' and intSort>" + intOldSort + " and intSort<=" + intSort);
@@ -191,7 +191,7 @@ public class Unit {
                 db.setString(20, tStrId);
                 db.executeUpdate();
             } else {
-                //����ǰ���������������?
+                //����ǰ���������������?
                 db.executeUpdate("update " + strTableName + " set intSort=intSort-1 where strParentId= '" + strOldParentId + "'  and intSort>" + intOldSort);
                 strUnitCode = creatUnitCode(strParentId);
                 db.prepareStatement(strSql);
@@ -219,10 +219,10 @@ public class Unit {
                 //�ݹ�����ӵ�λ���������Ϣ
                 updateChild(tStrId);
             }
-            Globa.logger0("�޸ĵ�λ��Ϣ", globa.loginName, globa.loginIp, strSql, "��λ����", globa.userSession.getStrDepart());
+            Globa.logger0("修改部门信息成功！", globa.loginName, globa.loginIp, strSql,"组织机构管理", globa.userSession.getStrDepart());
             return true;
         } catch (Exception e) {
-            System.out.println("�޸ĵ�λ��Ϣʱ��?" + e);
+            System.out.println("修改单位信息时出错：" + e);
             return false;
         }
     }
@@ -261,15 +261,15 @@ public class Unit {
             db.setString(10, com.ejoysoft.common.Format.getDateTime());
             db.setString(11, tStrId);
             db.executeUpdate();
-            Globa.logger0("�޸ı���λ��Ϣ", globa.loginName, globa.loginIp, strSql, "��λ����", globa.userSession.getStrDepart());
+            Globa.logger0("修改本部门信息成功", globa.loginName, globa.loginIp, strSql, "组织机构管理", globa.userSession.getStrDepart());
             return true;
         } catch (Exception e) {
-            System.out.println("�޸ı���λ��Ϣʱ��?" + e);
+            System.out.println("修改本单位信息时出错：" + e);
             return false;
         }
     }
 
-    //��ϸ��ʾ������?
+    //��ϸ��ʾ������?
     public Unit show(String where) {
         try {
             String strSql = "select * from  " + strTableName + "  ".concat(where);
@@ -335,7 +335,7 @@ public class Unit {
         }
     }
 
-    //�б��¼��?
+    //�б��¼��?
     public Vector list(String where, int startRow, int rowCount) {
         Vector beans = new Vector();
         try {
@@ -363,7 +363,7 @@ public class Unit {
         return beans;
     }
 
-    //�б��¼��?
+    //�б��¼��?
     public HashMap hmList(String where, int startRow, int rowCount) {
         HashMap hmUnit = new HashMap();
         try {
@@ -442,7 +442,7 @@ public class Unit {
         }
     }
 
-    //��ȡ��λ���?
+    //��ȡ��λ���?
     public String retUnitName(String strUnitId) {
         String strArryUnitName = "";
         try {
@@ -452,7 +452,7 @@ public class Unit {
                     if (strArryUnitName.equals(""))
                         strArryUnitName = rs.getString(1);
                     else
-                        strArryUnitName += "��" + rs.getString(1);
+                        strArryUnitName += "；" + rs.getString(1);
                 }
             }
             return strArryUnitName;
@@ -462,7 +462,7 @@ public class Unit {
         }
     }
 
-    //��ʾ��λ���?
+    //��ʾ��λ���?
     public String getUnitName(String unitcode) {
         String nuitname = "";
         String sql = "select strUnitName  from " + strTableName + " where strUnitCode='" + unitcode + "'";
@@ -474,34 +474,34 @@ public class Unit {
             }
             rs.close();
         } catch (Exception e) {
-            System.out.println("��ȡ��λ���ʱ����?" + e);
+            System.out.println("获取单位名称时错误：" + e);
         }
         return nuitname;
     }
 
     private String strId;//	��λ��id��
-    private String strUnitName;//	��λ���飩���?
-    private String strEasyName;//	��λ���飩���?
+    private String strUnitName;//	��λ���飩���?
+    private String strEasyName;//	��λ���飩���?
     private String strUnitCode;//	��λ���飩����
     private String strParentId;//		 	�ϼ���λID
     private String strDistrictId;	// ����Ͻ��ID
     private int intLevel;//	��λ����
-    private int intSort;//	�����?
+    private int intSort;//	�����?
     private String strUnitAddress;//		jϵ��ַ
     private String strUnitNet;//			��λ��ַ
     private String strUnitEmail;//			E-mail
     private String strPostalCode;//				��������
-    private String strAreaCode;//				���?
+    private String strAreaCode;//				���?
     private String strUnitPhone;//			jϵ�绰
-    private String strUnitFax;//			�������?
+    private String strUnitFax;//			�������?
     private String strRemark;//		��ע
     private String strCreator;//			������
     private String dCreatDate;//		����ʱ��
     private String strOldParentId;//�޸�ǰ���ϼ���λID
-    private int intOldSort;//�޸�ǰ�������?
+    private int intOldSort;//�޸�ǰ�������?
     
-    private String strOrgType;	//��֯��ʽ��ͳһ���ˡ�}�����ˡ�ũ��������С�ũ����ҵ����?
-    private String strAFlag;	//A������?
+    private String strOrgType;	//��֯��ʽ��ͳһ���ˡ�}�����ˡ�ũ��������С�ũ����ҵ����?
+    private String strAFlag;	//A������?
 
 
     public String getStrId() {
@@ -725,7 +725,7 @@ public class Unit {
     }
 
     //vetcor��������
-// �Զ���ȽϹ���?
+// �Զ���ȽϹ���?
     static class UnitCompare implements Compare {
         public boolean lessThan(Object l, Object r) {
             return ((Unit) l).getIntSort() < (((Unit) r).getIntSort());
