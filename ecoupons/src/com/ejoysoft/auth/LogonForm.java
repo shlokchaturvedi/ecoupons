@@ -173,9 +173,10 @@ public final class LogonForm {
                 if (pwd == null || !pwd.equals(this.getPassword())) {
 //                	if (pwd == null || !pwd.equals(this.getPassword1())) {
            			error = new String("你输入的密码有误！");
-           			return -1;   			
+           			value = -1;
+           			return value;   			
           		}
-                memberSession.setStrPWD(pwd);
+                memberSession.setStrPWD(this.getPassword1());
                 memberSession.setStrName(rs.getString("strName"));
 //                int intError = rs.getInt("intError");
 //                int intState = rs.getInt("intState");
