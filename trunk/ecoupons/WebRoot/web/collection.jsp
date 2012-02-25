@@ -81,6 +81,9 @@ frameborder=no width="100%" scrolling=no></iframe>
     <tr>
       <td height="32" class="list_wz"><a href="integral.jsp">&nbsp;&gt;&gt; 我的积分</a></td>
     </tr>
+    <tr>
+      <td height="32" class="list_wz"><a href="memberpwd.jsp">&nbsp;&gt;&gt; 修改密码</a></td>
+    </tr>
 
     <tr>
       <td height="32" class="list_wz"><a href="#" 

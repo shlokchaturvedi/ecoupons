@@ -53,6 +53,9 @@ frameborder=0 width="100%" scrolling=no></iframe>
       <td height="32" class="list_wz"><a href="integral.jsp">&nbsp;&gt;&gt; 我的积分</a></td>
     </tr>
     <tr>
+      <td height="32" class="list_wz"><a href="memberpwd.jsp">&nbsp;&gt;&gt; 修改密码</a></td>
+    </tr>
+    <tr>
       <td height="32" class="list_wz"><a href="#" onclick="if (confirm('您确定要退出吗？')){top.location = '<%=application.getServletContextName()%>/web/Auth?actiontype=<%=Constants.WEBLOGOFF%>';}	return false;" >&nbsp;&gt;&gt; 退出系统</a></td>
     </tr>
   </table>
