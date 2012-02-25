@@ -30,7 +30,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	{
 		tWhere += " and b.strtrade='" + strTrade + "'";
 	}
-	if(!flag.equals(""))
+	if(flag.equals("vip"))
 	{
 		tWhere += " and a.intvip='1'";
 	}
@@ -169,53 +169,58 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <div class="coupons-right">
   
  <div class=sort>
-<div class=sort_top>
-<h1><strong>优惠券检索（按类别）</strong></h1></div>
-<div class=sort_con1>
-<ul> 
 <%
-Index index=new Index(globa);
-HashMap<String, Integer> hmTrades=index.returnTradeForCoup(""); 
-for(int i=0;i<tradelist.size();i++)
+if(flag.equals("vip"))
 {
-    SysPara syspara1 = (SysPara)tradelist.get(i);
-    int coupnum = hmTrades.get(syspara1.getStrName());
-   // System.out.println(syspara1.getStrName()+coupnum);
-	String strtradeid = syspara1.getStrId();
+%>
+	<div class=sort_top>
+	<h1><strong>VIP优惠券检索</strong></h1></div>
+	<div class=sort_con1>
+	<ul> 
+	<%
+	Index index=new Index(globa);
+	HashMap<String, Integer> hmTrades=index.returnTradeForCoup(" and a.intvip=1");
+	for(int i=0;i<tradelist.size();i++)
+	{
+	    SysPara syspara1 = (SysPara)tradelist.get(i);
+	    int coupnum = hmTrades.get(syspara1.getStrName());
+	    //System.out.println(syspara1.getStrName()+coupnum);
+		String strtradeid = syspara1.getStrId();
+		%>
+		<li><a href="coupons_more.jsp?strtrade=<%=strtradeid%>&flag=vip" ><%=syspara1.getStrName()%>&nbsp;&nbsp;(<%=coupnum%>)</a></li>
+	<%
+	}
 	%>
-	<li><a href="coupons_more.jsp?strtrade=<%=strtradeid%>" ><%=syspara1.getStrName()%>&nbsp;&nbsp;(<%=coupnum%>)</a></li>
+	</ul>
+	</div>
+	<div class=sort_bottom></div>
 <%
 }
-
-%>
-</ul>
-</div>
-<div class=sort_bottom></div></div> 
- 
- 
- <div class=sort>
-<div class=sort_top>
-<h1><strong>热门评论</strong></h1></div>
-	<div class=sort_con>
-	<ul>
+else{	
+ %>
+	<div class=sort_top>
+	<h1><strong>优惠券检索（按类别）</strong></h1></div>
+	<div class=sort_con1>
+	<ul> 
 	<%
-	CouponComment couponComment=new CouponComment(globa);
-	Vector<CouponComment> vctCouponComment=couponComment.list(" order by dtcreateTime desc limit 5",0,0);
-		for(int i=0;i<vctCouponComment.size();i++){
-			String name= vctCouponComment.get(i).getStrComment();
-			if(name!=null && name.length()>=13)
-			{
-				name = name.substring(0,12)+"...";
-			}
+	Index index=new Index(globa);
+	HashMap<String, Integer> hmTrades=index.returnTradeForCoup(""); 
+	for(int i=0;i<tradelist.size();i++)
+	{
+	    SysPara syspara1 = (SysPara)tradelist.get(i);
+	    int coupnum = hmTrades.get(syspara1.getStrName());
+	   // System.out.println(syspara1.getStrName()+coupnum);
+		String strtradeid = syspara1.getStrId();
 		%>
-		<li>・<a href="couponinfo.jsp?strid=<%=vctCouponComment.get(i).getStrCouponId() %>" ><%=name %></a></li>
-		<%
+		<li><a href="coupons_more.jsp?strtrade=<%=strtradeid%>" ><%=syspara1.getStrName()%>&nbsp;&nbsp;(<%=coupnum%>)</a></li>
+	<%
 	}
-	%>	
-	 </ul>
+	%>
+	</ul>
 	</div>
-<div class=sort_bottom></div>
-  </div>
+	<div class=sort_bottom></div>
+<%} %> 
+</div> 
   <div class=sort>
 <div class=sort_top>
 <h1><strong>推荐优惠券</strong></h1>
@@ -243,7 +248,39 @@ for(int i=0;i<tradelist.size();i++)
 	</ul>
 	</div>
 <div class=sort_bottom></div>
-  </div> 
+  </div>
+ <div class=sort>
+<div class=sort_top>
+<h1><strong>热门评论</strong></h1></div>
+	<div class=sort_con>
+	<ul>
+	<%
+	CouponComment couponComment=new CouponComment(globa);
+	Vector<CouponComment> vctCouponComment=couponComment.list(" order by dtcreateTime desc limit 5",0,0);
+	for(int i=0;i<vctCouponComment.size();i++){
+			String name= vctCouponComment.get(i).getStrComment();
+			if(name!=null && name.length()>=13)
+			{
+				name = name.substring(0,12)+"...";
+			}
+		%>
+		<li>・<a href="couponinfo.jsp?strid=<%=vctCouponComment.get(i).getStrCouponId() %>" ><%=name %></a></li>
+		<%
+	}
+	if(5-vctCouponComment.size()>0)
+	{
+		for(int j=0;j<5-vctCouponComment.size();j++)
+		{
+		%>
+		<li></li>
+		<%
+		}
+	}
+	%>	
+	 </ul>
+	</div>
+<div class=sort_bottom></div>
+  </div>
  <!--right结束-->
  
   
