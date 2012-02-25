@@ -331,10 +331,10 @@ public class Gift
 
 	public String getDtActiveTime()
 	{
-		if (dtActiveTime != null)
+		if (dtActiveTime != null && dtActiveTime.length()>3)
 		{
 
-			return dtActiveTime.substring(0, 10);
+			return dtActiveTime.substring(0, dtActiveTime.length()-2);
 
 		} else
 		{
@@ -359,10 +359,9 @@ public class Gift
 
 	public String getDtExpireTime()
 	{
-		if (dtExpireTime != null)
+		if (dtExpireTime != null&&dtExpireTime.length()>3)
 		{
-
-			return dtExpireTime.substring(0, 10);
+			return dtExpireTime.substring(0, dtExpireTime.length()-2);
 
 		} else
 		{
@@ -398,7 +397,15 @@ public class Gift
 
 	public String getDtCreateTime()
 	{
-		return dtCreateTime;
+		if (dtCreateTime != null&&dtCreateTime.length()>3)
+		{
+			return dtCreateTime.substring(0, dtCreateTime.length()-2);
+
+		} else
+		{
+			return null;
+		}
+
 	}
 
 	public void setDtCreateTime(String dtCreateTime)

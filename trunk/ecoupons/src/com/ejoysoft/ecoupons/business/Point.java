@@ -435,7 +435,14 @@ public class Point
 
 	public String getDtCreateTime()
 	{
-		return dtCreateTime;
+		if (dtCreateTime != null&&dtCreateTime.length()>3)
+		{
+			return dtCreateTime.substring(0, dtCreateTime.length()-2);
+
+		} else
+		{
+			return null;
+		}
 	}
 
 	public void setDtCreateTime(String dtCreateTime)
