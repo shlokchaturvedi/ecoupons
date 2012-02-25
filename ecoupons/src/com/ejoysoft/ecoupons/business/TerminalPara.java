@@ -1,6 +1,7 @@
 package com.ejoysoft.ecoupons.business;
 
 import com.ejoysoft.common.*;
+import com.ejoysoft.ecoupons.TerminalParamVector;
 import com.ejoysoft.ecoupons.system.SysPara;
 
 //import javax.servlet.ServletContext;
@@ -64,6 +65,7 @@ public class TerminalPara {
             db.setString(5, com.ejoysoft.common.Format.getDateTime());
             if (db.executeUpdate() > 0) { 
                 db.getConnection().commit(); //统一提交
+            	TerminalParamVector.init();
     		    db.setAutoCommit(true);
                 Globa.logger0("添加终端参数信息", globa.loginName, globa.loginIp, strSql, "终端管理", globa.userSession.getStrDepart());
                 return true;
@@ -119,6 +121,7 @@ public class TerminalPara {
         	}
         	db.executeUpdate(sql1);//删除终端参数 
 		    db.getConnection().commit(); //统一提交
+        	TerminalParamVector.init();
 		    db.setAutoCommit(true);
             Globa.logger0("删除终端参数信息", globa.loginName, globa.loginIp, sql1, "终端管理", globa.unitCode);
             return true;
@@ -158,6 +161,7 @@ public class TerminalPara {
             db.setString(3,strId);
             db.executeUpdate();
             db.getConnection().commit(); //统一提交
+        	TerminalParamVector.init();
             db.setAutoCommit(true);		    
             if(db.executeUpdate()>0)
 		    {
