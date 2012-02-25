@@ -55,7 +55,7 @@ public class RoleRight {
     }
 
     /**
-     * �����û���߱�������Ȩ��?
+     * �����û���߱�������Ȩ��?
      * @return
      * @throws SQLException
      */
@@ -92,7 +92,7 @@ public class RoleRight {
         }
     }
 
-    //���?
+    //���?
     public boolean add(String[] tArry, String tStrObjId, int tIntType) {
         String strSql = "";
         if (tArry == null || tArry.length == 0) {
@@ -116,7 +116,7 @@ public class RoleRight {
                         db.executeUpdate();
                     }
                 }
-                Globa.logger0("����Ȩ����Ϣ", globa.loginName, globa.loginIp, strSql, "Ȩ�޷���", globa.unitCode);
+                Globa.logger0("用户权限分配成功！", globa.loginName, globa.loginIp, strSql, "Ȩ�޷权限分配", globa.unitCode);
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();
