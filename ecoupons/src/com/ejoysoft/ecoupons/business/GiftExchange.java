@@ -270,6 +270,8 @@ public class GiftExchange
 
 	public String getDtExchangeTime()
 	{
+		if(dtExchangeTime!=null&&dtExchangeTime.length()>3)
+			dtExchangeTime=dtExchangeTime.substring(0,dtExchangeTime.length()-2);
 		return dtExchangeTime;
 	}
 
@@ -310,6 +312,8 @@ public class GiftExchange
 
 	public String getDtCreateTime()
 	{
+		if(dtCreateTime!=null&&dtCreateTime.length()>11)
+			dtCreateTime=dtCreateTime.substring(0,10);
 		return dtCreateTime;
 	}
 
