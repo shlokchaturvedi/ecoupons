@@ -167,9 +167,11 @@ function del(){
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.returnType(obj1.getIntType())%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.returnState(obj1.getIntState())%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE4">
+                <%if(!"商家".equals(globa.userSession.getStrCssType())){%>
                   <a href="point_update.jsp?strId=<%=obj1.getStrId()%>"><%if(obj1.getIntState()==0){out.print("<img src='../images/delete.gif' width='16' height='16' border='0' />编辑"); %><%} %></a> 
 			      <a href="#" onclick="if(confirm('确认删除该记录？')){location.href='point_act.jsp?<%=Constants.ACTION_TYPE%>=<%=Constants.DELETE_STR%>&intPoint=<%=obj1.getIntPoint() %>&strId=<%=obj1.getStrId()%>';}"><%if(obj1.getIntState()==0){out.print("<img src='../images/delete.gif' width='16' height='16' border='0' />删除"); %><%} %></a>
-			      <a href="#" onclick="if(confirm('确认审核该记录？')){location.href='point_act.jsp?<%=Constants.ACTION_TYPE%>=<%=Constants.AUDIT_STR%>&strId=<%=obj1.getStrId()%>';}"><%if(obj1.getIntState()==0&&!"商家".equals(globa.userSession.getStrCssType())){out.print("<img src='../images/edit.gif' width='16' height='16' border='0' />审核"); %><%} %></a>
+			      <a href="#" onclick="if(confirm('确认审核该记录？')){location.href='point_act.jsp?<%=Constants.ACTION_TYPE%>=<%=Constants.AUDIT_STR%>&strId=<%=obj1.getStrId()%>';}"><%if(obj1.getIntState()==0){out.print("<img src='../images/edit.gif' width='16' height='16' border='0' />审核"); %><%} %></a>
+			      <%} %>
 			      </span> </div>
                 </td>
               </tr>
