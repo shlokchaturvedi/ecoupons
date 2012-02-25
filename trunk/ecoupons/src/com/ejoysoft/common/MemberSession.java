@@ -59,7 +59,7 @@ public class MemberSession implements HttpSessionBindingListener {
 	            onlineUserInfo.put(session.getId(), this);
 	            application.setAttribute(Constants.OnlineUserInfo, onlineUserInfo);
 	            //-------------------------------------------------------------------------------------------------------------------
-	            Globa.logger0("会员登录", "u/"+strCardNo+"/"+strName, loginIp, "登录成功", "系统管理","");
+	            Globa.logger0("会员登录", strCardNo, loginIp, "登录成功", "系统管理","");
 	            System.out.println("[" + Format.getDateTime() + "]  member [" + strCardNo + "] login from " + loginIp + " !");
 	        }
 	    }
@@ -82,7 +82,7 @@ public class MemberSession implements HttpSessionBindingListener {
 	           
 	               // System.out.println("UPDATE t_sy_user SET fOnlineTime = fOnlineTime + DATEDIFF([minute], dLatestLoginTime, getdate())  where strUserId = '" + strUserId + "'");
 	               // globa.db.executeUpdate("UPDATE t_sy_user SET fOnlineTime = fOnlineTime + DATEDIFF([minute], dLatestLoginTime, getdate())  where strUserId = '" + strUserId + "'");
-	                Globa.logger0("会员退出",  "u/"+strCardNo+"/"+strName, loginIp, "退出系统", "系统管理","");
+	                Globa.logger0("会员退出",  strCardNo, loginIp, "退出系统", "系统管理","");
 	           
 	                globa.closeCon();
 	           
