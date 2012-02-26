@@ -6,6 +6,7 @@
 				java.net.UnknownHostException"%>
 <%@page import="com.ejoysoft.ecoupons.business.Member"%>
 <%@page import="com.ejoysoft.common.Format"%>
+<%@page import="com.ejoysoft.ecoupons.TerminalParamVector"%>
 <%@ include file="../include/jsp/head.jsp"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -32,7 +33,8 @@ if (rand.toLowerCase().equals(input.toLowerCase()))
 		         }
 			 String randomCode = new String(randBuffer);
 			 System.out.println(randomCode);
-			 String messege="亲爱的会员您好，您于乐购网注册的密码改为："+randomCode+"！请根据此新密码登录网站！";
+			 String strWelcome = TerminalParamVector.getWelcome();
+			 String messege="亲爱的会员您好，您于乐购网注册的密码改为："+randomCode+"！请根据此新密码登录网站！"+strWelcome;
 			 String PostData;
 		     try {
 					PostData = "sname="+application.getAttribute("SNAME")+"&spwd="+application.getAttribute("SPWD")+"&scorpid="+application.getAttribute("SCORPID")+"&sprdid="+application.getAttribute("SPRDID")+"&sdst="+strPhone+"&smsg="+java.net.URLEncoder.encode(messege,"utf-8");
