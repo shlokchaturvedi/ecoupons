@@ -246,7 +246,7 @@ body,td,tr {
 																value="<%=Format.forbidNull(obj0.getDtActiveTime())%>" />
 														</td>
 														<td width="45%" height="30" class="left_txt">
-															&nbsp;
+															&nbsp;提示：会员没有激活，则不能修改！
 														</td>
 													</tr>
 													<tr  >
@@ -297,7 +297,7 @@ body,td,tr {
 																value="<%=Format.forbidNull(obj0.getDtExpireTime())%>" />
 														</td>
 														<td width="45%" height="30" class="left_txt">
-															&nbsp;
+															&nbsp;提示：会员没有激活，则不能修改！
 														</td>
 													</tr>
 													<tr  >
