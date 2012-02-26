@@ -7,6 +7,7 @@
 				 com.ejoysoft.common.Constants,
 				 com.ejoysoft.common.SendSms,
 				 java.net.UnknownHostException" %>
+<%@page import="com.ejoysoft.ecoupons.TerminalParamVector"%>
 <%@ include file="../include/jsp/head.jsp" %>
 <%
 	String membercardno=" ";  
@@ -45,7 +46,9 @@
 	    String strPhone =ParamUtil.getString(request,"strPhone","");
 	    if(!strPhone.equals(""))
 	    {
-		    String messege="亲爱的"+globa.memberSession.getStrName()+"会员，您此次于乐购网成功兑换礼品"+giftobj.getStrName()+"！请至XX地址凭您的会员卡领取";
+	    
+			String strWelcome = TerminalParamVector.getWelcome();
+		    String messege="亲爱的"+globa.memberSession.getStrName()+"会员，您此次于乐购网成功兑换礼品"+giftobj.getStrName()+"！请至XX地址凭您的会员卡领取！"+strWelcome;
 		    if(result)
 		    {
 		      String PostData;

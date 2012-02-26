@@ -5,6 +5,7 @@
 <%@page import="com.ejoysoft.ecoupons.business.Member"%>
 <%@page import="com.ejoysoft.common.Format"%>
 <%@page import="com.ejoysoft.common.Constants"%>
+<%@page import="com.ejoysoft.ecoupons.TerminalParamVector"%>
 <%@ include file="../include/jsp/head.jsp"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -44,7 +45,8 @@
 		         }
 			 String randomCode = new String(randBuffer);
 			 System.out.println(randomCode);
-			 String messege="亲爱的会员您好，您于乐购网注册的验证码为："+randomCode+"！请根据此验证码完成注册过程，祝您购物愉快！";
+			 String strWelcome = TerminalParamVector.getWelcome();
+			 String messege="亲爱的会员您好，您于乐购网注册的验证码为："+randomCode+"！请根据此验证码完成注册过程，祝您购物愉快！"+strWelcome;
 			 String PostData;
 		     try {
 					PostData = "sname="+application.getAttribute("SNAME")+"&spwd="+application.getAttribute("SPWD")+"&scorpid="+application.getAttribute("SCORPID")+"&sprdid="+application.getAttribute("SPRDID")+"&sdst="+strPhone+"&smsg="+java.net.URLEncoder.encode(messege,"utf-8");
