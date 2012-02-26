@@ -170,12 +170,12 @@ body,td,tr {
 															&nbsp;
 														</td>
 														<td width="32%" height="30">
-															<input name="strName" type="text" class="input_box"
+															<input name="strName" type="text" class="input_box" readonly="readonly"
 																size="30"
 																value="<%=Format.forbidNull(obj0.getStrName())%>" />
 														</td>
 														<td width="45%" height="30" class="left_txt">
-															&nbsp;
+															&nbsp;提示：不能修改！
 														</td>
 													</tr>
 													<tr  bgcolor="#f2f2f2">
@@ -187,12 +187,12 @@ body,td,tr {
 															&nbsp;
 														</td>
 														<td width="32%" height="30">
-															<input name="strCardNo" type="text" class="input_box"
+															<input name="strCardNo" type="text" class="input_box" readonly="readonly"
 																size="30"
 																value="<%=Format.forbidNull(obj0.getStrCardNo())%>" />
 														</td>
 														<td width="45%" height="30" class="left_txt">
-															&nbsp;
+															&nbsp;提示：不能修改！
 														</td>
 													</tr>
 													<tr  bgcolor="#f2f2f2">
@@ -205,13 +205,13 @@ body,td,tr {
 														</td>
 														<td width="32%" height="30">
 															<input type="text" name="intAudit" 
-																value="<%=obj0.getType(obj0.getIntType())%>"
+																value="<%=obj0.getType(obj0.getIntType())%>" readonly="readonly"
 																class="input_box">
 															
 															
 														</td>
 														<td width="45%" height="30" class="left_txt">
-															&nbsp;
+															&nbsp;提示：不能修改！
 														</td>
 
 
@@ -227,10 +227,10 @@ body,td,tr {
 														<td width="32%" height="30">
 															<input name="strMobileNo" type="text" class="input_box"
 																size="30"
-																value="<%=Format.forbidNull(obj0.getStrMobileNo())%>" />
+																value="<%=Format.forbidNull(obj0.getStrMobileNo())%>" readonly="readonly"/>
 														</td>
 														<td width="45%" height="30" class="left_txt">
-															&nbsp;
+															&nbsp;提示：不能修改！
 														</td>
 													</tr>
 													<tr  >
@@ -264,7 +264,7 @@ body,td,tr {
 																value="<%=Format.forbidNull(String.valueOf(obj0.getFlaBalance()))%>" />
 														</td>
 														<td width="45%" height="30" class="left_txt">
-															&nbsp;
+															&nbsp;提示：不能修改！
 														</td>
 													</tr>
 													<tr  bgcolor="#f2f2f2">
@@ -281,7 +281,7 @@ body,td,tr {
 																value="<%=Format.forbidNull(String.valueOf(obj0.getIntPoint()))%>" />
 														</td>
 														<td width="45%" height="30" class="left_txt">
-															&nbsp;
+															&nbsp;提示：不能修改！
 														</td>
 													</tr>
 													<tr  >
@@ -315,7 +315,7 @@ body,td,tr {
 																value="<%=Format.forbidNull(obj0.getStrSalesman())%>" />
 														</td>
 														<td width="45%" height="30" class="left_txt">
-															&nbsp;
+															&nbsp;提示：不能修改！
 														</td>
 													</tr>
 													
