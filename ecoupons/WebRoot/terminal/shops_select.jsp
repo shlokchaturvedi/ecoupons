@@ -88,7 +88,7 @@ function ReturnShops(){
                %>
                <tr>
                  <td>  
-                        |—<font style="font-family:黑体  ; font-size: 16px;color: #003333;"><%=allbizname[i]%>	</font>	
+                        *<font style="font-family:黑体  ; font-size: 16px;color: #003333;">&nbsp;&nbsp;<%=allbizname[i]%>	</font>	
                 </td>
                </tr>
                <tr>
@@ -123,16 +123,19 @@ function ReturnShops(){
 		        </tr>
                <tr>
                  <td colspan="5">  
-                       &nbsp;		
+                      <font style="color: #888888;">...........................................................................</font>		
                 </td>
                </tr>
+                <tr>
+                <td colspan="5" height="10"></td>
+                </tr>
                <%   
                		}      
                }
                 %>
                 <tr>
                 <td colspan="4">&nbsp;</td>
-                 <td width="30%">  
+                 <td width="50%">  
 						<input name="bn" type="button" value="确定" style="width:90px" onclick="ReturnShops()" />					
                 </td>
                </tr>
