@@ -189,7 +189,7 @@ tab.onmouseout=function() {MyMar=setInterval(Marquee,speed)};
 		  <div class="sj_sel"><select name="strTradeId"  class="sjfl" onchange="document.getElementById('strTradeId').value=value;frmTrade.submit();">
 		     <option  <%if(strTradeId==null){out.print("selected");} %>>全部</option>
 		     <% 
-		     System.out.print(200*760/535);
+		  
 		    for(int j=0;j< vctStrades.size();j++){%>
 		    	<option value=<%=vctStrades.get(j)[0]%> <%if(vctStrades.get(j)[0].equals(strTradeId)){out.print("selected");} %> ><%=vctStrades.get(j)[1] %></option>
 		   <%}%>
