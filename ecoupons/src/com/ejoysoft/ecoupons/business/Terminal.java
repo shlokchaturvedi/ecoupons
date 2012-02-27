@@ -442,7 +442,7 @@ public class Terminal
 		Terminal obj = new Terminal(globa);
 		String allnos[] = new String[obj.getCount(" ")];
 		int num = 0;
-		String sql = "select * from " + strTableName;
+		String sql = "select * from " + strTableName+" order by strno";
 		ResultSet re = db.executeQuery(sql);
 		try
 		{
@@ -450,7 +450,12 @@ public class Terminal
 			{
 				do
 				{
-					allnos[num] = re.getString("strId") + "-" + re.getString("strno") + "-" + re.getString("strlocation");
+					String location="暂无";
+					if(re.getString("strlocation")!=null && !re.getString("strlocation").equals(""))
+					{
+						location = re.getString("strlocation");
+					}
+					allnos[num] = re.getString("strId") + "-" + re.getString("strno") + "-" + location;
 					num++;
 				} while (re.next());
 			}
