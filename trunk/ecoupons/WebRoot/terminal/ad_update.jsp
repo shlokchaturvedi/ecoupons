@@ -150,7 +150,7 @@ function showFileContent(){
 	 {
 	 	if(array[i].type=="radio" && array[i].id=="type1")
 	 	{	 		
-            document.getElementById("strContentid").innerHTML="<input type='file' style='width:213' name='strContent' id='strContent'  size='30'><font style='color: #444444'>(视频文件 wmv格式)</font>";	      
+            document.getElementById("strContentid").innerHTML="<input type='file' style='width:213' name='strContent' id='strContent'  size='30'><font style='color: #444444'>(wmv格式)</font>";	      
 	 	} 
 	 }
     }
@@ -256,7 +256,7 @@ function showPicContent(){
                 if(type.equals("视频"))
                 {
               %>
-	              <span id="strContentid"><input type="file" style="width:213" name="strContent" id="strContent" ><font style="color: #444444">(视频文件 wmv格式)</font></span>
+	              <span id="strContentid"><input type="file" style="width:213" name="strContent" id="strContent" ><font style="color: #444444">(wmv格式)</font></span>
 	          <%}else if(type.equals("图片"))
                 {%>
 	              <span id="strContentid"><input type="file" style="width:213" name="strContent" id="strContent" size="30"><input type="button" value="+"  onclick="addPicRow();"/><font style="color: #444444">(图片文件)</font></span>

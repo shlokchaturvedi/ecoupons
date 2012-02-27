@@ -137,7 +137,7 @@ function showFileContent(){
 	 {
 	 	if(array[i].type=="radio" && array[i].id=="type1")
 	 	{	 		
-            document.getElementById("strContentid").innerHTML="<input type='file' style='width:213' name='strContent' id='strContent' size='30'><font style='color: #444444'>(视频文件 wmv格式)</font>";	      
+            document.getElementById("strContentid").innerHTML="<input type='file' style='width:213' name='strContent' id='strContent' size='30'><font style='color: #444444'>(wmv格式)</font>";	      
 	 	} 
 	 }
     }
@@ -231,7 +231,7 @@ function showPicContent(){
                  <td width="20%" height="30" align="right" class="left_txt2">广告内容：</td>
                 <td width="3%" height="30">&nbsp;</td>
                 <td width="32%" height="30">
-	              <span id="strContentid"><input type='file' style='width=213' name='strContent' id='strContent' ><font style="color: #444444">(视频文件 wmv格式)</font></span>
+	              <span id="strContentid"><input type='file' style='width=213' name='strContent' id='strContent' ><font style="color: #444444">(wmv格式)</font></span>
 				</td>
                 <td width="45%" height="30" class="left_txt"></td> 
               </tr>
