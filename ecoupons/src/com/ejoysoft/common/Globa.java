@@ -88,7 +88,8 @@ public class Globa {
 	        unitId = userSession.getStrUnitId();
 	        css= userSession.getStrCssType();
 	        fullRealName="u/"+loginName+"/"+userSession.getStrName();
-	    }else if (session.getAttribute(Constants.MEMBER_KEY) != null) {
+	    }
+	    if (session.getAttribute(Constants.MEMBER_KEY) != null) {
 			memberSession=(MemberSession)session.getAttribute(Constants.MEMBER_KEY);
 			member=new Member();
 			member.setFlaBalance(memberSession.getFlaBalance());
