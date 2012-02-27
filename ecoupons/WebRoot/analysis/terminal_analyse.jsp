@@ -271,7 +271,7 @@ function showTime(str){
           </tr>          
           <tr>
             <td >    
-            <form name=frm1 method=post action="shop_top.jsp">        
+            <form name=frm1 method=post action="terminal_analyse.jsp">        
 			<table border="0" cellpadding="0" cellspacing="0" width="100%">
 			<tr>
 			<td width="40%"><div style="height:26"> 时间：
@@ -334,7 +334,7 @@ function showTime(str){
          <table width="100%" border="0" cellpadding="0" cellspacing="0">
          <tr>
          <td>
-        	<form name=frm method=post action="shop_top.jsp">
+        	<form name=frm method=post action="terminal_analyse.jsp">
 			<input name="strNo" type="hidden" value="<%=strNo%>"/>
 			<input name="stime" type="hidden" value="<%=stime%>"/>
 			<input name="etime" type="hidden" value="<%=etime%>"/>
