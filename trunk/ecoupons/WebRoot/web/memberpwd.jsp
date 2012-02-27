@@ -151,7 +151,7 @@ frameborder=0 width="100%" scrolling=no></iframe>
      </tr>
      <tr>
       <td width="55%" class="memberpwd_td">&nbsp;</td>
-      <td width="45%" class="memberpwd_td"><img src="images/sure.jpg" onclick="chkFrm();" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <td width="45%" class="memberpwd_td"><img src="images/sure.jpg" onclick="chkFrm();" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <img src="images/quxiao.jpg" onclick="frm.reset();" /></td>
      </tr>
   </table>  
