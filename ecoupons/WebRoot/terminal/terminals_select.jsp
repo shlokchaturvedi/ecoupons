@@ -46,7 +46,7 @@ function ReturnTerminals(){
 <body >
 <form name="frm" method="post" action="">
 <div class="MainDiv">
-<table width="99%" border="0" cellpadding="0" cellspacing="0">
+<table width="520" border="0" cellpadding="0" cellspacing="0">
   <tr>
       <th ><div class="titlebt">
         <div align="left">—°‘Ò÷’∂À</div>
@@ -59,19 +59,18 @@ function ReturnTerminals(){
         <TR>
             <TD width="100%" height="222">
                 <fieldset>
-                <legend>÷’∂À£®±‡∫≈-µÿµ„£©</legend>
+                <legend>÷’∂À£®±‡∫≈-µÿµ„£©£®∞¥÷’∂À±‡∫≈≈≈–Ú£©</legend>
                <table border="0" cellpadding="2" cellspacing="1" style="width:100%">
 			  <tr>
-                 <td width="50%">  
-                        &nbsp;		
-                </td>
-                 <td width="50%">  
+                 <td colspan="4">  
                         &nbsp;		
                 </td>
                </tr>
+               <tr>
 				<% 
 				  Terminal obj = new Terminal(globa,true);
 				  String allterminal[]=obj.getAllTerminalNos();
+				  int k=0;
 			      for(int i=0;i<allterminal.length;i++)
                  { 
 	               if(allterminal[i]!=null && allterminal[i].trim()!="")
@@ -79,27 +78,28 @@ function ReturnTerminals(){
 	                    String strid = allterminal[i].split("-")[0];
 	                    String strno = allterminal[i].split("-")[1];
 	                    String strlocation = allterminal[i].split("-")[2];
+	                    if(k%3==0)
+	                    {
                %>
-               <tr>
-                 <td>  
-                       &nbsp;<input name="terminalname" type="checkbox" value="<%=strno%>" /><%=strno%>-<%=strlocation%>			
+               		</tr><tr><td colspan="3" height="20"></td></tr><tr>   
+               <%} k++;%>
+               		
+                 <td width="33%">  
+                       <input name="terminalname" type="checkbox" value="<%=strno%>" /><%=strno%>-<%=strlocation%>			
 		              	
                 </td>
-               </tr>               
-               <tr>
-                 <td>  
-                       &nbsp;		
-                </td>
-               </tr>
                <%   
                		}      
                }
                 %>
+               </tr>               
+               <tr>
+                 <td colspan="3">  
+                       &nbsp;		
+                </td>
+               </tr>
                 <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td colspan="2" width="66%"></td>
                  <td >  
 						<input name="bn" type="button" value="»∑∂®" style="width:90px" onclick="ReturnTerminals()" />					
                 </td>

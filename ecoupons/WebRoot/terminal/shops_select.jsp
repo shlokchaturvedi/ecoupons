@@ -44,7 +44,7 @@ function ReturnShops(){
 	 }
     if(retunshop==null)
     {
-    	retunshop="";
+    	retunshop=" ";
     }
 	window.returnValue = retunshop;
 	window.close();	
@@ -55,7 +55,7 @@ function ReturnShops(){
 <form name="frm" method="post" action="">
 <input type="hidden" name="<%=Constants.ACTION_TYPE%>" value="<%=Constants.ADD_STR%>">
 <div class="MainDiv">
-<table width=400 border="0" cellpadding="0" cellspacing="0" class="CContent">
+<table width=480 border="0" cellpadding="0" cellspacing="0" class="CContent">
   <tr>
       <th ><div class="titlebt">
         <div align="left">选择商家</div>
@@ -63,35 +63,23 @@ function ReturnShops(){
   </tr>
   <tr>
     <td height="0" >
-        <table border="0" cellpadding="0" cellspacing="0" style="width:100%">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr><td height="5" align="left"></td></tr>
         <TR>
             <TD width="100%" height="222">
                 <fieldset>
-                <legend>商家列表</legend>
+                <legend>商家列表（按拼音首字母排序）</legend>
                <table border="0" cellpadding="2" cellspacing="1" style="width:100%">
 			  <tr>
-                 <td >  
-                        &nbsp;		
-                </td>
-                 <td >  
-                        &nbsp;		
-                </td>
-                 <td >  
-                        &nbsp;		
-                </td>
-                 <td >  
-                        &nbsp;		
-                </td>
-                 <td>  
+                 <td colspan="5">  
                         &nbsp;		
                 </td>
                </tr>
 				<% 
 				  Shop obj = new Shop(globa,true);
 				  String allshopname[]=obj.getAllShopNames();
-				  String allbizname[]=obj.getStrBizNames();
-					System.out.println(allbizname.length );
+				  String allbizname[]=obj.getStrBizNames();				  
+				  System.out.println(allbizname.length );
 			      for(int i=0;i<allbizname.length;i++)
                { 
 	               if(allbizname[i]!=null ||allbizname[i].trim()!="")
@@ -100,26 +88,41 @@ function ReturnShops(){
                %>
                <tr>
                  <td>  
-                        |—<%=allbizname[i]%>		
+                        |—<font style="font-family:黑体  ; font-size: 16px;color: #003333;"><%=allbizname[i]%>	</font>	
                 </td>
                </tr>
                <tr>
-               <%      for(int j=0;j<allshopname.length;j++)
+		           <td colspan="5">
+		           <table width="100%">
+		               <tr> 
+               <%	    int k=0;     
+               		    for(int j=0;j<allshopname.length;j++)
 	                    {
 	                       if((allshopname[j].split("-")[0]).trim().equals(allbizname[i]))
-	                       {
+	                       { 
+	                         System.out.println(k);
+	                         if(k%3==0)
+	              			 {
+	              			 %>
+		                 </tr><tr>
+		              
+	               <% 		 }	   
+	              			 k++;                       
 	           %>
-		               
-		                 <td >         
-						 <input name="shopname" type="checkbox" value="<%=allshopname[j] %>" /><%=allshopname[j].split("-")[1]%>			
-		                </td>
-               <% 
+		                 <td width="33%">		                       
+						 <input name="shopname" type="checkbox" value="<%=allshopname[j] %>" /><font style="font-family:仿宋GB2312 ; font-size: 12px;color: #444444;"><%=allshopname[j].split("-")[1]%></font>		
+						 </td>
+		              
+	               <% 		 
               			  }
                			}
                		%>
+					  </tr>	
+					  </table> 
+               		 </td>
 		        </tr>
                <tr>
-                 <td>  
+                 <td colspan="5">  
                        &nbsp;		
                 </td>
                </tr>
@@ -128,11 +131,8 @@ function ReturnShops(){
                }
                 %>
                 <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                 <td >  
+                <td colspan="4">&nbsp;</td>
+                 <td width="30%">  
 						<input name="bn" type="button" value="确定" style="width:90px" onclick="ReturnShops()" />					
                 </td>
                </tr>
