@@ -162,7 +162,7 @@ public class CouponFavourite
 			db.setString(6, com.ejoysoft.common.Format.getDateTime());
 			if (db.executeUpdate() > 0)
 			{
-				Globa.logger0("添加优惠券收藏记录", globa.memberSession.getStrCardNo(), globa.loginIp, strSql, "优惠券收藏", "system");
+				Globa.logger0("添加优惠券收藏记录", strMemberCardNo, globa.loginIp, strSql, "优惠券收藏", "system");
 				return true;
 			} else
 				return false;
