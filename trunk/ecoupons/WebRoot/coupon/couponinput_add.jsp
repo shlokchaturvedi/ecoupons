@@ -36,8 +36,11 @@ function chkFrm() {
         frm.strMemberCardNo.focus();
         return false;
     } else {
-    	frm.submit();
-    }
+    	if(confirm("确定添加!"))
+        {
+			frm.submit();
+	    }
+	    }
 }
 </script>
 </head>
