@@ -3,7 +3,7 @@
 <%@ include file="../include/jsp/head.jsp"%>
 <%
      SysLog   obj=new SysLog(globa,true);
-    String strUrl="loghistory_list.jsp";
+    String strUrl="loginfo_list.jsp";
     obj.setStrTableName("t_sy_loghistory");
      if(action.equals(Constants.REMOVE_STR)){
         globa.dispatch(obj.delete(""),strUrl);
