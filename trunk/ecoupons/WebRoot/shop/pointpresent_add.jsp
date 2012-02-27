@@ -34,7 +34,11 @@ body,td,tr {
 		<script language="javascript">
 		
 		function chkFrm() {
-			
+			if(trim(frm.strShopId.value)=="") {
+		        alert("商家名称！！")
+		        frm.strShopId.focus();
+		        return false;
+		    }else
 		    if(trim(frm.strMemberCardNo.value)=="") {
 		        alert("请输入会员！！")
 		        frm.strMemberCardNo.focus();
@@ -228,7 +232,7 @@ body,td,tr {
 																size="30" />
 														</td>
 														<td width="45%" height="30" class="left_txt">
-
+&nbsp;提示：积分为整数！
 														</td>
 													</tr>
 												</table>

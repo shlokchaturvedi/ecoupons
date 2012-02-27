@@ -22,7 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     String  strMemberCardNo=ParamUtil.getString(request,"strMemberCardNo","");
 	String tWhere=" WHERE 1=1";
 	if (!strMemberCardNo.equals("")) {
-		tWhere += " and strMemberCardNo =" + strMemberCardNo + " ";
+		tWhere += " and strMemberCardNo ='" + strMemberCardNo + "' ";
 	}
 	
 	if("代理员".equals(globa.userSession.getStrCssType())){
