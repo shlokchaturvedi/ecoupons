@@ -148,70 +148,45 @@ public boolean delete(String str)
 	public boolean update( int intMoney2)
 	{
 		Member member = new Member(globa, false);
-		Connection connection = db.getConnection();
+//		Connection connection = db.getConnection();
 		float realBalance = member.getFlaBalance(strMemberCardNo)-(float) returnIntMoney(strId) + (float) intMoney2;
 //		System.out.println("实际余额+"+realBalance+"--"+member.getFlaBalance(strMemberCardNo)+"--"+(float) returnIntMoney(strId)+"--"+intMoney2+"---"+intMoney+"---");
 //		System.out.println(strMemberCardNo);
 //		System.out.println(strId);
-		PreparedStatement pStatement=null;
-		PreparedStatement pStatement2=null;
 		if (realBalance >= 0)
 		{
 			String strUserName = globa.userSession.getStrId();
 			try
 			{
-				connection.setAutoCommit(false);
-				connection.setSavepoint();
+				db.setAutoCommit(false);
 				String strSql = "UPDATE  " + strTableName + "  SET  intMoney= ? ,strCreator=? ,dtCreateTime=? WHERE strId=? ";
-				String sql2 = "UPDATE t_bz_member SET flaBalance = ? WHERE strCardNo=? ";
-				pStatement = connection.prepareStatement(strSql);
-			    pStatement2 = connection.prepareStatement(sql2);
-				pStatement.setInt(1, intMoney2);
-				pStatement.setString(2, strUserName);
-				pStatement.setString(3, com.ejoysoft.common.Format.getDate());
-				pStatement.setString(4, strId);
-				pStatement2.setFloat(1, realBalance);
-				pStatement2.setString(2, strMemberCardNo);
-				connection.commit();
-				if (pStatement.executeUpdate() > 0 && pStatement2.executeUpdate() > 0)
+				String sql2 = "UPDATE t_bz_member SET flaBalance = '"+realBalance+"' WHERE strCardNo='"+strMemberCardNo+"' ";
+				db.prepareStatement(strSql);
+				db.setInt(1, intMoney2);
+				db.setString(2, strUserName);
+				db.setString(3, com.ejoysoft.common.Format.getDate());
+				db.setString(4, strId);
+				
+				if (db.executeUpdate() > 0 && db.executeUpdate(sql2) > 0)
 				{
 //					System.out.println("chongzhi3345688888888888888888");
-					connection.setAutoCommit(true);
+					db.commit();
+					db.setAutoCommit(true);
 					Globa.logger0("修改会员缴费记录", globa.loginName, globa.loginIp, strSql + sql2, "会员管理", globa.unitCode);
-					
 					return true;
 				} else
 				{
+					db.rollback();
 					return false;
 				}
 
 			} catch (Exception e)
 			{
-				try
-				{
-					connection.rollback();
-				} catch (SQLException e1)
-				{
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-//				System.out.println("修改会员记录时出错：" + e);
+				db.rollback();
 				return false;
-			}finally{
-				try
-				{
-					pStatement.close();
-					pStatement2.close();
-					connection.close();
-				} catch (SQLException e)
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 			}
 		} else
 		{
-
 			return false;
 		}
 	}

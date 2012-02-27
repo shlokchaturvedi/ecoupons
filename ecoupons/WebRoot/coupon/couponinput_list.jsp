@@ -133,7 +133,7 @@ function del(){
 			 <a href="#" onclick="del();"><img src="../images/delete.gif" width="16" height="16" border="0" />批量删除</a>
 			</td>
 			<td align="right" width="600"><div style="height:26"> 
-			  有价券代码：<input name="strCouponCode" class="editbox4" value="<%=strCouponCode%>" size="10">
+			  券面代码：<input name="strCouponCode" class="editbox4" value="<%=strCouponCode%>" size="10">
 			  &nbsp;&nbsp;&nbsp;&nbsp;
               <input type="submit" class="button_box" value="搜索" /> 
 			</div>

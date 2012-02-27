@@ -162,7 +162,9 @@ function chkFrm() {
               <td width="1%" height="56" align="right">&nbsp;</td>
               <td width="10%" height="56"><input name="B12" type="reset" class="button_box" value="取消" /></td>
               <td width="1%" height="56" align="right">&nbsp;</td>
-               <td width="58%" height="56"><input name="B12" type="button" onclick="window.history.back();" class="button_box" value="返回" /></td>
+               <td width="30%" height="56">
+               <input name="B12" type="button" onclick="window.history.back();" class="button_box" value="返回" />
+               </td>
             </tr>
             <tr>
               <td height="30" colspan="3">&nbsp;</td>

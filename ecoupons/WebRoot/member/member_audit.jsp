@@ -326,25 +326,19 @@ body,td,tr {
 										</tr>
 									</table>
 									<table width="100%" border="0" cellspacing="0" cellpadding="0">
-										<tr>
-											<td width="50%" height="56" align="right">
-												<input name="B1" type="button" class="button_box" value="确定"
-													onclick="chkFrm()" />
-											</td>
-											<td width="6%" height="56" align="right">
-												&nbsp;
-											</td>
-											<td width="44%" height="56">
-												<input name="B12" type="reset" class="button_box" value="取消" />
-											</td>
-										</tr>
-										<tr>
-											<td height="30" colspan="3">
-												&nbsp;
-											</td>
-										</tr>
-									</table>
-								</td>
+            <tr>
+              <td width="30%" height="56" align="right"><input name="B1" type="button" class="button_box" value="确定" onclick="chkFrm()" /></td>
+              <td width="1%" height="56" align="right">&nbsp;&nbsp;&nbsp;</td>
+              <td width="8%" height="56"><input name="B12" type="reset" class="button_box" value="取消" /></td>
+              <td width="1%" height="56" align="right">&nbsp;</td>
+               <td width="30%" height="56">
+               <input name="B12" type="button" onclick="window.history.back();" class="button_box" value="返回" />
+               </td>
+            </tr>
+            <tr>
+              <td height="30" colspan="3">&nbsp;</td>
+            </tr>
+          </table></td>
 							</tr>
 						</table>
 					</td>

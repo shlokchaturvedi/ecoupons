@@ -79,6 +79,7 @@ function chkFrm() {
     if(confirm("确定统计!"))
       {
 	   frm.submit();
+       
       }
 }
 
