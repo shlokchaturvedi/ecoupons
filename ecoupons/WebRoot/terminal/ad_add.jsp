@@ -48,7 +48,18 @@ body,td,tr{font-size:9pt;}
             frm.dtEndTime.focus();
             return false;
         }
-        else {
+        else { 
+        	if(frm.intType[0].checked)
+        	 {
+        	 	var strcontent = trim(frm.strContent.value);
+        	 	var contenttype = strcontent.substring(strcontent.length-3,strcontent.length);
+        	 	if(contenttype!="wmv")
+        	 	{
+        	 		 alert("请输入正确格式个文件！！！如wmv");
+	                 frm.strContent.focus();         
+	       		     return false;
+        	 	}
+        	 }
 	         if(trim(frm.dtStartTime.value)!=""){        
 	            var dtStartTime = trim(frm.dtStartTime.value);
 	            var resParn =/(^[0-1]{1}[0-9]{1}\:[0-5]{1}[0-9]{1}$)|(^2[0-3]{1}\:[0-5]{1}[0-9]{1}$)/;
@@ -116,7 +127,7 @@ function showTextContent(){
 	 {
 	 	if(array[i].type=="radio" && array[i].id=="type3" )
 	 	{	 		
-            document.getElementById("strContentid").innerHTML="<input type='text' name='strContent' id='strContent'  class='input_box' size='30'>(走马灯内容)";	      
+            document.getElementById("strContentid").innerHTML="<input type='text' name='strContent' id='strContent'  class='input_box' size='30'><font style='color: #444444'>(走马灯内容)</font>";	      
 	 	} 
 	 }
 }
@@ -126,7 +137,7 @@ function showFileContent(){
 	 {
 	 	if(array[i].type=="radio" && array[i].id=="type1")
 	 	{	 		
-            document.getElementById("strContentid").innerHTML="<input type='file' style='width:213' name='strContent' id='strContent' size='30'>(视频文件)";	      
+            document.getElementById("strContentid").innerHTML="<input type='file' style='width:213' name='strContent' id='strContent' size='30'><font style='color: #444444'>(视频文件 wmv格式)</font>";	      
 	 	} 
 	 }
     }
@@ -137,7 +148,7 @@ function showPicContent(){
 	 	if(array[i].type=="radio" && array[i].id=="type2" )
 	 	{	 		
             document.getElementById("strContentid").innerHTML="<input type='file' style='width:213' name='strContent' id='strContent' size='30'>"+
-           													"<input type='button' value='+'  onclick='addPicRow();'/>(图片文件)";	      
+           													"<input type='button' value='+'  onclick='addPicRow();'/><font style='color: #444444'>(图片文件)</font>";	      
 	 	} 
 	 }
 }
@@ -220,7 +231,7 @@ function showPicContent(){
                  <td width="20%" height="30" align="right" class="left_txt2">广告内容：</td>
                 <td width="3%" height="30">&nbsp;</td>
                 <td width="32%" height="30">
-	              <span id="strContentid"><input type='file' style='width=213' name='strContent' id='strContent' >(视频文件)</span>
+	              <span id="strContentid"><input type='file' style='width=213' name='strContent' id='strContent' ><font style="color: #444444">(视频文件 wmv格式)</font></span>
 				</td>
                 <td width="45%" height="30" class="left_txt"></td> 
               </tr>
