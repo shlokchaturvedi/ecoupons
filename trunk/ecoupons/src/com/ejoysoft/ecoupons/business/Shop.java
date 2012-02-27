@@ -2,6 +2,11 @@ package com.ejoysoft.ecoupons.business;
 
 import com.ejoysoft.common.*;
 import com.ejoysoft.ecoupons.system.SysPara;
+
+import java.text.Collator;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Locale;
 import java.util.Vector;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -547,6 +552,7 @@ public class Shop
 	}
 
 	// 获取商家名（无重复）
+	@SuppressWarnings("unchecked")
 	public String[] getStrBizNames()
 	{
 		int k = 0;
@@ -587,6 +593,9 @@ public class Shop
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		//按拼音首字母排序
+		Comparator comparator = Collator.getInstance(Locale.CHINA);
+		Arrays.sort(allbizname,comparator);
 		return allbizname;
 	}
 
