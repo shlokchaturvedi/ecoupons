@@ -5,7 +5,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
 	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 	
-	<display-name>/ecoupons</display-name>
+	<display-name></display-name>
 	<servlet>
 		<servlet-name>InitClass</servlet-name>
 		<servlet-class>com.ejoysoft.ecoupons.InitClass</servlet-class>
@@ -208,7 +208,7 @@
 	</session-config>
 	
 	<welcome-file-list>
-		<welcome-file>login.jsp</welcome-file>
+		<welcome-file>gotoweb.jsp</welcome-file>
 	</welcome-file-list>
 	
 	
