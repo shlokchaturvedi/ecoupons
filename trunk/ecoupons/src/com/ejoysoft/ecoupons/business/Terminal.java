@@ -161,11 +161,19 @@ public class Terminal
 			{
 				for (int i = 0; i < vctShops.size(); i++)
 				{
+					
+					
 					strSql = "insert into " + strTableName3 + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) " + "values ("
 							+ UID.getID() + ",'" + strId + "','t_bz_shop','" + vctShops.get(i).getStrId() + "','add',0)";
 					db.executeUpdate(strSql);
 				}
 				db.commit();
+				Terminal theBean1 = new Terminal();
+				theBean1.setStrId(strId);
+				theBean1.setDtCreateTime(dtCreateTime);
+				theBean1.setIntState(intState);
+				theBean1.setStrNo(strNo);
+				Terminal.hmTerminal.put(theBean1.getStrNo(), theBean1);
 				db.setAutoCommit(true);
 				Globa.logger0("添加终端信息", globa.loginName, globa.loginIp, strSql, "终端管理", globa.userSession.getStrDepart());
 				return true;
@@ -193,6 +201,7 @@ public class Terminal
 			db.executeUpdate(sql);// 删除终端
 			deleteTerminalIdsFromIds(terminalid);
 			db.getConnection().commit(); // 统一提交
+			Terminal.hmTerminal.remove(getTerminalNamesByIds(terminalid));
 			Globa.logger0("删除终端信息", globa.loginName, globa.loginIp, sql, "终端管理", globa.unitCode);
 			return true;
 		} catch (Exception ee)
@@ -222,6 +231,7 @@ public class Terminal
 			}
 			db.executeUpdate(strSql2);
 			db.commit();
+			
 			return true;
 
 		} catch (SQLException e)
@@ -259,6 +269,10 @@ public class Terminal
 			db.setString(9, strResolution3);
 			db.setString(10, strId);
 			db.executeUpdate();
+			Terminal theBean1 = new Terminal();
+			theBean1.setStrId(strId);
+			theBean1.setStrNo(strNo);
+			Terminal.hmTerminal.put(theBean1.getStrNo(), theBean1);
 			Globa.logger0("更新终端信息", globa.loginName, globa.loginIp, strSql, "终端管理", globa.userSession.getStrDepart());
 			return true;
 		} catch (Exception e)
