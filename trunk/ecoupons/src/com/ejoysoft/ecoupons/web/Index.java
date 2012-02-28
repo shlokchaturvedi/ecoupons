@@ -94,7 +94,7 @@ public class Index
 		Vector<Shop> vctShops = shop.list(strWhere, 0, 0);
 		for (int i = 0; i < vctShops.size(); i++)
 		{
-			vctCoupons.addAll(coupon.list("where strshopid='" + vctShops.get(i).getStrId() + "' and intRecommend=1 order by dtcreatetime  desc LIMIT 1", 0,
+			vctCoupons.addAll(coupon.list("where strshopid='" + vctShops.get(i).getStrId() + "' and intRecommend=1 and dtactivetime <=now() and dtexpiretime >=now() order by dtcreatetime  desc LIMIT 1", 0,
 					0));
 		}
 		for (int i = 0; i < vctCoupons.size(); i++)
