@@ -40,6 +40,13 @@ body,td,th {
 <link href="../images/skin.css" rel="stylesheet" type="text/css" />
 <script language="JavaScript" src="../include/date/popc.js"></script>
 <script src="../include/js/chkFrm.js"></script>
+<script src="../include/js/list.js"></script>
+<script language="javascript">
+function crm() {
+
+ 
+}
+</script>
 </head>
 
 <body >
@@ -136,7 +143,7 @@ body,td,th {
   </tr>
         <TR>
             <TD colspan="2" align="center" height="28">
-            <input type="button" name="b_submit" value="保存" class="button_box" onclick="frm.submit()"/>
+            <input type="button" name="b_submit" value="保存" class="button_box" onclick=" frm.submit();"/>
             <input type="button" name="b_reset"    value="重 置" class="button_box" onClick="frm.reset();" style="cursor:hand">
             <input type="button" name="b_back"     value="关 闭" class="button_box"  onClick="window.close();"style="cursor:hand">
           </TD>
