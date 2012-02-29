@@ -143,7 +143,8 @@ function chkFrm()
       <td class="member_td_wz">验 证 码：&nbsp;&nbsp;</td>
       <td class="member_td_wz1"><input name="yanzm"  type="text"  class="yzm"/>
      	 <input name="randomYazm"  type="hidden"  class="yzm"/>
-         <input type="button" name="botton" onclick="getYzm();" value="获取验证码" /></td>
+         <input type="button" name="botton" onclick="getYzm();" value="获取验证码" />
+      </td>
     </tr>
     <tr>
       <td height="40" colspan="2">&nbsp;</td>

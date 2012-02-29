@@ -20,36 +20,6 @@ if(session.getAttribute(Constants.MEMBER_KEY) == null)
     response.getWriter().print("<script>alert('您还未登录！请先登录！');top.location = '"+application.getServletContextName()+"/web/index.jsp';</script>");
 }
 %>
-<%
-String strMemberCardNo=globa.getMember().getStrCardNo();
-
-RecordModel reModel=new RecordModel(globa);
-//记录总数
-String sql1="select count(strId) from ( select strId,intpoint,dtcreatetime from t_bz_point_present where strMemberCardNo='"
-+strMemberCardNo+"' union all select strId,intpoint,dtcreatetime from t_bz_pointcard_input where strMemberCardNo='"+strMemberCardNo+"' union all "
-+"select a1.strId,a2.intpoint,a1.dtcreatetime from t_bz_gift_exchange a1,t_bz_gift a2 where strmembercardno='"+strMemberCardNo+"' and a2.strid=a1.strgiftid) b order by b.dtcreatetime desc ";
-int intAllCount=reModel.getCount(sql1);
-//当前页
-int intCurPage=globa.getIntCurPage();
-//每页记录数
-//int intPageSize=globa.getIntPageSize();
-int intPageSize=6;
-//共有页数
-	int intPageCount=(intAllCount-1)/intPageSize+1;
-// 循环显示一页内的记录 开始序号
-int intStartNum=(intCurPage-1)*intPageSize+1;
-//结束序号
-int intEndNum=intCurPage*intPageSize;   
-//获取到当前页面的记录集
-String sql="select strId,intpoint,dtcreatetime from ( select strId,intpoint,dtcreatetime from t_bz_point_present where strMemberCardNo='"
-+strMemberCardNo+"' union all select strId,intpoint,dtcreatetime from t_bz_pointcard_input where strMemberCardNo='"+strMemberCardNo+"' union all "
-+"select a1.strId,a2.intpoint,a1.dtcreatetime from t_bz_gift_exchange a1,t_bz_gift a2 where strmembercardno='"+strMemberCardNo+"' and a2.strid=a1.strgiftid) b order by b.dtcreatetime desc ";
-Vector<RecordModel> vctRecords=reModel.listIntegral(sql,intStartNum,intPageSize);
-//获取当前页的记录条数
-int intVct=(vctRecords!=null&&vctRecords.size()>0?vctRecords.size():0);
-Member member=new Member(globa);
-
-%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -120,6 +90,9 @@ frameborder=0 width="100%" scrolling=no></iframe>
     <tr>
       <td height="32" class="list_wz"><a href="memberpwd.jsp">&nbsp;&gt;&gt; 修改密码</a></td>
     </tr>
+     <tr>
+      <td height="32" class="list_wz"><a href="membereidt.jsp">&nbsp;&gt;&gt; 信息设置</a></td>
+    </tr>
     <tr>
       <td height="32" class="list_wz"><a href="#" onclick="if (confirm('您确定要退出吗？')){top.location = '<%=application.getServletContextName()%>/web/Auth?actiontype=<%=Constants.WEBLOGOFF%>';}	return false;">&nbsp;&gt;&gt; 退出系统</a></td>
     </tr>
@@ -148,7 +121,9 @@ frameborder=0 width="100%" scrolling=no></iframe>
       <tr>
       <td width="55%" class="memberpwd_td">重复密码：&nbsp;&nbsp;</td>
       <td width="45%" class="memberpwd_td"><input name="newPwd2" id="strPhone" type="password"  class="memberpwd_ipt"/>&nbsp;&nbsp;</td>
-     </tr>
+     </tr><tr>
+      <td height="30">&nbsp;</td><td></td>
+    </tr>
      <tr>
       <td width="55%" class="memberpwd_td">&nbsp;</td>
       <td width="45%" class="memberpwd_td"><img src="images/sure.jpg" onclick="chkFrm();" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
