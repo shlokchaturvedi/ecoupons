@@ -10,6 +10,7 @@
 	String[] aryStrId = ParamUtil.getStrArray(request, "strId");
 	for (int i = 0; i < aryStrId.length; i++)
 	{
+		System.out.print("erererrrrrrrrrrrrrrrrrrrrrrrrrr");
 		CouponFavourite cf = obj.show("where strId ='" + aryStrId[i] + "'");
 
 		obj.delete("where strcouponid='" + cf.getStrCouponId() + "' and strmembercardno='" + cf.getStrMemberCardNo() + "'");

@@ -151,7 +151,7 @@ frameborder=no width="100%" scrolling=no></iframe>
       <td align="center" bgcolor="#FFFFFF"><a href="couponinfo.jsp?strid=<%=coupon.getStrId() %>"><%=coupon.getStrName() %></a></td>
       <td align="center" bgcolor="#FFFFFF"><span class="STYLE1"><%=coupon.getFlaPrice() %></span></td>
       <td align="center" bgcolor="#FFFFFF"><span class="STYLE1"><%=coupon.getDtExpireTime() %></span></td>
-      <td align="center" bgcolor="#FFFFFF"><span class="STYLE1"><%=vctCouponFavourites.get(i).getDtCreateTime() %></span></td>
+      <td align="center" bgcolor="#FFFFFF"><span class="STYLE1"><%=vctCouponFavourites.get(i).getDtFavouriteTime() %></span></td>
       <td align="center" bgcolor="#FFFFFF">
       <span class="STYLE1">
       <a href="#" onclick="if(confirm('确认删除该记录？')){location.href='collection_act.jsp?strId=<%=vctCouponFavourites.get(i).getStrId()%>';}"><img src="../images/delete.gif" width="16" height="16" border="0" />删除</a></span> 
