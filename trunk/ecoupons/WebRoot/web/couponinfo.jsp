@@ -62,11 +62,8 @@ else{
 <DIV class=clearfloat></DIV>
 <DIV class=show_line></DIV>
 <DIV class=info>
-  <DIV class=info_mid>使用说明：<BR>
-    1、凭此券到店消费可享受优惠！<BR>
-    2、此优惠不得与店内其他优惠一起使用；<BR>
-    3、此券不兑换现金、不找零、不开发票；<BR>
-    4、最终解释权归本店所有。<BR><BR>
+  <DIV class=info_mid>使用说明：
+<%=Format.forbidNull(obj0.getStrInstruction().replace("\n","<br/>")) %>
     <!--
   联系电话：<%=obj3.getStrPhone()%>
 --><BR>
@@ -145,8 +142,9 @@ class=red><%=intAllCount%></SPAN>条评论)</DIV>
 <DIV style="PADDING-LEFT: 5px"><BR>
 <DIV style="HEIGHT: 50px">
 <DIV style="WIDTH: 10%; FLOAT: left; HEIGHT: 40px"><IMG alt="" src="images/touxiang.jpg" width=45 height=33> </DIV>
-<DIV style="LINE-HEIGHT: 18px; WIDTH: 80%; FLOAT: left; HEIGHT: 33px"><SPAN style="COLOR: #001c55"><%=namememb%>：</SPAN><SPAN 
-style="COLOR: gray"><%=comobj1.getStrComment() %></SPAN> </DIV>
+<DIV style="LINE-HEIGHT: 18px; WIDTH: 80%; FLOAT: left; HEIGHT: 33px"><SPAN style="COLOR: #001c55"><%=namememb%>：</SPAN>
+<SPAN style="COLOR: gray"><%=comobj1.getStrComment().replace("\n","<br/>") %></SPAN> 
+</DIV>
 </DIV>
 <DIV style="BORDER-BOTTOM: #808080 1px dotted; HEIGHT: 1px; CLEAR: both"></DIV><BR>
 </DIV>
