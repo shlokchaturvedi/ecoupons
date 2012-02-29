@@ -44,7 +44,7 @@ public class ShopTop {
 	    		ShopTop thebean = new ShopTop();
 	    		ShopAnalysis shopAnalysis = vector2.get(i);
 	    		String shopfullname = shopAnalysis.getShopName();
-	    		int printnum = shopAnalysis.getShopCouponNum();
+	    		int printnum = shopAnalysis.getShopPrintNum();
 	    		thebean.setShopfullname(shopfullname);
 	    		thebean.setTotalprintnum(printnum);	    		
 	    		String shopid = obj0.getShopIdByName(shopfullname) ;
@@ -64,19 +64,21 @@ public class ShopTop {
 	    	
 	    	return vector;
 	    }
+	   
+	    //重新排序
 	    public Vector<ShopAnalysis> resortVector(Vector<ShopAnalysis> vector)
-		{
+	    {
 	    	for(int i=0;i<vector.size();i++)
 	    	{
-	    		for(int j =i+1;j<vector.size();j++)
+	    		for(int j=i+1;j<vector.size();j++)
 	    		{
-		    		ShopAnalysis obj = vector.get(i);
-		    		ShopAnalysis obj1 = vector.get(j);
-		    		if(obj.getShopPrintNum() < obj1.getShopPrintNum())
+	    			ShopAnalysis obj = vector.get(i);
+	    			ShopAnalysis obj1 = vector.get(j);
+		    		if( obj.getShopPrintNum() < obj1.getShopPrintNum())
 		    		{
 		    			 ShopAnalysis temp = obj;
 		    		     vector.set(i, obj1);  
-		    		     vector.set(j, temp);  			 
+		    		     vector.set(j, temp);  			
 		    		}
 	    		}
 	    	}
