@@ -538,7 +538,13 @@ public class Shop
 			{
 				do
 				{
-					shopnames[i] = rs.getString("strbizname") + "-" + rs.getString("strshopname") + " ";
+					String bizname = rs.getString("strbizname");
+				    String shopname = rs.getString("strshopname");
+				    if(shopname !=null && !shopname.equals(""))  
+				    {
+				   		bizname = bizname+"-"+shopname;
+				    }
+					shopnames[i] = bizname;
 					i++;
 				} while (rs.next());
 			}
@@ -611,14 +617,14 @@ public class Shop
 			if (rs != null && rs.next())
 			{
 				Shop shopBean = new Shop();
-				shopBean = load(rs, true);
-				if(shopBean.getStrShopName()!=null && !shopBean.getStrShopName().equals(""))
-				{
-					return shopBean.getStrBizName() + "-" + shopBean.getStrShopName();
-				}
-				else {
-					return shopBean.getStrBizName();
-				}
+				shopBean = load(rs, true);				
+			    String bizname = shopBean.getStrBizName();
+			    String shopname = shopBean.getStrShopName();;
+			    if(shopname !=null && !shopname.equals(""))  
+			    {
+			   		bizname = bizname+"-"+shopname;
+			    }
+			  return bizname;
 			} else
 				return null;
 		} catch (Exception ee)

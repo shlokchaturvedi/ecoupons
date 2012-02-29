@@ -21,6 +21,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  
 	String tWhere=" where strid='" + strId + "'";
 	Shop obj1=obj.show(tWhere);
+	String bizname = obj1.getStrBizName();
+    String shopname = obj1.getStrShopName();
+    if(shopname !=null && !shopname.equals(""))  
+    {
+   		bizname = bizname+"-"+shopname;
+    }
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/tr/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -37,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div id=Main>
 <div id=Left>
 <div class=left_top>
-<div class="hotList_sf">商户详细：<%=obj1.getStrBizName()+"-"+obj1.getStrShopName() %></div>
+<div class="hotList_sf">商户详细：<%=bizname%></div>
 </div>
 <div class=left_mid>
 <div class=show>
@@ -59,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   %>
 </div>
 <div class=mer_info>
-<div class=mer_headtitle><a href="#"><%=obj1.getStrBizName() %>—<%=obj1.getStrShopName()%></a></div>
+<div class=mer_headtitle><a href="#"><%=bizname%></a></div>
 
 <div class=clearfloat></div>
 <div class=mer_text_left>

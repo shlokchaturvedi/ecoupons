@@ -78,10 +78,9 @@ function ReturnShops(){
 				<% 
 				  Shop obj = new Shop(globa,true);
 				  String allshopname[]=obj.getAllShopNames();
-				  String allbizname[]=obj.getStrBizNames();				  
-				  System.out.println(allbizname.length );
+				  String allbizname[]=obj.getStrBizNames();		
 			      for(int i=0;i<allbizname.length;i++)
-               { 
+                  { 
 	               if(allbizname[i]!=null ||allbizname[i].trim()!="")
 	               {
 	                    
@@ -98,9 +97,10 @@ function ReturnShops(){
                <%	    int k=0;     
                		    for(int j=0;j<allshopname.length;j++)
 	                    {
-	                       if((allshopname[j].split("-")[0]).trim().equals(allbizname[i]))
+	                       String[] shopStrings =allshopname[j].split("-");
+	                       if(shopStrings.length>=2 && shopStrings[0].trim().equals(allbizname[i]))
 	                       { 
-	                         System.out.println(k);
+	                       //  System.out.println(k);
 	                         if(k%3==0)
 	              			 {
 	              			 %>
@@ -110,11 +110,28 @@ function ReturnShops(){
 	              			 k++;                       
 	           %>
 		                 <td width="33%">		                       
-						 <input name="shopname" type="checkbox" value="<%=allshopname[j] %>" /><font style="font-family:·ÂËÎGB2312 ; font-size: 12px;color: #444444;"><%=allshopname[j].split("-")[1]%></font>		
+						 <input name="shopname" type="checkbox" value="<%=allshopname[j] %>" /><font style="font-family:·ÂËÎGB2312 ; font-size: 12px;color: #444444;"><%=shopStrings[1]%></font>		
+						 </td>
+		              
+	               <% 		 
+              			  }else if(shopStrings.length==1 && shopStrings[0].trim().equals(allbizname[i]))
+	                       { 
+	                       //  System.out.println(k);
+	                         if(k%3==0)
+	              			 {
+	              			 %>
+		                 </tr><tr>
+		              
+	               <% 		 }	   
+	              			 k++;                       
+	           %>
+		                 <td width="33%">		                       
+						 <input name="shopname" type="checkbox" value="<%=allshopname[j] %>" /><font style="font-family:·ÂËÎGB2312 ; font-size: 12px;color: #444444;"><%=allshopname[j]%></font>		
 						 </td>
 		              
 	               <% 		 
               			  }
+              			  
                			}
                		%>
 					  </tr>	

@@ -101,7 +101,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
     <div class=hotList_mid>
 <% for(int i = 0;i < vctObj.size(); i++) {
-       Shop obj1 = vctObj.get(i);%>
+       Shop obj1 = vctObj.get(i);
+	   String bizname = obj1.getStrBizName();
+	   String shopname = obj1.getStrShopName();
+	   if(shopname !=null && !shopname.equals(""))  
+	   {
+	   		bizname = bizname+"-"+shopname;
+	   }
+%>
 <div class=pro>	
 	
 	<div class=pro_mid>
@@ -119,7 +126,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                  <%} %>
 </a></div>
 <div class=pro_info>
-<div class=headtitle><a href="merchantsinfo.jsp?strid=<%=obj1.getStrId() %>" target=_blank><%=obj1.getStrBizName()%>—<%=obj1.getStrShopName()%></a></div>
+<div class=headtitle><a href="merchantsinfo.jsp?strid=<%=obj1.getStrId() %>" target=_blank><%=bizname%></a></div>
 
 <div class=clearfloat></div>
 <div class=line><img src="images/fg.gif" width=525 height=4 /></div>

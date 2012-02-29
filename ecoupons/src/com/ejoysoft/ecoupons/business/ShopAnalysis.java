@@ -232,7 +232,6 @@ public class ShopAnalysis {
     {
     	Vector<ShopAnalysis> vector = new Vector<ShopAnalysis>();
     	ShopAnalysis obj = new ShopAnalysis(globa);
-    	Shop shop = new Shop(globa);
     	String sql = "select * from "+strTableName1;
      	try {
     		if (where.length() > 0)
@@ -242,7 +241,13 @@ public class ShopAnalysis {
 			{
 				while (re.next()) {
 					String shopid = re.getString("strid");
-					String shopname = shop.returnBizShopName(" where strid='"+shopid+"'");
+					String bizname = re.getString("strbizname");
+				    String shopname2 = re.getString("strshopname");
+				    if(shopname2 !=null && !shopname2.equals(""))  
+				    {
+				   		bizname = bizname+"-"+shopname2;
+				    }
+					String shopname = bizname;
 					int couponnum = obj.getNumOfCouponByShop(shopid,this.stime,this.etime);
 					int printnum = obj.getTotalPrintNum(shopid,this.stime,this.etime);
 					vector.addElement(loadBar(shopname, couponnum, printnum));					
@@ -269,7 +274,13 @@ public class ShopAnalysis {
 		 	{
 		 		do{
 					String shopid = re.getString("strid");
-					String shopname = re.getString("strbizname")+"-"+re.getString("strshopname");
+					String bizname = re.getString("strbizname");
+				    String shopname2 = re.getString("strshopname");
+				    if(shopname2 !=null && !shopname2.equals(""))  
+				    {
+				   		bizname = bizname+"-"+shopname2;
+				    }
+					String shopname = bizname;
 					Vector<ShopAnalysis> vector2 = obj.getCouponIdsByShop(shopid,this.stime,this.etime);
 					Vector<ShopAnalysis> vector3 = obj.getCouponIdsByShop2(shopid,this.stime,this.etime);
 				    if((vector2==null||vector2.size()==0) && (vector3==null||vector3.size()==0))
@@ -357,7 +368,7 @@ public class ShopAnalysis {
     }
     private String couponId;//优惠券id；
     private String couponName;//优惠券名称
-    private String shopName;//优惠券名称
+    private String shopName;//商家名称
     private int shopCouponNum ;//商家发布优惠券总量；
     private int shopPrintNum ;//商家优惠券打印总量
     private int perCouponPrintNum ;//商家每种优惠券打印总量
