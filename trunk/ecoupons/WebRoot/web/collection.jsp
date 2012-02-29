@@ -16,6 +16,7 @@ if(session.getAttribute(Constants.MEMBER_KEY) == null)
 <%
 CouponFavourite couponFavourite=new CouponFavourite(globa);
 Vector<CouponFavourite> vctCouponFavourites=couponFavourite.list("where strMemberCardNo='"+globa.getMember().getStrCardNo()+"'",0,0);
+
 Shop shop=new Shop(globa);
 Coupon couponGloba=new Coupon(globa);
 Coupon coupon=new Coupon();
@@ -140,13 +141,14 @@ frameborder=no width="100%" scrolling=no></iframe>
       <td align="center" bgcolor="EEEEEE" class="collect_show_tit">操作</td>
     </tr>
     <%if(vctCouponFavourites.size()>0){ %>
-    <%for(int i=0;i<vctCouponFavourites.size();i++){
-    	coupon=couponGloba.show("where strid='"+vctCouponFavourites.get(i).getStrCouponId()+"' order by dtcreatetime desc");
+    <%
+    for(int i=0;i<vctCouponFavourites.size();i++){
+    	
+    coupon=couponGloba.show("where strid='"+vctCouponFavourites.get(i).getStrCouponId()+"' order by dtcreatetime desc");
     %>
     <tr>
-    <td height="20" bgcolor="#FFFFFF"><div align="center">
-                    <input type="checkbox" name=strId value="<%=vctCouponFavourites.get(i).getStrId() %>" />
-                </div></td>
+    <td height="20" bgcolor="#FFFFFF">
+    <div align="center"><input type="checkbox" name=strId value="<%=vctCouponFavourites.get(i).getStrId() %>" /></div></td>
       <td height="25" align="center" bgcolor="#FFFFFF"><span class="STYLE1"><a href="merchantsinfo.jsp?strid=<%=coupon.getStrShopId()%>"><%=shop.returnBizShopName("where strid='"+coupon.getStrShopId()+"'") %></a></span></td>
       <td align="center" bgcolor="#FFFFFF"><a href="couponinfo.jsp?strid=<%=coupon.getStrId() %>"><%=coupon.getStrName() %></a></td>
       <td align="center" bgcolor="#FFFFFF"><span class="STYLE1"><%=coupon.getFlaPrice() %></span></td>
