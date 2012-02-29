@@ -34,8 +34,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 Coupon obj1 = coupobj.show(" where strid='"+strId+"'");
 	 Shop shop = new Shop(globa);
 	 Shop objshop = shop.show(" where strid = '"+obj1.getStrShopId()+"'");
-	 String strimg = "images/temp.jpg",info = " ",instruction = "",phone = " ",addr = " ";
-	 if(obj1.getStrSmallImg()!=null)
+	 String strimg = "../web/images/temp.jpg",info = " ",instruction = "",phone = " ",addr = " ";
+	 if(obj1.getStrSmallImg()!=null&&!obj1.getStrSmallImg().equals(""))
 	 {
 	 	strimg = "../coupon/images/"+obj1.getStrSmallImg();
 	 }
@@ -127,7 +127,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				   <td align="center">
 				    <table width=100%>	    
 					   <tr align="center">
-					   	<td><img src="<%=strimg%>" width=100 height=50 /></td>
+					   	<td><img src="<%=strimg%>" width=75 height=69 /></td>
 					   </tr> 
 				    </table>
 				   </td>
