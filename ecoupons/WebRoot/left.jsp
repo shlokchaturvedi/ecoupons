@@ -204,14 +204,19 @@ a:link,a:hover,a:active,a:visited {
 				Vector vctModule = modRoot.getChildren();
 				for (int i = 0; i < vctModule.size(); i++) {
 					Module mod2 = (Module)vctModule.get(i);
+					Vector vctMod2 = mod2.getChildren();
+					boolean bolRight = false;
+					for (int j = 0; j < vctMod2.size(); j++) {
+						if (globa.userSession.hasRight(((Module)vctMod2.get(j)).getCode())) {
+							bolRight = true;
+							break;
+						}
+					}
+					if (bolRight) {
 				%>
 					<h1 class="type">
 						<a href="javascript:void(0)"><%=mod2.getName() %></a>
 					</h1>
-					<%
-					Vector vctMod2 = mod2.getChildren();
-					if (vctMod2 != null && vctMod2.size() > 0) {
-					%>
 					<div class="content">
 						<table width="100%" border="0" cellspacing="0" cellpadding="0">
 							<tr>
@@ -224,11 +229,13 @@ a:link,a:hover,a:active,a:visited {
 						<%
 						for (int j = 0; j < vctMod2.size(); j++) {
 							Module mod3 = (Module)vctMod2.get(j);
+							if (globa.userSession.hasRight(mod3.getCode())) {
 						%>
 							<li>
 								<a href="<%=mod3.getUrl() %>" target="main"><%=mod3.getName() %></a>
 							</li>
 						<%
+							}
 						}
 						%>
 						</ul>
