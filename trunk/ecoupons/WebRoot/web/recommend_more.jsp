@@ -142,7 +142,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <ul> 
 <%
 Index index=new Index(globa);
-HashMap<String, Integer> hmTrades=index.returnTradeForCoup();
+HashMap<String, Integer> hmTrades=index.returnTradeForCoup("");
 for(int i=0;i<tradelist.size();i++)
 {
     SysPara syspara1 = (SysPara)tradelist.get(i);
