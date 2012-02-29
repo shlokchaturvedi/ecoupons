@@ -44,7 +44,7 @@ public class CouponDownloadServlet extends HttpServlet implements Servlet
 		req.setCharacterEncoding("utf-8");
 		Globa globa = new Globa();
 		resp.setCharacterEncoding("utf-8");
-		 String strTerminalNo = req.getParameter("strTerminalNo");
+		String strTerminalNo = req.getParameter("strTerminalNo");
 //		String strTerminalNo = "007";
 		HashMap<String, Terminal> hmTerminal = Terminal.hmTerminal;
 		Terminal terminal = hmTerminal.get(strTerminalNo);
