@@ -23,7 +23,6 @@
 	            randBuffer[i] = numbersAndLetters[randGen.nextInt(35)];
 	        }
 	 String randomCode = new String(randBuffer);
-	 System.out.println(randomCode);
 	 String strWelcome = TerminalParamVector.getWelcome();
 	 String messege="亲爱的会员您好，您于乐购网打印优惠券的验证码为："+randomCode+"！请根据此验证码完成打印过程，祝您购物愉快！"+strWelcome;
 	 String PostData;
