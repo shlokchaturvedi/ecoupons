@@ -9,6 +9,8 @@
 				com.ejoysoft.common.Constants,
 				com.ejoysoft.ecoupons.business.Shop,
 				com.ejoysoft.ecoupons.TerminalParamVector"%>
+<%@page import="java.net.UnknownHostException"%>
+<%@page import="com.ejoysoft.common.SendSms"%>
 <%@include file="../include/jsp/head.jsp"%>
 <%
 String path = request.getContextPath();
@@ -19,13 +21,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
   <head>
  <%
-	 String memberCardno="";  
+	 String memberCardno="",memberPhone="",randomCode="";  
 	 if(session.getAttribute(Constants.MEMBER_KEY) == null)
 	 {
    		globa.closeCon();   		
       response.getWriter().println("<script>alert('您还未登录！请先登录！');window.opener=null;window.close();</script>");
 	 }
-	 memberCardno = globa.memberSession.getStrCardNo(); 	 
+	 memberCardno = globa.memberSession.getStrCardNo(); 
+	 memberPhone = 	globa.memberSession.getStrMobileNo(); 
 	 String strId = ParamUtil.getString(request,"strid");
 	 if(strId.equals(""))
 	    	throw new IdObjectException("请求处理的信息id为空！或者已经不存在");
@@ -55,14 +58,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 {
 	 	addr = objshop.getStrAddr();
 	 } 
-	 if(info.length()>27)
-	 {
-	 	info = info.substring(0,25)+"...";
-	 }
-	 if(instruction.length()>81)
-	 {
-	 	instruction = instruction.substring(0,80)+"<br/>...";
-	 }
 	 System.out.println();
 	 String codeString = memberCardno.trim()+strId.trim()+Format.getDateTime();
 	 String md5Code = MD5.getMD5ofString(codeString);
@@ -88,17 +83,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 }	 
  	 if(flag.equals("print"))
  	 {	  
- 	       int k = member.setFlaBalance(memberCardno,balance-couponPrice);
-		   CouponPrint obj = new CouponPrint(globa);
-	 	   String strCouponCode2 = ParamUtil.getString(request,"code");
-	 	   obj.setStrCreator("system");
-	 	   obj.setStrCouponCode(strCouponCode2);
-	 	   obj.setStrCouponId(strId);
-	 	   obj.setStrMemberCardNo(memberCardno);
-	 	   obj.setStrTerminalId("system");
- 	  	   boolean result = obj.add();		
- 	  	   response.getWriter().println("<script>setTimeout('window.opener=null;window.close();',400);</script>");	
+ 	    CouponPrint obj = new CouponPrint(globa);
+ 	    String strCouponCode2 = ParamUtil.getString(request,"code");
+ 	    obj.setStrCreator("system");
+ 	    obj.setStrCouponCode(strCouponCode2);
+ 	    obj.setStrCouponId(strId);
+ 	    obj.setStrMemberCardNo(memberCardno);
+ 	    obj.setStrTerminalId("system");
+	  	boolean result = obj.add();		
+	  	response.getWriter().println("<script>setTimeout('window.opener=null;window.close();',400);</script>");	
+ 	 	
  	 }
+ 	 	
  %>
     <base href="<%=basePath%>">
     
@@ -112,17 +108,50 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <style media=print>
 .Noprint{display:none;}
 </style>
-
+<script src="../include/js/chkFrm.js"></script>
+<script type="text/javascript">
+function getYzm()
+{
+	if(confirm("确定短信获取验证码？"))
+    {
+	 	var randomyazm=window.showModalDialog("print_act.jsp?memberPhone="+<%=memberPhone%>+"&random="+Math.random(), "", "dialogWidth=200px;dialogHeight:150px;dialogTop:400px;dialogLeft:550px;scrollbars=yes;status=yes;center=yes;");
+		frm.randomYzm.value=randomyazm;
+	}
+}
+function chkFrm()
+{
+	if(trim(frm.yzm.value)=="") {
+        alert("请输入验证码！！！");
+        frm.yzm.focus();
+        return false;
+    }else
+    {
+    	  if(trim(frm.yzm.value)!=(trim(frm.randomYzm.value)))
+    	  {
+    	  	    alert("您输入的验证码错误！");
+                frm.yzm.focus();         
+    		    return false;
+    	  }
+    	  if(confirm("确定打印该优惠券？"))
+    	  {
+    	    document.getElementById("txt").innerHTML="<%=strCouponCode3%>";
+    	    document.getElementById("flag").value="print" ;
+    	    window.print();
+    	    frm.submit();
+    	  }
+    }
+}
+</script>
   </head>
   <body>
-  <form name=frm action="web/coupon_print.jsp" method=post id=frm >
+  <form action="web/coupon_print.jsp" method=post id=frm >
   <input type=hidden name=code value="<%=strCouponCode%>" />
   <input type=hidden name=strid value="<%=strId%>" />
   <input type=hidden name=flag value=" " />
    <table width=100% border=0> 
  	<tr>
  		<td>
- 			<table width=100%  height="540" >
+ 			<table width=100%  height="520" >
  			   <tr>
 				   <td align="center">
 				    <table width=100%>	    
@@ -147,14 +176,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					   <tr align="center">
 					   		<td><h5>【使用说明】</h5></td>
 					   </tr> 
-					   <tr align="left">
-					   		<td><font style="font-size: 13px;font-weight: 300;">电 话：</font><font size="2"><%=phone%></font></td>
-					   </tr> 
-					   <tr align="left"> 
-					   		<td><font style="font-size: 13px;font-weight: 300;">地 址：</font><font size="2"><%=addr%></font></td>
-					   </tr> 
-					   <tr align="left">
-					   		<td><font style="font-size: 13px;font-weight: 300;">说 明：<br/></font><font size="2"><%=instruction.replace("\n","<br/>")%></font></td>
+					  <tr align="left">
+					   		<td><font size="2"><%=instruction.replace("\n","<br/>")%></font></td>
 					   </tr> 
 				    </table>
 			    </td>
@@ -179,14 +202,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    </table>
 				   </td>
 			   </tr> 
+			     <tr>
+			       <td class="member_td_wz1"><input class=Noprint style="width=110;height=25" name="yzm"  type="text"/>
+			     	 <input class=Noprint name="randomYzm"  type="hidden"/>
+			         <input class=Noprint style="width=110;height=25" type="button" name="botton3" onclick="getYzm();" value="获取验证码" /></td>
+			    </tr> 
  			</table>
  		</td>
- 	</tr>   
+ 	</tr> 	  
    <tr>
    <td>
    		<table>
    			<tr>	
-	   			<td><input class=Noprint style="width=110;height=30" type=button name=button1 onclick="if(confirm('确定打印该优惠吗？')){document.getElementById('txt').innerHTML='<%=strCouponCode3%>';document.getElementById('flag').value='print' ;window.print();document.getElementById('frm').submit();}" value="打     印"/></td>
+	   			<td><input class=Noprint style="width=110;height=30" type=button name=button1 onclick="chkFrm();" value="打     印"/></td>
 	   			<td><input class=Noprint style="width=110;height=30" type=button name=button2 onclick="window.close();" value="关     闭"/></td>
   			</tr>
    		</table>
