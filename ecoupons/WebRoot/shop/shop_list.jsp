@@ -18,7 +18,7 @@ if(!globa.userSession.hasRight("10005"))
     String  strName=ParamUtil.getString(request,"strName","");
 	String tWhere=" where 1=1";
 	if (!strName.equals("")) {
-		tWhere += " and strbizname like '%" + strName + "%'";
+		tWhere += " and (strbizname like '%" + strName + "%' or strshopname like '%" + strName + "%')";
 	}
 	tWhere += " order by strid";
 	//记录总数
