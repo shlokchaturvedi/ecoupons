@@ -14,6 +14,8 @@
     /**
      * 保存角色分配信息
      */
+    
+    if (rights!=null){
     if(action.equals(Constants.ADD_STR)){
            RoleRight obj=new RoleRight(globa);
             if(obj.delete(" where strUserId='"+strId+"' "))
@@ -53,6 +55,11 @@
                             out.print("<script>alert('权限分配失败！');window.close();</script>");
                 }
             }
+      }
+      }
+      else{
+        out.print("<script>alert('权限分配失败！');window.close();</script>");
+        
       }
     //关闭数据库连接对象
     globa.closeCon();
