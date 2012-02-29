@@ -362,7 +362,27 @@ public class SysUserUnit {
 		}
 		return vctUnit;
 	}
-	
+	public static Vector<Unit> getAllUnitd() {
+		Vector<Unit> vctUnit = new Vector<Unit>();
+		int intLevel = 999;
+		for (int i = 0; i < userGroupTree.size(); i++) {
+			Unit u = (Unit)userGroupTree.get(i);
+			//if (u.getStrId().equals(strUnitId)) {
+				vctUnit.add(u);
+				intLevel = u.getIntLevel();
+				for (int j = i + 1; j < userGroupTree.size(); j++) {
+					u = (Unit)userGroupTree.get(j);
+					if (u.getIntLevel() > intLevel) {
+						vctUnit.add(u);
+					} else {
+						break;
+					}
+				}
+				break;
+			//}
+		}
+		return vctUnit;
+	}
 	public static String getAllUnitIdManaged(String strUnitId) {
 		Vector<Unit> vctUnit = getAllUnitManaged(strUnitId);
 		String result = "";

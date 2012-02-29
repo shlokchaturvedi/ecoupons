@@ -156,7 +156,7 @@ body,td,tr{font-size:9pt;}
               <select name="arryUnitId" class="forms_color1">
                     <%
                         HashMap unitUsers = obj.unitUser("strUnitId", " WHERE strUserId='"+strUserId+"'");
-                        Vector userGroupTree = SysUserUnit.getAllUnitManaged(globa.unitId[0]);
+                        Vector userGroupTree = SysUserUnit.getUserGroupTree();
                         String strSelect="";
                          for (int i = 0; i < userGroupTree.size(); i++) {
                             Unit ugNode = (Unit)userGroupTree.get(i);
