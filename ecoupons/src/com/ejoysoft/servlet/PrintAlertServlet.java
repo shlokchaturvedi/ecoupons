@@ -42,14 +42,17 @@ public class PrintAlertServlet extends HttpServlet
 		req.setCharacterEncoding("utf-8");
 		Globa globa = new Globa();
 		resp.setCharacterEncoding("utf-8");
+//		String strTerminalNo ="001";
+//		int intCouponPrint = 300 ;
 		String strTerminalNo = req.getParameter("strTerminalNo");
+		int intCouponPrint = Integer.parseInt(req.getParameter("intCouponPrint")) ;
 		HashMap<String, Terminal> hmTerminal = Terminal.hmTerminal;
 		Terminal terminal = hmTerminal.get(strTerminalNo);
 		if (terminal != null)
 		{
 			Terminal terminal2 = new Terminal(globa);
 			String strId = terminal.getStrId();
-			if (terminal2.updatePrintPaperState(strId, 1))// 1代表该终端现在缼纸
+			if (terminal2.updatePrintPaperState(strId, intCouponPrint))// 1代表该终端现在缼纸
 			{
 				sbReturn.append("<return>OK</return>");
 			} else
@@ -60,19 +63,10 @@ public class PrintAlertServlet extends HttpServlet
 		{
 			sbReturn.append("<return>terminal_error</return>");
 		}
-		try
-		{
-			resp.getWriter().println(sbReturn.toString());
-		} catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-
-		} finally
-		{
+		
 			// 关闭数据库连接对象
 			globa.closeCon();
 			resp.getWriter().println(sbReturn.toString());
-		}
+		
 	}
 }
