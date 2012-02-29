@@ -237,7 +237,7 @@ else
 <DIV class=card_mid>
 
 <%
-Vector<Coupon> vctCoupon = obj.listByShopId(" where strshopid='" + obj3.getStrId() + "' limit 6");
+Vector<Coupon> vctCoupon = obj.listByShopId(" where strshopid='" + obj3.getStrId() + "' and '"+Format.getDateTime()+"'>dtactivetime and '"+Format.getDateTime()+"'<dtexpiretime limit 6");
 if(vctCoupon!=null&&vctCoupon.size()!=0)
 {
 	int k=vctCoupon.size(),n=0;

@@ -239,7 +239,7 @@ else{
 	<ul>
 	<%
 	Coupon coupon = new Coupon(globa);
-	Vector<Coupon> vctcoup = coupon.list(" where intrecommend='1'",0,0);
+	Vector<Coupon> vctcoup = coupon.list(" where intrecommend='1' and '"+Format.getDateTime()+"'>dtactivetime and '"+Format.getDateTime()+"'<dtexpiretime ",0,0);
 	int k =1;
 	for(int i=0;i<vctcoup.size();i++)
 	{   
