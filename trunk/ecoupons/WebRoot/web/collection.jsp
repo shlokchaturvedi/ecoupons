@@ -52,10 +52,24 @@ function logout(){
 	return false;
 }
 </script>
+<script src="../include/js/list.js"></script>
+<script type="text/javascript">
+//批量删除信息
+function del(){
+	if (iCheckedNumber(document.all.strId) == 0) {
+		alert("请先选择要删除的记录！");
+		return;
+	}
+    if(!confirm('您是否确认要删除所选中的所有记录？'))
+        return;
+     frm.action="collection_act.jsp?<%=Constants.ACTION_TYPE%>=<%=Constants.DELETE_STR%>";
+     frm.submit();
+}
+</script>
 </head>
 
 <body>
-<form name="frm" method=post action=" " >	
+<form name="frm" method=post action="collection.jsp" >	
 <iframe style="HEIGHT: 164px" border=0 marginwidth=0 marginheight=0 src="top.jsp" 
 frameborder=no width="100%" scrolling=no></iframe>
 
@@ -103,24 +117,45 @@ frameborder=no width="100%" scrolling=no></iframe>
 </DIV>
 <DIV class=collect_left_mid>
 <DIV class=collect_show>
+<table border="0" cellpadding="0" cellspacing="0" width="96%">
+			<tr>
+			<td style="font-size:9pt">
+			 &nbsp;&nbsp;&nbsp;
+			</td>
+			<td align="right" width="600">
+			 <input type="checkbox" name="checkbox62" value="checkbox" onclick="selAll(document.all.strId)"/>
+			 全选
+			 <a href="#" onclick="del();"><img src="../images/delete.gif" width="16" height="16" border="0" />批量删除</a>
+			</td>   
+			</tr>
+			</table>
   <table width="96%" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="DCDCDC">
     <tr> 
+     <td width="5%" height="22"  class="left_bt2"><div align="center">&nbsp;</div></td>
       <td height="25" align="center" bgcolor="EEEEEE" class="collect_show_tit">商家名称</td>
       <td align="center" bgcolor="EEEEEE" class="collect_show_tit">优惠券名称</td>
       <td align="center" bgcolor="EEEEEE" class="collect_show_tit">金额</td>
       <td align="center" bgcolor="EEEEEE" class="collect_show_tit">失效时间</td>
       <td align="center" bgcolor="EEEEEE" class="collect_show_tit">收藏时间</td>
+      <td align="center" bgcolor="EEEEEE" class="collect_show_tit">操作</td>
     </tr>
     <%if(vctCouponFavourites.size()>0){ %>
     <%for(int i=0;i<vctCouponFavourites.size();i++){
     	coupon=couponGloba.show("where strid='"+vctCouponFavourites.get(i).getStrCouponId()+"' order by dtcreatetime desc");
     %>
     <tr>
+    <td height="20" bgcolor="#FFFFFF"><div align="center">
+                    <input type="checkbox" name=strId value="<%=vctCouponFavourites.get(i).getStrId() %>" />
+                </div></td>
       <td height="25" align="center" bgcolor="#FFFFFF"><span class="STYLE1"><a href="merchantsinfo.jsp?strid=<%=coupon.getStrShopId()%>"><%=shop.returnBizShopName("where strid='"+coupon.getStrShopId()+"'") %></a></span></td>
       <td align="center" bgcolor="#FFFFFF"><a href="couponinfo.jsp?strid=<%=coupon.getStrId() %>"><%=coupon.getStrName() %></a></td>
       <td align="center" bgcolor="#FFFFFF"><span class="STYLE1"><%=coupon.getFlaPrice() %></span></td>
       <td align="center" bgcolor="#FFFFFF"><span class="STYLE1"><%=coupon.getDtExpireTime() %></span></td>
-      <td align="center" bgcolor="#FFFFFF"><span class="STYLE1"><%=coupon.getDtCreateTime() %></span></td>
+      <td align="center" bgcolor="#FFFFFF"><span class="STYLE1"><%=vctCouponFavourites.get(i).getDtCreateTime() %></span></td>
+      <td align="center" bgcolor="#FFFFFF">
+      <span class="STYLE1">
+      <a href="#" onclick="if(confirm('确认删除该记录？')){location.href='collection_act.jsp?<%=Constants.ACTION_TYPE%>=<%=Constants.DELETE_STR%>&strId=<%=vctCouponFavourites.get(i).getStrId()%>';}"><img src="../images/delete.gif" width="16" height="16" border="0" />删除</a></span> 
+                </td>
     </tr>
     <%} }else{%>
     <tr>
