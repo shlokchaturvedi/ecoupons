@@ -62,7 +62,7 @@ else{
 <DIV class=clearfloat></DIV>
 <DIV class=show_line></DIV>
 <DIV class=info>
-  <DIV class=info_mid>使用说明：
+  <DIV class=info_mid>使用说明：<br/>
 <%=Format.forbidNull(obj0.getStrInstruction().replace("\n","<br/>")) %>
     <!--
   联系电话：<%=obj3.getStrPhone()%>

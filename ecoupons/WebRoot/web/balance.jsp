@@ -25,7 +25,7 @@ if(session.getAttribute(Constants.MEMBER_KEY) == null)
 <link rel=stylesheet type=text/css href="css/comment.css" />
 <title>我的余额</title>
 </head> 
-<body><div><br /></div>
+<body>
 <form action="" name="frm" method="post">
 <iframe style="HEIGHT: 164px"  marginwidth=0 marginheight=0 src="top.jsp" 
 frameborder=0 width="100%" scrolling=no></iframe>
@@ -68,7 +68,7 @@ frameborder=0 width="100%" scrolling=no></iframe>
 </div>
 <div id=Left>
 <div class=collect_left_top>
-		<div class="collect_sf">我的积分</div>
+		<div class="collect_sf">我的余额</div>
 </div>
 <%
 Recharge recharge=new Recharge(globa);
@@ -133,7 +133,7 @@ Member member=new Member(globa);
    <!-- 翻页开始 -->  
  	<%@ include file="include/cpage.jsp"%>
    	<!-- 翻页结束 -->
-</div>s
+</div>
 
 </div>
 <div class=collect_show_bottom></div></div>

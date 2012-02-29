@@ -229,7 +229,7 @@ for(int i=0;i<tradelist.size();i++)
 		{
 		%>
 		  <li>
-         <a href="couponinfo.jsp?strid=<%=coupon2.getStrId() %>" target="_blank"><img src=<%="../coupon/images/"+coupon2.getStrSmallImg()%> width="173" height="110" />
+         <a href="couponinfo.jsp?strid=<%=coupon2.getStrId() %>" target="_blank"><img src=<%="../coupon/images/"+coupon2.getStrSmallImg()%> width="173" height="110" border="0"/>
          </a></li> 
 		<%
 		}
