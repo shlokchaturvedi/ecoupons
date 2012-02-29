@@ -98,7 +98,7 @@ public class CouponAuthServlet extends HttpServlet
 						    else {
 						    	sbReturn.append("<return>sms_error</return>");
 							}
-						} catch (UnsupportedEncodingException e) {
+						} catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 							sbReturn.append("<return>sms_error</return>");
