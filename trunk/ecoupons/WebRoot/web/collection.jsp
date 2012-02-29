@@ -16,7 +16,16 @@ if(session.getAttribute(Constants.MEMBER_KEY) == null)
 <%
 CouponFavourite couponFavourite=new CouponFavourite(globa);
 Vector<CouponFavourite> vctCouponFavourites=couponFavourite.list("where strMemberCardNo='"+globa.getMember().getStrCardNo()+"'",0,0);
-
+for(int i=0;i<vctCouponFavourites.size();i++)
+{
+for(int j=0;j<i;j++)
+{
+if(vctCouponFavourites.get(i).getStrCouponId().equals(vctCouponFavourites.get(j).getStrCouponId()))
+{
+vctCouponFavourites.remove(i);	
+}	
+}
+}
 Shop shop=new Shop(globa);
 Coupon couponGloba=new Coupon(globa);
 Coupon coupon=new Coupon();

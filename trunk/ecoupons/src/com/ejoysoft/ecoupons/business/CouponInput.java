@@ -96,12 +96,18 @@ public class CouponInput
 		try
 		{
 			String sql = "DELETE FROM " + strTableName + "  ".concat(where);
+			String strSql = "update t_bz_coupon_print set intState=0 where strCouponCode='" + show(where).getStrCouponCode()+"'";
+			db.setAutoCommit(false);
 			db.executeUpdate(sql);
+			db.executeUpdate(strSql);
 			Globa.logger0("删除有价券信息", globa.loginName, globa.loginIp, sql, "优惠券管理", globa.unitCode);
+			db.commit();
+			db.setAutoCommit(false);
 			return true;
 		} catch (Exception ee)
 		{
 			ee.printStackTrace();
+			db.rollback();
 			return false;
 		}
 	}
