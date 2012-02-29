@@ -1,4 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
+<%
+String path3 = request.getContextPath();
+String basePath3 = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path3+"/";
+%>
  <div class=pageSide>
 总计<%=intAllCount%>条记录，
 当前第<%=intCurPage%>/<%=intPageCount%>页
@@ -33,7 +37,7 @@ function goto(inputVlaue)
 	    return false;
 	}
 	frm.<%=com.ejoysoft.common.Constants.PAGE_SIZE_INDEX%>.value=inputVlaue;
-	frm.action ="<%=application.getServletContextName()%>/<%=request.getServletPath()%>";
+	frm.action ="<%=basePath3%>/<%=application.getServletContextName()%>/<%=request.getServletPath()%>";
 	frm.submit();
 }
 </script>
