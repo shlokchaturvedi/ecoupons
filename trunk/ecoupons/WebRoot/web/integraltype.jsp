@@ -101,7 +101,7 @@ frameborder=no width="100%" scrolling=no></iframe>
     </tr>
     <tr>
       <td height="45" class="intergal_zw">密&nbsp;&nbsp;码：</td>
-      <td><input type="text" name="strPointCardPwd"  class="type_k"/></td>
+      <td><input type="password" name="strPointCardPwd"  class="type_k"/></td>
     </tr>
     <tr>
       <td height="60">&nbsp;</td>

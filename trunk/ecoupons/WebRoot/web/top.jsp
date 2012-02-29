@@ -104,9 +104,17 @@ if(session.getAttribute(Constants.MEMBER_KEY) != null)
 {
 	Member member=new Member(globa);
 	Member memberTemp=member.show("where strCardNo='"+globa.getMember().getStrCardNo()+"'");
+	int vip = globa.memberSession.getIntType();
+	String vipString="";
+	if(vip==1)
+	{
+		vipString="（VIP）";
+	}
+	
 %>
-<li style="font-size: 20px;font-style: oblique;">&nbsp;&nbsp;&nbsp;&nbsp;
-<%out.print(globa.memberSession.getStrName()); %>,欢迎回来
+
+<li style="width:300px;margin-top:6px;color:white;font-size: 16px;font-family: 黑体; text-align: right;">&nbsp;&nbsp;&nbsp;&nbsp;
+<a style="color: white;" href="history.jsp" target="_parent"><%=globa.memberSession.getStrName()+vipString%></a>,欢迎回来
 
 </li>
 
