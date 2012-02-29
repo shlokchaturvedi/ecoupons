@@ -6,13 +6,14 @@
 				com.ejoysoft.common.Format,
 				com.ejoysoft.ecoupons.business.CouponPrint,
 				com.ejoysoft.ecoupons.business.Member,
-				com.ejoysoft.common.Constants"%>
+				com.ejoysoft.common.Constants,
+				com.ejoysoft.ecoupons.business.Shop,
+				com.ejoysoft.ecoupons.TerminalParamVector"%>
 <%@include file="../include/jsp/head.jsp"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -28,10 +29,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 String strId = ParamUtil.getString(request,"strid");
 	 if(strId.equals(""))
 	    	throw new IdObjectException("请求处理的信息id为空！或者已经不存在");
-	 String strimg = ParamUtil.getString(request,"strimg","temp.jpg");
-	 String flag = ParamUtil.getString(request,"flag"," ");
+	 String flag = ParamUtil.getString(request,"flag"," "); 
 	 Coupon coupobj = new Coupon(globa);
 	 Coupon obj1 = coupobj.show(" where strid='"+strId+"'");
+	 Shop shop = new Shop(globa);
+	 Shop objshop = shop.show(" where strid = '"+obj1.getStrShopId()+"'");
+	 String strimg = "images/temp.jpg",info = " ",instruction = "",phone = " ",addr = " ";
+	 if(obj1.getStrSmallImg()!=null)
+	 {
+	 	strimg = "../coupon/images/"+obj1.getStrSmallImg();
+	 }
+	 if(obj1.getStrIntro()!=null)
+	 {
+	 	info = obj1.getStrIntro();
+	 }
+	 if(obj1.getStrInstruction()!=null)
+	 {
+	 	instruction = obj1.getStrInstruction();
+	 } 	
+	 if(objshop!=null && objshop.getStrPhone()!=null)
+	 {
+	 	phone = objshop.getStrPhone();
+	 } 	
+	 if(objshop!=null && objshop.getStrAddr()!=null)
+	 {
+	 	addr = objshop.getStrAddr();
+	 } 
+	 if(info.length()>27)
+	 {
+	 	info = info.substring(0,25)+"...";
+	 }
+	 if(instruction.length()>81)
+	 {
+	 	instruction = instruction.substring(0,80)+"<br/>...";
+	 }
+	 System.out.println();
 	 String codeString = memberCardno.trim()+strId.trim()+Format.getDateTime();
 	 String md5Code = MD5.getMD5ofString(codeString);
 	 String strCouponCode ="",strCouponCode3 ="";
@@ -85,41 +117,81 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
   <form name=frm action="web/coupon_print.jsp" method=post id=frm >
   <input type=hidden name=code value="<%=strCouponCode%>" />
-  <input type=hidden name=strimg value="<%=strimg%>" />
   <input type=hidden name=strid value="<%=strId%>" />
   <input type=hidden name=flag value=" " />
    <table width=100% border=0> 
+ 	<tr>
+ 		<td>
+ 			<table width=100%  height="540" >
+ 			   <tr>
+				   <td align="center">
+				    <table width=100%>	    
+					   <tr align="center">
+					   	<td><img src="<%=strimg%>" width=100 height=50 /></td>
+					   </tr> 
+				    </table>
+				   </td>
+			   </tr>
+			   <tr>
+			   	<td width=100% ><img src="web/images/show_line.gif" width=240 height=5 /></td>
+			   </tr>  
+			   <tr>
+			   	 <td><h2><%=info%></h2></td>
+			   </tr>
+			   <tr>
+			   	<td width=100% ><img src="web/images/show_line.gif" width=240 height=5 /></td>
+			   </tr>  
+			   <tr>
+			  	<td width=100% >
+			   		<table width=100%>	    
+					   <tr align="center">
+					   		<td><h5>【使用说明】</h5></td>
+					   </tr> 
+					   <tr align="left">
+					   		<td><font style="font-size: 13px;font-weight: 300;">电 话：</font><font size="2"><%=phone%></font></td>
+					   </tr> 
+					   <tr align="left"> 
+					   		<td><font style="font-size: 13px;font-weight: 300;">地 址：</font><font size="2"><%=addr%></font></td>
+					   </tr> 
+					   <tr align="left">
+					   		<td><font style="font-size: 13px;font-weight: 300;">说 明：<br/></font><font size="2"><%=instruction.replace("\n","<br/>")%></font></td>
+					   </tr> 
+				    </table>
+			    </td>
+			   </tr>
+			   <tr>
+			   	<td width=100% ><img src="web/images/show_line.gif" width=240 height=5 /></td>
+			   </tr>
+			   <tr>
+			   	<td height=50>
+			    	<font size="5"><div id="txt"></div></font>   	
+			   	</td>
+			   </tr>
+			    <tr>
+			   	<td width=100% ><img src="web/images/show_line.gif" width=240 height=5 /></td>
+			   </tr>
+			   <tr>
+				   <td align="center">
+				    <table width=100%>	    
+					   <tr>
+					   	<td align="center" ><h3><%=TerminalParamVector.getPrintBottom()%><br/><%=TerminalParamVector.getPhone()%></h3></td>
+					   </tr>
+				    </table>
+				   </td>
+			   </tr> 
+ 			</table>
+ 		</td>
+ 	</tr>   
    <tr>
-	   <td colspan="2">
-	    <table>	    
-		   <tr>
-		   	<td width=90 height=50 align="left"><img src="web/images/xinjiutian.jpg" width=100 height=50 /></td>
-		   	<td align="left"><font size="5">&nbsp;&nbsp;联系电话：0558-2282609</font></td>
-		   </tr> 
-	    </table>
-	   </td>
-   </tr>
-    <tr>
-   	<td colspan="2" width=100% ><img src="web/images/show_line.gif" width=400 height=5 /></td>
-   </tr>
-   <tr>
-   	<td colspan="2"> <img src=<%="coupon/images/"+strimg%> width=<%=application.getAttribute("COUPON_PRINT_IMG_WIDTH") %> height=<%=application.getAttribute("COUPON_PRINT_IMG_HEIGHT") %>/></td>
-   </tr>
-   <tr>
-   	<td colspan="2" width=100% ><img src="web/images/show_line.gif" width=400 height=5 /></td>
-   </tr>
-   <tr>
-   	<td height=50 colspan="2">
-   	<font size="5">
-   	<div id="txt"></div>
-   	
-   	</font></td>
-   </tr>
-   <tr>
-   	<td>
-	   <input class=Noprint style="width=200;height=30" type=button name=button1 onclick="if(confirm('确定打印该优惠吗？')){document.getElementById('txt').innerHTML='<%=strCouponCode3%>';document.getElementById('flag').value='print' ;window.print();document.getElementById('frm').submit();}" value="打     印"/></td>
-   	<td><input class=Noprint style="width=200;height=30" type=button name=button2 onclick="window.close();" value="关     闭"/></td>
-   </tr>
+   <td>
+   		<table>
+   			<tr>	
+	   			<td><input class=Noprint style="width=110;height=30" type=button name=button1 onclick="if(confirm('确定打印该优惠吗？')){document.getElementById('txt').innerHTML='<%=strCouponCode3%>';document.getElementById('flag').value='print' ;window.print();document.getElementById('frm').submit();}" value="打     印"/></td>
+	   			<td><input class=Noprint style="width=110;height=30" type=button name=button2 onclick="window.close();" value="关     闭"/></td>
+  			</tr>
+   		</table>
+   	</td>
+     </tr>
    </table>
    </form> 
     <%globa.closeCon(); %>
