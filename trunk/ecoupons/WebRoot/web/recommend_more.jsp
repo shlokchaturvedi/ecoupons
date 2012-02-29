@@ -157,7 +157,7 @@ for(int i=0;i<tradelist.size();i++)
 {
     SysPara syspara1 = (SysPara)tradelist.get(i);
     int coupnum = hmTrades.get(syspara1.getStrName());
-    System.out.println(syspara1.getStrName()+coupnum);
+   // System.out.println(syspara1.getStrName()+coupnum);
 	String strtradeid = syspara1.getStrId();
 	%>
 	<li><a href="coupons_more.jsp?strtrade=<%=strtradeid%>" ><%=syspara1.getStrName()%>&nbsp;&nbsp;(<%=coupnum%>)</a></li>
