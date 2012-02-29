@@ -241,7 +241,7 @@ body,td,tr {
 																<%if(obj0.getIntType()==1) out.print("checked");%>
 																class="input_box">
 															电子积分
-															<input type="radio" name="intType" value="0"
+															<input type="radio" name="intType" value="2"
 																<%if(obj0.getIntType()==2) out.print("checked");%>
 																class="input_box">
 															纸质积分

@@ -262,7 +262,7 @@ function chkFrm() {
 														</td>
 														<td bgcolor="#FFFFFF">
 															<div align="center">
-																<span class="STYLE1"><%=obj1.getDtPrintTime().substring(0, obj1.getDtPrintTime().length() - 2)%></span>
+																<span class="STYLE1"><%=obj1.getDtPrintTime()%></span>
 															</div>
 														</td>
 														<td bgcolor="#FFFFFF">

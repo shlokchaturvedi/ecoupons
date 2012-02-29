@@ -229,6 +229,7 @@ public class CouponInput
 					where = where.substring(0, where.lastIndexOf("order"));
 				sql = String.valueOf(sql) + String.valueOf(where);
 			}
+			System.out.println(sql);
 			ResultSet rs = db.executeQuery(sql);
 			if (rs.next())
 				count = rs.getInt(1);
