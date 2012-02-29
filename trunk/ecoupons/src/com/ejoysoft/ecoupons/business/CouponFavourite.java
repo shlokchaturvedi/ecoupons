@@ -39,7 +39,17 @@ public class CouponFavourite
 	private String dtCreateTime;
 	
 	
-	
+	public boolean delete(String where) {
+        try {
+            String sql = "DELETE FROM " + strTableName + "  ".concat(where);
+            db.executeUpdate(sql);
+            Globa.logger0("删除优惠券收藏记录", globa.loginName, globa.loginIp, sql, "网站", "");
+            return true;
+        } catch (Exception ee) {
+            ee.printStackTrace();
+            return false;
+        }
+    }
 	
 	
 
@@ -205,7 +215,11 @@ public class CouponFavourite
 
 	public String getDtFavouriteTime()
 	{
-		return dtFavouriteTime;
+		if (dtFavouriteTime!=null&&!dtFavouriteTime.equals(""))
+		{
+			return dtFavouriteTime.substring(0, dtFavouriteTime.length()-2);
+		}
+		return "";
 	}
 
 	public void setDtFavouriteTime(String dtFavouriteTime)
@@ -225,6 +239,7 @@ public class CouponFavourite
 
 	public String getDtCreateTime()
 	{
+		
 		return dtCreateTime;
 	}
 
