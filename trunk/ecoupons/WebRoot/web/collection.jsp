@@ -62,7 +62,7 @@ function del(){
 	}
     if(!confirm('您是否确认要删除所选中的所有记录？'))
         return;
-     frm.action="collection_act.jsp?<%=Constants.ACTION_TYPE%>=<%=Constants.DELETE_STR%>";
+     frm.action="collection_act.jsp";
      frm.submit();
 }
 </script>
@@ -154,7 +154,7 @@ frameborder=no width="100%" scrolling=no></iframe>
       <td align="center" bgcolor="#FFFFFF"><span class="STYLE1"><%=vctCouponFavourites.get(i).getDtCreateTime() %></span></td>
       <td align="center" bgcolor="#FFFFFF">
       <span class="STYLE1">
-      <a href="#" onclick="if(confirm('确认删除该记录？')){location.href='collection_act.jsp?<%=Constants.ACTION_TYPE%>=<%=Constants.DELETE_STR%>&strId=<%=vctCouponFavourites.get(i).getStrId()%>';}"><img src="../images/delete.gif" width="16" height="16" border="0" />删除</a></span> 
+      <a href="#" onclick="if(confirm('确认删除该记录？')){location.href='collection_act.jsp?strId=<%=vctCouponFavourites.get(i).getStrId()%>';}"><img src="../images/delete.gif" width="16" height="16" border="0" />删除</a></span> 
                 </td>
     </tr>
     <%} }else{%>
