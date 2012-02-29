@@ -600,7 +600,7 @@ public class Shop
 	}
 
 	/**
-	 * 根据查询条件返回strbizname-strshopname
+	 * 根据查询条件返回strbizname-strshopname或strbizname
 	 */
 	public String returnBizShopName(String where)
 	{
@@ -612,7 +612,13 @@ public class Shop
 			{
 				Shop shopBean = new Shop();
 				shopBean = load(rs, true);
-				return shopBean.getStrBizName() + "-" + shopBean.getStrShopName();
+				if(shopBean.getStrShopName()!=null && !shopBean.getStrShopName().equals(""))
+				{
+					return shopBean.getStrBizName() + "-" + shopBean.getStrShopName();
+				}
+				else {
+					return shopBean.getStrBizName();
+				}
 			} else
 				return null;
 		} catch (Exception ee)
