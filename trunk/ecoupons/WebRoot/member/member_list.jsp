@@ -150,7 +150,7 @@ function del(){
                  <td width="10%" class="left_bt2"><div align="center">启用时间</div></td>
                 <td width="10%" class="left_bt2"><div align="center">余额</div></td>
                 <td width="10%" class="left_bt2"><div align="center">积分</div></td>
-                <td width="15%" class="left_bt2"><div align="center">查看</div></td>
+                <td width="15%" class="left_bt2"><div align="center">查看记录</div></td>
                 <td width="35%" class="left_bt2"><div align="center">基本操作</div></td>
               </tr>
             <%

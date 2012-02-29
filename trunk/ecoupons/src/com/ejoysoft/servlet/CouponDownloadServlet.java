@@ -44,8 +44,8 @@ public class CouponDownloadServlet extends HttpServlet implements Servlet
 		req.setCharacterEncoding("utf-8");
 		Globa globa = new Globa();
 		resp.setCharacterEncoding("utf-8");
-		 String strTerminalNo = req.getParameter("strTerminalNo");
-//		String strTerminalNo = "21";
+//		 String strTerminalNo = req.getParameter("strTerminalNo");
+		String strTerminalNo = "007";
 		HashMap<String, Terminal> hmTerminal = Terminal.hmTerminal;
 		Terminal terminal = hmTerminal.get(strTerminalNo);
 		Terminal terminal2 = new Terminal(globa);
@@ -188,7 +188,9 @@ public class CouponDownloadServlet extends HttpServlet implements Servlet
 		sbReturn.append("<strLargeImg>" + tempCoupon.getStrLargeImg() + "</strLargeImg>");
 		// sbReturn.append("<strLargeImgContent>" + LargeMageContent +
 		// "</strLargeImgContent>");
-		sbReturn.append("<strPrintImg>" + tempCoupon.getStrPrintImg() + "</strPrintImg>");
+		//sbReturn.append("<strPrintImg>" + tempCoupon.getStrPrintImg() + "</strPrintImg>");
+		sbReturn.append("<strInstruction>" + tempCoupon.getStrInstruction() + "</strInstruction>");
+		sbReturn.append("<strIntro>" + tempCoupon.getStrIntro() + "</strIntro>");
 		sbReturn.append("</coupon>");
 		return sbReturn;
 	}

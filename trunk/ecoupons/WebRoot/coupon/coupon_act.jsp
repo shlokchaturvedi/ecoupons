@@ -23,10 +23,7 @@
         		File f = new File(strFilePath + obj0.getStrLargeImg());
         		f.delete();
         	}
-    		if (obj0.getStrPrintImg()!=null&&obj0.getStrPrintImg().length() > 0) {
-        		File f = new File(strFilePath + obj0.getStrPrintImg());
-        		f.delete();
-        	}
+    		
 			obj.delete(aryStrId[i]);
 		}
 		globa.dispatch(true, strUrl);
@@ -43,7 +40,7 @@
 		{
 			path.mkdirs();
 		}
-		String strSmallImg = "", strLargeImg = "",strPrintImg="";
+		String strSmallImg = "", strLargeImg = "";
 		Coupon obj0 = null;
 		if (action.equals(Constants.UPDATE_STR))
 		{
@@ -74,15 +71,7 @@
 			}
 			strLargeImg =au.saveFile(strFilePath,strId+"_"+"1", 1);
 		}
-		if (au.getFileName(2).length() > 0)
-		{
-			if (action.equals(Constants.UPDATE_STR) && obj0.getStrPrintImg().length() > 0  && obj0.getStrPrintImg()!= null )
-			{
-				File f = new File(strFilePath + obj0.getStrPrintImg());
-				f.delete();
-			}
-			strPrintImg =au.saveFile(strFilePath,strId+"_"+"3", 2);
-		}
+		
 		//赋值
 		obj.setStrId(strId);
 		obj.setDtActiveTime(au.getString("dtActiveTime"));
@@ -91,7 +80,8 @@
 		obj.setIntPrintLimit(au.getInt("intPrintLimit"));
 	    obj.setStrLargeImg(strLargeImg);
 	    obj.setStrSmallImg(strSmallImg);
-	    obj.setStrPrintImg(strPrintImg);
+	   obj.setStrInstruction(au.getString("strInstruction"));
+	   obj.setStrIntro(au.getString("strIntro"));
 	    obj.setStrName(au.getString("strName"));
 	    obj.setStrShopId(au.getString("strShopId"));
 	    obj.setStrTerminals(au.getString("strTerminals"));
