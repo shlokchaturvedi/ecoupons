@@ -42,7 +42,7 @@ public class Point
   int intTempPoint=shop.show("where strId='" + poinTemp.getStrShopId() + "'").getIntPoint() -intPoint;
 		if (intPoint < intDbPoint)
 		{
-			if (intDbPoint - intPoint > shop.show("where strId='" + show("where strId='" + tStrId + "'").getStrShopId() + "'").getIntPoint())
+			if (intDbPoint - intPoint >= shop.show("where strId='" + show("where strId='" + tStrId + "'").getStrShopId() + "'").getIntPoint())
 			{
 				return false;
 			}
