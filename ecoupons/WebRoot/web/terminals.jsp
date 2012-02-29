@@ -8,6 +8,7 @@
 				com.ejoysoft.ecoupons.system.SysPara,
 				com.ejoysoft.ecoupons.business.CouponComment" %>
 <%@page import="com.ejoysoft.ecoupons.business.Coupon"%>
+<%@page import="com.ejoysoft.common.Format"%>
 <%@ include file="../include/jsp/head.jsp"%>
 <%
 String path = request.getContextPath();
@@ -168,7 +169,7 @@ for(int i=0;i<vctStrades.size();i++){
 	<ul>
 	<%
 	Coupon coupon = new Coupon(globa);
-	Vector<Coupon> vctcoup = coupon.list(" where intrecommend='1'",0,0);
+	Vector<Coupon> vctcoup = coupon.list(" where intrecommend='1' and '"+Format.getDateTime()+"'>dtactivetime and '"+Format.getDateTime()+"'<dtexpiretime ",0,0);
 	int k =1;
 	for(int i=0;i<vctcoup.size();i++)
 	{   

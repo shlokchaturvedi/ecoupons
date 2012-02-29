@@ -86,7 +86,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class=hotList_mid>    
 <ul>
 <% for(int i = 0;i < vctObj.size(); i++) {
-       Coupon obj1 = vctObj.get(i);%>
+       Coupon obj1 = vctObj.get(i);
+	   String strCouponName=obj1.getStrName();
+ 	   if(strCouponName!=null&&strCouponName.length()>14)
+ 	   {
+ 	   	  strCouponName = strCouponName.substring(0,12)+"...";
+ 	   }       
+%>
  <li>
   <div class=list>
     <div class=list_mid>
@@ -104,7 +110,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </a></div>
   <div class=list_hot> <div class=money><%=obj1.getFlaPrice()%>元</div> </div>
   <div class=clearfloat></div>
-  <p>名称：<span> <a href="couponinfo.jsp?strid=<%=obj1.getStrId() %>" target="_blank"><%=obj1.getStrName() %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></span><br/>
+  <p>名称：<span> <a href="couponinfo.jsp?strid=<%=obj1.getStrId() %>" target="_blank"><%=strCouponName%></a></span><br/>
   开始时间
     ：<a href="#">2012-01-01</a><br/>
     <font color=#ff0000>截止时间：<%=obj1.getDtExpireTime().substring(0,10) %></font><br/>
@@ -113,8 +119,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <%
      Shop objshop = new Shop(globa);
      String shopname = objshop.returnBizShopName(" where strid='"+obj1.getStrShopId()+"'");
+     if(shopname!=null&&shopname.length()>14)
+	 {
+	   	  shopname = shopname.substring(0,12)+"...";
+	 }
     %>
-   <a href="merchantsinfo.jsp?strid=<%=obj1.getStrShopId() %>" target="_blank" ><%=shopname %>&nbsp;</a> </span> </p>
+   <a href="merchantsinfo.jsp?strid=<%=obj1.getStrShopId() %>" target="_blank" ><%=shopname %></a> </span> </p>
   <div class=line><img src="images/line.gif"/></div>
   <div class=list_bar>
   <ul>
@@ -208,7 +218,7 @@ for(int i=0;i<tradelist.size();i++)
 	<ul>
 	<%
 	Coupon coupon = new Coupon(globa);
-	Vector<Coupon> vctcoup = coupon.list(" where intrecommend='1'",0,0);
+	Vector<Coupon> vctcoup = coupon.list(" where intrecommend='1' and '"+Format.getDateTime()+"'>dtactivetime and '"+Format.getDateTime()+"'<dtexpiretime ",0,0);
 	int k =1;
 	for(int i=0;i<vctcoup.size();i++)
 	{   
