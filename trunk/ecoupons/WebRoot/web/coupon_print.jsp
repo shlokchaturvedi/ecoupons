@@ -194,18 +194,12 @@ function chkFrm()
 			   	<td width=100% ><img src="web/images/show_line.gif" width=240 height=5 /></td>
 			   </tr>
 			   <tr>
-				   <td align="center">
-				    <table width=100%>	    
-					   <tr>
-					   	<td align="center" ><h3><%=TerminalParamVector.getPrintBottom()%><br/><%=TerminalParamVector.getPhone()%></h3></td>
-					   </tr>
-				    </table>
-				   </td>
-			   </tr> 
-			     <tr>
-			       <td class="member_td_wz1"><input class=Noprint style="width=110;height=25" name="yzm"  type="text"/>
+				   <td align="center" ><h3><%=TerminalParamVector.getPrintBottom()%><br/><%=TerminalParamVector.getPhone()%></h3></td>
+			  </tr> 
+			   <tr>
+			       <td class="member_td_wz1"><input class=Noprint style="width=110;height=25;" name="yzm" value="" type="text"/>
 			     	 <input class=Noprint name="randomYzm"  type="hidden"/>
-			         <input class=Noprint style="width=110;height=25" type="button" name="botton3" onclick="getYzm();" value="获取验证码" /></td>
+			         <input class=Noprint style="width=110;height=25; background-color:#FFFFFF; border:1px solid #999999;" type="button" name="botton3" onclick="getYzm();" value="短信获取验证码" /></td>
 			    </tr> 
  			</table>
  		</td>
@@ -213,9 +207,9 @@ function chkFrm()
    <tr>
    <td>
    		<table>
-   			<tr>	
-	   			<td><input class=Noprint style="width=110;height=30" type=button name=button1 onclick="chkFrm();" value="打     印"/></td>
-	   			<td><input class=Noprint style="width=110;height=30" type=button name=button2 onclick="window.close();" value="关     闭"/></td>
+   			<tr align="center">	
+	   			<td><input class=Noprint style="width=115;height=27; background-color:#FFFFFF; border:1px solid #999999;" type=button name=button1 onclick="chkFrm();" value="打     印"/></td>
+	   			<td><input class=Noprint style="width=115;height=27; background-color:#FFFFFF; border:1px solid #999999;" type=button name=button2 onclick="window.close();" value="关     闭"/></td>
   			</tr>
    		</table>
    	</td>
