@@ -16,7 +16,7 @@ public class Point
 	private Globa globa;
 	private DbConnect db;
 	String strTableName = "t_bz_point_buy";
-	
+
 	private String strId;// 自动生成
 	private String strShopId;// 商家id
 	private int intMoney;// 购买金额
@@ -30,7 +30,6 @@ public class Point
 	private String strAuditor;// 审核人
 	private String dtAuditTime;// 审核时间
 	private String exchangeRate;
-	
 
 	/*
 	 * 修改积分购买信息
@@ -38,18 +37,19 @@ public class Point
 	public boolean update(String tStrId)
 	{
 		Shop shop = new Shop(globa);
-		
-		int intDbPoint=show("where strId='" + tStrId+"'").getIntPoint();
+       Point poinTemp=show("where strId='" + tStrId + "'");
+		int intDbPoint = poinTemp.getIntPoint();
+  int intTempPoint=shop.show("where strId='" + poinTemp.getStrShopId() + "'").getIntPoint() -intPoint;
 		if (intPoint < intDbPoint)
 		{
-			if (intDbPoint-intPoint>shop.show("where strId='" + show("where strId='" + tStrId+"'").getStrShopId()+"'").getIntPoint())
+			if (intDbPoint - intPoint > shop.show("where strId='" + show("where strId='" + tStrId + "'").getStrShopId() + "'").getIntPoint())
 			{
 				return false;
 			}
 		}
 		try
 		{
-			String strSql="update "+strTableName+" set strShopId=?,intMoney=?,intPoint=?,intType=?  where strId=? ";
+			String strSql = "update " + strTableName + " set strShopId=?,intMoney=?,intPoint=?,intType=?  where strId=? ";
 			db.setAutoCommit(false);
 			db.prepareStatement(strSql);
 			db.setString(1, strShopId);
@@ -57,10 +57,32 @@ public class Point
 			db.setInt(3, intPoint);
 			db.setInt(4, intType);
 			db.setString(5, tStrId);
-			String strSql2 = "update t_bz_shop set intpoint=intPoint-" + intDbPoint+"+"+intPoint + " where strid='" + strShopId+"'";
-			System.out.println(strSql2);
-			if (db.executeUpdate() > 0 && db.executeUpdate(strSql2) > 0)
+			// System.out.println(strSql2);
+			if (db.executeUpdate() > 0)
 			{
+				if (intType == 1)
+				{
+					if (poinTemp.getIntType() == 2)
+					{
+						intDbPoint = 0;
+					}
+					String strSql2 = "update t_bz_shop set intpoint=intPoint-" + intDbPoint + "+" + intPoint + " where strid='" + strShopId + "'";
+					db.executeUpdate(strSql2);
+				}
+				if (intType == 2)
+				{
+					if (poinTemp.getIntType() == 1)
+					{
+						if (intTempPoint>0)
+						{
+							String strSql2 = "update t_bz_shop set intpoint=intPoint-" + intPoint + " where strid='" + strShopId + "'";
+							db.executeUpdate(strSql2);
+						} else
+						{
+							return false;
+						}
+					}
+				}
 				db.commit();
 				Globa.logger0("修改积分购买记录", globa.loginName, globa.loginIp, strSql, "商家管理", globa.userSession.getStrDepart());
 				return true;
@@ -73,7 +95,7 @@ public class Point
 		} catch (Exception e)
 		{
 			db.rollback();
-//			System.out.println("修改积分购买记录：" + e);
+			// System.out.println("修改积分购买记录：" + e);
 			return false;
 		}
 	}
@@ -102,10 +124,10 @@ public class Point
 	 */
 	public boolean setAudit()
 	{
-		
+
 		String strUserName = globa.userSession.getStrId();
-		String strSql = "update " + strTableName + " set intState='1',  strAuditor='"+strUserName+"' , dtAuditTime='"+
-		com.ejoysoft.common.Format.getDateTime()+"' where strId='" + strId + "' ";
+		String strSql = "update " + strTableName + " set intState='1',  strAuditor='" + strUserName + "' , dtAuditTime='"
+				+ com.ejoysoft.common.Format.getDateTime() + "' where strId='" + strId + "' ";
 		try
 		{
 
@@ -166,9 +188,9 @@ public class Point
 	{
 		String strUserName = globa.userSession.getStrId();
 		String strId = UID.getID();
+
 		String sql = "insert into " + strTableName + " (strId,strShopId,intMoney,dtBuyTime,intPoint,intType" + ",strCreator,dtCreateTime) "
 				+ "values (?,?,?,?,?,?,?,?) ";
-		String strSql = "update t_bz_shop set intpoint=intPoint+" + intPoint + " where strid='" + strShopId+"'";
 		try
 		{
 			db.getConnection().setAutoCommit(false);
@@ -182,8 +204,13 @@ public class Point
 			db.setInt(6, intType);
 			db.setString(7, strUserName);
 			db.setString(8, com.ejoysoft.common.Format.getDateTime());
-			if (db.executeUpdate() > 0 && db.executeUpdate(strSql) > 0)
+			if (db.executeUpdate() > 0)
 			{
+				if (intType == 1)
+				{
+					String strSql = "update t_bz_shop set intpoint=intPoint+" + intPoint + " where strid='" + strShopId + "'";
+					db.executeUpdate(strSql);
+				}
 				db.getConnection().commit();
 				db.getConnection().setAutoCommit(true);
 				Globa.logger0("增加积分购买记录 ", globa.loginName, globa.loginIp, sql, "商家管理", globa.unitCode);
@@ -208,8 +235,8 @@ public class Point
 	public boolean delete(String where, String intPoint)
 	{
 		Shop shop = new Shop(globa);
-		strShopId = show("where strId='" + where+"'").getStrShopId();
-		if (show("where strId='" + where+"'").getIntPoint() > shop.show("where strId='" + strShopId+"'").getIntPoint())
+		strShopId = show("where strId='" + where + "'").getStrShopId();
+		if (show("where strId='" + where + "'").getIntPoint() > shop.show("where strId='" + strShopId + "'").getIntPoint())
 		{
 			return false;
 		}
@@ -218,7 +245,7 @@ public class Point
 			db.getConnection().setAutoCommit(false);
 			db.getConnection().setSavepoint();
 			String strSql = "update t_bz_shop set intpoint=intPoint-" + intPoint + " where strid=" + strShopId;
-			String sql = "DELETE FROM " + strTableName + " where strId='" + where+"'";
+			String sql = "DELETE FROM " + strTableName + " where strId='" + where + "'";
 			if (db.executeUpdate(sql) > 0 && db.executeUpdate(strSql) > 0)
 			{
 
@@ -349,9 +376,6 @@ public class Point
 	 * --------------------------------------------------------------------------
 	 * -----------
 	 */
-	
-	
-	
 
 	public String getStrId()
 	{
@@ -435,9 +459,9 @@ public class Point
 
 	public String getDtCreateTime()
 	{
-		if (dtCreateTime != null&&dtCreateTime.length()>3)
+		if (dtCreateTime != null && dtCreateTime.length() > 3)
 		{
-			return dtCreateTime.substring(0, dtCreateTime.length()-2);
+			return dtCreateTime.substring(0, dtCreateTime.length() - 2);
 
 		} else
 		{
@@ -479,7 +503,5 @@ public class Point
 	{
 		this.exchangeRate = exchangeRate;
 	}
-
-	
 
 }
