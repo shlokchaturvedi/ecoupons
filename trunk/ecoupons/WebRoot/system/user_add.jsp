@@ -143,7 +143,7 @@ body,td,tr{font-size:9pt;}
                 <td width="32%" height="30">
                  <select name="arryUnitId" class="input_box">
                     <%
-                        Vector userGroupTree = SysUserUnit.getAllUnitManaged(globa.unitId[0]);
+                        Vector userGroupTree = SysUserUnit.getUserGroupTree();
                         String strSelect="";
                         for (int i = 0; i < userGroupTree.size(); i++) {
                             Unit ugNode = (Unit)userGroupTree.get(i);

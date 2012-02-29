@@ -137,14 +137,14 @@ body,td,th {
                     Vector userGroupTree = SysUserUnit.getUserGroupTree();
                     for (int i = 0; i < userGroupTree.size(); i++) {
                         Unit ugNode = (Unit)userGroupTree.get(i);
-                        if (SysUserUnit.isManaged(globa.userSession.getStrUnitId()[0], ugNode.getStrId())) {
+                       // if (SysUserUnit.isManaged(globa.userSession.getStrUnitId()[0], ugNode.getStrId())) {
 	                        strStyle=(ugNode.getStrId().equals(strId)?" style='background-color:red;'":"");
 	                        out.print("<option value=" + ugNode.getStrId() + " "+strStyle+">");
 	                        for (int j = 1; j < ugNode.getIntLevel(); j++) {
 	                            out.print("&nbsp;");
 	                        }
                         	out.println("├" + ugNode.getStrUnitName() + "</option>");
-                        }
+                        //}
                     }
                 %>
                   </select>
