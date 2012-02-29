@@ -1,5 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@page import="com.ejoysoft.ecoupons.system.SysPara"%>
+<%@page import="com.ejoysoft.common.*"%>
+<%@page import="com.ejoysoft.ecoupons.business.Member"%>
   <%@ include file="../include/jsp/head.jsp"%>
 <%
 String path = request.getContextPath();
@@ -97,6 +99,19 @@ eval("document.getElementById('hot_"+index+"').style.display='none'");
 		<li><a href="vips.jsp" target="_parent"><img src="images/nav_7.jpg" border="0" /></a></li>
 		<li></li>
 		<li class="nav_ri"><img src="images/nav_ri.jpg" /></li>
+		<%
+if(session.getAttribute(Constants.MEMBER_KEY) != null)
+{
+	Member member=new Member(globa);
+	Member memberTemp=member.show("where strCardNo='"+globa.getMember().getStrCardNo()+"'");
+%>
+<li style="font-size: 20px;font-style: oblique;">&nbsp;&nbsp;&nbsp;&nbsp;
+<%out.print(globa.memberSession.getStrName()); %>,欢迎回来
+
+</li>
+
+<%
+}%>
 
 	</ul>
  </div>
