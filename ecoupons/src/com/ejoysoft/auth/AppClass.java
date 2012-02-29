@@ -130,9 +130,9 @@ public class AppClass extends javax.servlet.http.HttpServlet
 		pw.println(" </script>");
 		if (Constants.LOGON.equals(actionType))
 		{
-			pw.println("<script>alert('" + strError + "');location.href='/ecoupons" + logonUrl + "';</script>");
+			pw.println("<script>alert('" + strError + "');location.href='" + logonUrl + "';</script>");
 		}else if (Constants.WEBLOGON.equals(actionType)) {
-			pw.println("<script>alert('" + strError + "');location.href='/ecoupons" + strUrl + "';</script>");
+			pw.println("<script>alert('" + strError + "');location.href='" + strUrl + "';</script>");
 		}else if (Constants.WEBLOGON2.equals(actionType)) {
 			pw.println("<script>alert('" + strError + "');window.history.go(-1);</script>");
 		}
