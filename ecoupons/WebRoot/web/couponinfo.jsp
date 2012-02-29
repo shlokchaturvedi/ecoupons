@@ -130,14 +130,15 @@ class=red><%=intAllCount%></SPAN>条评论)</DIV>
 	for (int i = 0;i < vctcom.size(); i++) {
        CouponComment comobj1 = vctcom.get(i);
        Member memobj = new Member(globa);
-       String twhere=" where strcardno='111'";
+       String twhere=" where 1=1";
        if(comobj1.getStrMemberCardNo()!=null)
-       	{	twhere =" where strcardno='"+comobj1.getStrMemberCardNo()+"'";}
+       	{	twhere +=" and strcardno='"+comobj1.getStrMemberCardNo()+"'";}
        Member memobj1 = memobj.show(twhere);
-       String namememb="Xman";
-       if(memobj1!=null)
+       String namememb="***";
+       if(memobj1!=null && memobj1.getStrName()!=null && memobj1.getStrName().length()>1)
        {
-        	namememb=memobj1.getStrName();
+       		
+        	namememb=memobj1.getStrName().substring(0,1)+"* *";
        }
 %>
 <DIV style="PADDING-LEFT: 5px"><BR>
@@ -246,12 +247,7 @@ if(vctCoupon!=null&&vctCoupon.size()!=0)
 	{
 		Coupon obj4 = vctCoupon.get(i);
 		if (obj4!=null && !obj4.getStrId().equals(strId)) {
-		n++;
-		if(n==7)
-		{
-		   break;
-		}
-         %>
+		%>
 		<DIV class=tuangou_index>
         <div class=card_img><a href="couponinfo.jsp?strid=<%=obj4.getStrId() %>" target="_blank">
         <%
@@ -271,7 +267,19 @@ if(vctCoupon!=null&&vctCoupon.size()!=0)
         <div class=card_line></div>
         <%
         }       	
-	}	
+	}
+	if(	k<2)
+	{
+		for(int j=0;j<2;j++)
+		{
+		%>
+		<DIV class=tuangou_index>
+        &nbsp;
+		</DIV>
+        <%
+		}
+	
+	}
 } 
 %>
 </DIV>
