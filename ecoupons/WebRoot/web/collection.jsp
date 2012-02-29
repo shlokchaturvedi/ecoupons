@@ -108,7 +108,9 @@ frameborder=no width="100%" scrolling=no></iframe>
     <tr>
       <td height="32" class="list_wz"><a href="memberpwd.jsp">&nbsp;&gt;&gt; 修改密码</a></td>
     </tr>
-
+     <tr>
+      <td height="32" class="list_wz"><a href="membereidt.jsp">&nbsp;&gt;&gt; 信息设置</a></td>
+    </tr>
     <tr>
       <td height="32" class="list_wz"><a href="#" 
       onClick="if (confirm('您确定要退出吗？')){top.location = '<%=application.getServletContextName()%>/web/Auth?actiontype=<%=Constants.WEBLOGOFF%>';}	return false;">

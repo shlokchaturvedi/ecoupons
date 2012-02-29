@@ -25,7 +25,7 @@ if(session.getAttribute(Constants.MEMBER_KEY) == null)
 <link rel=stylesheet type=text/css href="css/comment.css" />
 <title>我的余额</title>
 </head> 
-<body>
+<body><div><br /></div>
 <form action="" name="frm" method="post">
 <iframe style="HEIGHT: 164px"  marginwidth=0 marginheight=0 src="top.jsp" 
 frameborder=0 width="100%" scrolling=no></iframe>
@@ -54,6 +54,9 @@ frameborder=0 width="100%" scrolling=no></iframe>
     </tr>
     <tr>
       <td height="32" class="list_wz"><a href="memberpwd.jsp">&nbsp;&gt;&gt; 修改密码</a></td>
+    </tr>
+     <tr>
+      <td height="32" class="list_wz"><a href="membereidt.jsp">&nbsp;&gt;&gt; 信息设置</a></td>
     </tr>
     <tr>
       <td height="32" class="list_wz"><a href="#" onclick="if (confirm('您确定要退出吗？')){top.location = '<%=application.getServletContextName()%>/web/Auth?actiontype=<%=Constants.WEBLOGOFF%>';}	return false;" >&nbsp;&gt;&gt; 退出系统</a></td>
