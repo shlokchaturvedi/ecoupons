@@ -43,10 +43,6 @@ body,td,tr{font-size:9pt;}
             alert("请输入商家名！！！")
             frm.strBizName.focus();
             return false;
-        } else if(trim(frm.strShopName.value)=="") {
-            alert("请输入分部名称！！！")
-            frm.strShopName.focus();
-            return false;
         } else if(trim(frm.strTrade.value)=="") {
             alert("请输选择所属行业！！！")
             frm.strTrade.focus();
