@@ -275,27 +275,22 @@ body,td,tr{font-size:9pt;}
             		   （ 大小：<%=application.getAttribute("COUPON_LARGE_IMG_WIDTH") %>*<%=application.getAttribute("COUPON_LARGE_IMG_HEIGHT") %>px，用于前台详细显示）
                  </td>	
               </tr>
+             
               <tr >
-                <td height="30" align="right" class="left_txt2">打印图：</td>
-                <td>&nbsp;</td> 
-                <td height="30"><input name="strPrintImg" type="file" class="input_box" size="30"  /></td>
-                <td height="30" class="left_txt">
-                <%
-                if (obj0.getStrPrintImg().length() > 0) {
-                %>
-                  <img alt="打印图片" src="<%="images/" + obj0.getStrPrintImg()+"?random="+Math.random() %>" width=300 height=270 alt="打印图"/> <br>
-                <%
-                }
-                %> 
+                 <td width="20%" height="30" align="right" class="left_txt2">简&nbsp;&nbsp;&nbsp;&nbsp;介：</td>
+                <td width="3%">&nbsp;</td>
+                <td width="32%" height="30">
+              <input name="strIntro" type="text" class="input_box" size="30"   value="<%=Format.forbidNull(obj0.getStrIntro())%>"/>
                 </td>
-              </tr> 
-              <tr >
-                 <td width="20%" height="30" align="right" class="left_txt2">&nbsp; </td>
-                 <td height="30" class="left_txt">&nbsp;</td> 
-                <td width="20%" height="30" class="left_txt">&nbsp;</td> 
-                 <td height="30" class="left_txt">
-            		   （ 大小：<%=application.getAttribute("COUPON_PRINT_IMG_WIDTH") %>*<%=application.getAttribute("COUPON_PRINT_IMG_HEIGHT") %>px，用于用户下载打印）
-                 </td>	
+                <td width="45%" height="30" class="left_txt">&nbsp;</td> 
+              </tr>
+               <tr >
+                 <td width="20%" height="30" align="right" class="left_txt2">使用说明：</td>
+                <td width="3%">&nbsp;</td>
+                <td width="32%" height="30">
+                <textArea class="input_box" name="strInstruction" cols="33" rows="5" ><%=Format.forbidNull(obj0.getStrInstruction())%></textArea>
+                </td>
+                <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
           	  
             </table></td>

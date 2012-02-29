@@ -28,6 +28,8 @@ public class Coupon
 	private String strPrintImg;
 	private String strCreator;
 	private String dtCreateTime;
+	private String strIntro;
+	private String strInstruction;
 	private String strTerminals;// 投放终端编码
 	private String strDownLoadAlertTable = "t_bz_download_alert";
 	String strPrintTable="t_bz_coupon_print";
@@ -109,12 +111,9 @@ public class Coupon
 			{
 				strSql += "strlargeimg = '" + strLargeImg + "',";
 			}
-			if (this.strPrintImg != null && this.strPrintImg.length() > 0)
-			{
-				strSql += "strPrintImg = '" + strPrintImg + "',";
-			}
+			
 			strSql += " strName = ?, strShopId = ?,strTerminalIds=?,  " + "dtExpireTime = ?,intVip=?,intRecommend=?,flaPrice=?,intPrintLimit=?"
-					+ "  WHERE strId=? ";
+					+ ",strInstruction=?,strIntro=?  WHERE strId=? ";
 
 			db.prepareStatement(strSql);
 			db.setString(1, dtActiveTime);
@@ -126,7 +125,9 @@ public class Coupon
 			db.setInt(7, intRecommend);
 			db.setFloat(8, flaPrice);
 			db.setInt(9, intPrintLimit);
-			db.setString(10, strId);
+			db.setString(10, strInstruction);
+			db.setString(11, strIntro);
+			db.setString(12, strId);
 			if (db.executeUpdate() > 0)
 			{
 				//修改couponprint表中的终端字段  当优惠券修改的时候
@@ -215,8 +216,8 @@ public class Coupon
 		String strId = UID.getID();
 		String[] strDownSql = null;
 		String sql = "insert into " + strTableName + " (strId,strName,strSmallImg,dtActiveTime,dtExpireTime,strShopId,strTerminalIds"
-				+ ",intVip,intRecommend,flaPrice,intPrintLimit,strPrintImg,strLargeImg,strCreator,dtCreateTime,intprint) "
-				+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
+				+ ",intVip,intRecommend,flaPrice,intPrintLimit,strLargeImg,strCreator,dtCreateTime,intprint,strInstruction,strIntro) "
+				+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
 
 		try
 		{
@@ -232,11 +233,13 @@ public class Coupon
 			db.setInt(9, intRecommend);
 			db.setFloat(10, flaPrice);
 			db.setInt(11, intPrintLimit);
-			db.setString(12, strPrintImg);
-			db.setString(13, strLargeImg);
-			db.setString(14, strUserName);
-			db.setString(15, com.ejoysoft.common.Format.getDateTime());
-			db.setInt(16, 0);
+			//db.setString(12, strPrintImg);
+			db.setString(12, strLargeImg);
+			db.setString(13, strUserName);
+			db.setString(14, com.ejoysoft.common.Format.getDateTime());
+			db.setInt(15, 0);
+			db.setString(16, strInstruction);
+			db.setString(17, strIntro);
 			if (db.executeUpdate() > 0)
 			{
 				
@@ -551,12 +554,13 @@ public class Coupon
 			theBean.setIntPrintLimit(rs.getInt("intPrintLimit"));
 			theBean.setIntRecommend(rs.getInt("intRecommend"));
 			theBean.setIntVip(rs.getInt("intVip"));
-			theBean.setStrPrintImg(rs.getString("strPrintImg"));
+			//theBean.setStrPrintImg(rs.getString("strPrintImg"));
 			theBean.setStrLargeImg(rs.getString("strLargeImg"));
 			theBean.setStrShopId(rs.getString("strShopId"));
 			theBean.setStrTerminals(getTerminalNamesByIds(rs.getString("strTerminalIds")));
 			theBean.setStrTerminalIds(rs.getString("strTerminalIds"));
-
+            theBean.setStrInstruction(rs.getString("strInstruction"));
+            theBean.setStrIntro(rs.getString("strIntro"));
 			theBean.setStrName(rs.getString("strName"));
 			theBean.setStrSmallImg(rs.getString("strSmallImg"));
 		} catch (Exception e)
@@ -790,6 +794,22 @@ public class Coupon
 	public void setIntPrint(int intPrint)
 	{
 		this.intPrint = intPrint;
+	}
+	public String getStrIntro()
+	{
+		return strIntro;
+	}
+	public void setStrIntro(String strIntro)
+	{
+		this.strIntro = strIntro;
+	}
+	public String getStrInstruction()
+	{
+		return strInstruction;
+	}
+	public void setStrInstruction(String strInstruction)
+	{
+		this.strInstruction = strInstruction;
 	}
 
 }

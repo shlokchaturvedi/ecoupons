@@ -247,10 +247,18 @@ function addTerminals()
                 <td height="30" class="left_txt">（大小：<%=application.getAttribute("COUPON_LARGE_IMG_WIDTH") %>*<%=application.getAttribute("COUPON_LARGE_IMG_HEIGHT") %>px，用于前台详细显示）</td>
               </tr>
               <tr  >
-                <td height="30" align="right" class="left_txt2">打印图：</td>
-                <td>&nbsp;</td>
-                <td height="30"><input name="strPrintImg" type="file" class="input_box" size="30" /></td>
-                <td height="30" class="left_txt">（大小：<%=application.getAttribute("COUPON_PRINT_IMG_WIDTH") %>*<%=application.getAttribute("COUPON_PRINT_IMG_HEIGHT") %>px，用于用户打印下载）</td>
+                 <td width="20%" height="30" align="right" class="left_txt2">简&nbsp;&nbsp;&nbsp;&nbsp;介：</td>
+                <td width="3%">&nbsp;</td>
+                <td width="32%" height="30"><input name="strIntro"  type="text"  class="input_box"  size="30" /></td>
+                <td width="45%" height="30" class="left_txt">&nbsp;</td> 
+              </tr>
+              <tr  >
+                 <td width="20%" height="30" align="right" class="left_txt2">使用说明：</td>
+                <td width="3%">&nbsp;</td>
+                <td width="32%" height="30">
+                <textArea class="input_box" name="strInstruction" cols="33" rows="5" ></textArea>
+                </td>
+                <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
             </table></td>
           </tr>
