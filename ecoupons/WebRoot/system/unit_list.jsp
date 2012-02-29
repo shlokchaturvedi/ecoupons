@@ -38,6 +38,10 @@ function add() {
 }
 //修改信息
 function update() {
+if (iCheckedNumber(document.all.strUnitId) == 0) {
+		alert("请先选择要修改的部门！");
+		return;
+	}
    frm.action="unit_update.jsp";
    frm.submit();
 }
