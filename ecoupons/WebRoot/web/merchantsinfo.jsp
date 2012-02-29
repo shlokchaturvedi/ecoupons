@@ -95,7 +95,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class=zs_mid>
 <%
 Coupon obj2 = new Coupon(globa);
-Vector<Coupon> vctCoupon = obj2.listByShopId("where strshopid='" + strId + "'");
+Vector<Coupon> vctCoupon = obj2.listByShopId("where strshopid='" + strId + "' and '"+Format.getDateTime()+"'>dtactivetime and '"+Format.getDateTime()+"'<dtexpiretime ");
 if(vctCoupon!=null&&vctCoupon.size()!=0)
 {
 	int k=vctCoupon.size();
