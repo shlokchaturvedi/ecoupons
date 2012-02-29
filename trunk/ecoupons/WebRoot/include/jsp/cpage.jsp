@@ -1,4 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
+<%
+String path3 = request.getContextPath();
+String basePath3 = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path3+"/";
+%>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 	<tr>
 		<td width="41%" height="22">
@@ -52,7 +56,7 @@ function goto(inputVlaue)
 	    return;
 	}
 	frm.<%=com.ejoysoft.common.Constants.PAGE_SIZE_INDEX%>.value=inputVlaue;
-	frm.action ="<%=application.getServletContextName()%>/<%=request.getServletPath()%>";
+	frm.action ="<%=basePath3%>/<%=application.getServletContextName()%>/<%=request.getServletPath()%>";
 	frm.submit();
 }
 </script>
