@@ -14,6 +14,7 @@ import com.ejoysoft.common.Format;
 import com.ejoysoft.common.Globa;
 import com.ejoysoft.ecoupons.business.CouponComment;
 import com.ejoysoft.ecoupons.business.CouponFavourite;
+import com.ejoysoft.ecoupons.business.CouponPrint;
 import com.ejoysoft.ecoupons.business.Member;
 
 public class MemberAuthServlet extends HttpServlet implements Servlet
@@ -46,7 +47,7 @@ public class MemberAuthServlet extends HttpServlet implements Servlet
 			req.setCharacterEncoding("utf-8");
 			resp.setCharacterEncoding("utf-8");
 			CouponFavourite couponFavourite = new CouponFavourite(globa);
-			CouponComment couponComment = new CouponComment(globa);
+			CouponPrint couponPrint = new CouponPrint(globa);
 			resp.setCharacterEncoding("utf-8");
 			String strCardNo = req.getParameter("strCardNo");
 //			String strCardNo = "3897";
@@ -54,7 +55,7 @@ public class MemberAuthServlet extends HttpServlet implements Servlet
 			sbReturn.append("<info>");
 			Member member = new Member(globa);
 			Vector<CouponFavourite> vctCouponFavourites = new Vector<CouponFavourite>();
-			Vector<CouponComment> vctCouponComments = new Vector<CouponComment>();
+			Vector<CouponPrint> vctCouponPrints = new Vector<CouponPrint>();
 			String nowdate = Format.getDateTime();
 			if (member.getCount(" where strcardno='"+strCardNo+"' and dtactivetime <='"+nowdate+"' and dtexpiretime >='"+nowdate+"'") > 0)
 			{
@@ -63,7 +64,7 @@ public class MemberAuthServlet extends HttpServlet implements Servlet
 				sbReturn.append("<intType>"+memberTemp.getIntType()+"</intType>");
 				sbReturn.append("<strMobileNo>"+memberTemp.getStrMobileNo()+"</strMobileNo>");
 				//2012131增加手机号码字段
-				vctCouponFavourites = couponFavourite.list("where strmembercardno=" + strCardNo, 0, 0);
+				vctCouponFavourites = couponFavourite.list("where strmembercardno='" + strCardNo+"'", 0, 0);
 				sbReturn.append("<favourite>");
 				for (int i = 0; i < vctCouponFavourites.size(); i++)
 				{
@@ -73,11 +74,11 @@ public class MemberAuthServlet extends HttpServlet implements Servlet
 				}
 				sbReturn.append("</favourite>");
 				sbReturn.append("<history>");
-				vctCouponComments = couponComment.list("where strMemberCardNo=" + strCardNo, 0, 0);
-				for (int i = 0; i < vctCouponComments.size(); i++)
+				vctCouponPrints = couponPrint.list("where strMemberCardNo='" + strCardNo+"'", 0, 0);
+				for (int i = 0; i < vctCouponPrints.size(); i++)
 				{
 					sbReturn.append("<couponid>");
-					sbReturn.append(vctCouponComments.get(i).getStrCouponId());
+					sbReturn.append(vctCouponPrints.get(i).getStrCouponId());
 					sbReturn.append("</couponid>");
 				}
 				sbReturn.append("</history>");
