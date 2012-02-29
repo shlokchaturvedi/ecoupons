@@ -103,7 +103,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <td width=253 height="26">*时   间：<a href="#"><%=obj1.getDtActiveTime() %></a></td>
   </tr>
   <tr>
-    <td height="26" colspan="2">*内   容：<%=obj1.getStrContent() %>    
+    <td height="26" colspan="2">*内   容：<%=obj1.getStrContent().replace("\n","<br/>") %>    
     </td>
   </tr>
 </tbody></table>
