@@ -56,8 +56,8 @@ public class Activity {
             }
             db.prepareStatement(strSql);
             db.setString(1, strId);
-            db.setString(2, strName.replace("<br/>", ""));
-            db.setString(3, strContent.replace("<br/>", ""));   
+            db.setString(2, strName);
+            db.setString(3, strContent);   
             db.setString(4, com.ejoysoft.common.Format.getStrDate2(dtActiveTime));
             db.setString(5, strCreator);
             db.setString(6, com.ejoysoft.common.Format.getDateTime());
@@ -103,8 +103,8 @@ public class Activity {
             db.getConnection().setAutoCommit(false);
     		db.executeUpdate(strSql2);
             db.prepareStatement(strSql);
-            db.setString(1, strName.replace("<br/>", ""));
-            db.setString(2, strContent.replace("<br/>", ""));
+            db.setString(1, strName);
+            db.setString(2, strContent);
             db.setString(3, dtActiveTime);
             db.setString(4, strCreator);
             db.setString(5, strId);
