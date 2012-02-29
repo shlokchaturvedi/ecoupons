@@ -162,7 +162,7 @@ function del(){
                    }
                 %>
                 <td bgcolor="<%=bgcolor %>"> <div align="center"><span class="STYLE1"><%=obj1.getStrNo()%></span></div></td>
-                <td bgcolor="<%=bgcolor %>"><div align="center"><span class="STYLE1"><%=(obj1.getDtActiveTime()).substring(0,16)%></span></div></td>
+                <td bgcolor="<%=bgcolor %>"><div align="center"><span class="STYLE1"><%=obj1.getDtActiveTime()%></span></div></td>
                 <td bgcolor="<%=bgcolor %>"><div align="center"><span class="STYLE1"><%=obj1.getStrAroundShops()%></span></div></td>
                 <td bgcolor="<%=bgcolor %>"><div align="center"><span class="STYLE1"><%=obj1.getStrProducerName()%></span></div></td>
                 <td bgcolor="<%=bgcolor %>"><div align="center"><span class="STYLE1"><%=obj1.getStrTypeName() %></span></div></td>

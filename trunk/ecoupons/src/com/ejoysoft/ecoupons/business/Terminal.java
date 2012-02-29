@@ -303,7 +303,17 @@ public class Terminal
 						if (i < shopnames.length - 1)
 							shopids += ",";
 					}
-				} else
+				} else if (shopnames[i].split("-").length == 1)
+				{
+					obj = obj0.show("where strbizname='" + shopnames[i].trim() + "'");
+					if (obj != null)
+					{
+						shopids += obj.getStrId();
+						if (i < shopnames.length - 1)
+							shopids += ",";
+					}
+				} 
+				else
 					shopids = " ";
 			}
 		}
@@ -352,7 +362,13 @@ public class Terminal
 					obj = obj0.show("where strid='" + shops[i] + "'");
 					if (obj != null)
 					{
-						shopnames += obj.getStrBizName() + "-" + obj.getStrShopName();
+						String bizname = obj.getStrBizName();
+					    String shopname = obj.getStrShopName();
+					    if(shopname !=null && !shopname.equals(""))  
+					    {
+					   		bizname = bizname+"-"+shopname;
+					    }
+						shopnames += bizname;
 						if (i < shops.length - 1)
 							shopnames += "，";
 					}
