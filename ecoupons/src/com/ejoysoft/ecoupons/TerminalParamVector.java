@@ -45,4 +45,26 @@ public class TerminalParamVector {
 		}
 		return strWelcome;
 	}
+	public static String getPhone() {
+		String strPhone = "";
+		for (int i = 0; i < VecTerminalParam.size(); i++) {
+			TerminalPara tp = VecTerminalParam.get(i);
+			if (tp.getStrParamName().equals("strPhone")) {
+				strPhone = tp.getStrParamValue();
+				break;
+			}
+		}
+		return strPhone;
+	}
+	public static String getPrintBottom() {
+		String strPrintBottom = "";
+		for (int i = 0; i < VecTerminalParam.size(); i++) {
+			TerminalPara tp = VecTerminalParam.get(i);
+			if (tp.getStrParamName().equals("strPrintBottom")) {
+				strPrintBottom = tp.getStrParamValue();
+				break;
+			}
+		}
+		return strPrintBottom;
+	}
 }
