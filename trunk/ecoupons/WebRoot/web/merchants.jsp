@@ -135,7 +135,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </tr>
   <tr>
     <td height="26" colspan="2">
-    * 简          介：<%=obj1.getStrIntro() %>    
+    * 简          介：<%=obj1.getStrIntro().replace("\n","<br/>")%>    
     </td>
   </tr>
 </tbody></table>

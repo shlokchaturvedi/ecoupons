@@ -80,7 +80,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class=mer>
   <div class=mer_js>
     <p><b>商家简介：</b><br/></p>
-    <p>  <%=obj1.getStrIntro()%>
+    <p>  <%=obj1.getStrIntro().replace("\n","<br/>")%>
     </p>
     </div>
 </div>
