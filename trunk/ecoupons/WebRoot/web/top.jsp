@@ -114,7 +114,7 @@ if(session.getAttribute(Constants.MEMBER_KEY) != null)
 %>
 
 <li style="width:300px;margin-top:6px;color:white;font-size: 16px;font-family: 黑体; text-align: right;">&nbsp;&nbsp;&nbsp;&nbsp;
-<a style="color: white;" href="history.jsp" target="_parent"><%=globa.memberSession.getStrName()+vipString%></a>,欢迎回来
+<a style="color: white;" href="membereidt.jsp" target="_parent"><%=globa.memberSession.getStrName()+vipString%></a>,欢迎回来
 
 </li>
 
