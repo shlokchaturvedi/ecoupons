@@ -43,7 +43,15 @@ function chkFrm()
         alert("请输入您的手机号码！！！");
         frm.strPhone.focus();
         return false;
-    }else {           
+    }else {  
+         var name = "<%=objMember.getStrName()%>";
+         var phone = <%=objMember.getStrMobileNo()%>;
+    	 if(trim(frm.strName.value)== name && trim(frm.strPhone.value)== phone)
+    	 {
+		       alert("您的信息无变化，请重新输入！！！");
+		       frm.strName.focus();
+		       return false;
+    	 }        
     	 if(confirm("确定提交设置吗？"))
     	  {
     		  frm.submit();
