@@ -78,7 +78,7 @@ if(session.getAttribute(Constants.MEMBER_KEY) != null)
 	<P class=userbg>		
 	<INPUT id=txt_username class=user value=账号/手机 onclick="document.getElementById('txt_username').value=''" type=text name=username >		
 	</P><P class=passwordbg><INPUT id=txt_pwd class=password type=password name=password></P>		
-	<DIV class="floatR"><IMG id=code border=0 name=checkcode alt=验证码 align=absMiddle src="../image.jsp" width=60 height=18></DIV>		
+	<DIV class="floatR"><IMG id=code border=0 name=checkcode alt=验证码 align=Middle src="../image.jsp" width=60 height=18 /></DIV>		
 	<P class=numberbg><INPUT id=txt_yzm class="number floatL" type=text name=yanzm></P><A class=forget href="forgetpwd.jsp">忘记密码了？</A>&nbsp;&nbsp;		
 	<A class=change href="#" onclick="javascript:var dt=new Date();document.getElementById('code').src='../image.jsp?dt='+dt;">换一张图片</A><BR>		
 	<INPUT id=btn_login class=loginBtn value="登 录" type=submit name=btn_login> 		
@@ -332,8 +332,7 @@ vecCouponps=index.returnTopCoupons("月");
 <DIV class=sort_bottom></DIV></DIV>
   </div>
 </div>
-<iframe style="HEIGHT: 260px" border=0 marginwidth=0 marginheight=0 src="bottom.jsp" 
-frameborder=no width="100%" scrolling=no></iframe>
+<iframe style="HEIGHT: 260px"  marginwidth=0 marginheight=0 src="bottom.jsp" frameborder=0 width="100%" scrolling=no></iframe>
 </body>
 </html>
 <%@ include file="/include/jsp/footer.jsp"%>
