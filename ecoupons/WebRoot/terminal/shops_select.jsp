@@ -96,7 +96,7 @@ function ReturnShops(){
 	                    
                %>
                <tr>
-                 <td>  
+                 <td width="110%" >  
                         *<font style="font-family:ºÚÌå  ; font-size: 16px;color: #003333;">&nbsp;&nbsp;<%=allbizname[i]%>	</font>	
                 </td>
                </tr>
@@ -113,40 +113,39 @@ function ReturnShops(){
 	                       {
 	                       		checked ="checked";
 	                       }
-	                       if(shopStrings.length>=2 && shopStrings[0].trim().equals(allbizname[i]))
+	                       if(shopStrings.length>=2 && shopStrings[0].equals(allbizname[i]))
 	                       { 
 	                         if(k%3==0)
 	              			 {
-	              			 %>
-		                 </tr><tr>
-		              
-	               <% 		 }	   
+	           %>
+		                 </tr><tr>		              
+	           <% 		 }	   
 	              			 k++;                       
 	           %>
 		                 <td width="33%">		                       
 						 <input name="shopname" type="checkbox" <%=checked%> value="<%=allshopname[j].split(",")[1]%>" /><font style="font-family:·ÂËÎGB2312 ; font-size: 12px;color: #444444;"><%=shopStrings[1]%></font>		
 						 </td>
 		              
-	               <% 		 
-              			  }else if(shopStrings.length==1 && shopStrings[0].trim().equals(allbizname[i]))
+	           <% 		 
+              			  }else if(shopStrings.length==1 && shopStrings[0].equals(allbizname[i]))
 	                       { 
 	                         if(k%3==0)
 	              			 {
-	              			 %>
+	           %>
 		                 </tr><tr>
 		              
-	               <% 		 }	   
+	           <% 		 }	   
 	              			 k++;                       
 	           %>
 		                 <td width="33%">		                       
 						 <input name="shopname" type="checkbox" <%=checked%> value="<%=allshopname[j].split(",")[1]%>" /><font style="font-family:·ÂËÎGB2312 ; font-size: 12px;color: #444444;"><%=allshopname[j].split(",")[1]%></font>		
 						 </td>
 		              
-	               <% 		 
+	           <% 		 
               			  }
               			  
                			}
-               		%>
+               %>
 					  </tr>	
 					  </table> 
                		 </td>
