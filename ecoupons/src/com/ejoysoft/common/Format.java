@@ -60,13 +60,6 @@ public class Format {
     public static String getStrTime() {
         return getDateTime().substring(11);
     }
-
-    public static String getDateTime2() {
-        SimpleDateFormat simpledateformat = new SimpleDateFormat("yyyy��MM��dd��");
-        java.util.Date date = new java.util.Date();
-        return simpledateformat.format(date);
-    }
-
     //��Ϊ���Ͽ��һ���֣�
     public static String getDateDB() {
         SimpleDateFormat simpledateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
