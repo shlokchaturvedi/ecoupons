@@ -11,8 +11,9 @@
 <%@page import="java.util.Map.Entry"%>
 <%@page import="com.ejoysoft.common.Format"%>
 <%@ include file="../include/jsp/head.jsp"%>
-<%
 
+
+<%
 
 
 Coupon coupon=new Coupon(globa);
@@ -104,6 +105,13 @@ if (!dtCreateTime.equals(""))
 	response.setHeader("Content-Disposition", "attachment;filename=" + new String(strFileName.getBytes("gbk"), "ISO8859-1"));
 	ServletOutputStream output = response.getOutputStream();		
 	output.write(sb.toString().getBytes());
+	output.flush();
+	output.close();
+	//output.write("<script>window.location.href='coupon_stat.jsp';</script>".getBytes());
+	//output.flush();
+	// response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
+	//  String newLocn = "coupon_stat.jsp";
+	 // response.setHeader("Location",newLocn);
 	
 }
 	

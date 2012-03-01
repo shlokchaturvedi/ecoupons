@@ -24,7 +24,7 @@
 	if (!dtCreateTime.equals(""))
 	{
 
-		tWhere = " dtCreateTime LIKE '" + dtCreateTime + "%'";
+		tWhere = " where dtprinttime like '" + dtCreateTime + "%'";
 	}
 	tWhere += "  ORDER BY strId";
 	//记录总数
@@ -78,6 +78,7 @@ function chkFrm() {
     }else
     if(confirm("确定统计!"))
       {
+       
 	   frm.submit();
        
       }
@@ -170,12 +171,12 @@ function chkFrm() {
 													width="100%">
 													<tr>
 														<td style="font-size: 9pt">
-															&nbsp;&nbsp;&nbsp;&nbsp;
+															&nbsp;&nbsp;<input type="button" value="刷新" onclick="window.location.href='coupon_stat.jsp';"/>
 														</td>
 														<td align="right" width="600">
 															<div style="height: 26">
 																统计年月：
-																<input name="dtCreateTime" class="editbox4" value=""
+																<input name="dtCreateTime" class="editbox4" value="<%=dtCreateTime %>"
 																	onClick="WdatePicker({dateFmt:'yyyy-MM'})"
 																	readonly="readonly" size="10">
 																&nbsp;&nbsp;&nbsp;&nbsp;
