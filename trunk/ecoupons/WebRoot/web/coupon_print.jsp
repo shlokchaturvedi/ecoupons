@@ -35,6 +35,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 String flag = ParamUtil.getString(request,"flag"," "); 
 	 Coupon coupobj = new Coupon(globa);
 	 Coupon obj1 = coupobj.show(" where strid='"+strId+"'");
+	 CouponPrint couponPrint = new CouponPrint(globa);
+	 int limitNum = obj1.getIntPrintLimit();
+	 int printNum = couponPrint.getCount(" where strcouponid='"+strId+"'");
 	 Shop shop = new Shop(globa);
 	 Shop objshop = shop.show(" where strid = '"+obj1.getStrShopId()+"'");
 	 String strimg = "../web/images/temp.jpg",info = " ",instruction = "",phone = " ",addr = " ";
@@ -58,7 +61,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 {
 	 	addr = objshop.getStrAddr();
 	 } 
-	 System.out.println();
 	 String codeString = memberCardno.trim()+strId.trim()+Format.getDateTime();
 	 String md5Code = MD5.getMD5ofString(codeString);
 	 String strCouponCode ="",strCouponCode3 ="";
@@ -77,7 +79,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 {
 	 	response.getWriter().println("<script>alert('您非VIP会员，无法打印Vip优惠券！');window.opener=null;window.close();</script>");
 	 }
-	 if(couponPrice > balance)
+	 if(limitNum !=0 && printNum >= limitNum)
+	 {
+	 	System.out.println(Format.getDateTime());
+		coupobj.setDtExpireTime(Format.getDateTime());
+	 	coupobj.updateExpireTime(strId);
+	    response.getWriter().println("<script>alert('对不起！该优惠券打印次数已达上限！无法打印！');window.opener=null;window.close();</script>");
+	 }	 
+	 if(couponPrice!=0 && couponPrice > balance)
 	 {
 	    response.getWriter().println("<script>alert('您的会员卡余额不足！请即使充值');window.opener=null;window.close();</script>");
 	 }	 
