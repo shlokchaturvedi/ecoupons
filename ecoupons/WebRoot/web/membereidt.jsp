@@ -53,9 +53,9 @@ function chkFrm()
 		       return false;
     	 }        
     	 if(confirm("确定提交设置吗？"))
-    	  {
+    	 {
     		  frm.submit();
-    	  }
+    	 }
     }
 }
 
