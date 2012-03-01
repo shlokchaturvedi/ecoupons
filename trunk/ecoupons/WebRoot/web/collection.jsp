@@ -164,7 +164,7 @@ frameborder=0 width="100%" scrolling=no></iframe>
     <td height="20" bgcolor="#FFFFFF">
     <div align="center"><input type="checkbox" name=strId value="<%=vctCouponFavourites.get(i).getStrId() %>" /></div></td>
       <td height="25" align="center" bgcolor="#FFFFFF"><span class="STYLE1"><a href="merchantsinfo.jsp?strid=<%=coupon.getStrShopId()%>"><%=shop.returnBizShopName("where strid='"+coupon.getStrShopId()+"'") %></a></span></td>
-      <td align="center" bgcolor="#FFFFFF"><a href="couponinfo.jsp?strid=<%=coupon.getStrId() %>"><%=coupon.getStrName() %></a></td>
+      <td align="center" bgcolor="#FFFFFF"><a  href="couponinfo.jsp?strid=<%=coupon.getStrId() %>"><%=coupon.getStrName() %></a></td>
       <td align="center" bgcolor="#FFFFFF"><span class="STYLE1"><%=coupon.getFlaPrice() %></span></td>
       <td align="center" bgcolor="#FFFFFF"><span class="STYLE1"><%=coupon.getDtExpireTime() %></span></td>
       <td align="center" bgcolor="#FFFFFF"><span class="STYLE1"><%=vctCouponFavourites.get(i).getDtFavouriteTime() %></span></td>
