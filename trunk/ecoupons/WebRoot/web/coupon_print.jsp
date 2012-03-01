@@ -34,75 +34,77 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	throw new IdObjectException("请求处理的信息id为空！或者已经不存在");
 	 String flag = ParamUtil.getString(request,"flag"," "); 
 	 Coupon coupobj = new Coupon(globa);
-	 Coupon obj1 = coupobj.show(" where strid='"+strId+"'");
-	 CouponPrint couponPrint = new CouponPrint(globa);
-	 int limitNum = obj1.getIntPrintLimit();
-	 int printNum = couponPrint.getCount(" where strcouponid='"+strId+"'");
-	 Shop shop = new Shop(globa);
-	 Shop objshop = shop.show(" where strid = '"+obj1.getStrShopId()+"'");
-	 String strimg = "web/images/temp.jpg",info = " ",instruction = "",phone = " ",addr = " ";
-	 if(obj1.getStrSmallImg()!=null&&!obj1.getStrSmallImg().equals(""))
+	 Coupon obj1 = coupobj.show(" where strid='"+strId+"' and '"+Format.getDateTime()+"'>dtactivetime and '"+Format.getDateTime()+"'<dtexpiretime ");
+	 if(obj1!=null)
 	 {
-	 	strimg = "../coupon/images/"+obj1.getStrSmallImg();
-	 }
-	 if(obj1.getStrIntro()!=null)
-	 {
-	 	info = obj1.getStrIntro();
-	 }
-	 if(obj1.getStrInstruction()!=null)
-	 {
-	 	instruction = obj1.getStrInstruction();
-	 } 	
-	 if(objshop!=null && objshop.getStrPhone()!=null)
-	 {
-	 	phone = objshop.getStrPhone();
-	 } 	
-	 if(objshop!=null && objshop.getStrAddr()!=null)
-	 {
-	 	addr = objshop.getStrAddr();
-	 } 
-	 String codeString = memberCardno.trim()+strId.trim()+Format.getDateTime();
-	 String md5Code = MD5.getMD5ofString(codeString);
-	 String strCouponCode ="",strCouponCode3 ="";
- 	 float couponPrice = obj1.getFlaPrice();
- 	 if(couponPrice>0)
- 	 {
- 		 strCouponCode = md5Code.substring(0,4)+md5Code.substring(md5Code.length()-5,md5Code.length()-1);
- 	 	 strCouponCode3="验证码："+strCouponCode;
- 	 }
-     int couponvip= obj1.getIntVip();	    
-	 Member member = new Member(globa);
-	 Member memberobj = member.show(" where strcardno='"+memberCardno+"'");
-     int membervip = memberobj.getIntType();
-	 float balance = memberobj.getFlaBalance();
-	 if(couponvip==1 && membervip ==0)
-	 {
-	 	response.getWriter().println("<script>alert('您非VIP会员，无法打印Vip优惠券！');window.opener=null;window.close();</script>");
-	 }
-	 if(limitNum !=0 && printNum >= limitNum)
-	 {
-	 	coupobj.setDtExpireTime(Format.getDateTime());
-	 	coupobj.updateExpireTime(strId);
-	    response.getWriter().println("<script>alert('对不起！该优惠券打印次数已达上限！');window.opener=null;window.close();</script>");
-	 }	 
-	 if(couponPrice!=0 && couponPrice > balance)
-	 {
-	    response.getWriter().println("<script>alert('您的会员卡余额不足！请即使充值');window.opener=null;window.close();</script>");
-	 }	 
- 	 if(flag.equals("print"))
- 	 {	  
- 	    CouponPrint obj = new CouponPrint(globa);
- 	    String strCouponCode2 = ParamUtil.getString(request,"code");
- 	    obj.setStrCreator("system");
- 	    obj.setStrCouponCode(strCouponCode2);
- 	    obj.setStrCouponId(strId);
- 	    obj.setStrMemberCardNo(memberCardno);
- 	    obj.setStrTerminalId("system");
-	  	boolean result = obj.add();		
-	  	response.getWriter().println("<script>setTimeout('window.opener=null;window.close();',400);</script>");	
- 	 	
- 	 }
- 	 	
+	 	 CouponPrint couponPrint = new CouponPrint(globa);
+		 int limitNum = obj1.getIntPrintLimit();
+		 int printNum = couponPrint.getCount(" where strcouponid='"+strId+"'");
+		 Shop shop = new Shop(globa);
+		 Shop objshop = shop.show(" where strid = '"+obj1.getStrShopId()+"'");
+		 String strimg = "web/images/temp.jpg",info = " ",instruction = "",phone = " ",addr = " ";
+		 if(obj1.getStrSmallImg()!=null&&!obj1.getStrSmallImg().equals(""))
+		 {
+		 	strimg = "../coupon/images/"+obj1.getStrSmallImg();
+		 }
+		 if(obj1.getStrIntro()!=null)
+		 {
+		 	info = obj1.getStrIntro();
+		 }
+		 if(obj1.getStrInstruction()!=null)
+		 {
+		 	instruction = obj1.getStrInstruction();
+		 } 	
+		 if(objshop!=null && objshop.getStrPhone()!=null)
+		 {
+		 	phone = objshop.getStrPhone();
+		 } 	
+		 if(objshop!=null && objshop.getStrAddr()!=null)
+		 {
+		 	addr = objshop.getStrAddr();
+		 } 
+		 String codeString = memberCardno.trim()+strId.trim()+Format.getDateTime();
+		 String md5Code = MD5.getMD5ofString(codeString);
+		 String strCouponCode ="",strCouponCode3 ="";
+	 	 float couponPrice = obj1.getFlaPrice();
+	 	 if(couponPrice>0)
+	 	 {
+	 		 strCouponCode = md5Code.substring(0,4)+md5Code.substring(md5Code.length()-5,md5Code.length()-1);
+	 	 	 strCouponCode3="验证码："+strCouponCode;
+	 	 }
+	     int couponvip= obj1.getIntVip();	    
+		 Member member = new Member(globa);
+		 Member memberobj = member.show(" where strcardno='"+memberCardno+"'");
+	     int membervip = memberobj.getIntType();
+		 float balance = memberobj.getFlaBalance();
+		 if(couponvip==1 && membervip ==0)
+		 {
+		 	response.getWriter().println("<script>alert('您非VIP会员，无法打印Vip优惠券！');window.opener=null;window.close();</script>");
+		 }
+		 else if(limitNum !=0 && printNum >= limitNum)
+		 {
+		 	coupobj.setDtExpireTime(Format.getDateTime());
+		 	coupobj.updateExpireTime(strId);
+		    response.getWriter().println("<script>alert('对不起！该优惠券打印次数已达上限！');window.opener=null;window.close();</script>");
+		 }	 
+		 else if(couponPrice!=0 && couponPrice > balance)
+		 {
+		    response.getWriter().println("<script>alert('您的会员卡余额不足！请即使充值');window.opener=null;window.close();</script>");
+		 }	 
+	 	 if(flag.equals("print"))
+	 	 {	  
+	 	    CouponPrint obj = new CouponPrint(globa);
+	 	    String strCouponCode2 = ParamUtil.getString(request,"code");
+	 	    obj.setStrCreator("system");
+	 	    obj.setStrCouponCode(strCouponCode2);
+	 	    obj.setStrCouponId(strId);
+	 	    obj.setStrMemberCardNo(memberCardno);
+	 	    obj.setStrTerminalId("system");
+		  	boolean result = obj.add();		
+		  	response.getWriter().println("<script>setTimeout('window.opener=null;window.close();',400);</script>");	
+	 	 	
+	 	 }
+	
  %>
     <base href="<%=basePath%>">
     
@@ -224,6 +226,14 @@ function chkFrm()
      </tr>
    </table>
    </form> 
-    <%globa.closeCon(); %>
+    <%
+     }
+	 else
+	 {
+	 		response.getWriter().println("<script>alert('对不起！该优惠券已过有效期！无法打印！');window.opener=null;window.close();</script>");
+	 }
+	 
+ 	 	
+    globa.closeCon(); %>
   </body>
 </html>
