@@ -305,7 +305,7 @@ public class Terminal
 					}
 				} else if (shopnames[i].split("-").length == 1)
 				{
-					obj = obj0.show("where strbizname='" + shopnames[i].trim() + "'");
+					obj = obj0.show("where strbizname='" + shopnames[i].trim() + "' and strshopname=''");
 					if (obj != null)
 					{
 						shopids += obj.getStrId();
@@ -318,6 +318,39 @@ public class Terminal
 			}
 		}
 		return shopids;
+	}
+	/**
+	 * 根据shopids获取商家名称集
+	 * @param rs
+	 * @param isView
+	 * @return
+	 */
+	public String getArroundShopNames(String shopids)
+	{
+		String shopNames= "";
+		if (shopids != null && !shopids.trim().equals(""))
+		{
+			Shop obj0 = new Shop(globa);
+			String shops[] = shopids.split(",");
+			for (int i = 0; i < shops.length; i++)
+			{
+				Shop obj = new Shop();
+				obj = obj0.show("where strid='" + shops[i] + "'");
+				if (obj != null)
+				{
+					String bizname = obj.getStrBizName();
+				    String shopname = obj.getStrShopName();
+				    if(shopname !=null && !shopname.equals(""))  
+				    {
+				   		bizname = bizname+"-"+shopname;
+				    }
+				    shopNames += bizname;
+					if (i < shops.length - 1)
+						shopNames += "，";
+				}
+			}
+		}
+		return shopNames;
 	}
 
 	// 封装结果集2
@@ -351,31 +384,8 @@ public class Terminal
 			// 获取临近商家名称
 			String shopids = rs.getString("straroundshopids");
 			theBean.setStrAroundShopIds(shopids);
-			if (shopids != null && shopids.trim() != "")
-			{
-				Shop obj0 = new Shop(globa);
-				String shopnames = " ";
-				String shops[] = shopids.split(",");
-				for (int i = 0; i < shops.length; i++)
-				{
-					Shop obj = new Shop();
-					obj = obj0.show("where strid='" + shops[i] + "'");
-					if (obj != null)
-					{
-						String bizname = obj.getStrBizName();
-					    String shopname = obj.getStrShopName();
-					    if(shopname !=null && !shopname.equals(""))  
-					    {
-					   		bizname = bizname+"-"+shopname;
-					    }
-						shopnames += bizname;
-						if (i < shops.length - 1)
-							shopnames += "，";
-					}
-				}
-				theBean.setStrAroundShops(shopnames);
-			}
-
+			Terminal terminal = new Terminal(globa);
+			theBean.setStrAroundShops(terminal.getArroundShopNames(shopids));
 		} catch (Exception e)
 		{
 			e.printStackTrace();
