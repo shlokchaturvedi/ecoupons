@@ -264,7 +264,12 @@ tab.onmouseout=function() {MyMar=setInterval(Marquee,speed)};
 <%
 Vector<String[]>vecCouponps=index.returnTopCoupons("日");
 	for(int i=0;i<vecCouponps.size();i++){
-		out.print("<LI>・<A href='couponinfo.jsp?strid="+vecCouponps.get(i)[0]+"'>"+vecCouponps.get(i)[1]+"</A></LI>");
+		String name = vecCouponps.get(i)[1];
+		if(name!=null && name.length()>=13)
+		{
+			name = name.substring(0,12)+"...";
+		}
+		out.print("<LI>・<A href='couponinfo.jsp?strid="+vecCouponps.get(i)[0]+"'>"+name+"</A></LI>");
 	}	
 	if(12-vecCouponps.size()>0)
 	{
@@ -282,7 +287,12 @@ Vector<String[]>vecCouponps=index.returnTopCoupons("日");
  <%
 vecCouponps=index.returnTopCoupons("周");
 	for(int i=0;i<vecCouponps.size();i++){
-		out.print("<LI>・<A href='couponinfo.jsp?strid="+vecCouponps.get(i)[0]+"'>"+vecCouponps.get(i)[1]+"</A></LI>");
+	String name = vecCouponps.get(i)[1];
+		if(name!=null && name.length()>=13)
+		{
+			name = name.substring(0,12)+"...";
+		}
+		out.print("<LI>・<A href='couponinfo.jsp?strid="+vecCouponps.get(i)[0]+"'>"+name+"</A></LI>");
 	}	
 	if(12-vecCouponps.size()>0)
 	{
@@ -301,7 +311,12 @@ vecCouponps=index.returnTopCoupons("周");
  <%
 vecCouponps=index.returnTopCoupons("月");
 	for(int i=0;i<vecCouponps.size();i++){
-		out.print("<LI>・<A href='couponinfo.jsp?strid="+vecCouponps.get(i)[0]+"'>"+vecCouponps.get(i)[1]+"</A></LI>");
+		String name = vecCouponps.get(i)[1];
+		if(name!=null && name.length()>=13)
+		{
+			name = name.substring(0,12)+"...";
+		}
+		out.print("<LI>・<A href='couponinfo.jsp?strid="+vecCouponps.get(i)[0]+"'>"+name+"</A></LI>");
 	}	
 	if(12-vecCouponps.size()>0)
 	{
