@@ -11,9 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ejoysoft.common.DbConnect;
+import com.ejoysoft.common.Format;
 import com.ejoysoft.common.Globa;
 import com.ejoysoft.common.UID;
 import com.ejoysoft.ecoupons.business.Coupon;
+import com.ejoysoft.ecoupons.business.CouponPrint;
 import com.ejoysoft.ecoupons.business.Terminal;
 
 @SuppressWarnings("serial")
@@ -45,7 +47,7 @@ public class CouponPrintServlet extends HttpServlet implements Servlet
 		db = new DbConnect();
 		db = globa.db;
 		try {
-//			String strTerminalNo = "23";
+//			String strTerminalNo = "0001";
 			String strTerminalNo = req.getParameter("strTerminalNo");
 			Terminal obj = new Terminal(globa);
 			HashMap<String, Terminal> hmTerminal = Terminal.hmTerminal;
@@ -56,7 +58,7 @@ public class CouponPrintServlet extends HttpServlet implements Servlet
 				String strTerminalId = terminal.getStrId();
 				//String strTerminalId = obj.getTerminalIdsByNames(strTerminalNo);
 				//obj.updateState(strTerminalId);//更新终端状态
-//				String strPrintContent = "3897$1328060264108040$2012-02-14 20:34:49$34564";
+//				String strPrintContent = "1001$1329535194953076$2012-03-01 18:34:49$PASAFEWS@1002$1329535194953076$2012-03-01 18:34:49$PASAFEWD";
 				String strPrintContent = req.getParameter("strPrintContent");
 			    String strTableName ="t_bz_coupon_print";
 				if(strPrintContent!=null)
@@ -71,10 +73,19 @@ public class CouponPrintServlet extends HttpServlet implements Servlet
 							String strCouponId = perContent[1];
 							String dtPrintTime = perContent[2];
 							String strCouponCode = perContent[3];
-							this.editLimitNum(strCouponId);
-							String strSql = "insert into "+strTableName+"(strid,strmembercardno,strcouponid,strterminalid," +
-									"dtprinttime,strcouponcode,intstate,strcreator,dtcreatetime) values(?,?,?,?,?,?,?,?,?)";
-							try {
+							 Coupon coupobj = new Coupon(globa);
+							 Coupon obj1 = coupobj.show(" where strid='"+strCouponId+"'");
+							 CouponPrint couponPrint = new CouponPrint(globa);
+							 int limitNum = obj1.getIntPrintLimit();
+							 int printNum = couponPrint.getCount(" where strcouponid='"+strCouponId+"'");
+							 if(limitNum!=0 && printNum >= limitNum)
+							 {
+								 coupobj.setDtExpireTime(Format.getDateTime());
+								 coupobj.updateExpireTime(strCouponId);									
+							 }
+							 String strSql = "insert into "+strTableName+"(strid,strmembercardno,strcouponid,strterminalid," +
+								"dtprinttime,strcouponcode,intstate,strcreator,dtcreatetime) values(?,?,?,?,?,?,?,?,?)";
+							 try {
 					            db.prepareStatement(strSql);
 					            db.setString(1, UID.getID());
 					            db.setString(2, strMemberCardNo);
@@ -89,18 +100,23 @@ public class CouponPrintServlet extends HttpServlet implements Servlet
 					            { 	
 					                Globa.logger0("添加优惠券打印记录信息", globa.loginName, globa.loginIp, strSql, "优惠券打印", "system");
 					            } 			               
-							}catch (Exception e) {
+							 }catch (Exception e) {
 					            System.out.println("添加优惠券打印记录异常");
 					            e.printStackTrace();
-					        	sbReturn.append("<return>add_erro</return>");	
-					        }					
+					        	sbReturn.append("<return>add_erro</return>");
+					        	break;
+					         }									
 						}
 						else {
 
 				        	sbReturn.append("<return>theprintcontent_erro</return>");	
+				        	break;
 						}
+					    if(i==allContents.length-1)
+					    {
+					    	sbReturn.append("<return>OK</return>");	
+					    }
 					}	
-		        	sbReturn.append("<return>OK</return>");	
 		        	db.closeCon();
 				}
 			}		
@@ -117,26 +133,7 @@ public class CouponPrintServlet extends HttpServlet implements Servlet
 		}
 		
 	}
-	
-	//修改优惠券打印次数
-	public void editLimitNum(String strCouponId)
-	{
-		Coupon obj = new Coupon(globa);
-		Coupon obj1 = obj.show(" where strid='"+strCouponId+"'");
-		int LimitNum = obj1.getIntPrintLimit();	
-		int newLimitNum = LimitNum - 1;
-		String strSql="";
-		if(newLimitNum >0)
-			strSql = "update t_bz_coupon set intprintlimit='"+newLimitNum+"' where strid='"+strCouponId+"'";
-		else if(newLimitNum <= 0)
-			strSql = "update t_bz_coupon set intprintlimit='0' and dtexpiretime='"+com.ejoysoft.common.Format.getDateTime()+"' where strid='"+strCouponId+"'";
-		try {
-			db.executeUpdate(strSql);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+
 	Globa globa;
 	DbConnect db;
 }
