@@ -209,7 +209,6 @@ public class Index
 					String [] strCoupons=new String[2];
 					strCoupons[0]=couponTemp.getStrId();
 					strCoupons[1]=couponTemp.getStrName();
-					System.out.println(strCoupons+"Index.returnTopCoupons()"+strCoupons[1]);
 					vctCoupons.add(strCoupons);
 				}
 			}
