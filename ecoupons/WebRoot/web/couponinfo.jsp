@@ -22,6 +22,12 @@
     }
     Shop obj2= new Shop(globa);
     Shop obj3 = obj2.show(" where strid='"+obj0.getStrShopId()+"'");
+    String bizname = obj3.getStrBizName();
+    String shopname = obj3.getStrShopName();
+    if(shopname !=null && !shopname.equals(""))  
+    {
+   		bizname = bizname+"-"+shopname;
+    }
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -288,7 +294,7 @@ if(vctCoupon!=null&&vctCoupon.size()!=0)
 <DIV class=card_top>
 <DIV class=heatitle><h6>相关商家</h6></DIV></DIV>
 <DIV class=card_mid>
-  <p>店铺名称：<%=obj3.getStrBizName() %>-<%=obj3.getStrShopName() %><br />
+  <p>店铺名称：<%=bizname%><br />
     行业分类：<%=obj3.getStrTradeName() %></p>
     <!--
   <p>联系电话：<%=obj3.getStrPhone() %></p>
