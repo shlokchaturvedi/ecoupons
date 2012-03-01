@@ -74,27 +74,34 @@ frameborder=0 width="100%" scrolling=no></iframe>
 <div class=collect_mid>
   <p>&nbsp;</p>
   <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
-      <tr>
-      <td height="32" class="list_wz"><a href="collection.jsp">&nbsp;&gt;&gt; 我的收藏</a></td>
+     <tbody>
+    <tr>
+      <td height="38" class="list_wz"><a href="collection.jsp">&nbsp;&gt;&gt; 我的收藏</a></td>
     </tr>
     <tr>
-      <td height="32" class="list_wz"><a href="history.jsp">&nbsp;&gt;&gt; 历史记录</a></td>
+      <td height="38" class="list_wz"><a href="history.jsp">&nbsp;&gt;&gt; 历史记录</a></td>
     </tr>
     <tr>
-      <td height="32" class="list_wz"><a href="balance.jsp" >&nbsp;&gt;&gt; 我的余额</a></td>
+      <td height="38" class="list_wz"><a href="balance.jsp" >&nbsp;&gt;&gt; 我的余额</a></td>
     </tr>
     <tr>
-      <td height="32" class="list_wz"><a href="integral.jsp">&nbsp;&gt;&gt; 我的积分</a></td>
+      <td height="38" class="list_wz"><a href="integral.jsp">&nbsp;&gt;&gt; 我的积分</a></td>
     </tr>
     <tr>
-      <td height="32" class="list_wz"><a href="memberpwd.jsp">&nbsp;&gt;&gt; 修改密码</a></td>
+      <td height="38" class="list_wz"><a href="memberpwd.jsp">&nbsp;&gt;&gt; 修改密码</a></td>
     </tr>
      <tr>
-      <td height="32" class="list_wz"><a href="membereidt.jsp">&nbsp;&gt;&gt; 信息设置</a></td>
+      <td height="38" class="list_wz"><a href="membereidt.jsp">&nbsp;&gt;&gt; 信息设置</a></td>
     </tr>
     <tr>
-      <td height="32" class="list_wz"><a href="#" onclick="if (confirm('您确定要退出吗？')){top.location = '<%=application.getServletContextName()%>/web/Auth?actiontype=<%=Constants.WEBLOGOFF%>';}	return false;">&nbsp;&gt;&gt; 退出系统</a></td>
+      <td height="38" class="list_wz"><a href="#" 
+      onclick="if (confirm('您确定要退出吗？')){top.location = '<%=application.getServletContextName()%>/web/Auth?actiontype=<%=Constants.WEBLOGOFF%>';}	return false;">
+      &nbsp;&gt;&gt; 退出系统</a></td>
     </tr>
+     <tr>
+      <td height="51" class="list_wz">&nbsp; </td>
+    </tr>
+    </tbody>
   </table>
   <p>&nbsp;</p>
 </div>
@@ -105,7 +112,7 @@ frameborder=0 width="100%" scrolling=no></iframe>
 <div class="collect_sf">我的积分</div></div>
 <div class=collect_left_mid>
 <div class=collect_show>
-  <table width="96%" border="0" cellpadding="0" cellspacing="0">
+  <table width="96%" border="0" style="HEIGHT: 90px" cellpadding="0" cellspacing="0">
     <tr>
       <td height="60" valign="top">可用积分：<span class="fjwz"><%=member.show("where strCardNo='"+globa.getMember().getStrCardNo()+"'").getIntPoint() %> </span> 分 &nbsp;&nbsp;&nbsp;&nbsp;<a href="integraltype.jsp"><img src="images/fjkban.jpg" width="98" height="24" /></a></td>
     </tr>
@@ -113,7 +120,7 @@ frameborder=0 width="100%" scrolling=no></iframe>
       <td height="28"><span class="bzb">积分变动情况</span></td>
     </tr>
   </table>
-  <table width="96%" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="DCDCDC">
+  <table width="96%" border="0" style="HEIGHT: 190px" align="center" cellpadding="0" cellspacing="1" bgcolor="DCDCDC">
     <tr> 
       <td width="31%" height="25" align="center" bgcolor="EEEEEE" class="collect_show_tit">时间</td>
       <td width="51%" align="center" bgcolor="EEEEEE" class="collect_show_tit">项目</td>

@@ -75,26 +75,31 @@ frameborder=0 width="100%" scrolling=no></iframe>
 <div class=collect_mid>
   <p>&nbsp;</p>
   <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
-      <tr>
-      <td height="32" class="list_wz"><a href="collection.jsp">&nbsp;&gt;&gt; 我的收藏</a></td>
+       <tr>
+      <td height="38" class="list_wz"><a href="collection.jsp">&nbsp;&gt;&gt; 我的收藏</a></td>
     </tr>
     <tr>
-      <td height="32" class="list_wz"><a href="history.jsp">&nbsp;&gt;&gt; 历史记录</a></td>
+      <td height="38" class="list_wz"><a href="history.jsp">&nbsp;&gt;&gt; 历史记录</a></td>
     </tr>
     <tr>
-      <td height="32" class="list_wz"><a href="balance.jsp" >&nbsp;&gt;&gt; 我的余额</a></td>
+      <td height="38" class="list_wz"><a href="balance.jsp" >&nbsp;&gt;&gt; 我的余额</a></td>
     </tr>
     <tr>
-      <td height="32" class="list_wz"><a href="integral.jsp">&nbsp;&gt;&gt; 我的积分</a></td>
+      <td height="38" class="list_wz"><a href="integral.jsp">&nbsp;&gt;&gt; 我的积分</a></td>
     </tr>
     <tr>
-      <td height="32" class="list_wz"><a href="memberpwd.jsp">&nbsp;&gt;&gt; 修改密码</a></td>
+      <td height="38" class="list_wz"><a href="memberpwd.jsp">&nbsp;&gt;&gt; 修改密码</a></td>
     </tr>
      <tr>
-      <td height="32" class="list_wz"><a href="membereidt.jsp">&nbsp;&gt;&gt; 信息设置</a></td>
+      <td height="38" class="list_wz"><a href="membereidt.jsp">&nbsp;&gt;&gt; 信息设置</a></td>
     </tr>
     <tr>
-      <td height="32" class="list_wz"><a href="#" onclick="if (confirm('您确定要退出吗？')){top.location = '<%=application.getServletContextName()%>/web/Auth?actiontype=<%=Constants.WEBLOGOFF%>';}	return false;">&nbsp;&gt;&gt; 退出系统</a></td>
+      <td height="38" class="list_wz"><a href="#" 
+      onclick="if (confirm('您确定要退出吗？')){top.location = '<%=application.getServletContextName()%>/web/Auth?actiontype=<%=Constants.WEBLOGOFF%>';}	return false;">
+      &nbsp;&gt;&gt; 退出系统</a></td>
+    </tr>
+     <tr>
+      <td height="51" class="list_wz">&nbsp; </td>
     </tr>
   </table>
   <p>&nbsp;</p>
@@ -106,7 +111,7 @@ frameborder=0 width="100%" scrolling=no></iframe>
 <div class="collect_sf">修改个人密码</div></div>
 <div class=collect_left_mid>
 <div class=collect_show>
-  <table width="70%" border="0" cellpadding="0" cellspacing="0">
+  <table width="70%" style="HEIGHT:280px;"  border="0" cellpadding="0" cellspacing="0">
     <tr>
       <td height="20"></td><td></td>
     </tr>
@@ -129,6 +134,9 @@ frameborder=0 width="100%" scrolling=no></iframe>
       <td width="45%" class="memberpwd_td"><img src="images/sure.jpg" onclick="chkFrm();" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <img src="images/quxiao.jpg" onclick="frm.reset();" /></td>
      </tr>
+     <tr>
+      <td height="90">&nbsp;</td><td></td>
+    </tr>
   </table>  
 </div>
 

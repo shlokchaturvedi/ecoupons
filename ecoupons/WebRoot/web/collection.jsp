@@ -35,7 +35,7 @@ int intAllCount=vctCouponFavourites.size();
 int intCurPage=globa.getIntCurPage();
 //每页记录数
 //int intPageSize=globa.getIntPageSize();
-int intPageSize=6;
+int intPageSize=8;
 //共有页数
 	int intPageCount=(intAllCount-1)/intPageSize+1;
 // 循环显示一页内的记录 开始序号
@@ -53,7 +53,7 @@ int intVct=(vctCouponFavourites!=null&&vctCouponFavourites.size()>0?vctCouponFav
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link href="css/collection.css" rel="stylesheet" type="text/css" />
-<LINK rel="stylesheet" type="text/css" href="css/comment.css">
+<link  href="css/comment.css" rel="stylesheet" type="text/css" />
 <title>我的收藏</title>
 <script language=JavaScript>
 function logout(){
@@ -80,56 +80,59 @@ function del(){
 
 <body>
 <form name="frm" method=post action="collection.jsp" >	
-<iframe style="HEIGHT: 164px" border=0 marginwidth=0 marginheight=0 src="top.jsp" 
-frameborder=no width="100%" scrolling=no></iframe>
+<iframe style="HEIGHT: 164px"  marginwidth=0 marginheight=0 src="top.jsp" 
+frameborder=0 width="100%" scrolling=no></iframe>
 
 <!--正文部分-->
-<DIV id=Main>
-<DIV id=collect_Right>
-<DIV class=collect_list>
-<DIV class=collect_right_top>
-<DIV class=collect_heatitle><h6>会员中心</h6></DIV>
-</DIV>
-<DIV class=collect_mid>
+<div id=Main>
+<div id=collect_Right>
+<div class=collect_list>
+<div class=collect_right_top>
+<div class=collect_heatitle><h6>会员中心</h6></div>
+</div>
+<div class=collect_mid>
   <p>&nbsp;</p>
   <table width="81%" border="0" cellpadding="0" cellspacing="0">
        <tr>
-      <td height="32" class="list_wz"><a href="collection.jsp">&nbsp;&gt;&gt; 我的收藏</a></td>
+      <td height="38" class="list_wz"><a href="collection.jsp">&nbsp;&gt;&gt; 我的收藏</a></td>
     </tr>
     <tr>
-      <td height="32" class="list_wz"><a href="history.jsp">&nbsp;&gt;&gt; 历史记录</a></td>
+      <td height="38" class="list_wz"><a href="history.jsp">&nbsp;&gt;&gt; 历史记录</a></td>
     </tr>
     <tr>
-      <td height="32" class="list_wz"><a href="balance.jsp" >&nbsp;&gt;&gt; 我的余额</a></td>
+      <td height="38" class="list_wz"><a href="balance.jsp" >&nbsp;&gt;&gt; 我的余额</a></td>
     </tr>
     <tr>
-      <td height="32" class="list_wz"><a href="integral.jsp">&nbsp;&gt;&gt; 我的积分</a></td>
+      <td height="38" class="list_wz"><a href="integral.jsp">&nbsp;&gt;&gt; 我的积分</a></td>
     </tr>
     <tr>
-      <td height="32" class="list_wz"><a href="memberpwd.jsp">&nbsp;&gt;&gt; 修改密码</a></td>
+      <td height="38" class="list_wz"><a href="memberpwd.jsp">&nbsp;&gt;&gt; 修改密码</a></td>
     </tr>
      <tr>
-      <td height="32" class="list_wz"><a href="membereidt.jsp">&nbsp;&gt;&gt; 信息设置</a></td>
+      <td height="38" class="list_wz"><a href="membereidt.jsp">&nbsp;&gt;&gt; 信息设置</a></td>
     </tr>
     <tr>
-      <td height="32" class="list_wz"><a href="#" 
-      onClick="if (confirm('您确定要退出吗？')){top.location = '<%=application.getServletContextName()%>/web/Auth?actiontype=<%=Constants.WEBLOGOFF%>';}	return false;">
+      <td height="38" class="list_wz"><a href="#" 
+      onclick="if (confirm('您确定要退出吗？')){top.location = '<%=application.getServletContextName()%>/web/Auth?actiontype=<%=Constants.WEBLOGOFF%>';}	return false;">
       &nbsp;&gt;&gt; 退出系统</a></td>
+    </tr>
+     <tr>
+      <td height="51" class="list_wz">&nbsp; </td>
     </tr>
   </table>
   <p>&nbsp;</p>
-</DIV>
-<DIV class=collect_bottom></DIV></DIV>
-</DIV>
+</div>
+<div class=collect_bottom></div></div>
+</div>
 
 
-<DIV id=Left>
-<DIV class=collect_left_top>
+<div id=Left>
+<div class=collect_left_top>
 		<div class="collect_sf">我的收藏</div>
-</DIV>
-<DIV class=collect_left_mid>
-<DIV class=collect_show>
-<table border="0" cellpadding="0" cellspacing="0" width="96%">
+</div>
+<div class=collect_left_mid>
+<div class=collect_show>
+<table border="0" style="HEIGHT:40px;" cellpadding="0" cellspacing="0" width="96%">
 			<tr>
 			<td style="font-size:9pt">
 			 &nbsp;&nbsp;&nbsp;
@@ -141,7 +144,7 @@ frameborder=no width="100%" scrolling=no></iframe>
 			</td>   
 			</tr>
 			</table>
-  <table width="96%" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="DCDCDC">
+  <table width="96%" border="0" style="HEIGHT: 240px"  align="center" cellpadding="0" cellspacing="1" bgcolor="DCDCDC">
     <tr> 
      <td width="5%" height="22"  class="left_bt2"><div align="center">&nbsp;</div></td>
       <td height="25" align="center" bgcolor="EEEEEE" class="collect_show_tit">商家名称</td>
@@ -183,13 +186,13 @@ frameborder=no width="100%" scrolling=no></iframe>
   <!-- 翻页开始 -->  
  	<%@ include file="include/cpage.jsp"%>
    	<!-- 翻页结束 -->
-</DIV>
+</div>
 
-</DIV>
+</div>
 
-<DIV class=collect_show_bottom></DIV>
-</DIV>
-</DIV>
+<div class=collect_show_bottom></div>
+</div>
+</div>
 
 <iframe style="HEIGHT: 260px" border=0 marginwidth=0 marginheight=0 src="bottom.jsp" 
 frameborder=no width="100%" scrolling=no></iframe>

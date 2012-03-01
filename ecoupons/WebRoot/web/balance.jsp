@@ -40,26 +40,31 @@ frameborder=0 width="100%" scrolling=no></iframe>
 <div class=collect_mid>
   <p>&nbsp;</p>
   <table width="96%" border="0" cellpadding="0" cellspacing="0">
-    <tr>
-      <td height="32" class="list_wz"><a href="collection.jsp">&nbsp;&gt;&gt; 我的收藏</a></td>
+     <tr>
+      <td height="38" class="list_wz"><a href="collection.jsp">&nbsp;&gt;&gt; 我的收藏</a></td>
     </tr>
     <tr>
-      <td height="32" class="list_wz"><a href="history.jsp">&nbsp;&gt;&gt; 历史记录</a></td>
+      <td height="38" class="list_wz"><a href="history.jsp">&nbsp;&gt;&gt; 历史记录</a></td>
     </tr>
     <tr>
-      <td height="32" class="list_wz"><a href="balance.jsp" >&nbsp;&gt;&gt; 我的余额</a></td>
+      <td height="38" class="list_wz"><a href="balance.jsp" >&nbsp;&gt;&gt; 我的余额</a></td>
     </tr>
     <tr>
-      <td height="32" class="list_wz"><a href="integral.jsp">&nbsp;&gt;&gt; 我的积分</a></td>
+      <td height="38" class="list_wz"><a href="integral.jsp">&nbsp;&gt;&gt; 我的积分</a></td>
     </tr>
     <tr>
-      <td height="32" class="list_wz"><a href="memberpwd.jsp">&nbsp;&gt;&gt; 修改密码</a></td>
+      <td height="38" class="list_wz"><a href="memberpwd.jsp">&nbsp;&gt;&gt; 修改密码</a></td>
     </tr>
      <tr>
-      <td height="32" class="list_wz"><a href="membereidt.jsp">&nbsp;&gt;&gt; 信息设置</a></td>
+      <td height="38" class="list_wz"><a href="membereidt.jsp">&nbsp;&gt;&gt; 信息设置</a></td>
     </tr>
     <tr>
-      <td height="32" class="list_wz"><a href="#" onclick="if (confirm('您确定要退出吗？')){top.location = '<%=application.getServletContextName()%>/web/Auth?actiontype=<%=Constants.WEBLOGOFF%>';}	return false;" >&nbsp;&gt;&gt; 退出系统</a></td>
+      <td height="38" class="list_wz"><a href="#" 
+      onclick="if (confirm('您确定要退出吗？')){top.location = '<%=application.getServletContextName()%>/web/Auth?actiontype=<%=Constants.WEBLOGOFF%>';}	return false;">
+      &nbsp;&gt;&gt; 退出系统</a></td>
+    </tr>
+     <tr>
+      <td height="51" class="list_wz">&nbsp; </td>
     </tr>
   </table>
   <p>&nbsp;</p>
@@ -99,7 +104,7 @@ Member member=new Member(globa);
 %>
 <div class=collect_left_mid>
 <div class=collect_show>
-  <table width="96%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <table width="96%" style="HEIGHT:90px;"  border="0" align="center" cellpadding="0" cellspacing="0">
     <tr>
       <td height="60" valign="top">可用余额：<span class="fjwz"><%=member.show("where strCardNo='"+globa.getMember().getStrCardNo()+"'").getFlaBalance() %> </span> 元 &nbsp;&nbsp;&nbsp;&nbsp;<a href="alipay/payindex.jsp" /><img src="images/czban.jpg" width="56" height="24" /></a></td>
     </tr>
@@ -107,7 +112,7 @@ Member member=new Member(globa);
       <td height="28"><span class="bzb">余额变动情况</span></td>
     </tr>
   </table>
-  <table width="96%" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="DCDCDC">
+  <table width="96%" style="HEIGHT:190px;" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="DCDCDC">
     <tr> 
       <td height="25" align="center" bgcolor="EEEEEE" class="collect_show_tit">时间</td>
       <td align="center" bgcolor="EEEEEE" class="collect_show_tit">项目</td>
