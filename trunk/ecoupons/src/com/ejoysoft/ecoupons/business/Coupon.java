@@ -208,6 +208,51 @@ public class Coupon
 			return false;
 		}
 	}
+	
+	/**
+	 * 修改优惠券过期时间
+	 */
+	public boolean updateExpireTime(String strId)
+	{
+		downLoadAlert = new DownLoadAlert(globa);
+		try
+		{
+			db.getConnection().setAutoCommit(false);
+			String strSql = "update  " + strTableName + "  SET dtExpireTime = '"+dtExpireTime+"'   WHERE strId='"+strId+"' ";
+			if (db.executeUpdate(strSql) > 0)
+			{
+				DownLoadAlert alert = new DownLoadAlert(globa);
+		        Vector<DownLoadAlert> vctAlerts = alert.list(" where strdataid='"+strId+"'",0,0);
+		        for(int i=0;i<vctAlerts.size();i++)
+		        {
+	        		DownLoadAlert alert2 = vctAlerts.get(i);
+	        		if(alert2.getIntState().equals("1") && alert2.getStrDataOpeType().equals("add"))
+	        		{
+	        			int  alert3 = alert.getCount(" where strterminalid='"+alert2.getStrTerminalId()+"' and strdataopetype='update' and intstate=0");
+	        			if(alert3==0)
+	        			{
+	        				String sql2 ="insert into " + strDownLoadAlertTable + " (strid,strterminalid,strdatatype,strdataid,strdataopetype,intstate) "
+	              		     + "values (" + UID.getID() + ",'" + alert2.getStrTerminalId()+ "','" + strTableName + "','" + alert2.getStrDataId() + "','update',0)";
+	              		    db.executeUpdate(sql2);
+	        			}
+	        		}        		
+		        }
+				db.commit();
+				Globa.logger0("修改优惠券过期时间", globa.loginName, globa.loginIp, strSql, "优惠券打印", "");
+				return true;
+			} else
+			{
+				db.rollback();
+				return false;
+
+			}
+		} catch (Exception e)
+		{
+			System.out.println("修改优惠券信息：" + e);
+			db.rollback();
+			return false;
+		}
+	}
 
 	/**
 	 * 增加优惠券信息
