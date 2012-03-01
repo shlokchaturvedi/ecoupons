@@ -33,6 +33,7 @@ public class Coupon
 	private String strTerminals;// 投放终端编码
 	private String strDownLoadAlertTable = "t_bz_download_alert";
 	String strPrintTable="t_bz_coupon_print";
+	String strInputTable="t_bz_coupon_input";
 	DownLoadAlert downLoadAlert;
 
 	/**
@@ -131,8 +132,10 @@ public class Coupon
 			if (db.executeUpdate() > 0)
 			{
 				//修改couponprint表中的终端字段  当优惠券修改的时候
-				String strSqlPrint="update "+strPrintTable+" set strTerminalIds='"+getTerminalIdsByNames(strTerminals)+"' where strcouponid='"+strId+"'";
+				String strSqlPrint="update "+strPrintTable+" set strterminalids='"+getTerminalIdsByNames(strTerminals)+"' where strcouponid='"+strId+"'";
 				db.executeUpdate(strSqlPrint);
+				String strSqlInput="update "+strInputTable+" set strshopid='"+strShopId+"' where strcouponid='"+strId+"'";
+				db.executeUpdate(strSqlInput);
 				// 如果丢弃的终端已处理就增加delete语句，如果没有处理，直接删除
 				for (int i = 0; i < strDbTerminalIds.length; i++)
 				{
@@ -215,8 +218,8 @@ public class Coupon
 		String strUserName = globa.userSession.getStrId();
 		String strId = UID.getID();
 		String[] strDownSql = null;
-		String sql = "insert into " + strTableName + " (strId,strName,strSmallImg,dtActiveTime,dtExpireTime,strShopId,strTerminalIds"
-				+ ",intVip,intRecommend,flaPrice,intPrintLimit,strLargeImg,strCreator,dtCreateTime,intprint,strInstruction,strIntro) "
+		String sql = "insert into " + strTableName + " (strid,strname,strsmallimg,dtactivetime,dtexpiretime,strshopid,strterminalids"
+				+ ",intvip,intrecommend,flaprice,intprintlimit,strlargeimg,strcreator,dtcreatetime,intprint,strinstruction,strintro) "
 				+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
 
 		try
@@ -376,7 +379,7 @@ public class Coupon
 		int count = 0;
 		try
 		{
-			String sql = "SELECT count(strId) FROM " + strTableName + "  ";
+			String sql = "select count(strid) from " + strTableName + "  ";
 			if (where.length() > 0)
 			{
 				where = where.toLowerCase();
@@ -404,7 +407,7 @@ public class Coupon
 		Vector<Coupon> beans = new Vector<Coupon>();
 		try
 		{
-			String sql = "SELECT *  FROM  " + strTableName + " ";
+			String sql = "select *  from  " + strTableName + " ";
 			if (where.length() > 0)
 				sql = String.valueOf(sql) + String.valueOf(where);
 			Statement s = db.getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -474,7 +477,7 @@ public class Coupon
 		Vector<Coupon> beans = new Vector<Coupon>();
 		try
 		{
-			String sql = "SELECT *  FROM  " + strTableName + " ";
+			String sql = "select *  from  " + strTableName + " ";
 			if (where.length() > 0)
 				sql = String.valueOf(sql) + String.valueOf(where);
 			ResultSet rs = db.executeQuery(sql);

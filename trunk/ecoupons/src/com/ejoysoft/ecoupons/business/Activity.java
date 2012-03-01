@@ -181,7 +181,7 @@ public class Activity {
     public int getCount(String where) {
         int count = 0;
         try {
-            String sql = "SELECT count(strId) FROM " + strTableName + "  ";
+            String sql = "select count(strid) from " + strTableName + "  ";
             if (where.length() > 0) {
                 where = where.toLowerCase();
                 if (where.indexOf("order") > 0)
@@ -206,7 +206,7 @@ public class Activity {
 	{
 		try
 		{
-			String sql = "select * FROM  " + strTableName + " ";
+			String sql = "select * from  " + strTableName + " ";
 			if (!strName.equals("")) {
 				
 				String strbizname="",strshopname="",where="";
