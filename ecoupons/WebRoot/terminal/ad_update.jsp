@@ -110,7 +110,7 @@ body,td,tr{font-size:9pt;}
     }
 function addTerminals()
 {
-    var terminals = window.showModalDialog("terminals_select.jsp?random="+ Math.random(), "选择投放终端", "dialogWidth=450px;dialogHeight:600px;dialogTop:300px;dialogLeft:450px;scrollbars=yes;status=yes;"); //写成一行 
+    var terminals = window.showModalDialog("terminals_select.jsp?strId="+<%=strId%>+"&random="+ Math.random(), "选择投放终端", "dialogWidth=450px;dialogHeight:600px;dialogTop:300px;dialogLeft:450px;scrollbars=yes;status=yes;"); //写成一行 
 	document.getElementById("strTerminals").value=terminals.substring(0,terminals.length-1);
 		  
 } function addPicRow(){ 	 
@@ -126,14 +126,7 @@ function addTerminals()
 	document.getElementById("strContent").parentNode.appendChild(br);	
 	document.getElementById("strContent").parentNode.appendChild(input);
    }
-	 
-<!-- 显示终端列表-->
-function addTerminals()
-{
-    var terminals = window.showModalDialog("terminals_select.jsp?random="+ Math.random(), "选择投放终端","dialogWidth=550px;dialogHeight:600px;dialogTop:300px;dialogLeft:450px;scrollbars=yes;status=yes;"); //写成一行 
-	document.getElementById("strTerminals").value=terminals.substring(0,terminals.length-1);
-		  
-}  
+
 function showTextContent(){
     var array = document.frm.getElementsByTagName("input");
     for(i=0;i<array.length;i++)

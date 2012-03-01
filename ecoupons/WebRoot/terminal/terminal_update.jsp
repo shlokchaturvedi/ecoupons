@@ -92,7 +92,7 @@ body,td,tr{font-size:9pt;}
         }
     }
    function openwin() {  
-			 var shops=window.showModalDialog("shops_select.jsp?random="+ Math.random(), "选择临近商家", "dialogWidth=520px;dialogHeight:600px;dialogTop:300px;dialogLeft:450px;scrollbars=yes;status=yes;"); //写成一行 
+			 var shops=window.showModalDialog("shops_select.jsp?strid="+<%=strId%>+"&random="+ Math.random(), "选择临近商家", "dialogWidth=520px;dialogHeight:600px;dialogTop:300px;dialogLeft:450px;scrollbars=yes;status=yes;"); //写成一行 
 		  	document.getElementById("strAroundShops").value=shops.substring(0,shops.length-1);
 		  	}
 </script>
@@ -227,7 +227,7 @@ body,td,tr{font-size:9pt;}
               <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">临近商家：</td>
                 <td width="3%">&nbsp;</td>
-                <td width="32%" height="30"><input name="strAroundShops" value="<%=obj0.getStrAroundShops()%>" type="text" onclick="openwin()" readonly class="input_box" size="30"/><input type="button" value="..." onclick="openwin()" /></td>
+                <td width="32%" height="30"><input name="strAroundShops" value="<%=obj0.getStrAroundShops()%>" type="text" readonly class="input_box" size="30"/><input type="button" value="..." onclick="openwin()" /></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr> <tr>
                 <td width="20%"  height="30" align="right" class="left_txt2">图            片：</td>
