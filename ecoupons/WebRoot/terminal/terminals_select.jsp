@@ -76,7 +76,7 @@ function ReturnTerminals(){
 					  Terminal terminal = objTerminal.showAd(" where strid='"+strId+"'");
 					  strTerminalids = terminal.getStrTerminalIds();
 				  }		
-				  System.out.println(strId+"dddddddddddddddd"+strTerminalids);
+				//  System.out.println(strId+"dddddddddddddddd"+strTerminalids);
 				  Terminal obj = new Terminal(globa,true);
 				  String allterminal[]=obj.getAllTerminalNos();
 				  int k=0;
