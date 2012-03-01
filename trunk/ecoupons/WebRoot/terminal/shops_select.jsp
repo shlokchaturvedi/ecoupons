@@ -91,7 +91,7 @@ function ReturnShops(){
 				  String allbizname[]=obj.getStrBizNames();		
 			      for(int i=0;i<allbizname.length;i++)
                   { 
-	               if(allbizname[i]!=null ||allbizname[i].trim()!="")
+	               if(allbizname[i]!=null && allbizname[i].trim()!="")
 	               {
 	                    
                %>
