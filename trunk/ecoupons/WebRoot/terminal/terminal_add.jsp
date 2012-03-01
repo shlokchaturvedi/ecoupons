@@ -215,7 +215,7 @@ function openwin() {
               <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">临近商家：</td>
                 <td width="3%">&nbsp;</td>
-                <td width="32%" height="30"><input name="strAroundShops" type="text" class="input_box" readonly onclick="openwin()" size="30"/><input type="button" value="..." onclick="openwin()" /></td>
+                <td width="32%" height="30"><input name="strAroundShops" type="text" class="input_box" readonly size="30"/><input type="button" value="..." onclick="openwin()" /></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
                 <tr>

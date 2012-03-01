@@ -2,6 +2,7 @@
 <%@ page contentType="text/html;charset=GBK"%>
 <%@page import="com.ejoysoft.common.Globa,
 				com.ejoysoft.ecoupons.business.Shop"%>
+<%@page import="com.ejoysoft.ecoupons.business.Terminal"%>
 <%@ include file="../include/jsp/head.jsp"%>
 
 <html>
@@ -76,8 +77,17 @@ function ReturnShops(){
                 </td>
                </tr>
 				<% 
+				  String strid = ParamUtil.getString(request,"strid","");
+				  String strshopnames ="", strshopids ="";
+				  if(!strid.equals(""))
+				  {
+					  Terminal objTerminal = new Terminal(globa);  
+					  Terminal terminal = objTerminal.show(" where strid='"+strid+"'");
+					  strshopids = terminal.getStrAroundShopIds();
+					  strshopnames = objTerminal.getArroundShopNames(strshopids);
+				  }				 
 				  Shop obj = new Shop(globa,true);
-				  String allshopname[]=obj.getAllShopNames();
+				  String allshopname[]=obj.getAllShopIdsAndNames();
 				  String allbizname[]=obj.getStrBizNames();		
 			      for(int i=0;i<allbizname.length;i++)
                   { 
@@ -97,10 +107,14 @@ function ReturnShops(){
                <%	    int k=0;     
                		    for(int j=0;j<allshopname.length;j++)
 	                    {
-	                       String[] shopStrings =allshopname[j].split("-");
+	                       String[] shopStrings =(allshopname[j].split(",")[1]).split("-");
+	                       String checked ="";
+	                       if(strshopids!=null && !strshopids.equals("") && strshopids.indexOf(allshopname[j].split(",")[0])>=0)
+	                       {
+	                       		checked ="checked";
+	                       }
 	                       if(shopStrings.length>=2 && shopStrings[0].trim().equals(allbizname[i]))
 	                       { 
-	                       //  System.out.println(k);
 	                         if(k%3==0)
 	              			 {
 	              			 %>
@@ -110,13 +124,12 @@ function ReturnShops(){
 	              			 k++;                       
 	           %>
 		                 <td width="33%">		                       
-						 <input name="shopname" type="checkbox" value="<%=allshopname[j] %>" /><font style="font-family:·ÂËÎGB2312 ; font-size: 12px;color: #444444;"><%=shopStrings[1]%></font>		
+						 <input name="shopname" type="checkbox" <%=checked%> value="<%=allshopname[j].split(",")[1]%>" /><font style="font-family:·ÂËÎGB2312 ; font-size: 12px;color: #444444;"><%=shopStrings[1]%></font>		
 						 </td>
 		              
 	               <% 		 
               			  }else if(shopStrings.length==1 && shopStrings[0].trim().equals(allbizname[i]))
 	                       { 
-	                       //  System.out.println(k);
 	                         if(k%3==0)
 	              			 {
 	              			 %>
@@ -126,7 +139,7 @@ function ReturnShops(){
 	              			 k++;                       
 	           %>
 		                 <td width="33%">		                       
-						 <input name="shopname" type="checkbox" value="<%=allshopname[j] %>" /><font style="font-family:·ÂËÎGB2312 ; font-size: 12px;color: #444444;"><%=allshopname[j]%></font>		
+						 <input name="shopname" type="checkbox" <%=checked%> value="<%=allshopname[j].split(",")[1]%>" /><font style="font-family:·ÂËÎGB2312 ; font-size: 12px;color: #444444;"><%=allshopname[j].split(",")[1]%></font>		
 						 </td>
 		              
 	               <% 		 

@@ -68,6 +68,15 @@ function ReturnTerminals(){
                </tr>
                <tr>
 				<% 
+				  String strId = ParamUtil.getString(request,"strId","");
+				  String strTerminalids ="";
+				  if(!strId.equals(""))
+				  {
+					  Terminal objTerminal = new Terminal(globa);  
+					  Terminal terminal = objTerminal.showAd(" where strid='"+strId+"'");
+					  strTerminalids = terminal.getStrTerminalIds();
+				  }		
+				  System.out.println(strId+"dddddddddddddddd"+strTerminalids);
 				  Terminal obj = new Terminal(globa,true);
 				  String allterminal[]=obj.getAllTerminalNos();
 				  int k=0;
@@ -78,6 +87,11 @@ function ReturnTerminals(){
 	                    String strid = allterminal[i].split("-")[0];
 	                    String strno = allterminal[i].split("-")[1];
 	                    String strlocation = allterminal[i].split("-")[2];
+                        String checked ="";
+                        if(strTerminalids!=null && !strTerminalids.equals("") && strTerminalids.indexOf(strid)>=0)
+                        {
+                       		checked ="checked";
+                        }
 	                    if(k%3==0)
 	                    {
                %>
@@ -85,7 +99,7 @@ function ReturnTerminals(){
                <%} k++;%>
                		
                  <td width="33%">  
-                       <input name="terminalname" type="checkbox" value="<%=strno%>" /><%=strno%>-<%=strlocation%>			
+                       <input name="terminalname" <%=checked %> type="checkbox" value="<%=strno%>" /><%=strno%>-<%=strlocation%>			
 		              	
                 </td>
                <%   
