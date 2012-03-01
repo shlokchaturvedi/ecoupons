@@ -537,7 +537,7 @@ public class Shop
 			if (rs != null && rs.next())
 			{
 				do
-				{
+				{	
 					String bizname = rs.getString("strbizname");
 				    String shopname = rs.getString("strshopname");
 				    if(shopname !=null && !shopname.equals(""))  
@@ -556,8 +556,42 @@ public class Shop
 		}
 		return shopnames;
 	}
+	// 获取所有商家名称和分部名称
+	public String[] getAllShopIdsAndNames()
+	{
 
-	// 获取商家名（无重复）
+		Shop obj = new Shop(globa);
+		int i = 0;
+		String shopidandnames[] = new String[obj.getCount("")];
+		try
+		{
+
+			String strSql = "select * from  " + strTableName + " order by strbizname";
+			ResultSet rs = db.executeQuery(strSql);
+			if (rs != null && rs.next())
+			{
+				do
+				{	
+					String strid = rs.getString("strid");
+					String bizname = rs.getString("strbizname");
+				    String shopname = rs.getString("strshopname");				    
+				    if(shopname !=null && !shopname.equals(""))  
+				    {
+				   		bizname = bizname+"-"+shopname;
+				    }
+					shopidandnames[i] =strid+","+bizname;
+					i++;
+				} while (rs.next());
+			}
+			rs.close();
+
+		} catch (Exception ee)
+		{
+			ee.printStackTrace();
+		}
+		return shopidandnames;
+	}
+		// 获取商家名（无重复）
 	@SuppressWarnings("unchecked")
 	public String[] getStrBizNames()
 	{
