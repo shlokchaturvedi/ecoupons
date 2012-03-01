@@ -40,7 +40,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 int printNum = couponPrint.getCount(" where strcouponid='"+strId+"'");
 	 Shop shop = new Shop(globa);
 	 Shop objshop = shop.show(" where strid = '"+obj1.getStrShopId()+"'");
-	 String strimg = "../web/images/temp.jpg",info = " ",instruction = "",phone = " ",addr = " ";
+	 String strimg = "web/images/temp.jpg",info = " ",instruction = "",phone = " ",addr = " ";
 	 if(obj1.getStrSmallImg()!=null&&!obj1.getStrSmallImg().equals(""))
 	 {
 	 	strimg = "../coupon/images/"+obj1.getStrSmallImg();
@@ -81,10 +81,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 }
 	 if(limitNum !=0 && printNum >= limitNum)
 	 {
-	 	System.out.println(Format.getDateTime());
-		coupobj.setDtExpireTime(Format.getDateTime());
+	 	coupobj.setDtExpireTime(Format.getDateTime());
 	 	coupobj.updateExpireTime(strId);
-	    response.getWriter().println("<script>alert('对不起！该优惠券打印次数已达上限！无法打印！');window.opener=null;window.close();</script>");
+	    response.getWriter().println("<script>alert('对不起！该优惠券打印次数已达上限！');window.opener=null;window.close();</script>");
 	 }	 
 	 if(couponPrice!=0 && couponPrice > balance)
 	 {

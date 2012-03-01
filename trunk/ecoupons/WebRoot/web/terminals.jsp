@@ -93,7 +93,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 else
                 {
                 %>
-                 <img src="../terminal/images/temp.jpg" width=112 height=110 border="0" />
+                 <img src="images/temp.jpg" width=112 height=110 border="0" />
                  <%} %>
 </div>
 <div class=pro_info>

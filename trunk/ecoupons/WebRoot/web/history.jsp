@@ -25,7 +25,7 @@ int intAllCount=obj.getCount(tWhere);
 int intCurPage=globa.getIntCurPage();
 //每页记录数
 //int intPageSize=globa.getIntPageSize();
-int intPageSize=6;
+int intPageSize=8;
 //共有页数
 	int intPageCount=(intAllCount-1)/intPageSize+1;
 // 循环显示一页内的记录 开始序号
@@ -65,28 +65,31 @@ Shop shop=new Shop(globa);
   <p>&nbsp;</p>
   <table width="96%" border="0"  cellpadding="0" cellspacing="0">
   <tbody>
-      <tr>
-      <td height="32" class="list_wz"><a href="collection.jsp">&nbsp;&gt;&gt; 我的收藏</a></td>
+    <tr>
+      <td height="38" class="list_wz"><a href="collection.jsp">&nbsp;&gt;&gt; 我的收藏</a></td>
     </tr>
     <tr>
-      <td height="32" class="list_wz"><a href="history.jsp">&nbsp;&gt;&gt; 历史记录</a></td>
+      <td height="38" class="list_wz"><a href="history.jsp">&nbsp;&gt;&gt; 历史记录</a></td>
     </tr>
     <tr>
-      <td height="32" class="list_wz"><a href="balance.jsp" >&nbsp;&gt;&gt; 我的余额</a></td>
+      <td height="38" class="list_wz"><a href="balance.jsp" >&nbsp;&gt;&gt; 我的余额</a></td>
     </tr>
     <tr>
-      <td height="32" class="list_wz"><a href="integral.jsp">&nbsp;&gt;&gt; 我的积分</a></td>
+      <td height="38" class="list_wz"><a href="integral.jsp">&nbsp;&gt;&gt; 我的积分</a></td>
     </tr>
     <tr>
-      <td height="32" class="list_wz"><a href="memberpwd.jsp">&nbsp;&gt;&gt; 修改密码</a></td>
+      <td height="38" class="list_wz"><a href="memberpwd.jsp">&nbsp;&gt;&gt; 修改密码</a></td>
     </tr>
      <tr>
-      <td height="32" class="list_wz"><a href="membereidt.jsp">&nbsp;&gt;&gt; 信息设置</a></td>
+      <td height="38" class="list_wz"><a href="membereidt.jsp">&nbsp;&gt;&gt; 信息设置</a></td>
     </tr>
     <tr>
-      <td height="32" class="list_wz"><a href="#" 
-      onClick="if (confirm('您确定要退出吗？')){top.location = '<%=application.getServletContextName()%>/web/Auth?actiontype=<%=Constants.WEBLOGOFF%>';}	return false;">
+      <td height="38" class="list_wz"><a href="#" 
+      onclick="if (confirm('您确定要退出吗？')){top.location = '<%=application.getServletContextName()%>/web/Auth?actiontype=<%=Constants.WEBLOGOFF%>';}	return false;">
       &nbsp;&gt;&gt; 退出系统</a></td>
+    </tr>
+     <tr>
+      <td height="51" class="list_wz">&nbsp; </td>
     </tr>
     </tbody>
   </table>
@@ -102,7 +105,7 @@ Shop shop=new Shop(globa);
 
 <DIV class=collect_left_mid>
 <DIV class=collect_show>  
-  <table width="96%" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="DCDCDC">
+  <table width="96%" height="280" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="DCDCDC">
     <tr> 
       <td height="25" align="center" bgcolor="EEEEEE" class="collect_show_tit">商家名称</td>
       <td align="center" bgcolor="EEEEEE" class="collect_show_tit">优惠券名称</td>
