@@ -125,14 +125,16 @@ Shop shop=new Shop(globa);
       </tr>
       <%} %>
   </table>
-</DIV>
-
   <!-- 翻页开始 -->  
  	<%@ include file="include/cpage.jsp"%>
    	<!-- 翻页结束 -->
 </DIV>
 
-<DIV class=collect_show_bottom></DIV></DIV>
+</DIV>
+
+<DIV class=collect_show_bottom>
+</DIV>
+</DIV>
 </DIV>
 
 <iframe style="HEIGHT: 260px" marginwidth=0 marginheight=0 src="bottom.jsp" 
