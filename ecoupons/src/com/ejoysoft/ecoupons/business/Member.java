@@ -270,7 +270,7 @@ public class Member
 		int intStartCardNo = Integer.parseInt(strStartCardNo);
 		int intEndCardNo = Integer.parseInt(strEndCardNo);
 		String sql = "insert into " + strTableName + " (strId,strCardNo,strMobileNo,strName,intType"
-				+ ",strSalesman,strCreator,dtCreateTime,flaBalance,intPoint) " + "values (?,?,?,?,?,?,?,?,?,?) ";
+				+ ",strSalesman,strCreator,dtCreateTime,flaBalance,intPoint,dtActiveTime,dtExpireTime) " + "values (?,?,?,?,?,?,?,?,?,?,?,?) ";
 		try
 		{
 			db.prepareStatement(sql);
@@ -291,6 +291,8 @@ public class Member
 					db.setString(8, com.ejoysoft.common.Format.getDateTime());
 					db.setInt(9, 0);
 					db.setInt(10, 0);
+					db.setString(11, com.ejoysoft.common.Format.getDateTime());
+					db.setString(12, "2099-12-31 00:00:00");
 					db.executeUpdate();
 				} catch (Exception e) {
 					e.printStackTrace();
