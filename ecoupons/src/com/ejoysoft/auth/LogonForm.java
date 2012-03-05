@@ -159,6 +159,12 @@ public final class LogonForm {
 //      int intErrorLockNum = getErrorLockNum();
         try {
             java.sql.ResultSet rs = null;
+            if(strCardNo.length()==7)
+            {
+            	strCardNo="8"+strCardNo;
+            	
+            }
+            //System.out.println("-=-=-=-=-=-=-=-"+strCardNo);
             String strSql = "SELECT distinct * " +
             		"from t_bz_member where (strcardno='" + strCardNo + "' or strmobileno='"+strCardNo+"' )and dtactivetime <=now() and dtexpiretime >=now()";
             rs = globa.db.executeQuery(strSql);
