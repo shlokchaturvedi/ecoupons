@@ -128,6 +128,8 @@ function del(){
 			 <input type="checkbox" name="checkbox62" value="checkbox" onclick="selAll(document.all.strId)"/>
 			 全选
 			 <a href="member_add.jsp"><img src="../images/add.gif" width="16" height="16" border="0" />新增</a>
+			 <a href="member_addbatch.jsp"><%if(!"代理员".equals(globa.userSession.getStrCssType())){
+            		out.print("<img src='../images/add.gif' width='16' height='16' border='0' />批量增加");}%></a>
 			 <a href="#" onclick="del();"><%if(!"代理员".equals(globa.userSession.getStrCssType())){
             		out.print("<img src='../images/delete.gif' width='16' height='16' border='0' />批量删除");}%></a>
 			</td>

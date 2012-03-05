@@ -32,8 +32,10 @@ public class CouponTopServlet extends HttpServlet
 		if (terminal != null)
 		{
 			String strSql ="select strcouponid from t_bz_coupon_print where dtprinttime>"
-				+"date_sub(curdate(),interval 10 day)and strterminalids like '%"
-				+terminal.getStrId()+"%' group by strcouponid order by count(strcouponid) desc limit 24";
+				+"date_sub(curdate(),interval 10 day) group by strcouponid order by count(strcouponid) desc limit 24";
+//			String strSql ="select strcouponid from t_bz_coupon_print where dtprinttime>"
+//				+"date_sub(curdate(),interval 10 day)and strterminalids like '%"
+//				+terminal.getStrId()+"%' group by strcouponid order by count(strcouponid) desc limit 24";
 			ResultSet resultSet = globa.db.executeQuery(strSql);
 			try
 			{
