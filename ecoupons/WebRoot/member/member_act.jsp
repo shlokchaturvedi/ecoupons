@@ -57,6 +57,14 @@
 			}
 
 		}
+	} else if (action.equals("addbatch")) {
+		String strStartCardNo = ParamUtil.getString(request, "strStartCardNo", "");
+		String strEndCardNo = ParamUtil.getString(request, "strEndCardNo", "");
+		if (obj.getCount(" where strcardno>='" + strStartCardNo + "' and strcardno<='" + strEndCardNo + "'") > 0) {
+			globa.dispatch(false, strUrl, "会员卡号已经存在, 请调整起始卡号或截止卡号");
+		} else {
+			globa.dispatch(obj.addBatch(strStartCardNo, strEndCardNo), strUrl);
+		}
 	} else if (action.equals(Constants.EXPORT_STR))
 	{
 		String strStartId = ParamUtil.getString(request, "strStartId", "");

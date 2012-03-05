@@ -258,6 +258,54 @@ public class Member
 		}
 
 	}
+	
+	/**
+	 * 批量增加会员信息
+	 * 
+	 */
+	public boolean addBatch(String strStartCardNo, String strEndCardNo)
+	{
+		String strUserName = globa.userSession.getStrId();
+		int intNoLength = strStartCardNo.length();
+		int intStartCardNo = Integer.parseInt(strStartCardNo);
+		int intEndCardNo = Integer.parseInt(strEndCardNo);
+		String sql = "insert into " + strTableName + " (strId,strCardNo,strMobileNo,strName,intType"
+				+ ",strSalesman,strCreator,dtCreateTime,flaBalance,intPoint) " + "values (?,?,?,?,?,?,?,?,?,?) ";
+		try
+		{
+			db.prepareStatement(sql);
+			for (int i = intStartCardNo; i <= intEndCardNo; i++) {
+				try {
+					db.setString(1, UID.getID());
+					String strCardNo = i + "";
+					int intCardNoLengh = strCardNo.length();
+					for (int j = intNoLength; j > intCardNoLengh; j--) {
+						strCardNo = "0" + strCardNo;
+					}
+					db.setString(2, strCardNo);
+					db.setString(3, "");
+					db.setString(4, "");
+					db.setInt(5, intType);
+					db.setString(6, strSalesman);
+					db.setString(7, strUserName);
+					db.setString(8, com.ejoysoft.common.Format.getDateTime());
+					db.setInt(9, 0);
+					db.setInt(10, 0);
+					db.executeUpdate();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			Globa.logger0("增加会员信息", globa.loginName, globa.loginIp, sql, "会员管理", globa.unitCode);
+			return true;
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+
+	}
 
 	/**
 	 * 根据卡号起始点导出会员手机号码
