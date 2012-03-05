@@ -33,14 +33,14 @@
 	Member obj = new Member(globa); 
 	String nowdate = Format.getDateTime();
 	Member member = obj.show(" where strcardno='"+strCardNo+"' and dtactivetime <='"+nowdate+"' and dtexpiretime >='"+nowdate+"'");
-	Member member1 = obj.show(" where strmobileno='"+strPhone+"' and dtactivetime <='"+nowdate+"' and dtexpiretime >='"+nowdate+"'");
+	Member member1 = obj.show(" where strmobileno='"+strPhone+"' and dtactivetime <='"+nowdate+"' and dtexpiretime >='"+nowdate+"' and strpwd<>'' and strpwd is not null");
 	if(flag.equals("getyzm"))
 	{
 		 if(member==null)
 		 {
 		 	 response.getWriter().println("<script>alert('对不起！您输入的卡号无效，请重新输入！');window.returnValue='';window.close();</script>");
 		 }
-	     else if( member1!=null&& member1.getStrPwd()!=null && !member1.getStrPwd().equals(""))
+	     else if( member1!=null)
 		 {
 		 	 response.getWriter().println("<script>alert('对不起！您输入的手机号已经被注册！请更换手机号或联系管理员！');window.returnValue='';window.close();</script>");
 		 }
