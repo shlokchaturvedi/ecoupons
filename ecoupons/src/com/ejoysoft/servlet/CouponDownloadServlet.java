@@ -43,19 +43,21 @@ public class CouponDownloadServlet extends HttpServlet implements Servlet
 		StringBuffer sbReturn = new StringBuffer("<?xml version='1.0' encoding='utf-8'?> ");
 		req.setCharacterEncoding("utf-8");
 		Globa globa = new Globa();
+		DownLoadAlert downLoadAlert = new DownLoadAlert(globa);
 		resp.setCharacterEncoding("utf-8");
-		String strTerminalNo = req.getParameter("strTerminalNo");
-//		String strTerminalNo = "007";
+//		String strTerminalNo = req.getParameter("strTerminalNo");
+//		String strReturn = req.getParameter("strReturn");
+		String strReturn = "OK";
+		String strTerminalNo = "002";
 		HashMap<String, Terminal> hmTerminal = Terminal.hmTerminal;
 		Terminal terminal = hmTerminal.get(strTerminalNo);
 		Terminal terminal2 = new Terminal(globa);
 		String strId = terminal.getStrId();
+		downLoadAlert.dealDataByTerminalId(strId, strReturn);
 		try
 		{
-
 			if (terminal != null)
 			{
-				DownLoadAlert downLoadAlert = new DownLoadAlert(globa);
 				Vector<DownLoadAlert> vctAlerts = new Vector<DownLoadAlert>();
 				Coupon coupon = new Coupon(globa);
 				String strWhere = "where strDataType='t_bz_coupon' and intState=0 and strTerminalId='" + strId + "'";
@@ -76,9 +78,11 @@ public class CouponDownloadServlet extends HttpServlet implements Servlet
 							{
 								sbReturn.append("<coupons>");
 								sbReturn.append("<operate>add</operate>");
+								
 								flagAdd = false;
 							}
 							sbReturn.append(returnSbContent(tempCoupon));
+							terminal2.addState2(strId, "t_bz_coupon", vctAlerts.get(i).getStrDataId(), "add");
 						}
 					}
 					if (!flagAdd)
@@ -97,6 +101,7 @@ public class CouponDownloadServlet extends HttpServlet implements Servlet
 								flagUpdate = false;
 							}
 							sbReturn.append(returnSbContent(tempCoupon));
+							terminal2.addState2(strId, "t_bz_coupon", vctAlerts.get(i).getStrDataId(), "update");
 						}
 					}
 					if (!flagUpdate)
@@ -117,6 +122,8 @@ public class CouponDownloadServlet extends HttpServlet implements Servlet
 							sbReturn.append("<coupon>");
 							sbReturn.append("<strId>" + vctAlerts.get(i).getStrDataId() + "</strId>");
 							sbReturn.append("</coupon>");
+							terminal2.addState2(strId, "t_bz_coupon", vctAlerts.get(i).getStrDataId(), "delete");
+
 						}
 					}
 					if (!flagDelete)
