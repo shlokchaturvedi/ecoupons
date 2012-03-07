@@ -274,11 +274,11 @@ public class Shop
 			db.setString(10, strId2);
 			db.executeUpdate();
 			db.commit();
-			db.setAutoCommit(true);
 			Globa.logger0("更新商家信息", globa.loginName, globa.loginIp, strSql, "商家管理", globa.userSession.getStrDepart());
 			return true;
 		} catch (Exception e)
 		{
+			db.rollback();
 			System.out.println("更行商家信息异常" + e);
 			return false;
 		}
