@@ -213,7 +213,7 @@ public class DownLoadAlert
 					String strSql = "update "+strTableName+" set intstate=1 where strterminalid='"+terminalId+"' and intstate=2 ";
 					db.executeUpdate(strSql);
 				}
-				else if(dealResult.equals("No"))
+				else if(dealResult.equals("NO"))
 				{
 					for(int i=0;i<vector.size();i++)
 					{
