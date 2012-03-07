@@ -1,4 +1,4 @@
- <%@ page language="java"  pageEncoding="UTF-8"%>
+<%@ page language="java"  pageEncoding="UTF-8"%>
 <%@page import="java.util.*,
 				com.ejoysoft.common.SendSms,
 				java.net.UnknownHostException" %>
