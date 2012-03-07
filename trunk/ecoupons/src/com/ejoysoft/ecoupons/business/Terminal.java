@@ -2,7 +2,6 @@ package com.ejoysoft.ecoupons.business;
 
 import com.ejoysoft.common.*;
 import com.ejoysoft.ecoupons.system.SysPara;
-
 import java.util.HashMap;
 import java.util.Vector;
 import java.sql.Connection;
@@ -212,6 +211,31 @@ public class Terminal
 	}
 
 	/**
+	 * 增加状态2
+	 * 
+	 * @param strId
+	 * @return
+	 */
+	public boolean addState2(String strterminalid, String strDateType,String strDataId,String strdataopetype)
+	{
+		String strSql3 = "insert into " + strTableName3 + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) " +
+		"values (" + UID.getID()+ ",'" + strterminalid + "','" + strDateType + "','" + strDataId + "','"+strdataopetype+"',2); ";
+		try
+		{
+//			db.setAutoCommit(false);
+			db.executeUpdate(strSql3);
+//			db.commit();
+			return true;
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+//			db.rollback();
+			return false;
+		}
+		
+	}
+	/**
 	 * 状态更新修改
 	 * 
 	 * @param strId
@@ -219,7 +243,10 @@ public class Terminal
 	 */
 	public boolean updateState(String strId, String strDateType)
 	{
-		String strSql2 = "update t_bz_download_alert set intstate=1 where strDataType='" + strDateType + "' and" + " strTerminalId='" + strId + "'";
+		String strSql2 = "update t_bz_download_alert set intstate=1 where intstate=0 and strDataType='" + strDateType + "' and" + " strTerminalId='" + strId + "'";
+//		String strSql3 = "insert into " + strTableName + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) " + "values (" + UID.getID()
+//		+ ",'" + strId + "','" + strDateType + "','" + where + "','delete',2); ";
+		
 		db.setAutoCommit(false);
 		try
 		{
@@ -242,6 +269,38 @@ public class Terminal
 			return false;
 		}
 
+	}
+	/**
+	 * 状态更新修改
+	 * 
+	 * @param strId
+	 * @return
+	 */
+	public boolean updateState2(String strId, String strDateType)
+	{
+		String strSql2 = "update t_bz_download_alert set intstate=2 where strDataType='" + strDateType + "' and" + " strTerminalId='" + strId + "'";
+		db.setAutoCommit(false);
+		try
+		{
+			if ("t_bz_coupon".equals(strDateType))
+			{
+				String strSql = "update " + strTableName + "  set intstate=0, dtRefreshTime='" + com.ejoysoft.common.Format.getDateTime()
+				+ "' where strid='" + strId + "'";
+				db.executeUpdate(strSql);
+			}
+			db.executeUpdate(strSql2);
+			db.commit();
+			
+			return true;
+			
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			db.rollback();
+			return false;
+		}
+		
 	}
 
 	// 终端更新信息
