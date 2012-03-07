@@ -45,10 +45,10 @@ public class CouponDownloadServlet extends HttpServlet implements Servlet
 		Globa globa = new Globa();
 		DownLoadAlert downLoadAlert = new DownLoadAlert(globa);
 		resp.setCharacterEncoding("utf-8");
-//		String strTerminalNo = req.getParameter("strTerminalNo");
-//		String strReturn = req.getParameter("strReturn");
-		String strReturn = "OK";
-		String strTerminalNo = "002";
+		String strTerminalNo = req.getParameter("strTerminalNo");
+		String strReturn = req.getParameter("strReturn");
+//		String strReturn = "NO";
+//		String strTerminalNo = "002";
 		HashMap<String, Terminal> hmTerminal = Terminal.hmTerminal;
 		Terminal terminal = hmTerminal.get(strTerminalNo);
 		Terminal terminal2 = new Terminal(globa);
