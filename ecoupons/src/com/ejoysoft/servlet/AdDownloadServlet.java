@@ -53,18 +53,21 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 			resp.getWriter().print(sbReturn.toString());
 		}
 		Globa globa = new Globa();
+		DownLoadAlert downLoadAlert = new DownLoadAlert(globa);
 		resp.setCharacterEncoding("utf-8");
 		String strTerminalNo = req.getParameter("strTerminalNo");
-//		String strTerminalNo = "21";
+//		String strTerminalNo = "002";
 		HashMap<String, Terminal> hmTerminal = Terminal.hmTerminal;
 		Terminal terminal = hmTerminal.get(strTerminalNo);
+		String strReturn = req.getParameter("strReturn");
+//		String strReturn = "OK";
 		Terminal terminal2 = new Terminal(globa);// 用于刷新终端状态
 		String strId = terminal.getStrId();
+		downLoadAlert.dealDataByTerminalId(strId, strReturn);
 		try
 		{
 			if (terminal != null)
 			{
-				DownLoadAlert downLoadAlert = new DownLoadAlert(globa);
 				Vector<DownLoadAlert> vctAlerts = new Vector<DownLoadAlert>();
 				String strWhere = "where strDataType='t_bz_advertisement' and intState=0 and strTerminalId='" + strId + "'";
 				Terminal tempTerminal = new Terminal();
@@ -88,6 +91,7 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 								flagAdd = false;
 							}
 							sbReturn.append(returnSbContent(tempTerminal));
+							terminal2.addState2(strId, "t_bz_advertisement", vctAlerts.get(i).getStrDataId(), "add");
 						}
 					}
 					if (!flagAdd)
@@ -106,6 +110,7 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 								flagUpdate = false;
 							}
 							sbReturn.append(returnSbContent(tempTerminal));
+							terminal2.addState2(strId, "t_bz_advertisement", vctAlerts.get(i).getStrDataId(), "update");
 						}
 					}
 					if (!flagUpdate)
@@ -126,6 +131,7 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 							sbReturn.append("<ad>");
 							sbReturn.append("<strId>" + vctAlerts.get(i).getStrDataId() + "</strId>");
 							sbReturn.append("</ad>");
+							terminal2.addState2(strId, "t_bz_advertisement", vctAlerts.get(i).getStrDataId(), "delete");
 						}
 					}
 					if (!flagDelete)
