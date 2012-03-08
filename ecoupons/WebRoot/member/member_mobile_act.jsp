@@ -18,13 +18,13 @@ tWhere += " ORDER BY strCardNo";
 Vector<Member> vctObj=obj.list(tWhere,0,0);
 StringBuffer sb = new StringBuffer();
 sb.append("<table border=1>");
-sb.append("<tr><td>手机</td><td>姓名</td><td>卡号</td></tr>");
+sb.append("<tr><td>卡号</td><td>姓名</td><td>手机</td></tr>");
 if (vctObj.size() != 0)
 {
 	for (int i = 0; i < vctObj.size(); i++)
 	{
-		sb.append("<tr><td>" + vctObj.get(i).getStrMobileNo() + "</td><td>" + vctObj.get(i).getStrName() + "</td><td>"
-				+ vctObj.get(i).getStrCardNo() + "</td>");
+		sb.append("<tr><td>" +  vctObj.get(i).getStrCardNo() + "</td><td>" + vctObj.get(i).getStrName() + "</td><td>"
+				+ vctObj.get(i).getStrMobileNo()+ "</td></tr>");
 	}
 }
 sb.append("</table>");
