@@ -41,6 +41,20 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 	private void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException
 	{
 		// TODO Auto-generated method stub
+		HashMap<String, Terminal> hmTerminal = Terminal.hmTerminal;
+		String strTerminalNo = req.getParameter("strTerminalNo");
+		Terminal terminal = hmTerminal.get(strTerminalNo);
+		String strId = terminal.getStrId();
+		String strReturn = req.getParameter("strReturn");
+		Globa globa = new Globa();
+		DownLoadAlert downLoadAlert = new DownLoadAlert(globa);
+		if("OK".equals(strReturn)||"NO".equals(strReturn))
+		{
+			downLoadAlert.dealDataByTerminalId(strId, strReturn);
+//			this.destroy();
+			globa.closeCon();
+			return;
+		}
 		StringBuffer sbReturn = new StringBuffer("<?xml version='1.0' encoding='utf-8'?> ");
 		try
 		{
@@ -52,24 +66,17 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 			sbReturn.append("<return>error</return>");
 			resp.getWriter().print(sbReturn.toString());
 		}
-		Globa globa = new Globa();
-		DownLoadAlert downLoadAlert = new DownLoadAlert(globa);
 		resp.setCharacterEncoding("utf-8");
-		String strTerminalNo = req.getParameter("strTerminalNo");
 //		String strTerminalNo = "002";
-		HashMap<String, Terminal> hmTerminal = Terminal.hmTerminal;
-		Terminal terminal = hmTerminal.get(strTerminalNo);
-		String strReturn = req.getParameter("strReturn");
 //		String strReturn = "OK";
 		Terminal terminal2 = new Terminal(globa);// 用于刷新终端状态
-		String strId = terminal.getStrId();
-		downLoadAlert.dealDataByTerminalId(strId, strReturn);
+		
 		try
 		{
 			if (terminal != null)
 			{
 				Vector<DownLoadAlert> vctAlerts = new Vector<DownLoadAlert>();
-				String strWhere = "where strDataType='t_bz_advertisement' and intState=0 and strTerminalId='" + strId + "'";
+				String strWhere = "where strDataType='t_bz_advertisement' and (intState=0 or intState=2) and strTerminalId='" + strId + "'";
 				Terminal tempTerminal = new Terminal();
 				vctAlerts = downLoadAlert.list(strWhere, 0, 0);
 				boolean flagAdd = true;
