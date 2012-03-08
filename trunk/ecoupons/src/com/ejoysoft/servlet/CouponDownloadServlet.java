@@ -40,27 +40,33 @@ public class CouponDownloadServlet extends HttpServlet implements Servlet
 
 	private void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException
 	{
-		StringBuffer sbReturn = new StringBuffer("<?xml version='1.0' encoding='utf-8'?> ");
-		req.setCharacterEncoding("utf-8");
 		Globa globa = new Globa();
-		DownLoadAlert downLoadAlert = new DownLoadAlert(globa);
-		resp.setCharacterEncoding("utf-8");
+//		String strReturn = "OK";
+//		String strTerminalNo = "002";
 		String strTerminalNo = req.getParameter("strTerminalNo");
 		String strReturn = req.getParameter("strReturn");
-//		String strReturn = "NO";
-//		String strTerminalNo = "002";
+		DownLoadAlert downLoadAlert = new DownLoadAlert(globa);
 		HashMap<String, Terminal> hmTerminal = Terminal.hmTerminal;
 		Terminal terminal = hmTerminal.get(strTerminalNo);
-		Terminal terminal2 = new Terminal(globa);
 		String strId = terminal.getStrId();
-		downLoadAlert.dealDataByTerminalId(strId, strReturn);
+		if("OK".equals(strReturn)||"NO".equals(strReturn))
+		{
+			downLoadAlert.dealDataByTerminalId(strId, strReturn);
+//			this.destroy();
+			globa.closeCon();
+			return;
+		}
+		StringBuffer sbReturn = new StringBuffer("<?xml version='1.0' encoding='utf-8'?> ");
+		req.setCharacterEncoding("utf-8");
+		resp.setCharacterEncoding("utf-8");
+		Terminal terminal2 = new Terminal(globa);
 		try
 		{
 			if (terminal != null)
 			{
 				Vector<DownLoadAlert> vctAlerts = new Vector<DownLoadAlert>();
 				Coupon coupon = new Coupon(globa);
-				String strWhere = "where strDataType='t_bz_coupon' and intState=0 and strTerminalId='" + strId + "'";
+				String strWhere = "where strDataType='t_bz_coupon' and (intState=0 or intState=2) and strTerminalId='" + strId + "'";
 				Coupon tempCoupon = new Coupon();
 				vctAlerts = downLoadAlert.list(strWhere, 0, 0);
 				boolean flagAdd = true;
