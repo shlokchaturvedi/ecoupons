@@ -18,11 +18,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     Member obj=new Member(globa);
     //查询条件
     String  strName=ParamUtil.getString(request,"strName","");
+    String  ByFlag=ParamUtil.getString(request,"byWhich","");
 	String tWhere=" WHERE 1=1";
+	if("byName".equals(ByFlag))
+	{
 	if (!strName.equals("")) {
 		tWhere += " and strName LIKE '%" + strName + "%'";
 	}else if("代理员".equals(globa.userSession.getStrCssType())){
 		tWhere +=" and  strSalesman='"+globa.userSession.getStrId()+"' ";
+	}
+	}
+	else{
+		if (!strName.equals("")) {
+			tWhere += " and StrMobileNo LIKE '" + strName + "%'";
+		}else if("代理员".equals(globa.userSession.getStrCssType())){
+			tWhere +=" and  strSalesman='"+globa.userSession.getStrId()+"' ";
+		}
+		
 	}
 	tWhere += " ORDER BY dtCreateTime";
 	//记录总数
@@ -134,9 +146,15 @@ function del(){
             		out.print("<img src='../images/delete.gif' width='16' height='16' border='0' />批量删除");}%></a>
 			</td>
 			<td align="right" width="600"><div style="height:26"> 
-			  用户名：
-			  <input name="strName" class="editbox4" value="<%=strName%>" size="10">
+			
+			  <select  id="byWhich" name="byWhich" class="sec2" >
+								<option <%if("byName".equals(ByFlag))out.print("selected"); %>  value="byName">用户名</option>
+								<option <%if("byNo".equals(ByFlag))out.print("selected"); %> value="byNo">手机号</option>
+								
+							</select>
+			  <input name="strName" class="editbox4" value="" size="10">
 			  &nbsp;&nbsp;&nbsp;&nbsp;
+			 
               <input type="submit" class="button_box" value="搜索" /> 
 			</div>
 			</td>   
@@ -149,7 +167,7 @@ function del(){
                 <td width="10%" class="left_bt2"><div align="center">卡号</div></td>
                 <td width="10%" class="left_bt2"><div align="center">姓名</div></td>
                 <td width="10%" class="left_bt2"><div align="center">会员类型</div></td>                
-                 <td width="10%" class="left_bt2"><div align="center">启用时间</div></td>
+                 <td width="10%" class="left_bt2"><div align="center">手机号</div></td>
                 <td width="10%" class="left_bt2"><div align="center">余额</div></td>
                 <td width="10%" class="left_bt2"><div align="center">积分</div></td>
                 <td width="15%" class="left_bt2"><div align="center">查看记录</div></td>
@@ -166,7 +184,7 @@ function del(){
                 <td bgcolor="#FFFFFF"><div align="center" class="STYLE1"><%=Format.forbidNull(obj1.getStrCardNo()) %></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=Format.forbidNull(obj1.getStrName())%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj.getType(obj1.getIntType())%></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=Format.forbidNull(obj1.getDtActiveTime())%></span></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=Format.forbidNull(obj1.getStrMobileNo())%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getFlaBalance()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getIntPoint()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><a href="recharge_list.jsp?strMemberCardNo=<%=obj1.getStrCardNo() %>"><%if(obj1.getDtActiveTime()!=null) out.print("充值记录");%></a>/<a href="charge_list.jsp?strMemberCardNo=<%=obj1.getStrCardNo() %>"><%if(obj1.getDtActiveTime()!=null) out.print("消费记录");%></a></span></div></td>
