@@ -47,7 +47,7 @@ public class CouponPrintServlet extends HttpServlet implements Servlet
 		db = new DbConnect();
 		db = globa.db;
 		try {
-//			String strTerminalNo = "0001";
+//			String strTerminalNo = "001";
 			String strTerminalNo = req.getParameter("strTerminalNo");
 			Terminal obj = new Terminal(globa);
 			HashMap<String, Terminal> hmTerminal = Terminal.hmTerminal;
@@ -75,6 +75,8 @@ public class CouponPrintServlet extends HttpServlet implements Servlet
 							String strCouponCode = perContent[3];
 							 Coupon coupobj = new Coupon(globa);
 							 Coupon obj1 = coupobj.show(" where strid='"+strCouponId+"'");
+							 if(obj1==null)
+								 continue;
 							 CouponPrint couponPrint = new CouponPrint(globa);
 							 int limitNum = obj1.getIntPrintLimit();
 							 int printNum = couponPrint.getCount(" where strcouponid='"+strCouponId+"'");
@@ -100,7 +102,8 @@ public class CouponPrintServlet extends HttpServlet implements Servlet
 					            { 	
 					                Globa.logger0("添加优惠券打印记录信息", globa.loginName, globa.loginIp, strSql, "优惠券打印", "system");
 					            } 			               
-							 }catch (Exception e) {
+							 }catch (Exception e) 
+							 {
 					            System.out.println("添加优惠券打印记录异常");
 					            e.printStackTrace();
 					        	sbReturn.append("<return>add_erro</return>");
