@@ -186,7 +186,7 @@ tab.onmouseout=function() {MyMar=setInterval(Marquee,speed)};
 	<DIV class=mid_sj>
 		<div class="sj_tit">
 		  <div class="sj_name" >商家优惠信息</div>
-		  <div class="sj_sel"><select name="strTradeId"  class="sjfl" onchange="document.getElementById('strTradeId').value=value;frmTrade.submit();">
+		  <div class="sj_sel"><select name="strTradeId" id="strTradeId"  class="sjfl" onchange="document.getElementById('strTradeId').value=value;frmTrade.submit();">
 		     <option  <%if(strTradeId==null){out.print("selected");} %>>全部</option>
 		     <% 
 		  

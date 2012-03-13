@@ -15,18 +15,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script language="javascript">
 function getYzm()
 {
-	 if(trim(frm.strCardNo.value)==""){
+	 if(trim(document.getElementById('strCardNo').value)==""){
 	        alert("请输入您的卡号！！！");
-	        frm.strCardNo.focus();
+	        document.getElementById('strCardNo').focus();
 	        return false;
 	    }
-	else if(trim(frm.strPhone.value)==""){        
+	else if(trim(document.getElementById('strPhone').value)==""){        
 	        alert("请输入您的手机号！！！");
-	        frm.strPhone.focus();
+	        document.getElementById('strPhone').focus();
 	        return false;
 	    }	
 	else{
-		var telphone = trim(frm.strPhone.value);
+		var telphone = trim(document.getElementById('strPhone').value);
         var tel=new Array();
         tel = telphone.split("、"); 
         var TelPhoneParn =/^0{0,1}1(3|5|8)[0-9]{9}$/; 
@@ -36,43 +36,43 @@ function getYzm()
     	 	if(!reParn.test(tel[i]))
     		{
               alert(tel[i]+"请输入正确的联系电话！！！如13258886888");
-              frm.strPhone.focus();         
+              document.getElementById('strPhone').focus();         
     		  return false;
     		}      		
     	  }
-			var randomyazm=window.showModalDialog("memberreg_act.jsp?flag=getyzm&strCardNo="+trim(frm.strCardNo.value)+"&strPhone="+trim(frm.strPhone.value)+"&random="+Math.random(), "", "dialogWidth=200px;dialogHeight:150px;dialogTop:400px;dialogLeft:550px;scrollbars=yes;status=yes;center=yes;");
-			frm.randomYazm.value=randomyazm;
+			var randomyazm=window.showModalDialog("memberreg_act.jsp?flag=getyzm&strCardNo="+trim(document.getElementById('strCardNo').value)+"&strPhone="+trim(document.getElementById('strPhone').value)+"&random="+Math.random(), "", "dialogWidth=200px;dialogHeight:150px;dialogTop:400px;dialogLeft:550px;scrollbars=yes;status=yes;center=yes;");
+			document.getElementById('randomYazm').value=randomyazm;
 		
 	}
 }
 function chkFrm()
 {
-    if(trim(frm.strCardNo.value)==""){
+    if(trim(document.getElementById('strCardNo').value)==""){
         alert("请输入您的卡号！！！");
-        frm.strCardNo.focus();
+        document.getElementById('strCardNo').focus();
         return false;
-    }else if(trim(frm.strPhone.value)==""){        
+    }else if(trim(document.getElementById('strPhone').value)==""){        
         alert("请输入您的手机号！！！");
-        frm.strPhone.focus();
+        document.getElementById('strPhone').focus();
         return false;
-    }else if(trim(frm.strName.value)==""){        
+    }else if(trim(document.getElementById('strName').value)==""){        
         alert("请输入您的姓名！！！");
-        frm.strName.focus();
+        document.getElementById('strName').focus();
         return false;
-    }else if(trim(frm.strPwd.value)=="") {
+    }else if(trim(document.getElementById('strPwd').value)=="") {
         alert("请设置您的密码！！！");
-        frm.strPwd.focus();
+        document.getElementById('strPwd').focus();
         return false;
-    } else if(trim(frm.strPwd2.value)=="") {
+    } else if(trim(document.getElementById('strPwd2').value)=="") {
         alert("请重复输入密码！！！");
-        frm.strPwd2.focus();
+        document.getElementById('strPwd2').focus();
         return false;
-    } else if(trim(frm.yanzm.value)=="") {
+    } else if(trim(document.getElementById('yanzm').value)=="") {
         alert("请输入验证码！！！");
-        frm.yanzm.focus();
+        document.getElementById('yanzm').focus();
         return false;
     }else {           
-        var telphone = trim(frm.strPhone.value);
+        var telphone = trim(document.getElementById('strPhone').value);
         var tel=new Array();
         tel = telphone.split("、"); 
         var TelPhoneParn =/^0{0,1}1(3|5|8)[0-9]{9}$/; 
@@ -82,20 +82,20 @@ function chkFrm()
     	 	if(!reParn.test(tel[i]))
     		{
               alert(tel[i]+"请输入正确的联系电话！！！如13258886888");
-              frm.strPhone.focus();         
+              document.getElementById('strPhone').focus();         
     		  return false;
     		}      		
     	  }
-    	  if(trim(frm.strPwd.value)!=(trim(frm.strPwd2.value)))
+    	  if(trim(document.getElementById('strPwd').value)!=(trim(document.getElementById('strPwd2').value)))
     	  {
     	  	    alert("两次输入的密码不一致");
-              frm.strPwd.focus();         
+              document.getElementById('strPwd').focus();         
     		    return false;
     	  }
-    	  if(trim(frm.yanzm.value)!=(trim(frm.randomYazm.value)))
+    	  if(trim(document.getElementById('yanzm').value)!=(trim(document.getElementById('randomYazm').value)))
     	  {
     	  	    alert("您输入的验证码错误！");
-                frm.yanzm.focus();         
+                document.getElementById('yanzm').focus();         
     		    return false;
     	  }
     	  if(confirm("确定提交注册信息？"))
@@ -129,20 +129,20 @@ function chkFrm()
     </tr>
     <tr>
       <td class="member_td_wz">姓  &nbsp;&nbsp;&nbsp;&nbsp;名：&nbsp;&nbsp;</td>
-      <td class="member_td_wz1"><input name="strName" type="text"  class="member_ipt"/>&nbsp;&nbsp;（*必填项）</td>
+      <td class="member_td_wz1"><input name="strName" id="strName" type="text"  class="member_ipt"/>&nbsp;&nbsp;（*必填项）</td>
     </tr>
     <tr>
       <td class="member_td_wz">密  &nbsp;&nbsp;&nbsp;&nbsp;码：&nbsp;&nbsp;</td>
-      <td class="member_td_wz1"><input name="strPwd" type="password"  class="member_ipt"/>&nbsp;&nbsp;（*必填项）</td>
+      <td class="member_td_wz1"><input name="strPwd" id="strPwd" type="password"  class="member_ipt"/>&nbsp;&nbsp;（*必填项）</td>
     </tr>
     <tr>
       <td class="member_td_wz">重复密码：&nbsp;&nbsp;</td>
-      <td class="member_td_wz1"><input name="strPwd2" type="password" class="member_ipt"/>&nbsp;&nbsp;（*必填项）</td>
+      <td class="member_td_wz1"><input name="strPwd2"  id="strPwd2"type="password" class="member_ipt"/>&nbsp;&nbsp;（*必填项）</td>
     </tr>
     <tr>
       <td class="member_td_wz">验 证 码：&nbsp;&nbsp;</td>
-      <td class="member_td_wz1"><input name="yanzm"  type="text"  class="yzm"/>
-     	 <input name="randomYazm"  type="hidden"  class="yzm"/>
+      <td class="member_td_wz1"><input name="yanzm"  id="yanzm" type="text"  class="yzm"/>
+     	 <input name="randomYazm"  id="randomYazm" type="hidden"  class="yzm"/>
          <input type="button" name="botton" onclick="getYzm();" value="获取验证码" />
       </td>
     </tr>
@@ -150,7 +150,7 @@ function chkFrm()
       <td height="40" colspan="2">&nbsp;</td>
       </tr>
     <tr>
-      <td>&nbsp;<input name="flag"  type="hidden"  value="" /></td>
+      <td>&nbsp;<input name="flag"  id="flag" type="hidden"  value="" /></td>
       <td>&nbsp;<img src="images/tjzc.jpg" onclick="chkFrm();" /></td>
     </tr>
   </table>
