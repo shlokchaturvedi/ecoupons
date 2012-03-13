@@ -152,7 +152,7 @@ function del(){
 								<option <%if("byNo".equals(ByFlag))out.print("selected"); %> value="byNo">手机号</option>
 								
 							</select>
-			  <input name="strName" class="editbox4" value="" size="10">
+			  <input name="strName" class="editbox4" value="<%=strName%>" size="10">
 			  &nbsp;&nbsp;&nbsp;&nbsp;
 			 
               <input type="submit" class="button_box" value="搜索" /> 

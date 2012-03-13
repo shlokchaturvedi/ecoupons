@@ -12,9 +12,10 @@ String  strStartId=ParamUtil.getString(request,"strStartId","");
 String  strEndId=ParamUtil.getString(request,"strEndId","");
 String tWhere=" WHERE 1=1";
 if (!strStartId.equals("")&&!strEndId.equals("")) {
-	tWhere += " and strCardNo >= '" + strStartId + "' and strCardNo<= '"+ strEndId +"' ";
+	tWhere += " and strCardNo >= '" + strStartId + "' and strCardNo<= '"+ strEndId +"' and  strmobileno >0 ";
 }
 tWhere += " ORDER BY strCardNo";
+
 Vector<Member> vctObj=obj.list(tWhere,0,0);
 StringBuffer sb = new StringBuffer();
 sb.append("<table border=1>");
