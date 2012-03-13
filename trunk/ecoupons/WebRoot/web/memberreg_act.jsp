@@ -24,6 +24,7 @@
 	else if(!strCardNo.equals("")&&strCardNo.trim().length()!=8)
 	{
 	 	 response.getWriter().println("<script>alert('对不起！您输入的卡号无效，请重新输入！');window.returnValue='';window.close();</script>");
+	     return;
 	}
 	String strPhone = ParamUtil.getString(request,"strPhone","");
 	if(!strCardNo.equals(""))
