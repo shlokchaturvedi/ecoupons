@@ -86,16 +86,20 @@ public class Index
 		Shop shop = new Shop(globa);
 		Coupon coupon = new Coupon(globa);
 		Vector<Coupon> vctCoupons = new Vector<Coupon>();
-		String strWhere = "";
+		String strWhere = " where 1=1 ";
 		if (strtrade != null)
 		{
-			strWhere = "where strtrade='" + strtrade + "' order by dtcreatetime  desc ";
+			strWhere = " and strtrade='" + strtrade + "'  ";
 		}
-		Vector<Shop> vctShops = shop.list(strWhere, 0, 0);
+		Vector<Shop> vctShops = shop.list(strWhere+" and inttype=1 order by dtcreatetime  desc  ", 0, 0);
 		for (int i = 0; i < vctShops.size(); i++)
 		{
 			vctCoupons.addAll(coupon.list("where strshopid='" + vctShops.get(i).getStrId() + "' and intRecommend=1 and dtactivetime <=now() and dtexpiretime >=now() order by dtcreatetime  desc LIMIT 1", 0,
 					0));
+			if(vctCoupons.size()==12)
+			{
+				break;
+			}
 		}
 		for (int i = 0; i < vctCoupons.size(); i++)
 		{
