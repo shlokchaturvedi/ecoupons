@@ -150,7 +150,8 @@ class=red><%=intAllCount%></SPAN>条评论)</DIV>
 <DIV style="PADDING-LEFT: 5px"><BR>
 <DIV style="HEIGHT: 50px">
 <DIV style="WIDTH: 10%; FLOAT: left; HEIGHT: 40px"><IMG alt="" src="images/touxiang.jpg" width=45 height=33> </DIV>
-<DIV style="LINE-HEIGHT: 18px; WIDTH: 80%; FLOAT: left; HEIGHT: 33px"><SPAN style="COLOR: #001c55"><%=namememb%>：</SPAN>
+<DIV style="LINE-HEIGHT: 18px; WIDTH: 80%; FLOAT: left; ">
+<SPAN style="COLOR: #001c55"><%=namememb%>：</SPAN>
 <SPAN style="COLOR: gray"><%=comobj1.getStrComment().replace("\n","<br/>") %></SPAN> 
 </DIV>
 </DIV>
