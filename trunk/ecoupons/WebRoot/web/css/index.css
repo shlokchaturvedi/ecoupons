@@ -105,36 +105,6 @@ A:hover {
 .sort_con UL LI {
 	PADDING-LEFT: 25px; LINE-HEIGHT: 24px; TEXT-ALIGN: left; margin:0px; list-style:none;
 }
-#sort_con_1{
-	BACKGROUND: url(../images/left_middle_bg.gif) repeat-y; margin:0px; padding:0px; height:200px;
-}
-#sort_con_1 UL {
-	WIDTH: 215px; margin:0px; padding:0px;
-}
-#sort_con_1 UL LI {
-	PADDING-LEFT: 25px; LINE-HEIGHT: 24px; TEXT-ALIGN: left; margin:0px; list-style:none;
-}
-#sort_con_2{
-	BACKGROUND: url(../images/left_middle_bg.gif) repeat-y; margin:0px; padding:0px; height:200px;
-}
-#sort_con_2 UL {
-	WIDTH: 215px; margin:0px; padding:0px;
-}
-#sort_con_2 UL LI {
-	PADDING-LEFT: 25px; LINE-HEIGHT: 24px; TEXT-ALIGN: left; margin:0px; list-style:none;
-}
-#sort_con_3{
-	BACKGROUND: url(../images/left_middle_bg.gif) repeat-y; margin:0px; padding:0px; height:200px;
-}
-#sort_con_3 UL {
-	WIDTH: 215px; margin:0px; padding:0px;
-}
-#sort_con_3 UL LI {
-	PADDING-LEFT: 25px; LINE-HEIGHT: 24px; TEXT-ALIGN: left; margin:0px; list-style:none;
-}
-
-
-
 .sort_con1 {
 	BACKGROUND: url(../images/left_text_bg.gif) repeat-y;
 }
