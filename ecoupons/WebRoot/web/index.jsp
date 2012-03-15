@@ -259,7 +259,7 @@ tab.onmouseout=function() {MyMar=setInterval(Marquee,speed)};
   <DIV class=sort>
 <DIV class=sort_top><H3><STRONG>下载优惠券排行</STRONG></H3> 
   <span><a href="#" id=clayer0_1  onmouseover=showlayer(1,2,3)><font color="#CC6600">日</font></a>&nbsp;<a href="#" id=clayer0_2  onmouseover=showlayer(2,1,3)><font color="#CC6600">周</font></a>&nbsp;<a href="#" id=clayer0_3  onmouseover=showlayer(3,1,2)><font color="#CC6600">月</font></a></span></DIV>
-<DIV id=sort_con_1>
+<DIV class=sort_con id="sort_con_1">
 <UL>
 <%
 Vector<String[]>vecCouponps=index.returnTopCoupons("日");
@@ -282,7 +282,7 @@ Vector<String[]>vecCouponps=index.returnTopCoupons("日");
 	}
 %>
   </UL></DIV>
- <DIV id=sort_con_2 style="display:none">
+ <DIV class=sort_con id=sort_con_2 style="display:none">
 <UL>
  <%
 vecCouponps=index.returnTopCoupons("周");
@@ -306,7 +306,7 @@ vecCouponps=index.returnTopCoupons("周");
 %>
 </UL></DIV> 
   
-  <DIV id=sort_con_3 style="display:none">
+  <DIV class=sort_con id=sort_con_3 style="display:none">
 <UL>
  <%
 vecCouponps=index.returnTopCoupons("月");
