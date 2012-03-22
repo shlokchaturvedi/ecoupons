@@ -105,11 +105,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <table border=0 width=100%>
   <tbody>
   <tr>
-    <td width=267 height="26">* 生产厂家：<%=obj1.getStrProducerName()%> </td>
+    
     <td width=253 height="26">* 规格型号：<%=obj1.getStrTypeName() %></td>
+    <td height="26">* 主屏分辨率：<%=obj1.getStrResolution()%></td>
   </tr>
   <tr>
-    <td height="26">* 主屏分辨率：<%=obj1.getStrResolution()%></td>
     <td height="26">* 临近商家：<%=obj1.getStrAroundShops() %> </td>
     </tr>
   <tr>
