@@ -101,7 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 	    obj.setStrMemberCardNo(memberCardno);
 	 	    obj.setStrTerminalId("system");
 		  	boolean result = obj.add();		
-		  	response.getWriter().println("<script>setTimeout('window.opener=null;window.close();',400);</script>");	
+		  	response.getWriter().println("<script>setTimeout('window.opener=null;window.close();',300);</script>");	
 	 	 	
 	 	 }
 	
@@ -124,7 +124,7 @@ function getYzm()
 {
 	if(confirm("确定短信获取验证码？"))
     {
-	 	var randomyazm=window.showModalDialog("print_act.jsp?memberPhone="+<%=memberPhone%>+"&random="+Math.random(), "", "dialogWidth=200px;dialogHeight:150px;dialogTop:400px;dialogLeft:550px;scrollbars=yes;status=yes;center=yes;");
+	 	var randomyazm=window.showModalDialog("../web/print_act.jsp?memberPhone="+<%=memberPhone%>+"&random="+Math.random(), "", "dialogWidth=200px;dialogHeight:150px;dialogTop:400px;dialogLeft:550px;scrollbars=yes;status=yes;center=yes;");
 		frm.randomYzm.value=randomyazm;
 	}
 }
@@ -158,10 +158,10 @@ function chkFrm()
   <input type=hidden name=code value="<%=strCouponCode%>" />
   <input type=hidden name=strid value="<%=strId%>" />
   <input type=hidden name=flag value=" " />
-   <table width=100% border=0> 
+   <table align="center" width=100% border=0> 
  	<tr>
  		<td>
- 			<table width=100%  height="520" >
+ 			<table align="center" width=100%  height="520" >
  			   <tr>
 				   <td align="center">
 				    <table width=100%>	    
@@ -172,19 +172,36 @@ function chkFrm()
 				   </td>
 			   </tr>
 			   <tr>
-			   	<td width=100% ><img src="web/images/show_line.gif" width=240 height=5 /></td>
+			   	<td>
+			   	  <table width=100%>	    
+				   <tr align="center">
+				   	<td><img src="web/images/show_line.gif" width=240 height=5 /></td>
+				   	</tr>
+				  </table>
+			   	</td>
 			   </tr>  
 			   <tr>
-			   	 <td><h2><%=info%></h2></td>
+			   	 <td>
+			   	 <table width=100%>	    
+				   <tr align="center">
+				   	<td><h2><%=info%></h2></td>
+				   	</tr>
+				  </table></td>
 			   </tr>
 			   <tr>
-			   	<td width=100% ><img src="web/images/show_line.gif" width=240 height=5 /></td>
+			   	<td>
+				<table width=100%>	    
+				   <tr align="center">
+				   	<td><img src="web/images/show_line.gif" width=240 height=5 /></td>
+				   	</tr>
+				  </table>
+				</td>
 			   </tr>  
 			   <tr>
-			  	<td width=100% >
-			   		<table width=100%>	    
-					   <tr align="center">
-					   		<td><h5>【使用说明】</h5></td>
+			  	<td height=50 align="center" >
+			   		<table align="center">	    
+					   <tr>
+					   		<td align="center"><h5>【使用说明】</h5></td>
 					   </tr> 
 					  <tr align="left">
 					   		<td><font size="2"><%=instruction.replace("\n","<br/>")%></font></td>
@@ -193,37 +210,69 @@ function chkFrm()
 			    </td>
 			   </tr>
 			   <tr>
-			   	<td width=100% ><img src="web/images/show_line.gif" width=240 height=5 /></td>
+			   	<td  align="center">
+				<table align="center">	    
+				   <tr>
+				   	<td align="center"><img src="web/images/show_line.gif" width=240 height=5 /></td>
+				   	</tr>
+				  </table>
+				</td>
 			   </tr>
 			   <tr>
-			   	<td height=50>
-			    	<h3><div id="txt"></div></h3>   	
+			   	<td height=50 align="center" >
+				<table align="center">	    
+					   <tr>
+					   	<td align="center"><h3><div id="txt"></div></h3> </td>
+				   	</tr>
+				  </table>			    	  	
 			   	</td>
 			   </tr>
 			    <tr>
-			   	<td width=100% ><img src="web/images/show_line.gif" width=240 height=5 /></td>
+			    <td align="center" >
+				   <table align="center">	    
+				   <tr>
+					   	<td align=center><img src="web/images/show_line.gif" width=240 height=5 /></td>
+				   	</tr>
+				  </table>
+				</td>
 			   </tr>
 			   <tr>
-				   <td align="center" ><h3><%=TerminalParamVector.getPrintBottom()%><br/><%=TerminalParamVector.getPhone()%></h3></td>
+				   <td align="center" >
+					   <table align="center">	    
+					   <tr>
+					   	<td align="center"> <h3><%=TerminalParamVector.getPrintBottom()%><br/><%=TerminalParamVector.getPhone()%></h3></td>
+					   	</tr>
+					   </table>
+				  </td>
 			  </tr> 
 			   <tr>
-			       <td class="member_td_wz1"><input class=Noprint style="width=110;height=25;" name="yzm" value="" type="text"/>
+			       <td align="center" >
+			       <table align="center" >	    
+				   <tr>
+				   	<td><input class=Noprint style="width=110;height=25;" name="yzm" value="" type="text"/>
 			     	 <input class=Noprint name="randomYzm"  type="hidden"/>
-			         <input class=Noprint style="width=110;height=25; background-color:#FFFFFF; border:1px solid #999999;" type="button" name="botton3" onclick="getYzm();" value="短信获取验证码" /></td>
+			         <input class=Noprint style="width=110;height=25; background-color:#FFFFFF; border:1px solid #999999;" type="button" name="botton3" onclick="getYzm();" value="短信获取验证码" />
+			         </td>
+				   	</tr>
+				  </table>
+			      </td>
 			    </tr> 
+			    
+			     <tr>
+				   <td>
+				    <table width=100%>	    
+					   <tr align="center">
+					   <td><input class=Noprint style="width=115;height=27; background-color:#FFFFFF; border:1px solid #999999;" type=button name=button1 onclick="chkFrm();" value="打     印"/>
+	   					<input class=Noprint style="width=115;height=27; background-color:#FFFFFF; border:1px solid #999999;" type=button name=button2 onclick="window.close();" value="关     闭"/></td>
+  		   	        </tr> 
+				    </table>
+				   </td>
+			   </tr>
  			</table>
  		</td>
  	</tr> 	  
    <tr>
-   <td>
-   		<table>
-   			<tr align="center">	
-	   			<td><input class=Noprint style="width=115;height=27; background-color:#FFFFFF; border:1px solid #999999;" type=button name=button1 onclick="chkFrm();" value="打     印"/></td>
-	   			<td><input class=Noprint style="width=115;height=27; background-color:#FFFFFF; border:1px solid #999999;" type=button name=button2 onclick="window.close();" value="关     闭"/></td>
-  			</tr>
-   		</table>
-   	</td>
-     </tr>
+   
    </table>
    </form> 
     <%
