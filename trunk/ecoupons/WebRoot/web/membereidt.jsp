@@ -44,8 +44,13 @@ function chkFrm()
         frm.strPhone.focus();
         return false;
     }else {  
-         var name = "<%=objMember.getStrName()%>";
-         var phone = <%=objMember.getStrMobileNo()%>;
+       if(!isMobilePhone(frm.strPhone.value)){  
+		    alert("请输入正确的手机号！！！") 
+		    frm.strPhone.focus();   
+		    return false; 
+	  	  }
+         var name = "<%=objMember.getStrName()%>" ;
+         var phone = "<%=objMember.getStrMobileNo()%>" ;
     	 if(trim(frm.strName.value)== name && trim(frm.strPhone.value)== phone)
     	 {
 		       alert("您的信息无变化，请重新输入！！！");
