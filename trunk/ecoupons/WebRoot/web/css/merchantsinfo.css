@@ -23,7 +23,7 @@ A:hover {
 	MARGIN: 10px auto 0px; WIDTH: 985px
 }
 #Left {
-	WIDTH: 640px; FLOAT: left
+	WIDTH: 640px;FLOAT: left
 }
 .left_top {
 	WIDTH: 638px; BACKGROUND: url(../images/left_top.gif) no-repeat; HEIGHT: 45px
@@ -32,7 +32,7 @@ A:hover {
 	PADDING-BOTTOM: 0px; PADDING-LEFT: 15px; PADDING-RIGHT: 0px; FONT: bold 14px/1 microsoft yahei; COLOR: #f00; PADDING-TOP: 10px
 }
 .left_mid {
-	WIDTH: 638px; BACKGROUND: url(../images/left_bg.gif) repeat-y
+	WIDTH: 638px;BACKGROUND: url(../images/left_bg.gif) repeat-y
 }
 
 
@@ -85,7 +85,7 @@ A:hover {
 	PADDING-BOTTOM: 0px; PADDING-LEFT: 30px; PADDING-RIGHT: 50px; FLOAT: left; COLOR: #f00; PADDING-TOP: 5px
 }
 .zs {
-	MARGIN: 10px 6px 10px 23px; WIDTH: 576px; border: 1px solid #CCCCCC;
+	MARGIN: 10px 6px 0px 23px; WIDTH: 576px; border: 1px solid #CCCCCC 
 }
 .zs_top {
 	border-bottom: 1px solid #CCCCCC; HEIGHT: 30px
@@ -96,6 +96,10 @@ A:hover {
 .zs_bottom {
 	WIDTH: 576px; BACKGROUND: url(../images/link_bottom.gif) no-repeat; HEIGHT: 5px
 }
+.zs_mid {
+	PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; WIDTH: 560px;  PADDING-RIGHT: 10px; BACKGROUND: url(../images/link_bg.gif) repeat-y; PADDING-TOP: 10px
+}
+ 
 .Side {
 	MARGIN: 10px 5px 10px 22px; WIDTH: 578px
 }
@@ -174,9 +178,9 @@ A:hover {
 }
 .card_mid p{ line-height:200%;}
 
-.tuangou_index{ height:95px; margin-top:5px;}
-.card_img{width:130px; float:left;}
-.card_js{ float:right; width:160px; padding-top:8px; line-height:200%;} 
+.tuangou_index{ height:95px; margin-top:5px}
+.card_img{width:130px; float:left}
+.card_js{ float:right; width:160px; padding-top:8px; line-height:200%} 
 .card_line{
 	MARGIN: 0px 10px 0px 0px; WIDTH: 280px; BACKGROUND: url(../images/show_line.gif) no-repeat; HEIGHT: 7px
 }
@@ -201,11 +205,3 @@ A:hover {
  .mer_mid .mer_info .mer_headtitle {
 	PADDING-BOTTOM: 10px; PADDING-LEFT: 15px; PADDING-RIGHT: 0px; COLOR: #f00; FONT-SIZE: 14px; FONT-WEIGHT: bold; PADDING-TOP: 15px
 }
-
-.zs_mid {
-	PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; WIDTH: 560px; height:98px; PADDING-RIGHT: 10px; BACKGROUND: url(../images/link_bg.gif) repeat-y; PADDING-TOP: 10px
-}
-.zs_mid img{
-	 WIDTH:130px;height:95px; }
-	 
-.zs_img{ width:126px; margin:3px 3px; float:left;}
