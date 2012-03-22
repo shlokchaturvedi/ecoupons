@@ -109,12 +109,12 @@ if(vctCoupon!=null&&vctCoupon.size()!=0)
 		Coupon obj3 = vctCoupon.get(i);
 		if (obj3.getStrSmallImg()!=null && obj3.getStrSmallImg().length() > 0) {
          %>
-         <a href="couponinfo.jsp?strid=<%=obj3.getStrId() %>" target="_blank"><img src="<%="../coupon/images/" + obj3.getStrSmallImg() %>" border="0" width="126" height="95px" title="<%=obj3.getStrName() %>" /></a>
+         <a href="couponinfo.jsp?strid=<%=obj3.getStrId() %>" target="_blank"><img src="<%="../coupon/images/" + obj3.getStrSmallImg() %>" border="0" width="126" height="95px" style="margin:3px 3px;"  title="<%=obj3.getStrName() %>" /></a>
         <%
         }   
         else{
          %>
-        <a href="couponinfo.jsp?strid=<%=obj3.getStrId() %>" target="_blank"><img src="images/temp.jpg"  border="0" width="126" height="95px" title="<%=obj3.getStrName() %>" /></a>
+        <a href="couponinfo.jsp?strid=<%=obj3.getStrId() %>" target="_blank"><img src="images/temp.jpg"  border="0" width="135" height="96px" style="margin:3px 3px;" title="<%=obj3.getStrName() %>" /></a>
         <%
         }    	
 	}	
