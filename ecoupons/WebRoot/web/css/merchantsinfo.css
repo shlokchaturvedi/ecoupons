@@ -97,8 +97,9 @@ A:hover {
 	WIDTH: 576px; BACKGROUND: url(../images/link_bottom.gif) no-repeat; HEIGHT: 5px
 }
 .zs_mid {
-	PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; WIDTH: 560px;  PADDING-RIGHT: 10px; BACKGROUND: url(../images/link_bg.gif) repeat-y; PADDING-TOP: 10px
+	PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; WIDTH: 560px;  PADDING-RIGHT: 10px; BACKGROUND: url(../images/link_bg.gif) repeat-y; PADDING-TOP: 10px;margin:3px 10px; 
 }
+.zs_img{ width:126px; margin:3px 3px; float:left }
  
 .Side {
 	MARGIN: 10px 5px 10px 22px; WIDTH: 578px
