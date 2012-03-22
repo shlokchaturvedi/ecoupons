@@ -19,7 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     SysPara syspara = new SysPara(globa);
     String  strName=ParamUtil.getString(request,"strName2","");
     //查询条件
-	String tWhere=" where 1=1 and a.intvip='1' and '"+Format.getDateTime()+"'>a.dtactivetime and '"+Format.getDateTime()+"'<a.dtexpiretime";
+	String tWhere=" where a.intvip='1' and '"+Format.getDateTime()+"'>a.dtactivetime and '"+Format.getDateTime()+"'<a.dtexpiretime";
 	if(!strName.equals(""))
 	{
 		tWhere += " and a.strname like'%" + strName + "%'";
@@ -54,7 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>VIP专区</title>
-<link href="css/merchants.css" rel="stylesheet" type="text/css" />
+<link href="css/style.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -69,8 +69,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  <div class=hotList>
  
 	<div class=hotList_top>
-		<div class="hotList_sf"> 优惠券列表（VIP专区）
-	  </div>
+		<p> 优惠券列表（VIP专区）
+	  </p>
 <div class=more>
 <table>
   <tbody>

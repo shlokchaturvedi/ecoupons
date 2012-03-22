@@ -46,7 +46,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>推荐优惠券</title>
-<link href="css/merchants.css" rel="stylesheet" type="text/css" />
+<link href="css/style.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -61,7 +61,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  <div class=hotList>
  
 	<div class=hotList_top>
-		<div class="hotList_sf">推荐优惠券列表</div>
+		<p>推荐优惠券列表</p>
 <div class=more>
 <table>
   <tbody>

@@ -64,7 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>更多优惠券</title>
-<link href="css/merchants.css" rel="stylesheet" type="text/css" />
+<link href="css/style.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -80,7 +80,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  <div class=hotList>
  
 	<div class=hotList_top>
-		<div class="hotList_sf"> <%
+		<P> <%
 	   if(!strName.equals(""))
 	   {
 	   %>优惠券列表<%="(关于'"+strName+"'的查询结果)"%>
@@ -94,7 +94,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   %>优惠券列表<%="(所有)"%>
 	   <%
 	   }
-	   %></div>
+	   %></P>
 <div class=more>
 <table>
   <tbody>
