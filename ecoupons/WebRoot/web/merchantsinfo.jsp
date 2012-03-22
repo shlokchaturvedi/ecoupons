@@ -33,7 +33,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
 <link href="css/merchantsinfo.css" rel="stylesheet" type="text/css" />
-<link rel=stylesheet type=text/css href="css/comment.css" />
 <title>商家详细</title>  
 </head>
 <body>
@@ -108,15 +107,14 @@ if(vctCoupon!=null&&vctCoupon.size()!=0)
 	for(int i=0;i<k;i++)
 	{
 		Coupon obj3 = vctCoupon.get(i);
-		System.out.println(obj3.getStrSmallImg()+":ddd");
 		if (obj3.getStrSmallImg()!=null && obj3.getStrSmallImg().length() > 0) {
          %>
-         <div class="zs_img"><a href="couponinfo.jsp?strid=<%=obj3.getStrId() %>" target="_blank"><img src="<%="../coupon/images/" + obj3.getStrSmallImg() %>" border="0" title="<%=obj3.getStrName() %>" /></a></div>
+         <a href="couponinfo.jsp?strid=<%=obj3.getStrId() %>" target="_blank"><img src="<%="../coupon/images/" + obj3.getStrSmallImg() %>" border="0" width="126" height="95px" title="<%=obj3.getStrName() %>" /></a>
         <%
         }   
         else{
          %>
-         <div class="zs_img"><a href="couponinfo.jsp?strid=<%=obj3.getStrId() %>" target="_blank"><img src="images/temp.jpg"  border="0" title="<%=obj3.getStrName() %>" /></a></div>
+        <a href="couponinfo.jsp?strid=<%=obj3.getStrId() %>" target="_blank"><img src="images/temp.jpg"  border="0" width="126" height="95px" title="<%=obj3.getStrName() %>" /></a>
         <%
         }    	
 	}	
@@ -158,7 +156,6 @@ Coupon coupon = new Coupon(globa);
  %>
 </div>
 <div class=card_bottom></div></div>
-</div>
 </div>
 <iframe style="HEIGHT: 260px" marginwidth=0 marginheight=0 src="bottom.jsp" frameborder=0 width="100%" scrolling=no></iframe>
 <%
