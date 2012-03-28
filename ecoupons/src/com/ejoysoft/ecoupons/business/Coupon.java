@@ -112,6 +112,10 @@ public class Coupon
 			{
 				strSql += "strlargeimg = '" + strLargeImg + "',";
 			}
+			if (this.strPrintImg != null && this.strPrintImg.length() > 0)
+			{
+				strSql += "strPrintImg = '" + strPrintImg + "',";
+			}
 			
 			strSql += " strName = ?, strShopId = ?,strTerminalIds=?,  " + "dtExpireTime = ?,intVip=?,intRecommend=?,flaPrice=?,intPrintLimit=?"
 					+ ",strInstruction=?,strIntro=?  WHERE strId=? ";
@@ -264,8 +268,8 @@ public class Coupon
 		String strId = UID.getID();
 		String[] strDownSql = null;
 		String sql = "insert into " + strTableName + " (strid,strname,strsmallimg,dtactivetime,dtexpiretime,strshopid,strterminalids"
-				+ ",intvip,intrecommend,flaprice,intprintlimit,strlargeimg,strcreator,dtcreatetime,intprint,strinstruction,strintro) "
-				+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
+				+ ",intvip,intrecommend,flaprice,intprintlimit,strlargeimg,strcreator,dtcreatetime,intprint,strinstruction,strintro,strprintimg) "
+				+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
 
 		try
 		{
@@ -288,6 +292,7 @@ public class Coupon
 			db.setInt(15, 0);
 			db.setString(16, strInstruction);
 			db.setString(17, strIntro);
+			db.setString(18, strPrintImg);
 			if (db.executeUpdate() > 0)
 			{
 				
@@ -602,7 +607,7 @@ public class Coupon
 			theBean.setIntPrintLimit(rs.getInt("intPrintLimit"));
 			theBean.setIntRecommend(rs.getInt("intRecommend"));
 			theBean.setIntVip(rs.getInt("intVip"));
-			//theBean.setStrPrintImg(rs.getString("strPrintImg"));
+			theBean.setStrPrintImg(rs.getString("strPrintImg"));
 			theBean.setStrLargeImg(rs.getString("strLargeImg"));
 			theBean.setStrShopId(rs.getString("strShopId"));
 			theBean.setStrTerminals(getTerminalNamesByIds(rs.getString("strTerminalIds")));
