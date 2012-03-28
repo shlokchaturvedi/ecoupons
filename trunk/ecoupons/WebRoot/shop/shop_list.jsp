@@ -140,9 +140,10 @@ function del(){
               <tr>
                 <td  width="5%" height="22"  class="left_bt2"><div align="center">&nbsp;</div></td>
                 <td width="10%" class="left_bt2"><div align="center">商家名</div></td>
-                <td width="16%" class="left_bt2"><div align="center">分部名称</div></td>
+                <td width="10%" class="left_bt2"><div align="center">分部名称</div></td>
                 <td width="10%" class="left_bt2"><div align="center">所属行业</div></td>      
                 <td width="7%" class="left_bt2"><div align="center">是否推荐</div></td>          
+                <td width="7%" class="left_bt2"><div align="center">推荐排序</div></td>          
                 <td width="16%" class="left_bt2"><div align="center">联系电话</div></td>
                 <td width="7%" class="left_bt2"><div align="center">积分余额</div></td>
                 <td width="10%" class="left_bt2"><div align="center">操作</div></td>
@@ -159,6 +160,7 @@ function del(){
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrShopName()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrTradeName()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getIntTypeName()%></span></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getIntSort()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrPhone()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getIntPoint()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE4">

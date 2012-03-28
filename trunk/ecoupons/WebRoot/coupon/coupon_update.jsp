@@ -268,6 +268,20 @@ body,td,tr{font-size:9pt;}
                 </td>
               </tr> 
               <tr >
+                <td height="30" align="right" class="left_txt2">打印图：</td>
+                <td>&nbsp;</td> 
+                <td height="30"><input name="strPrintImg" type="file" class="input_box" size="30"  /></td>
+                <td height="30" class="left_txt">
+                <%
+                if (obj0.getStrPrintImg().length() > 0) {
+                %>
+                  <img alt="打印图" src="<%="images/" + obj0.getStrPrintImg()+"?random="+Math.random() %>" width=380 height=217 /><br>
+                <%
+                }
+                %> 
+                </td>
+              </tr> 
+              <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">&nbsp; </td>
                  <td height="30" class="left_txt">&nbsp;</td> 
                 <td width="20%" height="30" class="left_txt">&nbsp;</td> 

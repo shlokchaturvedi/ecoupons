@@ -23,6 +23,10 @@
         		File f = new File(strFilePath + obj0.getStrLargeImg());
         		f.delete();
         	}
+    		if (obj0.getStrPrintImg()!=null&&obj0.getStrPrintImg().length() > 0) {
+        		File f = new File(strFilePath + obj0.getStrPrintImg());
+        		f.delete();
+        	}
     		
 			obj.delete(aryStrId[i]);
 		}
@@ -40,7 +44,7 @@
 		{
 			path.mkdirs();
 		}
-		String strSmallImg = "", strLargeImg = "";
+		String strSmallImg = "", strLargeImg = "", strPrintImg = "";
 		Coupon obj0 = null;
 		if (action.equals(Constants.UPDATE_STR))
 		{
@@ -51,7 +55,7 @@
 			strId=UID.getID();
 			
 		}
-		
+	    String strTempId=UID.getID();
 		if (au.getFileName(0).length() > 0)
 		{
 			if (action.equals(Constants.UPDATE_STR) && obj0.getStrSmallImg() != null && obj0.getStrSmallImg().length() > 0)
@@ -59,7 +63,7 @@
 				File f = new File(strFilePath + obj0.getStrSmallImg());
 				f.delete();
 			}
-			strSmallImg =au.saveFile(strFilePath,strId+"_"+"2", 0);
+			strSmallImg =au.saveFile(strFilePath,strTempId+"_"+"2", 0);
 		}
 		if (au.getFileName(1).length() > 0)
 		{
@@ -69,7 +73,18 @@
 				f.delete();
 				
 			}
-			strLargeImg =au.saveFile(strFilePath,strId+"_"+"1", 1);
+			strLargeImg =au.saveFile(strFilePath,strTempId+"_"+"1", 1);
+		}
+		
+		if (au.getFileName(2).length() > 0)
+		{
+			if (action.equals(Constants.UPDATE_STR) && obj0.getStrPrintImg()!= null && obj0.getStrPrintImg().length() > 0)
+			{
+				File f = new File(strFilePath + obj0.getStrPrintImg());
+				f.delete();
+				
+			}
+			strPrintImg =au.saveFile(strFilePath,strTempId+"_"+"3", 2);
 		}
 		
 		//赋值
@@ -80,6 +95,7 @@
 		obj.setIntPrintLimit(au.getInt("intPrintLimit"));
 	    obj.setStrLargeImg(strLargeImg);
 	    obj.setStrSmallImg(strSmallImg);
+	    obj.setStrPrintImg(strPrintImg);
 	   obj.setStrInstruction(au.getString("strInstruction"));
 	   obj.setStrIntro(au.getString("strIntro"));
 	    obj.setStrName(au.getString("strName"));
