@@ -164,6 +164,7 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 		{
 			// 关闭数据库连接对象
 			globa.closeCon();
+			System.out.println(sbReturn.toString());
 			resp.getWriter().println(sbReturn.toString());
 		}
 	}
@@ -193,6 +194,7 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 			e.printStackTrace();
 		}
 		sbReturn.append("<strAddr>" + tempShop.getStrAddr() + "</strAddr>");
+		sbReturn.append("<intSort>" + tempShop.getIntSort() + "</intSort>");
 		sbReturn.append("<strIntro>" + tempShop.getStrIntro() + "</strIntro>");
 		sbReturn.append("<strSmallImg>" + tempShop.getStrSmallImg() + "</strSmallImg>");
 		sbReturn.append("<strLargeImg>" + tempShop.getStrLargeImg() + "</strLargeImg>");
