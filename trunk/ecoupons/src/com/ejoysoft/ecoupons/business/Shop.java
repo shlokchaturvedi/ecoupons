@@ -54,7 +54,7 @@ public class Shop
 		String strSql = "";
 		strId = UID.getID(); // 添加商家信息
 		strSql = "insert into " + strTableName + "  (strid, strbizname, strshopname, strtrade, straddr, strphone, "
-				+ "strperson,inttype, strintro, strsmallimg,strlargeimg,intpoint, strcreator, dtcreatetime" + ") values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				+ "strperson,inttype, strintro, strsmallimg,strlargeimg,intpoint, strcreator, dtcreatetime,intsort" + ") values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		try
 		{
 
@@ -86,6 +86,7 @@ public class Shop
 			db.setInt(12, intPoint);
 			db.setString(13, strCreator);
 			db.setString(14, com.ejoysoft.common.Format.getDateTime());
+			db.setInt(15, intSort);
 			if (db.executeUpdate() > 0)
 			{
 				db.getConnection().commit(); // 统一提交
@@ -243,7 +244,7 @@ public class Shop
 			{
 				strSql += "strlargeimg = '" + strLargeImg + "',";
 			}
-			strSql += " intpoint=? where strid=? ";
+			strSql += " intpoint=?,intsort=? where strid=? ";
 			db.getConnection().setAutoCommit(false);
 			DownLoadAlert alert = new DownLoadAlert(globa);
 	        Vector<DownLoadAlert> vctAlerts = alert.list(" where strdataid='"+strId2+"'",0,0);
@@ -267,11 +268,12 @@ public class Shop
 			db.setString(3, strTrade);
 			db.setString(4, strAddr);
 			db.setString(5, strPhone);
-			db.setString(6, strPerson);
 			db.setInt(7, intType);
+			db.setString(6, strPerson);
 			db.setString(8, strIntro); // "strUnitCode
 			db.setInt(9, intPoint);
-			db.setString(10, strId2);
+			db.setInt(10, intSort);
+			db.setString(11, strId2);
 			db.executeUpdate();
 			db.commit();
 			Globa.logger0("更新商家信息", globa.loginName, globa.loginIp, strSql, "商家管理", globa.userSession.getStrDepart());
@@ -353,6 +355,7 @@ public class Shop
 			theBean.setStrPhone(rs.getString("strphone"));
 			theBean.setStrPerson(rs.getString("strperson"));
 			theBean.setIntType(rs.getInt("inttype"));
+			theBean.setIntSort(rs.getInt("intSort"));
 			if (rs.getInt("inttype") == 1)
 				theBean.setIntTypeName("是");
 			else if (rs.getInt("inttype") == 0)
@@ -443,7 +446,7 @@ public class Shop
 		{
 
 			String strSql = "update  " + strTableName + "  set strbizbame=?, strshopname=?, strtrade=?, straddr=?, strphone=?, "
-					+ "strperson=?,inttype=?, strintro=?, strsmallimg=?,strlargeimg=?,intpoint=?, strcreator=?, strcreatetime=?  where strid=? ";
+					+ "strperson=?,inttype=?, strintro=?, strsmallimg=?,strlargeimg=?,intpoint=?, strcreator=?, strcreatetime=?,intsort=?  where strid=? ";
 			db.prepareStatement(strSql);
 			db.setString(1, strBizName);
 			db.setString(2, strShopName);
@@ -458,6 +461,8 @@ public class Shop
 			db.setInt(11, intPoint);
 			db.setString(12, strCreator);
 			db.setString(13, com.ejoysoft.common.Format.getDateTime());
+			db.setInt(14, intSort);
+			db.setString(15, strId);
 			db.executeUpdate();
 			Globa.logger0("�޸��û���Ϣ", globa.loginName, globa.loginIp, strSql, "�û�����", globa.userSession.getStrDepart());
 			return true;
@@ -743,6 +748,7 @@ public class Shop
 	private String intTypeName;// 商家推荐与否
 	private String strCreator;// 创建人
 	private String dtCreateTime;// 创建时间
+	private int intSort;//排序序号
 
 	public Globa getGloba()
 	{
@@ -929,5 +935,15 @@ public class Shop
 	public void setIntTypeName(String intTypeName)
 	{
 		this.intTypeName = intTypeName;
+	}
+
+	public int getIntSort()
+	{
+		return intSort;
+	}
+
+	public void setIntSort(int intSort)
+	{
+		this.intSort = intSort;
 	}
 }
