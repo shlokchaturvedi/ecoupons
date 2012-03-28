@@ -34,7 +34,17 @@ body,td,tr{font-size:9pt;}
             alert("请输选择所属行业！！！")
             frm.strTrade.focus();
             return false;
-        } else {
+        } 
+        else {
+        	if(trim(frm.intSort.value)!="")
+            {
+                 if(!isNumber(frm.intSort.value))
+                   {
+    	             alert("请输入整数！")
+                     frm.intSort.focus();
+    	             return false;
+    	           }
+             }
        		if(trim(frm.strPhone.value)!=""){      
 	            var telphone = trim(frm.strPhone.value);
 	            var tel=new Array(); 
@@ -160,11 +170,18 @@ body,td,tr{font-size:9pt;}
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
               <tr >
+                 <td width="20%" height="30" align="right" class="left_txt2">推荐排序：</td>
+                <td width="3%">&nbsp;</td>
+                <td width="32%" height="30"><input name="intSort" type="text" value="0" class="input_box" size="30" /></td>
+                <td width="45%" height="30" class="left_txt">请输入整数，默认为0，代表没有排序！</td> 
+              </tr>
+              <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">地		址：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30"><input name="strAddr" type="text" class="input_box" size="30" /></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>
+              
               <tr bgcolor="#f2f2f2">
                  <td width="20%" height="30" align="right" class="left_txt2">联系电话：</td>
                 <td width="3%">&nbsp;</td>

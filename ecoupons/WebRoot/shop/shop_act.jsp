@@ -2,7 +2,7 @@
 <%@ page import="com.ejoysoft.common.Constants,
 				com.ejoysoft.util.ParamUtil,
 				com.ejoysoft.ecoupons.business.Shop,
-				com.ejoysoft.common.ApacheUpload,
+				com.ejoysoft.common.*,
 				java.io.File"%>
 <%@ include file="../include/jsp/head.jsp"%>
 <%
@@ -42,16 +42,18 @@
 			obj.setStrId(au.getString("strId"));
 	    	obj0 = obj.show(" where strId='" + obj.getStrId() + "'");
 	    }
-	   
+	   String strTempId=UID.getID();
 	   if (au.getFileName(0).length() > 0) {  
-	    	strSmallImg = au.saveFile(strFilePath, 0);
+		   strSmallImg =au.saveFile(strFilePath,strTempId+"_"+"2", 0);
+	    	//strSmallImg = au.saveFile(strFilePath, 0);
 	    	if (action.equals(Constants.UPDATE_STR) && obj0.getStrSmallImg()!=null&&obj0.getStrSmallImg().length() > 0) {
 	    		File f = new File(strFilePath + obj0.getStrSmallImg());
 	    		f.delete();
 	    	}
 	    }
 	    if (au.getFileName(1).length() > 0) {
-	    	strLargeImg = au.saveFile(strFilePath, 1);
+	    	strLargeImg =au.saveFile(strFilePath,strTempId+"_"+"1", 1);
+	    	//strLargeImg = au.saveFile(strFilePath, 1);
 	    	if (action.equals(Constants.UPDATE_STR) && obj0.getStrLargeImg()!=null&&obj0.getStrLargeImg().length() > 0) {
 	    		File f = new File(strFilePath + obj0.getStrLargeImg());
 	    		f.delete();
@@ -69,6 +71,7 @@
 	    obj.setStrSmallImg(strSmallImg);
 	    obj.setStrLargeImg(strLargeImg);
 		obj.setIntPoint(Integer.parseInt(au.getString("intPoint")));
+		obj.setIntSort(Integer.parseInt(au.getString("intSort")));
 		obj.setStrCreator(globa.loginName);
 	    if(action.equals(Constants.ADD_STR)) {
 		    String strbizname=au.getString("strBizName");
