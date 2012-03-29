@@ -4,7 +4,7 @@
 <%@page import="com.ejoysoft.ecoupons.business.Coupon"%>
 <%@ include file="../include/jsp/head.jsp"%>
 <%
-	String strId = ParamUtil.getString(request,"strId","");
+String strId = ParamUtil.getString(request,"strId","");
 	if(strId.equals(""))
     	throw new IdObjectException("请求处理的信息id为空！或者已经不存在");
     String where="where strId='"+strId+"'";
@@ -75,6 +75,19 @@ body,td,tr{font-size:9pt;}
     	document.getElementById("strTerminals").value=terminals.substring(0,terminals.length-1);
     		  
     }
+<!-- 显示打印预览-->
+function viewPrint()
+{
+    var couponName =trim(frm.strName.value);    
+    couponName = encodeURI(couponName);
+	var strimg = trim(frm.strPrintImg.value);
+    strimg = encodeURI(strimg);
+	var info = trim(frm.strIntro.value) ;
+    info = encodeURI(info);
+	var instruction = trim(frm.strInstruction.value);
+    instruction = encodeURI(instruction);
+    window.open("printview.jsp?random="+ Math.random()+"&couponName="+couponName+"&strIntro="+info+"&strInstruction="+instruction+"&strImg="+strimg, "", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,width=300,height=600,left=500,top=60"); //写成一行 
+}  
 </script>
 </head>
 
@@ -273,7 +286,7 @@ body,td,tr{font-size:9pt;}
                 <td height="30"><input name="strPrintImg" type="file" class="input_box" size="30"  /></td>
                 <td height="30" class="left_txt">
                 <%
-                if (obj0.getStrPrintImg().length() > 0) {
+                if (obj0.getStrPrintImg()!=null && obj0.getStrPrintImg().length() > 0) {
                 %>
                   <img alt="打印图" src="<%="images/" + obj0.getStrPrintImg()+"?random="+Math.random() %>" width=380 height=217 /><br>
                 <%
@@ -309,15 +322,17 @@ body,td,tr{font-size:9pt;}
           	  
             </table></td>
           </tr>
-        </table>
+         </table>
           <table width="100%" border="0" cellspacing="0" cellpadding="0">
             <tr>
               <td width="50%" height="56" align="right"><input name="B1" type="button" class="button_box" value="确定" onclick="chkFrm()" /></td>
              <td width="1%" height="56" align="right">&nbsp;</td>
               <td width="10%" height="56"><input name="B12" type="reset" class="button_box" value="取消" /></td>
               <td width="1%" height="56" align="right">&nbsp;</td>
-               <td width="58%" height="56"><input name="B12" type="button" onclick="window.history.back();" class="button_box" value="返回" /></td>
-            </tr>
+              <td width="10%" height="56"><input name="B12" type="button" onclick="window.history.back();" class="button_box" value="返回" /></td>
+               <td width="1%" height="56" align="right">&nbsp;</td>
+               <td width="47%" height="56"><input name="B12" type="button" onclick="viewPrint();" class="button_box" value="打印预览" /></td>
+             </tr>
             <tr>
               <td height="30" colspan="3">&nbsp;</td>
             </tr>
