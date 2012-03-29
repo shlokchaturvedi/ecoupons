@@ -29,14 +29,19 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
 	{
 		// TODO Auto-generated method stub
+		try {
 		this.execute(req, resp);
+		}catch(Exception e) {
+			e.printStackTrace();
+			throw new IOException(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
 	{
 		// TODO Auto-generated method stub
-		this.execute(req, resp);
+		this.doGet(req, resp);
 	}
 
 	private void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException

@@ -14,27 +14,31 @@ import javax.servlet.http.HttpServletResponse;
 public class FileDownloadServlet extends HttpServlet {
 
 	 public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 String strFileType = request.getParameter("strFileType");
-		 String strFileName = request.getParameter("strFileName");
-		 String strPath = request.getSession().getServletContext().getRealPath("");
-		 if (strFileType.equals("shop")) {
-			 strPath += "\\shop\\images\\";
-		 } else if (strFileType.equals("coupon")) {
-			 strPath += "\\coupon\\images\\";
-		 } else if (strFileType.equals("ad")) {
-			 strPath += "\\terminal\\advertisement\\";
-		 } else {			 
-			 throw new ServletException("strFileType参数有误：" + strFileType);
+		 try {
+			 String strFileType = request.getParameter("strFileType");
+			 String strFileName = request.getParameter("strFileName");
+			 String strPath = request.getSession().getServletContext().getRealPath("");
+			 if (strFileType.equals("shop")) {
+				 strPath += "\\shop\\images\\";
+			 } else if (strFileType.equals("coupon")) {
+				 strPath += "\\coupon\\images\\";
+			 } else if (strFileType.equals("ad")) {
+				 strPath += "\\terminal\\advertisement\\";
+			 } else {			 
+				 throw new ServletException("strFileType参数有误：" + strFileType);
+			 }
+			 FileInputStream fis = new FileInputStream(strPath + strFileName);
+			 byte[] bytes = new byte[2048];
+			 ServletOutputStream sos = response.getOutputStream();
+			 int i;
+			 while ((i = fis.read(bytes)) > 0) {
+				 sos.write(bytes, 0, i);
+			 }
+			 fis.close();
+			 sos.close();
+		 }catch(Exception e) {
+			 e.printStackTrace();
 		 }
-		 FileInputStream fis = new FileInputStream(strPath + strFileName);
-		 byte[] bytes = new byte[2048];
-		 ServletOutputStream sos = response.getOutputStream();
-		 int i;
-		 while ((i = fis.read(bytes)) > 0) {
-			 sos.write(bytes, 0, i);
-		 }
-		 fis.close();
-		 sos.close();
 	 }
 	 
 	 public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
