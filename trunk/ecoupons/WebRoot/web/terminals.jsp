@@ -110,7 +110,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <td height="26">* 主屏分辨率：<%=obj1.getStrResolution()%></td>
   </tr>
   <tr>
-    <td height="26">* 临近商家：<%=obj1.getStrAroundShops() %> </td>
+    <td colspan="2" height="26">* 临近商家：<%=obj1.getStrAroundShops() %> </td>
     </tr>
   <tr>
     <td height="26">
