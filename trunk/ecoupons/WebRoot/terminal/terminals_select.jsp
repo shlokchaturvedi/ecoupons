@@ -2,6 +2,7 @@
 <%@ page contentType="text/html;charset=GBK"%>
 <%@page import="com.ejoysoft.common.Globa,
 				com.ejoysoft.ecoupons.business.Terminal"%>
+<%@page import="com.ejoysoft.ecoupons.business.Coupon"%>
 <%@ include file="../include/jsp/head.jsp"%>
 
 <html>
@@ -69,14 +70,37 @@ function ReturnTerminals(){
                <tr>
 				<% 
 				  String strId = ParamUtil.getString(request,"strId","");
-				  String strTerminalids ="";
-				  if(!strId.equals(""))
+				  String couponId = ParamUtil.getString(request,"couponId","");
+				  System.out.println(couponId);
+				  String flag = ParamUtil.getString(request,"flag","");
+				  String strTerminalids ="";				  
+				  try{
+				  }catch(Exception e)
 				  {
-					  Terminal objTerminal = new Terminal(globa);  
-					  Terminal terminal = objTerminal.showAd(" where strid='"+strId+"'");
-					  strTerminalids = terminal.getStrTerminalIds();
-				  }		
-				//  System.out.println(strId+"dddddddddddddddd"+strTerminalids);
+				  e.printStackTrace();
+				  }
+				  if(flag.equals("ad"))
+				  {
+					  if(!strId.equals(""))
+					  {
+						  Terminal objTerminal = new Terminal(globa);  
+						  Terminal terminal = objTerminal.showAd(" where strid='"+strId+"'");
+						  strTerminalids = terminal.getStrTerminalIds();
+					  }
+				  }
+				  else if(flag.equals("coupon"))
+				  {
+				  	  if(!couponId.equals(""))	
+					  {
+					  	  Coupon objCoupon = new Coupon(globa);  
+						  Coupon objCoupon1 = objCoupon.show(" where strid='"+couponId+"'");
+						  if(objCoupon1!=null)
+						  {
+						  	strTerminalids = objCoupon1.getStrTerminalIds();				  	
+						  }
+					  }	
+				  }	 
+				  //System.out.println(couponId+"dddddddddddddddd"+strTerminalids);							
 				  Terminal obj = new Terminal(globa,true);
 				  String allterminal[]=obj.getAllTerminalNos();
 				  int k=0;
