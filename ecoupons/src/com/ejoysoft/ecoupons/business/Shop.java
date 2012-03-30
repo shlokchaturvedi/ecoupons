@@ -115,40 +115,29 @@ public class Shop
 		Coupon coupon = new Coupon(globa);
 		Vector<Coupon> vctCoupons = coupon.listByShopId(" where strshopid='" + strid + "'");DownLoadAlert alert = new DownLoadAlert(globa);
     	Vector<DownLoadAlert> vctAlerts = alert.list(" where strdataid='"+strid+"'",0,0);
-        
-		// 事务处理
+  		// 事务处理
 		try
 		{
 			db.getConnection().setAutoCommit(false);// 禁止自动提交事务
+			if(vctAlerts.size()==0)
 			for(int i=0;i<vctAlerts.size();i++)
         	{
         		DownLoadAlert alert2 = vctAlerts.get(i);
-        		if(alert2.getIntState().equals("0") && alert2.getStrDataOpeType().equals("add"))
-        		{
-        			String sql = "delete from "+strTableName7+" where strid='"+alert2.getStrId()+"' and intstate=0";
-        			db.executeUpdate(sql);
-        		}
-        		else if(alert2.getIntState().equals("1") && alert2.getStrDataOpeType().equals("add"))
-        		{
-        			int  alert3 = alert.getCount(" where strterminalid='"+alert2.getStrTerminalId()+"' and strdataopetype='update' and intstate=0");
-        			if(alert3>0)
-            		{
-        			//	System.err.println("dddddddddddddd");
-            			String sql = "delete from "+strTableName7+" where strterminalid='"+alert2.getStrTerminalId()+"' and intstate=0";
-            			db.executeUpdate(sql);
-            			String sql2 ="insert into " + strTableName7 + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) "
-               		     + "values (" + UID.getID() + ",'" + alert2.getStrTerminalId()+ "','" + strTableName + "','" + alert2.getStrDataId() + "','delete',0)";
-               		    db.executeUpdate(sql2);
-            		}
-        			else 
-        			{
-        				String sql2 ="insert into " + strTableName7 + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) "
-              		     + "values (" + UID.getID() + ",'" + alert2.getStrTerminalId()+ "','" + strTableName + "','" + alert2.getStrDataId() + "','delete',0)";
-              		    db.executeUpdate(sql2);
-        			}
-        		}
-        		
-        	}
+        	    String sql = "delete from "+strTableName7+" where strid='"+alert2.getStrId()+"' and (intstate=0 or intstate=2)";
+    			db.executeUpdate(sql);
+    		}			         		
+ 		    Terminal obj = new Terminal(globa);
+			String[] strTerminalId = obj.getAllTerminalNos();
+			if (strTerminalId != null)
+			{
+				for (int i = 0; i < strTerminalId.length; i++)
+				{
+					String[] terminalid = strTerminalId[i].split("-");
+					String sql2 ="insert into " + strTableName7 + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) "
+		 		     + "values (" + UID.getID() + ",'" + terminalid[0]+ "','" + strTableName + "','" +strid + "','delete',0)";
+		 		    db.executeUpdate(sql2);	
+				}
+			}
 			// db.executeUpdate(sql2);//删除商家的优惠券
 			for (int i = 0; i < vctCoupons.size(); i++)
 			{
@@ -250,18 +239,22 @@ public class Shop
 	        Vector<DownLoadAlert> vctAlerts = alert.list(" where strdataid='"+strId2+"'",0,0);
 	        for(int i=0;i<vctAlerts.size();i++)
 	        {
-        		DownLoadAlert alert2 = vctAlerts.get(i);
-        		if(alert2.getIntState().equals("1") && alert2.getStrDataOpeType().equals("add"))
-        		{
-        			int  alert3 = alert.getCount(" where strterminalid='"+alert2.getStrTerminalId()+"' and strdataopetype='update' and intstate=0");
-        			if(alert3==0)
-        			{
-        				String sql2 ="insert into " + strTableName7 + " (strid,strterminalid,strdatatype,strdataid,strdataopetype,intstate) "
-              		     + "values (" + UID.getID() + ",'" + alert2.getStrTerminalId()+ "','" + strTableName + "','" + alert2.getStrDataId() + "','update',0)";
-              		    db.executeUpdate(sql2);
-        			}
-        		}        		
+	        	DownLoadAlert alert2 = vctAlerts.get(i);
+        	    String sql = "delete from "+strTableName7+" where strid='"+alert2.getStrId()+"' and (intstate=0 or intstate=2)";
+    			db.executeUpdate(sql);		
 	        }
+	        Terminal obj = new Terminal(globa);
+			String[] strTerminalId = obj.getAllTerminalNos();
+			if (strTerminalId != null)
+			{
+				for (int i = 0; i < strTerminalId.length; i++)
+				{
+					String[] terminalid = strTerminalId[i].split("-");
+					String sql2 ="insert into " + strTableName7 + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) "
+		 		     + "values (" + UID.getID() + ",'" + terminalid[0]+ "','" + strTableName + "','" +strId2 + "','update',0)";
+		 		    db.executeUpdate(sql2);	
+				}
+			}
 			db.prepareStatement(strSql);
 			db.setString(1, strBizName);
 			db.setString(2, strShopName);

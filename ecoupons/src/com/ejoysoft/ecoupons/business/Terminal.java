@@ -708,65 +708,31 @@ public class Terminal
 			db.executeUpdate();
 			// -------------------------------------------------------------------------------------------------------------
 
-			// 如果丢弃的终端已处理就增加delete语句，如果没有处理，直接删除
+			// 如果丢弃的终端已处理就增加delete语句，如果没有处理，直接删除			
 			for (int i = 0; i < strDbTerminalIds.length; i++)
 			{
-
-				strSql2 = "delete from " + strTableName3 + " where intstate=0 and strterminalid='" + strDbTerminalIds[i] + "' and strdataid='"
-						+ strId + "'";
-				db.executeUpdate(strSql2);
-				if (downLoadAlert.getCount("where intstate=1 and strterminalid='" + strDbTerminalIds[i] + "' and strdataid='" + strId
-						+ "' and strdataopetype='add' ") > 0)
+//				System.err.println(strDbTerminalIds[i] +"eeeeeeeeee"+strDbTerminalIds.length);
+				if(strDbTerminalIds[i] !=null && !strDbTerminalIds[i].equals(""))
 				{
+					strSql2 = "delete from " + strTableName3 + " where (intstate=0 or intstate=2) and strterminalid='" + strDbTerminalIds[i] + "' and strdataid='"
+							+ strId + "'";
+					db.executeUpdate(strSql2);
 					strSql2 = "insert into " + strTableName3 + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) " + "values ("
-							+ UID.getID() + ",'" + strDbTerminalIds[i] + "','" + strTableName2 + "','" + strId + "','delete',0) ";
+							 + UID.getID() + ",'" + strDbTerminalIds[i] + "','" + strTableName2 + "','" + strId + "','delete',0) ";
 					db.executeUpdate(strSql2);
 				}
-			}
+			}			
 			// 对没有丢弃即选中的终端如果状态为1的话就增加update语句，如果没有的就不操作
 			for (int i = 0; i < TerminalIds.length; i++)
 			{
-				if (downLoadAlert.getCount("where intstate=1 and strterminalid='" + TerminalIds[i] + "' and strdataid='" + strId
-						+ "' and strdataopetype='add' ") > 0)
-				{
-					if (downLoadAlert.getCount("where intstate=0 and strterminalid='" + TerminalIds[i] + "' and strdataid='" + strId
-							+ "' and strdataopetype='update' ") <= 0)
-					{
-						
-						strSql2 = "insert into " + strTableName3 + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) "
-								+ "values (" + UID.getID() + ",'" + TerminalIds[i] + "','" + strTableName2 + "','" + strId + "','update',0) ";
-						db.executeUpdate(strSql2);
-					}
-				} else if (downLoadAlert.getCount("where intstate=0 and strterminalid='" + TerminalIds[i] + "' and strdataid='" + strId
-						+ "' and strdataopetype='add' ") <= 0)
-				{
-					strSql2 = "insert into " + strTableName3 + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) " + "values ("
-							+ UID.getID() + ",'" + TerminalIds[i] + "','" + strTableName2 + "','" + strId + "','add',0) ";
-					db.executeUpdate(strSql2);
-				}
-			}
-			
-			for (int i = 0; i < TerminalIds.length; i++)
-			{
-				if (downLoadAlert.getCount("where intstate=1 and strterminalid='" + TerminalIds[i] + "' and strdataid='" + strId
-						+ "' and strdataopetype='delete' ") > 0)
-				{
-					strSql2="update "+strTableName3+" set strdataopetype='add' where intstate=0 and strterminalid='" + TerminalIds[i] + "' and strdataid='" + strId
-						+ "' and strdataopetype='update' ";
-					db.executeUpdate(strSql2);
-					
-				} 
-				if (downLoadAlert.getCount("where intstate=0 and strterminalid='" + TerminalIds[i] + "' and strdataid='" + strId
-						+ "' and strdataopetype='delete' ") > 0)
-				{
-					strSql="delete from "+strTableName3+" where intstate=0 and strterminalid='" + TerminalIds[i] + "' and strdataid='" + strId
-						+ "' and strdataopetype='delete' " ;
-					db.executeUpdate(strSql);
-					
-				} 
-				
-			}
-			
+//				System.err.println(TerminalIds[i]+"dddddddddd" );
+				strSql2 = "delete from " + strTableName3 + " where (intstate=0 or intstate=2) and strterminalid='" + TerminalIds[i] + "' and strdataid='"
+				+ strId + "'";
+				db.executeUpdate(strSql2);
+				strSql2 = "insert into " + strTableName3 + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) "
+						+ "values (" + UID.getID() + ",'" + TerminalIds[i] + "','" + strTableName2 + "','" + strId + "','update',0) ";
+				db.executeUpdate(strSql2);
+			}	
 			// -------------------------------------------------------------------------------------------------------------
 			db.getConnection().commit(); // 统一提交
 			db.setAutoCommit(true);
