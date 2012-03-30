@@ -46,32 +46,15 @@ public class DownLoadAlert
 	 */
 	public String retStrSql(String strTerminalIds, String where, String strDataType)
 	{
-		if (getCount("where intstate=1 and strdataopetype='add' and strdataid='" + where + "' and strterminalid='" + strTerminalIds + "' ") > 0)
-		{
-			if(getCount("where intstate=0 and strdataopetype='update' and strdataid='" + where + "' and strterminalid='" + strTerminalIds + "' ") > 0)
-			{
-				String  sql= "delete from " + strTableName+" where strdataid='" + where + "' and intstate=0 and strterminalid='" + strTerminalIds + "' ";
-				try {
-					db.executeUpdate(sql);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			return "insert into " + strTableName + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) " + "values (" + UID.getID()
-			+ ",'" + strTerminalIds + "','" + strDataType + "','" + where + "','delete',0); ";	
-		}
-		else if (getCount("where intstate=0 and strdataopetype='add' and strdataid='" + where + "' and strterminalid='" + strTerminalIds + "' ") > 0)
-		{
-			String  sql= "delete from " + strTableName+" where strdataid='" + where + "' and intstate=0 and strterminalid='" + strTerminalIds + "' ";
-			try {
-				db.executeUpdate(sql);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}					
-		}
-		return "";
+		String  sql= "delete from " + strTableName+" where strdataid='" + where + "' and (intstate=0 or intstate=2) and strterminalid='" + strTerminalIds + "' ";
+		try {
+			db.executeUpdate(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		return "insert into " + strTableName + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) " + "values (" + UID.getID()
+		+ ",'" + strTerminalIds + "','" + strDataType + "','" + where + "','delete',0); ";	
 		//return "delete from " + strTableName + " where intstate=0 and strdataid='" + where + "' and strterminalid='" + strTerminalIds + "' ; ";
 	}
 
