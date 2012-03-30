@@ -98,7 +98,7 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 								flagAdd = false;
 							}
 							sbReturn.append(returnSbContent(tempTerminal));
-							terminal2.addState2(strId, "t_bz_advertisement", vctAlerts.get(i).getStrDataId(), "add");
+//							terminal2.addState2(strId, "t_bz_advertisement", vctAlerts.get(i).getStrDataId(), "add");
 						}
 					}
 					if (!flagAdd)
@@ -117,7 +117,7 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 								flagUpdate = false;
 							}
 							sbReturn.append(returnSbContent(tempTerminal));
-							terminal2.addState2(strId, "t_bz_advertisement", vctAlerts.get(i).getStrDataId(), "update");
+//							terminal2.addState2(strId, "t_bz_advertisement", vctAlerts.get(i).getStrDataId(), "update");
 						}
 					}
 					if (!flagUpdate)
@@ -138,7 +138,7 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 							sbReturn.append("<ad>");
 							sbReturn.append("<strId>" + vctAlerts.get(i).getStrDataId() + "</strId>");
 							sbReturn.append("</ad>");
-							terminal2.addState2(strId, "t_bz_advertisement", vctAlerts.get(i).getStrDataId(), "delete");
+//							terminal2.addState2(strId, "t_bz_advertisement", vctAlerts.get(i).getStrDataId(), "delete");
 						}
 					}
 					if (!flagDelete)
@@ -151,7 +151,7 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 			{
 				sbReturn.append("<return>update_error</return>");
 			}
-			if (!terminal2.updateState(strId, "t_bz_advertisement"))
+			if (!terminal2.updateState2(strId, "t_bz_advertisement"))
 			{
 				sbReturn.append("<return>terminal_error</return>");
 			}
@@ -176,16 +176,17 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 
 	private StringBuffer returnSbContent(Terminal tempTerminal)
 	{
-		StringBuffer sbContent = new StringBuffer("");
 		StringBuffer sbReturnContent = new StringBuffer();
-		sbReturnContent.append("<ad>");
-		sbReturnContent.append("<strId>" + tempTerminal.getStrId() + "</strId>");
-		sbReturnContent.append("<strName>" + tempTerminal.getStrName() + "</strName>");
-		sbReturnContent.append("<intType>" + tempTerminal.getIntType() + "</intType>");
-		sbReturnContent.append("<strContent>" + tempTerminal.getStrContent() + "</strContent>");
-		sbReturnContent.append("<dtStartTime>" + tempTerminal.getDtStartTime() + "</dtStartTime>");
-		sbReturnContent.append("<dtEndTime>" + tempTerminal.getDtEndTime() + "</dtEndTime>");
-		sbReturnContent.append("</ad>");
+		if (tempTerminal!=null) {
+			sbReturnContent.append("<ad>");
+			sbReturnContent.append("<strId>" + tempTerminal.getStrId() + "</strId>");
+			sbReturnContent.append("<strName>" + tempTerminal.getStrName() + "</strName>");
+			sbReturnContent.append("<intType>" + tempTerminal.getIntType() + "</intType>");
+			sbReturnContent.append("<strContent>" + tempTerminal.getStrContent() + "</strContent>");
+			sbReturnContent.append("<dtStartTime>" + tempTerminal.getDtStartTime() + "</dtStartTime>");
+			sbReturnContent.append("<dtEndTime>" + tempTerminal.getDtEndTime() + "</dtEndTime>");
+			sbReturnContent.append("</ad>");
+		}
 		return sbReturnContent;
 	}
 

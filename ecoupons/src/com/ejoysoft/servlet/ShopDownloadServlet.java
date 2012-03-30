@@ -97,7 +97,7 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 							}
 							
 								sbReturn.append(returnSbContent(globa, tempShop));
-								terminal2.addState2(strId, "t_bz_shop", vctAlerts.get(i).getStrDataId(), "add");
+//								terminal2.addState2(strId, "t_bz_shop", vctAlerts.get(i).getStrDataId(), "add");
 							// sbReturn.append(returnSbContent(tempShop,
 							// strImagAddr));
 
@@ -121,7 +121,7 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 							}
 							
 								sbReturn.append(returnSbContent(globa, tempShop));
-								terminal2.addState2(strId, "t_bz_shop", vctAlerts.get(i).getStrDataId(), "update");
+//								terminal2.addState2(strId, "t_bz_shop", vctAlerts.get(i).getStrDataId(), "update");
 						}
 					}
 					if (!flagUpdate)
@@ -142,7 +142,7 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 							sbReturn.append("<shop>");
 							sbReturn.append("<strId>" + vctAlerts.get(i).getStrDataId() + "</strId>");
 							sbReturn.append("</shop>");
-							terminal2.addState2(strId, "t_bz_shop", vctAlerts.get(i).getStrDataId(), "delete");
+//							terminal2.addState2(strId, "t_bz_shop", vctAlerts.get(i).getStrDataId(), "delete");
 						}
 					}
 					if (!flagDelete)
@@ -155,7 +155,7 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 			{
 				sbReturn.append("<return>update_error</return>");
 			}
-			if (!terminal2.updateState(strId, "t_bz_shop"))
+			if (!terminal2.updateState2(strId,"t_bz_shop"))
 			{
 				sbReturn.append("<return>terminal_error</return>");
 			}

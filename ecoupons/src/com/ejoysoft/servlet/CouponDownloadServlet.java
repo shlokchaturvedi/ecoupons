@@ -87,8 +87,10 @@ public class CouponDownloadServlet extends HttpServlet implements Servlet
 								
 								flagAdd = false;
 							}
-							sbReturn.append(returnSbContent(tempCoupon));
-							terminal2.addState2(strId, "t_bz_coupon", vctAlerts.get(i).getStrDataId(), "add");
+							if (returnSbContent(tempCoupon)!=null) {
+								sbReturn.append(returnSbContent(tempCoupon));
+//								terminal2.addState2(strId, "t_bz_coupon", vctAlerts.get(i).getStrDataId(), "add");						
+							}
 						}
 					}
 					if (!flagAdd)
@@ -106,8 +108,10 @@ public class CouponDownloadServlet extends HttpServlet implements Servlet
 								sbReturn.append("<operate>update</operate>");
 								flagUpdate = false;
 							}
-							sbReturn.append(returnSbContent(tempCoupon));
-							terminal2.addState2(strId, "t_bz_coupon", vctAlerts.get(i).getStrDataId(), "update");
+							if (returnSbContent(tempCoupon)!=null) {
+								sbReturn.append(returnSbContent(tempCoupon));
+//								terminal2.addState2(strId, "t_bz_coupon", vctAlerts.get(i).getStrDataId(), "update");							
+							}
 						}
 					}
 					if (!flagUpdate)
@@ -128,7 +132,7 @@ public class CouponDownloadServlet extends HttpServlet implements Servlet
 							sbReturn.append("<coupon>");
 							sbReturn.append("<strId>" + vctAlerts.get(i).getStrDataId() + "</strId>");
 							sbReturn.append("</coupon>");
-							terminal2.addState2(strId, "t_bz_coupon", vctAlerts.get(i).getStrDataId(), "delete");
+//							terminal2.addState2(strId, "t_bz_coupon", vctAlerts.get(i).getStrDataId(), "delete");
 
 						}
 					}
@@ -143,7 +147,7 @@ public class CouponDownloadServlet extends HttpServlet implements Servlet
 			{
 				sbReturn.append("<return>update_error</return>");
 			}
-			if (!terminal2.updateState(strId, "t_bz_coupon"))
+			if (!terminal2.updateState2(strId, "t_bz_coupon"))
 			{
 				sbReturn.append("<return>terminal_error</return>");
 			}
@@ -186,25 +190,27 @@ public class CouponDownloadServlet extends HttpServlet implements Servlet
 		// tempCoupon.getStrLargeImg());
 		// }
 		StringBuffer sbReturn = new StringBuffer();
-		sbReturn.append("<coupon>");
-		sbReturn.append("<strId>" + tempCoupon.getStrId() + "</strId>");
-		sbReturn.append("<strName>" + tempCoupon.getStrName() + "</strName>");
-		sbReturn.append("<dtActiveTime>" + tempCoupon.getDtActiveTime() + "</dtActiveTime>");
-		sbReturn.append("<dtExpireTime>" + tempCoupon.getDtExpireTime() + "</dtExpireTime>");
-		sbReturn.append("<strShopId>" + tempCoupon.getStrShopId() + "</strShopId>");
-		sbReturn.append("<intVip>" + tempCoupon.getIntVip() + "</intVip>");
-		sbReturn.append("<intRecommend>" + tempCoupon.getIntRecommend() + "</intRecommend>");
-		sbReturn.append("<flaPrice>" + tempCoupon.getFlaPrice() + "</flaPrice>");
-		sbReturn.append("<strSmallImg>" + tempCoupon.getStrSmallImg() + "</strSmallImg>");
-		// sbReturn.append("<strSmallImgContent>" + smallMageContent +
-		// "</strSmallImgContent>");
-		sbReturn.append("<strLargeImg>" + tempCoupon.getStrLargeImg() + "</strLargeImg>");
-		// sbReturn.append("<strLargeImgContent>" + LargeMageContent +
-		// "</strLargeImgContent>");
-		//sbReturn.append("<strPrintImg>" + tempCoupon.getStrPrintImg() + "</strPrintImg>");
-		sbReturn.append("<strInstruction>" + tempCoupon.getStrInstruction() + "</strInstruction>");
-		sbReturn.append("<strIntro>" + tempCoupon.getStrIntro() + "</strIntro>");
-		sbReturn.append("</coupon>");
+		if (tempCoupon!=null) {
+			sbReturn.append("<coupon>");
+			sbReturn.append("<strId>" + tempCoupon.getStrId() + "</strId>");
+			sbReturn.append("<strName>" + tempCoupon.getStrName() + "</strName>");
+			sbReturn.append("<dtActiveTime>" + tempCoupon.getDtActiveTime() + "</dtActiveTime>");
+			sbReturn.append("<dtExpireTime>" + tempCoupon.getDtExpireTime() + "</dtExpireTime>");
+			sbReturn.append("<strShopId>" + tempCoupon.getStrShopId() + "</strShopId>");
+			sbReturn.append("<intVip>" + tempCoupon.getIntVip() + "</intVip>");
+			sbReturn.append("<intRecommend>" + tempCoupon.getIntRecommend() + "</intRecommend>");
+			sbReturn.append("<flaPrice>" + tempCoupon.getFlaPrice() + "</flaPrice>");
+			sbReturn.append("<strSmallImg>" + tempCoupon.getStrSmallImg() + "</strSmallImg>");
+			// sbReturn.append("<strSmallImgContent>" + smallMageContent +
+			// "</strSmallImgContent>");
+			sbReturn.append("<strLargeImg>" + tempCoupon.getStrLargeImg() + "</strLargeImg>");
+			// sbReturn.append("<strLargeImgContent>" + LargeMageContent +
+			// "</strLargeImgContent>");
+			//sbReturn.append("<strPrintImg>" + tempCoupon.getStrPrintImg() + "</strPrintImg>");
+			sbReturn.append("<strInstruction>" + tempCoupon.getStrInstruction() + "</strInstruction>");
+			sbReturn.append("<strIntro>" + tempCoupon.getStrIntro() + "</strIntro>");
+			sbReturn.append("</coupon>");
+		}		
 		return sbReturn;
 	}
 
