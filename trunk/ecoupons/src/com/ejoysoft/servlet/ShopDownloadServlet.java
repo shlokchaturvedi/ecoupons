@@ -186,25 +186,27 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 		SysPara sysPara = new SysPara(globa);
 
 		StringBuffer sbReturn = new StringBuffer();
-		sbReturn.append("<shop>");
-		sbReturn.append("<strId>" + tempShop.getStrId() + "</strId>");
-		sbReturn.append("<strBizName>" + tempShop.getStrBizName() + "</strBizName>");
-		sbReturn.append("<strShopName>" + tempShop.getStrShopName() + "</strShopName>");
-		try
-		{
-			sbReturn.append("<strTrade>" + sysPara.show("where strid='" + tempShop.getStrTrade() + "'").getStrName() + "</strTrade>");
-		} catch (SQLException e)
-		{
-			sbReturn.append("<return>strTrade_error</return>");
-			e.printStackTrace();
-		}
-		sbReturn.append("<strAddr>" + tempShop.getStrAddr() + "</strAddr>");
-		sbReturn.append("<intSort>" + tempShop.getIntSort() + "</intSort>");
-		sbReturn.append("<strIntro>" + tempShop.getStrIntro() + "</strIntro>");
-		sbReturn.append("<strSmallImg>" + tempShop.getStrSmallImg() + "</strSmallImg>");
-		sbReturn.append("<strLargeImg>" + tempShop.getStrLargeImg() + "</strLargeImg>");
-		sbReturn.append("<intType>" + tempShop.getIntType() + "</intType>");
-		sbReturn.append("</shop>");
+		if (tempShop!=null) {
+			sbReturn.append("<shop>");
+			sbReturn.append("<strId>" + tempShop.getStrId() + "</strId>");
+			sbReturn.append("<strBizName>" + tempShop.getStrBizName() + "</strBizName>");
+			sbReturn.append("<strShopName>" + tempShop.getStrShopName() + "</strShopName>");
+			try
+			{
+				sbReturn.append("<strTrade>" + sysPara.show("where strid='" + tempShop.getStrTrade() + "'").getStrName() + "</strTrade>");
+			} catch (SQLException e)
+			{
+				sbReturn.append("<return>strTrade_error</return>");
+				e.printStackTrace();
+			}
+			sbReturn.append("<strAddr>" + tempShop.getStrAddr() + "</strAddr>");
+			sbReturn.append("<intSort>" + tempShop.getIntSort() + "</intSort>");
+			sbReturn.append("<strIntro>" + tempShop.getStrIntro() + "</strIntro>");
+			sbReturn.append("<strSmallImg>" + tempShop.getStrSmallImg() + "</strSmallImg>");
+			sbReturn.append("<strLargeImg>" + tempShop.getStrLargeImg() + "</strLargeImg>");
+			sbReturn.append("<intType>" + tempShop.getIntType() + "</intType>");
+			sbReturn.append("</shop>");
+		}		
 		return sbReturn;
 	}
 
