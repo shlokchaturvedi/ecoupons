@@ -89,8 +89,8 @@ function viewPrint()
     strimg = encodeURI(strimg);
 	var info = trim(frm.strIntro.value) ;
     info = encodeURI(info);
-	var instruction = trim(frm.strInstruction.value);
-    instruction = encodeURI(instruction);
+	var instruction = frm.strInstruction.value;
+    instruction = encodeURI(instruction).replace(" ", "&nbsp;");
     var couponCode="";
     if(strimg=="")
     {
