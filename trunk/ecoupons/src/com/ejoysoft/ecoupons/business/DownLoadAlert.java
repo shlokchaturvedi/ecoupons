@@ -181,62 +181,17 @@ public class DownLoadAlert
 	 * 
 	 * @return
 	 */
-	public boolean dealDataByTerminalId(String terminalId,String dealResult)
+	public boolean dealDataByTerminalId(String terminalId,String dealResult,String strDataType)
 	{
 		boolean result = false;
-		Vector<DownLoadAlert> vector = new Vector<DownLoadAlert>();
-		DownLoadAlert alert = new DownLoadAlert(globa);
-		vector = alert.list(" where strterminalid='"+terminalId+"' and intstate=2 ", 0, 0);
-		try {
-			db.getConnection().setAutoCommit(false);
-			if(vector!=null)
+		try {			
+			if(dealResult.equals("OK"))
 			{
-				if(dealResult.equals("OK"))
-				{
-					String strSql = "update "+strTableName+" set intstate=1 where strterminalid='"+terminalId+"' and intstate=2 ";
-					db.executeUpdate(strSql);
-				}
-				else if(dealResult.equals("NO"))
-				{
-					for(int i=0;i<vector.size();i++)
-					{
-						
-						DownLoadAlert thebean = vector.get(i);
-						String dataType = thebean.getStrDataType();
-						String dataId = thebean.getStrDataId();
-						String dataOpeTyp = thebean.getStrDataOpeType();
-						if(dataOpeTyp.equals("add"))
-						{
-							String strSql = "delete from "+strTableName+" where strdataid='"+dataId+"' and strdataopetype='update' and strterminalid='"+terminalId+"' and intstate=0 ";
-							db.executeUpdate(strSql);							
-							DownLoadAlert objAlert = alert.show(" where strdataid='"+dataId+"' and strterminalid='"+terminalId+"' and strdataopetype='delete' and intstate=0 ");
-							if(objAlert!=null)
-							{
-								String strSql2 = "delete from "+strTableName+" where strdataid='"+dataId+"' and strterminalid='"+terminalId+"' and( intstate=0 or intstate=2 )";
-								db.executeUpdate(strSql2);							
-							}								
-						}
-						else if (dataOpeTyp.equals("update")) {
-							String strSql = "delete from "+strTableName+" where strdataid='"+dataId+"' and strdataopetype='update' and strterminalid='"+terminalId+"' and intstate=0 ";
-							db.executeUpdate(strSql);							
-							DownLoadAlert objAlert = alert.show(" where strdataid='"+dataId+"' and strterminalid='"+terminalId+"' and strdataopetype='delete' and intstate=0 ");
-							if(objAlert!=null)
-							{
-								String strSql2 = "delete from "+strTableName+" where strdataid='"+dataId+"' and strterminalid='"+terminalId+"' and intstate=2 ";
-								db.executeUpdate(strSql2);							
-							}		
-						}
-									
-					}
-					String strSql = "update "+strTableName+" set intstate=0 where strterminalid='"+terminalId+"' and intstate=2 ";
-					db.executeUpdate(strSql);					
-					
-				}
+				String strSql = "update "+strTableName+" set intstate=1 where strdatatype='"+strDataType+"' and strterminalid='"+terminalId+"' and intstate=2 ";
+				db.executeUpdate(strSql);
 			}
-			db.commit();
+			result=true;
 		} catch (SQLException e) {
-			db.rollback();
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			result=false;
 		}
