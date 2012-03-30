@@ -92,9 +92,9 @@ function viewPrint()
     strimg = encodeURI(strimg);
 	var info = trim(frm.strIntro.value) ;
     info = encodeURI(info);
-	var instruction = trim(frm.strInstruction.value);
+	var instruction = frm.strInstruction.value;
 	var couponCode ="";
-    instruction = encodeURI(instruction);
+    instruction = encodeURI(instruction).replace(" ", "&nbsp;");
     if(parseFloat(trim(frm.flaPrice.value))>0)
     {
     	couponCode = "验证码：ABCDEFG";
