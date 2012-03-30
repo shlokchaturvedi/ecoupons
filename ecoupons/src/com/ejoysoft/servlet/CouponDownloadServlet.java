@@ -51,7 +51,7 @@ public class CouponDownloadServlet extends HttpServlet implements Servlet
 		String strId = terminal.getStrId();
 		if("OK".equals(strReturn)||"NO".equals(strReturn))
 		{
-			downLoadAlert.dealDataByTerminalId(strId, strReturn);
+			downLoadAlert.dealDataByTerminalId(strId, strReturn,"t_bz_coupon");
 //			this.destroy();
 			globa.closeCon();
 			return;

@@ -50,7 +50,7 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 		DownLoadAlert downLoadAlert = new DownLoadAlert(globa);
 		if("OK".equals(strReturn)||"NO".equals(strReturn))
 		{
-			downLoadAlert.dealDataByTerminalId(strId, strReturn);
+			downLoadAlert.dealDataByTerminalId(strId, strReturn,"t_bz_advertisement");
 //			this.destroy();
 			globa.closeCon();
 			return;

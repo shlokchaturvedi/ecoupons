@@ -58,7 +58,7 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 		DownLoadAlert downLoadAlert = new DownLoadAlert(globa);
 		if("OK".equals(strReturn)||"NO".equals(strReturn))
 		{
-			downLoadAlert.dealDataByTerminalId(strId, strReturn);
+			downLoadAlert.dealDataByTerminalId(strId, strReturn,"t_bz_shop");
 //			this.destroy();
 			globa.closeCon();
 			return;
