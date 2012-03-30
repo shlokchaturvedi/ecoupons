@@ -40,7 +40,7 @@ Coupon obj = new Coupon();
   <body>
   <form action="web/coupon_print.jsp" method=post id=frm >
   <input type=hidden name=code value="<%=couponCode%>" />
-   <table align="center" width="160" border=0> 
+   <table align="center" width="170" border=0> 
  	<tr>
  		<td>
  			<table align="center" width="100%"  height="520" >
@@ -57,7 +57,7 @@ Coupon obj = new Coupon();
 			   	<td>
 			   	  <table width=100%>	    
 				   <tr align="center">
-				   	<td><img src="../web/images/show_line.gif" width=160 height=5 /></td>
+				   	<td><img src="../web/images/show_line.gif" width=170 height=5 /></td>
 				   	</tr>
 				  </table>
 			   	</td>
@@ -74,7 +74,7 @@ Coupon obj = new Coupon();
 			   	<td>
 				<table width=100%>	    
 				   <tr align="center">
-				   	<td><img src="../web/images/show_line.gif" width=160 height=5 /></td>
+				   	<td><img src="../web/images/show_line.gif" width=170 height=5 /></td>
 				   	</tr>
 				  </table>
 				</td>
@@ -90,7 +90,7 @@ Coupon obj = new Coupon();
 					   		<%
 					   		for(int i=0;i<instructions.length;i++)
 					   		{
-					   			String result = obj.dealStrByBytes(instructions[i],20);
+					   			String result = obj.dealStrByBytes(instructions[i],25);
 					   			%>
 					   			<%=result%><br/>
 					   			<%
@@ -104,7 +104,7 @@ Coupon obj = new Coupon();
 			   	<td  align="center">
 				<table align="center">	    
 				   <tr>
-				   	<td align="center"><img src="../web/images/show_line.gif" width=160 height=5 /></td>
+				   	<td align="center"><img src="../web/images/show_line.gif" width=170 height=5 /></td>
 				   	</tr>
 				  </table>
 				</td>
@@ -122,7 +122,7 @@ Coupon obj = new Coupon();
 			    <td align="center" >
 				   <table align="center">	    
 				   <tr>
-					   	<td align=center><img src="../web/images/show_line.gif" width=160 height=5 /></td>
+					   	<td align=center><img src="../web/images/show_line.gif" width=170 height=5 /></td>
 				   	</tr>
 				  </table>
 				</td>
