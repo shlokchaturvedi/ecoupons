@@ -99,7 +99,7 @@ function viewPrint()
     {
     	couponCode = "验证码：ABCDEFG";
     }
-    window.open("printview.jsp?random="+ Math.random()+"&couponCode="+couponCode+"&couponName="+couponName+"&strIntro="+info+"&strInstruction="+instruction+"&strImg="+strimg, "", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,width=300,height=600,left=500,top=60"); //写成一行 
+    window.open("printview.jsp?random="+ Math.random()+"&couponCode="+couponCode+"&couponName="+couponName+"&strIntro="+info+"&strInstruction="+instruction+"&strImg="+strimg, "", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,width=280,height=600,left=500,top=60"); //写成一行 
 }  
 </script>
 </head>
