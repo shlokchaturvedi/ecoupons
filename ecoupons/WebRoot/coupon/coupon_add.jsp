@@ -81,6 +81,11 @@ function addTerminals()
 <!-- 显示打印预览-->
 function viewPrint()
 {
+	if(!isMoney(frm.flaPrice.value)) {
+        alert("请输入正确的价格格式！！！")
+        frm.flaPrice.focus();
+        return false;
+    }
     var couponName =trim(frm.strName.value);    
     couponName = encodeURI(couponName);
 	var strimg = trim(frm.strPrintImg.value);
@@ -88,8 +93,13 @@ function viewPrint()
 	var info = trim(frm.strIntro.value) ;
     info = encodeURI(info);
 	var instruction = trim(frm.strInstruction.value);
+	var couponCode ="";
     instruction = encodeURI(instruction);
-    window.open("printview.jsp?random="+ Math.random()+"&couponName="+couponName+"&strIntro="+info+"&strInstruction="+instruction+"&strImg="+strimg, "", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,width=300,height=600,left=500,top=60"); //写成一行 
+    if(trim(frm.flaprice.value)>0)
+    {
+    	couponCode = "验证码：ABCDEFG";
+    }
+    window.open("printview.jsp?random="+ Math.random()+"&couponCode="+couponCode+"&couponName="+couponName+"&strIntro="+info+"&strInstruction="+instruction+"&strImg="+strimg, "", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,width=300,height=600,left=500,top=60"); //写成一行 
 }  
 </script>
 </head>
