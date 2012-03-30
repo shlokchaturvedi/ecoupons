@@ -28,13 +28,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		tWhere +=" and  strSalesman='"+globa.userSession.getStrId()+"' ";
 	}
 	}
-	else{
+	else if("byNo".equals(ByFlag)){
 		if (!strName.equals("")) {
 			tWhere += " and StrMobileNo LIKE '" + strName + "%'";
 		}else if("代理员".equals(globa.userSession.getStrCssType())){
 			tWhere +=" and  strSalesman='"+globa.userSession.getStrId()+"' ";
-		}
-		
+		}		
+	}
+	else if("byCardNo".equals(ByFlag)){
+		if (!strName.equals("")) {
+			tWhere += " and strcardno like '%" + strName + "%'";
+		}else if("代理员".equals(globa.userSession.getStrCssType())){
+			tWhere +=" and  strSalesman='"+globa.userSession.getStrId()+"' ";
+		}		
 	}
 	tWhere += " ORDER BY dtCreateTime";
 	//记录总数
@@ -150,7 +156,7 @@ function del(){
 			  <select  id="byWhich" name="byWhich" class="sec2" >
 								<option <%if("byName".equals(ByFlag))out.print("selected"); %>  value="byName">用户名</option>
 								<option <%if("byNo".equals(ByFlag))out.print("selected"); %> value="byNo">手机号</option>
-								
+								<option <%if("byCardNo".equals(ByFlag))out.print("selected"); %> value="byCardNo">卡号</option>								
 							</select>
 			  <input name="strName" class="editbox4" value="<%=strName%>" size="10">
 			  &nbsp;&nbsp;&nbsp;&nbsp;
