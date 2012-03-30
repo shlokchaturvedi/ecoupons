@@ -115,12 +115,13 @@ public class CouponPrintServlet extends HttpServlet implements Servlet
 				        	sbReturn.append("<return>theprintcontent_erro</return>");	
 				        	break;
 						}
-					    if(i==allContents.length-1)
-					    {
-					    	sbReturn.append("<return>OK</return>");	
-					    }
-					}	
+					}
+					if (sbReturn.toString().indexOf("return") < 0) {
+						sbReturn.append("<return>OK</return>");	
+					}
 		        	db.closeCon();
+				} else {
+					sbReturn.append("<return>theprintcontentnull_erro</return>");	
 				}
 			}		
 			else {
