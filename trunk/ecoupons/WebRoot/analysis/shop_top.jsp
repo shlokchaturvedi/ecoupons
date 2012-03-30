@@ -11,6 +11,7 @@ if(!globa.userSession.hasRight("13015"))
 %>
 
 <%
+try{
     //初始化
     ShopTop obj=new ShopTop(globa);
    	String  bytime=ParamUtil.getString(request,"byTime");
@@ -416,4 +417,8 @@ function chkFrm()
 </table>
 </body>
 </html>
+<%}catch(Exception e)
+{
+e.printStackTrace();
+} %>
 <%@ include file="../include/jsp/footer.jsp"%>
