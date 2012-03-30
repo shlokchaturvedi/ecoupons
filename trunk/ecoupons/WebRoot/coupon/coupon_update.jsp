@@ -71,7 +71,7 @@ body,td,tr{font-size:9pt;}
     }
     function addTerminals()
     {
-        var terminals = window.showModalDialog("../terminal/terminals_select.jsp?random="+ Math.random(), "选择投放终端", "width=370,height=250,top=200,left=200,scrollbars=yes,status=yes"); //写成一行 
+        var terminals = window.showModalDialog("../terminal/terminals_select.jsp?flag=coupon&couponId="+<%=strId%>+"&random="+ Math.random(), "选择投放终端", "width=370,height=250,top=200,left=200,scrollbars=yes,status=yes"); //写成一行 
     	document.getElementById("strTerminals").value=terminals.substring(0,terminals.length-1);
     		  
     }
@@ -86,6 +86,10 @@ function viewPrint()
     info = encodeURI(info);
 	var instruction = trim(frm.strInstruction.value);
     instruction = encodeURI(instruction);
+    if(strimg=="")
+    {
+    	strimg="../coupon/images/"+"<%=obj0.getStrPrintImg()%>";
+    }
     window.open("printview.jsp?random="+ Math.random()+"&couponName="+couponName+"&strIntro="+info+"&strInstruction="+instruction+"&strImg="+strimg, "", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,width=300,height=600,left=500,top=60"); //写成一行 
 }  
 </script>
@@ -252,20 +256,13 @@ function viewPrint()
                  <%
                 if (obj0.getStrSmallImg().length() > 0) {
                 %>
-                  <img src="<%="images/" + obj0.getStrSmallImg()+"?random="+Math.random() %>" width=138 height=150 alt="小图片"/><br>
+                  <img src="<%="images/" + obj0.getStrSmallImg()+"?random="+Math.random() %>" width=<%=application.getAttribute("COUPON_SMALL_IMG_WIDTH") %> height=<%=application.getAttribute("COUPON_SMALL_IMG_HEIGHT") %> alt="小图片"/><br>
                 <%
                 }
-                %>  </td>  
+                %>    （大小：<%=application.getAttribute("COUPON_SMALL_IMG_WIDTH") %>*<%=application.getAttribute("COUPON_SMALL_IMG_HEIGHT") %>px，用于前台列表显示）
+                </td>  
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
-              </tr>
-               <tr >
-                 <td width="20%" height="30" align="right" class="left_txt2">&nbsp; </td>
-                 <td height="30" class="left_txt">&nbsp;</td> 
-                <td width="20%" height="30" class="left_txt">&nbsp;</td> 
-                 <td height="30" class="left_txt">
-            		     （大小：<%=application.getAttribute("COUPON_SMALL_IMG_WIDTH") %>*<%=application.getAttribute("COUPON_SMALL_IMG_HEIGHT") %>px，用于前台列表显示）
-                 </td>	
-              </tr>
+              </tr>               
               <tr >
                 <td height="30" align="right" class="left_txt2">大图片：</td>
                 <td>&nbsp;</td> 
@@ -274,11 +271,11 @@ function viewPrint()
                 <%
                 if (obj0.getStrLargeImg().length() > 0) {
                 %>
-                  <img alt="大图片" src="<%="images/" + obj0.getStrLargeImg()+"?random="+Math.random() %>" width=380 height=217 /><br>
+                  <img alt="大图片" src="<%="images/" + obj0.getStrLargeImg()+"?random="+Math.random() %>" width=<%=Integer.parseInt(application.getAttribute("COUPON_LARGE_IMG_WIDTH").toString())/2 %> height=<%=Integer.parseInt(application.getAttribute("COUPON_LARGE_IMG_HEIGHT").toString())/2%>/><br>
                 <%
                 }
-                %> 
-                </td>
+                %>   （大小：<%=application.getAttribute("COUPON_LARGE_IMG_WIDTH") %>*<%=application.getAttribute("COUPON_LARGE_IMG_HEIGHT") %>px，用于前台列表显示）
+                 </td>
               </tr> 
               <tr >
                 <td height="30" align="right" class="left_txt2">打印图：</td>
@@ -288,21 +285,13 @@ function viewPrint()
                 <%
                 if (obj0.getStrPrintImg()!=null && obj0.getStrPrintImg().length() > 0) {
                 %>
-                  <img alt="打印图" src="<%="images/" + obj0.getStrPrintImg()+"?random="+Math.random() %>" width=380 height=217 /><br>
+                  <img alt="打印图" src="<%="images/" + obj0.getStrPrintImg()+"?random="+Math.random() %>" width=<%=application.getAttribute("COUPON_PRINT_IMG_WIDTH") %> height=<%=application.getAttribute("COUPON_PRINT_IMG_HEIGHT") %> /><br>
                 <%
                 }
-                %> 
-                </td>
-              </tr> 
-              <tr >
-                 <td width="20%" height="30" align="right" class="left_txt2">&nbsp; </td>
-                 <td height="30" class="left_txt">&nbsp;</td> 
-                <td width="20%" height="30" class="left_txt">&nbsp;</td> 
-                 <td height="30" class="left_txt">
-            		   （ 大小：<%=application.getAttribute("COUPON_LARGE_IMG_WIDTH") %>*<%=application.getAttribute("COUPON_LARGE_IMG_HEIGHT") %>px，用于前台详细显示）
-                 </td>	
-              </tr>
+                %> 	   （ 大小：<%=application.getAttribute("COUPON_PRINT_IMG_WIDTH") %>*<%=application.getAttribute("COUPON_PRINT_IMG_HEIGHT") %>px，用于前台详细显示）
              
+                </td>
+              </tr>               
               <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">简&nbsp;&nbsp;&nbsp;&nbsp;介：</td>
                 <td width="3%">&nbsp;</td>

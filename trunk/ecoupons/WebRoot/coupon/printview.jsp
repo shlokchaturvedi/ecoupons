@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <%
 request.setCharacterEncoding("utf-8"); 
 String couponName = ParamUtil.getString(request,"couponName",""); 
-String couponCode = "ABCDEFG";
+String couponCode = ParamUtil.getString(request,"couponCode",""); 
 String strimg = ParamUtil.getString(request,"strImg","").replace("\\","/");
 String info = ParamUtil.getString(request,"strIntro","");
 String instruction = ParamUtil.getString(request,"strInstruction","").replace("\n","<br>");
