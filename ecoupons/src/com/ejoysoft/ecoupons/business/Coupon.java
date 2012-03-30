@@ -608,6 +608,51 @@ public class Coupon
 		}
 
 	}
+	public boolean isDoublebyteWord(String str){
+		  byte[] b;
+		  int temp;
+		  for (int i = 0; i < str.length(); i++) {
+		  b = str.substring(i, i + 1).getBytes();
+		  temp = b[0];
+		  if (temp > 0) {
+		  return false;
+		  }
+		  }
+		  return true;
+		 }
+
+	/*给字符串添加换行符，其中linepos是需要换行的位置，按字节算的*/ 
+
+	public String dealStrByBytes(String str,int linePos){
+	  String new_str="";
+	  int total_len=0;
+	  int brNum=0;
+	  for(int i=1;i<=str.length();i++)
+	  {
+	    if(isDoublebyteWord(str.substring(i-1,i)))
+	    {
+		    total_len+=2;
+		    if(total_len>=(linePos*(brNum+1)))
+		    {
+		    	new_str+=str.substring(i-1,i)+"\n";
+		    	brNum++;
+		    }else{
+		    	new_str+=str.substring(i-1,i);
+		    }    
+	   }else{
+		    total_len+=1;
+		    if(total_len>=(linePos*(brNum+1)))
+		    {
+			     new_str+=str.substring(i-1,i)+"\n";
+			     brNum++;     
+		    }else{
+		    	new_str+=str.substring(i-1,i);
+		    }
+	   }
+	   
+	  }
+	  return new_str.replace(" ","&nbsp;").replace("\n", "<br>");
+	 }
 
 	private Globa globa;
 	private DbConnect db;
