@@ -95,7 +95,7 @@ function viewPrint()
 	var instruction = trim(frm.strInstruction.value);
 	var couponCode ="";
     instruction = encodeURI(instruction);
-    if(trim(frm.flaprice.value)>0)
+    if(parseFloat(trim(frm.flaPrice.value))>0)
     {
     	couponCode = "验证码：ABCDEFG";
     }
