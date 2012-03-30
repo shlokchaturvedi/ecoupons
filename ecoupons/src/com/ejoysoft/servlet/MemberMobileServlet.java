@@ -74,7 +74,7 @@ private void execute(HttpServletRequest req, HttpServletResponse resp)throws Ser
 				if(strMobileNo!=null && !strMobileNo.trim().equals(""))
 				{
 					Member obj2 = new Member(globa);					
-					Member member1 = obj2.show(" where strmobileno='"+strMobileNo+"' and dtactivetime <='"+nowdate+"' and dtexpiretime >='"+nowdate+"' and strpwd<>'' and strpwd is not null");
+					Member member1 = obj2.show(" where strmobileno='"+strMobileNo+"' and dtactivetime <='"+nowdate+"' and dtexpiretime >='"+nowdate+"'");
 					if (member1!=null) {
 						sbReturn.append("<return>strmobileno_erro</return>");
 					}else
