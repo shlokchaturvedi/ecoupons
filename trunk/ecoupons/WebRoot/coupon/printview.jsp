@@ -3,6 +3,7 @@
 				com.ejoysoft.ecoupons.TerminalParamVector"%>
 <%@page import="java.net.UnknownHostException"%>
 <%@page import="com.ejoysoft.common.SendSms"%>
+<%@page import="com.ejoysoft.ecoupons.business.Coupon"%>
 <%@include file="../include/jsp/head.jsp"%>
 <%
 String path = request.getContextPath();
@@ -14,8 +15,10 @@ String couponName = ParamUtil.getString(request,"couponName","");
 String couponCode = ParamUtil.getString(request,"couponCode",""); 
 String strimg = ParamUtil.getString(request,"strImg","").replace("\\","/");
 String info = ParamUtil.getString(request,"strIntro","");
-String instruction = ParamUtil.getString(request,"strInstruction","").replace("\n","<br>");
+String instruction = ParamUtil.getString(request,"strInstruction"," ");
 System.out.println(instruction);
+String[] instructions = instruction.split("\n");
+Coupon obj = new Coupon();
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -37,10 +40,10 @@ System.out.println(instruction);
   <body>
   <form action="web/coupon_print.jsp" method=post id=frm >
   <input type=hidden name=code value="<%=couponCode%>" />
-   <table align="center" width=100% border=0> 
+   <table align="center" width="160" border=0> 
  	<tr>
  		<td>
- 			<table align="center" width="140"  height="520" >
+ 			<table align="center" width="100%"  height="520" >
  			   <tr>
 				   <td align="center">
 				    <table width=100%>	    
@@ -54,7 +57,7 @@ System.out.println(instruction);
 			   	<td>
 			   	  <table width=100%>	    
 				   <tr align="center">
-				   	<td><img src="../web/images/show_line.gif" width=240 height=5 /></td>
+				   	<td><img src="../web/images/show_line.gif" width=160 height=5 /></td>
 				   	</tr>
 				  </table>
 			   	</td>
@@ -62,8 +65,8 @@ System.out.println(instruction);
 			   <tr>
 			   	 <td>
 			   	 <table width=100%>	    
-				   <tr align="center">
-				   	<td><h2><%=info%></h2></td>
+				   <tr align="left">
+				   	<td><h3><%=obj.dealStrByBytes(info,16) %></h3></td>
 				   	</tr>
 				  </table></td>
 			   </tr>
@@ -71,7 +74,7 @@ System.out.println(instruction);
 			   	<td>
 				<table width=100%>	    
 				   <tr align="center">
-				   	<td><img src="../web/images/show_line.gif" width=240 height=5 /></td>
+				   	<td><img src="../web/images/show_line.gif" width=160 height=5 /></td>
 				   	</tr>
 				  </table>
 				</td>
@@ -83,7 +86,16 @@ System.out.println(instruction);
 					   		<td align="center"><h5>【使用说明】</h5></td>
 					   </tr> 
 					  <tr align="left">
-					   		<td><font size="2"><%=instruction.replace("\n","<br/>")%></font></td>
+					   		<td><font size="2">
+					   		<%
+					   		for(int i=0;i<instructions.length;i++)
+					   		{
+					   			String result = obj.dealStrByBytes(instructions[i],20);
+					   			%>
+					   			<%=result%><br/>
+					   			<%
+					   		}
+					   		%></font></td>
 					   </tr> 
 				    </table>
 			    </td>
@@ -92,7 +104,7 @@ System.out.println(instruction);
 			   	<td  align="center">
 				<table align="center">	    
 				   <tr>
-				   	<td align="center"><img src="../web/images/show_line.gif" width=240 height=5 /></td>
+				   	<td align="center"><img src="../web/images/show_line.gif" width=160 height=5 /></td>
 				   	</tr>
 				  </table>
 				</td>
@@ -101,7 +113,7 @@ System.out.println(instruction);
 			   	<td height=50 align="center" >
 				<table align="center">	    
 					   <tr>
-					   	<td align="center"><div id="txt"><h3><%=couponCode %></h3></div> </td>
+					   	<td align="center"><h4><%=couponCode %></h4></td>
 				   	</tr>
 				  </table>			    	  	
 			   	</td>
@@ -110,7 +122,7 @@ System.out.println(instruction);
 			    <td align="center" >
 				   <table align="center">	    
 				   <tr>
-					   	<td align=center><img src="../web/images/show_line.gif" width=240 height=5 /></td>
+					   	<td align=center><img src="../web/images/show_line.gif" width=160 height=5 /></td>
 				   	</tr>
 				  </table>
 				</td>
@@ -119,7 +131,7 @@ System.out.println(instruction);
 				   <td  align="center" >
 					   <table align="center">	    
 					   <tr>
-					   	<td align="center"> <h3><%=TerminalParamVector.getPrintBottom()%><br/><%=TerminalParamVector.getPhone()%></h3></td>
+					   	<td align="center"> <h4><%=TerminalParamVector.getPrintBottom()%><br/><%=TerminalParamVector.getPhone()%></h4></td>
 					   	</tr>
 					   </table>
 				  </td>
@@ -134,10 +146,8 @@ System.out.println(instruction);
 				   </td>
 			   </tr>
  			</table>
- 		</td>
- 	</tr> 	  
-   <tr>
-   
+ 	</td>
+ 	</tr>
    </table>
    </form> 
   </body>
