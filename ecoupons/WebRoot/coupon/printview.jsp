@@ -40,12 +40,12 @@ System.out.println(instruction);
    <table align="center" width=100% border=0> 
  	<tr>
  		<td>
- 			<table align="center" width=100%  height="520" >
+ 			<table align="center" width="140"  height="520" >
  			   <tr>
 				   <td align="center">
 				    <table width=100%>	    
 					   <tr align="center">
-					   	<td><img src="<%=strimg%>" width=75 height=69 /></td>
+					   	<td><img src="<%=strimg%>" width="<%=application.getAttribute("COUPON_PRINT_IMG_WIDTH") %>" height="<%=application.getAttribute("COUPON_PRINT_IMG_HEIGHT") %>" /></td>
 					   </tr> 
 				    </table>
 				   </td>
