@@ -36,27 +36,26 @@
 	{
 		String strCardNo = ParamUtil.getString(request, "strCardNo", "");
 		String strMobileNo = ParamUtil.getString(request, "strMobileNo", "");
-		if (strMobileNo != null&&!strMobileNo.equals(""))
+		if(strMobileNo != null&&obj.getCount(" where strcardno='" + strCardNo + "'") == 0)
 		{
-
-			if (obj.getCount(" where strcardno='" + strCardNo + "'") > 0)
+			if(!strMobileNo.equals("")&&obj.getCount(" where strMobileNo='"+strMobileNo+"'") >= 2)
 			{
-				globa.dispatch(false, strUrl, "会员卡号或者手机号已经存在, 请输入其他会员卡号或手机号，增加");
-			} else
+				
+				globa.dispatch(false, strUrl, "该手机号已经存在两个, 请输入其他手机号，增加");
+			}else
 			{
 				globa.dispatch(obj.add(), strUrl);
+				
 			}
-		} else
+			
+			
+		}else
 		{
-			if (obj.getCount(" where strcardno='"+strCardNo+"'") > 0)
-			{
-				globa.dispatch(false, strUrl, "会员卡号或者手机号已经存在, 请输入其他会员卡号或手机号，增加");
-			} else
-			{
-				globa.dispatch(obj.add(), strUrl);
-			}
-
+			globa.dispatch(false, strUrl, "会员卡号已经存在, 请输入其他会员卡号，增加");
+			
 		}
+		
+		
 	} else if (action.equals("addbatch")) {
 		String strStartCardNo = ParamUtil.getString(request, "strStartCardNo", "");
 		String strEndCardNo = ParamUtil.getString(request, "strEndCardNo", "");
