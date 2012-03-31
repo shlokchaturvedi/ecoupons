@@ -39,7 +39,7 @@
 		if (strMobileNo != null&&!strMobileNo.equals(""))
 		{
 
-			if (obj.getCount(" where strcardno='" + strCardNo + "' or strmobileno='" + strMobileNo + "'") > 0)
+			if (obj.getCount(" where strcardno='" + strCardNo + "'") > 0)
 			{
 				globa.dispatch(false, strUrl, "会员卡号或者手机号已经存在, 请输入其他会员卡号或手机号，增加");
 			} else
