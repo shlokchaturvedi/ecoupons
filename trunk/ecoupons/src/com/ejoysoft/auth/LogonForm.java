@@ -166,7 +166,7 @@ public final class LogonForm {
             }
             //System.out.println("-=-=-=-=-=-=-=-"+strCardNo);
             String strSql = "SELECT distinct * " +
-            		"from t_bz_member where (strcardno='" + strCardNo + "' or strmobileno='"+strCardNo+"' )and dtactivetime <=now() and dtexpiretime >=now()";
+            		"from t_bz_member where strcardno='" + strCardNo + "' and dtactivetime <=now() and dtexpiretime >=now()";
             rs = globa.db.executeQuery(strSql);
             if (!rs.next()) {
             	
