@@ -201,8 +201,12 @@
     
     <listener> 
         <listener-class>com.ejoysoft.ecoupons.TerminalStateListener</listener-class>
+    </listener>	
+    
+    <listener> 
+        <listener-class>com.ejoysoft.ecoupons.DownloadAlertClearListener</listener-class>
     </listener>
-	
+    
 	<session-config>
 		<session-timeout>180</session-timeout>
 	</session-config>
