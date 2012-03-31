@@ -73,9 +73,10 @@ private void execute(HttpServletRequest req, HttpServletResponse resp)throws Ser
 				String messege = "亲爱的乐购会员您好！您此次于券打机上操作的验证码为："+strCode+"，请及时使用！" + strWelcome;
 				if(strMobileNo!=null && !strMobileNo.trim().equals(""))
 				{
-					Member obj2 = new Member(globa);					
-					Member member1 = obj2.show(" where strmobileno='"+strMobileNo+"' and dtactivetime <='"+nowdate+"' and dtexpiretime >='"+nowdate+"'");
-					if (member1!=null) {
+					Member obj2 = new Member(globa);		
+					int standardNum = Integer.parseInt(String.valueOf(application.getAttribute("MOBILE_BIND_CARD_NUM")));
+					int mobileBindNum = obj2.getCount(" where strmobileno='"+strMobileNo+"' and dtactivetime <='"+nowdate+"' and dtexpiretime >='"+nowdate+"'");
+					if (mobileBindNum>=standardNum) {
 						sbReturn.append("<return>strmobileno_erro</return>");
 					}else
 					{
