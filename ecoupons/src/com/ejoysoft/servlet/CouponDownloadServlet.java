@@ -206,7 +206,7 @@ public class CouponDownloadServlet extends HttpServlet implements Servlet
 			sbReturn.append("<strLargeImg>" + tempCoupon.getStrLargeImg() + "</strLargeImg>");
 			// sbReturn.append("<strLargeImgContent>" + LargeMageContent +
 			// "</strLargeImgContent>");
-			//sbReturn.append("<strPrintImg>" + tempCoupon.getStrPrintImg() + "</strPrintImg>");
+			sbReturn.append("<strPrintImg>" + tempCoupon.getStrPrintImg() + "</strPrintImg>");
 			sbReturn.append("<strInstruction>" + tempCoupon.getStrInstruction() + "</strInstruction>");
 			sbReturn.append("<strIntro>" + tempCoupon.getStrIntro() + "</strIntro>");
 			sbReturn.append("</coupon>");
