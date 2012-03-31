@@ -170,7 +170,7 @@ public final class LogonForm {
             rs = globa.db.executeQuery(strSql);
             if (!rs.next()) {
             	
-                error = new String("会员不存在或已经失效，或者你输入的会员帐号和手机号码有误！");
+                error = new String("会员不存在或已经失效，或者你输入的会员帐号有误！");
                 value = -1;
             } else {
                 //用户相关信息
