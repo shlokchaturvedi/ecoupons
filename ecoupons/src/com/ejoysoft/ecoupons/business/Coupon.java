@@ -807,6 +807,10 @@ public class Coupon
 
 	public String getStrPrintImg()
 	{
+		if(strPrintImg==null)
+		{
+			strPrintImg="";
+		}		
 		return strPrintImg;
 	}
 
