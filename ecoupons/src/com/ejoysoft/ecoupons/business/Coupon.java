@@ -615,8 +615,20 @@ public class Coupon
 
 	}
 
+	private boolean IsUnicode(char word)
+    {
+        if ((word >= 0x4e00) && (word <= 0x9fbb))
+            return true;
+        else if ((word >= 0xff00) && (word <= 0xffef))
+            return true;
+        else
+            return false;
+    }
+	
 	public boolean isDoublebyteWord(String str)
 	{
+		
+		
 		byte[] b;
 		int temp;
 		for (int i = 0; i < str.length(); i++)
@@ -639,7 +651,7 @@ public class Coupon
 	public ArrayList< String> returnDealStrByBytes(String[] str, int linePos)
 	{
 
-ArrayList< String>listStrs=new ArrayList<String>();
+        ArrayList< String>listStrs=new ArrayList<String>();
 		for (int i = 0; i < str.length; i++)
 		{
 			String[] strTemps=dealStrByBytes(str[i], linePos).split("<br>");
@@ -652,7 +664,7 @@ ArrayList< String>listStrs=new ArrayList<String>();
 				listStrs.add(strTemps[j]);
 			}
 		}
- return  listStrs;
+      return  listStrs;
 
 	}
 
@@ -670,11 +682,11 @@ ArrayList< String>listStrs=new ArrayList<String>();
 			{
 
 				total_len += 2;
-				if (total_len >= (linePos * (brNum + 1)))
+				if (total_len >= linePos )
 				{
 					new_str += str.substring(i - 1, i) + "\n";
 					brNum++;
-
+					total_len=0;
 				} else
 				{
 					new_str += str.substring(i - 1, i);
@@ -683,10 +695,11 @@ ArrayList< String>listStrs=new ArrayList<String>();
 			{
 
 				total_len += 1;
-				if (total_len >= (linePos * (brNum + 1)))
+				if (total_len >= linePos)
 				{
 					new_str += str.substring(i - 1, i) + "\n";
 					brNum++;
+					total_len=0;
 				} else
 				{
 					new_str += str.substring(i - 1, i);
@@ -694,6 +707,30 @@ ArrayList< String>listStrs=new ArrayList<String>();
 			}
 		}
 		return new_str.replace(" ", "&nbsp;").replace("\n", "<br>");
+	}
+	public String dealStrByChars(String str, int linePos)
+	{
+		String new_str = "";
+		int total_len = 0;
+		int brNum = 0;
+		StringBuffer sBuffer=new StringBuffer();
+		char[]strChars=str.toCharArray();
+		for (int i = 0; i < strChars.length; i++)
+		{
+			if (IsUnicode(strChars[i]))
+				total_len += 2;
+			else total_len += 1;
+			sBuffer.append(strChars[i]);
+			if (total_len >= linePos )
+				{
+					//new_str += str.substring(i - 1, i) + "\n";
+					brNum++;
+					total_len=0;
+					sBuffer.append("<br>");
+				}
+			
+		}
+		return sBuffer.toString();
 	}
 
 	private Globa globa;
