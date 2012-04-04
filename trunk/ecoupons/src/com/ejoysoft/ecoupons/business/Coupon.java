@@ -3,6 +3,7 @@ package com.ejoysoft.ecoupons.business;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import com.ejoysoft.common.DbConnect;
@@ -32,8 +33,8 @@ public class Coupon
 	private String strInstruction;
 	private String strTerminals;// 投放终端编码
 	private String strDownLoadAlertTable = "t_bz_download_alert";
-	String strPrintTable="t_bz_coupon_print";
-	String strInputTable="t_bz_coupon_input";
+	String strPrintTable = "t_bz_coupon_print";
+	String strInputTable = "t_bz_coupon_input";
 	DownLoadAlert downLoadAlert;
 
 	/**
@@ -60,14 +61,16 @@ public class Coupon
 		}
 		return null;
 	}
-/**
- * 修改优惠券打印的数量，当打印一次增加一次。
- * @param couponId
- * @return
- */
+
+	/**
+	 * 修改优惠券打印的数量，当打印一次增加一次。
+	 * 
+	 * @param couponId
+	 * @return
+	 */
 	public boolean updateIntPrint(String couponId)
 	{
-		String strSql = "update "+strTableName+" set intprint=intprint+1 where strid='" + couponId + "'";
+		String strSql = "update " + strTableName + " set intprint=intprint+1 where strid='" + couponId + "'";
 		try
 		{
 			if (db.executeUpdate(strSql) > 0)
@@ -101,7 +104,7 @@ public class Coupon
 			}
 			String[] strDbTerminalIds = strDbTerminalId.split(",");// 得到在修改时丢弃的终端id，增加时选中1、2、3、4但是修改时选中3、4，此时我们将得到1、2
 
-//			System.out.println(strDbTerminalId + "未被选中");
+			// System.out.println(strDbTerminalId + "未被选中");
 			String strSql = "update  " + strTableName + "  SET dtActiveTime = ?, ";
 			db.setAutoCommit(false);
 			if (this.strSmallImg != null && this.strSmallImg.length() > 0)
@@ -116,7 +119,7 @@ public class Coupon
 			{
 				strSql += "strPrintImg = '" + strPrintImg + "',";
 			}
-			
+
 			strSql += " strName = ?, strShopId = ?,strTerminalIds=?,  " + "dtExpireTime = ?,intVip=?,intRecommend=?,flaPrice=?,intPrintLimit=?"
 					+ ",strInstruction=?,strIntro=?  WHERE strId=? ";
 
@@ -135,30 +138,31 @@ public class Coupon
 			db.setString(12, strId);
 			if (db.executeUpdate() > 0)
 			{
-				//修改couponprint表中的终端字段  当优惠券修改的时候
-				String strSqlPrint="update "+strPrintTable+" set strterminalids='"+getTerminalIdsByNames(strTerminals)+"' where strcouponid='"+strId+"'";
+				// 修改couponprint表中的终端字段 当优惠券修改的时候
+				String strSqlPrint = "update " + strPrintTable + " set strterminalids='" + getTerminalIdsByNames(strTerminals)
+						+ "' where strcouponid='" + strId + "'";
 				db.executeUpdate(strSqlPrint);
-				String strSqlInput="update "+strInputTable+" set strshopid='"+strShopId+"' where strcouponid='"+strId+"'";
+				String strSqlInput = "update " + strInputTable + " set strshopid='" + strShopId + "' where strcouponid='" + strId + "'";
 				db.executeUpdate(strSqlInput);
 				// 如果丢弃的终端已处理就增加delete语句，如果没有处理，直接删除
 				for (int i = 0; i < strDbTerminalIds.length; i++)
 				{
-					if(strDbTerminalIds[i] !=null && !strDbTerminalIds[i].equals(""))
+					if (strDbTerminalIds[i] != null && !strDbTerminalIds[i].equals(""))
 					{
-						strSql2 = "delete from " + strDownLoadAlertTable + " where (intstate=0 or intstate=2) and strterminalid='" + strDbTerminalIds[i] + "' and strdataid='"
-								+ strId + "'";
+						strSql2 = "delete from " + strDownLoadAlertTable + " where (intstate=0 or intstate=2) and strterminalid='"
+								+ strDbTerminalIds[i] + "' and strdataid='" + strId + "'";
 						db.executeUpdate(strSql2);
-						strSql2 = "insert into " + strDownLoadAlertTable + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) " + "values ("
-								 + UID.getID() + ",'" + strDbTerminalIds[i] + "','" + strTableName + "','" + strId + "','delete',0) ";
+						strSql2 = "insert into " + strDownLoadAlertTable + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) "
+								+ "values (" + UID.getID() + ",'" + strDbTerminalIds[i] + "','" + strTableName + "','" + strId + "','delete',0) ";
 						db.executeUpdate(strSql2);
 					}
 				}
 				// 对没有丢弃即选中的终端如果状态为1的话就增加update语句，如果没有的就不操作
-				
+
 				for (int i = 0; i < TerminalIds.length; i++)
 				{
-					strSql2 = "delete from " + strDownLoadAlertTable + " where (intstate=0 or intstate=2) and strterminalid='" + TerminalIds[i] + "' and strdataid='"
-					+ strId + "'";
+					strSql2 = "delete from " + strDownLoadAlertTable + " where (intstate=0 or intstate=2) and strterminalid='" + TerminalIds[i]
+							+ "' and strdataid='" + strId + "'";
 					db.executeUpdate(strSql2);
 					strSql2 = "insert into " + strDownLoadAlertTable + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) "
 							+ "values (" + UID.getID() + ",'" + TerminalIds[i] + "','" + strTableName + "','" + strId + "','update',0) ";
@@ -180,7 +184,7 @@ public class Coupon
 			return false;
 		}
 	}
-	
+
 	/**
 	 * 修改优惠券过期时间
 	 */
@@ -190,25 +194,27 @@ public class Coupon
 		try
 		{
 			db.getConnection().setAutoCommit(false);
-			String strSql = "update  " + strTableName + "  SET dtExpireTime = '"+dtExpireTime+"'   WHERE strId='"+strId+"' ";
+			String strSql = "update  " + strTableName + "  SET dtExpireTime = '" + dtExpireTime + "'   WHERE strId='" + strId + "' ";
 			if (db.executeUpdate(strSql) > 0)
 			{
 				DownLoadAlert alert = new DownLoadAlert(globa);
-		        Vector<DownLoadAlert> vctAlerts = alert.list(" where strdataid='"+strId+"'",0,0);
-		        for(int i=0;i<vctAlerts.size();i++)
-		        {
-	        		DownLoadAlert alert2 = vctAlerts.get(i);
-	        		if(alert2.getIntState().equals("1") && alert2.getStrDataOpeType().equals("add"))
-	        		{
-	        			int  alert3 = alert.getCount(" where strterminalid='"+alert2.getStrTerminalId()+"' and strdataopetype='update' and intstate=0");
-	        			if(alert3==0)
-	        			{
-	        				String sql2 ="insert into " + strDownLoadAlertTable + " (strid,strterminalid,strdatatype,strdataid,strdataopetype,intstate) "
-	              		     + "values (" + UID.getID() + ",'" + alert2.getStrTerminalId()+ "','" + strTableName + "','" + alert2.getStrDataId() + "','update',0)";
-	              		    db.executeUpdate(sql2);
-	        			}
-	        		}        		
-		        }
+				Vector<DownLoadAlert> vctAlerts = alert.list(" where strdataid='" + strId + "'", 0, 0);
+				for (int i = 0; i < vctAlerts.size(); i++)
+				{
+					DownLoadAlert alert2 = vctAlerts.get(i);
+					if (alert2.getIntState().equals("1") && alert2.getStrDataOpeType().equals("add"))
+					{
+						int alert3 = alert.getCount(" where strterminalid='" + alert2.getStrTerminalId()
+								+ "' and strdataopetype='update' and intstate=0");
+						if (alert3 == 0)
+						{
+							String sql2 = "insert into " + strDownLoadAlertTable
+									+ " (strid,strterminalid,strdatatype,strdataid,strdataopetype,intstate) " + "values (" + UID.getID() + ",'"
+									+ alert2.getStrTerminalId() + "','" + strTableName + "','" + alert2.getStrDataId() + "','update',0)";
+							db.executeUpdate(sql2);
+						}
+					}
+				}
 				db.commit();
 				Globa.logger0("修改优惠券过期时间", globa.loginName, globa.loginIp, strSql, "优惠券打印", "");
 				return true;
@@ -253,7 +259,7 @@ public class Coupon
 			db.setInt(9, intRecommend);
 			db.setFloat(10, flaPrice);
 			db.setInt(11, intPrintLimit);
-			//db.setString(12, strPrintImg);
+			// db.setString(12, strPrintImg);
 			db.setString(12, strLargeImg);
 			db.setString(13, strUserName);
 			db.setString(14, com.ejoysoft.common.Format.getDateTime());
@@ -263,7 +269,7 @@ public class Coupon
 			db.setString(18, strPrintImg);
 			if (db.executeUpdate() > 0)
 			{
-				
+
 				if (strTerminals != null && strTerminals != "")
 				{
 					String[] strTerminalId = getTerminalIdsByNames(strTerminals).split(",");
@@ -311,7 +317,7 @@ public class Coupon
 			db.setAutoCommit(false);
 			String sql = "delete from " + strTableName + "  where strId =" + where;
 			db.executeUpdate(sql);
-			String strSqlPrint="delete from "+strPrintTable+" where strcouponid='"+strId+"'";
+			String strSqlPrint = "delete from " + strPrintTable + " where strcouponid='" + strId + "'";
 			db.executeUpdate(strSqlPrint);
 			if (strTerminals != null && strTerminals != "")
 			{
@@ -327,7 +333,7 @@ public class Coupon
 				}
 			}
 			db.commit();
-			//db.setAutoCommit(true);
+			// db.setAutoCommit(true);
 			Globa.logger0("删除优惠券信息", globa.loginName, globa.loginIp, sql, "优惠券管理", globa.unitCode);
 			Globa.logger0("删除优惠券信息时，删除下载提醒表中的优惠券信息", globa.loginName, globa.loginIp, strSql2, "优惠券管理", globa.unitCode);
 			return true;
@@ -580,8 +586,8 @@ public class Coupon
 			theBean.setStrShopId(rs.getString("strShopId"));
 			theBean.setStrTerminals(getTerminalNamesByIds(rs.getString("strTerminalIds")));
 			theBean.setStrTerminalIds(rs.getString("strTerminalIds"));
-            theBean.setStrInstruction(rs.getString("strInstruction"));
-            theBean.setStrIntro(rs.getString("strIntro"));
+			theBean.setStrInstruction(rs.getString("strInstruction"));
+			theBean.setStrIntro(rs.getString("strIntro"));
 			theBean.setStrName(rs.getString("strName"));
 			theBean.setStrSmallImg(rs.getString("strSmallImg"));
 		} catch (Exception e)
@@ -608,51 +614,87 @@ public class Coupon
 		}
 
 	}
-	public boolean isDoublebyteWord(String str){
-		  byte[] b;
-		  int temp;
-		  for (int i = 0; i < str.length(); i++) {
-		  b = str.substring(i, i + 1).getBytes();
-		  temp = b[0];
-		  if (temp > 0) {
-		  return false;
-		  }
-		  }
-		  return true;
-		 }
 
-	/*给字符串添加换行符，其中linepos是需要换行的位置，按字节算的*/ 
+	public boolean isDoublebyteWord(String str)
+	{
+		byte[] b;
+		int temp;
+		for (int i = 0; i < str.length(); i++)
+		{
+			b = str.substring(i, i + 1).getBytes();
+			temp = b[0];
+			if (temp > 0)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+/**
+ * 将dealStrByBytes方法处理的结果封装成一个数组返回给调用者
+ * @param str
+ * @param linePos
+ * @return
+ */
+	public ArrayList< String> returnDealStrByBytes(String[] str, int linePos)
+	{
 
-	public String dealStrByBytes(String str,int linePos){
-	  String new_str="";
-	  int total_len=0;
-	  int brNum=0;
-	  for(int i=1;i<=str.length();i++)
-	  {
-	    if(isDoublebyteWord(str.substring(i-1,i)))
-	    {
-		    total_len+=2;
-		    if(total_len>=(linePos*(brNum+1)))
-		    {
-		    	new_str+=str.substring(i-1,i)+"\n";
-		    	brNum++;
-		    }else{
-		    	new_str+=str.substring(i-1,i);
-		    }    
-	   }else{
-		    total_len+=1;
-		    if(total_len>=(linePos*(brNum+1)))
-		    {
-			     new_str+=str.substring(i-1,i)+"\n";
-			     brNum++;     
-		    }else{
-		    	new_str+=str.substring(i-1,i);
-		    }
-	   }
-	   
-	  }
-	  return new_str.replace(" ","&nbsp;").replace("\n", "<br>");
-	 }
+ArrayList< String>listStrs=new ArrayList<String>();
+		for (int i = 0; i < str.length; i++)
+		{
+			String[] strTemps=dealStrByBytes(str[i], linePos).split("<br>");
+			for (int j = 0; j < strTemps.length; j++)
+			{
+				if (listStrs.size()>14)
+				{
+					return  listStrs;
+				}
+				listStrs.add(strTemps[j]);
+			}
+		}
+ return  listStrs;
+
+	}
+
+	/* 给字符串添加换行符，其中linepos是需要换行的位置，按字节算的 */
+
+	public String dealStrByBytes(String str, int linePos)
+	{
+		String new_str = "";
+		int total_len = 0;
+		int brNum = 0;
+
+		for (int i = 1; i <= str.length(); i++)
+		{
+			if (isDoublebyteWord(str.substring(i - 1, i)))
+			{
+
+				total_len += 2;
+				if (total_len >= (linePos * (brNum + 1)))
+				{
+					new_str += str.substring(i - 1, i) + "\n";
+					brNum++;
+
+				} else
+				{
+					new_str += str.substring(i - 1, i);
+				}
+			} else
+			{
+
+				total_len += 1;
+				if (total_len >= (linePos * (brNum + 1)))
+				{
+					new_str += str.substring(i - 1, i) + "\n";
+					brNum++;
+				} else
+				{
+					new_str += str.substring(i - 1, i);
+				}
+			}
+		}
+		return new_str.replace(" ", "&nbsp;").replace("\n", "<br>");
+	}
 
 	private Globa globa;
 	private DbConnect db;
@@ -701,7 +743,7 @@ public class Coupon
 	{
 		if (!dtActiveTime.equals(null) && !dtActiveTime.equals(""))
 		{
-			return dtActiveTime.substring(0,10);
+			return dtActiveTime.substring(0, 10);
 		}
 		return dtActiveTime;
 	}
@@ -715,7 +757,7 @@ public class Coupon
 	{
 		if (!dtExpireTime.equals(null) && !dtExpireTime.equals(""))
 		{
-			return dtExpireTime.substring(0,10);
+			return dtExpireTime.substring(0, 10);
 		}
 		return dtExpireTime;
 	}
@@ -807,10 +849,10 @@ public class Coupon
 
 	public String getStrPrintImg()
 	{
-		if(strPrintImg==null)
+		if (strPrintImg == null)
 		{
-			strPrintImg="";
-		}		
+			strPrintImg = "";
+		}
 		return strPrintImg;
 	}
 
@@ -831,9 +873,9 @@ public class Coupon
 
 	public String getDtCreateTime()
 	{
-		if (dtCreateTime != null&&dtCreateTime.length()>3)
+		if (dtCreateTime != null && dtCreateTime.length() > 3)
 		{
-			return dtCreateTime.substring(0, dtCreateTime.length()-2);
+			return dtCreateTime.substring(0, dtCreateTime.length() - 2);
 
 		} else
 		{
@@ -865,18 +907,22 @@ public class Coupon
 	{
 		this.intPrint = intPrint;
 	}
+
 	public String getStrIntro()
 	{
 		return strIntro;
 	}
+
 	public void setStrIntro(String strIntro)
 	{
 		this.strIntro = strIntro;
 	}
+
 	public String getStrInstruction()
 	{
 		return strInstruction;
 	}
+
 	public void setStrInstruction(String strInstruction)
 	{
 		this.strInstruction = strInstruction;

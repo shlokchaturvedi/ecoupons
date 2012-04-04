@@ -201,10 +201,34 @@ function chkFrm()
 			  	<td height=50 align="center" >
 			   		<table align="center">	    
 					   <tr>
-					   		<td align="center"><h5>【使用说明】</h5></td>
+					   		<td align="center"></td>
 					   </tr> 
 					  <tr align="left">
-					   		<td><font size="2"><%=instruction.replace("\n","<br/>")%></font></td>
+					   		<td><font size="2">
+					   		<%
+					   		Coupon obj = new Coupon();
+					   		ArrayList< String> strInfos=obj.returnDealStrByBytes(instruction.split("\n"),26);
+					   		
+					   		if(strInfos.size()<14){
+					   		for(int i=0;i<strInfos.size();i++)
+					   		{
+					   			
+					   			%>
+					   			<%=strInfos.get(i)%><br/>
+					   			<%
+					   		}}
+					   		else{
+					   			
+					   			for(int i=0;i<14;i++)
+						   		{
+						   			
+						   			%>
+						   			<%=strInfos.get(i)%><br/>
+						   			<%
+						   		}
+					   		}
+					   		%>
+					   		</font></td>
 					   </tr> 
 				    </table>
 			    </td>

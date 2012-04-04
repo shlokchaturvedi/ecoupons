@@ -64,7 +64,7 @@ Coupon obj = new Coupon();
 			   </tr>  
 			   <tr>
 			   	 <td>
-			   	 <table width=100%>	    
+			   	 <table width=100% >	    
 				   <tr align="left">
 				   	<td><h3><%=obj.dealStrByBytes(info,16) %></h3></td>
 				   	</tr>
@@ -83,17 +83,30 @@ Coupon obj = new Coupon();
 			  	<td height=50 align="center" >
 			   		<table align="center">	    
 					   <tr>
-					   		<td align="center"><h5>【使用说明】</h5></td>
+					   		<td align="center"></td>
 					   </tr> 
 					  <tr align="left">
 					   		<td><font size="2">
 					   		<%
-					   		for(int i=0;i<instructions.length;i++)
+					   		ArrayList< String> strInfos=obj.returnDealStrByBytes(instructions,26);
+					   		
+					   		if(strInfos.size()<14){
+					   		for(int i=0;i<strInfos.size();i++)
 					   		{
-					   			String result = obj.dealStrByBytes(instructions[i],25);
+					   			
 					   			%>
-					   			<%=result%><br/>
+					   			<%=strInfos.get(i)%><br/>
 					   			<%
+					   		}}
+					   		else{
+					   			
+					   			for(int i=0;i<14;i++)
+						   		{
+						   			
+						   			%>
+						   			<%=strInfos.get(i)%><br/>
+						   			<%
+						   		}
 					   		}
 					   		%></font></td>
 					   </tr> 
