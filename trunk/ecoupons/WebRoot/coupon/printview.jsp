@@ -16,7 +16,7 @@ String couponCode = ParamUtil.getString(request,"couponCode","");
 String strimg = ParamUtil.getString(request,"strImg","").replace("\\","/");
 String info = ParamUtil.getString(request,"strIntro","");
 String instruction = ParamUtil.getString(request,"strInstruction"," ");
-System.out.println(instruction);
+//System.out.println(instruction);
 String[] instructions = instruction.split("\n");
 Coupon obj = new Coupon();
 %>
@@ -88,7 +88,7 @@ Coupon obj = new Coupon();
 					  <tr align="left">
 					   		<td><font size="2">
 					   		<%
-					   		ArrayList< String> strInfos=obj.returnDealStrByBytes(instructions,26);
+					   		ArrayList< String> strInfos=obj.returnDealStrByBytes(instructions,25);
 					   		
 					   		if(strInfos.size()<14){
 					   		for(int i=0;i<strInfos.size();i++)
