@@ -189,4 +189,26 @@ public class ApacheUpload {
         FileItem fi = (FileItem)this.files.get(fileIndex);
         return (int) fi.getSize();
     }
+    /**
+     * 验证正确的图片格式
+     * .jpg .png .gif
+     * @param strName
+     * @return
+     */
+    	public boolean isPic(String... strName)
+    	{
+    		String[] strTemp = strName;
+    		if (strTemp != null)
+    		{
+    			for (int i = 0; i < strTemp.length; i++)
+    			{
+    				if (!".jpg".equals(strTemp[i].toLowerCase()) &&! ".png".equals(strTemp[i].toLowerCase())&&! ".gif".equals(strTemp[i].toLowerCase()))
+    				{
+    					return false;
+    				}
+    			}
+    		}
+    		return true;
+
+    	}
 }
