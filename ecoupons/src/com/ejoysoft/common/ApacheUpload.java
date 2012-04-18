@@ -166,7 +166,7 @@ public class ApacheUpload {
      * @return 对象值，如果不存在返回""
      */
     public String getString(String fieldName) {
-   		return this.fields.getProperty(fieldName, "").replace("<", "&lt").replace(";", "；");
+   		return this.fields.getProperty(fieldName, "").replace("<", "&lt").replace(";", "；").replace("'", "’");
     }
 
     /**
