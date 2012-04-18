@@ -37,6 +37,16 @@
 	else
 	{
 		ApacheUpload au = new ApacheUpload(request);
+		if (au.getFileName(0).length()>0 && !au.isPic(au.getFileExpName(0)))
+		{
+			globa.dispatch(false, strUrl, "请选择正确的小图格式如.jpg/.png/.gif,操作");
+			return;
+		}
+		if (au.getFileName(1).length()>0 && !au.isPic(au.getFileExpName(1)))
+		{
+			globa.dispatch(false, strUrl, "请选择正确的大图格式如.jpg/.png/.gif,操作");
+			return;
+		}		
 		action = au.getString(Constants.ACTION_TYPE);
 		//上传文件
 

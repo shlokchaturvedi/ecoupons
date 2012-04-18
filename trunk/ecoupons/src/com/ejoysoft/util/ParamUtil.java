@@ -27,7 +27,7 @@ public class ParamUtil
 		String s1 = request.getParameter(s);
 		if (s1 != null && !s1.equals(""))
 		{
-				return s1.replace("<", "*").replace("/>", "*").replace("</", "*").replace(">", "*");
+				return s1.replace("<", "*").replace("/>", "*").replace("</", "*").replace(">", "*").replace(",", "，");
 		}
 
 		return null;
