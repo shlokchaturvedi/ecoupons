@@ -49,7 +49,7 @@ eval("document.getElementById('hot_"+index+"').style.display='none'");
       <img src="images/txwb.gif"/><a href="http://t.qq.com/fyjt2010" target="_target"> 腾讯收听&nbsp;</a> 
       <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=307075831&site=qq&menu=yes"><img border="0" src="images/kf.gif" alt="点击这里给我发消息" title="点击这里给我发消息" />客服在线</a>
       	电话:4001-868-968&nbsp;
-      <a href="javascript:window.external.AddFavorite(location.href, document.title);" >加入收藏</a>
+      <a href="javascript:window.external.AddFavorite(document.location.href.replace('top','index'), document.title);" >加入收藏</a>
       </div>
      <div class="logo_img"><img src="images/logo.jpg"/></div>
     <div class="tab"> 
