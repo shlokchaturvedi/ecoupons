@@ -70,6 +70,26 @@ public class Member
 	}
 
 	/**
+	 * 根据手机号码修改会员密码信息
+	 */
+	public boolean updatePwdByPhone(String strPwd,String Phone)
+	{
+		try
+		{
+			String strSql = "UPDATE  " + strTableName + "  SET strpwd=?  WHERE strMobileNo=? ";
+			db.prepareStatement(strSql);
+			db.setString(1, strPwd);
+			db.setString(2, Phone);
+			db.executeUpdate();
+			Globa.logger0("修改会员密码", globa.loginName, globa.loginIp, strSql, "会员管理", "");
+			return true;
+		} catch (Exception e)
+		{
+			System.out.println("修改会员密码时出错：" + e);
+			return false;
+		}
+	}
+	/**
 	 * 修改会员密码信息
 	 */
 	public boolean updatePwd(String strPwd,String tStrId)
