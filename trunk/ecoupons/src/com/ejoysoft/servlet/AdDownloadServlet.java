@@ -43,117 +43,40 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 		// TODO Auto-generated method stub
 		HashMap<String, Terminal> hmTerminal = Terminal.hmTerminal;
 		String strTerminalNo = req.getParameter("strTerminalNo");
+//		strTerminalNo = "0004";
 		Terminal terminal = hmTerminal.get(strTerminalNo);
 		String strId = terminal.getStrId();
-		String strReturn = req.getParameter("strReturn");
+//		System.err.println(strId+"dddddddddddddddd");
 		Globa globa = new Globa();
-		DownLoadAlert downLoadAlert = new DownLoadAlert(globa);
-		if("OK".equals(strReturn)||"NO".equals(strReturn))
-		{
-			downLoadAlert.dealDataByTerminalId(strId, strReturn,"t_bz_advertisement");
-//			this.destroy();
-			globa.closeCon();
-			return;
-		}
 		StringBuffer sbReturn = new StringBuffer("<?xml version='1.0' encoding='utf-8'?> ");
-		try
-		{
-			req.setCharacterEncoding("utf-8");
-		} catch (UnsupportedEncodingException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			sbReturn.append("<return>error</return>");
-			resp.getWriter().print(sbReturn.toString());
-		}
-		resp.setCharacterEncoding("utf-8");
-//		String strTerminalNo = "002";
-//		String strReturn = "OK";
-		Terminal terminal2 = new Terminal(globa);// 用于刷新终端状态
-		
+		req.setCharacterEncoding("utf-8");		
+		resp.setCharacterEncoding("utf-8");		
 		try
 		{
 			if (terminal != null)
 			{
-				Vector<DownLoadAlert> vctAlerts = new Vector<DownLoadAlert>();
-				String strWhere = "where strDataType='t_bz_advertisement' and (intState=0 or intState=2) and strTerminalId='" + strId + "'";
-				Terminal tempTerminal = new Terminal();
-				vctAlerts = downLoadAlert.list(strWhere, 0, 0);
-				boolean flagAdd = true;
-				boolean flagUpdate = true;
-				boolean flagDelete = true;
-
+				Terminal objAd = new Terminal(globa);
+				Terminal tempAd = new Terminal();
+				Vector<Terminal> vctAd = new Vector<Terminal>();
+				vctAd = objAd.listAd(" where strterminalids like '%"+strId+"%'", 0, 0);
 				sbReturn.append("<info>");
-				if (vctAlerts.size() > 0)
+				if (vctAd!=null && vctAd.size() > 0)
 				{
-					for (int i = 0; i < vctAlerts.size(); i++)
+					sbReturn.append("<ads>");
+					for (int i = 0; i < vctAd.size(); i++)
 					{
-						tempTerminal = terminal2.showAd("where strid='" + vctAlerts.get(i).getStrDataId() + "'");
-						if ("add".equals(vctAlerts.get(i).getStrDataOpeType()))
+						tempAd = vctAd.get(i);
+						if (tempAd!=null)
 						{
-							if (flagAdd)
-							{
-								sbReturn.append("<ads>");
-								sbReturn.append("<operate>add</operate>");
-								flagAdd = false;
-							}
-							sbReturn.append(returnSbContent(tempTerminal));
-//							terminal2.addState2(strId, "t_bz_advertisement", vctAlerts.get(i).getStrDataId(), "add");
+							sbReturn.append(returnSbContent(tempAd));
 						}
 					}
-					if (!flagAdd)
-					{
-						sbReturn.append("</ads>");
-					}
-					for (int i = 0; i < vctAlerts.size(); i++)
-					{
-						tempTerminal = terminal2.showAd("where strid='" + vctAlerts.get(i).getStrDataId() + "'");
-						if ("update".equals(vctAlerts.get(i).getStrDataOpeType()))
-						{
-							if (flagUpdate)
-							{
-								sbReturn.append("<ads>");
-								sbReturn.append("<operate>update</operate>");
-								flagUpdate = false;
-							}
-							sbReturn.append(returnSbContent(tempTerminal));
-//							terminal2.addState2(strId, "t_bz_advertisement", vctAlerts.get(i).getStrDataId(), "update");
-						}
-					}
-					if (!flagUpdate)
-					{
-						sbReturn.append("</ads>");
-					}
-					for (int i = 0; i < vctAlerts.size(); i++)
-					{
-						tempTerminal = terminal2.showAd("where strid='" + vctAlerts.get(i).getStrDataId() + "'");
-						if ("delete".equals(vctAlerts.get(i).getStrDataOpeType()))
-						{
-							if (flagDelete)
-							{
-								sbReturn.append("<ads>");
-								sbReturn.append("<operate>delete</operate>");
-								flagDelete = false;
-							}
-							sbReturn.append("<ad>");
-							sbReturn.append("<strId>" + vctAlerts.get(i).getStrDataId() + "</strId>");
-							sbReturn.append("</ad>");
-//							terminal2.addState2(strId, "t_bz_advertisement", vctAlerts.get(i).getStrDataId(), "delete");
-						}
-					}
-					if (!flagDelete)
-					{
-						sbReturn.append("</ads>");
-					}
+					sbReturn.append("</ads>");
 				}
 				sbReturn.append("</info>");
 			} else
 			{
 				sbReturn.append("<return>update_error</return>");
-			}
-			if (!terminal2.updateState2(strId, "t_bz_advertisement"))
-			{
-				sbReturn.append("<return>terminal_error</return>");
 			}
 		} catch (Exception e)
 		{

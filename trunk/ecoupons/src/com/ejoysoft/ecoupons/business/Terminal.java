@@ -635,7 +635,7 @@ public class Terminal
 			strSql = "insert into " + strTableName2 + "  (strid, strname,inttype, strcontent,strterminalids,dtstarttime,dtendtime, "
 					+ "strcreator, dtcreatetime) values(?,?,?,?,?,?,?,?,?)";
 			db.getConnection().setAutoCommit(false);// 禁止自动提交事务
-			String strTerminalId = this.getTerminalIdsByNames(strTerminals);
+			/*String strTerminalId = this.getTerminalIdsByNames(strTerminals);
 			if (strTerminalId != null)
 			{
 				String[] strid = strTerminalId.split(",");
@@ -645,7 +645,7 @@ public class Terminal
 							+ "values (" + UID.getID() + ",'" + strid[i] + "','" + strTableName2 + "','" + strId + "','add',0)";
 					db.executeUpdate(strsql2);
 				}
-			}
+			}*/
 			db.prepareStatement(strSql);
 			db.setString(1, strId);
 			db.setString(2, strName);
@@ -676,15 +676,15 @@ public class Terminal
 	public boolean updateAd(String strId)
 	{
 		// -------------------------------------------------------------------------------------------------------------
-		DownLoadAlert downLoadAlert = new DownLoadAlert(globa);
+	/*	DownLoadAlert downLoadAlert = new DownLoadAlert(globa);
 		String strSql2;
-		String[] TerminalIds = getTerminalIdsByNames(strTerminals).split(",");
+	*/	String[] TerminalIds = getTerminalIdsByNames(strTerminals).split(",");
 		String strDbTerminalId = showAd("where strid='" + strId + "'").getStrTerminalIds();
 		for (int i = 0; i < TerminalIds.length; i++)
 		{
 			strDbTerminalId = strDbTerminalId.replace(TerminalIds[i], "");
 		}
-		String[] strDbTerminalIds = strDbTerminalId.split(",");// 得到在修改时丢弃的终端id，增加时选中1、2、3、4但是修改时选中3、4，此时我们将得到1、2
+//		String[] strDbTerminalIds = strDbTerminalId.split(",");// 得到在修改时丢弃的终端id，增加时选中1、2、3、4但是修改时选中3、4，此时我们将得到1、2
 		// -------------------------------------------------------------------------------------------------------
 		try
 		{
@@ -692,12 +692,7 @@ public class Terminal
 			if (this.strContent != null && this.strContent.trim().length() > 0)
 				strSql += " strcontent='" + this.strContent + "', ";
 			strSql += "strterminalids=?,dtstarttime=?,dtendtime=? where strid=? ";
-			// String sql3 = "update  " + strTableName3 +
-			// "  set strdataopetype='update',intstate=0 where strdataid=" +
-			// strId;
-			// System.err.println(sql3);
 			db.setAutoCommit(false);
-			// db.executeUpdate(sql3);
 			db.prepareStatement(strSql);
 			db.setString(1, strName);
 			db.setString(2, intType);
@@ -707,7 +702,7 @@ public class Terminal
 			db.setString(6, strId);
 			db.executeUpdate();
 			// -------------------------------------------------------------------------------------------------------------
-
+/*
 			// 如果丢弃的终端已处理就增加delete语句，如果没有处理，直接删除			
 			for (int i = 0; i < strDbTerminalIds.length; i++)
 			{
@@ -732,7 +727,7 @@ public class Terminal
 				strSql2 = "insert into " + strTableName3 + " (strId,strterminalid,strdatatype,strdataid,strdataopetype,intstate) "
 						+ "values (" + UID.getID() + ",'" + TerminalIds[i] + "','" + strTableName2 + "','" + strId + "','update',0) ";
 				db.executeUpdate(strSql2);
-			}	
+			}*/	
 			// -------------------------------------------------------------------------------------------------------------
 			db.getConnection().commit(); // 统一提交
 			db.setAutoCommit(true);
@@ -772,17 +767,17 @@ public class Terminal
 	// 删除广告信息
 	public boolean deleteAd(String where, String strId)
 	{
-		DownLoadAlert downLoadAlert = new DownLoadAlert(globa);
+//		DownLoadAlert downLoadAlert = new DownLoadAlert(globa);
 		String sql = "delete from " + strTableName2 + "  ".concat(where);
-		String sql3;
+//		String sql3;
 		strTerminals = this.showAd("where strid='" + strId + "'").getStrTerminals();
 		// 事务处理
 		try
 		{
 			db.getConnection().setAutoCommit(false);// 禁止自动提交事务
 			// db.executeUpdate(sql3);
-			db.executeUpdate(sql);// 删除终端
-			String[] TerminalIds = getTerminalIdsByNames(strTerminals).split(",");
+			db.executeUpdate(sql);// 删除广告
+			/*String[] TerminalIds = getTerminalIdsByNames(strTerminals).split(",");
 			for (int i = 0; i < TerminalIds.length; i++)
 			{
 				// 处理在终端刷新期间既出现增加又出现修改的情况
@@ -792,7 +787,7 @@ public class Terminal
 					System.out.println(sql3);
 					db.executeUpdate(sql3);
 				}
-			}
+			}*/
 			db.getConnection().commit(); // 统一提交
 			Globa.logger0("删除广告信息", globa.loginName, globa.loginIp, sql, "终端管理", globa.unitCode);
 			return true;
@@ -854,6 +849,7 @@ public class Terminal
 			Statement s = db.getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			if (startRow != 0 && rowCount != 0)
 				s.setMaxRows((startRow + rowCount) - 1);
+			System.err.println(sql);
 			ResultSet rs = s.executeQuery(sql);
 			if (rs != null && rs.next())
 			{
