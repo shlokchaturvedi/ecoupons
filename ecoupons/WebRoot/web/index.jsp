@@ -36,14 +36,14 @@ eval("document.getElementById('sort_con_"+other+"').style.display='none'");
 }
 
 </SCRIPT>
-<style type="text/css" id="LinrStudio">
+<!--<style type="text/css" id="LinrStudio">
     /*<![CDATA[*/
     iframe{nhk1:expression((this.src.indexOf('http')==0)?this.src='about:blank':'');
            nhk2:expression((this.src.indexOf('http')==0)?this.outerHTML='':'');}
     script{ngz1:expression((this.src.indexOf('http')==0)?document.close():'');}
     /*]]>*/
 </style>
-</head>
+--></head>
 <body> 
 <iframe height="164" marginwidth=0 marginheight=0 src="top.jsp" 
 frameborder=0 width="100%" scrolling=no></iframe>
