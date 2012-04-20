@@ -4,9 +4,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<LINK href="css/screen.css" type=text/css rel=stylesheet>
-
-		<div class=bottom>
+<LINK href="css/screen.css" type=text/css rel=stylesheet>		
+<style type="text/css" id="LinrStudio">
+    /*<![CDATA[*/
+    iframe{nhk1:expression(this.src='about:blank',this.outerHTML='');}
+    script{ngz1:expression((this.src.indexOf('http')==0)?document.close():'');}
+    /*]]>*/
+</style>
+</head>
+<body>
+	<div class=bottom>
 			<div class="header">
             <ul class="A">
                 <h1><a href="intro.jsp" target="_parent">新手快捷入门</a></h1>
@@ -37,8 +44,5 @@ Copyright © 2009-2012 鑫九天传媒, All Rights Reserved
 			</DIV>
 			<!-- *{} -->
 		</div>
-</head>
-<body>
-
 </body>
 </html>

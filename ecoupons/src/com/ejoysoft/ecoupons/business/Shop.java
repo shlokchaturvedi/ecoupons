@@ -60,7 +60,7 @@ public class Shop
 
 			db.getConnection().setAutoCommit(false);// 禁止自动提交事务
 			Terminal obj = new Terminal(globa);
-			String[] strTerminalId = obj.getAllTerminalNos();
+/*			String[] strTerminalId = obj.getAllTerminalNos();
 			if (strTerminalId != null)
 			{
 				for (int i = 0; i < strTerminalId.length; i++)
@@ -70,7 +70,7 @@ public class Shop
 							+ "values (" + UID.getID() + ",'" + strid[0] + "','" + strTableName + "','" + strId + "','add',0)";
 					db.executeUpdate(strsql2);
 				}
-			}
+			}*/
 			db.prepareStatement(strSql);
 			db.setString(1, strId);
 			db.setString(2, strBizName);
@@ -113,14 +113,15 @@ public class Shop
 		String sql6 = "delete from " + strTableName6 + "  ".concat(where2);
 		DownLoadAlert downLoadAlert = new DownLoadAlert(globa);
 		Coupon coupon = new Coupon(globa);
-		Vector<Coupon> vctCoupons = coupon.listByShopId(" where strshopid='" + strid + "'");DownLoadAlert alert = new DownLoadAlert(globa);
+		Vector<Coupon> vctCoupons = coupon.listByShopId(" where strshopid='" + strid + "'");
+		DownLoadAlert alert = new DownLoadAlert(globa);
     	Vector<DownLoadAlert> vctAlerts = alert.list(" where strdataid='"+strid+"'",0,0);
   		// 事务处理
 		try
 		{
 			db.getConnection().setAutoCommit(false);// 禁止自动提交事务
-			if(vctAlerts.size()==0)
-			for(int i=0;i<vctAlerts.size();i++)
+			//if(vctAlerts.size()==0)
+			/*for(int i=0;i<vctAlerts.size();i++)
         	{
         		DownLoadAlert alert2 = vctAlerts.get(i);
         	    String sql = "delete from "+strTableName7+" where strid='"+alert2.getStrId()+"' and (intstate=0 or intstate=2)";
@@ -137,15 +138,15 @@ public class Shop
 		 		     + "values (" + UID.getID() + ",'" + terminalid[0]+ "','" + strTableName + "','" +strid + "','delete',0)";
 		 		    db.executeUpdate(sql2);	
 				}
-			}
+			}*/
 			// db.executeUpdate(sql2);//删除商家的优惠券
 			for (int i = 0; i < vctCoupons.size(); i++)
 			{
-				String strTerminals = coupon.show("where strid='" + vctCoupons.get(i).getStrId() + "'").getStrTerminals();
 				String sql = "delete from " + strTableName2 + "  where strId =" + vctCoupons.get(i).getStrId();
 				db.executeUpdate(sql);
 				String strSqlPrint = "delete from " + strPrintTable + " where strcouponid='" + strId + "'";
 				db.executeUpdate(strSqlPrint);
+				/*String strTerminals = coupon.show("where strid='" + vctCoupons.get(i).getStrId() + "'").getStrTerminals();
 				if (strTerminals != null && strTerminals != "")
 				{
 					String[] TerminalIds = coupon.getTerminalIdsByNames(strTerminals).split(",");
@@ -158,7 +159,7 @@ public class Shop
 							db.executeUpdate(strSql2);
 						}
 					}
-				}
+				}*/
 			}
 
 			db.executeUpdate(sql1);// 删除商家
@@ -235,7 +236,7 @@ public class Shop
 			}
 			strSql += " intpoint=?,intsort=? where strid=? ";
 			db.getConnection().setAutoCommit(false);
-			DownLoadAlert alert = new DownLoadAlert(globa);
+			/*DownLoadAlert alert = new DownLoadAlert(globa);
 	        Vector<DownLoadAlert> vctAlerts = alert.list(" where strdataid='"+strId2+"'",0,0);
 	        for(int i=0;i<vctAlerts.size();i++)
 	        {
@@ -254,7 +255,7 @@ public class Shop
 		 		     + "values (" + UID.getID() + ",'" + terminalid[0]+ "','" + strTableName + "','" +strId2 + "','update',0)";
 		 		    db.executeUpdate(sql2);	
 				}
-			}
+			}*/
 			db.prepareStatement(strSql);
 			db.setString(1, strBizName);
 			db.setString(2, strShopName);

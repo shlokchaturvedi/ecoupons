@@ -52,6 +52,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>最新动态</title>
 <link href="css/merchants.css" rel="stylesheet" type="text/css" />
+<style type="text/css" id="LinrStudio">
+    /*<![CDATA[*/
+    iframe{nhk1:expression(this.src='about:blank',this.outerHTML='');}
+    script{ngz1:expression((this.src.indexOf('http')==0)?document.close():'');}
+    /*]]>*/
+</style>
 </head>
 
 <body>
