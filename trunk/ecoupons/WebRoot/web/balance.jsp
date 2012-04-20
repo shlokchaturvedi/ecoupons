@@ -24,12 +24,7 @@ if(session.getAttribute(Constants.MEMBER_KEY) == null)
 <link href="css/collection.css" rel="stylesheet" type="text/css" />
 <link rel=stylesheet type=text/css href="css/comment.css" />
 <title>我的余额</title>
-<style type="text/css" id="LinrStudio">
-    /*<![CDATA[*/
-    iframe{nhk1:expression(this.src='about:blank',this.outerHTML='');}
-    script{ngz1:expression((this.src.indexOf('http')==0)?document.close():'');}
-    /*]]>*/
-</style>
+
 </head> 
 <body>
 <form action="" name="frm" method="post">

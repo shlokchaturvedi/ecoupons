@@ -5,12 +5,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <LINK href="css/screen.css" type=text/css rel=stylesheet>		
-<style type="text/css" id="LinrStudio">
-    /*<![CDATA[*/
-    iframe{nhk1:expression(this.src='about:blank',this.outerHTML='');}
-    script{ngz1:expression((this.src.indexOf('http')==0)?document.close():'');}
-    /*]]>*/
-</style>
 </head>
 <body>
 	<div class=bottom>
