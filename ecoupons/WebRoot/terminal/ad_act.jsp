@@ -55,6 +55,7 @@
 		}
 		if (intType.trim().equals("1") || intType.trim().equals("2"))
 		{
+			String strTempId=UID.getID();
 			for (int i = 0; i < au.getFileCount(); i++)
 			{
 				if (au.getFileName(i).length() > 0)
@@ -83,7 +84,7 @@
 			{
 				if (au.getFileName(i).length() > 0)
 				{
-					String name = au.saveFile(strFilePath, filename + "_" + (i + 1), i);
+					String name = au.saveFile(strFilePath, strTempId + "_" + (i + 1), i);
 					if (i != au.getFileCount())
 						strcontent += name + ",";
 
