@@ -278,7 +278,7 @@ public class Terminal
 	 */
 	public boolean updateState2(String strId, String strDateType)
 	{
-		String strSql2 = "update t_bz_download_alert set intstate=2 where strdatatype='"+strDateType+"' and intstate=0 and" + " strTerminalId='" + strId + "'";
+//		String strSql2 = "update t_bz_download_alert set intstate=2 where strdatatype='"+strDateType+"' and intstate=0 and" + " strTerminalId='" + strId + "'";
 		db.setAutoCommit(false);
 		try
 		{
@@ -288,7 +288,7 @@ public class Terminal
 				+ "' where strid='" + strId + "'";
 				db.executeUpdate(strSql);
 			}
-			db.executeUpdate(strSql2);
+//			db.executeUpdate(strSql2);
 			db.commit();
 			
 			return true;
