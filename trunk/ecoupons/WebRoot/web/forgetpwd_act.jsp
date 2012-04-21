@@ -45,7 +45,7 @@ if (rand.toLowerCase().equals(input.toLowerCase()))
 						int endIdx = ret.indexOf("</MsgState>");
 						String retMsgState = ret.substring(beginIdx, endIdx);
 						if(retMsgState.equals("审查"))	{			        
-						    if( member.updatePwd(MD5.getMD5ofString(randomCode),member.show("where strMobileNo='"+strPhone+"'").getStrId()))
+						    if( member.updatePwdByPhone(MD5.getMD5ofString(randomCode),strPhone))
 		     				 response.getWriter().print("<script>alert('短信发送密码成功，请重新登录！');top.location = '" + application.getServletContextName() + "/web/index.jsp';</script>");
 						    else
 		     				 response.getWriter().print("<script>alert('操作失败，请联系管理员！');top.location = '" + application.getServletContextName() + "/web/forgetpwd.jsp';</script>");
