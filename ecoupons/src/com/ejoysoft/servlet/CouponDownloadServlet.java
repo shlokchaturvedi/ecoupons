@@ -28,14 +28,19 @@ public class CouponDownloadServlet extends HttpServlet implements Servlet
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
 	{
 		// TODO Auto-generated method stub
+		try {
 		this.execute(req, resp);
+		}catch(Exception e) {
+			e.printStackTrace();
+			throw new IOException(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
 	{
 		// TODO Auto-generated method stub
-		this.execute(req, resp);
+		this.doGet(req, resp);
 	}
 
 	private void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException
@@ -45,13 +50,13 @@ public class CouponDownloadServlet extends HttpServlet implements Servlet
 		String strTerminalNo = req.getParameter("strTerminalNo");
 		HashMap<String, Terminal> hmTerminal = Terminal.hmTerminal;
 		Terminal terminal = hmTerminal.get(strTerminalNo);
-		String strId = terminal.getStrId();
 		StringBuffer sbReturn = new StringBuffer("<?xml version='1.0' encoding='utf-8'?> ");
 		req.setCharacterEncoding("utf-8");
 		resp.setCharacterEncoding("utf-8");
 		Terminal terminal2 = new Terminal(globa);
 		if (terminal != null)
 		{
+			String strId = terminal.getStrId();
 			Coupon coupon = new Coupon(globa);
 			Vector<Coupon> vctCoupons = coupon.list("where strterminalids like '%" + strId + "%'", 0, 0);
 			sbReturn.append("<info>");
@@ -68,12 +73,12 @@ public class CouponDownloadServlet extends HttpServlet implements Servlet
 			}
 			sbReturn.append("</coupons>");
 			sbReturn.append("</info>");
+			terminal2.updateState2(strId,"t_bz_coupon");
 		} else
 		{
 			sbReturn.append("<return>terminal_error</return>");
 		}
 		// 关闭数据库连接对象
-		terminal2.updateState2(strId,"t_bz_coupon");
 		resp.getWriter().println(sbReturn.toString());
 		System.out.println(sbReturn.toString());
 		globa.closeCon();
