@@ -28,14 +28,19 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
 	{
 		// TODO Auto-generated method stub
+		try {
 		this.execute(req, resp);
+		}catch(Exception e) {
+			e.printStackTrace();
+			throw new IOException(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
 	{
 		// TODO Auto-generated method stub
-		this.execute(req, resp);
+		this.doGet(req, resp);
 	}
 
 	private void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException
@@ -45,7 +50,6 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 		String strTerminalNo = req.getParameter("strTerminalNo");
 //		strTerminalNo = "0004";
 		Terminal terminal = hmTerminal.get(strTerminalNo);
-		String strId = terminal.getStrId();
 //		System.err.println(strId+"dddddddddddddddd");
 		Globa globa = new Globa();
 		StringBuffer sbReturn = new StringBuffer("<?xml version='1.0' encoding='utf-8'?> ");
@@ -55,6 +59,7 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 		{
 			if (terminal != null)
 			{
+				String strId = terminal.getStrId();
 				Terminal objAd = new Terminal(globa);
 				Terminal tempAd = new Terminal();
 				Vector<Terminal> vctAd = new Vector<Terminal>();
