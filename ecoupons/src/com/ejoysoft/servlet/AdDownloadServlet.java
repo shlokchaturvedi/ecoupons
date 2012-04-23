@@ -91,6 +91,7 @@ public class AdDownloadServlet extends HttpServlet implements Servlet
 		{
 			// 关闭数据库连接对象
 			globa.closeCon();
+			System.out.println(sbReturn.toString());
 			resp.getWriter().println(sbReturn.toString());
 		}
 	}

@@ -86,6 +86,7 @@ public class DbConnect {
                 System.out.println("dbGet con=[" + curConnNum + "]" + con);
             }
         } catch (SQLException e) {
+        	e.printStackTrace();
             con = null;
             log.error("Can not connect to database:" + e.getMessage());
         }
