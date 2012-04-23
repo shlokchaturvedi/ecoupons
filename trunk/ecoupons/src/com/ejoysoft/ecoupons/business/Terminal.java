@@ -44,6 +44,7 @@ public class Terminal
 	String strTableName2 = "t_bz_advertisement";
 	String strTableName3 = "t_bz_download_alert";
 	public static HashMap<String, Terminal> hmTerminal;
+	public static HashMap<String, Terminal> hmidTerminal;
 
 	/**
 	 * 将打印纸大刀阀值修改打印纸的状态
@@ -99,6 +100,7 @@ public class Terminal
 	public static void init()
 	{
 		hmTerminal = new HashMap<String, Terminal>();
+		hmidTerminal = new HashMap<String, Terminal>();
 		String sql = "SELECT * FROM " + strTableName + " ORDER BY dtcreatetime";
 		try
 		{
@@ -113,6 +115,7 @@ public class Terminal
 				theBean.setIntState(rs.getInt("intState"));
 				theBean.setStrNo(rs.getString("strNo"));
 				hmTerminal.put(theBean.getStrNo(), theBean);
+				hmidTerminal.put(theBean.getStrId(), theBean);
 			}
 			System.out.println("[INFO]:terminal Initialized Successful");
 			rs.close();
@@ -173,6 +176,7 @@ public class Terminal
 				theBean1.setIntState(intState);
 				theBean1.setStrNo(strNo);
 				Terminal.hmTerminal.put(theBean1.getStrNo(), theBean1);
+				Terminal.hmidTerminal.put(theBean1.getStrId(), theBean1);
 				db.setAutoCommit(true);
 				Globa.logger0("添加终端信息", globa.loginName, globa.loginIp, strSql, "终端管理", globa.userSession.getStrDepart());
 				return true;
@@ -195,12 +199,14 @@ public class Terminal
 		// 事务处理
 		try
 		{
+			String strNo = getTerminalNamesByIds(terminalid);
 			db.getConnection().setAutoCommit(false);// 禁止自动提交事务
 			db.getConnection().setSavepoint();
 			db.executeUpdate(sql);// 删除终端
 			deleteTerminalIdsFromIds(terminalid);
 			db.getConnection().commit(); // 统一提交
-			Terminal.hmTerminal.remove(getTerminalNamesByIds(terminalid));
+			Terminal.hmTerminal.remove(strNo);
+			Terminal.hmidTerminal.remove(terminalid);
 			Globa.logger0("删除终端信息", globa.loginName, globa.loginIp, sql, "终端管理", globa.unitCode);
 			return true;
 		} catch (Exception ee)
@@ -332,6 +338,7 @@ public class Terminal
 			theBean1.setStrId(strId);
 			theBean1.setStrNo(strNo);
 			Terminal.hmTerminal.put(theBean1.getStrNo(), theBean1);
+			Terminal.hmidTerminal.put(theBean1.getStrId(), theBean1);
 			Globa.logger0("更新终端信息", globa.loginName, globa.loginIp, strSql, "终端管理", globa.userSession.getStrDepart());
 			return true;
 		} catch (Exception e)
@@ -531,6 +538,7 @@ public class Terminal
 				return null;
 		} catch (Exception ee)
 		{
+			ee.printStackTrace();
 			return null;
 		}
 	}

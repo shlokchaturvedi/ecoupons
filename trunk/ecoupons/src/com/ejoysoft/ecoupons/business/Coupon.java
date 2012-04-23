@@ -550,12 +550,11 @@ public class Coupon
 		String terminalnos = " ";
 		if (terminalids != null && terminalids.trim() != "")
 		{
-			Terminal obj0 = new Terminal(globa, false);
 			Terminal obj = new Terminal();
 			String terminals[] = terminalids.trim().split(",");
 			for (int i = 0; i < terminals.length; i++)
 			{
-				obj = obj0.show("where strid='" + terminals[i].trim() + "'");
+				obj = Terminal.hmidTerminal.get(terminals[i]);
 				if (obj != null)
 				{
 					terminalnos += obj.getStrNo();
@@ -584,7 +583,8 @@ public class Coupon
 			theBean.setStrPrintImg(rs.getString("strPrintImg"));
 			theBean.setStrLargeImg(rs.getString("strLargeImg"));
 			theBean.setStrShopId(rs.getString("strShopId"));
-			theBean.setStrTerminals(getTerminalNamesByIds(rs.getString("strTerminalIds")));
+			String tmp = rs.getString("strTerminalIds");
+			theBean.setStrTerminals(getTerminalNamesByIds(tmp));
 			theBean.setStrTerminalIds(rs.getString("strTerminalIds"));
 			theBean.setStrInstruction(rs.getString("strInstruction"));
 			theBean.setStrIntro(rs.getString("strIntro"));
