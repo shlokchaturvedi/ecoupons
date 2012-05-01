@@ -53,8 +53,15 @@
 	<servlet-mapping>
 		<servlet-name>CouponTop</servlet-name>
 		<url-pattern>/servlet/CouponTop</url-pattern>
+	</servlet-mapping>	
+	<servlet>
+		<servlet-name>CouponSendBySM</servlet-name>
+		<servlet-class>com.ejoysoft.servlet.CouponSendBySMServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CouponSendBySM</servlet-name>
+		<url-pattern>/servlet/CouponSendBySM</url-pattern>
 	</servlet-mapping>
-	
 	<servlet>
 		<servlet-name>CouponPrint</servlet-name>
 		<servlet-class>com.ejoysoft.servlet.CouponPrintServlet</servlet-class>
