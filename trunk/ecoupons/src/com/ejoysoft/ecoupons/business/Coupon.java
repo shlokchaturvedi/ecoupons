@@ -31,6 +31,7 @@ public class Coupon
 	private String dtCreateTime;
 	private String strIntro;
 	private String strInstruction;
+	private int intSendBySM;
 	private String strTerminals;// 投放终端编码
 	private String strDownLoadAlertTable = "t_bz_download_alert";
 	String strPrintTable = "t_bz_coupon_print";
@@ -121,7 +122,7 @@ public class Coupon
 			}
 
 			strSql += " strName = ?, strShopId = ?,strTerminalIds=?,  " + "dtExpireTime = ?,intVip=?,intRecommend=?,flaPrice=?,intPrintLimit=?"
-					+ ",strInstruction=?,strIntro=?  WHERE strId=? ";
+					+ ",strInstruction=?,strIntro=?,intsendbysm=? WHERE strId=? ";
 
 			db.prepareStatement(strSql);
 			db.setString(1, dtActiveTime);
@@ -135,7 +136,8 @@ public class Coupon
 			db.setInt(9, intPrintLimit);
 			db.setString(10, strInstruction);
 			db.setString(11, strIntro);
-			db.setString(12, strId);
+			db.setInt(12, intSendBySM);
+			db.setString(13, strId);
 			if (db.executeUpdate() > 0)
 			{
 				// 修改couponprint表中的终端字段 当优惠券修改的时候
@@ -242,8 +244,8 @@ public class Coupon
 		String strId = UID.getID();
 		String[] strDownSql = null;
 		String sql = "insert into " + strTableName + " (strid,strname,strsmallimg,dtactivetime,dtexpiretime,strshopid,strterminalids"
-				+ ",intvip,intrecommend,flaprice,intprintlimit,strlargeimg,strcreator,dtcreatetime,intprint,strinstruction,strintro,strprintimg) "
-				+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
+				+ ",intvip,intrecommend,flaprice,intprintlimit,strlargeimg,strcreator,dtcreatetime,intprint,strinstruction,strintro,strprintimg,intsendbysm) "
+				+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
 
 		try
 		{
@@ -267,6 +269,7 @@ public class Coupon
 			db.setString(16, strInstruction);
 			db.setString(17, strIntro);
 			db.setString(18, strPrintImg);
+			db.setInt(19, intSendBySM);
 			if (db.executeUpdate() > 0)
 			{
 
@@ -590,6 +593,7 @@ public class Coupon
 			theBean.setStrIntro(rs.getString("strIntro"));
 			theBean.setStrName(rs.getString("strName"));
 			theBean.setStrSmallImg(rs.getString("strSmallImg"));
+			theBean.setIntSendBySM(rs.getInt("intsendbysm"));
 		} catch (Exception e)
 		{
 			e.printStackTrace();
@@ -604,10 +608,27 @@ public class Coupon
 	{
 		if (num == 0)
 		{
-			return "不是";
+			return "否";
 		} else if (num == 1)
 		{
 			return "是";
+		} else
+		{
+			return "错误！";
+		}
+
+	}
+	/**
+	 * 返回是否支持短信发送功能
+	 */
+	public String returnStrSendBySM(int num)
+	{
+		if (num == 0)
+		{
+			return "不支持";
+		} else if (num == 1)
+		{
+			return "支持";
 		} else
 		{
 			return "错误！";
@@ -963,6 +984,30 @@ public class Coupon
 	public void setStrInstruction(String strInstruction)
 	{
 		this.strInstruction = strInstruction;
+	}
+
+	public int getIntSendBySM() {
+		return intSendBySM;
+	}
+
+	public void setIntSendBySM(int intSendBySM) {
+		this.intSendBySM = intSendBySM;
+	}
+
+	public Globa getGloba() {
+		return globa;
+	}
+
+	public void setGloba(Globa globa) {
+		this.globa = globa;
+	}
+
+	public DbConnect getDb() {
+		return db;
+	}
+
+	public void setDb(DbConnect db) {
+		this.db = db;
 	}
 
 }
