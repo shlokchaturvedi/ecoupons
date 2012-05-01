@@ -46,8 +46,8 @@ public class CouponDownloadServlet extends HttpServlet implements Servlet
 	private void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException
 	{
 		Globa globa = new Globa();
-//		 String strTerminalNo = "002";
 		String strTerminalNo = req.getParameter("strTerminalNo");
+//		strTerminalNo = "000";
 		HashMap<String, Terminal> hmTerminal = Terminal.hmTerminal;
 		Terminal terminal = hmTerminal.get(strTerminalNo);
 		StringBuffer sbReturn = new StringBuffer("<?xml version='1.0' encoding='utf-8'?> ");
@@ -80,7 +80,7 @@ public class CouponDownloadServlet extends HttpServlet implements Servlet
 		}
 		// 关闭数据库连接对象
 		resp.getWriter().println(sbReturn.toString());
-		System.out.println(sbReturn.toString());
+//		System.out.println(sbReturn.toString());
 		globa.closeCon();
 
 	}
@@ -102,6 +102,7 @@ public class CouponDownloadServlet extends HttpServlet implements Servlet
 			sbReturn.append("<dtActiveTime>" + tempCoupon.getDtActiveTime() + "</dtActiveTime>");
 			sbReturn.append("<dtExpireTime>" + tempCoupon.getDtExpireTime() + "</dtExpireTime>");
 			sbReturn.append("<strShopId>" + tempCoupon.getStrShopId() + "</strShopId>");
+			sbReturn.append("<intSendBySM>" + tempCoupon.getIntSendBySM() + "</intSendBySM>");
 			sbReturn.append("<intVip>" + tempCoupon.getIntVip() + "</intVip>");
 			sbReturn.append("<intRecommend>" + tempCoupon.getIntRecommend() + "</intRecommend>");
 			sbReturn.append("<flaPrice>" + tempCoupon.getFlaPrice() + "</flaPrice>");
