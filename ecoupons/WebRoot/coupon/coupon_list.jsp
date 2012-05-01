@@ -145,14 +145,15 @@ function del(){
 			<table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="b5d6e6" onmouseover="changeto()"  onmouseout="changeback()">
               <tr>
                 <td width="5%" height="22"  class="left_bt2"><div align="center">&nbsp;</div></td>
-                <td width="10%" class="left_bt2"><div align="center">名称</div></td>
-                <td width="15%" class="left_bt2"><div align="center">启用时间</div></td>
-                <td width="15%" class="left_bt2"><div align="center">截至时间</div></td>                
-                 <td width="15%" class="left_bt2"><div align="center">商家</div></td>
-                <td width="15%" class="left_bt2"><div align="center">投放终端(编号)</div></td>
+                <td width="8%" class="left_bt2"><div align="center">名称</div></td>
+                <td width="8%" class="left_bt2"><div align="center">启用时间</div></td>
+                <td width="8%" class="left_bt2"><div align="center">截至时间</div></td>                
+                <td width="15%" class="left_bt2"><div align="center">商家</div></td>
+                <td class="left_bt2"><div align="center">投放终端(编号)</div></td>
+                <td width="11%" class="left_bt2"><div align="center">短信发送</div></td>
                 <td width="5%" class="left_bt2"><div align="center">VIP</div></td>
                 <td width="5%" class="left_bt2"><div align="center">推荐</div></td>
-                <td width="20%" class="left_bt2"><div align="center">基本操作</div></td>
+                <td width="10%" class="left_bt2"><div align="center">基本操作</div></td>
               </tr>
             <%
             	for (int i = 0;i < vctObj.size(); i++) {
@@ -169,6 +170,7 @@ function del(){
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getDtExpireTime()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=shopname%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrTerminals()%></span></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.returnStrSendBySM(obj1.getIntSendBySM())%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.returnStrRecommendOrVip(obj1.getIntVip())%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.returnStrRecommendOrVip(obj1.getIntRecommend())%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE4">
