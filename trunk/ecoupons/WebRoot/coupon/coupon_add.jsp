@@ -240,6 +240,17 @@ function viewPrint()
                   否
                 </td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td> 
+              </tr>    
+              <tr >
+                 <td width="20%" height="30" align="right" class="left_txt2">短信发送：</td>
+                <td width="3%">&nbsp;</td>
+                <td width="32%" height="30">
+                <input type="radio" name="intSendBySM" value="1" checked="checked" class="input_box">
+                  支持
+                  <input type="radio" name="intSendBySM" value="0"  class="input_box">
+                 不支持
+                </td>
+                <td width="45%" height="30" class="left_txt">&nbsp;</td> 
               </tr>              
               <%
               }

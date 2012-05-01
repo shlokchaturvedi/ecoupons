@@ -119,6 +119,7 @@
 	    obj.setIntRecommend(au.getInt("intRecommend"));
 	    obj.setIntVip(au.getInt("intVip"));
 	    obj.setStrName(au.getString("strName"));
+	    obj.setIntSendBySM(au.getInt("intSendBySM"));
 		if (action.equals(Constants.ADD_STR))
 		{
 			

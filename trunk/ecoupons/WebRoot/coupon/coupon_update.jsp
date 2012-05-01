@@ -241,6 +241,14 @@ function viewPrint()
 					 <input type="radio" name="intRecommend"  value="0" <%if(obj0.getIntRecommend()==0) out.print("checked");%> class="input_box"/>不是
 				</td>
 				</tr>
+              <tr >
+                 <td width="20%" height="30" align="right" class="left_txt2">短信发送：</td>
+                <td width="3%" height="30">&nbsp;</td>
+                <td width="32%" height="30">
+					 <input type="radio" name="intSendBySM"  value="1" <%if(obj0.getIntSendBySM()==1) out.print("checked");%> class="input_box" />支持
+					 <input type="radio" name="intSendBySM"  value="0" <%if(obj0.getIntSendBySM()==0) out.print("checked");%> class="input_box"/>不支持
+				</td>
+				</tr>
 				<%} %>
               <tr >
                  <td width="20%" height="30" align="right" class="left_txt2">价格：</td>
