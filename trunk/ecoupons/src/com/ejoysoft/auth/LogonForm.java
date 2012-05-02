@@ -54,7 +54,7 @@ public final class LogonForm {
         userSession.setExculpate(this.getScreensize());
         userSession.setLoginIp(globa.loginIp);
         userSession.setdLatestLoginTime(Format.getDateTime());
-        String tUserId = Format.removeNull(this.getUsername()).replaceAll(" ", "");
+        String tUserId = Format.removeNull(this.getUsername()).replaceAll(" ", "").replaceAll("'", "’");
         String strCaNO = Format.removeNull(this.getCaNO());
         userSession.setStrCaNO(this.getCaNO());
         try {
