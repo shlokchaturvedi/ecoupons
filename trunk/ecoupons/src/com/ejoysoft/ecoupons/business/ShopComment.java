@@ -8,23 +8,23 @@ import com.ejoysoft.common.DbConnect;
 import com.ejoysoft.common.Globa;
 import com.ejoysoft.common.UID;
 
-public class CouponComment
+public class ShopComment
 {
 	private Globa globa;
 	private DbConnect db;
-	String strTableName = "t_bz_coupon_comment";
-	public CouponComment()
+	String strTableName = "t_bz_shop_comment";
+	public ShopComment()
 	{
 		// TODO Auto-generated constructor stub
 	}
 
-	public CouponComment(Globa globa)
+	public ShopComment(Globa globa)
 	{
 		this.globa = globa;
 		db = globa.db;
 	}
 
-	public CouponComment(Globa globa, boolean b)
+	public ShopComment(Globa globa, boolean b)
 	{
 		this.globa = globa;
 		db = globa.db;
@@ -33,17 +33,17 @@ public class CouponComment
 	}
 	private String strId;
 	private String strMemberCardNo;
-	private String StrCouponId;
-	private String StrComment;
+	private String strShopId;
+	private String strComment;
 	private String strShopName;
-	private String strCouponName;
+	private String strBizName;
 	private String strCreator;
 	private String dtCreateTime;
 	
 	/**
 	 * 详细显示单条记录
 	 */
-	public CouponComment show(String where)
+	public ShopComment show(String where)
 	{
 		try
 		{
@@ -116,9 +116,9 @@ public class CouponComment
 	 * @param rowCount
 	 * @return
 	 */
-	public Vector<CouponComment> list(String where, int startRow, int rowCount)
+	public Vector<ShopComment> list(String where, int startRow, int rowCount)
 	{
-		Vector<CouponComment> beans = new Vector<CouponComment>();
+		Vector<ShopComment> beans = new Vector<ShopComment>();
 		try
 		{
 			String sql = "SELECT *  FROM  " + strTableName + " ";
@@ -134,7 +134,7 @@ public class CouponComment
 					rs.absolute(startRow);
 				do
 				{
-					CouponComment theBean = new CouponComment();
+					ShopComment theBean = new ShopComment();
 					theBean = load(rs, false);
 					beans.addElement(theBean);
 				} while (rs.next());
@@ -148,23 +148,21 @@ public class CouponComment
 		return beans;
 	}
 	
-	public CouponComment load(ResultSet rs, boolean isView)
+	public ShopComment load(ResultSet rs, boolean isView)
 	{
-		CouponComment theBean = new CouponComment();
+		ShopComment theBean = new ShopComment();
 		try
 		{
-			Coupon objCoupon  = new Coupon(globa);
 			Shop objShop = new Shop(globa);
-			theBean.setStrId(rs.getString("strId"));
-			theBean.setDtCreateTime(rs.getString("dtCreateTime"));
-			theBean.setStrComment(rs.getString("strComment"));
-			theBean.setStrCouponId(rs.getString("strCouponId"));
-			theBean.setStrCreator(rs.getString("strCreator"));
-			theBean.setStrMemberCardNo(rs.getString("strMemberCardNo"));
-			Coupon objCoupon2 = objCoupon.show(" where strid='"+rs.getString("strCouponId")+"'");
-			theBean.setStrCouponName(objCoupon2.getStrName());
-			Shop objShop2 = objShop.show(" where strid='"+objCoupon2.getStrShopId()+"'");
-			theBean.setStrShopName(objShop2.getStrBizName());
+			theBean.setStrId(rs.getString("strid"));
+			theBean.setDtCreateTime(rs.getString("dtcreatetime"));
+			theBean.setStrComment(rs.getString("strcomment"));
+			theBean.setStrShopId(rs.getString("strshopid"));
+			theBean.setStrCreator(rs.getString("strcreator"));
+			theBean.setStrMemberCardNo(rs.getString("strmembercardno"));
+			Shop objShop2 = objShop.show(" where strid='"+rs.getString("strshopid")+"'");
+			theBean.setStrShopName(objShop2.getStrShopName());
+			theBean.setStrBizName(objShop2.getStrBizName());
 		} catch (Exception e)
 		{
 			e.printStackTrace();
@@ -179,34 +177,29 @@ public class CouponComment
 		strId = UID.getID();
 		try
 		{
-
-			strSql = "insert into " + strTableName + "  (strid, strmembercardno,strcouponid, strcomment,"
+			strSql = "insert into " + strTableName + "  (strid, strmembercardno,strshopid, strcomment,"
 					+ "strcreator, dtcreatetime) values(?,?,?,?,?,?)";			
 			db.prepareStatement(strSql);
 			db.setString(1, strId);
 			db.setString(2, strMemberCardNo);
-			db.setString(3, StrCouponId);
-			db.setString(4, StrComment);
+			db.setString(3, strShopId);
+			db.setString(4, strComment);
 			db.setString(5, strCreator);
 			db.setString(6, com.ejoysoft.common.Format.getDateTime());
 			if (db.executeUpdate() > 0)
 			{
-				Globa.logger0("添加优惠券评论信息", globa.memberSession.getStrCardNo(), globa.loginIp, strSql, "网站/优惠券评论","system");
+				Globa.logger0("添加商家留言信息", globa.memberSession.getStrCardNo(), globa.loginIp, strSql, "网站/商家留言","system");
 				return true;
 			} else
 				return false;
 		} catch (Exception e)
 		{
-			System.out.println("添加优惠券评论异常");
+			System.out.println("添加商家留言异常");
 			e.printStackTrace();
 			return false;
 		}
 	}
-	
-	
-	
-	
-	
+		
 	public String getStrId()
 	{
 		return strId;
@@ -227,53 +220,6 @@ public class CouponComment
 		this.strMemberCardNo = strMemberCardNo;
 	}
 
-	public String getStrCouponId()
-	{
-		return StrCouponId;
-	}
-
-	public void setStrCouponId(String strCouponId)
-	{
-		StrCouponId = strCouponId;
-	}
-
-	public String getStrComment()
-	{
-		return StrComment;
-	}
-
-	public void setStrComment(String strComment)
-	{
-		StrComment = strComment;
-	}
-
-	public String getStrCreator()
-	{
-		return strCreator;
-	}
-
-	public void setStrCreator(String strCreator)
-	{
-		this.strCreator = strCreator;
-	}
-
-	public String getDtCreateTime()
-	{
-		if (dtCreateTime != null&&dtCreateTime.length()>3)
-		{
-			return dtCreateTime.substring(0, dtCreateTime.length()-2);
-
-		} else
-		{
-			return null;
-		}
-	}
-
-	public void setDtCreateTime(String dtCreateTime)
-	{
-		this.dtCreateTime = dtCreateTime;
-	}
-
 	public Globa getGloba() {
 		return globa;
 	}
@@ -290,6 +236,22 @@ public class CouponComment
 		this.db = db;
 	}
 
+	public String getStrShopId() {
+		return strShopId;
+	}
+
+	public void setStrShopId(String strShopId) {
+		this.strShopId = strShopId;
+	}
+
+	public String getStrComment() {
+		return strComment;
+	}
+
+	public void setStrComment(String strComment) {
+		this.strComment = strComment;
+	}
+
 	public String getStrShopName() {
 		return strShopName;
 	}
@@ -298,13 +260,28 @@ public class CouponComment
 		this.strShopName = strShopName;
 	}
 
-	public String getStrCouponName() {
-		return strCouponName;
+	public String getStrBizName() {
+		return strBizName;
 	}
 
-	public void setStrCouponName(String strCouponName) {
-		this.strCouponName = strCouponName;
+	public void setStrBizName(String strBizName) {
+		this.strBizName = strBizName;
 	}
-	
-	
+
+	public String getStrCreator() {
+		return strCreator;
+	}
+
+	public void setStrCreator(String strCreator) {
+		this.strCreator = strCreator;
+	}
+
+	public String getDtCreateTime() {
+		return dtCreateTime;
+	}
+
+	public void setDtCreateTime(String dtCreateTime) {
+		this.dtCreateTime = dtCreateTime;
+	}
+
 }
