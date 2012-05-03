@@ -45,6 +45,7 @@ public class MemberBiz {
     {
     	MemberBiz obj = new MemberBiz(globa);
     	Vector<MemberBiz> vector = new Vector<MemberBiz>();
+		System.err.println("ddddd"+cardno);
     	if(flag.equals("bycoupon"))
     	{
 			String sql = "select distinct(strcouponid) from "+strTableName2;
@@ -255,8 +256,7 @@ public class MemberBiz {
     	try {
     		if (where.length() > 0)
                  sql = String.valueOf(sql) + String.valueOf(where);
-            Statement s = db.getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-             ResultSet re = s.executeQuery(sql);
+             ResultSet re = db.executeQuery(sql);
 		 	if(re!=null&&re.next())
 			{
 		 		do{
@@ -279,8 +279,7 @@ public class MemberBiz {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-	        	
+		}	        	
     	return vector;
     }
     //查询记录数

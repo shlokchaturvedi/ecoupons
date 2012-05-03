@@ -33,6 +33,7 @@ public class Coupon
 	private String strInstruction;
 	private int intSendBySM;
 	private String strTerminals;// 投放终端编码
+	private float flaWordSize;
 	private String strDownLoadAlertTable = "t_bz_download_alert";
 	String strPrintTable = "t_bz_coupon_print";
 	String strInputTable = "t_bz_coupon_input";
@@ -122,7 +123,7 @@ public class Coupon
 			}
 
 			strSql += " strName = ?, strShopId = ?,strTerminalIds=?,  " + "dtExpireTime = ?,intVip=?,intRecommend=?,flaPrice=?,intPrintLimit=?"
-					+ ",strInstruction=?,strIntro=?,intsendbysm=? WHERE strId=? ";
+					+ ",strInstruction=?,strIntro=?,intsendbysm=?,flawordsize=? WHERE strId=? ";
 
 			db.prepareStatement(strSql);
 			db.setString(1, dtActiveTime);
@@ -137,7 +138,8 @@ public class Coupon
 			db.setString(10, strInstruction);
 			db.setString(11, strIntro);
 			db.setInt(12, intSendBySM);
-			db.setString(13, strId);
+			db.setFloat(13, flaWordSize);
+			db.setString(14, strId);
 			if (db.executeUpdate() > 0)
 			{
 				// 修改couponprint表中的终端字段 当优惠券修改的时候
@@ -244,8 +246,8 @@ public class Coupon
 		String strId = UID.getID();
 		String[] strDownSql = null;
 		String sql = "insert into " + strTableName + " (strid,strname,strsmallimg,dtactivetime,dtexpiretime,strshopid,strterminalids"
-				+ ",intvip,intrecommend,flaprice,intprintlimit,strlargeimg,strcreator,dtcreatetime,intprint,strinstruction,strintro,strprintimg,intsendbysm) "
-				+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
+				+ ",intvip,intrecommend,flaprice,intprintlimit,strlargeimg,strcreator,dtcreatetime,intprint,strinstruction,strintro,strprintimg,intsendbysm,flawordsize) "
+				+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
 
 		try
 		{
@@ -270,9 +272,9 @@ public class Coupon
 			db.setString(17, strIntro);
 			db.setString(18, strPrintImg);
 			db.setInt(19, intSendBySM);
+			db.setFloat(20, flaWordSize);
 			if (db.executeUpdate() > 0)
 			{
-
 //				if (strTerminals != null && strTerminals != "")
 //				{
 //					String[] strTerminalId = getTerminalIdsByNames(strTerminals).split(",");
@@ -594,6 +596,7 @@ public class Coupon
 			theBean.setStrName(rs.getString("strName"));
 			theBean.setStrSmallImg(rs.getString("strSmallImg"));
 			theBean.setIntSendBySM(rs.getInt("intsendbysm"));
+			theBean.setFlaWordSize(rs.getInt("flawordsize"));
 		} catch (Exception e)
 		{
 			e.printStackTrace();
@@ -1010,4 +1013,15 @@ public class Coupon
 		this.db = db;
 	}
 
+	public float getFlaWordSize() {
+		return flaWordSize;
+	}
+
+	public void setFlaWordSize(float flaWordSize) {
+		if(flaWordSize==0)
+			this.flaWordSize = (float) 10.5;
+		else
+			this.flaWordSize = flaWordSize;
+	}
+	
 }

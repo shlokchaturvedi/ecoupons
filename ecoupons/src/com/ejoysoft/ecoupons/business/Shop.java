@@ -85,7 +85,7 @@ public class Shop
 			db.setString(11, strLargeImg);
 			db.setInt(12, intPoint);
 			db.setString(13, strCreator);
-			db.setString(14, com.ejoysoft.common.Format.getDateTime());
+			db.setString(14, Format.getDateTime());
 			db.setInt(15, intSort);
 			if (db.executeUpdate() > 0)
 			{
