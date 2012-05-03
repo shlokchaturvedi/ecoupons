@@ -124,6 +124,9 @@ BODY {
 .cy_button {
 	PADDING-BOTTOM: 4px; PADDING-LEFT: 16px; PADDING-RIGHT: 2px; BACKGROUND: url(../images/menunew_13.jpg) no-repeat; HEIGHT: 22px; width:64px; COLOR: #fff; FONT-SIZE: 12px; BORDER:0px; PADDING-TOP: 2px
 }
+.cz_button {
+	PADDING-BOTTOM: 4px; PADDING-LEFT: 16px; PADDING-RIGHT: 2px; BACKGROUND: url(../images/menunew_14.jpg) no-repeat; HEIGHT: 22px; width:64px; COLOR: #fff; FONT-SIZE: 12px; BORDER:0px; PADDING-TOP: 2px
+}
 center_img {
 	POSITION: relative; TOP: -50%; LEFT: -50%
 }
@@ -1078,8 +1081,3 @@ UL.pagination LI A:hover {
 .lib_Contentbox_zzjs {
 	TEXT-ALIGN: center; MARGIN-TOP: 0px; HEIGHT: 500px; CLEAR: both; BORDER-TOP: medium none; PADDING-TOP: 8px
 }
-
-.pageSide {
-	MARGIN: 10px 0px; WIDTH: 570px; HEIGHT: 42px; text-align: right;
-}
-.pageipt{ background-color:#FFFFFF; border:1px solid #999999;}

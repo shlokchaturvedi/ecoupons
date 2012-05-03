@@ -97,7 +97,7 @@ A:hover {
 	WIDTH: 576px; BACKGROUND: url(../images/link_bottom.gif) no-repeat; HEIGHT: 5px
 }
 .zs_mid {
-	PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; WIDTH: 560px;  PADDING-RIGHT: 10px; BACKGROUND: url(../images/link_bg.gif) repeat-y; PADDING-TOP: 10px;margin:3px 10px; 
+	PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; WIDTH: 535px;  PADDING-RIGHT: 10px; BACKGROUND: url(../images/link_bg.gif) repeat-y; PADDING-TOP: 10px;margin:3px 10px; 
 }
 .zs_img{ width:126px; margin:3px 3px; float:left }
  
@@ -206,3 +206,8 @@ A:hover {
  .mer_mid .mer_info .mer_headtitle {
 	PADDING-BOTTOM: 10px; PADDING-LEFT: 15px; PADDING-RIGHT: 0px; COLOR: #f00; FONT-SIZE: 14px; FONT-WEIGHT: bold; PADDING-TOP: 15px
 }
+
+.pageSide {
+	MARGIN: 10px 0px; WIDTH: 570px; HEIGHT: 42px; text-align: right;
+}
+.pageipt{ background-color:#FFFFFF; border:1px solid #999999;}
