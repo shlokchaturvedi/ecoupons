@@ -7,6 +7,8 @@
 				com.ejoysoft.common.exception.IdObjectException" %>
 <%@page import="com.ejoysoft.ecoupons.business.Coupon"%>
 <%@page import="com.ejoysoft.common.Format"%>
+<%@page import="com.ejoysoft.ecoupons.business.ShopComment"%>
+<%@page import="com.ejoysoft.ecoupons.business.Member"%>
 <%@ include file="../include/jsp/head.jsp"%>
 <%
 String path = request.getContextPath();
@@ -28,11 +30,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    		bizname = bizname+"-"+shopname;
     }
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/tr/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN" "http://www.w3.org/tr/xhtml1/Dtd/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
 <link href="css/merchantsinfo.css" rel="stylesheet" type="text/css" />
+<link href="css/comment.css" rel="stylesheet" type="text/css" />
 <title>商家详细</title>  
 </head>
 <body>
@@ -109,12 +112,12 @@ if(vctCoupon!=null&&vctCoupon.size()!=0)
 		Coupon obj3 = vctCoupon.get(i);
 		if (obj3.getStrSmallImg()!=null && obj3.getStrSmallImg().length() > 0) {
          %>
-         <a href="couponinfo.jsp?strid=<%=obj3.getStrId() %>" target="_blank"><img src="<%="../coupon/images/" + obj3.getStrSmallImg() %>" border="0" width="126" height="95px" style="margin:3px 3px;"  title="<%=obj3.getStrName() %>" /></a>
+         <a href="couponinfo.jsp?strid=<%=obj3.getStrId() %>" target="_blank"><img src="<%="../coupon/images/" + obj3.getStrSmallImg() %>" border="0" width="125" height="95px" style="margin:2px 2px;"  title="<%=obj3.getStrName() %>" /></a>
         <%
         }   
         else{
          %>
-        <a href="couponinfo.jsp?strid=<%=obj3.getStrId() %>" target="_blank"><img src="images/temp.jpg"  border="0" width="135" height="96px" style="margin:3px 3px;" title="<%=obj3.getStrName() %>" /></a>
+        <a href="couponinfo.jsp?strid=<%=obj3.getStrId() %>" target="_blank"><img src="images/temp.jpg"  border="0"  width="125" height="95px" style="margin:2px 2px;" title="<%=obj3.getStrName() %>" /></a>
         <%
         }    	
 	}	
@@ -123,6 +126,141 @@ if(vctCoupon!=null&&vctCoupon.size()!=0)
 
 </div>
 <div class=zs_bottom></div></div><!--更多相关-->
+<!--发表评论-->
+
+<%
+    ShopComment comobj = new ShopComment(globa);
+    //记录总数
+	int intAllCount=comobj.getCount(" where strshopid='"+strId+"'");
+	//当前页
+	int intCurPage=globa.getIntCurPage();
+    //每页记录数
+	//int intPageSize=globa.getIntPageSize();
+	int intPageSize=5;
+	//共有页数
+ 	int intPageCount=(intAllCount-1)/intPageSize+1;
+	// 循环显示一页内的记录 开始序号
+	int intStartNum=(intCurPage-1)*intPageSize+1;
+	//结束序号
+	int intEndNum=intCurPage*intPageSize;   
+	//获取到当前页面的记录集
+	Vector<ShopComment> vctcom = comobj.list(" where strshopid='"+strId+"'",intStartNum,intPageSize);
+	//获取当前页的记录条数
+	int intVct=(vctcom!=null&&vctcom.size()>0?vctcom.size():0);
+%>
+<div style="PADDING-LEFT: 23px; width:578px;">
+<!--<div style="WIDTH: 100%" class=ny_left>
+<div style="FONT-SIZE: 12px" class=line_gray>
+<div class=mp_auto>
+<div style="HEIGHT: 20px" class="box bold word_gra sp_nav_bg jianju13 ">会员评论：(已有<SPAN 
+class=red><%=intAllCount%></SPAN>条评论)</div>
+<div style="HEIGHT: 1px; BORDER-TOP: #ebebeb 1px solid"></div>
+<div style="PADDING-LEFT: 5px"><BR>
+<form name=frm action="couponinfo.jsp" method="post" >
+<input type="hidden" name="strid" value="<%=strId %>"/>
+<%
+	for (int i = 0;i < vctcom.size(); i++) {
+       ShopComment comobj1 = vctcom.get(i);
+       Member memobj = new Member(globa);
+       String twhere=" where 1=1";
+       if(comobj1.getStrMemberCardNo()!=null)
+       	{	twhere +=" and strcardno='"+comobj1.getStrMemberCardNo()+"'";}
+       Member memobj1 = memobj.show(twhere);
+       String namememb="***";
+       if(memobj1!=null && memobj1.getStrName()!=null && memobj1.getStrName().length()>1)
+       {
+       		
+        	namememb=memobj1.getStrName().substring(0,1)+"* *";
+       }
+%>
+<div style="PADDING-LEFT: 5px"><BR>
+<div style="HEIGHT: 50px">
+<div style="WIDTH: 10%; FLOAT: left; HEIGHT: 40px"><img alt="" src="images/touxiang.jpg" width=45 height=33> </div>
+<div style="LINE-HEIGHT: 18px; WIDTH: 80%; FLOAT: left; ">
+<SPAN style="COLOR: #001c55"><%=namememb%>：</SPAN>
+<SPAN style="COLOR: gray"><%=comobj1.getStrComment().replace("\n","<br/>") %></SPAN> 
+</div>
+</div>
+<div style="BORDER-BOTTOM: #808080 1px dotted; HEIGHT: 1px; CLEAR: both"></div><BR>
+</div>
+<%
+    }
+%>
+ 翻页开始   
+<%@ include file="include/cpage.jsp"%>
+ 翻页结束 
+</form>
+</div></div>
+</div></div>
+--><div class="clr height_05"></div>
+<div></div>
+<div class="box  line_gray jianju9b">
+<div class="box bold word_gra sp_nav_bg jianju13 ">给商家留言：</div>
+<div class="box jianju13 jianju2a word_12px">
+<%
+ if(session.getAttribute(Constants.MEMBER_KEY) != null)
+ {  %>
+<form action="shopcomment_act.jsp" method=post name=frm1 >
+<input type="hidden" name="strshopid" value="<%=strId%>" > 
+<input type="hidden" name="<%=Constants.ACTION_TYPE%>" value="<%=Constants.ADD_STR%>" >
+<table border=0 width="100%">
+  <tbody>
+  <tr>
+    <td align="center">内&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;  容：</td>
+    <td colSpan=7><label><TEXTAREA style="WIDTH: 500px; HEIGHT: 100px" id=txt_con class=form rows=2 cols=20 name=strcomment></TEXTAREA> 
+      </label><SPAN id=span_sub></SPAN></td></tr></tbody></table>
+
+<table id=tr2>
+  <tbody>
+  <tr>
+    <td align=right>验 &nbsp;证 &nbsp;码： </td>
+    <td align=left><input style="WIDTH: 60px" name=yanzm class=form type=text value="" maxLength=4 size=10> </td>
+    <td align=left> <a style="CURSOR:hand" onclick="javascript:var dt=new Date();document.getElementById('code2').src='../image.jsp?dt='+dt;" title="看不清楚，换个图片"> 
+    <img style="BORDER: #ffffff 1px solid; WIDTH: 65px; HEIGHT: 20px; CURSOR: pointer;" id=code2 border=0 name=checkcode src="../image.jsp"> 
+    </a></td>
+    <td align=left><input id=btn_login class=cz_button value=" " type=submit name=btn_login> 
+    </td></tr></tbody></table>   
+    </form> 
+    
+ <%
+ } 
+else
+{
+ %>
+<form name="frm2" method=post action="<%=application.getServletContextName()%>/web/Auth" >		
+<input type="hidden" name="actiontype" value="weblogon2" />		
+<input type="hidden" name="authType" value="password"/>		
+<input type="hidden" name="strId" value="<%=strId%>" > 
+<input type="hidden" name="gotoPage" value="merchantsinfo" > 
+<table border=0 width="100%">
+  <tbody>
+  <tr>
+    <td align="center">内&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;  容： </td>
+    <td colSpan=7><LABEL><TEXTAREA style="WIDTH: 480px; HEIGHT: 100px" id=txt_con class=form rows=2 cols=20 name=strcomment></TEXTAREA> 
+      </LABEL><SPAN id=span_sub></SPAN></td></tr></tbody></table>
+	
+<table id=tr_login>
+  <tbody>
+  <tr>
+    <td align=left>卡号/手机号： </td>
+    <td align=left><input style="WIDTH: 90px;" id=txt_username class=form value=" " onclick="document.getElementById('txt_username').value=''" type=text name=username> 
+    </td>
+    <td align=left>&nbsp; 密码： </td>
+    <td align=left><input style="WIDTH: 80px;" id=txt_userpass class=form type=password name=password > </td>
+    <td align=left>&nbsp; 验证码： </td>
+    <td align=left><input style="WIDTH: 60px" class=form name=yanzm type=text value="" maxLength=4 size=10> </td>
+    <td align=left><a style="CURSOR:hand" onclick="javascript:var dt=new Date();document.getElementById('code').src='../image.jsp?dt='+dt;" title="看不清楚，换个图片"> 
+    <img style="BORDER: #ffffff 1px solid; WIDTH: 65px; HEIGHT: 20px; CURSOR: pointer;" id=code border=0 name=checkcode src="../image.jsp"> </a></td>
+    <td align=left><input id=btn_login class=cx_button value=" " type=submit name=btn_login> 
+    </td></tr></tbody>
+ </table>
+ </form>
+ <%
+ }
+ %>
+    </div></div>
+</div>
+<!--评论结束-->
 </div>
 <div class=left_bottom></div></div>
 <div id=Right>

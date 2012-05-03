@@ -204,7 +204,8 @@ else
 <form name="frm2" method=post action="<%=application.getServletContextName()%>/web/Auth" >		
 <input type="hidden" name="actiontype" value="weblogon2" />		
 <input type="hidden" name="authType" value="password"/>		
-<input type="hidden" name="strCouponId" value="<%=strId%>"/>
+<input type="hidden" name="strId" value="<%=strId%>" > 
+<input type="hidden" name="gotoPage" value="couponinfo" > 
 <TABLE border=0 width="100%">
   <TBODY>
   <TR>
