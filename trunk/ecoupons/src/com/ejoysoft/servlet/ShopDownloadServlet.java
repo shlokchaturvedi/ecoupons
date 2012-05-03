@@ -47,7 +47,7 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 	{
 		// TODO Auto-generated method stub
 		String strTerminalNo = req.getParameter("strTerminalNo");
-//		strTerminalNo = "0001";
+//		strTerminalNo = "000";
 		HashMap<String, Terminal> hmTerminal = Terminal.hmTerminal;
 		Terminal terminal = hmTerminal.get(strTerminalNo);
 		Globa globa = new Globa();		
@@ -92,7 +92,7 @@ public class ShopDownloadServlet extends HttpServlet implements Servlet
 		{
 			// 关闭数据库连接对象
 			globa.closeCon();
-			System.out.println(sbReturn.toString());
+//			System.out.println(sbReturn.toString());
 			resp.getWriter().println(sbReturn.toString());
 		}
 	}
