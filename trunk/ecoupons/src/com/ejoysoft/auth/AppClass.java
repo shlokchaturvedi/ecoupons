@@ -16,6 +16,7 @@ public class AppClass extends javax.servlet.http.HttpServlet
 	private String logonUrl = "/login.jsp";
 	private String strUrl = "/web/index.jsp";
 	private String strUrl2 = "/web/couponinfo.jsp";
+	private String strUrl3 = "/web/merchantsinfo.jsp";
 
 	public AppClass()
 	{
@@ -78,9 +79,9 @@ public class AppClass extends javax.servlet.http.HttpServlet
 				// 判断验证码
 				String rand = (String) request.getSession().getAttribute("rand");
 				String input = request.getParameter("yanzm");
-				String strUserName=request.getParameter("username");
-				
-				String couponid=request.getParameter("strCouponId");
+				String strUserName=request.getParameter("username");				
+				String strid=request.getParameter("strId");			
+				String gotopage=request.getParameter("gotoPage");
 //				String strPwd=request.getParameter("password");
 				if (!rand.toLowerCase().equals(input.toLowerCase()))
 				{
@@ -93,7 +94,13 @@ public class AppClass extends javax.servlet.http.HttpServlet
 						getFullwinScript(actionType,response, form.getError());
 					} else
 					{
-						gotoPage(strUrl2+"?strid="+couponid, request, response);
+						if(gotopage!=null && gotopage.trim().equals("merchantsinfo"))
+						{
+							gotoPage(strUrl3+"?strid="+strid, request, response);
+						}
+						else if (gotopage!=null && gotopage.trim().equals("couponinfo")) {
+							gotoPage(strUrl2+"?strid="+strid, request, response);
+						}						
 					}
 				}
 			}
