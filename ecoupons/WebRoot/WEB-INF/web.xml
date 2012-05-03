@@ -106,6 +106,15 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>TemplateParam</servlet-name>
+		<servlet-class>com.ejoysoft.servlet.TemplateParamServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TemplateParam</servlet-name>
+		<url-pattern>/servlet/TemplateParam</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>PrintAlert</servlet-name>
 		<servlet-class>com.ejoysoft.servlet.PrintAlertServlet</servlet-class>
 	</servlet>
