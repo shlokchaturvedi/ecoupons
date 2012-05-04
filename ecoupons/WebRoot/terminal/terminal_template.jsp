@@ -103,7 +103,7 @@ function del(){
           <tr>
             <td height="20"><table width="100%" height="1" border="0" cellpadding="0" cellspacing="0" bgcolor="#CCCCCC">
               <tr>
-                <td></td>
+                <td align="left"><br></td>
               </tr>
             </table></td>
           </tr>
@@ -131,12 +131,12 @@ function del(){
 	
 			 </td>
 			<td align="right" width="600"><div style="height:26"> 
-			模块类型：<select name="strModuleOfTempl" class="input_text" style="width:120px">
+			模块类型：<select name="strModuleOfTempl" class="input_text" style="width:185px">
 					<%if( strModuleOfTempl!=null && !strModuleOfTempl.trim().equals("")&& !strModuleOfTempl.trim().equals("all"))
                   {%>
                   	<option value="<%=strModuleOfTempl%>" ><%=obj.returnModuleName(strModuleOfTempl)%></option>    
                   <%}%>                                	
-				    <option value="all" >--全部模块元素--</option> 
+				    <option value="all"  > --- 所有终模板元素 --- </option> 
                   	<option value="top">界面顶部</option>
 					<option value="home">界面中间首页</option>
 					<option value="shopInfo">商家详细</option>
@@ -160,16 +160,17 @@ function del(){
 			
 			<table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="b5d6e6" onmouseover="changeto()"  onmouseout="changeback()">
               <tr>
-                <td  width=5%" height="22"  class="left_bt2"><div align="center">&nbsp;</div></td>
+                <td  width=3%" height="22"  class="left_bt2"><div align="center">&nbsp;</div></td>
                 <td width="10%" class="left_bt2"><div align="center">元素名称</div></td>                
                 <td class="left_bt2"><div align="center">所属模块</div></td>
                 <td width="8%" class="left_bt2"><div align="center">元素位置</div></td>
                 <td width="8%" class="left_bt2"><div align="center">元素大小</div></td>      
                 <td width="10%" class="left_bt2"><div align="center">背景图</div></td>        
-                <td width="8%" class="left_bt2"><div align="center">字体</div></td>
-                <td width="8%" class="left_bt2"><div align="center">字体大小</div></td>
-                <td width="8%" class="left_bt2"><div align="center">字体颜色</div></td>
+                <td width="6%" class="left_bt2"><div align="center">字体</div></td>
+                <td width="6%" class="left_bt2"><div align="center">字体大小</div></td>
+                <td width="6%" class="left_bt2"><div align="center">字体颜色</div></td>
                 <td width="8%" class="left_bt2"><div align="center">元素内容</div></td>
+                <td width="16%" class="left_bt2"><div align="center">说明</div></td>
                 <td width="10%" class="left_bt2"><div align="center">操作</div></td>
                </tr>
             <%
@@ -189,6 +190,7 @@ function del(){
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%if(obj1.getIntFontSize()!=0){%><%=obj1.getIntFontSize()%><%}%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrFontColorName()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrContent()%></span></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrIntro()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE4">
                   <a href="template_update.jsp?strId=<%=obj1.getStrId()%>"><img src="../images/edit.gif" width="16" height="16" border="0" />编辑</a> 
 			      <a href="#" onclick="if(confirm('确认删除该记录？')){location.href='template_act.jsp?<%=Constants.ACTION_TYPE%>=<%=Constants.DELETE_STR%>&strId=<%=obj1.getStrId()%>';}"><img src="../images/delete.gif" width="16" height="16" border="0" />删除</a></span> </div>
