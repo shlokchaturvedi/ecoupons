@@ -31,19 +31,19 @@ body,td,tr{font-size:9pt;}
             alert("请输入元素名称！！！")
             frm.strName.focus();
             return false;
-        }else if(trim(frm.strLocationX.value)=="") {
+        }else if(trim(frm.strLocationX.value)=="" && trim(frm.strLocationY.value)!="") {
             alert("请输入正确元素位置！！！")
             frm.strLocationX.focus();
             return false;
-        }else if(trim(frm.strLocationY.value)=="") {
+        }else if(trim(frm.strLocationY.value)=="" && trim(frm.strLocationX.value)!="") {
             alert("请输入正确元素位置！！！")
             frm.strLocationY.focus();
             return false;
-        }else if(trim(frm.strSizeW.value)=="") {
+        }else if(trim(frm.strSizeW.value)=="" && trim(frm.strSizeH.value)!="") {
             alert("请输入正确元素大小！！！")
             frm.strSizeW.focus();
             return false;
-        }else if(trim(frm.strSizeH.value)=="") {
+        }else if(trim(frm.strSizeH.value)=="" && trim(frm.strSizeW.value)!="") {
             alert("请输入正确元素大小！！！")
             frm.strSizeH.focus();
             return false;
@@ -282,6 +282,7 @@ body,td,tr{font-size:9pt;}
 	                 <option value="48">48</option>
 	                 <option value="72">72</option>
                 </select>
+                </td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td>
               </tr>        
               <tr>
@@ -289,7 +290,13 @@ body,td,tr{font-size:9pt;}
                 <td width="3%" height="30">&nbsp;</td>
                 <td width="32%" height="30"><input name="strBgImage" type="file" class="input_box" size="30" /></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td>
-              </tr>             
+              </tr>                    
+              <tr bgcolor="#f2f2f2">
+                 <td width="20%" height="30" align="right" class="left_txt2">元素说明：</td>
+                <td width="3%">&nbsp;</td>
+                <td width="32%" height="30"><textArea name="strIntro" cols="33" rows="5" ></textArea></td>
+                <td width="45%" height="30" class="left_txt" > &nbsp;</td> 
+              </tr>                
             </table></td>
           </tr>
          </table>
