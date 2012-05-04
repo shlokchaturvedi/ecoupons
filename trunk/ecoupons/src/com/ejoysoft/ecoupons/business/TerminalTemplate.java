@@ -1,8 +1,6 @@
 package com.ejoysoft.ecoupons.business;
 
 import com.ejoysoft.common.*;
-import com.ejoysoft.ecoupons.system.SysPara;
-
 import java.util.Vector;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -43,7 +41,7 @@ public class TerminalTemplate
 		strId = UID.getID(); 
 		// 添加终端模版信息
 		strSql = "insert into " + strTableName + "  (strid, strname, strlocation, strsize, strbgimage, strfontfamily, "
-				+ "intfontsize,strfontcolor, strcreator, dtcreatetime,strmoduleoftempl,strcontent) values(?,?,?,?,?,?,?,?,?,?,?,?)";
+				+ "intfontsize,strfontcolor, strcreator, dtcreatetime,strmoduleoftempl,strcontent,strintro) values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		try
 		{
 			db.prepareStatement(strSql);
@@ -59,6 +57,7 @@ public class TerminalTemplate
 			db.setString(10, Format.getDateTime());
 			db.setString(11, strModuleOfTempl);
 			db.setString(12, strContent);
+			db.setString(13, strIntro);
 			if (db.executeUpdate() > 0)
 			{
 				Globa.logger0("添加终端模版信息", globa.loginName, globa.loginIp, strSql, "终端管理", globa.userSession.getStrDepart());
@@ -106,11 +105,11 @@ public class TerminalTemplate
 		{
 			String strSql = "update " + strTableName + "  set strname=?, strlocation=?, strfontfamily=?, "
 					+ "intfontsize=?,strfontcolor=?, strmoduleoftempl=?,";
-			if (this.strBgImage != null && this.strBgImage.length() > 0)
+			if (this.strBgImage != null && this.strBgImage.trim().length() > 0)
 			{
 				strSql += "strbgimage = '" + strBgImage + "',";
 			}			
-			strSql += "strsize=?, strcontent=? where strid=? ";
+			strSql += "strsize=?, strcontent=?,strintro=? where strid=? ";
 			db.prepareStatement(strSql);
 			db.setString(1, strName);
 			db.setString(2, strLocation);
@@ -120,7 +119,8 @@ public class TerminalTemplate
 			db.setString(6, strModuleOfTempl);
 			db.setString(7, strSize);
 			db.setString(8, strContent);
-			db.setString(9, strId);
+			db.setString(9, strIntro);
+			db.setString(10, strId);
 			db.executeUpdate();
 			Globa.logger0("更新终端模版信息", globa.loginName, globa.loginIp, strSql, "终端管理", globa.userSession.getStrDepart());
 			return true;
@@ -175,6 +175,7 @@ public class TerminalTemplate
 			theBean.setStrContent(rs.getString("strcontent"));
 			theBean.setStrCreator(rs.getString("strcreator"));
 			theBean.setDtCreateTime(rs.getString("dtcreatetime"));
+			theBean.setStrIntro(rs.getString("strintro"));
 			String fontString = theBean.getStrModuleOfTempl();
 			theBean.setStrModuleOfTemplName(theBean.returnModuleName(fontString));
 			String fontcolor = theBean.getStrFontColor();
@@ -366,6 +367,7 @@ public class TerminalTemplate
 	private String strFontColorName;
 	private String strModuleOfTempl;
 	private String strContent;
+	private String strIntro;
 	private String strCreator;
 	private String dtCreateTime;
 
@@ -495,6 +497,14 @@ public class TerminalTemplate
 
 	public void setStrFontColorName(String strFontColorName) {
 		this.strFontColorName = strFontColorName;
+	}
+
+	public String getStrIntro() {
+		return strIntro;
+	}
+
+	public void setStrIntro(String strIntro) {
+		this.strIntro = strIntro;
 	}
 	
 }
