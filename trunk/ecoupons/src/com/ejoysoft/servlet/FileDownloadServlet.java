@@ -17,6 +17,8 @@ public class FileDownloadServlet extends HttpServlet {
 		 try {
 			 String strFileType = request.getParameter("strFileType");
 			 String strFileName = request.getParameter("strFileName");
+//			 strFileName = "框架.jpg";
+//			 strFileType = "template";
 			 String strPath = request.getSession().getServletContext().getRealPath("");
 			 if (strFileType.equals("shop")) {
 				 strPath += "\\shop\\images\\";
@@ -24,7 +26,21 @@ public class FileDownloadServlet extends HttpServlet {
 				 strPath += "\\coupon\\images\\";
 			 } else if (strFileType.equals("ad")) {
 				 strPath += "\\terminal\\advertisement\\";
-			 } else {			 
+			 }else if (strFileType.equals("template")) {
+				 String strModuleOfTempl = request.getParameter("strModuleOfTempl");
+//				 strModuleOfTempl = "home";
+				 strPath += "\\terminal\\template\\";
+				 if(strModuleOfTempl!=null && (strModuleOfTempl.equals("top") || strModuleOfTempl.equals("bottom")))
+				 {
+					 strPath += strModuleOfTempl+"\\";
+				 }else if (strModuleOfTempl!=null && (strModuleOfTempl.equals("home") || strModuleOfTempl.equals("shopInfo")|| strModuleOfTempl.equals("shop")|| strModuleOfTempl.equals("coupon")|| strModuleOfTempl.equals("myInfo")|| strModuleOfTempl.equals("nearshop")|| strModuleOfTempl.equals("ad")|| strModuleOfTempl.equals("waitdownload")|| strModuleOfTempl.equals("waitlogin"))) {
+					 strPath += "\\middle\\"+strModuleOfTempl+"\\";
+				}
+				 else {
+					 throw new ServletException("strModuleOfTempl参数有误：" + strFileType);
+				}
+			 }
+			 else {			 
 				 throw new ServletException("strFileType参数有误：" + strFileType);
 			 }
 			 FileInputStream fis = new FileInputStream(strPath + strFileName);
