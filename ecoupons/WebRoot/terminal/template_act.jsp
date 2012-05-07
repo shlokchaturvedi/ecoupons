@@ -90,8 +90,14 @@ try{
 		obj.setStrBgImage(strBgImage);
 		obj.setStrContent(au.getString("strContent").trim());
 		obj.setStrFontFamily(au.getString("strFontFamily").trim());
-		obj.setStrFontColor(au.getString("strFontColor").trim());		
-		obj.setStrIntro(au.getString("strIntro").trim());		
+		if(au.getString("strFontColorR")!=null && au.getString("strFontColorG")!=null && au.getString("strFontColorB")!=null && !au.getString("strFontColorR").trim().equals("")&& !au.getString("strFontColorG").trim().equals("")&& !au.getString("strFontColorB").trim().equals(""))
+		{
+			obj.setStrFontColor(au.getString("strFontColorR").trim()+","+au.getString("strFontColorG").trim()+","+au.getString("strFontColorB").trim());
+		}else{
+			obj.setStrFontColor("");
+		}	
+		System.out.println(obj.getStrFontColor()+":ddddddddddddddddd");
+		obj.setStrIntro(au.getString("strIntro").trim());		 
 		if(au.getString("intFontSize")!=null && !au.getString("intFontSize").trim().equals(""))
 		{
 			obj.setIntFontSize(Integer.parseInt(au.getString("intFontSize").trim()));
