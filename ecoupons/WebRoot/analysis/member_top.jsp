@@ -4,6 +4,8 @@
 				com.ejoysoft.common.exception.NoRightException,
 				com.ejoysoft.ecoupons.business.MemberBiz" %>
 <%@page import="com.ejoysoft.ecoupons.business.Member"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="com.ejoysoft.ecoupons.business.CouponPrint"%>
 <%@ include file="../include/jsp/head.jsp"%>
 <%
 if(!globa.userSession.hasRight("13015"))
@@ -11,8 +13,6 @@ if(!globa.userSession.hasRight("13015"))
 %>
 
 <%
-    //初始化
-    MemberBiz obj=new MemberBiz(globa);
    	String  bytime=ParamUtil.getString(request,"byTime");
    	int  topnum=Integer.parseInt(ParamUtil.getString(request,"strTopnum","0"));  
    	String stime=ParamUtil.getString(request,"stime","1000-01-01");
@@ -132,69 +132,60 @@ if(!globa.userSession.hasRight("13015"))
     	   int em = Integer.parseInt(emonth2[1]);
     	   if((sy == ey && sm >= em)||(sy>ey))
     	   	   out.print("<script type='text/javascript'>alert('输入时间先后有误，请重新输入');history.go(-1);</script>");   	
-    	
     	}  	
-    	
     }
     
-    obj.setStime(stime);
-    obj.setEtime(etime);
     //查询条件
 	String  strName=ParamUtil.getString(request,"strName","");
-	String tWhere=" where 1=1";
-	if (!strName.equals("")) {	
-	      tWhere += " and strcardno like '%" + strName + "%' or strName like '%" + strName + "%'";   	  	
-	}
-	tWhere += " order by strid";
-	//获取到所有记录集
-	Vector<MemberBiz> vctObj=obj.getMemberTopResultList(tWhere);	
-   	if(topnum == 0 || topnum>=vctObj.size())
-   	{
-   		topnum = vctObj.size();
-   	}
+	ResultSet rs = null;
+	String  sql = "select  strMemberCardNo,count(strMemberCardNo) from t_bz_coupon_print where dtPrintTime>='" + stime + "' and dtPrintTime<='" + etime + "' ";
+	if(!strName.equals(""))
+		sql += " and strcardno like '%" + strName + "%'";
+	sql += " group by strMemberCardNo order by count(strMemberCardNo) desc " ;
+	CouponPrint objCouponPrint = new CouponPrint(globa);
+	String allCountString = "select count(*) from("+sql+") as allcount";
+	System.out.println(sql);
+	int  allCount = objCouponPrint.getCountA(allCountString);
+	if(topnum == 0 || allCount <topnum)
+		topnum = allCount;
 	//记录总数
 	int intAllCount = topnum;
 	//当前页
 	int intCurPage=globa.getIntCurPage();
-	if(ParamUtil.getString(request,"curpage")!=null&&ParamUtil.getString(request,"curpage").trim().equals("newsearch"))
-		intCurPage=1;	
 	//每页记录数
 	int intPageSize=globa.getIntPageSize();
-	//共有页数
- 	int intPageCount=(intAllCount-1)/intPageSize+1;
 	// 循环显示一页内的记录 开始序号
 	int intStartNum=(intCurPage-1)*intPageSize+1;
 	//结束序号
 	int intEndNum=intCurPage*intPageSize;   
-	//获取当前页的记录条数
-	int intVct=(vctObj!=null&&vctObj.size()>0?vctObj.size():0);
+	//共有页数
+ 	int intPageCount=(intAllCount-1)/intPageSize+1;
+	rs = globa.db.executeQuery(sql);
 	String setime="";
-    Member objMember = new Member(globa);
-    int allmember= objMember.getCount("");
 	if(stime.equals("1000-01-01")&&etime.equals("9999-12-30"))
 	{
-		if(allmember == topnum)
+		if(allCount == topnum)
 			setime = "所   有  会  员  排  行   统   计   记   录";
 		else		
 			setime = "前 "+topnum+" 名 会  员  排  行   统   计   记   录";
 	}
 	else if(stime.equals("1000-01-01")&&!etime.equals("9999-12-30"))
 	{
-		if(allmember == topnum)
+		if(allCount == topnum)
 			setime =etime+ "之   前  所  有  会  员  统   计   记   录";
 		else
 			setime =etime+ "之   前  前  "+topnum+" 名  会  员  统   计   记   录";
 	}
 	else if(!stime.equals("1000-01-01")&&etime.equals("9999-12-30"))
 	{
-		if(allmember == topnum)
+		if(allCount == topnum)
 			setime =stime+ "之   后   所  有  会  员   统   计   记   录";
 		else
 			setime =stime+ "之   后  前  "+topnum+" 名  会  员   统   计   记   录";
 	}
 	else 
 	{
-		if(allmember == topnum)
+		if(allCount == topnum)
 			setime = stime+"  至  "+etime+"  所  有  会  员    统   计   记   录";
 		else
 			setime = stime+"  至  "+etime+"  前  "+topnum+" 名  会  员  统   计   记   录";		
@@ -332,7 +323,7 @@ function chkFrm()
 			</td>
 			
 			<td align="right" width="400"><div style="height:26"> 
-			会员卡号（名称）：<input name="strName" class="input_box" value="<%=strName%>" size=" "> 
+			会员卡号 ：<input name="strName" class="input_box" value="<%=strName%>" size=" "> 
 			         <input type="hidden" name="curpage" value="newsearch">
 			         <input type="button" class="button_box" onclick="chkFrm()" value="统计" />
 			</div>
@@ -353,26 +344,36 @@ function chkFrm()
                 <td width="15%" class="left_bt2"><div align="center">会员余额</div></td>      
                 <td width="15%" class="left_bt2"><div align="center">会员积分</div></td>      
               </tr>
-            <%
-            	if(intEndNum > topnum)
-            		intEndNum =  topnum;
-            	for (int i = intStartNum-1 ;i < intEndNum; i++) {
-                        	MemberBiz obj1 = vctObj.get(i);         
-		                	
-                %> 
-              <tr  title="会员：<%=obj1.getMemberCardNo()%>" >
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">第&nbsp;&nbsp;<%=i+1 %>&nbsp;&nbsp;名</span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getMemberCardNo()%> </span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getTotalNumofPrint()%></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getMemberName()%></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getMemberType()%></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getMemberFlaBalance()%></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getMemberPoint()%></span></div></td>
+             <%
+            	//记录总数
+				Member m = new Member(globa);
+				Member obj1 = null;				
+				String strTmp="";		
+				if (rs!=null && rs.next()) {				
+					int i=intStartNum - 1;
+				    if (intStartNum != 0 && intPageSize != 0)
+					   rs.absolute(intStartNum);
+					do{
+						String strCardNo = rs.getString("strMemberCardNo");
+						obj1 = m.show(" where strcardno='" + strCardNo + "'");
+						if(obj1!=null)
+						{
+							i++;
+			%>
+			  <tr  title="会员：<%=obj1.getStrCardNo()%>" >
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">第&nbsp;&nbsp;<%=i%>&nbsp;&nbsp;名</span></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrCardNo()%> </span></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=rs.getInt(2)%></span></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrName()%></span></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getType(obj1.getIntType())%></span></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getFlaBalance()%></span></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getIntPoint()%></span></div></td>
                 </tr>
-            <%
-            }
-	        //关闭数据库连接对象
-	         globa.closeCon();
+			<%			}
+					}while (rs.next() && i < intEndNum && i<intAllCount);
+				}							
+			     //关闭数据库连接对象
+		       globa.closeCon();
             %>  
             </table>
             </form></td>

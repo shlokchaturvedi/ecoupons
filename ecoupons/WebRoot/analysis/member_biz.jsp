@@ -2,17 +2,22 @@
 <%@ page import="java.util.Vector,
 				com.ejoysoft.common.Constants,
 				com.ejoysoft.common.exception.NoRightException,
-				com.ejoysoft.ecoupons.business.MemberBiz" %>
+				com.ejoysoft.ecoupons.business.MemberBiz,
+				java.sql.ResultSet,
+				com.ejoysoft.ecoupons.business.Coupon" %>
+<%@page import="com.ejoysoft.ecoupons.business.Terminal"%>
+<%@page import="java.sql.Statement"%>
 <%@ include file="../include/jsp/head.jsp"%>
 <%
+try{
 if(!globa.userSession.hasRight("13015"))
       throw new NoRightException("用户不具备操作该功能模块的权限，请与系统管理员联系！");
 %>
 
 <%
     //初始化
-    MemberBiz  obj0=null;
-    MemberBiz obj=new MemberBiz(globa);
+    //MemberBiz  obj0=null;
+    //MemberBiz obj=new MemberBiz(globa);
    	String  bytime=ParamUtil.getString(request,"byTime");
    	String stime=ParamUtil.getString(request,"stime","1000-01-01");
    	String etime=ParamUtil.getString(request,"etime","9999-12-30");
@@ -136,36 +141,55 @@ if(!globa.userSession.hasRight("13015"))
     	}  	
     	
     }
-    obj.setStime(stime);
-    obj.setEtime(etime);
-    obj.setFlag(flag);
+    //obj.setStime(stime);
+    //obj.setEtime(etime);
+    //obj.setFlag(flag);
     //查询条件
    
 	String  strName=ParamUtil.getString(request,"strName","");
-	String tWhere=" where 1=1";
+	String tWhere=" where strmobileno<>'' and strmobileno is not null";
 	if (!strName.equals("")) {	
 	      tWhere += " and strcardno like '%" + strName + "%' or strcardno like '%" + strName + "%'";
     	
 	}
 	tWhere += " order by strid";
-	//记录总数
-	int intAllCount=obj.getCountSA(tWhere);
+	
+	ResultSet rs = null;
+	String label = "",sql="";
+	if(flag.equals("byshop"))
+		 label = "商    家（名称-分部）";
+	else if(flag.equals("byterminal"))
+	{
+		 label = "终    端（编号）";
+		 sql = "select  strMemberCardNo,strTerminalId,count(strTerminalId) " + 
+		 "from t_bz_coupon_print where dtPrintTime>='" + stime + "' and dtPrintTime<='" + etime + "' ";
+		 if(!strName.equals(""))
+			sql += " and strmembercardno like '%" + strName + "%'";
+		 sql += " group by strMemberCardNo,strTerminalId " ;
+		
+	}
+	else {
+		label = "优惠券（名称）";
+		sql = "select  strMemberCardNo,strCouponId,count(strCouponId) " + 
+			"from t_bz_coupon_print where dtPrintTime>='" + stime + "' and dtPrintTime<='" + etime + "' ";
+			if(!strName.equals(""))
+				sql += " and strmembercardno like '%" + strName + "%'";
+		    sql += "group by strMemberCardNo,strCouponId " ;
+	}
+	
+	
 	//当前页
 	int intCurPage=globa.getIntCurPage();
-    if(ParamUtil.getString(request,"curpage")!=null&&ParamUtil.getString(request,"curpage").trim().equals("newsearch"))
-		intCurPage=1;	
-	//每页记录数
+    //每页记录数
 	int intPageSize=globa.getIntPageSize();
-	//共有页数
- 	int intPageCount=(intAllCount-1)/intPageSize+1;
 	// 循环显示一页内的记录 开始序号
 	int intStartNum=(intCurPage-1)*intPageSize+1;
 	//结束序号
-	int intEndNum=intCurPage*intPageSize;   
-	//获取到当前页面的记录集
-	Vector<MemberBiz> vctObj=obj.getMemberBizList(tWhere);
-	//获取当前页的记录条数
-	int intVct=(vctObj!=null&&vctObj.size()>0?vctObj.size():0);
+	int intEndNum=intCurPage*intPageSize;  	
+	Statement s = globa.db.getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+	if (intStartNum != 0 && intPageSize != 0)
+		s.setMaxRows(intPageSize + intPageSize - 1);
+	rs = globa.db.executeRollQuery(sql);				 
 	String setime="";
 	if(stime.equals("1000-01-01")&&etime.equals("9999-12-30"))
 	{
@@ -180,12 +204,6 @@ if(!globa.userSession.hasRight("13015"))
 		setime =stime+ "之   后   统   计   记   录";
 	}
 	else setime = stime+"  至  "+etime+"   统   计   记   录";
-	String label = "";
-	if(flag.equals("byshop"))
-		 label = "商    家（名称-分部）";
-	else if(flag.equals("byterminal"))
-		 label = "终    端（编号）";
-	else label = "优惠券（名称）";
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -295,15 +313,24 @@ function showTime(str){
 			</td>
 			<td align="right"><div style="height:26"> 统计基于：
 			<select style="width:80" class="sec2" name="flag" >
-					<option value="bycoupon">优惠券</option>
-					<option value="byshop">  商     家</option>
-					<option value="byterminal">终     端</option>
+			<%String c11="",c12="",c13="";
+			if(flag.equals("byterminal")){
+				c13="selected=\"selected\"";
+			}else if(flag.equals("byshop")){
+				c12="selected=\"selected\"";
+			}else{
+				c11 = "selected=\"selected\"";
+			}
+			 %>
+					<option value="bycoupon" <%=c11 %> >优惠券</option>
+					<option value="byshop" <%=c12 %> >  商     家</option>
+					<option value="byterminal" <%=c13 %> >终     端</option>
 			</select>
 		    </div>
 			</td>
 			
 			<td align="right" width="400"><div style="height:26"> 
-			会员卡号（名称）：<input name="strName" class="input_box" value="<%=strName%>" size="10"> 
+			会员卡号 ：<input name="strName" class="input_box" value="<%=strName%>" size="10"> 
 			     <input type="hidden" name="curpage" value="newsearch">
 			         <input type="submit" class="button_box" value="统计" /> 
 			</div>
@@ -321,22 +348,56 @@ function showTime(str){
                 <td width="30%" class="left_bt2"><div align="center">消费统计（次）</div></td>      
               </tr>
             <%
-                if(vctObj.size()<intEndNum)
-                	intEndNum = vctObj.size();
-            	for (int i = intStartNum-1;i < intEndNum; i++) {
-                        	MemberBiz obj1 = vctObj.get(i);         
-		                	
-                %> 
-              <tr  title="会员：<%=obj1.getMemberCardNo()%>" >
-                <td bgcolor="#FFFFFF"><div align="center">&nbsp;<%=i+1 %></div></td>
-                <td bgcolor="#FFFFFF"> <div align="center"><span class="STYLE1"><%=obj1.getMemberCardNo()%></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getFlagName() %></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getPerCouponPrintNum()%></span></div></td>
-                </tr>
-            <%
-            }
-	      //关闭数据库连接对象
-	       globa.closeCon();
+            	//记录总数
+				int intAllCount=0;
+				Coupon c = new Coupon(globa);
+				Coupon c1 = null;
+				Terminal t = new Terminal(globa);
+				Terminal t1 = null;
+				String strTmp="";
+				if (rs!=null && rs.next()) {
+					intAllCount=intStartNum - 1;					
+				    if (intStartNum != 0 && intPageSize != 0)
+					   rs.absolute(intStartNum);
+					do{
+						intAllCount++;
+						String strCardNo = rs.getString("strMemberCardNo");
+						if(flag.equals("byshop"))
+							 label = "商    家（名称-分部）";
+						else if(flag.equals("byterminal"))
+						{
+							t1 = t.show(" where strId='" + rs.getString(2) + "'");
+							if (t1 == null)
+								strTmp = "已删除";
+							else
+								strTmp = t1.getStrNo();							
+						}
+						else {
+							c1 = c.show(" where strId='" + rs.getString(2) + "'");
+							if (c1 == null)
+								strTmp = "已删除";
+							else
+								strTmp = c1.getStrName();
+						}
+			%>
+			  <tr  title="会员：<%=strCardNo%>" >
+                <td bgcolor="#FFFFFF"><div align="center">&nbsp;<%=intAllCount%></div></td>
+                <td bgcolor="#FFFFFF"> <div align="center"><span class="STYLE1"><%=strCardNo%></span></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=strTmp %></span></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=rs.getInt(3)%></span></div></td>
+              </tr>
+			<%
+					}while (rs.next() && intAllCount < intEndNum);
+					do{					
+						intAllCount++;	
+					}while(rs.next());
+				}							
+				//共有页数
+			 	int intPageCount=(intAllCount-1)/intPageSize+1;
+			 	if(intCurPage == intPageCount && intCurPage>0)
+			 		intAllCount--;
+		      //关闭数据库连接对象
+		       globa.closeCon();
             %>  
             </table>
             </form></td>
@@ -369,4 +430,7 @@ function showTime(str){
 </table>
 </body>
 </html>
+<%
+}catch(Exception e){e.printStackTrace();}
+ %>
 <%@ include file="../include/jsp/footer.jsp"%>
