@@ -126,10 +126,10 @@ function del(){
 			<td style="font-size:9pt">
 			 <input type="checkbox" name="checkbox62" value="checkbox" onclick="selAll(document.all.strId)"/>
 			 全选
-			 <a href="template_add.jsp"><img src="../images/add.gif" width="16" height="16" border="0" />新增</a>		
+			<!-- <a href="template_add.jsp"><img src="../images/add.gif" width="16" height="16" border="0" />新增</a>		
 			 <a href="#" onclick="del();"><img src="../images/delete.gif" width="16" height="16" border="0" />批量删除</a>
 	
-			 </td>
+			 --></td>
 			<td align="right" width="600"><div style="height:26"> 
 			模块类型：<select name="strModuleOfTempl" class="input_text" style="width:185px">
 					<%if( strModuleOfTempl!=null && !strModuleOfTempl.trim().equals("")&& !strModuleOfTempl.trim().equals("all"))
@@ -188,13 +188,14 @@ function del(){
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrBgImage()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrFontFamily()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%if(obj1.getIntFontSize()!=0){%><%=obj1.getIntFontSize()%><%}%></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrFontColorName()%></span></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrFontColor()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrContent()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrIntro()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE4">
-                  <a href="template_update.jsp?strId=<%=obj1.getStrId()%>"><img src="../images/edit.gif" width="16" height="16" border="0" />编辑</a> 
+                  <a href="template_update.jsp?strId=<%=obj1.getStrId()%>"><img src="../images/edit.gif" width="16" height="16" border="0" />编辑</a>
+                  <!-- 
 			      <a href="#" onclick="if(confirm('确认删除该记录？')){location.href='template_act.jsp?<%=Constants.ACTION_TYPE%>=<%=Constants.DELETE_STR%>&strId=<%=obj1.getStrId()%>';}"><img src="../images/delete.gif" width="16" height="16" border="0" />删除</a></span> </div>
-                </td>
+                --></td>
               </tr>
             <%
             }
