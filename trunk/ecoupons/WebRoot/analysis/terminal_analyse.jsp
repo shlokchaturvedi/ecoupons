@@ -3,8 +3,12 @@
 				com.ejoysoft.common.Constants,
 				com.ejoysoft.common.exception.NoRightException,
 				com.ejoysoft.ecoupons.business.TerminalAnalysis" %>
+<%@page import="com.ejoysoft.ecoupons.business.CouponPrint"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="com.ejoysoft.ecoupons.business.Terminal"%>
+<%@page import="com.ejoysoft.ecoupons.business.Coupon"%>
 <%@ include file="../include/jsp/head.jsp"%>
-<%
+<%try{
 if(!globa.userSession.hasRight("13015"))
       throw new NoRightException("用户不具备操作该功能模块的权限，请与系统管理员联系！");
 %>
@@ -145,10 +149,32 @@ if(!globa.userSession.hasRight("13015"))
     		tWhere += " and strno like '%" + strNo + "%'";    	
 	}
 	tWhere += " order by strid";
-	//获取到当前页面的记录集
-	Vector<TerminalAnalysis> vctObj=obj.getTerminalAnalysisList(tWhere);
+	CouponPrint objCoupon = new CouponPrint(globa);	
+	String strId ="";
+	if (!strNo.equals("")) {	
+	      	String tWhere2=" select strid from t_bz_terminal where strNo like '%" + strNo + "%'";   	
+	      	strId = objCoupon.getCouponIds(tWhere2);
+	}
 	//记录总数
-	int intAllCount = vctObj.size();
+	String strSql ="select count(*) from( select count(strterminalid) from t_bz_coupon_print ";
+	if(!strId.equals(""))
+	{	String strIds[] = strId.split(",");
+		strSql += " where 1=2";
+		for(int k=0;k<strIds.length;k++)
+		{
+			strSql += " or strterminalid like '%"+strIds[k]+"%'";
+		}
+	}
+	strSql += " group by strterminalid,strcouponid) as allcount";
+	System.out.println(strSql);
+	int  allCount = objCoupon.getCountA(strSql);
+	String sql = "select  strterminalid,strCouponId,count(strterminalid) as printnum " + 
+			"from t_bz_coupon_print where dtPrintTime>='" + stime + "' and dtPrintTime<='" + etime + "' " +
+			 "group by strterminalid,strCouponId order by count(strterminalid) desc" ;
+	System.out.println(sql);
+	ResultSet rs = globa.db.executeQuery(sql);
+	//记录总数
+	int intAllCount = allCount;
 	//当前页
 	int intCurPage=globa.getIntCurPage();
 	if(ParamUtil.getString(request,"curpage")!=null&&ParamUtil.getString(request,"curpage").trim().equals("newsearch"))
@@ -162,7 +188,7 @@ if(!globa.userSession.hasRight("13015"))
 	//结束序号
 	int intEndNum=intCurPage*intPageSize;    
 	//获取当前页的记录条数
-	int intVct=(vctObj!=null&&vctObj.size()>0?vctObj.size():0);
+	//int intVct=(vctObj!=null&&vctObj.size()>0?vctObj.size():0);
 	String setime="";
 	if(stime.equals("1000-01-01")&&etime.equals("9999-12-30"))
 	{
@@ -309,23 +335,48 @@ function showTime(str){
                 <td width="30%" class="left_bt2"><div align="center">发布优惠券名称</div></td>
                 <td width="30%" class="left_bt2"><div align="center">优惠券打印数量</div></td>      
               </tr>
-            <%
-           		if(vctObj.size() < intEndNum)
-          		  intEndNum = vctObj.size();
-            	for (int i = intStartNum-1;i < intEndNum; i++) {
-                        	TerminalAnalysis obj1 = vctObj.get(i);         
-		                	
-                %> 
-              <tr  title="终端：<%=obj1.getTerminalNo()%>" >
-                <td bgcolor="#FFFFFF"><div align="center">&nbsp;<%=i+1 %></div></td>
-                <td bgcolor="#FFFFFF"> <div align="center"><span class="STYLE1"><%=obj1.getTerminalNo()%></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getCouponName() %></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getPerCouponPrintNum()%></span></div></td>
-                </tr>
-            <%
-            }
-	    //关闭数据库连接对象
-	    globa.closeCon();
+             <%
+            	//记录总数
+				Terminal t = new Terminal(globa);
+				Terminal obj1 = null;				
+				String strTmp="";
+				if (rs!=null && rs.next()) {
+					int i=intStartNum - 1;					
+				    if (intStartNum != 0 && intPageSize != 0)
+					   rs.absolute(intStartNum);
+					do{
+						String couponid = rs.getString("strcouponid");
+						Coupon objCoupon2 = new Coupon(globa);
+						Coupon coupon = objCoupon2.show(" where strid='"+couponid+"'");
+						String terminalid = rs.getString("strterminalid");
+						obj1 = t.show(" where strid='" + terminalid + "'");
+						String terminalno ="";
+						if(terminalid.equals("system"))
+							terminalno = "网站打印";
+						else if (!terminalid.equals("system") && obj1 != null )
+							terminalno = obj1.getStrNo();
+						else
+							terminalno="已删除";
+						String name="";
+						if(coupon!=null)
+							name = coupon.getStrName();
+						else
+						    name = "已删除";
+						if(strId.equals("") ||terminalid.equals("system")|| (obj1!=null && obj1.getStrId()!=null && (strId).contains(terminalid)))
+						{
+				   			   i++;
+		%>
+						  <tr  title="优惠券：<%=obj1.getStrName()%>" >
+			                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">&nbsp;&nbsp;<%=i%>&nbsp;&nbsp;</span></div></td>
+			                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=terminalno%> </span></div></td>
+			                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=name%></span></div></td>
+			                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=rs.getInt("printnum")%></span></div></td>
+			              </tr>
+		<%			   }
+					}while (rs.next() && i < intEndNum && i<intAllCount);				
+				}							
+			     //关闭数据库连接对象
+		       globa.closeCon();
             %>  
             </table>
             </form></td>
@@ -360,4 +411,5 @@ function showTime(str){
 </table>
 </body>
 </html>
+<%}catch(Exception e){e.printStackTrace();} %>
 <%@ include file="../include/jsp/footer.jsp"%>

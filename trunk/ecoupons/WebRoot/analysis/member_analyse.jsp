@@ -4,6 +4,8 @@
 	com.ejoysoft.common.exception.NoRightException,com.ejoysoft.ecoupons.business.ShopAnalysis"%>
 <%@page import="com.ejoysoft.ecoupons.business.MemberAnalysis"%>
 <%@ page import="java.util.Vector,com.ejoysoft.ecoupons.system.SysUserUnit,com.ejoysoft.ecoupons.system.Unit,com.ejoysoft.common.Constants,java.util.*" %>
+<%@page import="com.ejoysoft.ecoupons.business.CouponPrint"%>
+<%@page import="com.ejoysoft.common.Format"%>
 <%@ include file="../include/jsp/head.jsp"%>
 <%
 	if (!globa.userSession.hasRight("13010"))
@@ -134,7 +136,7 @@
 	tWhere += " order by strid";
 	
 	//获取到当前页面的记录集
-    //Vector<ShopAnalysis> vctObj = obj.getShopAnalysisList(tWhere, intStartNum, intPageSize);
+   // Vector<ShopAnalysis> vctObj = obj.getShopAnalysisList(tWhere, intStartNum, intPageSize);
 	//获取当前页的记录条数
 	//int intVct = (vctObj != null && vctObj.size() > 0 ? vctObj.size() : 0);
 	String setime = "";
@@ -149,6 +151,17 @@
 		setime = stime + "之   后   统   计   记   录";
 	} else
 		setime = stime + "  至  " + etime + "   统   计   记   录";
+	int totalNum =obj.returnTotalNum();
+	CouponPrint objCoupon = new CouponPrint(globa);
+	String unactive_member = (String) globa.application.getAttribute("UNACTIVE_MEMBER");
+	String strSql ="select count(distinct strmembercardno) from t_bz_coupon_print where dtprinttime >='"+stime+"' and dtprinttime<='"+etime+"'";
+	int  allActiveNum = objCoupon.getCountA(strSql);
+	strSql ="select count(*) from(select distinct strmembercardno from t_bz_coupon_print where dtprinttime >='"+stime+"' and dtprinttime<='"+etime+"' group by strmembercardno having count(strmembercardno)>="+Integer.parseInt(Format.forbidNull(unactive_member))+") as avtivenum";
+	int  seActiveNum = objCoupon.getCountA(strSql);
+	strSql ="select count(*) from(select distinct strmembercardno from t_bz_coupon_print where dtprinttime >='"+stime+"' and dtprinttime<='"+etime+"' group by strmembercardno having count(strmembercardno)<"+Integer.parseInt(Format.forbidNull(unactive_member))+") as unactivenum";
+	//int  seUnActiveNum = objCoupon.getCountA(strSql);
+	int  seUnActiveNum = totalNum - seActiveNum;
+	
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -190,7 +203,6 @@ function showTime(str){
             	document.getElementById("showtime").innerHTML="<input name='year' readonly onclick='WdatePicker({dateFmt:&quot;yyyy&quot;});' class='input_box' style='width:100'/>(年)";	    
       	   else if(array[i].value=="period")	
             	document.getElementById("showtime").innerHTML="<input name='stime' readonly onclick='WdatePicker({dateFmt:&quot;yyyy-MM&quot;});' class='input_box' style='width:100'/>至<input name='etime' readonly onclick='WdatePicker({dateFmt:&quot;yyyy-MM&quot;});' class='input_box' style='width:100'/>(开始-结束)";	    
-      								      
 	 	} 
 	 }
 }
@@ -279,7 +291,10 @@ function showTime(str){
           <tr>
             <td><table width="100%" height="25" border="0" cellpadding="0" cellspacing="0" class="nowtable">
               <tr>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td width="45%" height="30" align="right" class="left_txt2">统计项目&nbsp;</td>
+                <td width="10%">&nbsp;</td> 
+                <td width="20%" height="30"><label>统计数量</label> </td>
+                <td height="30" class="left_txt2" >&nbsp;</td>
               </tr>
             </table>
             </td>
@@ -288,44 +303,44 @@ function showTime(str){
             <td><table align="center" width="100%" border="0" cellspacing="0" cellpadding="0">
               
              <tr>
-                <td width="40%" height="30" align="right" class="left_txt2">新增数量：</td>
-                <td height="3">&nbsp;</td> 
+                <td width="45%" height="30" align="right" class="left_txt2">新增数量：</td>
+                <td height="3" width="10%">&nbsp;</td> 
                  <td width="20%" height="30">
                 <label><%=obj.returnAddNum() %></label>
                 </td>
-                <td height="30" width="30%" class="left_txt2" >&nbsp;</td>
+                <td height="30" class="left_txt2" >&nbsp;</td>
               </tr>
               <tr bgcolor="#f2f2f2">
-                 <td width="40%" height="30" align="right" class="left_txt2">活动数量：</td>
-                <td height="3">&nbsp;</td> 
+                 <td width="45%" height="30" align="right" class="left_txt2">活动数量：</td>
+                <td height="3" width="10%">&nbsp;</td> 
                 <td width="20%" height="30">
-                <label><%=obj.returnLiveNum() %></label>
+                <label><%=allActiveNum%></label>
                 </td>
-                <td height="30" width="30%" class="left_txt">&nbsp;</td> 
+                <td height="30" class="left_txt">&nbsp;</td> 
               </tr>
              <tr>
-                 <td width="40%" height="30" align="right" class="left_txt2">总数量：</td>
-                 <td height="3">&nbsp;</td> 
+                 <td width="45%" height="30" align="right" class="left_txt2">会员总数量：</td>
+                 <td height="3" width="10%">&nbsp;</td> 
                  <td width="20%" height="30">
-                 <label><%=obj.returnTotalNum() %></label>
+                 <label><%=totalNum%></label>
                 </td>
-                <td height="30" width="30%" class="left_txt2" class="left_txt2">&nbsp;</td>
+                <td height="30" class="left_txt2" class="left_txt2">&nbsp;</td>
               </tr>
                <tr bgcolor="#f2f2f2">
-                <td width="40%" height="30" align="right" class="left_txt2">活跃会员数量：</td>
-                <td height="3">&nbsp;</td> 
+                <td width="45%" height="30" align="right" class="left_txt2">活跃会员数量：</td>
+                <td height="3" width="10%">&nbsp;</td> 
                 <td width="20%" height="30">
-                 <label><%=obj.returnActiveNum() %></label>
+                 <label><%=seActiveNum %></label>
                 </td>
-                <td height="30" width="30%" class="left_txt2">&nbsp;</td> 
+                <td height="30" class="left_txt2">&nbsp;</td> 
               </tr> 
               <tr>
-                 <td width="40%" height="30" align="right" class="left_txt2">沉淀会员数量：</td>
-                <td height="3">&nbsp;</td> 
+                 <td width="45%" height="30" align="right" class="left_txt2">沉淀会员数量：</td>
+                <td height="3" width="10%">&nbsp;</td> 
                 <td width="20%" height="30">
-               <label><%=obj.returnUnActiveNum() %></label>
+               <label><%=seUnActiveNum%></label>
                 </td>
-                <td width="30%" height="30" class="left_txt2">&nbsp;</td> 
+                <td height="30" class="left_txt2">&nbsp;</td> 
               </tr>
             </table></td>
           </tr>

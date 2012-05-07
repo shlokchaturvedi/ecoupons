@@ -4,6 +4,9 @@
 				com.ejoysoft.common.exception.NoRightException,
 				com.ejoysoft.ecoupons.business.CouponTop" %>
 <%@page import="com.ejoysoft.ecoupons.business.Coupon"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="com.ejoysoft.ecoupons.business.Shop"%>
+<%@page import="com.ejoysoft.ecoupons.business.CouponPrint"%>
 <%@ include file="../include/jsp/head.jsp"%>
 <%
 if(!globa.userSession.hasRight("13020"))
@@ -133,45 +136,42 @@ if(!globa.userSession.hasRight("13020"))
     	   int em = Integer.parseInt(emonth2[1]);
     	   if((sy == ey && sm >= em)||(sy>ey))
     	   	   out.print("<script type='text/javascript'>alert('输入时间先后有误，请重新输入');history.go(-1);</script>");   	
-    	
     	}  	
-    	
     }
-    
-    obj.setStime(stime);
-    obj.setEtime(etime);
-    //查询条件
+     //查询条件
 	String  strName=ParamUtil.getString(request,"strName","");
-	String tWhere=" where 1=1";
+	CouponPrint objCoupon = new CouponPrint(globa);	
+	String strId ="";
 	if (!strName.equals("")) {	
-	      tWhere += " and  strName like '%" + strName + "%'";   	  	
+	      	String tWhere=" select strid from t_bz_coupon where strName like '%" + strName + "%'";   	
+	      	strId = objCoupon.getCouponIds(tWhere);
 	}
-	tWhere += " order by strid";
-	//获取到所有记录集
-	Vector<CouponTop> vctObj=obj.getCouponTopResultList(tWhere);	
-   	if(topnum == 0 || topnum>=vctObj.size())
-   	{
-   		topnum = vctObj.size();
-   	}
 	//记录总数
+	String strSql ="select count(distinct strcouponid) from t_bz_coupon_print ";
+	if(!strId.equals(""))
+	{	String strIds[] = strId.split(",");
+		strSql += " where 1=2";
+		for(int k=0;k<strIds.length;k++)
+		{
+			strSql += " or strcouponid like '%"+strIds[k]+"%'";
+		}
+	}
+	int  allCount = objCoupon.getCountA(strSql);
+	if(topnum == 0 || allCount <topnum)
+		topnum = allCount;
 	int intAllCount = topnum;
 	//当前页
 	int intCurPage=globa.getIntCurPage();
-	if(ParamUtil.getString(request,"curpage")!=null&&ParamUtil.getString(request,"curpage").trim().equals("newsearch"))
-		intCurPage=1;	
 	//每页记录数
 	int intPageSize=globa.getIntPageSize();
-	//共有页数
- 	int intPageCount=(intAllCount-1)/intPageSize+1;
 	// 循环显示一页内的记录 开始序号
 	int intStartNum=(intCurPage-1)*intPageSize+1;
 	//结束序号
 	int intEndNum=intCurPage*intPageSize;   
-	//获取当前页的记录条数
-	int intVct=(vctObj!=null&&vctObj.size()>0?vctObj.size():0);
+	//共有页数
+ 	int intPageCount=(intAllCount-1)/intPageSize+1;
 	String setime="";
-	Coupon objCoupon = new Coupon(globa);
-    int allcoupon= objCoupon.getCount("");
+    int allcoupon= intAllCount;	
 	if(stime.equals("1000-01-01")&&etime.equals("9999-12-30"))
 	{
 		if(allcoupon == topnum)
@@ -200,6 +200,10 @@ if(!globa.userSession.hasRight("13020"))
 		else
 			setime = stime+"  至  "+etime+"  前  "+topnum+" 名   优   惠   券    统   计   记   录";		
 	}
+	ResultSet rs = null;
+	String  sql = "select  strcouponid,count(strcouponid) from t_bz_coupon_print where dtPrintTime>='" + stime + "' and dtPrintTime<='" + etime + "' ";
+	sql += " group by strcouponid order by count(strcouponid) desc " ;
+	rs = globa.db.executeQuery(sql);	
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -287,7 +291,8 @@ function showTime(str){
         <td height="13" valign="top">&nbsp;</td>
       </tr>
       <tr>
-        <td height="534" valign="top"><table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <td height="534" valign="top">
+        <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
           <tr>
             <td class="left_txt">当前位置：业务管理 / 经营分析 / 优惠券消费排行榜</td>
           </tr>
@@ -326,7 +331,7 @@ function showTime(str){
 				<span id="showtime"><input name="month" onclick="WdatePicker({dateFmt:'yyyy-MM'});" class="input_box" style="width:100"/>(年-月)</span>
 			</div>
 			</td>
-			<td align="right"><div style="height:26"> 统计前 <input name="strTopnum" type="text"  class="input_box" maxlength="9" value="<%=topnum %>" size="6"/>名
+			<td align="right"><div style="height:26"> 统计前 <input name="strTopnum" type="text"  class="input_box" maxlength="9" value="<%=topnum==0?"":topnum %>" size="6"/>名
 		    </div>
 			</td>
 			
@@ -352,24 +357,47 @@ function showTime(str){
                 <td width="30%" class="left_bt2"><div align="center">活动时间</div></td>       
               </tr>
             <%
-            	if(intEndNum > topnum)
-            		intEndNum =  topnum;
-            	for (int i = intStartNum-1 ;i < intEndNum; i++) {
-                        	CouponTop obj1 = vctObj.get(i);         
-		                	
-                %> 
-              <tr  title="优惠券：<%=obj1.getCouponName()%>" >
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">第&nbsp;&nbsp;<%=i+1 %>&nbsp;&nbsp;名</span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getCouponName()%> </span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getPerCouponPrintNum()%></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getShopname()%></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getCouponPrice()%></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getCouponTime()%></span></div></td>
-                </tr>
-            <%
-            }
-	       //关闭数据库连接对象
-	       globa.closeCon();
+            	//记录总数
+				Coupon c = new Coupon(globa);
+				Coupon obj1 = null;				
+				String strTmp="";
+				if (rs!=null && rs.next()) {
+					int i=intStartNum - 1;					
+				    if (intStartNum != 0 && intPageSize != 0)
+					   rs.absolute(intStartNum);
+					do{
+						String couponid = rs.getString("strcouponid");
+						obj1 = c.show(" where strid='" + couponid + "'");
+						if (obj1 != null)
+						{
+							Shop objShop = new Shop(globa);
+							Shop shop = objShop.show(" where strid='"+obj1.getStrShopId()+"'");
+							String name ="";
+							if(shop != null)
+							{
+								name = shop.getStrBizName()+shop.getStrShopName();
+							}
+							else{
+							    name = "已删除";
+							}
+							if(strId.equals("") || (obj1.getStrId()!=null && (strId).contains(couponid)))
+							{
+ 				   			   i++;
+			%>
+							  <tr  title="优惠券：<%=obj1.getStrName()%>" >
+				                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">第&nbsp;&nbsp;<%=i%>&nbsp;&nbsp;名</span></div></td>
+				                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrName()%> </span></div></td>
+				                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=rs.getInt(2)%></span></div></td>
+				                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=name%></span></div></td>
+				                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getFlaPrice()%></span></div></td>
+				                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getDtActiveTime()%></span></div></td>
+				              </tr>
+			<%			   }
+						}
+					}while (rs.next() && i < intEndNum && i<intAllCount);				
+				}							
+			     //关闭数据库连接对象
+		       globa.closeCon();
             %>  
             </table>
             </form></td>
@@ -387,7 +415,8 @@ function showTime(str){
 	     	<%@ include file="../include/jsp/cpage.jsp"%>
 	       	<!-- 翻页结束 --> 
 	       	</form>
-	       	</td></tr></table>
+	       	</td></tr>
+	     </table>
        </td>
        </tr>
 		 <tr><td>&nbsp;</td></tr>
