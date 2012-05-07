@@ -47,6 +47,18 @@ body,td,tr{font-size:9pt;}
             alert("请输入正确元素大小！！！")
             frm.strSizeH.focus();
             return false;
+        }else if(trim(frm.strFontColorR.value)=="" && (trim(frm.strFontColorG.value)!="" || trim(frm.strFontColorB.value)!="")) {
+            alert("请输入正确元素颜色！！！")
+            frm.strFontColorR.focus();
+            return false;
+        }else if(trim(frm.strFontColorG.value)=="" && (trim(frm.strFontColorR.value)!="" || trim(frm.strFontColorB.value)!="")) {
+            alert("请输入正确元素颜色！！！")
+            frm.strFontColorR.focus();
+            return false;
+        }else if(trim(frm.strFontColorB.value)=="" && (trim(frm.strFontColorG.value)!="" || trim(frm.strFontColorR.value)!="")) {
+            alert("请输入正确元素颜色！！！")
+            frm.strFontColorR.focus();
+            return false;
         }
         else {  
        		if(trim(frm.strLocationX.value)!="") {
@@ -104,6 +116,38 @@ body,td,tr{font-size:9pt;}
         		  return false;
         		}            
         	}   	
+        	if(trim(frm.strFontColorR.value)!="") {
+	        	var strFontColor = trim(frm.strFontColorR.value);
+	            var FontColorParn =/^\d+$/; 
+	            var reParn = new RegExp(FontColorParn);
+	        	if(!reParn.test(trim(strFontColor)))
+        		{
+                  alert("请输入正确的字体颜色代码！！！如255");
+                  frm.strFontColorR.focus();         
+        		  return false;
+        		}        		           
+        	} if(trim(frm.strFontColorG.value)!="") {
+	        	var strFontColor = trim(frm.strFontColorG.value);
+	            var FontColorParn =/^\d+$/; 
+	            var reParn = new RegExp(FontColorParn);
+	        	if(!reParn.test(trim(strFontColor)))
+        		{
+                  alert("请输入正确的字体颜色代码！！！如255");
+                  frm.strFontColorG.focus();         
+        		  return false;
+        		}        		           
+        	}   
+        	 if(trim(frm.strFontColorB.value)!="") {
+	        	var strFontColor = trim(frm.strFontColorB.value);
+	            var FontColorParn =/^\d+$/; 
+	            var reParn = new RegExp(FontColorParn);
+	        	if(!reParn.test(trim(strFontColor)))
+        		{
+                  alert("请输入正确的字体颜色代码！！！如255");
+                  frm.strFontColorB.focus();         
+        		  return false;
+        		}        		           
+        	} 	
          	frm.submit();
         }
     } 
@@ -245,24 +289,7 @@ body,td,tr{font-size:9pt;}
                 </td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td>
               </tr> 
-              <tr>
-                <td width="20%" height="30" align="right" class="left_txt2">字体颜色：</td>
-                <td width="3%" height="30">&nbsp;</td>
-                <td width="32%" height="30">
-                  <select name="strFontColor" class="input_text" style="width:213px; ">
-                  	<option value="" >请选择---</option>
-					<option value="white" >白 色</option>
-					<option value="blue" >蓝 色</option>
-					<option value="red" >红 色</option>
-					<option value="green" >绿 色</option>
-					<option value="gray" >灰 色</option>
-					<option value="purple" >紫 色</option>
-					<option value="black" >黑 色</option>
-					<option value="yellow" >黄 色</option>
-				  </select>
-                </td>
-                <td width="45%" height="30" class="left_txt">&nbsp;</td>
-              </tr>            
+                    
               <tr>
                 <td width="20%" height="30" align="right" class="left_txt2">字体大小：</td>
                 <td width="3%" height="30">&nbsp;</td>
@@ -284,7 +311,33 @@ body,td,tr{font-size:9pt;}
                 </select>
                 </td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td>
-              </tr>        
+              </tr>  
+              <tr>
+                <td width="20%" height="30" align="right" class="left_txt2">字体颜色：</td>
+                <td width="3%" height="30">&nbsp;</td>
+                <td width="32%" height="30">
+                  <!--<select name="strFontColor" class="input_text" style="width:213px; ">
+                  	<option value="" >请选择---</option>
+					<option value="white" >白 色</option>
+					<option value="blue" >蓝 色</option>
+					<option value="red" >红 色</option>
+					<option value="green" >绿 色</option>
+					<option value="gray" >灰 色</option>
+					<option value="purple" >紫 色</option>
+					<option value="black" >黑 色</option>
+					<option value="yellow" >黄 色</option>
+				  </select>
+                -->
+                <table>
+                	<tr>
+                		<td> R：<input name="strFontColorR" type="text" class="input_box" value="0" style="width:47px"/></td>
+                		<td> G：<input name="strFontColorG" type="text" class="input_box" value="0" style="width:47px"/></td>
+                		<td> B：<input name="strFontColorB" type="text" class="input_box" value="0" style="width:47px"/></td>
+                	</tr>
+                </table>   
+                </td>
+                <td width="45%" height="30" class="left_txt">&nbsp;((R,G,B)代表红(R)、绿(G)、蓝(B)三个颜色通道的变化组合成颜色，如(0,0,0)代表白色)</td>
+              </tr>            
               <tr>
                 <td width="20%" height="30" align="right" class="left_txt2">背 景 图：</td>
                 <td width="3%" height="30">&nbsp;</td>
