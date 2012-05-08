@@ -24,7 +24,7 @@ if(!globa.userSession.hasRight("13010"))
 	{
 		tWhere += " and strModuleOfTempl='" + strModuleOfTempl + "'";
 	}
-	tWhere += " order by strmoduleoftempl desc";
+	tWhere += " order by intsort";
 	//记录总数
 	int intAllCount=obj.getCount(tWhere);
 	//当前页
@@ -136,7 +136,7 @@ function del(){
                   {%>
                   	<option value="<%=strModuleOfTempl%>" ><%=obj.returnModuleName(strModuleOfTempl)%></option>    
                   <%}%>                                	
-				    <option value="all"  > --- 所有终模板元素 --- </option> 
+				    <option value="all"  > -- 所有终模板元素 -- </option> 
                   	<option value="top">界面顶部</option>
 					<option value="home">界面中间首页</option>
 					<option value="shopInfo">商家详细</option>
