@@ -53,14 +53,14 @@ public class TemplateParamServlet extends HttpServlet
 				Vector<TerminalTemplate> vctTempls = new Vector<TerminalTemplate>();
 				Vector<String> vctModules = new Vector<String>();
 				vctModules = objTemplate0.listAllModules();
-				vctTempls = objTemplate0.list(" order by strmoduleoftempl desc", 0, 0);				
+				vctTempls = objTemplate0.list(" order by intsort", 0, 0);				
 				sbReturn.append("<templates>");
 				if (vctTempls.size() > 0)
 				{
 					for(int k=0;k<vctModules.size();k++)
 					{
 						String tempname = vctModules.get(k);
-						if(tempname.equals("top") || tempname.equals("bottom"))
+						if(tempname.trim().equals("top") || tempname.trim().equals("bottom"))
 						{
 							sbReturn.append("<"+tempname+">");
 							for (int i = 0; i < vctTempls.size(); i++)
@@ -129,6 +129,7 @@ public class TemplateParamServlet extends HttpServlet
 			sbReturn.append("<strContent>"+template.getStrContent()+"</strContent>");
 			sbReturn.append("<intFontSize>"+template.getIntFontSize()+"</intFontSize>");
 			sbReturn.append("<strFontColor>"+template.getStrFontColor()+"</strFontColor>");
+			sbReturn.append("<intSort>"+template.getIntSort()+"</intSort>");
 		}
 		return sbReturn;
 	}
@@ -161,6 +162,10 @@ public class TemplateParamServlet extends HttpServlet
 					sbReturn.append("<btn_Hidden>" + this.returnContent(objTemplate) + "</btn_Hidden>");
 				}
 			}else if(templname.equals("bottom")){
+				if(objTemplate.getStrName().equals("frame"))
+				{
+					sbReturn.append("<frame>"+this.returnContent(objTemplate)+"</frame>");
+				}
 				if(objTemplate.getStrName().equals("home"))
 				{
 					sbReturn.append("<home>"+this.returnContent(objTemplate)+"</home>");
@@ -172,6 +177,17 @@ public class TemplateParamServlet extends HttpServlet
 				if(objTemplate.getStrName().equals("coupon"))
 				{
 					sbReturn.append("<coupon>" + this.returnContent(objTemplate) + "</coupon>");
+				}if(objTemplate.getStrName().equals("homeP"))
+				{
+					sbReturn.append("<homeP>"+this.returnContent(objTemplate)+"</homeP>");
+				}
+				if(objTemplate.getStrName().equals("shopP"))
+				{
+					sbReturn.append("<shopP>" + this.returnContent(objTemplate) + "</shopP>");
+				}
+				if(objTemplate.getStrName().equals("couponP"))
+				{
+					sbReturn.append("<couponP>" + this.returnContent(objTemplate) + "</couponP>");
 				}
 				if(objTemplate.getStrName().equals("myInfo"))
 				{
@@ -180,10 +196,20 @@ public class TemplateParamServlet extends HttpServlet
 				if(objTemplate.getStrName().equals("nearShop"))
 				{
 					sbReturn.append("<nearShop>"+this.returnContent(objTemplate)+"</nearShop>");
+				}				if(objTemplate.getStrName().equals("myInfoP"))
+				{
+					sbReturn.append("<myInfoP>" + this.returnContent(objTemplate) + "</myInfoP>");
+				}
+				if(objTemplate.getStrName().equals("nearShopP"))
+				{
+					sbReturn.append("<nearShopP>"+this.returnContent(objTemplate)+"</nearShopP>");
 				}
 				if(objTemplate.getStrName().equals("vip"))
 				{
 					sbReturn.append("<vip>" + this.returnContent(objTemplate) + "</vip>");
+				}if(objTemplate.getStrName().equals("vipP"))
+				{
+					sbReturn.append("<vipP>" + this.returnContent(objTemplate) + "</vipP>");
 				}
 				if(objTemplate.getStrName().equals("btnLastPage"))
 				{
@@ -192,6 +218,14 @@ public class TemplateParamServlet extends HttpServlet
 				if(objTemplate.getStrName().equals("btnNextPage"))
 				{
 					sbReturn.append("<btnNextPage>" + this.returnContent(objTemplate) + "</btnNextPage>");
+				}
+				if(objTemplate.getStrName().equals("btnLastPageP"))
+				{
+					sbReturn.append("<btnLastPageP>" + this.returnContent(objTemplate) + "</btnLastPageP>");
+				}
+				if(objTemplate.getStrName().equals("btnNextPageP"))
+				{
+					sbReturn.append("<btnNextPageP>" + this.returnContent(objTemplate) + "</btnNextPageP>");
 				}
 			}else{
 				if(templname.equals("home"))
@@ -228,11 +262,11 @@ public class TemplateParamServlet extends HttpServlet
 					{
 						sbReturn.append("<recCouponS>" + this.returnContent(objTemplate) + "</recCouponS>");
 					}
-					if(objTemplate.getStrName().equals("shopNextPage"))
+					if(objTemplate.getStrName().equals("recShopIcon"))
 					{
 						sbReturn.append("<recShopIcon>"+this.returnContent(objTemplate)+"</recShopIcon>");
 					}
-					if(objTemplate.getStrName().equals("shopInfo"))
+					if(objTemplate.getStrName().equals("recCouponIcon"))
 					{
 						sbReturn.append("<recCouponIcon>" + this.returnContent(objTemplate) + "</recCouponIcon>");
 					}
@@ -244,9 +278,19 @@ public class TemplateParamServlet extends HttpServlet
 					{
 						sbReturn.append("<printIcon>" + this.returnContent(objTemplate) + "</printIcon>");
 					}
+					if(objTemplate.getStrName().equals("shopLastPageP"))
+					{
+						sbReturn.append("<shopLastPageP>"+this.returnContent(objTemplate)+"</shopLastPageP>");
+					}if(objTemplate.getStrName().equals("shopNextPageP"))
+					{
+						sbReturn.append("<shopNextPageP>"+this.returnContent(objTemplate)+"</shopNextPageP>");
+					}if(objTemplate.getStrName().equals("shopInfoP"))
+					{
+						sbReturn.append("<shopInfoP>"+this.returnContent(objTemplate)+"</shopInfoP>");
+					}
 //					sbReturn.append("</home>");
 				}
-				else if(templname.equals("shopinfo"))
+				else if(templname.equals("shopInfo"))
 				{
 //					sbReturn.append("<shopinfo>");
 					if(objTemplate.getStrName().equals("frame"))
@@ -330,7 +374,31 @@ public class TemplateParamServlet extends HttpServlet
 					if(objTemplate.getStrName().equals("shopNextPageBottom"))
 					{
 						sbReturn.append("<shopNextPageBottom>" + this.returnContent(objTemplate) + "</shopNextPageBottom>");
-					}			
+					}
+					if(objTemplate.getStrName().equals("shopLastPageTopP"))
+					{
+						sbReturn.append("<shopLastPageTopP>" + this.returnContent(objTemplate) + "</shopLastPageTopP>");
+					}
+					if(objTemplate.getStrName().equals("shopNextPageTopP"))
+					{
+						sbReturn.append("<shopNextPageTopP>" + this.returnContent(objTemplate) + "</shopNextPageTopP>");
+					}
+					if(objTemplate.getStrName().equals("shopLastPageMiddleP"))
+					{
+						sbReturn.append("<shopLastPageMiddleP>" + this.returnContent(objTemplate) + "</shopLastPageMiddleP>");
+					}
+					if(objTemplate.getStrName().equals("shopNextPageMiddleP"))
+					{
+						sbReturn.append("<shopNextPageMiddleP>"+this.returnContent(objTemplate)+"</shopNextPageMiddleP>");
+					}
+					if(objTemplate.getStrName().equals("shopLastPageBottomP"))
+					{
+						sbReturn.append("<shopLastPageBottomP>" + this.returnContent(objTemplate) + "</shopLastPageBottomP>");
+					}
+					if(objTemplate.getStrName().equals("shopNextPageBottomP"))
+					{
+						sbReturn.append("<shopNextPageBottomP>" + this.returnContent(objTemplate) + "</shopNextPageBottomP>");
+					}	
 				}else if(templname.equals("coupon"))
 				{
 					if(objTemplate.getStrName().equals("frame"))
@@ -357,9 +425,17 @@ public class TemplateParamServlet extends HttpServlet
 					{
 						sbReturn.append("<btnLastPage>" + this.returnContent(objTemplate) + "</btnLastPage>");
 					}
-					if(objTemplate.getStrName().equals("bynLastPage"))
+					if(objTemplate.getStrName().equals("btnNextPage"))
 					{
-						sbReturn.append("<bynLastPage>" + this.returnContent(objTemplate) + "</bynLastPage>");
+						sbReturn.append("<btnNextPage>" + this.returnContent(objTemplate) + "</btnNextPage>");
+					}
+					if(objTemplate.getStrName().equals("btnLastPageP"))
+					{
+						sbReturn.append("<btnLastPageP>" + this.returnContent(objTemplate) + "</btnLastPageP>");
+					}
+					if(objTemplate.getStrName().equals("btnNextPageP"))
+					{
+						sbReturn.append("<btnNextPageP>" + this.returnContent(objTemplate) + "</btnNextPageP>");
 					}
 					if(objTemplate.getStrName().equals("rankList"))
 					{
@@ -390,6 +466,13 @@ public class TemplateParamServlet extends HttpServlet
 					if(objTemplate.getStrName().equals("myFavNextPage"))
 					{
 						sbReturn.append("<myFavNextPage>" + this.returnContent(objTemplate) + "</myFavNextPage>");
+					}if(objTemplate.getStrName().equals("myFavLastPageP"))
+					{
+						sbReturn.append("<myFavLastPageP>" + this.returnContent(objTemplate) + "</myFavLastPageP>");
+					}
+					if(objTemplate.getStrName().equals("myFavNextPageP"))
+					{
+						sbReturn.append("<myFavNextPageP>" + this.returnContent(objTemplate) + "</myFavNextPageP>");
 					}
 					if(objTemplate.getStrName().equals("favCouponL"))
 					{
@@ -418,6 +501,13 @@ public class TemplateParamServlet extends HttpServlet
 					if(objTemplate.getStrName().equals("ContNextPage"))
 					{
 						sbReturn.append("<ContNextPage>" + this.returnContent(objTemplate) + "</ContNextPage>");
+					}if(objTemplate.getStrName().equals("CostLastPageP"))
+					{
+						sbReturn.append("<CostLastPageP>" + this.returnContent(objTemplate) + "</CostLastPageP>");
+					}	
+					if(objTemplate.getStrName().equals("ContNextPageP"))
+					{
+						sbReturn.append("<ContNextPageP>" + this.returnContent(objTemplate) + "</ContNextPageP>");
 					}
 					if(objTemplate.getStrName().equals("couponCostL"))
 					{
@@ -452,6 +542,9 @@ public class TemplateParamServlet extends HttpServlet
 					if(objTemplate.getStrName().equals("shopInfo"))
 					{
 						sbReturn.append("<shopInfo>" + this.returnContent(objTemplate) + "</shopInfo>");
+					}if(objTemplate.getStrName().equals("shopInfoP"))
+					{
+						sbReturn.append("<shopInfoP>" + this.returnContent(objTemplate) + "</shopInfoP>");
 					}
 					if(objTemplate.getStrName().equals("nearShopS"))
 					{
