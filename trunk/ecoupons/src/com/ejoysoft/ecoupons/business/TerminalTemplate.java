@@ -176,6 +176,7 @@ public class TerminalTemplate
 			theBean.setStrCreator(rs.getString("strcreator"));
 			theBean.setDtCreateTime(rs.getString("dtcreatetime"));
 			theBean.setStrIntro(rs.getString("strintro"));
+			theBean.setIntSort(rs.getInt("intsort"));
 			String fontString = theBean.getStrModuleOfTempl();
 			theBean.setStrModuleOfTemplName(theBean.returnModuleName(fontString));
 			String fontcolor = theBean.getStrFontColor();
@@ -370,7 +371,7 @@ public class TerminalTemplate
 	private String strIntro;
 	private String strCreator;
 	private String dtCreateTime;
-
+	private int intSort;
 	public Globa getGloba() {
 		return globa;
 	}
@@ -385,6 +386,13 @@ public class TerminalTemplate
 
 	public void setDb(DbConnect db) {
 		this.db = db;
+	}
+	public int getIntSort() {
+		return intSort;
+	}
+
+	public void setIntSort(int intSort) {
+		this.intSort = intSort;
 	}
 
 	public String getStrId() {
