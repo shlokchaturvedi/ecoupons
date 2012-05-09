@@ -161,35 +161,10 @@ if(!globa.userSession.hasRight("13005"))
     	}
     	  	
 	}
-	tWhere += " order by strid";
-//	String strId="";
-//	if (!strName.equals("")) 
-	//{
-//	     String sqlString  = " select strid from t_bz_shop where strshopname like '%"+strName+"%' or strbizname like '%" + strName + "%'";
-	//     strId = objCouponPrint.getCouponIds(sqlString); 
-//	 }	
-	String sql = "select strcouponid,strshop,count(strcouponid) as printnum from t_bz_coupon_print   "+
-				"where dtPrintTime>='"+stime+"' and dtPrintTime<='"+etime+"'";
-	if (!strName.equals("")) 
-	{
-		sql += " and strshop like'"+strName+"'";
-	}	
-	//if(strId!="")
-//	{
-//		String[] strIds = strId.split(",");
-//		sql+=" and (";
-//		for(int k=0;k<strIds.length;k++)
-	//	{
-	//		sql+=" b.strshopid='"+strIds[k]+"' or";
-	//	}
-	//	sql+="  1=2 )";
-	//}
-	sql += " group by strshop,strcouponid order by strshop";
-	System.out.println(sql);
-	String sql2 = "select count(*) from("+sql+") as allcount";
-	ResultSet rs = globa.db.executeQuery(sql);
+	obj.setEtime(etime);
+	obj.setStime(stime);
 	//记录总数
-	int intAllCount=objCouponPrint.getCountA(sql2);
+	int intAllCount=obj.getCount(strName);
 	//当前页
 	int intCurPage=globa.getIntCurPage();
     //每页记录数
@@ -200,8 +175,9 @@ if(!globa.userSession.hasRight("13005"))
 	int intStartNum=(intCurPage-1)*intPageSize+1;
 	//结束序号
 	int intEndNum=intCurPage*intPageSize;   
+	Vector<ShopAnalysis> vctObj = obj.getShopAnalysisList(strName,intStartNum,intPageSize,intEndNum,intAllCount);
 	//获取当前页的记录条数
-	//int intVct=(vctObj!=null&&vctObj.size()>0?vctObj.size():0);
+	int intVct=(vctObj!=null&&vctObj.size()>0?vctObj.size():0);
 	String setime="";
 	if(stime.equals("1000-01-01")&&etime.equals("9999-12-30"))
 	{
@@ -347,51 +323,18 @@ function showTime(str){
                 <td width="30%" class="left_bt2"><div align="center">发布优惠券名称</div></td>
                 <td width="30%" class="left_bt2"><div align="center">优惠券打印数量</div></td>      
                 </tr>
-               <%
-                Coupon objCoupon = new Coupon(globa);  
-            	rs.absolute(intStartNum);
-                if(rs!=null && rs.next())
-                {	
-                	int i=intStartNum - 1;					
-				    if (intStartNum != 0 && intPageSize != 0)
-						rs.absolute(intStartNum);
-					do{
-						String shopFullName = rs.getString("strshop");
-						String shopid="",shopname = "";
-						if(shopFullName!=null && shopFullName.contains("/"))
-						{
-						System.out.println(shopFullName);
-							String shops[] = shopFullName.split("/");
-							if(shops.length==2)
-							{
-								shopid = shops[0];
-								shopname = shops[1];
-							}
-							else
-							{
-								shopname = "已删除";
-							}
-						}
-						String couponid = rs.getString("strcouponid");
-						Shop shop = objShop.show(" where strid='"+shopid+"'");
-						Coupon coupon = objCoupon.show(" where strid='"+couponid+"'");
-						String couponname="";
-						if(coupon !=null)
-							couponname = coupon.getStrName();
-						else 
-							couponname = "已删除";
-						int printnum = rs.getInt("printnum");
-                	 	i++;
-            	     %> 
-                <tr  title="商家：<%=shopid%>" >
-	                <td bgcolor="#FFFFFF"><div align="center">&nbsp;<%=i %></div></td>
-	                <td bgcolor="#FFFFFF"> <div align="center"><span class="STYLE1"><%=shopname%></span></div></td>
-	                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=couponname%></span></div></td>
-	                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=printnum%></span></div></td>
+                  <%
+            for (int i = 0;i < vctObj.size(); i++) {
+            	ShopAnalysis obj1 = vctObj.get(i);
+            %>
+               <tr  title="商家：<%=obj1.getShopName()%>" >
+	                <td bgcolor="#FFFFFF"><div align="center">&nbsp;<%=obj1.getIntSort() %></div></td>
+	                <td bgcolor="#FFFFFF"> <div align="center"><span class="STYLE1"><%=obj1.getShopName()%></span></div></td>
+	                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getCouponName()%></span></div></td>
+	                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getPerCouponPrintNum()%></span></div></td>
                 </tr>
             <%
-            		}while(rs.next() && i<intEndNum && i<intAllCount);
-              }
+            }
 	         //关闭数据库连接对象
 	         globa.closeCon(); 
             %> 

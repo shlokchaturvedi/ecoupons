@@ -4,6 +4,8 @@
 				com.ejoysoft.common.exception.NoRightException,
 				com.ejoysoft.ecoupons.business.ShopTop" %>
 <%@page import="com.ejoysoft.ecoupons.business.Shop"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="com.ejoysoft.ecoupons.business.CouponPrint"%>
 <%@ include file="../include/jsp/head.jsp"%>
 <%
 if(!globa.userSession.hasRight("13015"))
@@ -160,11 +162,23 @@ try{
 	}
 	tWhere += " order by strid";
 	//获取到所有记录集
-	Vector<ShopTop> vctObj=obj.getShopTopResultList(tWhere);	
-   	if(topnum == 0 || topnum>=vctObj.size())
-   	{
-   		topnum = vctObj.size();
-   	}
+	//Vector<ShopTop> vctObj=obj.getShopTopResultList(tWhere);	
+  // 	if(topnum == 0 || topnum>=vctObj.size())
+ //  	{
+ //  		topnum = vctObj.size();
+ //  	}
+	Shop objShop = new Shop(globa);
+	ResultSet rs = null;
+	String  sql = "select strshop,count(strid)as printnum from t_bz_coupon_print where dtPrintTime>='" + stime + "' and dtPrintTime<='" + etime + "' ";
+	if(!strName.equals(""))
+		sql += " and strshop like '%" + strName + "%'";
+	sql += " group by strshop order by count(strid) desc " ;
+	CouponPrint objCouponPrint = new CouponPrint(globa);
+	String allCountString = "select count(*) from("+sql+") as allcount";
+	int  allCount = objCouponPrint.getCountA(allCountString);
+	rs = globa.db.executeQuery(sql);
+	if(topnum == 0 || allCount <topnum)
+		topnum = allCount;
 	//记录总数
 	int intAllCount = topnum;
 	//当前页
@@ -179,35 +193,32 @@ try{
 	int intStartNum=(intCurPage-1)*intPageSize+1;
 	//结束序号
 	int intEndNum=intCurPage*intPageSize;   
-	//获取当前页的记录条数
-	int intVct=(vctObj!=null&&vctObj.size()>0?vctObj.size():0);
 	String setime="";
-	Shop objShop = new Shop(globa);
-    int allshop= objShop.getCount("");
+   // int allshop= objShop.getCount("");
 	if(stime.equals("1000-01-01")&&etime.equals("9999-12-30"))
 	{
-		if(allshop == topnum)
+		if(allCount == topnum)
 			setime = "所   有  商  家  排  行   统   计   记   录";
 		else		
 			setime = "前 "+topnum+" 名   商  家   排  行   统   计   记   录";
 	}
 	else if(stime.equals("1000-01-01")&&!etime.equals("9999-12-30"))
 	{
-		if(allshop == topnum)
+		if(allCount == topnum)
 			setime =etime+ "之   前  所  有    商  家    统   计   记   录";
 		else
 			setime =etime+ "之   前  前  "+topnum+" 名    商  家   统   计   记   录";
 	}
 	else if(!stime.equals("1000-01-01")&&etime.equals("9999-12-30"))
 	{
-		if(allshop == topnum)
+		if(allCount == topnum)
 			setime =stime+ "之   后   所  有    商  家   统   计   记   录";
 		else
 			setime =stime+ "之   后  前  "+topnum+" 名   商  家    统   计   记   录";
 	}
 	else 
 	{
-		if(allshop == topnum)
+		if(allCount == topnum)
 			setime = stime+"  至  "+etime+"  所  有   商  家    统   计   记   录";
 		else
 			setime = stime+"  至  "+etime+"  前  "+topnum+" 名   商  家    统   计   记   录";		
@@ -364,25 +375,62 @@ function chkFrm()
                 <td width="15%" class="left_bt2"><div align="center">联系电话</div></td>   
                 <td width="15%" class="left_bt2"><div align="center">商家积分</div></td>      
               </tr>
-            <%
-            	if(intEndNum > topnum)
-            		intEndNum =  topnum;
-            	for (int i = intStartNum-1 ;i < intEndNum; i++) {
-                        	ShopTop obj1 = vctObj.get(i);         
-		                	
-                %> 
-              <tr  title="商家：<%=obj1.getShopfullname()%>" >
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">第&nbsp;&nbsp;<%=i+1 %>&nbsp;&nbsp;名</span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getShopfullname()%> </span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getTotalprintnum()%></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getShoptrade()%></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getShopphone()%></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getIntpoint()%></span></div></td>
+              <%
+            	//记录总数 
+				Shop obj1 = null;
+				String strTmp="";		
+				if (rs!=null && rs.next()) {				
+					int i=intStartNum - 1;
+				    if (intStartNum != 0 && intPageSize != 0)
+					   rs.absolute(intStartNum);
+					do{
+						i++;
+						String shopFullName = rs.getString("strshop");
+						String shopid="",shopname="已删除商家";
+						if(shopFullName!=null && shopFullName.contains("/"))
+						{
+							String shops[] = shopFullName.split("/");
+							if(shops.length==2)
+							{
+								shopid = shops[0];
+								shopname = shops[1];
+							}
+							else
+							{
+								shopname = "已删除商家";
+								shopid = shopFullName;
+							}
+						}
+						obj1 = objShop.show(" where strid='" + shopid + "'");
+						if(obj1!=null)
+						{
+			%>
+			    <tr  title="商家：<%=shopname%>" >
+	                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">第&nbsp;&nbsp;<%=i %>&nbsp;&nbsp;名</span></div></td>
+	                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=shopname%> </span></div></td>
+	                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=rs.getInt("printnum")%></span></div></td>
+	                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrTradeName()%></span></div></td>
+	                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrPhone()%></span></div></td>
+	                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getIntPoint()%></span></div></td>
                 </tr>
-            <%
-            }
-	    	//关闭数据库连接对象
-	    	globa.closeCon();	
+			<%			}else
+						{
+						%>
+			    <tr  title="商家：已删除" >
+	                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">第&nbsp;&nbsp;<%=i %>&nbsp;&nbsp;名</span></div></td>
+	                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=shopname%> </span></div></td>
+	                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=rs.getInt("printnum")%></span></div></td>
+	                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=""%></span></div></td>
+	                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=""%></span></div></td>
+	                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=""%></span></div></td>
+                </tr>
+			<%	
+						}
+			
+					}while (rs.next() && i < intEndNum && i<intAllCount);
+				}							
+			     //关闭数据库连接对象
+		       globa.closeCon();
             %>  
             </table>
             </form></td>

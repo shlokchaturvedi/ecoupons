@@ -166,12 +166,10 @@ if(!globa.userSession.hasRight("13015"))
 		}
 	}
 	strSql += " group by strterminalid,strcouponid) as allcount";
-	System.out.println(strSql);
 	int  allCount = objCoupon.getCountA(strSql);
 	String sql = "select  strterminalid,strCouponId,count(strterminalid) as printnum " + 
 			"from t_bz_coupon_print where dtPrintTime>='" + stime + "' and dtPrintTime<='" + etime + "' " +
 			 "group by strterminalid,strCouponId order by count(strterminalid) desc" ;
-	System.out.println(sql);
 	ResultSet rs = globa.db.executeQuery(sql);
 	//记录总数
 	int intAllCount = allCount;

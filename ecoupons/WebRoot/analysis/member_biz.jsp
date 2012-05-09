@@ -7,6 +7,7 @@
 				com.ejoysoft.ecoupons.business.Coupon" %>
 <%@page import="com.ejoysoft.ecoupons.business.Terminal"%>
 <%@page import="java.sql.Statement"%>
+<%@page import="com.ejoysoft.ecoupons.business.CouponPrint"%>
 <%@ include file="../include/jsp/head.jsp"%>
 <%
 try{
@@ -141,9 +142,6 @@ if(!globa.userSession.hasRight("13015"))
     	}  	
     	
     }
-    //obj.setStime(stime);
-    //obj.setEtime(etime);
-    //obj.setFlag(flag);
     //查询条件
    
 	String  strName=ParamUtil.getString(request,"strName","");
@@ -174,10 +172,13 @@ if(!globa.userSession.hasRight("13015"))
 			"from t_bz_coupon_print where dtPrintTime>='" + stime + "' and dtPrintTime<='" + etime + "' ";
 			if(!strName.equals(""))
 				sql += " and strmembercardno like '%" + strName + "%'";
-		    sql += "group by strMemberCardNo,strCouponId " ;
+		    sql += " group by strMemberCardNo,strCouponId " ;
 	}
-	
-	
+    rs = globa.db.executeRollQuery(sql);		
+	String allCountString = "select count(*) from("+sql+") as allcount";
+	CouponPrint objCouponPrint = new CouponPrint(globa);
+	//记录总数
+	int intAllCount = objCouponPrint.getCountA(allCountString);
 	//当前页
 	int intCurPage=globa.getIntCurPage();
     //每页记录数
@@ -186,10 +187,8 @@ if(!globa.userSession.hasRight("13015"))
 	int intStartNum=(intCurPage-1)*intPageSize+1;
 	//结束序号
 	int intEndNum=intCurPage*intPageSize;  	
-	Statement s = globa.db.getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-	if (intStartNum != 0 && intPageSize != 0)
-		s.setMaxRows(intPageSize + intPageSize - 1);
-	rs = globa.db.executeRollQuery(sql);				 
+	//共有页数
+	 int intPageCount=(intAllCount-1)/intPageSize+1;		 
 	String setime="";
 	if(stime.equals("1000-01-01")&&etime.equals("9999-12-30"))
 	{
@@ -349,18 +348,17 @@ function showTime(str){
               </tr>
             <%
             	//记录总数
-				int intAllCount=0;
 				Coupon c = new Coupon(globa);
 				Coupon c1 = null;
 				Terminal t = new Terminal(globa);
 				Terminal t1 = null;
 				String strTmp="";
 				if (rs!=null && rs.next()) {
-					intAllCount=intStartNum - 1;					
+					int i=intStartNum - 1;					
 				    if (intStartNum != 0 && intPageSize != 0)
 					   rs.absolute(intStartNum);
 					do{
-						intAllCount++;
+						i++;
 						String strCardNo = rs.getString("strMemberCardNo");
 						if(flag.equals("byshop"))
 							 label = "商    家（名称-分部）";
@@ -381,22 +379,15 @@ function showTime(str){
 						}
 			%>
 			  <tr  title="会员：<%=strCardNo%>" >
-                <td bgcolor="#FFFFFF"><div align="center">&nbsp;<%=intAllCount%></div></td>
+                <td bgcolor="#FFFFFF"><div align="center">&nbsp;<%=i%></div></td>
                 <td bgcolor="#FFFFFF"> <div align="center"><span class="STYLE1"><%=strCardNo%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=strTmp %></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=rs.getInt(3)%></span></div></td>
               </tr>
 			<%
-					}while (rs.next() && intAllCount < intEndNum);
-					do{					
-						intAllCount++;	
-					}while(rs.next());
+					}while (rs.next() && i < intEndNum && i<intAllCount);
 				}							
-				//共有页数
-			 	int intPageCount=(intAllCount-1)/intPageSize+1;
-			 	if(intCurPage == intPageCount && intCurPage>0)
-			 		intAllCount--;
-		      //关闭数据库连接对象
+				   //关闭数据库连接对象
 		       globa.closeCon();
             %>  
             </table>
