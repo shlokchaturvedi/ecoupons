@@ -162,25 +162,30 @@ if(!globa.userSession.hasRight("13005"))
     	  	
 	}
 	tWhere += " order by strid";
-	String strId="";
+//	String strId="";
+//	if (!strName.equals("")) 
+	//{
+//	     String sqlString  = " select strid from t_bz_shop where strshopname like '%"+strName+"%' or strbizname like '%" + strName + "%'";
+	//     strId = objCouponPrint.getCouponIds(sqlString); 
+//	 }	
+	String sql = "select strcouponid,strshop,count(strcouponid) as printnum from t_bz_coupon_print   "+
+				"where dtPrintTime>='"+stime+"' and dtPrintTime<='"+etime+"'";
 	if (!strName.equals("")) 
 	{
-	     String sqlString  = " select strid from t_bz_shop where strshopname like '%"+strName+"%' or strbizname like '%" + strName + "%'";
-	     strId = objCouponPrint.getCouponIds(sqlString);
-	 }	
-	String sql = "select  a.strcouponid,count(a.strcouponid) as printnum,b.strshopid from t_bz_coupon_print  a,t_bz_coupon b "+
-				"where a.strcouponid=b.strid and a.dtPrintTime>='"+stime+"' and a.dtPrintTime<='"+etime+"'";
-	if(strId!="")
-	{
-		String[] strIds = strId.split(",");
-		sql+=" and (";
-		for(int k=0;k<strIds.length;k++)
-		{
-			sql+=" b.strshopid='"+strIds[k]+"' or";
-		}
-		sql+="  1=2 )";
-	}
-	sql += "group by strcouponid order by b.strshopid";
+		sql += " and strshop like'"+strName+"'";
+	}	
+	//if(strId!="")
+//	{
+//		String[] strIds = strId.split(",");
+//		sql+=" and (";
+//		for(int k=0;k<strIds.length;k++)
+	//	{
+	//		sql+=" b.strshopid='"+strIds[k]+"' or";
+	//	}
+	//	sql+="  1=2 )";
+	//}
+	sql += " group by strshop,strcouponid order by strshop";
+	System.out.println(sql);
 	String sql2 = "select count(*) from("+sql+") as allcount";
 	ResultSet rs = globa.db.executeQuery(sql);
 	//记录总数
@@ -341,6 +346,7 @@ function showTime(str){
                 <td width="30%" class="left_bt2"><div align="center">商家名称（名称-分部）</div></td>
                 <td width="30%" class="left_bt2"><div align="center">发布优惠券名称</div></td>
                 <td width="30%" class="left_bt2"><div align="center">优惠券打印数量</div></td>      
+                </tr>
                <%
                 Coupon objCoupon = new Coupon(globa);  
             	rs.absolute(intStartNum);
@@ -350,15 +356,26 @@ function showTime(str){
 				    if (intStartNum != 0 && intPageSize != 0)
 						rs.absolute(intStartNum);
 					do{
-						String shopid = rs.getString("b.strshopid");
-						String couponid = rs.getString("a.strcouponid");
+						String shopFullName = rs.getString("strshop");
+						String shopid="",shopname = "";
+						if(shopFullName!=null && shopFullName.contains("/"))
+						{
+						System.out.println(shopFullName);
+							String shops[] = shopFullName.split("/");
+							if(shops.length==2)
+							{
+								shopid = shops[0];
+								shopname = shops[1];
+							}
+							else
+							{
+								shopname = "已删除";
+							}
+						}
+						String couponid = rs.getString("strcouponid");
 						Shop shop = objShop.show(" where strid='"+shopid+"'");
 						Coupon coupon = objCoupon.show(" where strid='"+couponid+"'");
-						String shopname="",couponname="";
-						if(shop!=null)
-							shopname = shop.getStrBizName()+shop.getStrShopName();
-						else
-							shopname = "已删除";
+						String couponname="";
 						if(coupon !=null)
 							couponname = coupon.getStrName();
 						else 
@@ -366,11 +383,11 @@ function showTime(str){
 						int printnum = rs.getInt("printnum");
                 	 	i++;
             	     %> 
-              <tr  title="商家：<%=shopid%>" >
-                <td bgcolor="#FFFFFF"><div align="center">&nbsp;<%=i %></div></td>
-                <td bgcolor="#FFFFFF"> <div align="center"><span class="STYLE1"><%=shopname%></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=couponname%></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=printnum%></span></div></td>
+                <tr  title="商家：<%=shopid%>" >
+	                <td bgcolor="#FFFFFF"><div align="center">&nbsp;<%=i %></div></td>
+	                <td bgcolor="#FFFFFF"> <div align="center"><span class="STYLE1"><%=shopname%></span></div></td>
+	                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=couponname%></span></div></td>
+	                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=printnum%></span></div></td>
                 </tr>
             <%
             		}while(rs.next() && i<intEndNum && i<intAllCount);
