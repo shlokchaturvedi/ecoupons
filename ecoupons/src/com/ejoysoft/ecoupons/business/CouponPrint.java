@@ -185,6 +185,49 @@ public class CouponPrint
 			return count;
 		}
 	}
+	/*
+	 * 查询符合条件的记录总数
+	 */
+	public int getCountA(String sql)
+	{
+		int count = 0;
+		try
+		{
+			ResultSet rs = db.executeQuery(sql);
+			if (rs.next())
+				count = rs.getInt(1);
+			rs.close();
+			return count;
+		} catch (Exception ee)
+		{
+			ee.printStackTrace();
+			return count;
+		}
+	}
+	/*
+	 * 查询符合条件的记录总数
+	 */
+	public String getCouponIds(String sql)
+	{
+		ResultSet re = globa.db.executeQuery(sql);
+		String strId ="";
+		try {
+			if(re!=null && re.next())
+			{
+				do{
+					strId += re.getString("strid")+",";
+				}while(re.next());
+			}
+			if(!strId.equals(""))
+			{
+				strId = strId.substring(0,strId.length()-1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return strId;
+	}
 
 	/*
 	 * 根据条件返回积分的集合
