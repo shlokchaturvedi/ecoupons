@@ -77,8 +77,6 @@ public class TerminalAnalysis {
 		if(!(stime.equals("")||stime.equals(null))&&!(etime.equals("")||etime.equals(null)))
 		{
 			sql ="select * from "+strTableName2+" where strterminalids like'%"+terminalid+"%' and  dtcreatetime between '"+stime+"' and '"+etime+"'";
-
-		//	System.err.println(sql+"4444444444444444444422");
 		}
     	ResultSet re = db.executeQuery(sql);
     	try {

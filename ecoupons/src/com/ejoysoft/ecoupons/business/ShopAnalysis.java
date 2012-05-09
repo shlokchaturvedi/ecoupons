@@ -210,12 +210,13 @@ public class ShopAnalysis {
     	return thebean;
     }
     //封装商家统计分析报表结果
-    public ShopAnalysis loadChart(String shopname, String couponname,int num)
+    public ShopAnalysis loadChart(String shopname, String couponname,int num,int i)
     {
     	ShopAnalysis thebean = new ShopAnalysis();
     	thebean.setShopName(shopname);
     	thebean.setCouponName(couponname);
     	thebean.setPerCouponPrintNum(num);
+    	thebean.setIntSort(i);
     	return thebean;
     }    
     //封装商家统计分析柱形图结果
@@ -260,71 +261,58 @@ public class ShopAnalysis {
     	return vector;
     }
 //获取一个商家统计分析的报表信息
-    public Vector<ShopAnalysis> getShopAnalysisList(String where)
+    public Vector<ShopAnalysis> getShopAnalysisList(String where,int intStartNum,int intPageSize ,int intEndNum,int intAllCount)
     {
     	Vector<ShopAnalysis> vector = new Vector<ShopAnalysis>();
     	ShopAnalysis obj = new ShopAnalysis(globa); 
-    	String sql = "select * from "+strTableName1;
+    	Shop objShop = new Shop(globa);
+    	String sql = "select strcouponid,strshop,count(strcouponid) as printnum from t_bz_coupon_print   "+
+		"where dtPrintTime>='"+stime+"' and dtPrintTime<='"+etime+"'";
     	try {
     		if (where.length() > 0)
-                 sql = String.valueOf(sql) + String.valueOf(where);
+			{
+    			sql += " and strshop like'"+where+"'";
+			}		
+			sql += " group by strshop,strcouponid order by strshop";
             Statement s = db.getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-               ResultSet re = s.executeQuery(sql);
-		 	if(re!=null&&re.next())
-		 	{
-		 		do{
-					String shopid = re.getString("strid");
-					String bizname = re.getString("strbizname");
-				    String shopname2 = re.getString("strshopname");
-				    if(shopname2 !=null && !shopname2.equals(""))  
-				    {
-				   		bizname = bizname+"-"+shopname2;
-				    }
-					String shopname = bizname;
-					Vector<ShopAnalysis> vector2 = obj.getCouponIdsByShop(shopid,this.stime,this.etime);
-					Vector<ShopAnalysis> vector3 = obj.getCouponIdsByShop2(shopid,this.stime,this.etime);
-				    if((vector2==null||vector2.size()==0) && (vector3==null||vector3.size()==0))
-					{
-						vector.addElement(loadChart(shopname, "无优惠券发布记录" , 0));
-					}	
-				    else
-					{
-						if(vector2!=null)
+            ResultSet rs = s.executeQuery(sql);
+            Coupon objCoupon = new Coupon(globa);  
+           	rs.absolute(intStartNum);
+               if(rs!=null && rs.next())
+               {	
+               		int i=intStartNum - 1;					
+				    if (intStartNum != 0 && intPageSize != 0)
+						rs.absolute(intStartNum);
+					do{
+						String shopFullName = rs.getString("strshop");
+						String shopid="",shopname = "";
+						if(shopFullName!=null && shopFullName.contains("/"))
 						{
-							for(int i=0;i<vector2.size();i++)
+						System.out.println(shopFullName);
+							String shops[] = shopFullName.split("/");
+							if(shops.length==2)
 							{
-								ShopAnalysis coupon  = vector2.get(i);
-								String couponname = coupon.getCouponName();
-								String couponid = coupon.getCouponId();
-								int num = obj.getPerNumofPrintByCoupon(couponid,this.stime,this.etime);
-								ShopAnalysis obj0 = loadChart(shopname, couponname, num);
-								vector.addElement(obj0);
+								shopid = shops[0];
+								shopname = shops[1];
+							}
+							else
+							{
+								shopname = "已删除";
 							}
 						}
-						if(vector3!=null)
-						{
-							int totalnum=0;
-							for(int i=0;i<vector3.size();i++)
-							{
-								ShopAnalysis coupon  = vector3.get(i);
-								String couponname = coupon.getCouponName();
-								String couponid = coupon.getCouponId();
-								int num = obj.getPerNumofPrintByCoupon(couponid,this.stime,this.etime);
-								totalnum+=num;
-								/*if(num!=0)
-								{
-									ShopAnalysis obj0 = loadChart(shopname, "*（"+couponname+"）", num);
-									vector.addElement(obj0);						
-								}	*/							
-							}
-							if(totalnum !=0){
-								ShopAnalysis obj0 = loadChart(shopname, "无", totalnum);
-								vector.addElement(obj0);								 		
-							}
-						}
-				 	}													
-				}while (re.next()) ;
-			}
+						String couponid = rs.getString("strcouponid");
+						Shop shop = objShop.show(" where strid='"+shopid+"'");
+						Coupon coupon = objCoupon.show(" where strid='"+couponid+"'");
+						String couponname="";
+						if(coupon !=null)
+							couponname = coupon.getStrName();
+						else 
+							couponname = "已删除";
+						int printnum = rs.getInt("printnum");
+               	 		i++;
+               	 		vector.addElement(obj.loadChart(shopname, couponname, printnum, i));
+               	 	}while(rs.next() && i<intEndNum && i<intAllCount);
+               }
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -366,6 +354,26 @@ public class ShopAnalysis {
 		}    
         return count;
     }
+    //查询记录数
+    public int getCount(String where) {
+    	int count=0;
+    	String sql = "select count(*) as allcount from(select strcouponid,strshop,count(strcouponid) as printnum from t_bz_coupon_print   "+
+		"where dtPrintTime>='"+stime+"' and dtPrintTime<='"+etime+"'";
+    	try {
+    		if (where.length() > 0)
+			{
+    			sql += " and strshop like'"+where+"'";
+			}		
+			sql += " group by strshop,strcouponid order by strshop) as satable";
+            ResultSet rs = db.executeQuery(sql);
+            if(rs!=null && rs.next())
+            	return rs.getInt("allcount");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}    	
+        return count;
+    }
     private String couponId;//优惠券id；
     private String couponName;//优惠券名称
     private String shopName;//商家名称
@@ -374,6 +382,7 @@ public class ShopAnalysis {
     private int perCouponPrintNum ;//商家每种优惠券打印总量
     private String stime;//统计开始日期
     private String etime;//统计截止日期
+    private int intSort;
 	public Globa getGloba() {
 		return globa;
 	}
@@ -400,6 +409,14 @@ public class ShopAnalysis {
 
 	public String getCouponName() {
 		return couponName;
+	}
+
+	public int getIntSort() {
+		return intSort;
+	}
+
+	public void setIntSort(int intSort) {
+		this.intSort = intSort;
 	}
 
 	public void setCouponName(String couponName) {
