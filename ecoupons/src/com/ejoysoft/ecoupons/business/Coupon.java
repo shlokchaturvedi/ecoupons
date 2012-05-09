@@ -9,7 +9,6 @@ import java.util.Vector;
 import com.ejoysoft.common.DbConnect;
 import com.ejoysoft.common.Globa;
 import com.ejoysoft.common.UID;
-import com.sun.org.apache.bcel.internal.generic.Select;
 
 public class Coupon
 {
