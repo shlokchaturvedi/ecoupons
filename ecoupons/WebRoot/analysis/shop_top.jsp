@@ -387,19 +387,25 @@ function chkFrm()
 						i++;
 						String shopFullName = rs.getString("strshop");
 						String shopid="",shopname="已删除商家";
-						if(shopFullName!=null && shopFullName.contains("/"))
+						if(shopFullName!=null)
 						{
-							String shops[] = shopFullName.split("/");
-							if(shops.length==2)
+							if( shopFullName.contains("/"))
 							{
-								shopid = shops[0];
-								shopname = shops[1];
+								String shops[] = shopFullName.split("/");
+								System.out.println(shopFullName);
+								if(shops.length==2)
+								{
+									shopid = shops[0];
+									shopname = shops[1];
+								}
+								else
+								{
+									shopname = "已删除商家";
+									shopid = shopFullName;
+								}
 							}
 							else
-							{
-								shopname = "已删除商家";
-								shopid = shopFullName;
-							}
+								shopname = "";
 						}
 						obj1 = objShop.show(" where strid='" + shopid + "'");
 						if(obj1!=null)

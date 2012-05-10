@@ -332,8 +332,16 @@ function showTime(str){
 			</td>
 			<td align="center"><div style="height:26"> 统计基于：
 			<select style="width:80" class="sec2"  name="flag" >
-					<option value="bymember">会    员</option>
-					<option value="byterminal">终     端</option>
+			<%
+			String c11="",c12="";
+			if(flag.equals("bymember")){
+				c11="selected=\"selected\"";
+			}else{
+				c12 = "selected=\"selected\"";
+			}
+			 %>
+					<option value="bymember" <%=c11 %> >会    员</option>
+					<option value="byterminal" <%=c12 %> >终     端</option>
 			</select>
 		    </div>
 			</td>
@@ -400,7 +408,7 @@ function showTime(str){
 						}
 			%>
 			  <tr  title="商家：<%=shopname%>" >
-                <td bgcolor="#FFFFFF"><div align="center">&nbsp;<%=i+1 %></div></td>
+                <td bgcolor="#FFFFFF"><div align="center">&nbsp;<%=i%></div></td>
                 <td bgcolor="#FFFFFF"> <div align="center"><span class="STYLE1"><%=shopname%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=flagname%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=rs.getInt("printnum")%></span></div></td>
