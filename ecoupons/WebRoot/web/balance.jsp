@@ -82,7 +82,7 @@ String strMemberCardNo =globa.getMember().getStrCardNo();
 RecordModel reModel=new RecordModel(globa);
 //记录总数
 String strSql1="select count(strId) from (select dtcreatetime,strid,intmoney from t_bz_member_recharge where strmembercardno='"+strMemberCardNo+"' union all "
-		+"select a1.dtcreatetime,a1.strid,a2.flaprice  from t_bz_coupon_print a1,t_bz_coupon a2 where a1.strmembercardno='"+strMemberCardNo+"' and a1.strcouponid=a2.strid and a2.flaprice>0) c order by c.dtcreatetime desc";
+		+"select a1.dtcreatetime,a1.strid,a2.flaprice  from t_bz_coupon_print a1,t_bz_coupon a2 where a1.strmembercardno='"+strMemberCardNo+"' and SUBSTRING_INDEX(a1.strcouponid,'/',1)=a2.strid and a2.flaprice>0) c order by c.dtcreatetime desc";
 int intAllCount=reModel.getCount(strSql1);
 //当前页
 int intCurPage=globa.getIntCurPage();
@@ -97,7 +97,7 @@ int intStartNum=(intCurPage-1)*intPageSize+1;
 int intEndNum=intCurPage*intPageSize;   
 //获取到当前页面的记录集
 String strSql="select * from (select dtcreatetime,strid,intmoney from t_bz_member_recharge where strmembercardno='"+strMemberCardNo+"' union all "
-		+"select a1.dtcreatetime,a1.strid,a2.flaprice  from t_bz_coupon_print a1,t_bz_coupon a2 where a1.strmembercardno='"+strMemberCardNo+"' and a1.strcouponid=a2.strid and a2.flaprice>0) c order by c.dtcreatetime desc";
+		+"select a1.dtcreatetime,a1.strid,a2.flaprice  from t_bz_coupon_print a1,t_bz_coupon a2 where a1.strmembercardno='"+strMemberCardNo+"' and SUBSTRING_INDEX(a1.strcouponid,'/',1)=a2.strid and a2.flaprice>0) c order by c.dtcreatetime desc";
 Vector<RecordModel> vctRecords=reModel.listBalance(strSql,intStartNum,intPageSize);
 //获取当前页的记录条数
 int intVct=(vctRecords!=null&&vctRecords.size()>0?vctRecords.size():0);

@@ -115,11 +115,14 @@ Shop shop=new Shop(globa);
       <%
       for(int i=0;i<vctObj.size();i++)
       {
-       Coupon couponTemp=coupon.show("where strid='"+vctObj.get(i).getStrCouponId()+"'");
+    	String[]strCouponIdName= vctObj.get(i).getStrCouponId().split("/");
+    	String[]strShopIdName=vctObj.get(i).getStrShop().split("/");
+    	
+       Coupon couponTemp=coupon.show("where strid='"+strCouponIdName[0]+"'");
       %>
     <tr>
-      <td height="25" align="center" bgcolor="#FFFFFF"><span class="STYLE1"><a href="merchantsinfo.jsp?strid=<%=couponTemp.getStrShopId() %>"><%=shop.returnBizShopName("where strid='"+couponTemp.getStrShopId()+"'")%></a></span></td>
-      <td align="center" bgcolor="#FFFFFF"><a href="couponinfo.jsp?strid=<%=couponTemp.getStrId() %>"><%=couponTemp.getStrName() %></a></td>
+      <td height="25" align="center" bgcolor="#FFFFFF"><span class="STYLE1"><a href="merchantsinfo.jsp?strid=<%=strShopIdName[0] %>"><%=strShopIdName[1]%></a></span></td>
+      <td align="center" bgcolor="#FFFFFF"><a href="couponinfo.jsp?strid=<%=strCouponIdName[0] %>"><%=strCouponIdName[1] %></a></td>
       <td align="center" bgcolor="#FFFFFF"><span class="STYLE1"><%=couponTemp.getFlaPrice() %></span></td>
       <td align="center" bgcolor="#FFFFFF"><span class="STYLE1"><%=vctObj.get(i).getDtPrintTime() %></span></td>
       </tr>
