@@ -94,7 +94,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 	 if(flag.equals("print"))
 	 	 {	  
 	 	    CouponPrint obj = new CouponPrint(globa);
-	 	    String strCouponCode2 = ParamUtil.getString(request,"code");
+	 	    String strCouponCode2 = ParamUtil.getString(request,"code","");
 	 	    obj.setStrCreator("system");
 	 	    obj.setStrCouponCode(strCouponCode2);
 	 	    obj.setStrCouponId(strId);
