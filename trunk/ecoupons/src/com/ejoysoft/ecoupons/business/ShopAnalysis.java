@@ -44,7 +44,7 @@ public class ShopAnalysis {
     {
     	int num=0;
     	Coupon obj = new Coupon(globa);
-    	String where ="where strshopid='"+shopid+"'";
+    	String where =" where strshopid='"+shopid+"'";
 		if(stime.equals("")||stime.equals(null))
 		{
 			where =" where strshopid='"+shopid+"' and dtcreatetime between '1000-01-01' and '"+etime+"'";
@@ -174,7 +174,7 @@ public class ShopAnalysis {
     {
     	int totalnum=0;
     	ShopAnalysis obj = new ShopAnalysis(globa);
-    	Vector<ShopAnalysis> vector = obj.getCouponIdsByShop(shopid,stime,etime);
+    	/*Vector<ShopAnalysis> vector = obj.getCouponIdsByShop(shopid,stime,etime);
     	for(int i=0;i<vector.size();i++)
     	{
     		ShopAnalysis coupon = vector.get(i);
@@ -187,7 +187,19 @@ public class ShopAnalysis {
     		ShopAnalysis coupon = vector2.get(i);
     		String couponid = coupon.getCouponId();
     		totalnum += obj.getPerNumofPrintByCoupon(couponid,stime,etime);
-    	}
+    	}*/
+    	String  sql = "select count(strid)as printnum from t_bz_coupon_print where dtPrintTime>='" + stime + "' and dtPrintTime<='" + etime + "' "+
+    			      " and strshop like '%" + shopid + "%'" ;
+    	ResultSet re = db.executeQuery(sql);
+    	try {
+			if(re!=null && re.next())
+			{
+				return re.getInt("printnum");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	return totalnum;
     	
     }
@@ -271,7 +283,7 @@ public class ShopAnalysis {
     	try {
     		if (where.length() > 0)
 			{
-    			sql += " and strshop like'"+where+"'";
+    			sql += " and strshop like'%"+where+"%'";
 			}		
 			sql += " group by strshop,strcouponid order by strshop";
             Statement s = db.getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -286,19 +298,24 @@ public class ShopAnalysis {
 					do{
 						String shopFullName = rs.getString("strshop");
 						String shopid="",shopname = "";
-						if(shopFullName!=null && shopFullName.contains("/"))
+						if(shopFullName!=null)
 						{
-						System.out.println(shopFullName);
-							String shops[] = shopFullName.split("/");
-							if(shops.length==2)
+							if( shopFullName.contains("/"))
 							{
-								shopid = shops[0];
-								shopname = shops[1];
+								String shops[] = shopFullName.split("/");
+								if(shops.length==2)
+								{
+									shopid = shops[0];
+									shopname = shops[1];
+								}
+								else
+								{
+									shopname = "已删除商家";
+									shopid = shopFullName;
+								}
 							}
 							else
-							{
-								shopname = "已删除";
-							}
+								shopname = "";
 						}
 						String couponid = rs.getString("strcouponid");
 						Shop shop = objShop.show(" where strid='"+shopid+"'");
@@ -362,7 +379,7 @@ public class ShopAnalysis {
     	try {
     		if (where.length() > 0)
 			{
-    			sql += " and strshop like'"+where+"'";
+    			sql += " and strshop like'%"+where+"%'";
 			}		
 			sql += " group by strshop,strcouponid order by strshop) as satable";
             ResultSet rs = db.executeQuery(sql);
