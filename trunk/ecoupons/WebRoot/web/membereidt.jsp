@@ -120,9 +120,7 @@ frameborder=0 width="100%" scrolling=no></iframe>
 <div class="collect_sf">个人信息设置</div></div>
 <div class=collect_left_mid>
 <div class=collect_show>
-<%
 
- %>
   <table width="70%" style="HEIGHT:280px;" border="0" cellpadding="0" cellspacing="0">
     <tr>
       <td height="55">&nbsp;</td><td></td>
@@ -133,8 +131,14 @@ frameborder=0 width="100%" scrolling=no></iframe>
      </tr>
      <tr>
       <td width="55%" class="memberpwd_td">手 机 号：&nbsp;&nbsp;</td>
-      <td width="45%" class="memberpwd_td"><input name="strPhone" id="strPhone" value="<%=objMember.getStrMobileNo() %>" type="text"  class="memberpwd_ipt"/>&nbsp;&nbsp;</td>
-     </tr><tr>
+      <%
+      String strPhoneNo=objMember.getStrMobileNo();
+      if(strPhoneNo!=null&&strPhoneNo!=""){
+      %>
+      <td width="45%" class="memberpwd_td"><input name="strPhone" id="strPhone" value="<%=strPhoneNo.substring(0,3)+"****"+strPhoneNo.substring(7) %>" type="text"  class="memberpwd_ipt"/>&nbsp;&nbsp;</td>
+      <%} %>
+     </tr>
+     <tr>
       <td height="45">&nbsp;</td><td></td>
     </tr>
      <tr>
