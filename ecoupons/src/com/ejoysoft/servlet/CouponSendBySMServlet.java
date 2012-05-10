@@ -40,8 +40,8 @@ private void execute(HttpServletRequest req, HttpServletResponse resp)throws Ser
 	try {
 		resp.setCharacterEncoding("utf-8");
 		String strTerminalNo = req.getParameter("strTerminalNo");
-		String strMobileNo = req.getParameter("strMobileNo");
-		String strMessege = req.getParameter("strMessege");
+		String strMobileNo = req.getParameter("strPhoneNo");
+		String strMessege = req.getParameter("strContent");
 //		strMobileNo = "15155963350";
 //		strTerminalNo="000";
 //		strMessege = "亲爱的乐购会员您好！" ;
