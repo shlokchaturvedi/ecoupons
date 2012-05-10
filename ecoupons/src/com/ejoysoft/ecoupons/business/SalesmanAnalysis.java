@@ -110,7 +110,7 @@ public class SalesmanAnalysis
 	public int getPrintNumBySalesman(String salesman,String stime,String etime)
 	{
 		int printnum=0;
-		String sql= "select count(a.strid) from "+strTableName3+" a left join "+strTableName+" b on a.strmembercardno = b.strcardno where b.strmobileno<>'' and b.strmobileno is not null and b.strpwd<>'' and b.strpwd is not null and b.strsalesman='"+salesman+"'";
+		/*//String sql= "select count(a.strid) from "+strTableName3+" a left join "+strTableName+" b on a.strmembercardno = b.strcardno where b.strmobileno<>'' and b.strmobileno is not null and b.strpwd<>'' and b.strpwd is not null and b.strsalesman='"+salesman+"'";
 		if(stime.equals("")||stime.equals(null))
 		{
 			sql +=" and a.dtcreatetime between '1000-01-01' and '"+etime+"'";
@@ -132,6 +132,26 @@ public class SalesmanAnalysis
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}*/
+		if(stime.equals("")||stime.equals(null))
+		{
+			stime ="1000-01-01";
+    	}
+		if(etime.equals("")||etime.equals(null))
+		{
+			etime  ="9999-12-30";
+    	}
+		String  sql = "select count(strid)as printnum from t_bz_coupon_print where dtPrintTime>='" + stime + "' and dtPrintTime<='" + etime + "' "+
+	      " and strsalesman like '%" + salesman + "%'" ;
+		ResultSet re = db.executeQuery(sql);
+		try {
+		if(re!=null && re.next())
+		{
+			return re.getInt("printnum");
+		}
+		} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
 		}
 		return printnum;
 	}
