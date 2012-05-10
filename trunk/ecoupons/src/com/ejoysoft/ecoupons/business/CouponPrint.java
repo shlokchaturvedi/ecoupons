@@ -39,6 +39,7 @@ public class CouponPrint
 		float memberbalance = obj1.getFlaBalance();
 		Coupon coupon = new Coupon(globa);
 		Coupon objCoupon = coupon.show(" where strid="+strCouponId);
+		
 		Shop shop=new Shop(globa);
 	    Shop shopTemp=shop.show("where strid='"+objCoupon.getStrShopId()+"'");
 		float couponprice = objCoupon.getFlaPrice();
@@ -52,6 +53,7 @@ public class CouponPrint
 			db.prepareStatement(sql);
 			db.setString(1, strId);
 			db.setString(2, strMemberCardNo);
+			if (objCoupon!=null)
 			db.setString(3, strCouponId+"/"+objCoupon.getStrName());
 			db.setString(4, strTerminalId);
 			db.setString(5, com.ejoysoft.common.Format.getDateTime());
@@ -59,9 +61,15 @@ public class CouponPrint
 			db.setInt(7, 0);
 			db.setString(8, strCreator);
 			db.setString(9, com.ejoysoft.common.Format.getDateTime());
+			if (objCoupon!=null)
+			{
 			db.setString(10, objCoupon.getStrTerminalIds());
 			db.setString(11,objCoupon.getStrShopId()+"/"+shopTemp.getStrBizName() );
+			}
+			if (obj1!=null)
+			{
 			db.setString(12, obj1.getStrSalesman());
+			}
 			if (db.executeUpdate() > 0)
 			{
 				coupon.updateIntPrint(strId);
