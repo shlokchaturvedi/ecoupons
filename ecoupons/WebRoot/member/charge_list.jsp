@@ -139,13 +139,17 @@ body,td,th {
             Coupon coupon=new Coupon(globa);
             	for (int i = 0;i < vctObj.size(); i++) {
             		CouponPrint obj1 = vctObj.get(i);
-                        	
+                    if(obj1.getStrCouponId()!=null&&obj1.getStrCouponId()!="")
+                    {
+                    String[]strCouponIdName=obj1.getStrCouponId().split("/");
+                    	
+                       	
             %>
               <tr>
                 
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrMemberCardNo()%></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrCouponId()%></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=coupon.show("where strId="+obj1.getStrCouponId()).getStrName()%></span></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=strCouponIdName[1]%></span></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=Format.forbidNull(obj1.getStrCouponCode())  %></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getDtPrintTime()%></span></div></td>
                 
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE4">
@@ -154,7 +158,7 @@ body,td,th {
                 </td>
               </tr>
             <%
-            }
+            }} 
             %>  
             </table></td>
           </tr>
