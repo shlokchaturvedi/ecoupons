@@ -38,14 +38,15 @@ try{
 		String filename = UID.getID();
 		String diskname = "";
 		String modulename = au.getString("strModuleOfTempl").trim();
-		if(modulename.equals("top") || modulename.equals("bottom"))
-		{
-			diskname = ""+modulename+"/";
-		}else{
-			diskname = "middle/"+modulename+"/";
-		}
+	//	if(modulename.equals("top") || modulename.equals("bottom"))
+	//	{
+	//		diskname = ""+modulename+"/";
+	//	}else{
+	//		diskname = "middle/"+modulename+"/";
+	//	}
 		//上传文件
-		String strFilePath = application.getRealPath("") + "/terminal/template/"+diskname;
+//		String strFilePath = application.getRealPath("") + "/terminal/template/"+diskname;
+		String strFilePath = application.getRealPath("") + "/terminal/template/";
 		File path = new File(strFilePath);
 		if (!path.exists())
 		{
@@ -96,7 +97,6 @@ try{
 		}else{
 			obj.setStrFontColor("");
 		}	
-		System.out.println(obj.getStrFontColor()+":ddddddddddddddddd");
 		obj.setStrIntro(au.getString("strIntro").trim());		 
 		if(au.getString("intFontSize")!=null && !au.getString("intFontSize").trim().equals(""))
 		{

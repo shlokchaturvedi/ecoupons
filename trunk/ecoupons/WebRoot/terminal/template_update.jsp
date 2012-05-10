@@ -391,15 +391,9 @@ body,td,tr{font-size:9pt;}
                 <%
                 if (obj0.getStrBgImage().trim().length() > 0 )
                 {
-	                if (obj0.getStrModuleOfTempl().equals("top") || obj0.getStrModuleOfTempl().equals("bottom")) {
-	                %>
-	                  <img src="<%="template/"+obj0.getStrModuleOfTempl()+"/" + obj0.getStrBgImage() %>" width=220 /><br>
-	                <%
-	                }else{
 	                %>  
-	                 <img src="<%="template/middle/"+obj0.getStrModuleOfTempl()+"/" + obj0.getStrBgImage() %>" width=220 /><br>
+	                 <img src="<%="template/"+ obj0.getStrBgImage() %>" width=220 /><br>
 	                 <%
-	                }
 	            }
                 %>
                 </td>
