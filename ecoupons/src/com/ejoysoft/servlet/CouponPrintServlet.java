@@ -16,6 +16,7 @@ import com.ejoysoft.common.Globa;
 import com.ejoysoft.common.UID;
 import com.ejoysoft.ecoupons.business.Coupon;
 import com.ejoysoft.ecoupons.business.CouponPrint;
+import com.ejoysoft.ecoupons.business.Shop;
 import com.ejoysoft.ecoupons.business.Terminal;
 
 @SuppressWarnings("serial")
@@ -53,6 +54,7 @@ public class CouponPrintServlet extends HttpServlet implements Servlet
 			HashMap<String, Terminal> hmTerminal = Terminal.hmTerminal;
 			Terminal terminal = hmTerminal.get(strTerminalNo);
 		    Coupon coupon=new Coupon(globa);
+		    Shop shop=new Shop(globa);
 			if(terminal!=null)
 			{
 				String strTerminalId = terminal.getStrId();
@@ -75,6 +77,7 @@ public class CouponPrintServlet extends HttpServlet implements Servlet
 							String strCouponCode = perContent[3];
 							 Coupon coupobj = new Coupon(globa);
 							 Coupon obj1 = coupobj.show(" where strid='"+strCouponId+"'");
+							 String strShopId=obj1.getStrShopId();
 							 if(obj1==null)
 								 continue;
 							 CouponPrint couponPrint = new CouponPrint(globa);
@@ -86,18 +89,19 @@ public class CouponPrintServlet extends HttpServlet implements Servlet
 								 coupobj.updateExpireTime(strCouponId);									
 							 }
 							 String strSql = "insert into "+strTableName+"(strid,strmembercardno,strcouponid,strterminalid," +
-								"dtprinttime,strcouponcode,intstate,strcreator,dtcreatetime) values(?,?,?,?,?,?,?,?,?)";
+								"dtprinttime,strcouponcode,intstate,strcreator,dtcreatetime,strshop) values(?,?,?,?,?,?,?,?,?,?)";
 							 try {
 					            db.prepareStatement(strSql);
 					            db.setString(1, UID.getID());
 					            db.setString(2, strMemberCardNo);
-					            db.setString(3, strCouponId); 
+					            db.setString(3, strCouponId+"/"+obj1.getStrName()); 
 					            db.setString(4, strTerminalId);  //strPWD
 					            db.setString(5, dtPrintTime);
 					            db.setString(6, strCouponCode);
 					            db.setInt(7, 0);
 					            db.setString(8, "system");
 					            db.setString(9, com.ejoysoft.common.Format.getDateTime());
+					            db.setString(10,strShopId+"/"+shop.show(" where strid='"+strShopId+"'").getStrBizName() );
 					            if (db.executeUpdate() > 0&&coupon.updateIntPrint(strCouponId)) 
 					            { 	
 					                Globa.logger0("添加优惠券打印记录信息", globa.loginName, globa.loginIp, strSql, "优惠券打印", "system");

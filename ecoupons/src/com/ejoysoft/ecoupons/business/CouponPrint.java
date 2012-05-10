@@ -14,9 +14,7 @@ public class CouponPrint
 	private Globa globa;
 	private DbConnect db;
 	String strTableName = "t_bz_coupon_print";
-	
 	String strTableName2 = "t_bz_member";
-
 	private String strId;
 	private String strMemberCardNo;
 	private String strCouponId;
@@ -40,6 +38,8 @@ public class CouponPrint
 		float memberbalance = obj1.getFlaBalance();
 		Coupon coupon = new Coupon(globa);
 		Coupon objCoupon = coupon.show(" where strid="+strCouponId);
+		Shop shop=new Shop(globa);
+	    Shop shopTemp=shop.show("where strid='"+objCoupon.getStrShopId()+"'");
 		float couponprice = objCoupon.getFlaPrice();
 		float balance = memberbalance - couponprice;
 		String sql = "insert into " + strTableName + " (strId,strMemberCardNo,strCouponId,strTerminalId,dtPrintTime,strCouponCode,intState"
@@ -51,7 +51,7 @@ public class CouponPrint
 			db.prepareStatement(sql);
 			db.setString(1, strId);
 			db.setString(2, strMemberCardNo);
-			db.setString(3, strCouponId);
+			db.setString(3, strCouponId+"/"+objCoupon.getStrName());
 			db.setString(4, strTerminalId);
 			db.setString(5, com.ejoysoft.common.Format.getDateTime());
 			db.setString(6, strCouponCode);
@@ -59,7 +59,7 @@ public class CouponPrint
 			db.setString(8, strCreator);
 			db.setString(9, com.ejoysoft.common.Format.getDateTime());
 			db.setString(10, objCoupon.getStrTerminalIds());
-			db.setString(11, strShop);
+			db.setString(11,objCoupon.getStrShopId()+"/"+shopTemp.getStrBizName() );
 			if (db.executeUpdate() > 0)
 			{
 				coupon.updateIntPrint(strId);
