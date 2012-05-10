@@ -40,7 +40,14 @@ private void execute(HttpServletRequest req, HttpServletResponse resp)throws Ser
 	try {
 		resp.setCharacterEncoding("utf-8");
 		String strTerminalNo = req.getParameter("strTerminalNo");
-		String strMobileNo = req.getParameter("strPhoneNo");
+		String strCardNo=req.getParameter("strCardNo");
+		Member member=new Member(globa);
+		Member memberTemp=member.show("where strCardNo='"+strCardNo+"'");
+		String strMobileNo = "";
+		if (memberTemp!=null)
+		{
+			strMobileNo=memberTemp.getStrMobileNo();
+		}
 		String strMessege = req.getParameter("strContent");
 //		strMobileNo = "15155963350";
 //		strTerminalNo="000";
