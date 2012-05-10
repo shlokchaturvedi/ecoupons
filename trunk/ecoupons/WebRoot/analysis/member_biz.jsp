@@ -155,7 +155,14 @@ if(!globa.userSession.hasRight("13015"))
 	ResultSet rs = null;
 	String label = "",sql="";
 	if(flag.equals("byshop"))
+	{
 		 label = "商    家（名称-分部）";
+		 sql = "select  strMemberCardNo,strshop,count(strid) " + 
+		 "from t_bz_coupon_print where dtPrintTime>='" + stime + "' and dtPrintTime<='" + etime + "' ";
+		 if(!strName.equals(""))
+			sql += " and strmembercardno like '%" + strName + "%'";
+		 sql += " group by strMemberCardNo,strshop " ;
+	}
 	else if(flag.equals("byterminal"))
 	{
 		 label = "终    端（编号）";
@@ -361,7 +368,19 @@ function showTime(str){
 						i++;
 						String strCardNo = rs.getString("strMemberCardNo");
 						if(flag.equals("byshop"))
-							 label = "商    家（名称-分部）";
+						{
+							String shopname = rs.getString(2);
+							if(shopname !=null && !shopname.equals(""))
+							{
+								String shops[] = shopname.split("/");
+								if(shops.length==2)
+									strTmp = shops[1];
+								else	
+									strTmp = "";
+							}
+							else
+								strTmp = "已删除";
+						}
 						else if(flag.equals("byterminal"))
 						{
 							t1 = t.show(" where strId='" + rs.getString(2) + "'");
