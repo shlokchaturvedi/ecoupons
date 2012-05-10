@@ -168,20 +168,18 @@ public class TerminalAnalysis {
     {
     	int totalnum=0;
     	TerminalAnalysis obj = new TerminalAnalysis(globa);
-    	Vector<TerminalAnalysis> vector = obj.getCouponIdsByTerminal(terminalid,stime,etime);
-    	for(int i=0;i<vector.size();i++)
-    	{
-    		TerminalAnalysis coupon = vector.get(i);
-    		String couponid = coupon.getCouponId();
-    		totalnum += obj.getPerNumofPrintByCoupon(couponid,terminalid,stime,etime);
-    	}
-    	Vector<TerminalAnalysis> vector2 = obj.getCouponIdsByTerminal2(terminalid,stime,etime);
-    	for(int i=0;i<vector2.size();i++)
-    	{
-    		TerminalAnalysis coupon = vector2.get(i);
-    		String couponid = coupon.getCouponId();
-    		totalnum += obj.getPerNumofPrintByCoupon(couponid,terminalid,stime,etime);
-    	}
+      	String  sql = "select count(strid)as printnum from t_bz_coupon_print where dtPrintTime>='" + stime + "' and dtPrintTime<='" + etime + "' "+
+	      " and strterminalid='" + terminalid + "'" ;
+		ResultSet re = db.executeQuery(sql);
+		try {
+		if(re!=null && re.next())
+		{
+			return re.getInt("printnum");
+		}
+		} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		}
     	return totalnum;
     	
     }
