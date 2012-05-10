@@ -25,6 +25,7 @@ public class CouponPrint
 	private String strCreator;
 	private String dtCreateTime;
 	private String strShop;
+	private String strSalesman;
 
 	/**
 	 * 增加优惠券打印记录记录
@@ -42,8 +43,8 @@ public class CouponPrint
 	    Shop shopTemp=shop.show("where strid='"+objCoupon.getStrShopId()+"'");
 		float couponprice = objCoupon.getFlaPrice();
 		float balance = memberbalance - couponprice;
-		String sql = "insert into " + strTableName + " (strId,strMemberCardNo,strCouponId,strTerminalId,dtPrintTime,strCouponCode,intState"
-				+ ",strCreator,dtCreateTime,strterminalids,strshop) " + "values (?,?,?,?,?,?,?,?,?,?,?) ";
+		String sql = "insert into " + strTableName + " (strid,strmembercardno,strcouponid,strterminalid,dtprinttime,strcouponcode,intstate"
+				+ ",strcreator,dtcreatetime,strterminalids,strshop,strsalesman) " + "values (?,?,?,?,?,?,?,?,?,?,?,?) ";
 		try
 		{	
 			db.getConnection().setAutoCommit(false);//禁止自动提交事务
@@ -60,6 +61,7 @@ public class CouponPrint
 			db.setString(9, com.ejoysoft.common.Format.getDateTime());
 			db.setString(10, objCoupon.getStrTerminalIds());
 			db.setString(11,objCoupon.getStrShopId()+"/"+shopTemp.getStrBizName() );
+			db.setString(12, obj1.getStrSalesman());
 			if (db.executeUpdate() > 0)
 			{
 				coupon.updateIntPrint(strId);
