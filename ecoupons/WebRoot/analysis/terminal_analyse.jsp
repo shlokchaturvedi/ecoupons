@@ -156,20 +156,31 @@ if(!globa.userSession.hasRight("13015"))
 	      	strId = objCoupon.getCouponIds(tWhere2);
 	}
 	//记录总数
-	String strSql ="select count(*) from( select count(strterminalid) from t_bz_coupon_print ";
+	String strSql ="select count(*) from(select  strterminalid,strCouponId,count(strterminalid) as printnum " + 
+			"from t_bz_coupon_print where dtPrintTime>='" + stime + "' and dtPrintTime<='" + etime + "' " ;
 	if(!strId.equals(""))
 	{	String strIds[] = strId.split(",");
-		strSql += " where 1=2";
+		strSql += " and( 1=2";
 		for(int k=0;k<strIds.length;k++)
 		{
-			strSql += " or strterminalid like '%"+strIds[k]+"%'";
+			strSql += " or strterminalid ='"+strIds[k]+"'";
 		}
+		strSql +=")";
 	}
 	strSql += " group by strterminalid,strcouponid) as allcount";
 	int  allCount = objCoupon.getCountA(strSql);
 	String sql = "select  strterminalid,strCouponId,count(strterminalid) as printnum " + 
-			"from t_bz_coupon_print where dtPrintTime>='" + stime + "' and dtPrintTime<='" + etime + "' " +
-			 "group by strterminalid,strCouponId order by count(strterminalid) desc" ;
+			"from t_bz_coupon_print where dtPrintTime>='" + stime + "' and dtPrintTime<='" + etime + "' " ;
+	if(!strId.equals(""))
+	{	String strIds[] = strId.split(",");
+		sql += " and (1=2";
+		for(int k=0;k<strIds.length;k++)
+		{
+			sql += " or strterminalid='"+strIds[k]+"'";
+		}
+		sql +=")";
+	}
+	sql +=  " group by strterminalid,strcouponId order by count(strterminalid) desc" ;
 	ResultSet rs = globa.db.executeQuery(sql);
 	//记录总数
 	int intAllCount = allCount;
@@ -360,7 +371,7 @@ function showTime(str){
 							name = coupon.getStrName();
 						else
 						    name = "已删除";
-						if(strId.equals("") ||terminalid.equals("system")|| (obj1!=null && obj1.getStrId()!=null && (strId).contains(terminalid)))
+						if(obj1!=null)
 						{
 				   			   i++;
 		%>
