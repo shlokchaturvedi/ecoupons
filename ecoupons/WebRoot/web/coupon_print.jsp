@@ -130,13 +130,13 @@ function getYzm()
 }
 function chkFrm()
 {
-	if(trim(frm.yzm.value)=="") {
+	if(frm.yzm.value=="") {
         alert("请输入验证码！！！");
         frm.yzm.focus();
         return false;
     }else
     {
-    	  if(trim(frm.yzm.value)!=(trim(frm.randomYzm.value)))
+    	  if(frm.yzm.value!=frm.randomYzm.value)
     	  {
     	  	    alert("您输入的验证码错误！");
                 frm.yzm.focus();         
