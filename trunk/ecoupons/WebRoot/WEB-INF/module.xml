@@ -20,6 +20,7 @@
             <affair name="有价券录入" code="12010" url="coupon/couponinput_list.jsp" state="1" />
             <affair name="有价券统计" code="12015" url="coupon/coupon_stat.jsp" state="1" />
             <affair name="评论管理" code="12020" url="coupon/comment_list.jsp" state="1" />
+            <affair name="同步打印记录表" code="12025" url="coupon/printtable_syn.jsp" state="1" />
         </module>
 		<module name="终端管理" code="130" flow="" state="1" url=""  >
             <affair name="基本信息" code="13005" url="terminal/terminal_list.jsp" state="1" />
