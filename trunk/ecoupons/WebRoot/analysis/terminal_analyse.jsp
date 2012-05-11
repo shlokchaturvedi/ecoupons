@@ -355,8 +355,6 @@ function showTime(str){
 					   rs.absolute(intStartNum);
 					do{
 						String couponid = rs.getString("strcouponid");
-						Coupon objCoupon2 = new Coupon(globa);
-						Coupon coupon = objCoupon2.show(" where strid='"+couponid+"'");
 						String terminalid = rs.getString("strterminalid");
 						obj1 = t.show(" where strid='" + terminalid + "'");
 						String terminalno ="";
@@ -367,10 +365,24 @@ function showTime(str){
 						else
 							terminalno="已删除";
 						String name="";
-						if(coupon!=null)
-							name = coupon.getStrName();
-						else
-						    name = "已删除";
+						String couponname="已删除";
+						if(couponid!=null)
+						{
+							if( couponid.contains("/"))
+							{
+								String coupons[] = couponid.split("/");
+								if(coupons.length==2)
+								{
+									couponname = coupons[1];
+								}
+								else
+								{
+									couponname = "";
+								}
+							}
+							else
+								couponname = "已删除";
+						}
 						if(obj1!=null)
 						{
 				   			   i++;
@@ -378,7 +390,7 @@ function showTime(str){
 						  <tr  title="优惠券：<%=obj1.getStrName()%>" >
 			                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">&nbsp;&nbsp;<%=i%>&nbsp;&nbsp;</span></div></td>
 			                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=terminalno%> </span></div></td>
-			                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=name%></span></div></td>
+			                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=couponname%></span></div></td>
 			                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=rs.getInt("printnum")%></span></div></td>
 			              </tr>
 		<%			   }

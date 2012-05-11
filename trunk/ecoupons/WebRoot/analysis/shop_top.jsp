@@ -392,7 +392,6 @@ function chkFrm()
 							if( shopFullName.contains("/"))
 							{
 								String shops[] = shopFullName.split("/");
-								System.out.println(shopFullName);
 								if(shops.length==2)
 								{
 									shopid = shops[0];

@@ -201,7 +201,7 @@ if(!globa.userSession.hasRight("13020"))
 			setime = stime+"  至  "+etime+"  前  "+topnum+" 名   优   惠   券    统   计   记   录";		
 	}
 	ResultSet rs = null;
-	String  sql = "select  strcouponid,count(strcouponid) from t_bz_coupon_print where dtPrintTime>='" + stime + "' and dtPrintTime<='" + etime + "' ";
+	String  sql = "select  strcouponid,count(strcouponid),strshop from t_bz_coupon_print where dtPrintTime>='" + stime + "' and dtPrintTime<='" + etime + "' ";
 	sql += " group by strcouponid order by count(strcouponid) desc " ;
 	rs = globa.db.executeQuery(sql);	
 %>
@@ -366,33 +366,66 @@ function showTime(str){
 				    if (intStartNum != 0 && intPageSize != 0)
 					   rs.absolute(intStartNum);
 					do{
+						String shopFullName = rs.getString("strshop");
+						int printnum = rs.getInt(2);
 						String couponid = rs.getString("strcouponid");
-						obj1 = c.show(" where strid='" + couponid + "'");
-						if (obj1 != null)
+						String shopname = "";
+						if(shopFullName!=null)
 						{
-							Shop objShop = new Shop(globa);
-							Shop shop = objShop.show(" where strid='"+obj1.getStrShopId()+"'");
-							String name ="";
-							if(shop != null)
+							if( shopFullName.contains("/"))
 							{
-								name = shop.getStrBizName()+shop.getStrShopName();
+								String shops[] = shopFullName.split("/");
+								if(shops.length==2)
+								{
+									shopname = shops[1];
+								}
+								else
+								{
+									shopname = "";
+								}
 							}
-							else{
-							    name = "已删除";
-							}
-							if(strId.equals("") || (obj1.getStrId()!=null && (strId).contains(couponid)))
+							else
+								shopname = "已删除";
+						}
+						String couponname="已删除",couponid2="";
+						if(couponid!=null)
+						{
+							if( couponid.contains("/"))
 							{
- 				   			   i++;
-			%>
-							  <tr  title="优惠券：<%=obj1.getStrName()%>" >
-				                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">第&nbsp;&nbsp;<%=i%>&nbsp;&nbsp;名</span></div></td>
-				                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrName()%> </span></div></td>
-				                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=rs.getInt(2)%></span></div></td>
-				                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=name%></span></div></td>
-				                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getFlaPrice()%></span></div></td>
-				                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getDtActiveTime()%></span></div></td>
-				              </tr>
-			<%			   }
+								String coupons[] = couponid.split("/");
+								if(coupons.length==2)
+								{
+									couponname = coupons[1];
+									couponid2 = coupons[0];
+								}
+								else
+								{
+									couponname = "";
+									couponid2 = couponid;
+								}
+							}
+							else
+							{
+								 couponid2 = "";	
+								 couponname = "已删除";
+							}
+						}
+						obj1 = c.show(" where strid='"+couponid2+"'");
+						if(obj1 !=null)
+						{
+						if(strId.equals("") || (obj1.getStrId()!=null && (strId).contains(couponid)))
+						{
+				   			   i++;
+		%>
+						  <tr  title="优惠券：<%=couponname%>" >
+			                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">第&nbsp;&nbsp;<%=i%>&nbsp;&nbsp;名</span></div></td>
+			                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=couponname%> </span></div></td>
+			                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=rs.getInt(2)%></span></div></td>
+			                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=shopname%></span></div></td>
+			                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getFlaPrice()%></span></div></td>
+			                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getDtActiveTime()%></span></div></td>
+			              </tr>
+		<%			   } 
 						}
 					}while (rs.next() && i < intEndNum && i<intAllCount);				
 				}							
