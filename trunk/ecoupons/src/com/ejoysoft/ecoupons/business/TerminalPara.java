@@ -258,8 +258,6 @@ public class TerminalPara {
             return count;
         }
     }  
-	
-    
     private String strId;//参数id
     private String strParamName;//参数名称
     private String strParamValue;//参数值

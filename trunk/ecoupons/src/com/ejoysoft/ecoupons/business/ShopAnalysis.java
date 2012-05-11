@@ -297,7 +297,9 @@ public class ShopAnalysis {
 						rs.absolute(intStartNum);
 					do{
 						String shopFullName = rs.getString("strshop");
-						String shopid="",shopname = "";
+						int printnum = rs.getInt("printnum");
+						String couponid = rs.getString("strcouponid");
+						String shopname = "";
 						if(shopFullName!=null)
 						{
 							if( shopFullName.contains("/"))
@@ -305,27 +307,34 @@ public class ShopAnalysis {
 								String shops[] = shopFullName.split("/");
 								if(shops.length==2)
 								{
-									shopid = shops[0];
 									shopname = shops[1];
 								}
 								else
 								{
-									shopname = "已删除商家";
-									shopid = shopFullName;
+									shopname = " ";
 								}
 							}
 							else
-								shopname = "";
+								shopname = "已删除";
 						}
-						String couponid = rs.getString("strcouponid");
-						Shop shop = objShop.show(" where strid='"+shopid+"'");
-						Coupon coupon = objCoupon.show(" where strid='"+couponid+"'");
-						String couponname="";
-						if(coupon !=null)
-							couponname = coupon.getStrName();
-						else 
-							couponname = "已删除";
-						int printnum = rs.getInt("printnum");
+						String couponname="已删除";
+						if(couponid!=null)
+						{
+							if( couponid.contains("/"))
+							{
+								String coupons[] = couponid.split("/");
+								if(coupons.length==2)
+								{
+									couponname = coupons[1];
+								}
+								else
+								{
+									couponname = "已删除";
+								}
+							}
+							else
+								couponname = "已删除";
+						}
                	 		i++;
                	 		vector.addElement(obj.loadChart(shopname, couponname, printnum, i));
                	 	}while(rs.next() && i<intEndNum && i<intAllCount);
