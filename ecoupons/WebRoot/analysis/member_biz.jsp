@@ -390,11 +390,23 @@ function showTime(str){
 								strTmp = t1.getStrNo();							
 						}
 						else {
-							c1 = c.show(" where strId='" + rs.getString(2) + "'");
-							if (c1 == null)
-								strTmp = "已删除";
+						if(rs.getString(2)!=null)
+						{
+							if( rs.getString(2).contains("/"))
+							{
+								String coupons[] = rs.getString(2).split("/");
+								if(coupons.length==2)
+								{
+									strTmp = coupons[1];
+								}
+								else
+								{
+									strTmp = " ";
+								}
+							}
 							else
-								strTmp = c1.getStrName();
+								strTmp = "已删除";
+						}
 						}
 			%>
 			  <tr  title="会员：<%=strCardNo%>" >
