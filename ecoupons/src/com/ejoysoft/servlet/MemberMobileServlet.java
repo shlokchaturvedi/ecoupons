@@ -47,7 +47,7 @@ private void execute(HttpServletRequest req, HttpServletResponse resp)throws Ser
 //		String strTerminalId="1325052084765002";
 //		strCode="sdfe";
 //		strMobileNo="15155963350";
-//		strCardNo="80010097";
+//		strCardNo="80000002";
 		HashMap<String, Terminal> hmTerminal = Terminal.hmTerminal;
 		Terminal terminal = hmTerminal.get(strTerminalNo);
 		if(terminal!=null)
@@ -57,11 +57,11 @@ private void execute(HttpServletRequest req, HttpServletResponse resp)throws Ser
 			//obj.updateState(strTerminalId);//更新终端状态
 			String strName="";
 			String nowdate = Format.getDateTime();
+			Member obj2 = new Member(globa);
 			if(strCode!=null && !strCode.trim().equals(""))
 			{
 				if(strCardNo!=null && !strCardNo.trim().equals(""))
 				{
-					Member obj2 = new Member(globa);
 					Member obj1 = obj2.show(" where strcardno='"+strCardNo+"' and dtactivetime <='"+nowdate+"' and dtexpiretime >='"+nowdate+"'");
 					strName = obj1.getStrName();
 				}
@@ -73,7 +73,6 @@ private void execute(HttpServletRequest req, HttpServletResponse resp)throws Ser
 				String messege = "亲爱的乐购会员您好！您此次于券打机上操作的验证码为："+strCode+"，请及时使用！" + strWelcome;
 				if(strMobileNo!=null && !strMobileNo.trim().equals(""))
 				{
-					Member obj2 = new Member(globa);		
 					int standardNum = Integer.parseInt(String.valueOf(application.getAttribute("MOBILE_BIND_CARD_NUM")));
 					int mobileBindNum = obj2.getCount(" where strmobileno='"+strMobileNo+"' and dtactivetime <='"+nowdate+"' and dtexpiretime >='"+nowdate+"'");
 					if (mobileBindNum>=standardNum) {
@@ -109,17 +108,23 @@ private void execute(HttpServletRequest req, HttpServletResponse resp)throws Ser
 			}
 			else
 			{
-				Member obj2 = new Member(globa);
 				if(strCardNo!=null && !strCardNo.trim().equals("") && strMobileNo!=null && !strMobileNo.trim().equals(""))
 				{
-					boolean result = obj2.updateMobileNo(strCardNo,strMobileNo);
-					if(result)
-					{
-						sbReturn.append("<return>OK</return>");
+					int standardNum = Integer.parseInt(String.valueOf(application.getAttribute("MOBILE_BIND_CARD_NUM")));
+					int mobileBindNum = obj2.getCount(" where strmobileno='"+strMobileNo+"' and dtactivetime <='"+nowdate+"' and dtexpiretime >='"+nowdate+"'");
+					if (mobileBindNum>=standardNum) {
+						sbReturn.append("<return>strmobileno_erro</return>");
 					}
-					else
-					{
-						sbReturn.append("<return>update_erro</return>");
+					else {
+						boolean result = obj2.updateMobileNo(strCardNo,strMobileNo);
+						if(result)
+						{
+							sbReturn.append("<return>OK</return>");
+						}
+						else
+						{
+							sbReturn.append("<return>update_erro</return>");
+						}
 					}
 				}
 				else {
