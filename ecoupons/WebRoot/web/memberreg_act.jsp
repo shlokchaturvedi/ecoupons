@@ -36,7 +36,7 @@
 	Member member = obj.show(" where strcardno='"+strCardNo+"' and dtactivetime <='"+nowdate+"' and dtexpiretime >='"+nowdate+"'");
 	//Member member1 = obj.show(" where strmobileno='"+strPhone+"' and dtactivetime <='"+nowdate+"' and dtexpiretime >='"+nowdate+"' and strpwd<>'' and strpwd is not null");
 	int standardNum = Integer.parseInt(String.valueOf(application.getAttribute("MOBILE_BIND_CARD_NUM")));
-	int mobileBindNum = obj.getCount(" where strmobileno='"+strPhone+"' and dtactivetime <='"+nowdate+"' and dtexpiretime >='"+nowdate+"'");
+	int mobileBindNum = obj.getCount(" where strmobileno='"+strPhone+"' and dtactivetime <='"+nowdate+"' and dtexpiretime >='"+nowdate+"' and strcardno<>'"+strCardNo+"'");
 		if(flag.equals("getyzm"))
 	{
 		 if(member==null)
