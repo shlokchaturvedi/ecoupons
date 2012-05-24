@@ -142,9 +142,10 @@ if(!globa.userSession.hasRight("13015"))
 	if(!strName.equals(""))
 		sql += " and strcardno like '%" + strName + "%'";
 	sql += " group by strMemberCardNo order by count(strMemberCardNo) desc " ;
+	rs = globa.db.executeQuery(sql);
 	CouponPrint objCouponPrint = new CouponPrint(globa);
 	String allCountString = "select count(*) from("+sql+") as allcount";
-	System.out.println(sql);
+	System.out.println(allCountString);
 	int  allCount = objCouponPrint.getCountA(allCountString);
 	if(topnum == 0 || allCount <topnum)
 		topnum = allCount;
@@ -160,7 +161,6 @@ if(!globa.userSession.hasRight("13015"))
 	int intEndNum=intCurPage*intPageSize;   
 	//共有页数
  	int intPageCount=(intAllCount-1)/intPageSize+1;
-	rs = globa.db.executeQuery(sql);
 	String setime="";
 	if(stime.equals("1000-01-01")&&etime.equals("9999-12-30"))
 	{
@@ -355,14 +355,15 @@ function chkFrm()
 					   rs.absolute(intStartNum);
 					do{
 						String strCardNo = rs.getString("strMemberCardNo");
-						obj1 = m.show(" where strcardno='" + strCardNo + "'");
+						//obj1 = m.show(" where strcardno='" + strCardNo + "'");
+						obj1 = new Member();
 						if(obj1!=null)
 						{
 							i++;
 			%>
 			  <tr  title="会员：<%=obj1.getStrCardNo()%>" >
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">第&nbsp;&nbsp;<%=i%>&nbsp;&nbsp;名</span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrCardNo()%> </span></div></td>
+                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=strCardNo%> </span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=rs.getInt(2)%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrName()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getType(obj1.getIntType())%></span></div></td>
