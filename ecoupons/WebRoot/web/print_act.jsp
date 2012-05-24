@@ -40,14 +40,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				String retMsgState = ret.substring(beginIdx, endIdx);
 				if(retMsgState.equals("审查"))		
 				{		      
-						 response.getWriter().print("<script>alert('短信发送验证码成功！请查收短信');window.returnValue='"+randomCode+"';window.close();</script>");
+						 response.getWriter().print("<script>alert('短信发送验证码成功！请查收短信');opener.document.getElementById('randomYzm').value='"+randomCode+"';window.close();</script>");
 				}else
 				{
-	    				 response.getWriter().print("<script>alert('短信发送验证码失败1！');window.returnValue='"+randomCode+"';window.close();</script>");
+	    				 response.getWriter().print("<script>alert('短信发送验证码失败1！');window.close();</script>");
 	    		}
 	    	}
 		    else {			    	
-	     			 response.getWriter().print("<script>alert('短信发送验证码失败2！');window.returnValue='';window.close();</script>");
+	     			 response.getWriter().print("<script>alert('短信发送验证码失败2！');window.close();</script>");
 			}
 	   }catch (UnknownHostException e) {
 			// TODO Auto-generated catch block

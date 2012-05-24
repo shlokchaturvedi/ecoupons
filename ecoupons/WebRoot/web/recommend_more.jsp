@@ -120,8 +120,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <div class=list_bar>
   <ul>
     <li><a href="#" onclick="window.open('coupon_print.jsp?random=<%= Math.random()%>&strid=<%=obj1.getStrId()%>&strimg=<%=obj1.getStrPrintImg()%>','','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,width=300,height=600,left=500,top=60');"><img src="images/print.jpg" border="0" style="CURSOR: pointer" /> 打印</a></li>
-    <li><a href="#" onclick="if(window.showModalDialog('favourite_act.jsp?strid=<%=obj1.getStrId()%>&random=<%= Math.random()%>', '', 'dialogWidth=200px;dialogHeight:150px;dialogTop:400px;dialogLeft:550px;scrollbars=yes;status=yes;center=yes;')=='success'){window.location.reload();};" ><img src="images/collection.jpg" border="0" style="CURSOR: pointer" /> 收藏</a></li> 
-		<!--<li><a href="#"><img src="images/sms.jpg" border="0" style="CURSOR: pointer" /> 短信</a></li>
+     <li><a href="#" onclick="window.open('favourite_act.jsp?strid=<%=obj1.getStrId()%>&random=<%= Math.random()%>', '', 'width=5,height=5,top='+(window.screen.availHeight-85)/2+',left='+(window.screen.availWidth-100)/2+',scrollbars=no,status=no,resizable=no');" ><img src="images/collection.jpg" border="0" style="CURSOR: pointer" /> 收藏</a></li>
+   <!-- <li><a href="#" onclick="if(window.showModalDialog('favourite_act.jsp?strid=<%=obj1.getStrId()%>&random=<%= Math.random()%>', '', 'dialogWidth=200px;dialogHeight:150px;dialogTop:400px;dialogLeft:550px;scrollbars=yes;status=yes;center=yes;')=='success'){window.location.reload();};" ><img src="images/collection.jpg" border="0" style="CURSOR: pointer" /> 收藏</a></li> 
+		<li><a href="#"><img src="images/sms.jpg" border="0" style="CURSOR: pointer" /> 短信</a></li>
  --></ul>
  </div></div>
   <div class=clearfloat></div>

@@ -40,11 +40,12 @@ function getYzm()
     		  return false;
     		}      		
     	  }
-			var randomyazm=window.showModalDialog("memberreg_act.jsp?flag=getyzm&strCardNo="+trim(document.getElementById('strCardNo').value)+"&strPhone="+trim(document.getElementById('strPhone').value)+"&random="+Math.random(), "", "dialogWidth=200px;dialogHeight:150px;dialogTop:400px;dialogLeft:550px;scrollbars=yes;status=yes;center=yes;");
-			document.getElementById('randomYazm').value=randomyazm;
+    	  var iTop = (window.screen.availHeight-85)/2; //获得窗口的垂直位置;
+		  var iLeft = (window.screen.availWidth-100)/2; //获得窗口的水平位置;
+		  var randomyazm=window.open("memberreg_act.jsp?flag=getyzm&strCardNo="+trim(document.getElementById('strCardNo').value)+"&strPhone="+trim(document.getElementById('strPhone').value)+"&random="+Math.random(), "", "width=5,height=5,top="+iTop+",left="+iLeft+",scrollbars=no,status=no,resizable=no");
 		
 	}
-}
+} 
 function chkFrm()
 {
     if(trim(document.getElementById('strCardNo').value)==""){
@@ -142,7 +143,7 @@ function chkFrm()
     <tr>
       <td class="member_td_wz">验 证 码：&nbsp;&nbsp;</td>
       <td class="member_td_wz1"><input name="yanzm"  id="yanzm" type="text"  class="yzm"/>
-     	 <input name="randomYazm"  id="randomYazm" type="hidden"  class="yzm"/>
+     	 <input name="randomYazm"  id="randomYazm" type="text"  class="yzm"/>
          <input type="button" name="botton" onclick="getYzm();" value="获取验证码" />
       </td>
     </tr>
