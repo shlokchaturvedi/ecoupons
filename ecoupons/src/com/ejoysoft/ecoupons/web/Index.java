@@ -207,14 +207,31 @@ public class Index
 		{
 			while (resultSet.next())
 			{
-				Coupon couponTemp = coupon.show("where strid='" + resultSet.getString("strcouponid") + "'");
-				if (couponTemp != null)
+				String strCoupon = "";
+				if(resultSet.getString("strcouponid")!=null)
+					strCoupon = resultSet.getString("strcouponid");
+				String [] strCoupons=new String[2];
+				String coupons[] = strCoupon.split("/");
+				if(coupons.length == 2)
+					strCoupons = coupons;
+				else if(coupons.length == 1)
+				{
+					strCoupons[0] = coupons[0];
+					strCoupons[1] ="";
+				}
+				else {
+					strCoupons[0] = "";
+					strCoupons[1] ="";
+				}
+				vctCoupons.add(strCoupons);
+				//Coupon couponTemp = coupon.show("where strid='" + resultSet.getString("strcouponid") + "'");
+				/*if (couponTemp != null)
 				{
 					String [] strCoupons=new String[2];
 					strCoupons[0]=couponTemp.getStrId();
 					strCoupons[1]=couponTemp.getStrName();
 					vctCoupons.add(strCoupons);
-				}
+				}*/
 			}
 		} catch (SQLException e)
 		{
