@@ -124,8 +124,10 @@ function getYzm()
 {
 	if(confirm("确定短信获取验证码？"))
     {
-	 	var randomyazm=window.showModalDialog("../web/print_act.jsp?memberPhone="+<%=memberPhone%>+"&random="+Math.random(), "", "dialogWidth=200px;dialogHeight:150px;dialogTop:400px;dialogLeft:550px;scrollbars=yes;status=yes;center=yes;");
-		frm.randomYzm.value=randomyazm;
+    	var iTop = (window.screen.availHeight-85)/2; //获得窗口的垂直位置;
+		var iLeft = (window.screen.availWidth-100)/2; //获得窗口的水平位置;
+	 	var randomyazm=window.open("../web/print_act.jsp?memberPhone="+<%=memberPhone%>+"&random="+Math.random(), "", "width=5,height=5,top="+iTop+",left="+iLeft+",scrollbars=no,status=no,resizable=no,center=yes");
+		//frm.randomYzm.value=randomyazm;
 	}
 }
 function chkFrm()

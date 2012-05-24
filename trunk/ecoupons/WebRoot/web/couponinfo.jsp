@@ -79,8 +79,9 @@ else{
 <DIV class=coupon_bar>
   <UL>
   <LI><a href="#" onclick="window.open('coupon_print.jsp?random=<%= Math.random()%>&strid=<%=obj0.getStrId()%>&strimg=<%=obj0.getStrPrintImg()%>','','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,width=300,height=600,left=500,top=60');"><img src="images/print.jpg" border="0" style="CURSOR: pointer" /> 打印</a></LI>
-    <li><a href="#" onclick="if(window.showModalDialog('favourite_act.jsp?strid=<%=obj0.getStrId()%>&random=<%= Math.random()%>', '', 'dialogWidth=200px;dialogHeight:150px;dialogTop:400px;dialogLeft:550px;scrollbars=yes;status=yes;center=yes;')=='success'){window.location.reload();};" ><img src="images/collection.jpg" border="0" style="CURSOR: pointer" /> 收藏</a></li> 
-	<!--<LI><a href="#"><IMG src="images/sms.jpg" border="0" style="CURSOR: pointer"> 短信</a></LI> --> </UL>
+     <li><a href="#" onclick="window.open('favourite_act.jsp?strid=<%=obj0.getStrId()%>&random=<%= Math.random()%>', '', 'width=5,height=5,top='+(window.screen.availHeight-85)/2+',left='+(window.screen.availWidth-100)/2+',scrollbars=no,status=no,resizable=no');" ><img src="images/collection.jpg" border="0" style="CURSOR: pointer" /> 收藏</a></li>
+   <!-- <li><a href="#" onclick="if(window.showModalDialog('favourite_act.jsp?strid=<%=obj0.getStrId()%>&random=<%= Math.random()%>', '', 'dialogWidth=200px;dialogHeight:150px;dialogTop:400px;dialogLeft:550px;scrollbars=yes;status=yes;center=yes;')=='success'){window.location.reload();};" ><img src="images/collection.jpg" border="0" style="CURSOR: pointer" /> 收藏</a></li> 
+	<LI><a href="#"><IMG src="images/sms.jpg" border="0" style="CURSOR: pointer"> 短信</a></LI> --> </UL>
 </DIV>
 </div> 
  </DIV>

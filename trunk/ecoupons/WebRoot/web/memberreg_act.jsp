@@ -75,14 +75,14 @@
 						{		      
 							 globa.setMember(null);
 							 session.setAttribute(Constants.MEMBER_KEY,null);
-		     				 response.getWriter().print("<script>alert('短信发送验证码成功！请查收短信');window.returnValue='"+randomCode+"';window.close();</script>");
+		     				 response.getWriter().print("<script>alert('短信发送验证码成功！请查收短信');opener.document.getElementById('randomYazm').value='"+randomCode+"';window.close();</script>");
 						}else
 						{
-		     				 response.getWriter().print("<script>alert('短信发送验证码失败1！');window.returnValue='"+randomCode+"';window.close();</script>");
+		     				 response.getWriter().print("<script>alert('短信发送验证码失败,请稍后重试！');window.close();</script>");
 			    		}
 			    	}
 				    else {			    	
-		      			 response.getWriter().print("<script>alert('短信发送验证码失败2！');window.returnValue='';window.close();</script>");
+		      			 response.getWriter().print("<script>alert('短信发送验证码失败，请稍后重试！');window.close();</script>");
 					}
 			   }catch (UnknownHostException e) {
 					// TODO Auto-generated catch block
