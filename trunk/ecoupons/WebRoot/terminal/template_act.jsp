@@ -34,16 +34,10 @@ try{
 		{
 			globa.dispatch(false, strUrl, "请选择正确的图片格式如.jpg/.png/.gif,操作");
 			return;
-		}	
+		}	 
 		String filename = UID.getID();
 		String diskname = "";
-		String modulename = au.getString("strModuleOfTempl").trim();
-	//	if(modulename.equals("top") || modulename.equals("bottom"))
-	//	{
-	//		diskname = ""+modulename+"/";
-	//	}else{
-	//		diskname = "middle/"+modulename+"/";
-	//	}
+		String modulename = au.getString("strModuleOfTempl").trim(); 
 		//上传文件
 //		String strFilePath = application.getRealPath("") + "/terminal/template/"+diskname;
 		String strFilePath = application.getRealPath("") + "/terminal/template/";
@@ -65,11 +59,10 @@ try{
 	       if (action.equals(Constants.UPDATE_STR) && obj0.getStrBgImage()!=null&&!obj0.getStrBgImage().trim().equals("")&&obj0.getStrBgImage().length() > 0) {
 	    		File f = new File(strFilePath + obj0.getStrBgImage());
 	    		f.delete();
+		       String name = obj0.getStrBgImage();
+		       filename = name.substring(0,name.lastIndexOf("."));
 	       } 
-	       String name = au.getFileName(0);
-	       String expname = au.getFileExpName(0);
-	       String fimename2 = name.substring(name.lastIndexOf("\\")+1,name.lastIndexOf(expname));
-		   strBgImage =au.saveFile(strFilePath,fimename2, 0);
+		   strBgImage =au.saveFile(strFilePath,filename, 0);
 	      
 	    }
 		//赋值		        
