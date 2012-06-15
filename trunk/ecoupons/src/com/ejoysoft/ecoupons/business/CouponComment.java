@@ -162,9 +162,15 @@ public class CouponComment
 			theBean.setStrCreator(rs.getString("strCreator"));
 			theBean.setStrMemberCardNo(rs.getString("strMemberCardNo"));
 			Coupon objCoupon2 = objCoupon.show(" where strid='"+rs.getString("strCouponId")+"'");
-			theBean.setStrCouponName(objCoupon2.getStrName());
-			Shop objShop2 = objShop.show(" where strid='"+objCoupon2.getStrShopId()+"'");
-			theBean.setStrShopName(objShop2.getStrBizName());
+			if(objCoupon2 !=null)
+			{
+				Shop objShop2 = objShop.show(" where strid='"+objCoupon2.getStrShopId()+"'");
+				if(objShop2 !=null)
+				{
+					theBean.setStrShopName(objShop2.getStrBizName());
+					theBean.setStrCouponName(objCoupon2.getStrName());
+				}
+			}
 		} catch (Exception e)
 		{
 			e.printStackTrace();
