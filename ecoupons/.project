@@ -47,4 +47,16 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>Tomcat 6.0</name>
+			<type>2</type>
+			<location>C:/Program Files/Apache Software Foundation/Tomcat 6.0</location>
+		</link>
+		<link>
+			<name>ecoupons</name>
+			<type>2</type>
+			<location>C:/Program Files/Apache Software Foundation/Tomcat 6.0/ecoupons</location>
+		</link>
+	</linkedResources>
 </projectDescription>
