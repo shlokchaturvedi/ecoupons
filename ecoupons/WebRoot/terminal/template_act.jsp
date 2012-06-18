@@ -59,8 +59,10 @@ try{
 	       if (action.equals(Constants.UPDATE_STR) && obj0.getStrBgImage()!=null&&!obj0.getStrBgImage().trim().equals("")&&obj0.getStrBgImage().length() > 0) {
 	    		File f = new File(strFilePath + obj0.getStrBgImage());
 	    		f.delete();
-		       String name = obj0.getStrBgImage();
-		       filename = name.substring(0,name.lastIndexOf("."));
+		       //String name = obj0.getStrBgImage();
+		       //filename = name.substring(0,name.lastIndexOf("."));
+		       filename =String.valueOf( obj0.getIntSort());
+		       System.out.println(filename);
 	       } 
 		   strBgImage =au.saveFile(strFilePath,filename, 0);
 	      
