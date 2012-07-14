@@ -71,7 +71,7 @@
 			    		int beginIdx = ret.indexOf("<MsgState>") + "<MsgState>".length();
 						int endIdx = ret.indexOf("</MsgState>");
 						String retMsgState = ret.substring(beginIdx, endIdx);
-						if(retMsgState.equals("审查"))		
+						if(retMsgState.equals("提交成功"))		
 						{		      
 							 globa.setMember(null);
 							 session.setAttribute(Constants.MEMBER_KEY,null);
