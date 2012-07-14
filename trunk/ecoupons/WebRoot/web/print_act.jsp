@@ -38,7 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		int beginIdx = ret.indexOf("<MsgState>") + "<MsgState>".length();
 				int endIdx = ret.indexOf("</MsgState>");
 				String retMsgState = ret.substring(beginIdx, endIdx);
-				if(retMsgState.equals("审查"))		
+				if(retMsgState.equals("提交成功"))		
 				{		      
 						 response.getWriter().print("<script>alert('短信发送验证码成功！请查收短信');opener.document.getElementById('randomYzm').value='"+randomCode+"';window.close();</script>");
 				}else
