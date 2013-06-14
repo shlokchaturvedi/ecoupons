@@ -16,6 +16,8 @@ import java.util.HashMap;
 import java.util.Vector;
 import java.util.Date;
 
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+
 
 public class SysPara {
 
@@ -319,15 +321,20 @@ public class SysPara {
 
     //列表显示
     public ArrayList list(String type) {
-
-        String strSql = "SELECT strId,strType,strName,strValue,intSort,strstate FROM " + strTableName + "  order by strType , intSort ";
+    	
+    	 String strSql = "SELECT strId,strType,strName,strValue,intSort,strstate FROM " + strTableName ;
         if (type != null && !type.equals("")) {
             strSql = "SELECT strId,strType,strName,strValue,intSort,strstate  FROM " + strTableName + " where strType ='" + type + "' order by intSort ";
         }
+        System.out.println(strSql);
         ArrayList vector = new ArrayList();
         try {
+        	
+     
             ResultSet rs1 = db.executeQuery(strSql);
+         
             while (rs1.next()) {
+            	
                 SysPara bVar = new SysPara();
                 bVar.setStrId(rs1.getString(1));
                 bVar.setStrType(rs1.getString(2));
@@ -335,11 +342,13 @@ public class SysPara {
                 bVar.setStrValue(rs1.getString(4));
                 bVar.setIntSort(rs1.getInt(5));
                 bVar.setStrState(rs1.getString(6));
+               
                 vector.add(bVar);
             }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+        	
             return vector;
         }
     }

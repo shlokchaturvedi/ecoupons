@@ -24,12 +24,20 @@ public class Member
 {
 	private Globa globa;
 	private DbConnect db;
+	
+	//会员表
 	String strTableName = "t_bz_member";
+	//会员充值记录表
 	String strRechargeTableName = "t_bz_member_recharge";
+	//优惠劵打印记录表
 	String strCouponPrintTableName = "t_bz_coupon_Print";
+	//商家录入有价劵记录表
 	String strCouponInputTableName = "t_bz_coupon_input";
+	//会员兑换礼品记录表
 	String strGiftExchangeTableName = "t_bz_gift_exchange";
+    //优惠劵评论记录表
 	String strCouponCommentTableName = "t_bz_coupon_comment";
+	//优惠劵收藏记录表
 	String strCouponFavouriteTableName = "t_bz_coupon_favourite";
 	private String strStartId;
 	private String strEndId;
@@ -117,6 +125,7 @@ public class Member
 //		System.out.println(strCardNo + strName);
 		try
 		{
+			
 			String strSql = "update  " + strTableName + "  set strcardno = ?, strname = ?, inttype = ?,  "
 					+ "dtexpiretime = ?, strsalesman = ? ,strpwd=? ,strmobileno=? where strid=? ";
 			db.prepareStatement(strSql);
@@ -352,10 +361,10 @@ public class Member
 			}
 		}
 		newMembers = members.subList(firstIndex, lastIndex);
-		for (int i = 0; i < newMembers.size(); i++)
-		{
-			System.out.println(newMembers.get(i).getStrCardNo());
-		}
+	//	for (int i = 0; i < newMembers.size(); i++)
+	//	{
+	//		System.out.println(newMembers.get(i).getStrCardNo());
+	//	}
 		return newMembers;
 	}
 
@@ -572,6 +581,74 @@ public class Member
 		}
 	}
 
+	/*
+	 * 根据卡号返回手机号
+	 */
+	public String findPhoneByCardNo(String cardNo){
+		String phone="";
+		String sql="select strMobileNo from " + strTableName + " where strCardNo='" +cardNo + "' ";
+		ResultSet rs = db.executeQuery(sql);
+		try
+		{
+			while (rs.next())
+			{
+				phone = rs.getString("strMobileNo");
+			}
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "";
+		}
+		return phone;
+	}
+	/**
+	 * 网站上注册会员信息   ，无会员卡
+	 * 
+	 */
+	public boolean add1()
+	{
+	
+		String strId = UID.getID();
+		String sql = "insert into " + strTableName + " (strId,strCardNo,strMobileNo,strName,strPwd)" + "values (?,?,?,?,?) ";
+		
+		try
+		{
+			db.prepareStatement(sql);
+			System.out.println(sql);
+			db.setString(1, strId);
+			db.setString(2, strCardNo);
+			db.setString(3, strMobileNo);
+			db.setString(4, strName);
+			db.setString(5,MD5.getMD5ofString(strPwd));
+			
+			//db.setInt(5, intType);
+			// db.setString(6, dtExpireTime);
+			//db.setString(6, strSalesman);
+			//db.setString(7, strUserName);
+			//db.setString(8, com.ejoysoft.common.Format.getDateTime());
+			//db.setInt(9, 0);
+			//db.setInt(10, 0);
+			if (db.executeUpdate() > 0)
+			{
+				Globa.logger0("增加会员信息", globa.loginName, globa.loginIp, sql, "会员管理", globa.unitCode);
+				return true;
+			} else
+			{
+				return false;
+			}
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+
+	}
+	
+		
+	
+	
 	private String strId;// 自动生成
 	private String strCardNo;// 卡号
 	private String strMobileNo;// 手机号

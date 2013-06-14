@@ -55,7 +55,7 @@ public class Coupon
 			strDbTerminalIds = strDbTerminalIds.replace(TerminalIds[i], "");
 		}
 		strDbTerminalIds = strDbTerminalIds.replace(",", ",");
-		System.out.println(strDbTerminalIds);
+		//System.out.println(strDbTerminalIds);
 		if (strDbTerminalIds.length() > 0)
 		{
 			return strDbTerminalIds.split(",");
@@ -357,6 +357,7 @@ public class Coupon
 		try
 		{
 			String strSql = "select * from  " + strTableName + "  ".concat(where);
+		//	System.out.println(strSql);
 			ResultSet rs = db.executeQuery(strSql);
 			if (rs != null && rs.next())
 				return load(rs, true);
@@ -470,12 +471,15 @@ public class Coupon
 		Vector<Coupon> beans = new Vector<Coupon>();
 		try
 		{
-			String sql = "select a.*  from  " + strTableName + " a left join " + strTableName2 + " b on a.strshopid=b.strid";
+			String sql = "select a.*  from  " + strTableName + " a left join " + strTableName2 + " b on a.strshopid=b.strid ";
 			if (where.length() > 0)
 				sql = String.valueOf(sql) + String.valueOf(where);
 			Statement s = db.getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			if (startRow != 0 && rowCount != 0)
 				s.setMaxRows((startRow + rowCount) - 1);
+			
+			
+			System.out.println("sql:"+sql);
 			ResultSet rs = s.executeQuery(sql);
 			if (rs != null && rs.next())
 			{

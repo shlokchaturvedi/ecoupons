@@ -3,6 +3,8 @@ package com.ejoysoft.ecoupons.business;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import com.ejoysoft.common.DbConnect;
@@ -133,8 +135,8 @@ public class CouponPrint
 		try
 		{
 			while(resultSet.next()){
-				System.out.println(returnStrDt(resultSet.getString("dtPrintTime")));
-				System.out.println(returnStrDt(dtPrintTime));
+			//	System.out.println(returnStrDt(resultSet.getString("dtPrintTime")));
+			//	System.out.println(returnStrDt(dtPrintTime));
 				if (resultSet.getInt("intState")==0&&returnStrDt(resultSet.getString("dtPrintTime")).equals(returnStrDt(dtPrintTime)))
 				{
 					return true;
@@ -277,6 +279,9 @@ public class CouponPrint
 		return beans;
 	}
 
+	
+	
+	
 	public CouponPrint load(ResultSet rs, boolean isView)
 	{
 		CouponPrint theBean = new CouponPrint();

@@ -38,15 +38,19 @@ public class Shop
 		if (b)
 			globa.setDynamicProperty(this);
 	}
-
+    //商家信息表
 	String strTableName = "t_bz_shop";
+	//优惠劵信息表
 	String strTableName2 = "t_bz_coupon";
+	//商家有价劵录入记录表
 	String strTableName3 = "t_bz_coupon_input";
+	//商家购买记录积分表
 	String strTableName4 = "t_bz_point_buy";
+	//商家转赠积分记录表
 	String strTableName5 = "t_bz_point_present";
-	String strTableName6 = "t_sy_user";
-	String strTableName7 = "t_bz_download_alert";
-	String strPrintTable = "t_bz_coupon_print";
+	String strTableName6 = "t_sy_user";//用户表
+	String strTableName7 = "t_bz_download_alert";//
+	String strPrintTable = "t_bz_coupon_print";//优惠劵打印记录表
 
 	// 添加商家信息
 	public boolean add()
@@ -54,7 +58,7 @@ public class Shop
 		String strSql = "";
 		strId = UID.getID(); // 添加商家信息
 		strSql = "insert into " + strTableName + "  (strid, strbizname, strshopname, strtrade, straddr, strphone, "
-				+ "strperson,inttype, strintro, strsmallimg,strlargeimg,intpoint, strcreator, dtcreatetime,intsort" + ") values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				+ "strperson,inttype, strintro, strsmallimg,strlargeimg,intpoint, strcreator, dtcreatetime,intsort,star" + ") values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		try
 		{
 
@@ -87,6 +91,7 @@ public class Shop
 			db.setString(13, strCreator);
 			db.setString(14, Format.getDateTime());
 			db.setInt(15, intSort);
+			db.setInt(16, star);
 			if (db.executeUpdate() > 0)
 			{
 				db.getConnection().commit(); // 统一提交
@@ -234,7 +239,7 @@ public class Shop
 			{
 				strSql += "strlargeimg = '" + strLargeImg + "',";
 			}
-			strSql += " intpoint=?,intsort=? where strid=? ";
+			strSql += " intpoint=?,intsort=?,star=? where strid=? ";
 			db.getConnection().setAutoCommit(false);
 			/*DownLoadAlert alert = new DownLoadAlert(globa);
 	        Vector<DownLoadAlert> vctAlerts = alert.list(" where strdataid='"+strId2+"'",0,0);
@@ -267,7 +272,8 @@ public class Shop
 			db.setString(8, strIntro); // "strUnitCode
 			db.setInt(9, intPoint);
 			db.setInt(10, intSort);
-			db.setString(11, strId2);
+			db.setInt(11, star);
+			db.setString(12, strId2);
 			db.executeUpdate();
 			db.commit();
 			Globa.logger0("更新商家信息", globa.loginName, globa.loginIp, strSql, "商家管理", globa.userSession.getStrDepart());
@@ -350,6 +356,7 @@ public class Shop
 			theBean.setStrPerson(rs.getString("strperson"));
 			theBean.setIntType(rs.getInt("inttype"));
 			theBean.setIntSort(rs.getInt("intSort"));
+			theBean.setStar(rs.getInt("star"));
 			if (rs.getInt("inttype") == 1)
 				theBean.setIntTypeName("是");
 			else if (rs.getInt("inttype") == 0)
@@ -407,6 +414,7 @@ public class Shop
 		try
 		{
 			String sql = "SELECT *  FROM  " + strTableName + " ";
+			System.out.println(sql);
 			if (where.length() > 0)
 				sql = String.valueOf(sql) + String.valueOf(where);
 			Statement s = db.getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -440,7 +448,7 @@ public class Shop
 		{
 
 			String strSql = "update  " + strTableName + "  set strbizbame=?, strshopname=?, strtrade=?, straddr=?, strphone=?, "
-					+ "strperson=?,inttype=?, strintro=?, strsmallimg=?,strlargeimg=?,intpoint=?, strcreator=?, strcreatetime=?,intsort=?  where strid=? ";
+					+ "strperson=?,inttype=?, strintro=?, strsmallimg=?,strlargeimg=?,intpoint=?, strcreator=?, strcreatetime=?,intsort=?,star=?  where strid=? ";
 			db.prepareStatement(strSql);
 			db.setString(1, strBizName);
 			db.setString(2, strShopName);
@@ -456,7 +464,8 @@ public class Shop
 			db.setString(12, strCreator);
 			db.setString(13, com.ejoysoft.common.Format.getDateTime());
 			db.setInt(14, intSort);
-			db.setString(15, strId);
+			db.setInt(15, star);
+			db.setString(16, strId);
 			db.executeUpdate();
 			Globa.logger0("�޸��û���Ϣ", globa.loginName, globa.loginIp, strSql, "�û�����", globa.userSession.getStrDepart());
 			return true;
@@ -743,6 +752,15 @@ public class Shop
 	private String strCreator;// 创建人
 	private String dtCreateTime;// 创建时间
 	private int intSort;//排序序号
+	private int star;//星级评价
+	
+	public int getStar() {
+		return star;
+	}
+
+	public void setStar(int star) {
+		this.star = star;
+	}
 
 	public Globa getGloba()
 	{

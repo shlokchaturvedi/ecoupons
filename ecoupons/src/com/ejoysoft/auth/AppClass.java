@@ -26,6 +26,7 @@ public class AppClass extends javax.servlet.http.HttpServlet
 	{
 		ServletContext application = getServletContext();
 		String actionType = ParamUtil.getAction(request);
+		//System.out.println("actionType:"+actionType);
 		LogonForm form = new LogonForm(application, request, response);
 		try
 		{
@@ -37,6 +38,7 @@ public class AppClass extends javax.servlet.http.HttpServlet
 				if (!rand.toLowerCase().equals(input.toLowerCase()))
 				{
 					getFullwinScript(actionType,response, "验证码错误，请重新输入！");
+					
 				} else
 				{
 					int intType = form.authenticate();
