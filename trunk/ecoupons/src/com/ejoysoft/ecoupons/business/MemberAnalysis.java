@@ -2,6 +2,8 @@ package com.ejoysoft.ecoupons.business;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import com.ejoysoft.common.DbConnect;
@@ -36,24 +38,31 @@ public class MemberAnalysis
 
 	public String returnStrWhere(int flag)
 	{
+		String where = "";
 		if (flag==1)//如果是统计总数量的话，开始时间始终要设置为1000-01-01
 		{
-			stime="";
-		}
-		String where = "";
-		if (stime.equals("") || stime.equals(null))
-		{
-			where = " where  dtcreatetime between '1000-01-01' and '" + etime + "' ";
-		}
-		if (etime.equals("") || etime.equals(null))
-		{
-			where = " where  dtcreatetime between  '" + stime + "' and '9999-12-30' ";
-		}
-		if (!(stime.equals("") || stime.equals(null)) && !(etime.equals("") || etime.equals(null)))
-		{
-			where = " where  dtcreatetime between '" + stime + "' and '" + etime + "' ";
-		}
-		return where;
+			where="where  dtactivetime between '1000-01-01' and '9999-12-30' ";
+		}else{
+			System.out.println(etime  + stime);
+			if (!(stime.equals("") || stime.equals(null)) && !(etime.equals("") || etime.equals(null)))
+			{
+				//  where = " where  dtcreatetime between '" + stime + "' and '" + etime + "' ";
+				where = " where   dtactivetime between '" + stime + "' and '" + etime + "' ";
+			}
+			if ((stime.equals("") || stime.equals(null)) && !(etime.equals("") || etime.equals(null)))
+			{
+				//where = " where  dtcreatetime between '1000-01-01' and '" + etime + "' ";
+				where = " where  dtactivetime between '1000-01-01' and '" + etime + "' ";
+			}
+			if (!(stime.equals("") || stime.equals(null)) && (etime.equals("") || etime.equals(null)))
+			{
+			//	where = " where  dtcreatetime between  '" + stime + "' and '9999-12-30' ";
+				where = " where  dtactivetime between  '" + stime + "' and '9999-12-30' ";
+			}
+			
+		}	
+			return where;
+		
 	}
 /**
  * 根据条件在print表中查找符合记录的总数
@@ -173,6 +182,7 @@ public class MemberAnalysis
 		try
 		{
 			String sql = "SELECT count(strId) FROM " + strTableName + "  ";
+		
 			if (where.length() > 0)
 			{
 				where = where.toLowerCase();
@@ -180,6 +190,7 @@ public class MemberAnalysis
 					where = where.substring(0, where.lastIndexOf("order"));
 				sql = String.valueOf(sql) + String.valueOf(where);
 			}
+			System.out.println("sql222222222222:"+sql);
 			ResultSet rs = db.executeQuery(sql);
 			if (rs != null && rs.next())
 				count = rs.getInt(1);
@@ -191,9 +202,38 @@ public class MemberAnalysis
 			return count;
 		}
 	}
+	
+	public List<MemberAnalysis> getCardNo(String stime,String etime){
+		
+		List<MemberAnalysis> list=new ArrayList<MemberAnalysis>();
+		
+		try{
+		String sql = "SELECT strCardNo FROM "+strMemberTable+ " where dtactivetime between '"+stime+"' and '"+etime+"' group by strCardNo ";
+		System.out.println(sql);
+		ResultSet rs = db.executeQuery(sql);
+		while (rs != null && rs.next()){
+			MemberAnalysis m=new MemberAnalysis();
+			m.setStrCardNo(rs.getString("strCardNo"));		
+			list.add(m);
+		}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
 
 	private String stime;// 统计开始日期
 	private String etime;// 统计截止日期
+	private String strCardNo;// 卡号
+	
+	public String getStrCardNo() {
+		return strCardNo;
+	}
+
+	public void setStrCardNo(String strCardNo) {
+		this.strCardNo = strCardNo;
+	}
 
 	public String getStime()
 	{
