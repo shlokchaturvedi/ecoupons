@@ -38,15 +38,15 @@
 		String strMobileNo = ParamUtil.getString(request, "strMobileNo", "");
 		if(strMobileNo != null&&obj.getCount(" where strcardno='" + strCardNo + "'") == 0)
 		{
-			if(!strMobileNo.equals("")&&obj.getCount(" where strMobileNo='"+strMobileNo+"'") >= 2)
-			{
+			//if(!strMobileNo.equals("")&&obj.getCount(" where strMobileNo='"+strMobileNo+"'") >= 2)
+			//{
 				
-				globa.dispatch(false, strUrl, "该手机号已经存在两个, 请输入其他手机号，增加");
-			}else
-			{
+			//	globa.dispatch(false, strUrl, "该手机号已经存在两个, 请输入其他手机号，增加");
+			//}else
+		//	{
 				globa.dispatch(obj.add(), strUrl);
 				
-			}
+			//}
 			
 			
 		}else

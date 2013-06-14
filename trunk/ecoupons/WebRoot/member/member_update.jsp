@@ -42,17 +42,26 @@ body,td,tr {
 		<script language="JavaScript" src="../include/DatePicker/WdatePicker.js"></script>
 		<script language="javascript">
 		function chkFrm() {
-		    if(trim(frm.strCardNo.value)=="") {
-		        alert("请输入卡号！！！")
-		        frm.strCardNo.focus();
-		        return false;
-		    }
-		    else {
+		   // if(trim(frm.strCardNo.value)=="") {
+		   //     alert("请输入卡号！！！")
+		  //      frm.strCardNo.focus();
+		   //     return false;
+		 //   }
+		   
+		  //  else
+		  //  {
+		    	if(trim(frm.strMobileNo.value)!=""){
+		  			if(!isMobilePhone(frm.strMobileNo.value)){  
+		   				alert("非法的手机号码") 
+		  				frm.strMobileNo.focus();   
+		   				 return false; 
+	  	  			}
+	    		}
 		    	if(confirm("确定提交!"))
 		        {
 			      frm.submit();
 			    }
-		        }
+		      //  }
 		   
 		}
 </script>
@@ -224,12 +233,12 @@ body,td,tr {
 															&nbsp;
 														</td>
 														<td width="32%" height="30">
-															<input name="strMobileNo" readonly="readonly" type="text" class="input_box"
+															<input name="strMobileNo"  type="text" class="input_box"
 																size="30"
 																value="<%=Format.forbidNull(obj0.getStrMobileNo())%>" />
 														</td>
 														<td width="45%" height="30" class="left_txt">
-															&nbsp;提示：不能修改！
+															&nbsp;
 														</td>
 													</tr>
 													<tr bgcolor="#f2f2f2">

@@ -76,7 +76,7 @@ if(session.getAttribute(Constants.MEMBER_KEY) != null)
 
 }else {%>
 	<DIV id=left-bar-mid   >	
-	<form name="frm" METHOD=POST ACTION="<%=application.getServletContextName()%>/web/Auth">		
+	<form name="frm" METHOD=POST ACTION="<%=application.getContextPath()%>/web/Auth">		
 	<input type="hidden" name="actiontype" value="weblogon" />		
 	<input type="hidden" name="authType" value="password"/>		
 	<P class=userbg>		

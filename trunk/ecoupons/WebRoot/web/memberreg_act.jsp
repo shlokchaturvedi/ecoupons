@@ -15,43 +15,20 @@
 <title>会员注册处理</title>
 <link href="css/member.css" rel="stylesheet" type="text/css" />
 <%
+	
 	String flag = ParamUtil.getString(request,"flag","");
-	String strCardNo = ParamUtil.getString(request,"strCardNo","");
-	if(!strCardNo.equals("")&&strCardNo.trim().length()==7)
-	{
-		strCardNo= "8"+strCardNo.trim();
-	}
-	else if(!strCardNo.equals("")&&strCardNo.trim().length()!=8)
-	{
-	 	 response.getWriter().println("<script>alert('对不起！您输入的卡号无效，请重新输入！');window.returnValue='';window.close();</script>");
-	     return;
-	}
+	
 	String strPhone = ParamUtil.getString(request,"strPhone","");
-	if(!strCardNo.equals(""))
-	{
+	
 		strPhone=strPhone.trim();
-	}
+		System.out.println(strPhone);
+	
 	Member obj = new Member(globa); 
 	String nowdate = Format.getDateTime();
-	Member member = obj.show(" where strcardno='"+strCardNo+"' and dtactivetime <='"+nowdate+"' and dtexpiretime >='"+nowdate+"'");
-	//Member member1 = obj.show(" where strmobileno='"+strPhone+"' and dtactivetime <='"+nowdate+"' and dtexpiretime >='"+nowdate+"' and strpwd<>'' and strpwd is not null");
-	int standardNum = Integer.parseInt(String.valueOf(application.getAttribute("MOBILE_BIND_CARD_NUM")));
-	int mobileBindNum = obj.getCount(" where strmobileno='"+strPhone+"' and dtactivetime <='"+nowdate+"' and dtexpiretime >='"+nowdate+"' and strcardno<>'"+strCardNo+"'");
-		if(flag.equals("getyzm"))
-	{
-		 if(member==null)
-		 {
-		 	 response.getWriter().println("<script>alert('对不起！您输入的卡号无效，请重新输入！');window.returnValue='';window.close();</script>");
-		 }
-	     else if(mobileBindNum>=standardNum)
-		 {
-		 	 response.getWriter().println("<script>alert('对不起！您输入的手机号绑定卡号数量已达到上限！请更换手机号或联系管理员！');window.returnValue='';window.close();</script>");
-		 }
-		 else if(member.getStrPwd()!=null&&!member.getStrPwd().equals(""))
-	 	 { 
-	 		 response.getWriter().println("<script>alert('对不起！您输入的卡号已经被注册！');window.returnValue='';window.close();</script>");
-	 	 }		 
-	 	 else{	
+	//Member member = obj.show(" where strcardno='"+strCardNo+"' and dtactivetime <='"+nowdate+"' and dtexpiretime >='"+nowdate+"'");
+	if(flag.equals("getyzm"))
+		{
+	 		 
 	 	     Random randGen = new Random();
 			 char[] randBuffer = new char[6];
 			 char[] numbersAndLetters =("0123456789abcdefghijklmnopqrstuvwxyz").toCharArray();
@@ -78,7 +55,7 @@
 		     				 response.getWriter().print("<script>alert('短信发送验证码成功！请查收短信');opener.document.getElementById('randomYazm').value='"+randomCode+"';window.close();</script>");
 						}else
 						{
-		     				 response.getWriter().print("<script>alert('短信发送验证码失败,请稍后重试！');window.close();</script>");
+		     				 response.getWriter().print("<script>alert('短信发送验证码失败1,请稍后重试！');window.close();</script>");
 			    		}
 			    	}
 				    else {			    	
@@ -88,16 +65,60 @@
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 			   }		     
-	 	 }			 	
-	}			
-	else
-	{
+	 	 			 	
+	}	
+	
+	
+	else{
+		
+	//---------------------------------------------------------------------------------------
+	System.out.println("----------134355u70---------");
+		String strCardNo = ParamUtil.getString(request,"strCardNo","");
+		
+		if(strCardNo==""){
+			strCardNo="";
+		}
+		else if(!strCardNo.equals("")&&strCardNo.trim().length()==7)
+		{
+			strCardNo= "8"+strCardNo.trim();
+		}
+		else if(!strCardNo.equals("")&&strCardNo.trim().length()!=8)
+		{
+		 	 response.getWriter().println("<script>alert('对不起！您输入的卡号无效，请重新输入！');window.returnValue='';window.close();</script>");
+		     return;
+		}	
+		
 		String strName = ParamUtil.getString(request,"strName","");
 		String strPwd = ParamUtil.getString(request,"strPwd","");
-		obj.setStrCardNo(strCardNo);
+		
 		obj.setStrName(strName);
 		obj.setStrPwd(strPwd);
 		obj.setStrMobileNo(strPhone);
+		
+		if(strCardNo!=""){
+			
+			
+		Member member = obj.show(" where strcardno='"+strCardNo+"' and dtactivetime <='"+nowdate+"' and dtexpiretime >='"+nowdate+"'");
+		int standardNum = Integer.parseInt(String.valueOf(application.getAttribute("MOBILE_BIND_CARD_NUM")));
+		int mobileBindNum = obj.getCount(" where strmobileno='"+strPhone+"' and dtactivetime <='"+nowdate+"' and dtexpiretime >='"+nowdate+"' and strcardno<>'"+strCardNo+"'");
+			
+			 if(member==null)
+			 {
+			 	 response.getWriter().println("<script>alert('对不起！您输入的卡号无效，请重新输入！');window.returnValue='';window.close();</script>");
+			 }
+		//    else if(mobileBindNum>=standardNum)
+		//	 {
+		//	 	 response.getWriter().println("<script>alert('对不起！您输入的手机号绑定卡号数量已达到上限！请更换手机号或联系管理员！');window.returnValue='';window.close();</script>");
+		//	 }  
+			 else if(member.getStrPwd()!=null&&!member.getStrPwd().equals(""))
+		 	 { 
+		 		 response.getWriter().println("<script>alert('对不起！您输入的卡号已经被注册！');window.returnValue='';window.close();</script>");
+		 	 }	
+		
+		//------------------------------------------------------------------------------------------------
+		
+		System.out.println("asdfg22222222222222222");
+		obj.setStrCardNo(strCardNo);
 		obj.setIntType(member.getIntType());
 		obj.setDtActiveTime(member.getDtActiveTime());
 		obj.setFlaBalance(member.getFlaBalance());
@@ -106,15 +127,27 @@
 		obj.setStrSalesman(member.getStrSalesman());
 		obj.setStrCreator(member.getStrCreator());
 		obj.setDtCreateTime(member.getDtCreateTime());
+		
+	
 		//globa.dispatch(obj.update(member.getStrId()), "index.jsp");	
 		if(obj.update(member.getStrId()))
-		{
+		{	System.out.println("_-----333-----------______");
 			 response.getWriter().print("<script>alert('注册成功！点击返回首页登录！');window.location.href='index.jsp';</script>");
 		}	 
 		else
-		{		
+		{		System.out.println("_----------------______");
 			response.getWriter().print("<script>alert('注册失败！点击返回重新注册！');window.history.back();</script>");
 		}
+	}else {
+		System.out.println("asdfg");
+		if(obj.add1()){
+			System.out.println("_-----311113-----------______");
+			 response.getWriter().print("<script>alert('注册成功！点击返回首页登录！');window.location.href='index.jsp';</script>");
+		}else{
+			System.out.println("_------22233----------______");
+			response.getWriter().print("<script>alert('注册失败！点击返回重新注册！');window.history.back();</script>");
+		}
+	}
 	}
 	globa.closeCon();   		
    

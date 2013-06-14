@@ -24,8 +24,29 @@ body,td,tr{font-size:9pt;}
 </style>
 <link href="../images/skin.css" rel="stylesheet" type="text/css" />
 <script src="../include/js/chkFrm.js"></script>
+<%--
+<script type="text/javascript" src="../include/js/js/jquery.js"></script>
+--%>
+<script type="text/javascript" src="../include/js/jquery.js"></script>
+<script type="text/javascript" src="../include/js/jquery.raty.min.js"></script>
+
 <script language="javascript">
     function chkFrm() {
+    	//判断几颗星
+    	var m=0;
+    	var a = document.getElementsByName('img');
+    	 for(var k=0;k<5;k++){
+    		if(a[k].src.indexOf("images/star-on.png")!=-1){ 
+    			m++;
+    		 }else{
+    			m=m;
+    		 }
+    	}
+    	
+    	document.getElementById('star').value=m;
+    	
+    	
+    	
         if(trim(frm.strBizName.value)=="") {
             alert("请输入商家名！！！")
             frm.strBizName.focus();
@@ -64,12 +85,30 @@ body,td,tr{font-size:9pt;}
         	frm.submit();
         }
     }
+    
+    function dd(s){	
+    	
+    		  var m=0;
+    	  var a = document.getElementsByName('img');
+    	  
+    	 if(a[s-1].src.indexOf("/images/star-off.png")!= -1){
+    	    for(var i=0;i<=s-1;i++){
+    	  	 a[i].src="../images/star-on.png";
+		   }
+    	 } else{
+    		 for(var j=4;j>=s-1;j--){
+    			 a[j].src="../images/star-off.png";
+    		 }	 
+    	 }
+    }
 </script>
 </head>
 
 <body>
 <form name="frm" method="post" action="shop_act.jsp" enctype="multipart/form-data">
 <input type="hidden" name="<%=Constants.ACTION_TYPE%>" value="<%=Constants.ADD_STR%>">
+<input type="hidden" name="star" id="star" value=""/>
+
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td width="17" height="29" valign="top" background="../images/mail_leftbg.gif"><img src="../images/left-top-right.gif" width="17" height="29" /></td>
@@ -125,6 +164,15 @@ body,td,tr{font-size:9pt;}
                 <td width="32%" height="30"><input name="strBizName" type="text" class="input_box" size="30" /></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td>
               </tr>
+              <tr>
+              <td width="20%" height="30" align="right" class="left_txt2">评       价：</td>
+               <td width="3%">&nbsp;</td>   
+           <td ><img name="img" onclick="dd('1')" alt="1" src="../images/star-off.png"/>
+            <img name="img" onclick="dd('2')" alt="2" src="../images/star-off.png"/>
+            <img name="img" onclick="dd('3')" alt="3" src="../images/star-off.png"/>
+         	<img name="img" onclick="dd('4')" alt="4" src="../images/star-off.png"/>
+            <img name="img" onclick="dd('5')" alt="5" src="../images/star-off.png"/></td>  
+            </tr>
               <tr bgcolor="#f2f2f2">
                  <td width="20%" height="30" align="right" class="left_txt2">分部名称：</td>
                 <td width="3%">&nbsp;</td>
@@ -134,12 +182,15 @@ body,td,tr{font-size:9pt;}
               <tr bgcolor="#f2f2f2">
                  <td width="20%" height="30" align="right" class="left_txt2">所属行业：</td>
                 <td width="3%">&nbsp;</td>
-                <td width="32%" height="30" >  <select name="strTrade" class="forms_color1" style= "width:213px">
+                <td width="32%" height="30" > 
+              
+                 <select name="strTrade" class="forms_color1" style= "width:213px">
                  <%
                         //初始化
     					//SysPara  para=null;
    						SysPara para=new SysPara(globa);
                         ArrayList para1 = para.list("商家行业");
+                        System.out.println(para1.size());
                         for (int i = 0; i < para1.size(); i++) {
                             SysPara d = (SysPara)para1.get(i);
                             if(d.getStrState()!=null && d.getStrState().equals("正常"))

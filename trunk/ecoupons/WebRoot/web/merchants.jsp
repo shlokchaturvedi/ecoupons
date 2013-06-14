@@ -31,7 +31,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     //System.out.println(strTrade);
 		tWhere += " and strtrade='" + strTrade + "'";
 	}
-	tWhere += " order by strid";
+	tWhere += " order by intSort";
 	//记录总数
 	int intAllCount=obj.getCount(tWhere);
 	//当前页
@@ -100,7 +100,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 </div>
     <div class=hotList_mid>
-<% for(int i = 0;i < vctObj.size(); i++) {
+ <%    
+	   for(int i = 0;i < vctObj.size(); i++) {
        Shop obj1 = vctObj.get(i);
 	   String bizname = obj1.getStrBizName();
 	   String shopname = obj1.getStrShopName();
@@ -108,6 +109,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   {
 	   		bizname = bizname+"-"+shopname;
 	   }
+	  
 %>
 <div class=pro>	
 	
@@ -125,8 +127,45 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                  <img src="images/temp.jpg" width=112 height=110 border="0" />
                  <%} %>
 </a></div>
-<div class=pro_info>
-<div class=headtitle><a href="merchantsinfo.jsp?strid=<%=obj1.getStrId() %>" target=_blank><%=bizname%></a></div>
+<div class=pro_info >
+<div class=headtitle><a href="merchantsinfo.jsp?strid=<%=obj1.getStrId() %>" target=_blank><%=bizname%></a>
+			<%
+				String img1="../images/star-off.png";
+				String img2="../images/star-off.png";
+				String img3="../images/star-off.png";
+				String img4="../images/star-off.png";
+				String img5="../images/star-off.png";
+			
+				int m=obj1.getStar();
+				if(m==1){
+					img1="../images/star-on.png";
+				}else if(m==2){
+					img1="../images/star-on.png";
+					img2="../images/star-on.png";
+				}else if(m==3){
+					img1="../images/star-on.png";
+					img2="../images/star-on.png";	
+					img3="../images/star-on.png";
+				}else if(m==4){
+					img1="../images/star-on.png";
+					img2="../images/star-on.png";	
+					img3="../images/star-on.png";
+					img4="../images/star-on.png";
+				}else if(m==5){
+					img1="../images/star-on.png";
+					img2="../images/star-on.png";	
+					img3="../images/star-on.png";
+					img4="../images/star-on.png";
+					img5="../images/star-on.png";
+				}
+			%>
+			<img name="img"  alt="1" src="<%=img1 %>"/>	
+            <img name="img"  alt="2" src="<%=img2 %>"/>
+            <img name="img"  alt="3" src="<%=img3 %>"/>
+         	<img name="img"  alt="4" src="<%=img4 %>"/>
+            <img name="img"  alt="5" src="<%=img5 %>"/>
+            
+</div>
 
 <div class=clearfloat></div>
 <div class=line><img src="images/fg.gif" width=525 height=4 /></div>

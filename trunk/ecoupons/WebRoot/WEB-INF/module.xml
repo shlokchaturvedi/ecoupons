@@ -10,10 +10,12 @@
             <affair name="留言管理" code="10030" url="shop/shopcomment_list.jsp" state="1" />
         </module>
 		<module name="会员管理" code="110" flow="" state="1" url=""  >
+		     
             <affair name="基本信息" code="11005" url="member/member_list.jsp" state="1" />
             <affair name="手机导出" code="11010" url="member/member_mobile.jsp" state="1" />
             <affair name="礼品信息" code="11015" url="member/gift_list.jsp" state="1" />
             <affair name="礼品兑换" code="11020" url="member/giftexchange_list.jsp" state="1" />
+            <affair name="会员审批" code="11025" url="member/sp_list.jsp" state="1"></affair>
         </module>
 		<module name="优惠券管理" code="120" flow="" state="1" url=""  >
             <affair name="基本信息" code="12005" url="coupon/coupon_list.jsp" state="1" />

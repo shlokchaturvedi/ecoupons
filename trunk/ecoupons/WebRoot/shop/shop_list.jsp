@@ -20,7 +20,7 @@ if(!globa.userSession.hasRight("10005"))
 	if (!strName.equals("")) {
 		tWhere += " and (strbizname like '%" + strName + "%' or strshopname like '%" + strName + "%')";
 	}
-	tWhere += " order by strid";
+	tWhere += " order by intSort";
 	//记录总数
 	int intAllCount=obj.getCount(tWhere);
 	//当前页
@@ -146,6 +146,7 @@ function del(){
                 <td width="7%" class="left_bt2"><div align="center">推荐排序</div></td>          
                 <td width="16%" class="left_bt2"><div align="center">联系电话</div></td>
                 <td width="7%" class="left_bt2"><div align="center">积分余额</div></td>
+                <td width="7%" class="left_bt2"><div align="center">评价(星级)</div></td>
                 <td width="10%" class="left_bt2"><div align="center">操作</div></td>
               </tr>
             <%
@@ -163,6 +164,7 @@ function del(){
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getIntSort()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrPhone()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getIntPoint()%></span></div></td>
+               <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStar()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE4">
                   <a href="shop_update.jsp?strId=<%=obj1.getStrId()%>"><img src="../images/edit.gif" width="16" height="16" border="0" />编辑</a> 
 			      <a href="#" onclick="if(confirm('确认删除该记录？')){location.href='shop_act.jsp?<%=Constants.ACTION_TYPE%>=<%=Constants.DELETE_STR%>&strId=<%=obj1.getStrId()%>';}"><img src="../images/delete.gif" width="16" height="16" border="0" />删除</a></span> </div>

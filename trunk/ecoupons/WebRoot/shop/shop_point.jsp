@@ -5,6 +5,7 @@
 				com.ejoysoft.common.exception.NoRightException,
 				com.ejoysoft.ecoupons.business.Shop" %>
 <%@ include file="../include/jsp/head.jsp"%>
+<!-- 商家管理  积分管理-->
 <%
 if(!globa.userSession.hasRight("10015"))
       throw new NoRightException("用户不具备操作该功能模块的权限，请与系统管理员联系！");
@@ -143,7 +144,7 @@ function del(){
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrBizName()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrShopName()%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getIntPoint()%></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE4"></span></div>
+                <td bgcolor="#FFFFFF">(<div align="center"><span class="STYLE4"></span></div>
                 </td>
               </tr>
             <%

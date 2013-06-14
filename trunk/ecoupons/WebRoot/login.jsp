@@ -15,6 +15,7 @@ body {
 -->
 </style>
 <script language="JavaScript">
+
 function correctPNG()
 {
     var arVersion = navigator.appVersion.split("MSIE")
@@ -48,7 +49,10 @@ window.attachEvent("onload", correctPNG);
      
         function LoginClick()
         {
-            if(document.Login.UserName.value == "")
+     
+         var s=document.getElementById("username").value;
+       
+            if(document.getElementById("username").value == "")
             {
                 alert("用户名不能为空！");
                 return false;
@@ -125,18 +129,19 @@ window.attachEvent("onload", correctPNG);
               <td width="96%" height="38"><span class="login_txt_bt">请输入登录认证信息</span></td>
             </tr>
             <tr>
+           
               <td>&nbsp;</td>
               <td height="21"><table cellSpacing="0" cellPadding="0" width="100%" border="0" id="table211" height="328">
                   <tr>
                     <td height="164" colspan="2" align="middle">
-                      <form class="lgn" name="frm" METHOD=POST ACTION="<%=application.getServletContextName()%>/Auth">
+                      <form class="lgn" name="frm" METHOD=POST ACTION="<%=application.getContextPath()%>/Auth">
 					    <input type="hidden" name="actiontype" value="logon" />
 					    <input type="hidden" name="screensize" value=""/>
 					    <input type="hidden" name="authType" value="password"/>
                         <table cellSpacing="0" cellPadding="0" width="100%" border="0" height="143" id="table212">
                           <tr>
                             <td width="13%" height="38" class="top_hui_text"><span class="login_txt">用户名：&nbsp;&nbsp; </span></td>
-                            <td height="38" colspan="2" class="top_hui_text"><input name="username" class="editbox4" value="" size="20">                            </td>
+                            <td height="38" colspan="2" class="top_hui_text"><input name="username" id="username" class="editbox4" value="" size="20">                            </td>
                           </tr>
                           <tr>
                             <td width="13%" height="35" class="top_hui_text"><span class="login_txt">密&nbsp;&nbsp;&nbsp;&nbsp;码： &nbsp;&nbsp; </span></td>
@@ -151,7 +156,7 @@ window.attachEvent("onload", correctPNG);
                           </tr>
                           <tr>
                             <td height="35" >&nbsp;</td>
-                            <td width="20%" height="35" ><input name="Submit" type="submit" class="button" id="Submit" value="登 陆"> </td>
+                            <td width="20%" height="35" ><input name="Submit" type="submit" class="button" id="Submit" value="登 陆"  onclick="return LoginClick()"> </td>
                             <td width="67%" class="top_hui_text" align="left"><input name="cs" type="button" class="button" id="cs" value="取 消" onClick="showConfirmMsg1()"></td>
                           </tr>
                         </table>

@@ -1,6 +1,7 @@
  <%@ page language="java"  pageEncoding="UTF-8"%>
 <%@page import="java.util.*,
 				com.ejoysoft.common.SendSms,
+				com.ejoysoft.ecoupons.business.Coupon,
 				java.net.UnknownHostException" %>
 <%@page import="com.ejoysoft.ecoupons.business.Member"%>
 <%@page import="com.ejoysoft.common.Format"%>
@@ -16,22 +17,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>获取打印验证码</title>
+<title>发送优惠劵信息至手机</title>
 <link href="css/member.css" rel="stylesheet" type="text/css" />
 <%
 	 String strPhone = ParamUtil.getString(request,"phone","");	
-	System.out.println(strPhone);
-	 Random randGen = new Random();
-	 char[] randBuffer = new char[4];
-	 char[] numbersAndLetters =("0123456789abcdefghijklmnopqrstuvwxyz").toCharArray();
-	 for (int i=0; i<randBuffer.length; i++) {
-	            randBuffer[i] = numbersAndLetters[randGen.nextInt(35)];
-	            
-	        }
-	 String randomCode = new String(randBuffer);
-	 String strWelcome = TerminalParamVector.getWelcome();
+System.out.println(strPhone+"--======----===--=--=");
+	 String strId = ParamUtil.getString(request,"strid");	 
+		System.out.println("strId::::"+strId);
 	 
-	 String messege="亲爱的会员您好，您于乐购网打印优惠券的验证码为："+randomCode+"！请根据此验证码完成打印过程，祝您购物愉快！"+strWelcome;
+		Coupon coupobj = new Coupon(globa);
+		 Coupon obj1 = coupobj.show(" where strid='"+strId+"' and '"+Format.getDateTime()+"'>dtactivetime and '"+Format.getDateTime()+"'<dtexpiretime ");
+		 
+	 String info=obj1.getStrIntro();
+	 String instruction=obj1.getStrInstruction();
+	 String strWelcome = TerminalParamVector.getWelcome();
+	String printBottom=TerminalParamVector.getPrintBottom();
+	String phone=TerminalParamVector.getPhone();
+	 String messege=info +","+instruction+"。"+printBottom+"  "+phone;
 	System.out.println(messege);
 	 String PostData;
 	    try {
@@ -44,7 +46,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				String retMsgState = ret.substring(beginIdx, endIdx);
 				if(retMsgState.equals("提交成功"))		
 				{		      
-						 response.getWriter().print("<script>alert('短信发送验证码成功！请查收短信');opener.document.getElementById('randomYzm').value='"+randomCode+"';window.close();</script>");
+						 response.getWriter().print("<script>alert('短信发送验证码成功！请查收短信');window.close();</script>");
 				}else
 				{
 	    				 response.getWriter().print("<script>alert('短信发送验证码失败1！');window.close();</script>");
@@ -54,7 +56,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	     			 response.getWriter().print("<script>alert('短信发送验证码失败2！');window.close();</script>");
 			}
 	   }catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 	   }	
 	globa.closeCon();   

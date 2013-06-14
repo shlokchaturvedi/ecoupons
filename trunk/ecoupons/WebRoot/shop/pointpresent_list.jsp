@@ -9,7 +9,7 @@
 if(!globa.userSession.hasRight("10020"))
       throw new NoRightException("用户不具备操作该功能模块的权限，请与系统管理员联系！");
 %>
-
+<!-- 商家管理  转赠-->
 <%
     //初始化
      //获取单位的strId
@@ -156,7 +156,7 @@ function del(){
                 </td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getStrMemberCardNo() %></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=obj1.getIntPoint()%></span></div></td>
-                <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE4">
+                <td bgcolor="#FFFFFF">s<div align="center"><span class="STYLE4">
 			      </span> </div>
                 </td>
               </tr>

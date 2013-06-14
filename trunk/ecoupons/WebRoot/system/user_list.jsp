@@ -125,7 +125,7 @@ function del(){
 			 <a href="user_add.jsp"><img src="../images/add.gif" width="16" height="16" border="0" />新增</a>
 			</td>
 			<td align="right" width="600"><div style="height:26"> 
-			  用户名：<input name="strName" class="editbox4" value="<%=strName %>" size="10">
+			  用户姓名：<input name="strName" class="editbox4" value="<%=strName %>" size="10">
 			  &nbsp;&nbsp;&nbsp;&nbsp;
               <input type="submit" class="button_box" value="搜索" /> 
 			</div>
