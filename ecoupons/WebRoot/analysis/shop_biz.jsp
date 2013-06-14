@@ -5,6 +5,7 @@
 				com.ejoysoft.ecoupons.business.ShopBiz" %>
 <%@page import="com.ejoysoft.ecoupons.business.CouponPrint"%>
 <%@page import="com.ejoysoft.ecoupons.business.Shop"%>
+<%@page import="com.ejoysoft.ecoupons.business.Member"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="com.ejoysoft.ecoupons.business.Terminal"%>
 <%@ include file="../include/jsp/head.jsp"%>
@@ -19,18 +20,24 @@ if(!globa.userSession.hasRight("13015"))
     ShopBiz  obj0=null;
     ShopBiz obj=new ShopBiz(globa);
    	String  bytime=ParamUtil.getString(request,"byTime");
+   	System.out.println(bytime+"----12---");
    	String stime=ParamUtil.getString(request,"stime","1000-01-01");
    	String etime=ParamUtil.getString(request,"etime","9999-12-30");
-   	String flag = ParamUtil.getString(request,"flag","bymember");   	
+   	String flag = ParamUtil.getString(request,"flag","bymember");   
+   	System.out.println("flag:"+flag);
     if(bytime!=null&&!(bytime.trim().equals(""))&& bytime.equals("month"))
     {
     	String month= ParamUtil.getString(request,"month","");
+    	//月份不等于空的情况
     	if(!month.trim().equals(""))
     	{
+            
     	   stime = month+"-01";
     	   String stime0[]=stime.trim().split("-");
     	   int k = Integer.parseInt(stime0[1]);
+    	   System.out.print(k+"-----k----");
     	   int y = Integer.parseInt(stime0[0]);
+    	       	   System.out.print(y+"-----V----");
     	   String emonth ="",eyear="";
     	   eyear = String.valueOf(y);
     	   if(k<9)
@@ -45,7 +52,7 @@ if(!globa.userSession.hasRight("13015"))
     	  	etime = eyear+"-"+emonth+"-01";   
     	}    	
     }
-    else if(bytime!=null&&!(bytime.trim().equals(""))&& bytime.equals("season"))
+    else if(bytime!=null&&!(bytime.trim().equals(""))&& bytime.equals("season"))//等于季度了
     {
     	String year= ParamUtil.getString(request,"year","");
     	String season= ParamUtil.getString(request,"season","");
@@ -72,10 +79,10 @@ if(!globa.userSession.hasRight("13015"))
     	   		etime=year+"-12-31";
     	   }
     	}    	
-    } else if(bytime!=null&&!(bytime.trim().equals(""))&& bytime.equals("halfyear"))
+    } else if(bytime!=null&&!(bytime.trim().equals(""))&& bytime.equals("halfyear"))//否则等于半年
     {
     	String year= ParamUtil.getString(request,"year","");
-    	String season= ParamUtil.getString(request,"halfyear","");
+    	String season= ParamUtil.getString(request,"halfyear","");//半年分为上半年和下半年
     	if(!year.trim().equals("") && !season.trim().equals(""))
     	{
     	   if(season.trim().equals("1"))
@@ -90,7 +97,7 @@ if(!globa.userSession.hasRight("13015"))
     	   }
     	}    	
     }
-    else if(bytime!=null&&!(bytime.trim().equals(""))&&bytime.equals("year"))
+    else if(bytime!=null&&!(bytime.trim().equals(""))&&bytime.equals("year"))//年
     {
     	String year= ParamUtil.getString(request,"year","");
     	if(!year.trim().equals(""))
@@ -99,7 +106,7 @@ if(!globa.userSession.hasRight("13015"))
     	   		etime=String.valueOf(Integer.parseInt(year)+1)+"-01-01";
     	}
     }
-    else if(bytime!=null&&!(bytime.trim().equals(""))&&bytime.equals("period"))
+    else if(bytime!=null&&!(bytime.trim().equals(""))&&bytime.equals("period"))//时间段
     {
     	String smonth2[],emonth2[];
     	String stime1= ParamUtil.getString(request,"stime","");
@@ -159,6 +166,8 @@ if(!globa.userSession.hasRight("13015"))
     	else if(name.length==2){
     		strbizname = name[0];
     		strshopname = name[1];
+    		System.out.println("strbizname:"+strbizname);
+    		System.out.println("strshopname:"+strshopname);
 		    tWhere += " and strbizname like '%" + strbizname + "%' and strshopname like '%" + strshopname + "%'";
     	}
     	  	
@@ -366,9 +375,15 @@ function showTime(str){
 			<table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="b5d6e6" onmouseover="changeto()"  onmouseout="changeback()">
                <tr>
                 <td width="10%" class="left_bt2"><div align="center">序号</div></td>
-                <td width="30%" class="left_bt2"><div align="center">商家（名称-分部）</div></td>
-                <td width="30%" class="left_bt2"><div align="center"><%=label %></div></td>
-                <td width="30%" class="left_bt2"><div align="center">消费统计（次）</div></td>      
+                <td width="25%" class="left_bt2"><div align="center">商家（名称-分部）</div></td>
+                <td width="25%" class="left_bt2"><div align="center"><%=label %></div></td>
+                <td width="20%" class="left_bt2"><div align="center">消费统计（次）</div></td>
+                <%
+                if(flag.equals("bymember")){	
+                	
+                %> 
+                <td width="20%" class="left_bt2"><div align="center">手机号</div></td>  
+                <%} %> 
               </tr>
              <%
             	//记录总数
@@ -411,7 +426,18 @@ function showTime(str){
                 <td bgcolor="#FFFFFF"><div align="center">&nbsp;<%=i%></div></td>
                 <td bgcolor="#FFFFFF"> <div align="center"><span class="STYLE1"><%=shopname%></span></div></td>
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=flagname%></span></div></td>
+                
                 <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=rs.getInt("printnum")%></span></div></td>
+               <%
+                if(flag.equals("bymember")){	
+                	//根据会员卡号查询会员手机号
+                	Member member=new Member(globa);
+                	System.out.println("flagname:"+flagname);
+                	String phone=member.findPhoneByCardNo(flagname);
+                	System.out.println("phone:"+phone);
+                %> 
+               <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=phone %></span></div></td>
+               <%} %>
                 </tr>
 			<%
 					}while (rs.next() && i < intEndNum && i<intAllCount);

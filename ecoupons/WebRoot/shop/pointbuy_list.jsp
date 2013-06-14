@@ -4,6 +4,7 @@
 <%@page import="sun.net.www.content.image.gif"%>
 <%@page import="com.ejoysoft.ecoupons.business.Shop"%>
 <%@ include file="../include/jsp/head.jsp"%>
+<!-- 商家管理(-)积分购买 -->
 <%
 if(!globa.userSession.hasRight("10010"))
       throw new NoRightException("用户不具备操作该功能模块的权限，请与系统管理员联系！");
@@ -104,7 +105,7 @@ function del(){
           <tr>
             <td height="20"><table width="100%" height="1" border="0" cellpadding="0" cellspacing="0" bgcolor="#CCCCCC">
               <tr>
-                <td></td>
+                <td>-</td>
               </tr>
             </table></td>
           </tr>
@@ -129,7 +130,7 @@ function del(){
 			 
 			 <a href="point_add.jsp"><img src="../images/add.gif" width="16" height="16" border="0" />购买</a>
 			</td>
-			<td align="right" width="600"><div style="height:26"> </div>
+			<td align="right" width="600">!<div style="height:26"> </div>
 			 
 			</td>   
 			</tr>

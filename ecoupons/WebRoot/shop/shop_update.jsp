@@ -39,6 +39,20 @@ body,td,tr{font-size:9pt;}
 <script src="../include/js/chkFrm.js"></script>
 <script language="javascript">
     function chkFrm() {
+    	//判断几颗星
+    	var m=0;
+    	var a = document.getElementsByName('img');
+    	 for(var k=0;k<5;k++){
+    		if(a[k].src.indexOf("images/star-on.png")!=-1){ 
+    			m++;
+    		 }else{
+    			m=m;
+    		 }
+    	}
+    	 
+    	document.getElementById('star').value=m;
+    	
+    	
         if(trim(frm.strBizName.value)=="") {
             alert("请输入商家名！！！")
             frm.strBizName.focus();
@@ -78,6 +92,22 @@ body,td,tr{font-size:9pt;}
         	frm.submit();
         }
     }
+    
+    function dd(s){	
+    	
+    		  var m=0;
+    	  var a = document.getElementsByName('img');
+    	  
+    	 if(a[s-1].src.indexOf("/images/star-off.png")!= -1){
+    	    for(var i=0;i<=s-1;i++){
+    	  	 a[i].src="../images/star-on.png";
+		   }
+    	 } else{
+    		 for(var j=4;j>=s-1;j--){
+    			 a[j].src="../images/star-off.png";
+    		 }	 
+    	 }
+    }
 </script>
 </head>
 
@@ -85,6 +115,7 @@ body,td,tr{font-size:9pt;}
 <form name="frm" method="post" action="shop_act.jsp?" enctype="multipart/form-data">
 <input type="hidden" name="<%=Constants.ACTION_TYPE%>" value="<%=Constants.UPDATE_STR%>">
 <input type="hidden" name="strId" value="<%=obj0.getStrId()%>">
+<input type="hidden" name="star" id="star" value=""/>
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td width="17" height="29" valign="top" background="../images/mail_leftbg.gif"><img src="../images/left-top-right.gif" width="17" height="29" /></td>
@@ -119,7 +150,7 @@ body,td,tr{font-size:9pt;}
               <tr>
                 <td width="6%" height="55" valign="middle"><img src="../images/title.gif" width="54" height="55"></td>
                 <td width="94%" valign="top"><span class="left_txt2">在这里，您可以更新商家</span><br>
-                      <span class="left_txt2">包括商家名，分部名称，所属行业，商家简介等属性</span></td>
+                      <span class="left_txt2">包括商家名，评价，分部名称，所属行业，商家简介等属性</span></td>
               </tr>
             </table></td>
           </tr>
@@ -141,6 +172,47 @@ body,td,tr{font-size:9pt;}
                 <td width="32%" height="30"><input name="strBizName" type="text" class="input_box" size="30" value="<%=obj0.getStrBizName()%>" /></td>
                 <td width="45%" height="30" class="left_txt">&nbsp;</td>
               </tr>
+              <tr>
+              <td width="20%" height="30" align="right" class="left_txt2">评       价：</td>
+               <td width="3%">&nbsp;</td>   
+           <td >
+           <%
+				String img1="../images/star-off.png";
+				String img2="../images/star-off.png";
+				String img3="../images/star-off.png";
+				String img4="../images/star-off.png";
+				String img5="../images/star-off.png";
+			
+				int m=obj0.getStar();
+				if(m==1){
+					img1="../images/star-on.png";
+				}else if(m==2){
+					img1="../images/star-on.png";
+					img2="../images/star-on.png";
+				}else if(m==3){
+					img1="../images/star-on.png";
+					img2="../images/star-on.png";	
+					img3="../images/star-on.png";
+				}else if(m==4){
+					img1="../images/star-on.png";
+					img2="../images/star-on.png";	
+					img3="../images/star-on.png";
+					img4="../images/star-on.png";
+				}else if(m==5){
+					img1="../images/star-on.png";
+					img2="../images/star-on.png";	
+					img3="../images/star-on.png";
+					img4="../images/star-on.png";
+					img5="../images/star-on.png";
+				}
+			%>
+           
+            <img name="img" onclick="dd('1')" alt="" src="<%=img1 %>"/>
+            <img name="img" onclick="dd('2')" alt="" src="<%=img2 %>"/>
+            <img name="img" onclick="dd('3')" alt="" src="<%=img3 %>"/>
+         	<img name="img" onclick="dd('4')" alt="" src="<%=img4 %>"/>
+            <img name="img" onclick="dd('5')" alt="" src="<%=img5 %>"/></td>  
+            </tr>
               <tr bgcolor="#f2f2f2">
                  <td width="20%" height="30" align="right" class="left_txt2">分部名称：</td>
                 <td width="3%">&nbsp;</td>
@@ -151,6 +223,7 @@ body,td,tr{font-size:9pt;}
                  <td width="20%" height="30" align="right" class="left_txt2">所属行业：</td>
                 <td width="3%">&nbsp;</td>
                 <td width="32%" height="30" >
+               
                <select name="strTrade" class="forms_color1" style= "width:213px">
 				  <%
                      	//SysPara  para=null;
@@ -174,7 +247,8 @@ body,td,tr{font-size:9pt;}
                  }
                  
                   %>
-                   </select></td>
+                   </select>
+                   </td>
                 <td width="45%" height="30" align="left" >
               &nbsp;</td>    
               </tr> 

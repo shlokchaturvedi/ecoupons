@@ -42,11 +42,12 @@ body,td,tr {
 		<script language="JavaScript" src="../include/DatePicker/WdatePicker.js"></script>
 		<script language="javascript">
 		function chkFrm() {
-		    if(trim(frm.strCardNo.value)=="") {
-		        alert("请输入卡号！！！")
-		        frm.strCardNo.focus();
-		        return false;
-		    }else if(trim(frm.dtExpireTime.value)==""){
+		   // if(trim(frm.strCardNo.value)=="") {
+		  //     alert("请输入卡号！！！")
+		   //     frm.strCardNo.focus();
+		   //     return false;
+		 //   }else 
+		    	if(trim(frm.dtExpireTime.value)==""){
 		    	alert("请输入有效期！！！")
 		        frm.dtExpireTime.focus();
 		        return false;

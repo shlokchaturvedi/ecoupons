@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	{
 		tWhere += " and a.intvip='1'";
 	}
-	tWhere+=" order by a.dtcreatetime";
+	tWhere+=" order by a.dtExpireTime desc,a.strId desc";
 	//获取到当前页面的记录集
 	Vector<Coupon> vctObj1=coupobj.listByTrade(tWhere,0,0);	
 	//记录总数
@@ -154,6 +154,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <ul>
     <li><a href="#" onclick="window.open('coupon_print.jsp?random=<%= Math.random()%>&strid=<%=obj1.getStrId()%>&strimg=<%=obj1.getStrPrintImg()%>','','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,width=300,height=600,left=500,top=60');"><img src="images/print.jpg" border="0" style="CURSOR: pointer" /> 打印</a></li>
      <li><a href="#" onclick="window.open('favourite_act.jsp?strid=<%=obj1.getStrId()%>&random=<%= Math.random()%>', '', 'width=5,height=5,top='+(window.screen.availHeight-85)/2+',left='+(window.screen.availWidth-100)/2+',scrollbars=no,status=no,resizable=no');" ><img src="images/collection.jpg" border="0" style="CURSOR: pointer" /> 收藏</a></li>
+     <li><a href="#" onclick="window.open('sms_act.jsp?strid=<%=obj1.getStrId()%>&random=<%= Math.random()%>', 'newwindow','height=150,width=400,top=230,left=500,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no');" ><img src="images/sms.jpg" border="0" style="CURSOR: pointer" /> 短信</a></li>
     <!-- 
 	<%
 	if(obj1.getIntSendBySM()==1)

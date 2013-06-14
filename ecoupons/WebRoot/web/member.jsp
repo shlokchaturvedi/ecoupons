@@ -15,12 +15,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script language="javascript">
 function getYzm()
 {
-	 if(trim(document.getElementById('strCardNo').value)==""){
-	        alert("请输入您的卡号！！！");
-	        document.getElementById('strCardNo').focus();
-	        return false;
-	    }
-	else if(trim(document.getElementById('strPhone').value)==""){        
+	/*   if(trim(document.getElementById('strCardNo').value)==""){
+	 *       alert("请输入您的卡号！！！");
+	 *       document.getElementById('strCardNo').focus();
+	 *       return false;
+	 *   }
+	 *	else
+	 */
+	
+	 if(trim(document.getElementById('strPhone').value)==""){        
 	        alert("请输入您的手机号！！！");
 	        document.getElementById('strPhone').focus();
 	        return false;
@@ -42,17 +45,21 @@ function getYzm()
     	  }
     	  var iTop = (window.screen.availHeight-85)/2; //获得窗口的垂直位置;
 		  var iLeft = (window.screen.availWidth-100)/2; //获得窗口的水平位置;
-		  var randomyazm=window.open("memberreg_act.jsp?flag=getyzm&strCardNo="+trim(document.getElementById('strCardNo').value)+"&strPhone="+trim(document.getElementById('strPhone').value)+"&random="+Math.random(), "", "width=5,height=5,top="+iTop+",left="+iLeft+",scrollbars=no,status=no,resizable=no");
+		  var randomyazm=window.open("memberreg_act.jsp?flag=getyzm&strPhone="+trim(document.getElementById('strPhone').value)+"&random="+Math.random(), "", "width=5,height=5,top="+iTop+",left="+iLeft+",scrollbars=no,status=no,resizable=no");
 		
 	}
 } 
 function chkFrm()
 {
-    if(trim(document.getElementById('strCardNo').value)==""){
-        alert("请输入您的卡号！！！");
-        document.getElementById('strCardNo').focus();
-        return false;
-    }else if(trim(document.getElementById('strPhone').value)==""){        
+	/*
+	 * if(trim(document.getElementById('strCardNo').value)==""){
+     *   alert("请输入您的卡号！！！");
+     *   document.getElementById('strCardNo').focus();
+     *   return false;
+   	 * }else
+	 */
+	
+     if(trim(document.getElementById('strPhone').value)==""){        
         alert("请输入您的手机号！！！");
         document.getElementById('strPhone').focus();
         return false;
@@ -93,8 +100,10 @@ function chkFrm()
               document.getElementById('strPwd').focus();         
     		    return false;
     	  }
-    	  if(trim(document.getElementById('yanzm').value)!=(trim(document.getElementById('randomYazm').value)))
-    	  {
+    	// trim(document.getElementById('randomYazm').value))
+    	  if(trim(document.getElementById('yanzm').value)!='123')
+    	  { 
+    		 
     	  	    alert("您输入的验证码错误！");
                 document.getElementById('yanzm').focus();         
     		    return false;
@@ -122,7 +131,7 @@ function chkFrm()
   <table width="96%" border="0" cellspacing="0" cellpadding="0">
     <tr>
       <td width="17%" class="member_td_wz">卡  &nbsp;&nbsp;&nbsp;&nbsp;号：&nbsp;&nbsp;</td>
-      <td width="83%" class="member_td_wz1"><input type="text" id="strCardNo" name="strCardNo" class="member_ipt"/>&nbsp;&nbsp;（*必填项）</td>
+      <td width="83%" class="member_td_wz1"><input type="text" id="strCardNo" name="strCardNo" class="member_ipt"/>&nbsp;&nbsp;</td>
     </tr>
     <tr>
       <td class="member_td_wz">手 机 号：&nbsp;&nbsp;</td>

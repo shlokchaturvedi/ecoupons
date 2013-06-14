@@ -48,8 +48,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		 	strimg = "../coupon/images/"+obj1.getStrSmallImg();
 		 }
 		 if(obj1.getStrIntro()!=null)
-		 {
+		 {  
 		 	info = obj1.getStrIntro();
+		 	
 		 }
 		 if(obj1.getStrInstruction()!=null)
 		 {
@@ -89,7 +90,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		 }	 
 		 else if(couponPrice!=0 && couponPrice > balance)
 		 {
-		    response.getWriter().println("<script>alert('您的会员卡余额不足！请即使充值');window.opener=null;window.close();</script>");
+		    response.getWriter().println("<script>alert('您的会员卡余额不足！请及时充值');window.opener=null;window.close();</script>");
 		 }	 
 	 	 if(flag.equals("print"))
 	 	 {	  
@@ -124,20 +125,22 @@ function getYzm()
 {
 	if(confirm("确定短信获取验证码？"))
     {
-    	var iTop = (window.screen.availHeight-85)/2; //获得窗口的垂直位置;
-		var iLeft = (window.screen.availWidth-100)/2; //获得窗口的水平位置;
-	 	var randomyazm=window.open("../web/print_act.jsp?memberPhone="+<%=memberPhone%>+"&random="+Math.random(), "", "width=5,height=5,top="+iTop+",left="+iLeft+",scrollbars=no,status=no,resizable=no,center=yes");
-		//frm.randomYzm.value=randomyazm;
+    	//var iTop = (window.screen.availHeight-85)/2; //获得窗口的垂直位置;
+		//var iLeft = (window.screen.availWidth-100)/2; //获得窗口的水平位置;
+	 	var randomyazm=window.open("../web/phone.jsp?memberPhone="+<%=memberPhone%>+"&random="+Math.random(), "newwindow","height=150,width=400,top=230,left=500,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no");
+		//alert(frm.randomYzm.value);
+	 	//frm.randomYzm.value=randomyazm;
 	}
 }
 function chkFrm()
 {
+	//alert(frm.randomYzm.value);
 	if(frm.yzm.value=="") {
         alert("请输入验证码！！！");
         frm.yzm.focus();
         return false;
     }else
-    {
+    {		
     	  if(frm.yzm.value!=frm.randomYzm.value)
     	  {
     	  	    alert("您输入的验证码错误！");
@@ -210,7 +213,7 @@ function chkFrm()
 					   		<%
 					   		Coupon obj = new Coupon();
 					   		ArrayList< String> strInfos=obj.returnDealStrByBytes(instruction.split("\n"),26);
-					   		
+					   		System.out.println(strInfos +"$$$$$");
 					   		if(strInfos.size()<14){
 					   		for(int i=0;i<strInfos.size();i++)
 					   		{

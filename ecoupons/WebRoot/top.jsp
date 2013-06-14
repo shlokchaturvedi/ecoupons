@@ -9,6 +9,7 @@
    
 <script language=JavaScript>
 function logout(){
+	//<%=application.getServletContextName()%>
 	if (confirm("您确定要退出吗？"))
 		top.location = "<%=application.getServletContextName()%>/Auth?actiontype=<%=Constants.LOGOFF%>";
 	return false;
@@ -62,6 +63,28 @@ function openwin(strId,strNum,intPaper) {
     }
  	
  	}
+
+
+function realSysTime(clock){
+        var now=new Date();            //创建Date对象
+        var year=now.getFullYear();    //获取年份
+        var month=now.getMonth();    //获取月份
+        var date=now.getDate();        //获取日期
+        var day=now.getDay();        //获取星期
+        var hour=now.getHours();    //获取小时
+        var minu=now.getMinutes();    //获取分钟
+        var sec=now.getSeconds();    //获取秒钟
+        month=month+1;
+        var arr_week=new Array("星期日","星期一","星期二","星期三","星期四","星期五","星期六");
+        var week=arr_week[day];        //获取中文的星期
+        var time=year+"年"+month+"月"+date+"日 "+week+" "+hour+":"+minu+":"+sec;    //组合系统时间
+        clock.innerHTML=time;    //显示系统时间
+    }
+   window.onload=function(){
+        window.setInterval("realSysTime(clock)",1000);    //实时获取并显示系统时间
+    }
+
+
 </script>
 </head>
 <body leftmargin="0" topmargin="0">
@@ -71,7 +94,9 @@ function openwin(strId,strNum,intPaper) {
     <td width="61%" height="64" background="images/top-right.gif" bgcolor="#EEF2FB"><img src="images/logo.gif" width="262" height="64"></td>
     <td width="39%" valign="top"><table width="100%" border="0" cellpadding="0" cellspacing="0" background="images/top-right.gif">
       <tr>
+      
         <td width="74%" height="38" class="admin_txt" align="right">
+        <span id=""></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <a href="#" onclick="top.leftFrame.location='left.jsp?root=日常管理';top.main.location='right.jsp';">日常管理</a> | 
           <a href="#" onclick="top.leftFrame.location='left.jsp?root=系统管理';top.main.location='right.jsp';">系统管理</a>&nbsp;&nbsp;&nbsp;&nbsp;
         </td>
@@ -85,6 +110,7 @@ function openwin(strId,strNum,intPaper) {
 
  <marquee  behavior="scroll" scrollamount="2" onmouseover="this.stop();" onmouseout="this.start();" ><b><font color="#FF0000">
 <%
+//System.out.println("application.getServletContextName()::"+application.getServletContextName());
 Vector<Terminal> vctTerminals=new Vector<Terminal>();
 StringBuffer sbTip=new StringBuffer("提醒:");
 	if("管理员".equals(globa.userSession.getStrCssType()))

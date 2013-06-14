@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <%@ page
 	import="java.util.Vector,com.ejoysoft.common.Constants,
 	com.ejoysoft.common.exception.NoRightException,com.ejoysoft.ecoupons.business.ShopAnalysis"%>
@@ -12,13 +14,30 @@
 		throw new NoRightException("用户不具备操作该功能模块的权限，请与系统管理员联系！");
 %>
 <%
+	int sort=0;
+	String sp=ParamUtil.getString(request, "sort", "");
+	if(sp !=null&& sp!=""){
+		//System.out.println("sp "+sp);
+		sort=Integer.parseInt(sp);
+		//System.out.println("sort"+sort);
+	}
+
+
 	//初始化
 	MemberAnalysis obj0 = null;
 	MemberAnalysis obj = new MemberAnalysis(globa);
 	String bytime = ParamUtil.getString(request, "byTime");
 	String stime = "1000-01-01";
 	String etime = "9999-12-30";
-	if (bytime != null && !(bytime.trim().equals("")) && bytime.equals("month"))
+	
+	if(bytime != null && !(bytime.trim().equals("")) && bytime.equals("day")){
+		String day = ParamUtil.getString(request, "day", "");
+		if(!day.trim().equals("")){
+			stime=day+" 00:00:00";
+			etime=day+" 23:59:59";
+		}
+		
+	}else if (bytime != null && !(bytime.trim().equals("")) && bytime.equals("month"))
 	{
 		String month = ParamUtil.getString(request, "month", "");
 		if (!month.trim().equals(""))
@@ -26,11 +45,15 @@
 			stime = month + "-01";
 			String stime0[] = stime.trim().split("-");
 			int k = Integer.parseInt(stime0[1]);
+			//System.out.println("k:"+k);
 			int y = Integer.parseInt(stime0[0]);
+			//System.out.println("y:"+y);
 			String emonth = "", eyear = "";
 			eyear = String.valueOf(y);
-			if (k < 9)
+			if (k < 9){
 				emonth = String.valueOf(0) + String.valueOf(k + 1);
+			//	System.out.println("emonth+:"+emonth);	
+			}
 			else if (k >= 9 && k <= 11)
 				emonth = String.valueOf(k + 1);
 			else
@@ -151,16 +174,25 @@
 		setime = stime + "之   后   统   计   记   录";
 	} else
 		setime = stime + "  至  " + etime + "   统   计   记   录";
-	int totalNum =obj.returnTotalNum();
+	int totalNum =obj.returnTotalNum();//会员总数量
+	int newNum=obj.returnAddNum();//新增会员数
+	
 	CouponPrint objCoupon = new CouponPrint(globa);
 	String unactive_member = (String) globa.application.getAttribute("UNACTIVE_MEMBER");
+	
+	
+	
 	String strSql ="select count(distinct strmembercardno) from t_bz_coupon_print where dtprinttime >='"+stime+"' and dtprinttime<='"+etime+"'";
-	int  allActiveNum = objCoupon.getCountA(strSql);
+	System.out.println("strSql：::："+strSql);
+	int  allActiveNum = objCoupon.getCountA(strSql);//活动数量
+
 	strSql ="select count(*) from(select distinct strmembercardno from t_bz_coupon_print where dtprinttime >='"+stime+"' and dtprinttime<='"+etime+"' group by strmembercardno having count(strmembercardno)>="+Integer.parseInt(Format.forbidNull(unactive_member))+") as avtivenum";
-	int  seActiveNum = objCoupon.getCountA(strSql);
+	System.out.println("qqqqqqqq"+strSql);
+	int  seActiveNum = objCoupon.getCountA(strSql);//活跃会员数量
 	strSql ="select count(*) from(select distinct strmembercardno from t_bz_coupon_print where dtprinttime >='"+stime+"' and dtprinttime<='"+etime+"' group by strmembercardno having count(strmembercardno)<"+Integer.parseInt(Format.forbidNull(unactive_member))+") as unactivenum";
+	
 	//int  seUnActiveNum = objCoupon.getCountA(strSql);
-	int  seUnActiveNum = totalNum - seActiveNum;
+	int  seUnActiveNum = totalNum - seActiveNum;//沉淀会员数量
 	
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -182,35 +214,89 @@ body,td,tr{font-size:9pt;}
 </style>
 <link href="../images/skin.css" rel="stylesheet" type="text/css" />
 <script src="../include/js/chkFrm.js"></script>
-<script language="JavaScript" src="../include/DatePicker/WdatePicker.js"></script>
+<script src="../include/DatePicker/WdatePicker.js"></script>
+<script language="JavaScript" src="../js/datetime.js"></script>
 <script language="javascript">
 
 function showTime(str){
     var array = document.frm.getElementsByTagName("select");
+    
     for(i=0;i<array.length;i++)
 	 {
 	 	if(array[i].id=="timeid")
-	 	{	 		
-	 		if(array[i].value=="month")	
+	 	{	 
+	 		if(array[i].value=="day"){
+	 			
+	 			
+	 			 document.getElementById("showtime").innerHTML="<input id='day' name='day' onclick='WdatePicker({dateFmt:&quot;yyyy-MM-dd&quot;});' class='input_box' style='width:100'/>(年-月-日)";
+	 		}else if(array[i].value=="month"){	
+	 			
             	document.getElementById("showtime").innerHTML="<input name='month' onclick='WdatePicker({dateFmt:&quot;yyyy-MM&quot;});' class='input_box' style='width:100'/>(年-月)";	      
-			else if(array[i].value=="season")	
+			}else if(array[i].value=="season"){	
+				
             	document.getElementById("showtime").innerHTML="<select name='season'><option value='1' class='sec2'>第一季度</option><option value='2'>第二季度</option><option value='3'>第三季度</option><option value='4'>第四季度</option></select>(季度)"+
             	"<input name='year' readonly onclick='WdatePicker({dateFmt:&quot;yyyy&quot;});' class='input_box' style='width:100'/>(年)";	    
-            else if(array[i].value=="halfyear")	
+           }else if(array[i].value=="halfyear"){
+        	   
             	document.getElementById("showtime").innerHTML="<select name='halfyear'><option value='1' class='sec2'>上半年</option><option value='2'>下半年</option></select>(上/下半年)"+
             	"<input name='year' readonly onclick='WdatePicker({dateFmt:&quot;yyyy&quot;});' class='input_box' style='width:100'/>(年)";	    
-           else if(array[i].value=="year")	
+          }else if(array[i].value=="year"){	
+        	  
             	document.getElementById("showtime").innerHTML="<input name='year' readonly onclick='WdatePicker({dateFmt:&quot;yyyy&quot;});' class='input_box' style='width:100'/>(年)";	    
-      	   else if(array[i].value=="period")	
+      	  } else if(array[i].value=="period"){	
+      		 
             	document.getElementById("showtime").innerHTML="<input name='stime' readonly onclick='WdatePicker({dateFmt:&quot;yyyy-MM&quot;});' class='input_box' style='width:100'/>至<input name='etime' readonly onclick='WdatePicker({dateFmt:&quot;yyyy-MM&quot;});' class='input_box' style='width:100'/>(开始-结束)";	    
-	 	} 
+	 		}
+	 		
+      	 } 
 	 }
 }
+function panduan(){
+	var ii;	
+	var str=document.getElementById('timeid').value;
+	if(str=='day'){
+		var time=document.getElementById('day').value;
+	
+		if(time!=''){
+			ii=1;
+		}else{
+			ii=0;
+		}
+	}else{
+		ii=0;
+	}
+	//alert('ii:'+ii);
+	document.getElementById('sort').value=ii;
+	
+	//alert('qqqqqqqqqqqqqq'+document.getElementById('sort').value);
+	
+}
+function showBT(){
+	
+	var sort=document.getElementById('sort').value;
+	//alert('sort'+sort);
+	if(sort==1){
+	document.getElementById('gg').innerHTML="<input type='button' onclick='showCard()' name='show_menberCardNo' id='show_menberCardNo' value='查看卡号'/>";	
+	
+	}
+}
+
+
+function showCard(){
+	if(<%=newNum%> <=0){
+		
+		alert("当天无新增会员卡号！");
+		return;
+	}
+	window.open("showMemberCardNo.jsp?stime=<%= stime %>&etime=<%= etime%>&random=<%= Math.random()%>", "newwindow","height=400,width=350,top=130,left=500,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no");
+}
+
 </script>
 </head>
 
-<body>
-<form name="frm" method="post" action="member_analyse.jsp">
+<body onload="showBT();">
+<form name="frm" method="post" action="member_analyse.jsp" onsubmit="return panduan()">
+<input type="hidden" name="sort" id="sort" value=<%=sort %>>
 <input type="hidden" name="<%=Constants.ACTION_TYPE%>" value="<%=Constants.ADD_STR%>">
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr>
@@ -255,18 +341,20 @@ function showTime(str){
 					<td>
 						<div style="height: 26">
 							时间：
-							<select id="timeid" name="byTime"
-								onchange="showTime(this.value)" class="sec2">
+							<select id="timeid" name="byTime" onchange="showTime(this.value)" class="sec2" >
+								
+								<option value="day">每天</option>
 								<option value="month">月份</option>
 								<option value="season">季度</option>
 								<option value="halfyear">半年</option>
 								<option value="year">年份</option>
 								<option value="period">时间段</option>
+								
 							</select>
 							&nbsp;
-							<span id="showtime"><input name="month"
-									onclick="WdatePicker({dateFmt:'yyyy-MM'});"
-									class="input_box" style="width: 100" />(年-月)</span>
+							<span id="showtime">
+	<input id='day' name='day' onclick='WdatePicker({dateFmt:&quot;yyyy-MM-dd&quot;});' class='input_box' style='width:100'/>(年-月-日)
+	                       </span>
 						</div>
 					</td>
 					<td align="left" width="400">
@@ -282,7 +370,7 @@ function showTime(str){
 				</tr>
 				<tr>
 					<td bgcolor="#b5d6e6" width="10%" colspan="4" height="23">
-						<div align="center"><%=setime%></div>
+						<div align="center"><span id="bt" ><%=setime%></span></div>
 					</td>
 				</tr>
 
@@ -301,14 +389,18 @@ function showTime(str){
             </tr>
           <tr>
             <td><table align="center" width="100%" border="0" cellspacing="0" cellpadding="0">
-              
+			<input type="hidden" name="tt" id="tt" value=""/>
              <tr>
                 <td width="45%" height="30" align="right" class="left_txt2">新增数量：</td>
                 <td height="3" width="10%">&nbsp;</td> 
                  <td width="20%" height="30">
-                <label><%=obj.returnAddNum() %></label>
+                <label><%=newNum %></label>
                 </td>
                 <td height="30" class="left_txt2" >&nbsp;</td>
+              
+          <td id="gg"></td>
+               
+               
               </tr>
               <tr bgcolor="#f2f2f2">
                  <td width="45%" height="30" align="right" class="left_txt2">活动数量：</td>

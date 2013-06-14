@@ -54,13 +54,27 @@
   String rand = null;
   //随机生成数字或者字母
   if (random.nextInt(10) > 5) {
-   rand = String.valueOf((char)(random
-     .nextInt(10) + 48));
+   rand = String.valueOf((char)(random.nextInt(10) + 48));
+   //替换rand中的0为1
+   if(rand.indexOf("0")!=-1){
+		  rand=rand.replace("0","1");
+	  }
+ 
   } else {
-   rand = String.valueOf((char)(random
-     .nextInt(26) + 65));
-  }
+   rand = String.valueOf((char)(random.nextInt(26) + 65));
+  // System.out.println(rand);
+  //替换rand中的o和O 为1
+   if(rand.indexOf("O")!=-1){
+		  rand=rand.replace("O","1");
+		 
+	  }
+   if(rand.indexOf("o")!=-1){
+		  rand=rand.replace("o","1");
+	  }
+  
+  }  
   sRand += rand;
+  
   // 将认证码显示到图象中
   g.setColor(new Color(random.nextInt(80), random
     .nextInt(80), random.nextInt(80)));
